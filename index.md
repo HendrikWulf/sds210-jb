@@ -28,5 +28,5 @@ GIS Programming with Python Book Cover.
 And here is a code block:
 
 ```
-e = mc^4
+e = mc^6
 ```
