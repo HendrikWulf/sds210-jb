@@ -22,7 +22,7 @@ You can also add figures to your book.
 :alt: GISPro Book Cover
 :align: center
 
-HIS GIS Programming with Python Book Cover.
+His GIS Programming with Python Book Cover.
 :::
 
 And here is a code block:
