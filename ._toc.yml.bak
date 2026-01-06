@@ -4,10 +4,10 @@
 format: jb-book
 root: index
 chapters:
-  - file: book/markdown
-  - file: book/introduction
-  - file: book/notebooks
-  - file: book/bibliography
+  - file: book/markdown.md
+  - file: book/introduction.md
+  - file: book/notebooks.ipynb
+  - file: book/bibliography.md
 # Or you organize the TOC by parts
 
 # parts:

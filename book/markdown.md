@@ -19,8 +19,7 @@ abstract: |
 exports:
   - format: docx
   - format: pdf
-  - format: typst
-    template: lapreprint-typst
+
 ---
 
 # Introduction to Open Publishing
@@ -100,7 +99,7 @@ You can also add figures to your book.
 
 ```text
 :::{figure} https://assets.gishub.org/images/book-cover.png
-:label: gispro-book-cover
+:label: book-cover-markdown
 :alt: GISPro Book Cover
 :align: center
 :width: 100%
@@ -110,7 +109,7 @@ GIS Programming with Python Book Cover.
 ```
 
 :::{figure} https://assets.gishub.org/images/book-cover.png
-:label: gispro-book-cover
+:label: gbook-cover-markdown
 :alt: GISPro Book Cover
 :align: center
 

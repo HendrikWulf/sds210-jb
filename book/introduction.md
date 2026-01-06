@@ -19,8 +19,6 @@ abstract: |
 exports:
   - format: docx
   - format: pdf
-  - format: typst
-    template: lapreprint-typst
 ---
 
 # How to Write and Publish a Book
