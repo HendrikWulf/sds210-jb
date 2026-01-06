@@ -24,3 +24,9 @@ You can also add figures to your book.
 
 GIS Programming with Python Book Cover.
 :::
+
+And here is a code block:
+
+```
+e = mc^4
+```
