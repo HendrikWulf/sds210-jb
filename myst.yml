@@ -1,18 +1,18 @@
 version: 1
 project:
-  title: Jupyter Book Demo
+  title: Programming with Spatial Data 
   authors:
-    - name: Qiusheng Wu
-  copyright: '2024'
+    - name: ESS341, GEO876, SDS210
+  copyright: '2026'
   exclude:
     - _build
     - Thumbs.db
     - .DS_Store
     - '**.ipynb_checkpoints'
-  github: giswqs/jupyter-book-demo
+  github: HendrikWulf/sds210-jb
   thebe:
     binder:
-      repo: giswqs/jupyter-book-demo
+      repo: HendrikWulf/sds210-jb
       provider: github
       url: https://mybinder.org
       ref: main
@@ -20,6 +20,41 @@ project:
     - book/references.bib
   toc:
     - file: index.md
+    - title: About
+      file: book/1_about.md
+      children:
+        - file: book/1_about/1_welcome.md
+        - file: book/1_about/2_team.md
+        - file: book/1_about/3_syllabus.md
+        - file: book/1_about/4_schedule.md
+        - file: book/1_about/5_error_culture.md
+        - file: book/1_about/6_ai.md
+        - file: book/1_about/7_acknowledgments.md
+    - title: Setup
+      file: book/2_setup.md
+      children:
+        - file: book/2_setup/1_miniconda.md
+        - file: book/2_setup/2_vs_code.md
+        - file: book/2_setup/3_git.md
+        - file: book/2_setup/4_colab.md
+        - file: book/2_setup/5_jupyterlab.md
+        - file: book/2_setup/6_binder.md
+    - title: Part I - Python
+      file: book/3_python.md
+      children:
+        - file: book/3_python/1_get_started.md
+    - title: Part II - Programming
+      file: book/4_programming.md
+      children:
+        - file: book/4_programming/1_get_started.md
+    - title: Part III - Geospatial
+      file: book/5_geospatial.md
+      children:
+        - file: book/5_geospatial/1_get_started.md
+    - title: Part IV - Concepts
+      file: book/6_concepts.md
+      children:
+        - file: book/6_concepts/1_get_started.md
     - file: book/markdown.md
     - file: book/introduction.md
     - file: book/notebooks.ipynb

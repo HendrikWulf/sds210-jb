@@ -1,4 +1,6 @@
-# Welcome to your Jupyter Book
+# Programming with Spatial Data
+
+Welcome to the official course website for "_Programming with Spatial Data_," offered at the Geography Department of the University of Zurich.
 
 This is a small sample book to give you a feel for how book content is
 structured.
