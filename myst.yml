@@ -1,8 +1,7 @@
 version: 1
 project:
   title: Programming with Spatial Data 
-  authors:
-    - name: ESS341, GEO876, SDS210
+  authors: []
   copyright: '2026'
   exclude:
     - _build
