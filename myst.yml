@@ -28,7 +28,8 @@ project:
         - file: book/1_about/4_schedule.md
         - file: book/1_about/5_error_culture.md
         - file: book/1_about/6_ai.md
-        - file: book/1_about/7_acknowledgments.md
+        - file: book/1_about/7_resources.md
+        - file: book/1_about/8_acknowledgments.md
     - title: Setup
       file: book/2_setup.md
       children:

@@ -1,4 +1,4 @@
-# Resources & Acknowledgments
+# Resources
 
 Learning **Spatial Data Science (SDS)** is a bit like learning a new language *and* how to use it to solve real-world problems.  
 The resources below support different stages of your learning journey — whether you want to **strengthen your Python basics**, **learn geospatial workflows**, or **think more deeply about spatial data science**.
@@ -11,7 +11,7 @@ All resources listed here are:
 
 ---
 
-## 🌐 Online Courses
+## Online Courses
 
 These courses work well alongside this course. You don’t need to complete any of them, **pick what matches your current level and interests**.
 
@@ -33,7 +33,7 @@ These courses work well alongside this course. You don’t need to complete any 
 
 ---
 
-## 📘 Online Books
+## Python Books
 
 These books work well as **companions**. Use them to look things up, revisit concepts, or read selected chapters when something is unclear.
 
@@ -47,10 +47,22 @@ These books work well as **companions**. Use them to look things up, revisit con
 
 ---
 
+## YouTube
+
+---
+
+## Podcasts
+
+---
+
+## Blogs
+
+---
+
 ```{admonition} How to use these resources
 :class: tip
 
-You are **not expected to read everything**.
+You are **not expected to read, listen or watch everything**.
 
 Use these materials to:
 - clarify concepts you did not fully understand in class,
