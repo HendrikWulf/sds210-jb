@@ -1,5 +1,9 @@
 # Welcome
 
+Welcome to `Programming with Spatial Data` ({abbr}`aka (also known as)`. ESS341, GEO876, SDS210). This course focuses on computational thinking and Python programming for geospatial applications. In an increasingly data-driven and automated world, the ability to design, write and organise code for spatial analysis is an essential skill for addressing environmental, social and urban challenges. Through a hands-on and problem-based learning approach, this course introduces the tools and techniques needed to programmatically understand, analyse, and visualise spatial data. You will develop a strong foundation in Python programming, progressively applying it with key geospatial libraries such as GeoPandas, RasterIO and Matplotlib. The course emphasises writing modular, well-documented and reproducible code, supported by Jupyter Notebooks and Git to enable transparent and collaborative workflows. The course concludes with an individual programming project in which you will design and implement your own solution to a spatial data problem. Upon completion, you will be well-prepared to take on more advanced spatial data science challenges in research and industry.
+
+---
+
 ## Target Audience & Learning Objectives
 
 ### Target Audience
