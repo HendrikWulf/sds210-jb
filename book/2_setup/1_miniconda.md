@@ -42,7 +42,12 @@ After working through this section, you should be able to:
 
 ### Miniconda or Anaconda
 
-There are two common ways to install Conda: [**Miniconda**](https://www.anaconda.com/docs/getting-started/miniconda/main) and [**Anaconda**](https://www.anaconda.com/docs/getting-started/anaconda/main). Both use the same Conda system, but they are designed for slightly different use cases.
+You can choose between:
+
+- [**Miniconda**](https://www.anaconda.com/docs/getting-started/miniconda/main): a minimal installation that includes only Conda (~50–100 MB) 
+- [**Anaconda**](https://www.anaconda.com/docs/getting-started/anaconda/main): a much larger distribution that comes with many preinstalled packages (~3–5 GB)  
+
+For this course, **Miniconda is recommended**. It is lightweight, transparent, and encourages you to install only what you actually need.
 
 <iframe
   width="100%"
@@ -54,41 +59,49 @@ There are two common ways to install Conda: [**Miniconda**](https://www.anaconda
   allowfullscreen>
 </iframe>
 
----
 
-**Miniconda** is a minimal installer (~50–100 MB). It includes Conda, Python, and only a few essential packages. Everything else is installed explicitly when you need it.
+Both Miniconda and Anaconda can be installed either via:
+- a **command line installer**, or
+- a **graphical installer**
 
-**Anaconda** is a full distribution (~3–5 GB). It includes Conda, Python, and a large collection of preinstalled packages for data science and scientific computing.
+Here, we focus on the **command line installation**, as it works reliably across systems and helps you better understand how your Python environment is set up.
 
-```{admonition} Course recommendation
-:class: tip
-For SDS210, we recommend **Miniconda**. It keeps environments small, gives you more control. Miniconda encourages you to build environments intentionally instead of relying on a large predefined setup. If you have Anaconda already installed, it is also fine to stick with it.
-```
-In short, Anaconda optimises for convenience, while Miniconda optimises for clarity and control. For this course, learning how environments are built and managed is more important than having many packages preinstalled.
-
----
-
-### Installation
-
-To install Conda, choose either [Miniconda](https://www.anaconda.com/docs/getting-started/miniconda/install) or [Anaconda](https://www.anaconda.com/docs/getting-started/anaconda/install) and follow the instructions for your operating system.
-
-In this chapter, we use the command line installation because it works consistently across systems and helps you better understand how your environment is set up. Alternatively, you can also use the appropriate [graphical installer](https://www.anaconda.com/download/success?user_state=logged_in&utm_campaign=direct_download&utm_medium=homepage_link&utm_source=platform) for your operating system.
+Official installation guides (recommended):
+- Miniconda: https://www.anaconda.com/docs/getting-started/miniconda/install  
+- Anaconda: https://www.anaconda.com/docs/getting-started/anaconda/install  
 
 Take your time with the installation. A clean and well understood setup will make the rest of the course much smoother.
 
-::::::{tab-set}
-:::::{tab-item} Windows
-Open **Windows PowerShell as administrator** and run the following commands:
+---
 
-```powershell
+Follow the steps below to install **Miniconda** using the command line. This approach is reliable, transparent, and works consistently across systems. 
+Take your time with the installation. A clean and well understood setup will make the rest of the course much smoother.
+
+::::::{tab-set}
+
+:::::{tab-item} Windows 
+
+These three commands quickly and quietly download the latest 64-bit Windows installer, rename it to a shorter file name, perform a silent install, and then delete the installer:
+```bash
 curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe -o .\miniconda.exe
 start /wait "" .\miniconda.exe /S
 del .\miniconda.exe
 ```
+After installing, open Anaconda Prompt to use Miniconda.
 
 :::::
-::::{tab-item} macOS (Apple Silicon)
-Run the following commands in the **Terminal**:
+
+:::::{tab-item} macOS
+
+**Step 1: Download and install Miniconda**
+
+Run the following commands **line by line** in the Terminal.
+
+These commands will:
+- create a directory called `miniconda3` in your home directory  
+- download the Miniconda installer script  
+- install Miniconda in silent mode  
+- remove the installer script after installation  
 
 ```bash
 mkdir -p ~/miniconda3
@@ -96,3 +109,74 @@ curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh -o ~/
 bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
 rm ~/miniconda3/miniconda.sh
 ```
+
+**Step 2: Activate Miniconda**
+
+After installation, **close and reopen your Terminal**, or run:
+```bash
+source ~/miniconda3/bin/activate
+```
+You should now see `(base)` at the beginning of your command prompt.
+
+
+**Step 3: Initialize conda for your shell**
+
+Initialize conda so it works automatically in new terminal sessions:
+```bash
+conda init --all
+```
+
+**Step 4: Verify your installation**
+
+Run any conda command. For example: `conda list` (displays a list of packages installed in your active environment and their versions) or `conda --version` (displays conda’s version number).
+
+:::::
+
+:::::{tab-item} Linux
+
+
+**Step 1: Download and install Miniconda**
+
+Run the following commands **line by line**  to download and install the latest Linux installer for your chosen chip architecture.
+
+These commands will:
+- create a directory called `miniconda3` in your home directory.  
+- download the Linux Miniconda installation script for your chosen chip architecture and save the script as `miniconda.sh` in the miniconda3 directory.
+- run the `miniconda.sh` installation script in silent mode using bash.
+- remove the `miniconda.sh` installation script file after installation is complete. 
+
+```bash
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm ~/miniconda3/miniconda.sh
+```
+
+**Step 2: Activate Miniconda**
+
+After installation, **close and reopen your Terminal**, or run:
+```bash
+source ~/miniconda3/bin/activate
+```
+You should now see `(base)` at the beginning of your command prompt.
+
+
+**Step 3: Initialize conda for your shell**
+
+Initialize conda so it works automatically in new terminal sessions:
+```bash
+conda init --all
+```
+
+**Step 4: Verify your installation**
+
+Run any conda command. For example: `conda list` (displays a list of packages installed in your active environment and their versions) or `conda --version` (displays conda’s version number).
+
+:::::
+
+:::::
+
+::::::
+
+---
+
