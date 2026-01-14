@@ -43,7 +43,7 @@ You don’t need to learn all of them at once. For now, focus on **what each too
 
 ---
 
-### 3.1 Package Management: Conda
+### Package Management: Conda
 
 **What it does**  
 [Conda](https://docs.conda.io) manages your Python setup *and* the libraries your code depends on, especially the tricky geospatial ones.
@@ -67,7 +67,7 @@ If Conda is set up correctly, you spend your time **writing code**, not debuggin
 
 ---
 
-### 3.2 Code Development: Visual Studio Code
+### Code Development: Visual Studio Code
 
 **What it does**  
 [VS Code](https://code.visualstudio.com) is your **main workspace** for writing, reading, and debugging code.
@@ -91,7 +91,7 @@ Good tools don’t replace thinking, they reduce friction so you can focus on pr
 ```
 ---
 
-### 3.3 Version Control: Git
+### Version Control: Git
 
 **What it does**  
 [Git](https://git-scm.com) keeps track of changes in your files over time and records how your project evolves.
@@ -116,7 +116,7 @@ Git is not just for teams. It is just as valuable when you work alone on your ow
 
 ---
 
-### 3.4 Cloud Computing: Google Colab
+### Cloud Computing: Google Colab
 
 **What it does**  
 [Colab](https://colab.research.google.com) lets you run Jupyter notebooks in your web browser using cloud based computing resources.
@@ -141,7 +141,7 @@ Colab is especially useful for quick experiments, learning new tools, or running
 
 ---
 
-### 3.5 Interactive Analysis: JupyterLab
+### Interactive Analysis: JupyterLab
 
 **What it does**  
 [JupyterLab](https://jupyterlab.readthedocs.io) is an interactive environment where you can run code, inspect results, create visualisations, and document your thinking in one place.
@@ -165,7 +165,7 @@ Well written notebooks explain not only *what* you did, but also *why* you did i
 ```
 ---
 
-### 3.6 Containerization: Docker
+### Containerization: Docker
 
 **What it does**  
 [Docker](https://www.docker.com) packages an entire software environment into a container. This includes the operating system, Python, libraries, and your code.
@@ -201,7 +201,7 @@ The real power of these tools comes from **using them together**. Each tool has 
 
 You will return to this workflow again and again throughout SDS210.
 
-### 4.1 A typical development workflow
+### A typical development workflow
 
 1. **Conda** sets up your project environment and installs the required libraries  
 2. **VS Code** is where you write, run, and debug your code  
@@ -217,7 +217,7 @@ Each tool solves a specific problem. Together, they support clean code, experime
 You analyse a spatial dataset locally in VS Code and JupyterLab, track your progress with Git, share a notebook via Colab for feedback, and finally run the same setup on another machine using Docker.
 ```
 
-### 4.2 How collaboration fits in
+### How collaboration fits in
 
 In practice, your workflow often looks like this:
 
@@ -237,7 +237,7 @@ You are not learning six separate tools. You are learning one workflow made of c
 
 You can run all code examples from this Jupyter Book in different ways. Choose the option that best fits your situation and experience level.
 
-### 5.1 Cloud options
+### Cloud options
 
 If your goal is to read and try examples quickly, use a cloud option. These options work directly in your browser and require no local installation.
 
@@ -249,7 +249,7 @@ If your goal is to read and try examples quickly, use a cloud option. These opti
   Runs notebooks on cloud computers and is ideal if you want more computing power or an easy way to share your work.  
   https://colab.research.google.com/github/giswqs/intro-gispro/blob/main
 
-### 5.2 Local options
+### Local options
 
 If your goal is to read and try examples quickly, use a cloud option. These options run on your own machine and give you full control over your setup.
 

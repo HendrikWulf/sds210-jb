@@ -33,7 +33,7 @@ project:
     - title: Setup
       file: book/2_setup.md
       children:
-        - file: book/2_setup/1_miniconda.md
+        - file: book/2_setup/1_conda.md
         - file: book/2_setup/2_vs_code.md
         - file: book/2_setup/3_git.md
         - file: book/2_setup/4_colab.md
