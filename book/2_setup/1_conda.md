@@ -324,6 +324,7 @@ conda create --name geo-env python=3.14
 ```
 The `--name` flag sets the new environment’s name.
 
+---
 
 **3. Activate your new environment**
 
@@ -351,9 +352,31 @@ Conda displays the currently active environment in your shell application beside
 
 ::::::
 
+From now on, every Python and conda command you run applies to this environment.
+
+**Deactivate your environment when you are done**
+
+When you finish working in an environment, you can leave it using:
+
+```bash
+# deactivate the current environment
+conda deactivate
+```
+
+After deactivation, you return to the base environment and the environment name disappears from the prompt.
+
+``` {admonition}
+:class: tip
+Activating and deactivating environments is cheap and safe. Switch environments whenever you change projects.
+```
+
+---
+
 ### Adding packages to your environment
 
 Right now, your environment only has Python 3.14 and its dependencies installed. However, our project uses functionality that is not provided by the Python standard library, so we must install third-party packages to provide that functionality.
+
+---
 
 **1. Add conda packages**
 
@@ -365,10 +388,12 @@ We can find the additional conda packages that we need for our project on the co
 ```
 
 ```bash
-# installs common geospatial packages and their dependencies from conda-forge
+# installs common geospatial packages and their dependencies from the conda-forge channel
 conda install --channel conda-forge pygis
 ```
 The `--channel` flag tells conda to give the specified channel top priority for installing packages and their dependencies. The short option `-c` can also be used instead.
+
+---
 
 **2. Add packages with pip**
 
@@ -384,12 +409,766 @@ To minimize the risk of dependency conflicts, follow these simple rules:
 - Install all Conda packages first
 - Use pip only for packages that are not available via Conda
 ```
-Assume your project needs a small helper library that is only published on PyPI, for example a lightweight utility for working with map tiles.
-
-First, make sure your Conda environment is active.
-
-Then install the package using pip:
+Assume your project needs a small helper library that is only published on PyPI, for example a lightweight utility for working with map tiles. First, make sure your Conda environment is active. Then install the package using pip:
 
 ```bash
 pip install geo-tiles-helper
 ```
+---
+
+### Working with Conda environments
+
+At this point, you have created an environment and installed packages into it. Now let’s look at how to **inspect, update, and manage environments** during day to day work.
+
+Think of this section as learning how to *stay in control* once your environment exists.
+
+**1. Checking your environments**
+
+It is good practice to start a session by checking which environments exist and which one is currently active.
+
+```bash
+# list all environments and see which one is active
+conda info --envs
+```
+
+Conda lists all environments on your system.
+The environment marked with an asterisk is the active one.
+
+``` {admonition}
+:class: tip
+If something behaves unexpectedly, the first thing to check is whether the correct environment is active.
+```
+---
+
+**2. Inspecting what is installed**
+
+To see which packages are installed in an environment, including where they came from, use:
+
+```bash
+# inspect installed packages and their source channels
+conda list --name geo-env --show-channel-urls
+```
+
+This helps you understand:
+
+* which packages are installed
+* which versions are used
+* whether they came from conda-forge or another channel
+
+This is especially useful when debugging or documenting your setup.
+
+---
+
+**3. Installing and removing packages safely**
+
+If you need to modify an environment without activating it, you can always target it explicitly.
+
+Install packages into a specific environment:
+
+```bash
+# install packages into a specific environment
+conda install --name geo-env geopandas rasterio
+```
+
+Remove a package you no longer need:
+
+```bash
+# remove a package from the environment
+conda remove --name geo-env rasterio
+```
+
+``` {admonition}
+:class: tip
+Specifying the environment name makes your commands explicit and reduces the risk of installing packages into the wrong environment.
+```
+
+---
+
+**4. Updating packages**
+
+Over time, packages receive updates. To update all packages in an environment:
+
+```bash
+# update all packages in the environment
+conda update --all --name geo-env
+```
+
+Use this with care in active projects, as updates may change behaviour.
+For long term or shared projects, updating should be done intentionally and documented.
+
+---
+
+**5. Copying and cleaning up environments**
+
+Sometimes you want to experiment without breaking a working setup.
+
+Clone an existing environment:
+
+```bash
+# clone an existing environment for testing
+conda create --clone geo-env --name geo-env-test
+```
+
+This creates a full copy that you can safely modify.
+
+When an environment is no longer needed, remove it completely:
+
+```bash
+# remove an environment completely
+conda remove --name geo-env-test --all
+```
+
+Removing unused environments helps keep your system clean and avoids confusion later.
+
+---
+
+**6. Exporting environments for reproducibility**
+
+One of the most important steps in professional workflows is **documenting your environment**.
+
+Export an environment to a file:
+
+```bash
+# export environment for reproducibility
+conda env export --name geo-env > geo-env.yml
+```
+
+This file records package names and versions so others can recreate the same setup.
+
+Recreate an environment from such a file:
+
+```bash
+# recreate an environment from an environment file
+conda env create --name geo-env-copy --file geo-env.yml
+```
+
+``` {admonition}
+:class: tip
+Always export your environment when submitting assignments, sharing code, or finishing a project.
+```
+
+---
+
+### A typical Conda workflow
+
+By now, you have seen the full lifecycle of working with Conda for a project. The exact package names will change, but the workflow stays the same.
+
+```bash
+# create a new environment for the project
+conda create -n geo-env python=3.12
+
+# activate the environment
+conda activate geo-env
+
+# install required geospatial packages
+conda install -c conda-forge geopandas rasterio
+
+# check what is installed
+conda list
+
+# work on your project
+python analysis.py
+
+# export the environment for reproducibility
+conda env export > environment.yml
+
+# deactivate when you are done
+conda deactivate
+
+```
+
+What matters is not the exact commands, but the pattern:
+
+* one environment per project
+* activate before you work
+* prefer conda-forge for geospatial packages
+* use pip only when Conda is not an option
+* document environments for reproducibility
+
+You will repeat this workflow throughout the course and in real world geospatial projects. Over time, it becomes second nature.
+
+``` {admonition}
+:class: tip
+Think in environments, not installations. A clean environment is the foundation of reliable and reproducible geospatial programming.
+```
+
+## 6. Working with uv
+
+So far, we introduced **Conda**, which is the main tool used in this course for managing geospatial environments. Conda is reliable and well suited for packages with complex system dependencies.
+
+Sometimes, however, you may want a **lighter and faster tool** for Python only workflows. This is where **uv** comes in.
+
+---
+
+### What is uv and when to use it?
+
+**[uv](https://docs.astral.sh/uv/)** is a modern Python package manager written in Rust. It is designed to be *{abbr}`extremely fast (10-100x faster than pip)`* while remaining compatible with Python’s existing ecosystem.
+
+Use **Conda** when:
+
+* working with geospatial libraries that depend on system software
+* installing packages like GDAL, GEOS, PROJ, geopandas, or rasterio
+* reproducibility across operating systems matters
+
+Use **uv** when:
+
+* working with pure Python packages from PyPI
+* setting up small or temporary environments
+* prototyping quickly or running experiments
+
+In this course, **Conda remains the default**, but uv is a useful complement to know.
+
+``` {admonition}
+:class: tip
+Conda manages full software stacks. uv focuses on Python only and prioritizes speed.
+```
+---
+
+### Installing and creating an environment
+
+You only need to install uv once.
+
+::::::{tab-set}
+
+:::::{tab-item} Windows 
+```powershell
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+:::::
+
+:::::{tab-item} macOS/Linux
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+:::::
+
+::::::
+
+Navigate to your project directory and create a virtual environment:
+
+```bash
+cd path/to/your/project
+uv venv --python 3.12
+```
+
+Activate the environment:
+
+::::::{tab-set}
+
+:::::{tab-item} Windows 
+```powershell
+.venv\Scripts\activate
+```
+
+:::::
+
+:::::{tab-item} macOS/Linux
+```bash
+source .venv/bin/activate
+```
+
+:::::
+
+::::::
+
+---
+
+### Installing and running packages
+
+Install packages at high speed:
+
+```bash
+uv pip install jupyterlab leafmap
+```
+
+Install from a requirements file:
+
+```bash
+uv pip install -r requirements.txt
+```
+
+Run Python or tools directly inside the environment:
+
+```bash
+uv run python script.py
+```
+
+```bash
+uv run jupyter lab
+```
+
+``` {admonition}
+:class: note
+Use uv for Python only workflows. For geospatial packages with system dependencies, always prefer Conda.
+```
+
+---
+
+**Key takeways**
+
+* Conda is your main tool for geospatial environments
+* uv is a fast option for Python only tasks
+* Knowing both helps you choose the right tool for the job
+
+This is not about using more tools, but about **using the right tool in the right context**.
+
+---
+
+## 7. Best practices 
+
+As your projects grow, good habits around environments will save you a lot of time and frustration. The goal is not perfection, but **clarity and control**.
+
+**1. Keep environments simple and focused**
+
+Each project should have its **own environment**.
+
+Good practice:
+
+* use descriptive but short names such as `geo-env`, `sds210-lab1`, or `thesis-env`
+* install only what the project actually needs
+* remove environments you no longer use
+
+Avoid putting everything into one large environment. Large environments are harder to debug, slower to solve, and difficult to reproduce.
+
+``` {admonition}
+:class: tip
+If you hesitate before installing a package, that is often a sign it belongs in a different environment.
+```
+
+---
+
+**2.  Document environments early**
+
+An environment is part of your project, just like your code.
+
+* export environments to a file
+* keep the file with your project
+* update it when dependencies change
+
+This makes your work reproducible for:
+
+* yourself in the future
+* your lab partner
+* your supervisor
+* automated systems
+
+You do not need to export after every small change, but do it whenever the environment becomes important.
+
+---
+
+**3. Prefer reliable packages sources**
+
+Installing packages is easy. Installing them **well** takes a bit of discipline. For geospatial work:
+
+* prefer `conda-forge`
+* specify the channel explicitly
+* install Conda packages before using pip
+
+This reduces conflicts and improves reproducibility.
+
+---
+
+**4. Update and troubleshoot intentionally**
+
+When things go wrong:
+
+* check which environment is active
+* read error messages carefully
+* update conda or mamba before trying random fixes
+
+If installations behave strangely, clearing cached packages can help:
+
+```bash
+conda clean --all
+```
+
+``` {admonition}
+:class: tip
+Most environment problems come from installing packages into the wrong environment or mixing tools carelessly.
+```
+
+---
+
+**Big picture**
+
+You do not need to memorise commands, but you should internalise these ideas:
+
+* environments isolate projects and prevent conflicts
+* conda-forge is essential for geospatial work
+* environments are part of your project documentation
+* clean setups lead to reliable results
+
+Avoid installing packages into:
+
+* the system Python
+* the Conda base environment
+
+Instead, create a new environment for each project. This habit alone will prevent many hard-to-debug problems later on.
+
+By following these practices, you are not just learning tools. You are learning **professional workflows** that scale from coursework to research and real-world projects.
+
+---
+
+## 8. Exercises
+
+These exercises help you practice the core skills needed to work confidently with Conda in real projects.
+
+Each exercise is structured in three levels:
+
+* **Core** tasks are required and ensure baseline competence
+* **Stretch** tasks deepen your understanding
+* **Challenge** tasks are optional and meant for exploration
+
+You can stop after the Core tasks if you feel confident.
+
+---
+
+***Exercise 1: Creating and Using a Project Environment***
+
+**Goal:** Create a clean Conda environment and use it for geospatial work.
+
+*Core*
+
+1. Create a new Conda environment called `geo-env` with Python 3.14
+2. Activate the environment
+3. Install the `pygis` package from the `conda-forge` channel
+4. List all installed packages in the environment
+5. Start Python and verify that the environment is working
+
+*Stretch*
+
+6. Install `geopandas` and `rasterio` explicitly into `geo-env`
+7. Check which channel each package was installed from
+8. Deactivate the environment and confirm that it is no longer active
+
+*Challenge*
+
+9. Create a second environment called `geo-env-alt` with Python 3.12
+10. Compare the installed packages between the two environments
+
+
+``` {admonition} Sample Solution - Exercise 1
+:class: dropdown
+
+```bash
+# ============================================================
+# Exercise 1 solution: Setting up your first geospatial environment
+# Goal: Create a conda environment, install core geospatial packages,
+#       verify installation, and export the environment for reproducibility.
+# Notes:
+#   - Replace environment names if you chose different ones.
+# ============================================================
+
+
+# =========================
+# Core solution
+# =========================
+
+# 1) Create a new Conda environment called "geo-env" with Python 3.14
+# This creates an isolated environment with its own Python interpreter.
+conda create --name geo-env python=3.14
+
+# 2) Activate the new environment
+# From now on, all Python and conda commands apply to geo-env.
+conda activate geo-env
+
+# 3) Install the pygis meta-package from the conda-forge channel
+# pygis pulls in a common set of geospatial libraries and dependencies.
+conda install --channel conda-forge pygis
+
+# 4) List all installed packages in the active environment
+# This shows package names, versions, and build information.
+conda list
+
+# 5) Start Python to verify the environment is working
+# You should see the Python prompt without errors.
+python
+
+# Inside the Python prompt, try a simple check (then exit Python):
+# >>> import sys
+# >>> print(sys.version)
+# >>> exit()
+
+
+# =========================
+# Stretch solution
+# =========================
+
+# 6) Install additional geospatial packages explicitly
+# Even though pygis may already include some of them,
+# installing explicitly makes dependencies visible.
+conda install --channel conda-forge geopandas rasterio
+
+# 7) Check which channel each package was installed from
+# This is useful for debugging and documentation.
+conda list --show-channel-urls
+
+# 8) Deactivate the environment
+# This returns you to the base environment.
+conda deactivate
+
+# Confirm that geo-env is no longer active
+# The active environment is marked with an asterisk (*).
+conda info --envs
+
+
+# =========================
+# Challenge solution
+# =========================
+
+# 9) Create a second environment with a different Python version
+# This is useful for testing compatibility across Python versions.
+conda create --name geo-env-alt python=3.12
+
+# Activate the second environment
+conda activate geo-env-alt
+
+# List installed packages in geo-env-alt
+# At this point, it should contain only Python and core dependencies.
+conda list
+
+# 10) Compare environments by listing both explicitly
+# You can visually compare package names and versions.
+conda list --name geo-env
+conda list --name geo-env-alt
+
+# Deactivate when finished
+conda deactivate
+```
+
+---
+
+***Exercise 2: Inspecting and Managing Environments***
+
+**Goal:** Learn how to stay in control once environments exist.
+
+*Core*
+
+1. List all Conda environments on your system
+2. Identify which environment is currently active
+3. Inspect the installed packages in `geo-env`, including their source channels
+
+*Stretch*
+
+4. Install an additional package into `geo-env` without activating it
+5. Remove that package again
+6. Update all packages in `geo-env`
+
+*Challenge*
+
+7. Clone `geo-env` into a new environment called `geo-env-test`
+8. Remove `geo-env-test` once you are done
+
+``` {admonition} Sample Solution - Exercise 2
+:class: dropdown
+
+```bash
+# ============================================================
+# Exercise 2 solution: Inspecting and managing environments
+# Goal: Learn how to inspect, modify, and clean up Conda
+#       environments once they exist.
+# Notes:
+#   - This solution assumes that "geo-env" already exists
+#     from Exercise 1.
+#   - Commands are written to be run step by step in a shell.
+# ============================================================
+
+
+# =========================
+# Core solution
+# =========================
+
+# 1) List all Conda environments on your system
+# The active environment is marked with an asterisk (*).
+conda info --envs
+
+# Alternative command (does the same thing):
+# conda env list
+
+# 2) Identify which environment is currently active
+# Look for the asterisk (*) in the output above.
+# If geo-env is active, it will be marked with *.
+
+# 3) Inspect installed packages in geo-env, including source channels
+# This shows package names, versions, and where they came from.
+conda list --name geo-env --show-channel-urls
+
+
+# =========================
+# Stretch solution
+# =========================
+
+# 4) Install an additional package into geo-env without activating it
+# This is useful when managing environments programmatically or remotely.
+conda install --name geo-env --channel conda-forge maplibre
+
+# 5) Remove the package again
+# This cleanly uninstalls the package and updates dependencies if needed.
+conda remove --name geo-env maplibre
+
+# 6) Update all packages in geo-env
+# Use this carefully in real projects, as updates may change behavior.
+conda update --all --name geo-env
+
+
+# =========================
+# Challenge solution
+# =========================
+
+# 7) Clone geo-env into a new environment called geo-env-test
+# This creates a full copy with the same Python version and packages.
+conda create --clone geo-env --name geo-env-test
+
+# Verify that the new environment exists
+conda info --envs
+
+# 8) Remove geo-env-test once you are done
+# Make sure it is not active before removing it.
+conda remove --name geo-env-test --all
+
+# Final check to confirm cleanup
+conda info --envs
+
+```
+
+
+---
+
+***Exercise 3: Reproducibility with Environment Files***
+
+**Goal:** Practice exporting and recreating environments.
+
+*Core*
+
+1. Export the `geo-env` environment to a file called `geo-env.yml`
+2. Create a new environment called `geo-env-copy` from that file
+3. Activate `geo-env-copy` and verify that it works
+
+*Stretch*
+
+4. Compare the package lists of `geo-env` and `geo-env-copy`
+5. Add one additional package to `geo-env-copy`
+6. Export the updated environment to a new file
+
+*Challenge*
+
+7. Remove the original `geo-env`
+8. Recreate it only from the exported file
+
+
+``` {admonition} Sample Solution - Exercise 3
+:class: dropdown
+
+```bash
+# ============================================================
+# Exercise 3 solution: Reproducibility with environment files
+# Goal: Practice exporting, recreating, and validating Conda
+#       environments using environment files.
+# Notes:
+#   - This exercise assumes that "geo-env" already exists
+#     and contains geospatial packages from previous exercises.
+#   - Commands are meant to be run step by step.
+# ============================================================
+
+
+# =========================
+# Core solution
+# =========================
+
+# 1) Export the existing geo-env environment to a YAML file
+# This file captures package names and versions for reproducibility.
+conda env export --name geo-env > geo-env.yml
+
+# Optional sanity check: view the file contents
+# cat geo-env.yml
+
+# 2) Create a new environment called geo-env-copy from the file
+conda env create --name geo-env-copy --file geo-env.yml
+
+# 3) Activate geo-env-copy
+conda activate geo-env-copy
+
+# Verify that Python starts correctly
+python --version
+
+# Optional quick import test to confirm the environment works
+python
+import geopandas
+import rasterio
+print("geo-env-copy is working correctly")
+
+# Deactivate again before continuing
+conda deactivate
+
+
+# =========================
+# Stretch solution
+# =========================
+
+# 4) Compare package lists between geo-env and geo-env-copy
+# This helps confirm that the environments are equivalent.
+conda list --name geo-env
+conda list --name geo-env-copy
+
+# 5) Add one additional package to geo-env-copy
+# Activate the copy first
+conda activate geo-env-copy
+
+# Install an additional geospatial helper package
+conda install --channel conda-forge maplibre
+
+# 6) Export the updated environment to a new file
+conda env export --name geo-env-copy > geo-env-copy.yml
+
+# Deactivate after finishing changes
+conda deactivate
+
+
+# =========================
+# Challenge solution
+# =========================
+
+# 7) Remove the original geo-env
+# Make sure it is not active before removing it.
+conda remove --name geo-env --all
+
+# Confirm that geo-env is gone
+conda info --envs
+
+# 8) Recreate geo-env only from the exported file
+conda env create --name geo-env --file geo-env.yml
+
+# Activate and verify the recreated environment
+conda activate geo-env
+python --version
+
+# Optional import check
+python 
+import geopandas
+import rasterio
+print("geo-env successfully recreated from file")
+
+
+# Final cleanup
+conda deactivate
+
+```
+
+---
+
+**Reflection**
+
+After completing the exercises, take a moment to reflect:
+
+* Which step felt most confusing
+* Which command felt most useful
+* What would you do differently next time
+
+Being comfortable with environments is less about memorising commands and more about **knowing what to check when something breaks**.
+
+If you can create, inspect, export, and recreate environments confidently, you have mastered one of the most important foundations of professional geospatial programming.
+
+
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"

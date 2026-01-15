@@ -67,7 +67,7 @@ If Conda is set up correctly, you spend your time **writing code**, not debuggin
 
 ---
 
-### Code Development: Visual Studio Code
+### Code Development: VS Code
 
 **What it does**  
 [VS Code](https://code.visualstudio.com) is your **main workspace** for writing, reading, and debugging code.
@@ -116,7 +116,7 @@ Git is not just for teams. It is just as valuable when you work alone on your ow
 
 ---
 
-### Cloud Computing: Google Colab
+### Cloud Computing: Colab
 
 **What it does**  
 [Colab](https://colab.research.google.com) lets you run Jupyter notebooks in your web browser using cloud based computing resources.
