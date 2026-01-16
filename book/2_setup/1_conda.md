@@ -16,11 +16,11 @@ Package managers help you install the right software, keep projects separated, a
 
 ### Why package management matters
 
-- Geospatial libraries rely on complex system dependencies  
-- Different projects need different package versions  
-- Isolated environments prevent conflicts between projects  
-- Reproducible environments make results reliable  
-- Shared environment files support collaboration  
+* Geospatial libraries rely on complex system dependencies  
+* Different projects need different package versions  
++ Isolated environments prevent conflicts between projects  
+* Reproducible environments make results reliable  
+* Shared environment files support collaboration  
 
 In this course, you will mainly work with **Conda**, which is well suited for geospatial software because it can manage both Python packages and system libraries. You will also get to know **uv**, a very fast tool for managing Python packages when system level dependencies are not required.
 
@@ -32,9 +32,9 @@ The goal of this section is not to memorise commands, but to understand **how to
 
 After working through this section, you should be able to:
 
-- **Explain why package management and isolated environments matter** for geospatial programming.
-- **Create and manage project specific environments** using Conda and mamba.
-- **Choose appropriate tools and practices** to build reproducible and shareable Python environments, including when to use uv.
+* **Explain why package management and isolated environments matter** for geospatial programming.
+* **Create and manage project specific environments** using Conda.
+* **Choose appropriate tools and practices** to build reproducible and shareable Python environments, including when to use uv.
 
 ---
 
@@ -68,22 +68,21 @@ Both Miniconda and Anaconda can be installed either via:
 Here, we focus on the **command line installation**, as it works reliably across systems and helps you better understand how your Python environment is set up. 
 
 Official installation guides (recommended):
-- Miniconda: https://www.anaconda.com/docs/getting-started/miniconda/install  
-- Anaconda: https://www.anaconda.com/docs/getting-started/anaconda/install  
+* Miniconda: https://www.anaconda.com/docs/getting-started/miniconda/install  
+* Anaconda: https://www.anaconda.com/docs/getting-started/anaconda/install  
 
 Take your time with the installation. A clean and well understood setup will make the rest of the course much smoother. If you encounter any issues while installing [Miniconda](https://www.anaconda.com/docs/getting-started/miniconda/troubleshooting) or the [Anaconda Distribution](https://www.anaconda.com/docs/getting-started/anaconda/troubleshooting), please refer to their website links for troubleshooting assistance.
 
 ---
 
 Follow the steps below to install **Miniconda** using the command line. This approach is reliable, transparent, and works consistently across systems. 
-Take your time with the installation. A clean and well understood setup will make the rest of the course much smoother.
 
 ::::::{tab-set}
 
 :::::{tab-item} Windows 
 
 These three commands quickly and quietly download the latest 64-bit Windows installer, rename it to a shorter file name, perform a silent install, and then delete the installer:
-```bash
+```powershell
 curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe -o .\miniconda.exe
 start /wait "" .\miniconda.exe /S
 del .\miniconda.exe
@@ -92,17 +91,17 @@ After installing, open Anaconda Prompt to use Miniconda.
 
 :::::
 
-:::::{tab-item} macOS
+:::::{tab-item} macOS (Apple Silicon)
 
 **Step 1: Download and install Miniconda**
 
 Run the following commands **line by line** in the Terminal.
 
 These commands will:
-- create a directory called `miniconda3` in your home directory  
-- download the Miniconda installer script  
-- install Miniconda in silent mode  
-- remove the installer script after installation  
+* create a directory called `miniconda3` in your home directory  
+* download the Miniconda installer script  
+* install Miniconda in silent mode  
+* remove the installer script after installation  
 
 ```bash
 mkdir -p ~/miniconda3
@@ -124,7 +123,7 @@ You should now see `(base)` at the beginning of your command prompt.
 
 Initialize conda so it works automatically in new terminal sessions:
 ```bash
-conda init --all
+conda init
 ```
 
 **Step 4: Verify your installation**
@@ -141,10 +140,10 @@ Run any conda command. For example: `conda list` (displays a list of packages in
 Run the following commands **line by line**  to download and install the latest Linux installer for your chosen chip architecture.
 
 These commands will:
-- create a directory called `miniconda3` in your home directory.  
-- download the Linux Miniconda installation script for a 64-bit architecture and save the script as `miniconda.sh` in the miniconda3 directory. For other chip architectures look up this link.
-- run the `miniconda.sh` installation script in silent mode using bash.
-- remove the `miniconda.sh` installation script file after installation is complete. 
+* create a directory called `miniconda3` in your home directory.  
+* download the Linux Miniconda installation script for a 64-bit architecture and save the script as `miniconda.sh` in the miniconda3 directory. For other chip architectures look up [this link](https://www.anaconda.com/docs/getting-started/miniconda/install#linux-terminal-installer).
+* run the `miniconda.sh` installation script in silent mode using bash.
+* remove the `miniconda.sh` installation script file after installation is complete.
 
 ```bash
 mkdir -p ~/miniconda3
@@ -166,7 +165,7 @@ You should now see `(base)` at the beginning of your command prompt.
 
 Initialize conda so it works automatically in new terminal sessions:
 ```bash
-conda init --all
+conda init
 ```
 
 **Step 4: Verify your installation**
@@ -297,8 +296,8 @@ Opening the Anaconda Propmt application.
 :::::{tab-item} macOS/Linux
 
 Open Terminal:
-- On macOS, open Spotlight with Cmd + Spacebar, then search for “Terminal”.
-- On Linux, press Ctrl + Alt + T or search for “Terminal” in your application menu.
+* On macOS, open Spotlight with Cmd + Spacebar, then search for “Terminal”.
+* On Linux, press Ctrl + Alt + T or search for “Terminal” in your application menu.
 
 :::{figure} images/1_conda_mac_terminal.png
 :alt: Opening the Terminal to use conda
@@ -339,7 +338,7 @@ Conda displays the currently active environment in your shell application beside
 ::::::{tab-set}
 
 :::::{tab-item} Windows 
-```bash
+```powershell
 (geo-env) C:\Users\username>
 ```
 :::::
@@ -353,6 +352,18 @@ Conda displays the currently active environment in your shell application beside
 ::::::
 
 From now on, every Python and conda command you run applies to this environment.
+
+``` {admonition}
+:class: warning
+Most setup issues come from one of these mistakes.
+
+* Installing packages into the `base` environment by accident
+* Forgetting to activate the correct environment before installing or running code
+* Mixing conda and pip without thinking (install conda packages first, pip only if needed)
+* Copying the wrong operating system commands during installation
+
+If something breaks, stop and check your active environment first.
+``` 
 
 **Deactivate your environment when you are done**
 
@@ -412,7 +423,7 @@ To minimize the risk of dependency conflicts, follow these simple rules:
 Assume your project needs a small helper library that is only published on PyPI, for example a lightweight utility for working with map tiles. First, make sure your Conda environment is active. Then install the package using pip:
 
 ```bash
-pip install geo-tiles-helper
+pip install geospatial
 ```
 ---
 
@@ -555,7 +566,7 @@ By now, you have seen the full lifecycle of working with Conda for a project. Th
 
 ```bash
 # create a new environment for the project
-conda create -n geo-env python=3.12
+conda create -n geo-env python=3.14
 
 # activate the environment
 conda activate geo-env
@@ -632,7 +643,7 @@ You only need to install uv once.
 
 :::::{tab-item} Windows 
 ```powershell
-powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+irm https://astral.sh/uv/install.ps1 | iex
 ```
 
 :::::
@@ -650,7 +661,7 @@ Navigate to your project directory and create a virtual environment:
 
 ```bash
 cd path/to/your/project
-uv venv --python 3.12
+uv venv --python 3.14
 ```
 
 Activate the environment:
@@ -1095,9 +1106,7 @@ python --version
 
 # Optional quick import test to confirm the environment works
 python
-import geopandas
-import rasterio
-print("geo-env-copy is working correctly")
+python -c "import geopandas, rasterio; print('OK')"
 
 # Deactivate again before continuing
 conda deactivate
@@ -1145,10 +1154,7 @@ conda activate geo-env
 python --version
 
 # Optional import check
-python 
-import geopandas
-import rasterio
-print("geo-env successfully recreated from file")
+python -c "import geopandas, rasterio; print('OK')"
 
 
 # Final cleanup
