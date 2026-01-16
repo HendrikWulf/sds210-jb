@@ -19,6 +19,7 @@ project:
     - book/references.bib
   toc:
     - file: index.md
+    # - maxdepth: 2  # Limits this section to Level 1 and 2
     - title: About
       file: book/1_about.md
       children:

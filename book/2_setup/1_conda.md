@@ -793,7 +793,7 @@ Most environment problems come from installing packages into the wrong environme
 
 **Big picture**
 
-You do not need to memorise commands, but you should internalise these ideas:
+You do not need to [memorise commands](https://docs.conda.io/projects/conda/en/stable/user-guide/cheatsheet.html#), but you should internalise these ideas:
 
 * environments isolate projects and prevent conflicts
 * conda-forge is essential for geospatial work
@@ -1169,6 +1169,3 @@ After completing the exercises, take a moment to reflect:
 Being comfortable with environments is less about memorising commands and more about **knowing what to check when something breaks**.
 
 If you can create, inspect, export, and recreate environments confidently, you have mastered one of the most important foundations of professional geospatial programming.
-
-
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
