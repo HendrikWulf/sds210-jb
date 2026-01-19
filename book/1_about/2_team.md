@@ -4,7 +4,7 @@ Our amazing team of instructors consists of the following people (in alphabetica
 We will support you on your learning path during the lab exercises and on Teams.
 
 ::::{grid} 3
-:gutter: 2
+
 
 :::{card} Hendrik Wulf
 :link: https://www.geo.uzh.ch/en/department/Staff/hendrikwulf.html

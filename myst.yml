@@ -19,7 +19,6 @@ project:
     - book/references.bib
   toc:
     - file: index.md
-    # - maxdepth: 2  # Limits this section to Level 1 and 2
     - title: About
       file: book/1_about.md
       children:
@@ -56,6 +55,10 @@ project:
       file: book/6_concepts.md
       children:
         - file: book/6_concepts/1_get_started.md
+    - title: Projects
+      file: book/7_projects.md
+      children:
+        - file: book/7_projects/1_get_started.md    
     - file: book/markdown.md
     - file: book/introduction.md
     - file: book/notebooks.ipynb
@@ -65,4 +68,6 @@ site:
     logo: logo.png
     favicon: fav.ico
     folders: true
+    css:
+      - _static/custom.css
   template: book-theme
