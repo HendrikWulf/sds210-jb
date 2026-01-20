@@ -1,10 +1,18 @@
-# Colab
+---
+title: Colab
+---
 
-## Introduction
+<div class="page-subtitle">
+Running Jupyter notebooks in the cloud
+</div>
+
+---
+
+## 1. Introduction
 
 Google [Colab](https://colab.google/) is a **cloud based Jupyter notebook** that runs entirely in your browser. Your code executes on remote machines, not on your laptop, which means you can start working **immediately** without installing anything.
 
-In this course, Colab is a **low barrier entry point** to programming with spatial data. It allows you to focus on learning Python, understanding geospatial workflows, and experimenting with code, rather than spending time on software setup and configuration. When your local environment is not ready or something breaks, Colab is your **reliable fallback**.
+In this course, Colab is a **low barrier entry point** to programming with spatial data. It allows you to focus on learning Python, understanding geospatial workflows, and experimenting with code, rather than spending time on software setup and configuration. When your local environment is not ready or something breaks, Colab is your reliable fallback.
 
 Colab is also a **shared learning space**. Notebooks can be opened, run, and edited by anyone with a link. This makes it well suited for live demonstrations, guided exercises, peer collaboration, and asking for help.
 
@@ -12,25 +20,25 @@ Throughout this course, you can use Colab to **run all course notebooks**, modif
 
 ---
 
-## Learning objectives
+## 2. Learning Objectives
 
 After working through this section, you should be able to:
 
-- Open and run **course notebooks** in Google Colab
-- Install and use **Python packages** needed for spatial data analysis
+- Open and run **course notebooks** in Colab
+- Install and use required **Python packages** 
 - Manage **files and data** in Colab using Google Drive
 
 These objectives focus on using Colab as a practical learning and experimentation environment. You will use these skills repeatedly when working through examples and practicals in the course.
 
 ---
 
-## Getting started
+## 3. Getting Started
 
 Getting started with Colab is simple and only takes a few minutes.
 
 First, open [Colab](https://colab.research.google.com/). You only need a **web browser** and a **Google account**.
 
-Once you are signed in, create a new notebook by clicking **File -> New notebook in Drive**. This opens an empty Jupyter notebook on your Google Drive where you can start writing and running Python code immediately.
+Once you are signed in, create a new notebook by clicking (File -> New notebook in Drive). This opens an empty Jupyter notebook on your Google Drive where you can start writing and running Python code immediately.
 
 Each notebook consists of **code cells** and **text cells**. Code cells are used to run Python. Text cells are used to explain what your code does. You run a cell with **Shift Enter**.
 
@@ -40,7 +48,7 @@ For now, the key idea is simple. Open Colab, create a notebook, write code in ce
 
 ---
 
-## Understanding the notebook environment
+## 4. The Notebook Environment
 
 A Colab notebook is made up of **cells** that are executed one after another. Each cell can contain either Python code or explanatory text. The order in which you run cells matters, because variables and results are stored in memory.
 
@@ -48,13 +56,14 @@ Colab runs your code in a **session**. This session holds all variables, importe
 
 The **execution order** is not always the same as the visual order of cells. If you run cells out of order, results may be confusing or incorrect. When something behaves strangely, a good habit is to restart the session and run all cells from top to bottom.
 
-The **runtime** defines where your code runs and which resources are available. Most of the time, the default runtime is sufficient (Python 3 on a CPU). In later project, you may switch runtimes for more demanding tasks (Runtime -> Change Runtime type, GPU or TPU).
+The **runtime** defines where your code runs and which resources are available. Most of the time, the default runtime is sufficient (Python 3 on a {abbr}`CPU (Central Processing Unit)`). In later project, you may switch runtimes for more demanding tasks (Runtime -> Change Runtime type, {abbr}`GPU (Graphics Processing Unit)` or {abbr}`TPU (Tensor Processing Unit)`). 
 
-Understanding these basics will help you avoid common errors and make your work in Colab more predictable and easier to debug.
+Colab also makes it easy to work together on the same notebook. Sharing works much like sharing a Google Doc.
+Each notebook has **sharing settings** that control who can view or edit it. You can choose to share with specific people or allow access to anyone with the link.
 
 ---
 
-## Managing Python packages 
+## 5. Managing Python Packages 
 
 Python packages define what your notebook can do. In Colab, packages are installed into the current **runtime**, not permanently. This means installs are fast, but they disappear when the session resets.
 
@@ -69,7 +78,7 @@ You can check which packages are already available in the current runtime.
 %pip list
 ```
 
-Colab often includes common geospatial packages, but you should never rely on this without checking.
+Colab includes common geospatial packages (e.g. gdal, geopandas, and xarray), but you should never rely on this without checking.
 
 ### Installing packages with pip
 
@@ -87,7 +96,7 @@ You may also see pip commands that start with an **exclamation mark**. This runs
 !pip install pygis
 ```
 
-Both approaches work in Colab. In this course, prefer the **percent pip** version because it avoids confusion when working with different runtimes.
+Both approaches work in Colab. In this course, prefer the **percent pip** version because it avoids confusion when working with different runtimes. Do not use Conda in Colab. Always use pip.
 
 ### Reducing output
 
@@ -120,13 +129,13 @@ If a package causes conflicts or you want to start fresh, you can remove it.
 
 ---
 
-## Working with files and data
+## 6. Working with Files and Data
 
 Understanding where your data lives is essential when working in Colab. Files stored inside the Colab **session** exist only temporarily. If the session resets, those files are lost.
 
 To avoid losing work, important files and results should be stored in **Google Drive**. Drive provides persistent storage that stays available across sessions and devices.
 
-### Using Google Drive for persistent storage
+### Using Google Drive for storage
 
 Before accessing Drive, you need to mount it in your notebook.
 
@@ -164,7 +173,7 @@ files.download('results.csv')
 
 Remember that uploaded files stored only in the session should be moved to Drive if you want to keep them.
 
-### Accessing data from the web and GitHub
+### Accessing data from the web
 
 Many datasets can be accessed directly from the web. This avoids manual downloads and keeps workflows reproducible.
 
@@ -183,6 +192,89 @@ Course code and example data are often stored on GitHub. You can clone a reposit
 Working directly with online sources makes it easier to rerun notebooks and share them with others.
 
 ---
+
+## 8. Running Course Notebooks
+
+All notebooks in this course can be run directly in **Google Colab**. This allows you to start working immediately without setting up a local environment.
+
+When a page in this Jupyter Book provides an **Open in Colab** link, use it. The notebook will open in Colab and is ready to run. This is the recommended way to get started.
+
+You can also open notebooks directly from the **GitHub repository**. Colab can load notebooks straight from GitHub without downloading anything.
+
+Update the link!!! Example: Go to https://colab.research.google.com/github/giswqs/intro-gispro/blob/main
+
+1. Open `https://colab.research.google.com/github/` 
+2. Navigate to the course repository
+3. Select the notebook you want to run
+
+Once the notebook is open, run the cells from top to bottom. This ensures that all **package installs**, **imports**, and **data loading** steps are executed in the correct order.
+
+If the notebook modifies files or produces results, save a copy to **Google Drive**. This ensures your work persists even if the session resets.
+
+Running notebooks in Colab is meant to support learning and experimentation. Feel free to change code, add cells, and explore, knowing that you can always reopen a clean version from the book or repository.
+
+---
+
+## 9. Exercises
+
+The following exercises help you practice the learning objectives of this section. They focus on running notebooks in Colab, managing packages, and working with data in a session based environment.
+
+#### Exercise 1: Colab setup
+
+**Objective**  
+Get comfortable with Colab as a working environment for this course.
+
+**Tasks**
+
+1. Open Google Colab and create a new notebook.
+2. Check which runtime is active and confirm that it uses Python.
+3. Mount your **Google Drive**.
+4. Install the required **Python packages** for this course.
+5. Create a folder in your Drive for course notebooks and data.
+6. Add a short text cell that explains what this notebook is for.
+7. Save the notebook with a clear and descriptive name.
+
+This exercise focuses on opening notebooks, installing packages, and using Drive for persistent storage.
+
+---
+
+#### Exercise 2: Working with files and data
+
+**Objective**  
+Practice moving data between the Colab session, Google Drive, and the web.
+
+**Tasks**
+
+1. Download a small dataset from the web using `wget`.
+2. Upload a second file from your local computer to Colab.
+3. Move both datasets into your course folder in **Google Drive**.
+4. Load one dataset into a Pandas DataFrame or a GeoPandas GeoDataFrame.
+5. Inspect the data and print the first few rows.
+6. Save a processed result to Drive.
+7. Download the result back to your local computer.
+
+This exercise reinforces how data lives in Colab sessions and how to make results persistent.
+
+---
+
+#### Exercise 3: Running and sharing a course notebook
+
+**Objective**  
+Run a complete notebook and prepare it for collaboration.
+
+**Tasks**
+
+1. Open one course notebook in Colab using the provided link.
+2. Run all cells from top to bottom without errors.
+3. Modify one code cell in a meaningful way.
+4. Add a text cell explaining what you changed and why.
+5. Save your own copy to **Google Drive**.
+6. Change the sharing settings so others can view the notebook.
+7. Share the link with a peer and ask them to run it.
+
+This exercise focuses on reproducible execution, documentation, and sharing notebooks with others.
+
+
 
 
 

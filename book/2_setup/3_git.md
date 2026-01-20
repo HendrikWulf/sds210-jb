@@ -1,4 +1,12 @@
-# Git
+---
+title: Git
+---
+
+<div class="page-subtitle">
+Keeping track of change
+</div>
+
+---
 
 ## 1. Introduction
 
@@ -258,7 +266,7 @@ This is how you:
 
 ---
 
-***Git in VS Code*** 
+#### Git in VS Code
 
 VS Code includes built-in Git support. If Git is installed on your system, no additional extensions are required.
 
@@ -274,7 +282,7 @@ Extensions such as GitLens can add extra features, but they are **not required**
 
 ---
 
-***Key takeaway***
+#### Key takeaway
 
 ```
 Working directory → Staging area → Local history → GitHub
@@ -296,7 +304,7 @@ There are **two common ways** to start working with Git. Which one you use depen
 
 ---
 
-***Option A: Start a project locally (empty folder → Git)***
+#### Option A: Start a project locally (empty folder → Git)
 
 Use this when you are starting **your own project from scratch**.
 
@@ -316,7 +324,7 @@ Your folder is now a Git repository and ready for commits. At this stage, everyt
 
 ---
 
-***Option B: Clone an existing project (GitHub → local copy)***
+#### Option B: Clone an existing project (GitHub → local copy)
 
 Use this when a project already exists on **GitHub** (e.g. course material, group work, or an example repository).
 
@@ -348,7 +356,7 @@ In collaborative workflows, changes are typically shared back via a **pull reque
 
 ---
 
-***Repository structure***
+#### Repository structure
 
 A clear repository structure makes Git more useful and your projects easier to understand for others *and* for future you.
 
@@ -381,7 +389,7 @@ You don’t need to follow this structure perfectly. The goal is **separation of
 For larger or long-term data science projects, you may want to use a standardised project structure, such as *[Cookiecutter Data Science](https://cookiecutter-data-science.drivendata.org/)*.
 
 
-***What to track and what to ignore***
+#### What to track and what to ignore
 
 Git works best when you track **code and documentation**, not everything your analysis produces.
 
@@ -407,7 +415,7 @@ Once a repository is set up, the everyday workflow starts: you **edit files**, *
 
 ---
 
-***1. Make a change***
+#### 1. Make a change
 
 Edit an existing file or create a new one, for example:
 
@@ -419,7 +427,7 @@ At this point, Git notices that something changed, but nothing is saved yet.
 
 ---
 
-***2. Check the current state***
+#### 2. Check the current state
 
 Before doing anything else, check what Git sees:
 
@@ -440,7 +448,7 @@ git diff
 
 ---
 
-***3. Stage changes (select what belongs together)***
+#### 3. Stage changes (select what belongs together)
 
 Staging means choosing which changes should go into the next snapshot.
 
@@ -460,7 +468,7 @@ Think of staging as saying: *“These changes form one logical step.”*
 
 ---
 
-***4. Commit changes (save a snapshot)***
+#### 4. Commit changes (save a snapshot)
 
 Once changes are staged, create a commit:
 
@@ -483,7 +491,7 @@ New files still need `git add` first.
 
 ---
 
-***Writing good commit messages***
+#### Writing good commit messages
 
 Commit messages are part of your project documentation. In geospatial and data-driven projects, they should clearly describe **what changed and why**. 
 Good commit messages help you (and others) understand how an analysis evolved over time.
@@ -510,7 +518,7 @@ Clear concise messages are far more valuable than overly detailed ones.
 
 GitHub is a **remote repository** that allows you to store your project online, back it up, and collaborate with others. To exchange changes between your computer and GitHub, your local Git repository needs to be **linked** to the remote repository on GitHub.
 
-***1. Connect your local repository to GitHub***
+#### 1. Connect your local repository to GitHub
 
 If your repository is not yet connected to GitHub, add the remote repository URL once:
 
@@ -532,7 +540,7 @@ If you see a GitHub URL here, the connection is set up correctly.
 
 ---
 
-***2. Push changes to GitHub***
+#### 2. Push changes to GitHub
 
 After committing changes locally, you still have them only on your computer.
 To upload them to GitHub, you need to push.
@@ -557,7 +565,7 @@ Git now knows which branch to push and where to push it. That’s why this comma
 
 ---
 
-***3. Pull changes from GitHub***
+#### 3. Pull changes from GitHub
 
 To bring changes **from GitHub back to your computer** (for example when switching machines or working with others), use:
 
@@ -583,7 +591,7 @@ For most individual lab work, staying on the `main` branch is fine. Branches bec
 
 ---
 
-***Create a new branch***
+#### Create a new branch
 
 ```bash
 # Create a new branch called 'satellite-analysis'
@@ -596,7 +604,7 @@ The `main` branch stays unchanged.
 
 ---
 
-***Check which branch you are on***
+#### Check which branch you are on
 
 ```bash
 # List all branches
@@ -608,7 +616,7 @@ This helps you avoid committing to the wrong branch.
 
 ---
 
-***Switch back to the main branch***
+#### Switch back to the main branch
 
 ```bash
 # Switch back to the main branch
@@ -619,7 +627,7 @@ Nothing is lost here. Branches remember their own history.
 
 ---
 
-***Merge your work back into main***
+#### Merge your work back into main
 
 Once your work on the branch is done and tested, merge it:
 
@@ -632,7 +640,7 @@ This brings the changes from `satellite-analysis` into `main`.
 
 ---
 
-***Clean up after merging***
+#### Clean up after merging
 
 After a successful merge, the branch is no longer needed:
 
@@ -687,7 +695,7 @@ This helps you understand when and why a file changed.
 
 ---
 
-***Undoing changes***
+#### Undoing changes
 
 Sometimes you realise that the **last commit was a mistake** — for example, the message was wrong or the commit was too early.
 
@@ -717,7 +725,7 @@ hese exercises focus on using Git as a **practical safety net** for your work. Y
 
 ---
 
-***Exercise 1: Git setup check***
+#### Exercise 1: Git setup check
 
 **Objective:**
 Confirm that Git is correctly installed and configured on your system.
@@ -748,7 +756,7 @@ Confirm that Git is correctly installed and configured on your system.
 
 ---
 
-***Exercise 2: Your project repository***
+#### Exercise 2: Your project repository
 
 **Objective:**
 Create a small, clean project repository and track its first changes.
@@ -791,7 +799,7 @@ Create a small, clean project repository and track its first changes.
 
 ---
 
-***Exercise 3: Safe experimentation with branches and history***
+#### Exercise 3: Safe experimentation with branches and history
 
 **Objective:**
 Practice experimenting safely and using Git history as a safety net.

@@ -1,6 +1,10 @@
-# Conda
+---
+title: Conda
+---
 
-*Introduction to Python Package Management*
+<div class="page-subtitle">
+Introduction to Python Package Management
+</div>
 
 ---
 

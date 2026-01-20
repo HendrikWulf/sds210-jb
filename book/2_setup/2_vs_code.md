@@ -1,6 +1,10 @@
-# VS Code
+---
+title: VS Code
+---
 
-*Setting Up Your Code Development Environment*
+<div class="page-subtitle">
+Setting Up Your Code Development Environment
+</div>
 
 ---
 

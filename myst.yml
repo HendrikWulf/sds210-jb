@@ -68,6 +68,7 @@ site:
     logo: logo.png
     favicon: fav.ico
     folders: true
-    css:
-      - _static/custom.css
+    outline_maxdepth: 2
+    style: _static/custom.css
   template: book-theme
+  
