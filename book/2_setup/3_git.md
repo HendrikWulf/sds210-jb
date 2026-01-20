@@ -2,7 +2,7 @@
 
 ## 1. Introduction
 
-At some point, this will easily might happen:
+At some point, this will happen:
 you delete a function that *definitely* worked yesterday, a notebook experiment goes wrong, or you realise that your “final_final_v3.ipynb” is not final at all.
 
 This is where **[Git](https://git-scm.com/)** comes in.
@@ -258,6 +258,22 @@ This is how you:
 
 ---
 
+***Git in VS Code*** 
+
+VS Code includes built-in Git support. If Git is installed on your system, no additional extensions are required.
+
+In the **Source Control** panel, you can see the same workflow you just learned:
+
+- modified files → staging  
+- staged files → commit  
+- commit → push / pull  
+
+VS Code also provides a visual diff viewer, which helps you inspect changes line by line before committing.
+
+Extensions such as GitLens can add extra features, but they are **not required** for this course.
+
+---
+
 ***Key takeaway***
 
 ```
@@ -270,7 +286,7 @@ Working directory → Staging area → Local history → GitHub
 
 ## 6. Working with Git
 
-intro ...
+In this subsection, you will learn how to use Git in practice: how to start projects, track changes, sync with GitHub, and recover from mistakes. These workflows will be reused throughout your work with Git and spatial projects.
 
 ---
 
@@ -327,7 +343,61 @@ This creates:
 
 ```{note}
 If a repository does not belong to you (for example course material or someone else’s project), you usually cannot push changes to it. In this case, first fork the repository on GitHub to create a copy under your own account, and then clone your fork, not the original repository.
+In collaborative workflows, changes are typically shared back via a **pull request**, which allows others to review your work before it is merged.
 ```
+
+---
+
+***Repository structure***
+
+A clear repository structure makes Git more useful and your projects easier to understand for others *and* for future you.
+
+For your project in this course, a simple and flexible structure is enough:
+
+```text
+my-project/
+├── README.md
+├── .gitignore
+├── requirements.txt
+├── data/
+│   ├── raw/
+│   └── processed/
+├── src/
+│   ├── data_processing.py
+│   └── analysis.py
+├── notebooks/
+│   └── exploratory_analysis.ipynb
+└── outputs/
+    ├── figures/
+    └── results/
+```
+
+You don’t need to follow this structure perfectly. The goal is **separation of concerns**:
+
+* raw vs processed data
+* code vs notebooks
+* inputs vs outputs
+
+For larger or long-term data science projects, you may want to use a standardised project structure, such as *[Cookiecutter Data Science](https://cookiecutter-data-science.drivendata.org/)*.
+
+
+***What to track and what to ignore***
+
+Git works best when you track **code and documentation**, not everything your analysis produces.
+
+**Track these files:**
+- source code (`.py`, `.r`, `.sql`)
+- Jupyter notebooks (`.ipynb`)
+- configuration files (`requirements.txt`, `environment.yml`)
+- documentation (`README.md`)
+- small reference datasets
+
+**Do NOT track these files (use `.gitignore`):**
+- large data files
+- temporary or cache files
+- generated outputs that can be recreated
+- environment files with secrets
+- editor-specific files (e.g. `.vscode/`)
 
 ---
 
@@ -415,7 +485,8 @@ New files still need `git add` first.
 
 ***Writing good commit messages***
 
-Commit messages are part of your project documentation. In geospatial and data-driven projects, they should clearly describe **what changed and why**.
+Commit messages are part of your project documentation. In geospatial and data-driven projects, they should clearly describe **what changed and why**. 
+Good commit messages help you (and others) understand how an analysis evolved over time.
 
 **Examples:**
 
@@ -431,7 +502,7 @@ git commit -m "Update flood mapping algorithm to handle edge cases"
 * Keep it **short** (ideally under 50 characters)
 * Be **specific** about what changed
 
-Clear commit messages make it much easier (for you and others) to understand how an analysis evolved over time.
+Clear concise messages are far more valuable than overly detailed ones.
 
 ---
 
@@ -507,7 +578,8 @@ In most cases, this happens automatically and quietly.
 
 Branching lets you work on **new ideas without breaking what already works**.
 Instead of changing your main project directly, you create a **separate timeline** for experiments or fixes.
-Branches are useful when you try a new analysis approach, refactor code, or fix a bug without risking the working. version
+For most individual lab work, staying on the `main` branch is fine. Branches become especially useful in group work and larger projects.
+
 
 ---
 
@@ -639,10 +711,120 @@ If a commit is already shared, undoing it requires a different approach.
 
 ---
 
-***Key takeaways***
+## 7. Exercises
 
-* `git log` helps you understand the past
-* commits are reversible as long as they are local
-* Git gives you confidence to experiment without fear
+hese exercises focus on using Git as a **practical safety net** for your work. You are not expected to memorise commands — use the section above as a reference.
 
+---
+
+***Exercise 1: Git setup check***
+
+**Objective:**
+Confirm that Git is correctly installed and configured on your system.
+
+**Tasks:**
+
+1. Open a terminal.
+2. Check that Git is installed:
+
+   ```bash
+   git --version
+   ```
+3. Check your Git identity:
+
+   ```bash
+   git config --global user.name
+   git config --global user.email
+   ```
+4. Verify that your name and email are set correctly and match your GitHub account.
+
+**Expected outcome:**
+
+* Git responds with a version number.
+* Your name and email are correctly configured.
+* You are ready to use Git with GitHub.
+
+> If this exercise fails, **stop here and fix it** before continuing.
+
+---
+
+***Exercise 2: Your project repository***
+
+**Objective:**
+Create a small, clean project repository and track its first changes.
+
+**Tasks:**
+
+1. Create a new folder for a project (e.g. `my-first-git-project`).
+2. Initialise a Git repository inside it:
+
+   ```bash
+   git init
+   ```
+3. Create the following structure:
+
+   ```
+   my-first-git-project/
+   ├── README.md
+   ├── data/
+   ├── notebooks/
+   └── src/
+   ```
+4. Write a short description of the project in `README.md`.
+5. Check the repository status:
+
+   ```bash
+   git status
+   ```
+6. Stage and commit your changes with a meaningful message.
+7. Create a new repository on GitHub and connect it as a remote.
+8. Push your commit to GitHub.
+
+**Expected outcome:**
+
+* A GitHub repository with:
+
+  * a clear folder structure
+  * a readable README
+  * at least one commit
+* You understand the loop: *edit → stage → commit → push*.
+
+---
+
+***Exercise 3: Safe experimentation with branches and history***
+
+**Objective:**
+Practice experimenting safely and using Git history as a safety net.
+
+**Tasks:**
+
+1. Create a new branch called `experiment`:
+
+   ```bash
+   git checkout -b experiment
+   ```
+2. Make a small change (e.g. edit the README or add a comment to a file).
+3. Commit the change.
+4. Switch back to the `main` branch.
+5. Inspect the commit history:
+
+   ```bash
+   git log --oneline
+   ```
+6. Merge the `experiment` branch into `main`.
+7. Delete the branch after merging.
+
+**Expected outcome:**
+
+* You understand that branches are **safe workspaces**.
+* You can inspect project history and see how changes evolve.
+* You feel confident experimenting without fear of breaking things.
+
+---
+
+After these exercises, you should feel that:
+
+* Git helps you **stay in control**
+* mistakes are **recoverable**
+* and Git is a tool that *supports* your learning, not one that gets in the way
 

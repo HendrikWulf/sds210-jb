@@ -59,10 +59,10 @@ project:
       file: book/7_projects.md
       children:
         - file: book/7_projects/1_get_started.md    
-    - file: book/markdown.md
-    - file: book/introduction.md
-    - file: book/notebooks.ipynb
-    - file: book/bibliography.md
+ #   - file: book/markdown.md
+ #   - file: book/introduction.md
+ #   - file: book/notebooks.ipynb
+ #   - file: book/bibliography.md
 site:
   options:
     logo: logo.png
