@@ -38,7 +38,7 @@ project:
         - file: book/2_setup/3_git.md
         - file: book/2_setup/4_colab.md
         - file: book/2_setup/5_jupyterlab.md
-        - file: book/2_setup/6_binder.md
+        - file: book/2_setup/6_docker.md
     - title: Part I - Python
       file: book/3_python.md
       children:
@@ -58,7 +58,11 @@ project:
     - title: Projects
       file: book/7_projects.md
       children:
-        - file: book/7_projects/1_get_started.md    
+        - file: book/7_projects/1_get_started.md
+    - title: Feedback
+      file: book/8_feedback.md
+      children:
+        - file: book/8_projects/1_get_started.md             
  #   - file: book/markdown.md
  #   - file: book/introduction.md
  #   - file: book/notebooks.ipynb
