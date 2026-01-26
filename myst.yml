@@ -3,18 +3,24 @@ project:
   title: Programming with Spatial Data 
   authors: []
   copyright: '2026'
+  github: HendrikWulf/sds210-jb
+
+  binder: https://mybinder.org
+
   exclude:
     - _build
     - Thumbs.db
     - .DS_Store
     - '**.ipynb_checkpoints'
-  github: HendrikWulf/sds210-jb
-  thebe:
+  
+  # enable in-page execution (Thebe-like)
+  jupyter:
     binder:
       repo: HendrikWulf/sds210-jb
       provider: github
       url: https://mybinder.org
       ref: main
+
   bibliography:
     - book/references.bib
   toc:
@@ -43,7 +49,8 @@ project:
       file: book/3_python.md
       children:
         - file: book/3_python/1_get_started.md
-        - file: book/3_python/01_get_started
+        # - file: book/3_python/01_get_started.md
+        - file: book/3_python/01_get_started.ipynb
         - file: book/3_python/01_intro_demo.ipynb
     - title: Part II - Programming
       file: book/4_programming.md
@@ -70,11 +77,12 @@ project:
  #   - file: book/notebooks.ipynb
  #   - file: book/bibliography.md
 site:
+  template: book-theme
   options:
     logo: logo.png
     favicon: fav.ico
     folders: true
     outline_maxdepth: 2
     style: _static/custom.css
-  template: book-theme
   
+

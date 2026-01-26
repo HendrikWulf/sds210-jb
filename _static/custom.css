@@ -3,6 +3,29 @@ html {
   overflow-x: hidden;
 }
 
+/* Thebe / in-page execution output — single clean container */
+.thebe-output {
+  color: var(--pst-color-text-base, #000);
+  background: var(--pst-color-surface, #f8f9fb);
+  padding: 0.75em 1em;
+  margin-top: 0.4em;
+  border: 1px solid var(--pst-color-border, #d0d5dd);
+  border-left: 4px solid var(--pst-color-primary, #3b82f6);
+  border-radius: 6px;
+  font-size: 0.95em;
+  line-height: 1.45;
+}
+
+/* Reset inner Jupyter wrappers to avoid nesting */
+.thebe-output .jp-OutputArea-output,
+.thebe-output .jp-RenderedText,
+.thebe-output pre {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
 
 /* Ensure full-width elements don't exceed 100% of the screen width 
 .full-width {

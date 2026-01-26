@@ -13,7 +13,7 @@ kernelspec:
 
 # Get Started
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/giswqs/geog-312/blob/main/book/python/01_get_started.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/3_python/01_get_started.ipynb)
 
 There are multiple ways to run Jupyter notebooks. You can either run them locally on your machine or use an online service like Google Colab or Binder.
 
