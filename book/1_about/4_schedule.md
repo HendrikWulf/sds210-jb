@@ -4,6 +4,7 @@ The course schedule is shown in two ways: by holidays, and by project dates.
 Labs: Thursdays 16:15 – 18:00, Fridays 10:15 – 12:00, and 12:15 – 13:45 in [Y25-J-08/09/10](https://www.geo.uzh.ch/en/units/rss/events/how-to-find-us.html)
 
 ## Holidays Schedule
+:::{table} The marked dates indicate public holidays, when no labs take place.
 
 | {abbr}`W (Week)`  | Thu     | Fri     | Holidays        | Topic                                                                 |
 |:--:|:-------:|:-------:|:---------------:|-----------------------------------------------------------------------|
@@ -21,8 +22,11 @@ Labs: Thursdays 16:15 – 18:00, Fridays 10:15 – 12:00, and 12:15 – 13:45 in
 | 12 | `14 May`| 15 May  | `Ascension Day` | Organising Code-Based Solutions                                       |
 | 13 | 21 May  | 22 May  |                | Project Feedback                                                       |
 | 14 | 28 May  | 29 May  |                | Project Presentation Week                                              |
+:::
 
 ## Project Schedule
+
+:::{table} The marked weeks indicate events related to the course projects.
 
 | {abbr}`W (Week)`  | Topic                                                        | Thematic Block               |
 |:--:|--------------------------------------------------------------|------------------------------|
@@ -40,3 +44,5 @@ Labs: Thursdays 16:15 – 18:00, Fridays 10:15 – 12:00, and 12:15 – 13:45 in
 | 12 | Organising Code-Based Solutions                                | Programming Concepts       |
 | 13 | Project Feedback `(Project Report Submission)`                 | Projects                   |
 | 14 | Project Presentations `(Code Discussion and Justification)`   | Projects                    |
+
+:::

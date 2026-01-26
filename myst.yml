@@ -43,6 +43,8 @@ project:
       file: book/3_python.md
       children:
         - file: book/3_python/1_get_started.md
+        - file: book/3_python/01_get_started
+        - file: book/3_python/01_intro_demo.ipynb
     - title: Part II - Programming
       file: book/4_programming.md
       children:

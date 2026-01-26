@@ -1,7 +1,7 @@
-#  Acknowledgments
+# Acknowledgments
 
 I would like to thank [{abbr}`GIUZ (Department of Geography, University of Zurich)`](https://www.geo.uzh.ch/en.html), the [{abbr}`MNF (Faculty of Science)` Teaching Hub](https://www.teachinghub-mnf.uzh.ch/en.html), and [{abbr}`UZH (University of Zurich)` Continuing Education](https://www.weiterbildung.uzh.ch/en.html) for their support, trust, and ongoing commitment to high-quality teaching.
 
-I am also grateful to all contributors listed in the [resources](https://hendrikwulf.github.io/sds210-jb/book/about/resources/) section, who have generously made their teaching materials and knowledge openly available.
+I am also grateful to all contributors listed in the [resources](https://hendrikwulf.github.io/sds210-jb/book/about/resources/) section, who have generously made their (teaching) materials and knowledge openly available.
 
 Finally, I would like to thank the [Jupyter Book team](https://jupyterbook.org/stable/community/team/) for developing an community-driven tool that enables the creation of reproducible, accessible, and hopefully engaging educational content.

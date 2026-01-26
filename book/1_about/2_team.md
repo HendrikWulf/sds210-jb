@@ -94,9 +94,7 @@ To help us support you efficiently, always include:
 * a Colab or GitHub link (when applicable)
 
 **Personal or administrative questions**  
-For personal matters or course-related questions specific to SDS210, ESS342 or GEO876, please contact the module coordinator:  
-Hendrik Wulf
-📧 [hendrik.wulf@geo.uzh.ch](mailto:hendrik.wulf@geo.uzh.ch)
+For personal matters or course-related questions specific to SDS210, ESS342 or GEO876, please contact the module coordinator: [hendrik.wulf@geo.uzh.ch](mailto:hendrik.wulf@geo.uzh.ch)
 
 Office hours (during the semester):
 Tuesdays and Wednesdays, 14:00–15:00 in room Y25-K-12
