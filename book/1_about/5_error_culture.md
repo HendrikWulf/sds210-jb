@@ -26,7 +26,7 @@ Errors are part of the shared learning experience and discussing them is both ex
 
 ---
 
-```{admonition} Key idea
+```{admonition} Fortune Cookie Wisdom
 :class: tip
 
 Good programmers are not those who avoid errors, but those who know how to work with them constructively.

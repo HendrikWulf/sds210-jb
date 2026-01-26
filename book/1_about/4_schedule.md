@@ -1,19 +1,42 @@
 # Schedule
 
-| W | Date   | Topic                                                       | Thematic Block                    |
-|------|--------|-------------------------------------------------------------|-----------------------------------|
-| 1    | 26 Feb | Introduction and Getting Started with Python                | Python Basics                     |
-| 2    | 05 Mar | Variables, Data Types, and Other Fundamentals                | Python Basics                     |
-| 3    | 12 Mar | Loops and Conditional Statements                             | Python Basics                     |
-| 4    | 19 Mar | Understanding and Defining Functions                         | Foundational Programming          |
-| 5    | 26 Mar | Handling Data, Dates, and Time                               | Foundational Programming          |
-| 6    | 02 Apr | Using Libraries, Web APIs, and Git                            | Foundational Programming          |
-| 7    | 09 Apr | Easter Break                                                  | —                                 |
-| 8    | 16 Apr | Working with Pandas and GeoPandas `(Project Introduction)`    | Working with Spatial Data         |
-| 9    | 23 Apr | Working with NumPy and RasterIO                               | Working with Spatial Data         |
-| 10   | 30 Apr | Working with Matplotlib and Folium                            | Working with Spatial Data         |
-| 11   | 07 May | Object-Oriented Programming                                   | Programming Concepts     |
-| 12   | 14 May | Organising Code-Based Solutions                               | Programming Concepts     |
-| 13   | 21 May | Project Feedback `(Project Report Submission)`                  | Projects                          |
-| 14   | 28 May | Project Presentations `(Code Discussion and Justification)`     | Projects                          |
-`
+The course schedule is shown in two ways: by holidays, and by project dates.  
+Labs: Thursdays 16:15 – 18:00, Fridays 10:15 – 12:00, and 12:15 – 13:45 in [Y25-J-08/09/10](https://www.geo.uzh.ch/en/units/rss/events/how-to-find-us.html)
+
+## Holidays Schedule
+
+| {abbr}`W (Week)`  | Thu     | Fri     | Holidays        | Topic                                                                 |
+|:--:|:-------:|:-------:|:---------------:|-----------------------------------------------------------------------|
+| 1  | 26 Feb  | 27 Feb  |                | Introduction and Getting Started with Python                           |
+| 2  | 05 Mar  | 06 Mar  |                | Variables, Data Types, and Other Fundamentals                          |
+| 3  | 12 Mar  | 13 Mar  |                | Loops and Conditional Statements                                       |
+| 4  | 19 Mar  | 20 Mar  |                | Understanding and Defining Functions                                   |
+| 5  | 26 Mar  | 27 Mar  |                | Handling Data, Dates, and Time                                         |
+| 6  | 02 Apr  | `03 Apr`| `Good Friday`   | Using Libraries, Web APIs, and Git                                    |
+| 7  | `09 Apr`| `10 Apr`| `Easter Break`  |                                                                       |
+| 8  | 16 Apr  | 17 Apr  |                | Working with Pandas and GeoPandas                                      |
+| 9  | 23 Apr  | 24 Apr  |                | Working with NumPy and RasterIO                                        |
+| 10 | 30 Apr  | `01 May`| `May Day`       | Working with Matplotlib and Folium                                    |
+| 11 | 07 May  | 08 May  |                | Object-Oriented Programming                                            |
+| 12 | `14 May`| 15 May  | `Ascension Day` | Organising Code-Based Solutions                                       |
+| 13 | 21 May  | 22 May  |                | Project Feedback                                                       |
+| 14 | 28 May  | 29 May  |                | Project Presentation Week                                              |
+
+## Project Schedule
+
+| {abbr}`W (Week)`  | Topic                                                        | Thematic Block               |
+|:--:|--------------------------------------------------------------|------------------------------|
+| 1  | Introduction and Getting Started with Python                 | Python Basics                |
+| 2  | Variables, Data Types, and Other Fundamentals                 | Python Basics               |
+| 3  | Loops and Conditional Statements                              | Python Basics               |
+| 4  | Understanding and Defining Functions                          | Foundational Programming    |
+| 5  | Handling Data, Dates, and Time                                | Foundational Programming    |
+| 6  | Using Libraries, Web APIs, and Git                             | Foundational Programming   |
+| 7  | Easter Break                                                   | —                          |
+| 8  | Working with Pandas and GeoPandas `(Project Introduction)`   | Working with Spatial Data    |
+| 9  | Working with NumPy and RasterIO                                | Working with Spatial Data  |
+| 10 | Working with Matplotlib and Folium                             | Working with Spatial Data  |
+| 11 | Object-Oriented Programming                                   | Programming Concepts        |
+| 12 | Organising Code-Based Solutions                                | Programming Concepts       |
+| 13 | Project Feedback `(Project Report Submission)`                 | Projects                   |
+| 14 | Project Presentations `(Code Discussion and Justification)`   | Projects                    |

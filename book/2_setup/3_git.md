@@ -25,6 +25,16 @@ This is especially useful in spatial data science, where projects evolve through
 
 Git works locally on your computer and integrates well with tools you will use, such as VS Code and Jupyter notebooks. Combined with platforms like **GitHub**, it also lets you back up and share your work.
 
+<iframe
+  width="100%"
+  height="450"
+  src="https://player.vimeo.com/video/41027679"
+  title="What is Version Control"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
+</iframe>
+
 ## 2. Learning Objectives
 
 After working through this section, you should be able to:
@@ -163,6 +173,16 @@ git config --global user.email
 If Git is not installed or your name/email are wrong, **stop here and fix this first**. Otherwise, you will not be able to push your changes to GitHub.
 ```
 
+<iframe
+  width="100%"
+  height="450"
+  src="https://player.vimeo.com/video/41493906"
+  title="Get Going with Git"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
+</iframe>
+
 ---
 
 ## 5. Understanding Git
@@ -263,6 +283,16 @@ This is how you:
 * back up your work
 * sync between machines
 * collaborate with others
+
+<iframe
+  width="100%"
+  height="450"
+  src="https://player.vimeo.com/video/41381741"
+  title="What is Git?"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
+</iframe>
 
 ---
 

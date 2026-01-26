@@ -51,9 +51,8 @@ This reflects real-world programming practice, where understanding and accountab
 
 ---
 
-```{admonition} Key takeaway
+```{admonition} In a nutshell
 :class: tip
 
 Use AI to **support learning**, not to bypass it.  
 If you can explain your code confidently, you are using AI in the right way.
-

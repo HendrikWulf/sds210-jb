@@ -62,7 +62,7 @@ project:
     - title: Feedback
       file: book/8_feedback.md
       children:
-        - file: book/8_projects/1_get_started.md             
+        - file: book/8_feedback/1_get_started.md             
  #   - file: book/markdown.md
  #   - file: book/introduction.md
  #   - file: book/notebooks.ipynb
