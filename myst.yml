@@ -48,10 +48,10 @@ project:
     - title: Part I - Python
       file: book/3_python.md
       children:
-        - file: book/3_python/1_get_started.md
+        # - file: book/3_python/1_get_started.md
         # - file: book/3_python/01_get_started.md
         - file: book/3_python/01_get_started.ipynb
-        - file: book/3_python/01_intro_demo.ipynb
+        - file: book/3_python/02_variables.ipynb
     - title: Part II - Programming
       file: book/4_programming.md
       children:
