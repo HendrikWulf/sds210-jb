@@ -1,4 +1,3 @@
-
 # Syllabus
 
 For quick reference, the course syllabus is embedded below.
