@@ -30,4 +30,4 @@ Errors are part of the shared learning experience and discussing them is both ex
 :class: tip
 
 Good programmers are not those who avoid errors, but those who know how to work with them constructively.
-
+```

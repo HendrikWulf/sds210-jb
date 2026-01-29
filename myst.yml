@@ -1,8 +1,7 @@
 version: 1
 project:
   title: Programming with Spatial Data 
-  authors: []
-  copyright: '2026'
+  # copyright: '2026'
   github: HendrikWulf/sds210-jb
 
   binder: https://mybinder.org
@@ -21,8 +20,11 @@ project:
       url: https://mybinder.org
       ref: main
 
+  license: CC-BY-4.0
+  # open_access: true
+
   bibliography:
-    - book/references.bib
+  #  - book/references.bib
   toc:
     - file: index.md
     - title: About
@@ -45,33 +47,63 @@ project:
         - file: book/2_setup/4_colab.md
         - file: book/2_setup/5_jupyterlab.md
         - file: book/2_setup/6_docker.md
-    - title: Part I - Python
-      file: book/3_python.md
+    - title: L1 - Get Started
+      file: book/3_L1_get-started.md
       children:
         # - file: book/3_python/1_get_started.md
         # - file: book/3_python/01_get_started.md
-        - file: book/3_python/01_get_started.ipynb
-        - file: book/3_python/02_variables.ipynb
-    - title: Part II - Programming
-      file: book/4_programming.md
+        - file: book/3_L1_get-started/01_get_started.ipynb
+        # - file: book/3_L1_get-started/02_variables.ipynb
+    - title: L2 - Variables & Co
+      file: book/4_L2_variables.md
       children:
-        - file: book/4_programming/1_get_started.md
-    - title: Part III - Geospatial
-      file: book/5_geospatial.md
+        - file: book/4_L2_variables/01_get_started.md
+        - file: book/4_L2_variables/02_variables.ipynb
+        - file: book/4_L2_variables/03_data-types.ipynb
+    - title: L3 - Loops
+      file: book/5_L3_loops.md
       children:
-        - file: book/5_geospatial/1_get_started.md
-    - title: Part IV - Concepts
-      file: book/6_concepts.md
+        - file: book/5_L3_loops/1_get_started.md
+    - title: L4 - Functions
+      file: book/6_L4_functions.md
       children:
-        - file: book/6_concepts/1_get_started.md
+        - file: book/6_L4_functions/1_get_started.md
+    - title: L5 - Data & Co
+      file: book/7_L5_data.md
+      children:
+        - file: book/7_L5_data/1_get_started.md
+    - title: L6 - Libraries & Co
+      file: book/8_L6_libraries.md
+      children:
+        - file: book/8_L6_libraries/1_get_started.md
+    - title: L7 - Vector
+      file: book/9_L7_vector.md
+      children:
+        - file: book/9_L7_vector/1_get_started.md
+    - title: L8 - Raster
+      file: book/10_L8_raster.md
+      children:
+        - file: book/10_L8_raster/1_get_started.md
+    - title: L9 - Visualisation
+      file: book/11_L9_visualisation.md
+      children:
+        - file: book/11_L9_visualisation/1_get_started.md
+    - title: L10 - Object Oriented
+      file: book/12_L10_object-oriented.md
+      children:
+        - file: book/12_L10_object-oriented/1_get_started.md
+    - title: L11 - Organising Code
+      file: book/13_L11_organising-code.md
+      children:
+        - file: book/13_L11_organising-code/1_get_started.md
     - title: Projects
-      file: book/7_projects.md
+      file: book/14_projects.md
       children:
-        - file: book/7_projects/1_get_started.md
+        - file: book/14_projects/1_get_started.md
     - title: Feedback
-      file: book/8_feedback.md
+      file: book/15_feedback.md
       children:
-        - file: book/8_feedback/1_get_started.md             
+        - file: book/15_feedback/1_get_started.md             
  #   - file: book/markdown.md
  #   - file: book/introduction.md
  #   - file: book/notebooks.ipynb
