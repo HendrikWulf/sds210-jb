@@ -20,8 +20,8 @@ project:
       url: https://mybinder.org
       ref: main
 
-  license: CC-BY-4.0
-  # open_access: true
+  license: CC-BY-SA-4.0
+  open_access: true
 
   bibliography:
   #  - book/references.bib
@@ -102,8 +102,8 @@ project:
         - file: book/14_projects/1_get_started.md
     - title: Feedback
       file: book/15_feedback.md
-      children:
-        - file: book/15_feedback/1_get_started.md             
+      # children:
+      #  - file: book/15_feedback/1_get_started.md             
  #   - file: book/markdown.md
  #   - file: book/introduction.md
  #   - file: book/notebooks.ipynb

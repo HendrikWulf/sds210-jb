@@ -6,6 +6,8 @@ Error messages, unexpected results, and broken scripts provide valuable informat
 
 Learning to read, interpret, and resolve errors is therefore a core learning objective of this course.
 
+If you notice any mistakes or areas for improvement in these learning material, please share your [feedback](https://hendrikwulf.github.io/sds210-jb/book/feedback/) as helps us to refine and improve the materials for everyone.
+
 ---
 
 ## Learning Through Productive Struggle
