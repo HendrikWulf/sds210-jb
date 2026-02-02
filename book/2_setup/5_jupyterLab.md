@@ -119,7 +119,7 @@ The JupyterLab interface is designed as a flexible workspace. A useful way to re
 :alt: The main interface components of JupyterLab IDE.
 :width: 700px
 
-The main interface components of JupyterLab {abbr}`IDE (Integrated Development Environment)`.
+The main interface components of JupyterLab {abbr}`IDE (Integrated Development Environment)` (source: [python-gis-book](https://python-gis-book.readthedocs.io/en/latest/part1/chapter-01/nb/04-using-jupyterlab.html)).
 :::
 
 
@@ -153,7 +153,7 @@ When JupyterLab starts, you will see the **Launcher**. This is the entry point f
 :alt: The basic components of a Jupyter Notebook opened in JupyterLab.
 :width: 700px
 
-The basic components of a Jupyter Notebook opened in JupyterLab.
+The basic components of a Jupyter Notebook opened in JupyterLab (source: [python-gis-book](https://python-gis-book.readthedocs.io/en/latest/part1/chapter-01/nb/04-using-jupyterlab.html)).
 :::
 
 To create a notebook:

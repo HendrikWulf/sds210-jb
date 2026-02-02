@@ -12,6 +12,8 @@ Doing Things with Values
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/4_L2_variables/04_operators-expressions.ipynb)
+
 ```{admonition} Big idea
 :class: tip
 

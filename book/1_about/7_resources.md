@@ -15,8 +15,8 @@ All resources listed here are:
 
 These courses work well alongside this course. You don’t need to complete any of them, **pick what matches your current level and interests**.
 
-- **[Python for Geographic Data Analysis](https://pythongis.org/index.html#)**  
-  *Henrikki Tenkanen, Vuokko Heikinheimo & Dave Whipp*  
+- **[Geo-Python](https://geo-python-site.readthedocs.io/en/latest/index.html#)**  
+  *Kamyar Hasanzadeh & Dave Whipp*  
   A hands-on course focusing on Python for geospatial data analysis and workflows.
 
 - **[Introduction to GIS Programming](https://geog-312.gishub.org/index.html)**  

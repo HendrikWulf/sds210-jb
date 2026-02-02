@@ -15,9 +15,9 @@ Labs: Thursdays 16:15 – 18:00, Fridays 10:15 – 12:00, and 12:15 – 13:45 in
 | 5  | 5  | 26 Mar  | 27 Mar  |                | Handling Data, Dates, and Time                                         |
 | 6  | 6  | 02 Apr  | `03 Apr`| `Good Friday`   | Using Libraries, Web APIs, and Git                                      |
 | 7  | -  | `09 Apr`| `10 Apr`| `Easter Break`  |                                                                       |
-| 8  | 7  | 16 Apr  | 17 Apr  |                | Working with Pandas and GeoPandas                                      |
-| 9  | 8  | 23 Apr  | 24 Apr  |                | Working with NumPy and RasterIO                                        |
-| 10 | 9 | 30 Apr  | `01 May`| `May Day`       | Working with Matplotlib and Folium                                      |
+| 8  | 7  | 16 Apr  | 17 Apr  |                | Working with NumPy & Co.                                      |
+| 9  | 8  | 23 Apr  | 24 Apr  |                | Working with Pandas & Co.                                        |
+| 10 | 9 | 30 Apr  | `01 May`| `May Day`       | Working with Matplotlib & Co.                                      |
 | 11 | 10 | 07 May  | 08 May  |                | Object-Oriented Programming                                            |
 | 12 | 11 | `14 May`| 15 May  | `Ascension Day` | Organising Code-Based Solutions                                         |
 | 13 | - | 21 May  | 22 May  |                | Project Feedback                                                       |
@@ -38,9 +38,9 @@ Labs: Thursdays 16:15 – 18:00, Fridays 10:15 – 12:00, and 12:15 – 13:45 in
 | 5  | 5  | Handling Data, Dates, and Time                                | Foundational Programming     |
 | 6  | 6  | Using Libraries, Web APIs, and Git                             | Foundational Programming     |
 | 7  | -  | Easter Break                                                   | —                            |
-| 8  | 7  | Working with Pandas and GeoPandas `(Project Introduction)`    | Working with Spatial Data    |
-| 9  | 8  | Working with NumPy and RasterIO                                | Working with Spatial Data    |
-| 10 | 9 | Working with Matplotlib and Folium                             | Working with Spatial Data    |
+| 8  | 7  | Working with NumPy & Co.  `(Project Introduction)`    | Working with Spatial Data    |
+| 9  | 8  | Working with Pandas & Co.                                | Working with Spatial Data    |
+| 10 | 9 | Working with Matplotlib & Co.                             | Working with Spatial Data    |
 | 11 | 10 | Object-Oriented Programming                                   | Programming Concepts         |
 | 12 | 11 | Organising Code-Based Solutions                                | Programming Concepts         |
 | 13 | - | Project Feedback `(Project Report Submission)`               | Projects                     |

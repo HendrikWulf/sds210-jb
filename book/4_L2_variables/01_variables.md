@@ -11,6 +11,8 @@ Storing and Reusing Values
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/4_L2_variables/01_variables.ipynb)
+
 ```{admonition} Big idea
 :class: tip
 Variables allow us to store values, reuse results, and build readable workflows instead of repeating calculations.

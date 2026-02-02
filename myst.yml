@@ -80,18 +80,18 @@ project:
       file: book/8_L6_libraries.md
       children:
         - file: book/8_L6_libraries/1_get_started.md
-    - title: L7 - Vector
-      file: book/9_L7_vector.md
+    - title: L7 - Numpy & Co.
+      file: book/9_L7_numpy.md
       children:
-        - file: book/9_L7_vector/1_get_started.md
-    - title: L8 - Raster
-      file: book/10_L8_raster.md
+        - file: book/9_L7_numpy/1_get_started.md
+    - title: L8 - Pandas & Co.
+      file: book/10_L8_pandas.md
       children:
-        - file: book/10_L8_raster/1_get_started.md
-    - title: L9 - Visualisation
-      file: book/11_L9_visualisation.md
+        - file: book/10_L8_pandas/1_get_started.md
+    - title: L9 - Matplotlib & Co.
+      file: book/11_L9_matplotlib.md
       children:
-        - file: book/11_L9_visualisation/1_get_started.md
+        - file: book/11_L9_matplotlib/1_get_started.md
     - title: L10 - Object Oriented
       file: book/12_L10_object-oriented.md
       children:
