@@ -1,7 +1,7 @@
 # Schedule
 
 The course schedule is shown in two ways: by holidays, and by project dates.  
-Labs: Thursdays 16:15 – 18:00, Fridays 10:15 – 12:00, and 12:15 – 13:45 in [Y25-J-08/09/10](https://www.geo.uzh.ch/en/units/rss/events/how-to-find-us.html)
+Labs: Thursdays 16:15 – 18:00, Fridays 10:15 – 12:00, and 12:15 – 13:45 in [Y25-J-08/09/10](https://www.geo.uzh.ch/en/units/rss/events/how-to-find-us.html).
 
 ## Holidays Schedule
 :::{table} The marked dates indicate public holidays, when no labs take place. W = Week. L = Lesson.
@@ -38,7 +38,7 @@ Labs: Thursdays 16:15 – 18:00, Fridays 10:15 – 12:00, and 12:15 – 13:45 in
 | 5  | 5  | Handling Data, Dates, and Time                                | Foundational Programming     |
 | 6  | 6  | Using Libraries, Web APIs, and Git                             | Foundational Programming     |
 | 7  | -  | Easter Break                                                   | —                            |
-| 8  | 7  | Working with NumPy & Co.  `(Project Introduction)`    | Working with Spatial Data    |
+| 8  | 7  | Working with NumPy & Co. `(Project Introduction)`    | Working with Spatial Data    |
 | 9  | 8  | Working with Pandas & Co.                                | Working with Spatial Data    |
 | 10 | 9 | Working with Matplotlib & Co.                             | Working with Spatial Data    |
 | 11 | 10 | Object-Oriented Programming                                   | Programming Concepts         |
