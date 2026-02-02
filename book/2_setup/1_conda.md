@@ -429,6 +429,12 @@ Assume your project needs a small helper library that is only published on PyPI,
 ```bash
 pip install geospatial
 ```
+
+``` {admonition}
+:class: note
+Many Python tools are named after reptiles. The Python package manager pip references the process of hatching eggs. Interestingly, the naming of the Python language itself had nothing to do with reptiles as it was inspired by the comedy series [Monty Python's Flying Circus](https://youtu.be/5ptUMe9eqYE?si=OzfQ_zW7W55Fwq9i). 
+```
+
 ---
 
 ### Working with Conda environments

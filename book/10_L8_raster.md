@@ -1,1 +1,1 @@
-# L8 - Raster
+# L8 - Numpy & Co.

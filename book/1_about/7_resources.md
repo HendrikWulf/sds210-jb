@@ -15,6 +15,10 @@ All resources listed here are:
 
 These courses work well alongside this course. You don’t need to complete any of them, **pick what matches your current level and interests**.
 
+- **[Python for Geographic Data Analysis](https://pythongis.org/index.html#)**  
+  *Henrikki Tenkanen, Vuokko Heikinheimo & Dave Whipp*  
+  A hands-on course focusing on Python for geospatial data analysis and workflows.
+
 - **[Introduction to GIS Programming](https://geog-312.gishub.org/index.html)**  
   *Qiusheng Wu*  
   Combines GIS concepts with modern Python-based spatial analysis.
@@ -22,10 +26,6 @@ These courses work well alongside this course. You don’t need to complete any 
 - **[Foundations of Spatial Data Science](https://jreades.github.io/fsds/)**  
   *Jon Reades*  
   Strong focus on concepts, theory, and how spatial data science fits into the broader data science landscape.
-
-- **[Geo-Python](https://geo-python-site.readthedocs.io)**  
-  *Henrikki Tenkanen & Dave Whipp*  
-  A hands-on course focusing on Python for geospatial data analysis and workflows.
 
 - **[Python Foundation for Spatial Analysis](https://courses.spatialthoughts.com/python-foundation.html)**  
   *Ujaval Gandhi*  

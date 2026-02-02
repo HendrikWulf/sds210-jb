@@ -117,6 +117,13 @@ In the following short video, these concerns are addressed directly. Learning to
 
 Python is the programming language used throughout this course. It is widely adopted across science, data analysis, and applied domains because it combines expressive power with readability and a rich ecosystem of libraries. Python allows you to focus on problem solving, data workflows, and reproducibility rather than on technical overhead.
 
+:::{figure} images/stackoverflow-trends-chart.svg
+:alt: The popularity of programming languages as indicated by the number of questions on Stack Overflow.
+:width: 700px
+
+The popularity of programming languages as indicated by the number of questions on Stack Overflow.
+:::
+
 In the following video, the speaker highlights why Python is often chosen for data-driven work and why it is particularly suitable for beginners who want to build practical, transferable skills.
 
 <iframe

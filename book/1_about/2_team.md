@@ -18,7 +18,7 @@ We will support you on your learning path during the lab exercises and on Teams.
 
 :::{card} Hendrik Wulf
 :link: https://www.geo.uzh.ch/en/department/Staff/hendrikwulf.html
-:footer: **Affiliation:** [{abbr}`SDS (Spatial Data Science)`](https://www.geo.uzh.ch/en/studying/sds_minor.html)
+:footer: **Affiliation:** [{abbr}`SDS (Spatial Data Science)`](https://www.geo.uzh.ch/en/studying/sds_minor.html), [{abbr}`EDS (Earth Data Science)`](https://www.geo.uzh.ch/en/units/eds.html)
 
 ```{image} https://www.geo.uzh.ch/dam/jcr:166ed713-500d-41da-90d2-47dfcc2d34f0/169.jpg 
 :alt: Photo of Hendrik Wulf
@@ -40,7 +40,7 @@ We will support you on your learning path during the lab exercises and on Teams.
 
 :::{card} Luis Gentner
 :link: https://www.geo.uzh.ch/en/department/Staff/gentnerluis
-:footer: **Affiliation:** [{abbr}`RSE (Remote Sensing of Environmental Change)`](https://www.geo.uzh.ch/en/units/rse.html)
+:footer: **Affiliation:** [{abbr}`RSE (Remote Sensing of Environmental Change)`](https://www.geo.uzh.ch/en/units/rse.html), [{abbr}`EDS (Earth Data Science)`](https://www.geo.uzh.ch/en/units/eds.html)
 
 ```{image} https://www.geo.uzh.ch/dam/jcr:57e8247a-38d1-4b7b-bdad-2370e3f45976/856.jpg
 :alt: Photo of Luis Gentner
@@ -101,16 +101,27 @@ Tuesdays and Wednesdays, 14:00–15:00 in room Y25-K-12
 
 ## MS Teams
 
-[MS Teams](https://www.zi.uzh.ch/de/students/workplace-collaboration/collaboration.html) is the central communication platform for this course. It is used to:
+[Teams](https://www.zi.uzh.ch/de/students/workplace-collaboration/collaboration.html) is the central communication platform for this course. It is used to:
 
 * share announcements and course information
 * ask and answer questions
 * submit the final project report
 
-All participants **must join** the MS Teams team  
+```{admonition} Important
+:class: danger
+All course participants **must join** the MS Teams team  
 “[26FS SDS210 – Programming with Spatial Data](https://teams.microsoft.com/l/team/19%3ATxbk3zhyMBX8MXl_xI98SwgvUzeKj1O53wijqiIz8mo1%40thread.tacv2/conversations?groupId=0f4ed36a-38a8-4028-aae5-928f54b1b186&tenantId=c7e438db-e462-4c22-a90a-c358b16980b3)”  
 at the start, using the access code: **30gyzuu**.
+```
 
-To ensure consistent communication, OLAT is used only to provide this course syllabus. All other course-related communication takes place on MS Teams.
+To ensure consistent communication, OLAT is used only to provide this course syllabus. All other course-related communication takes place on MS Teams. Please ensure that Teams notifcations for channels and assignments are `on` (via profile settings).
+
+:::{figure} images/02_Teams_notifications.png
+:alt: Teams notifications settings.
+:width: 700px
+
+Teams notifications settings.
+:::
+
 
 If you need help outside of lab hours, please post your question in the appropriate lab channel on Teams. All students are encouraged to respond and help where possible. This shared discussion space benefits everyone and reduces duplicate questions.

@@ -53,13 +53,17 @@ project:
         # - file: book/3_python/1_get_started.md
         # - file: book/3_python/01_get_started.md
         - file: book/3_L1_get-started/01_get_started.ipynb
-        # - file: book/3_L1_get-started/02_variables.ipynb
-    - title: L2 - Variables & Co
+    - title: L2 - Variables & Values
       file: book/4_L2_variables.md
       children:
-        - file: book/4_L2_variables/01_get_started.md
-        - file: book/4_L2_variables/02_variables.ipynb
-        - file: book/4_L2_variables/03_data-types.ipynb
+        # - file: book/4_L2_variables/01_learning-objectives.md
+        # - file: book/4_L2_variables/01_variables.ipynb
+        - file: book/4_L2_variables/01_variables.md
+        # - file: book/4_L2_variables/02_naming-variables.ipynb
+        - file: book/4_L2_variables/02_naming-variables.md
+        # - file: book/4_L2_variables/03_data-types.ipynb
+        - file: book/4_L2_variables/03_data-types.md
+        - file: book/4_L2_variables/04_operators-expressions.md
     - title: L3 - Loops
       file: book/5_L3_loops.md
       children:

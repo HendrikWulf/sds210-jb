@@ -115,6 +115,14 @@ The JupyterLab interface is designed as a flexible workspace. A useful way to re
 
 > **Command – Canvas – Context – Status**
 
+:::{figure} images/5_JupyterLab_interface_components.png
+:alt: The main interface components of JupyterLab IDE.
+:width: 700px
+
+The main interface components of JupyterLab {abbr}`IDE (Integrated Development Environment)`.
+:::
+
+
 Each part has a clear role:
 
 - **Left Sidebar**  
@@ -141,12 +149,19 @@ In this course, notebooks are not temporary scratchpads. They are **scientific d
 
 When JupyterLab starts, you will see the **Launcher**. This is the entry point for creating new files.
 
+:::{figure} images/5_JupyterLab_Notebook_instructions.png
+:alt: The basic components of a Jupyter Notebook opened in JupyterLab.
+:width: 700px
+
+The basic components of a Jupyter Notebook opened in JupyterLab.
+:::
+
 To create a notebook:
 - choose a **Python kernel** that belongs to your active environment
 - create the notebook from the Launcher
 - give the file a **clear and meaningful name**
 
-Good naming matters. A notebook called `analysis.ipynb` tells you very little. A name like `snow_cover_exploration.ipynb` makes the purpose clear even months later.
+Good naming matters. A notebook called `analysis.ipynb` tells you very little. A name like `snow_cover_exploration_v1.ipynb` makes the purpose clear even months later.
 
 ### Cells, execution, and state
 
