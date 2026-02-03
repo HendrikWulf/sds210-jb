@@ -527,7 +527,7 @@ In the next section, we will briefly summarise the key ideas from this chapter a
 
 ---
 
-## 9. Short exercises
+## 9. Short Exercises
 
 These exercises build on each other.  
 Focus on understanding what Python does and *why*.
