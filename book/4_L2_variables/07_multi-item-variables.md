@@ -11,7 +11,7 @@ When one value is not enough
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/4_L2_variables/06_formatting-output.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/4_L2_variables/07_multi-item-variables.ipynb)
 
 
 ```{admonition} Big idea
@@ -1394,11 +1394,7 @@ These concepts explain how Python handles groups of related values and why diffe
 ### What Comes Next
 
 So far, you have learned how to **store** and **access** multiple values.
+On their own, these data structures may still feel abstract.
 
-The next step is to **process collections automatically**.
-
-Next, you will learn about **loops and conditional logic**, which allow your code to:
-
-* work through collections element by element
-* make decisions based on values and conditions
-* apply the same operation to many items in a structured way
+In the next practical, you will **put them to work**.
+It shows why multi-item variables are essential for working with **spatial data** and prepares you for automating such workflows with loops and functions later in the course.
