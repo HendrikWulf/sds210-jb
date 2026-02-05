@@ -48,7 +48,7 @@ Python provides four built in collection types that we will use throughout the c
 | List       | `[]`     | ordered and changeable      | `["Bari", "Harare", "Manila"]` |
 | Tuple      | `()`     | ordered and fixed           | `(14.6007, 120.9746)` |
 | Set        | `{}`     | unordered and unique values | `{"Asia", "Africa"}` |
-| Dictionary | `{}`     | key value pairs             | `{"name": "HaBarirare", "population": 315473}` |
+| Dictionary | `{}`     | key value pairs             | `{"name": "Bari", "population": 315473}` |
 
 Each type has a specific purpose.
 Choosing the right one improves clarity and correctness.
