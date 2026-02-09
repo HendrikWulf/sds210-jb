@@ -13,15 +13,17 @@ Setting Up Your Code Development Environment
 
 ## 1. Introduction
 
-**Visual Studio Code (VS Code)** is where most of your work in **SDS210** will happen. It is the place where you write code, run it, debug errors, explore data, and keep your work organised.
+**[Visual Studio Code](https://code.visualstudio.com/) (VS Code)** is a lightweight, extensible code editor. It is the place where you write code, run it, debug errors, explore data, and keep your work organised.
 
 Think of VS Code as your **digital workspace**. Instead of switching between many tools, it brings code editing, terminals, notebooks, and version control together in one place. VS Code understands Python and helps you write cleaner code and spot problems earlier.
 
 VS Code is especially well suited for **geospatial programming**. You can work with Python scripts and Jupyter notebooks side by side, run Conda commands in an integrated terminal, and track changes with Git without leaving the editor. As projects grow in size and complexity, this integration becomes increasingly important.
 
-Another reason we use VS Code is **balance**. It is lightweight enough to start quickly, but powerful enough to support professional workflows. You can begin with a minimal setup and gradually add features as you need them.
+Another reason we promote VS Code is **balance**. It is lightweight enough to start quickly, but powerful enough to support professional workflows. You can begin with a minimal setup and gradually add features as you need them.
 
-In this section, you will learn how VS Code fits into the SDS210 workflow and how to use it as a **reliable development environment** for geospatial programming.
+In this section, you will learn how VS Code fits into the python workflow and how to use it as a **reliable development environment** for geospatial programming.
+
+---
 
 ## 2. Learning Objectives
 
@@ -32,6 +34,8 @@ After working through this section, you should be able to:
 * **Run Python scripts and Jupyter notebooks inside VS Code** 
 
 These objectives focus on using VS Code as part of a practical workflow. You will build on them throughout the course as your projects become more complex.
+
+---
 
 ## 3. Installing VS Code
 
@@ -50,7 +54,7 @@ VS Code is available for **[Windows](https://code.visualstudio.com/docs/setup/wi
 * Run the installer and follow the setup wizard
 * Keep the default options unless you know you want something different
   
-```{admonition}
+```{admonition} Tip
 :class: tip
 During installation, make sure the option to add VS Code to your PATH is enabled. This allows you to open VS Code from the terminal using `code .`.
 ```
@@ -130,8 +134,8 @@ It allows you to:
 
 This is especially useful for exploratory geospatial analysis.
 
-```{admonition}
-:class: tip
+```{admonition} First things first
+:class: hint
 Install the **Python** and **Jupyter** extensions before doing anything else. They are required for almost everything you will do in this course.
 ```
 
@@ -183,12 +187,14 @@ For now:
 
 You will add more extensions later, once you understand your workflow better.
 
-```{admonition}
-:class: tip
+```{admonition} Fortune cookie wisdom
+:class: hint
 Extensions should support your workflow, not distract from learning Python and geospatial concepts.
 ``` 
 
 In the next subsection, you will connect VS Code to your Conda environment and run your first Python code inside the editor.
+
+---
 
 ## 5. Connecting VS Code to Conda
 
@@ -232,7 +238,7 @@ Use the Command Palette to select the correct interpreter.
   * macOS: `Cmd + Shift + P`
 * Type **Python: Select Interpreter**
 * Choose your Conda environment
-  for example `geo-env (conda)`
+  for example `sds-env (conda)`
 
 Once selected, VS Code stores this choice for the current workspace.
 
@@ -263,7 +269,7 @@ This keeps notebooks consistent with your scripts.
 
 ---
 
-```{admonition}
+```{admonition} Advice
 :class: tip
 If imports fail or results look strange, first check which Python environment VS Code is using.
 This solves most setup issues faster than reinstalling packages.
@@ -271,6 +277,8 @@ This solves most setup issues faster than reinstalling packages.
 
 Once VS Code is connected to Conda, you are ready to work productively
 writing code, running notebooks, and managing projects with confidence.
+
+---
 
 ## 6. Working with VS Code
 
@@ -286,6 +294,13 @@ Before diving into Python, notebooks, or geospatial libraries, it is worth getti
 ### The main interface
 
 VS Code looks simple at first, but it is built around a few clearly defined areas. The labels in the figure correspond to the sections below.
+
+:::{figure} images/2_vs-code-user-interface-labels.png
+:alt: Visual Studio Code user interface.
+:width: 700px
+
+Visual Studio Code user interface.
+:::
 
 **A. Activity Bar**
 The Activity Bar runs vertically on the far left. It lets you switch between major views such as the **Explorer**, Search, Source Control (Git), Run, and Extensions. Think of it as the navigation spine of VS Code.
@@ -305,13 +320,6 @@ The Status Bar runs along the bottom edge of the window. It shows important cont
 **F. Main Menu**
 The Main Menu at the top provides access to all VS Code functionality, including opening folders, managing settings, running code, and controlling the editor layout. Many menu actions are also available through the Command Palette.
 
-:::{figure} images/2_vs-code-user-interface-labels.png
-:alt: Visual Studio Code user interface.
-:width: 700px
-
-Visual Studio Code user interface.
-:::
-
 You do not need to memorize all of this. As you work, these areas will quickly become familiar and help you stay oriented while coding and exploring data. You will likely spend most of your time in the Editor, Explorer, Terminal, and Status Bar.
 
 ---
@@ -326,11 +334,7 @@ When you open a folder in VS Code:
 * settings such as the selected Python environment are stored for that project
 * the integrated terminal opens in the correct directory
 
-For this course, always follow this rule:
-
-> Open the **project folder**, not individual files.
-
-This keeps your code, data, notebooks, and environment configuration in one place.
+See your **project folder** as a place that keeps your code, data, notebooks, and environment configuration in one place.
 
 ---
 
@@ -405,7 +409,7 @@ This allows you to:
 
 Scripts and notebooks can live side by side in the same project and use the same environment.
 
-```{admonition}
+```{admonition} Advice
 :class: tip
 Make sure scripts, notebooks, and the terminal use the same Conda environment.
 ```
@@ -416,11 +420,13 @@ In this course, you will mainly use the following files:
 * `.ipynb` files for Jupyter notebooks
 * `.py` files for Python scripts
 * `.yml` files for Conda environments
-* folders such as `data`, `notebooks`, and `src`
+* folders such as `data`, `notebooks`, and `src` (short for source)
 
 VS Code understands all of these file types and adapts its interface automatically.
 
 VS Code is more than a text editor. It keeps code, environments, and notebooks connected at the project level. Once you open the right folder and select the right environment, most things just work.
+
+---
 
 ## 7. Exercises
 
@@ -442,7 +448,7 @@ Learn how VS Code works with folders and projects.
 
    * `data`
    * `notebooks`
-   * `src`
+   * {abbr}`src (short for source)`
 5. Create a file `src/DIDit.py` with:
 
    ```python
@@ -464,7 +470,7 @@ Make sure VS Code uses the correct Python environment.
    * Windows or Linux: `Ctrl + Shift + P`
    * macOS: `Cmd + Shift + P`
 2. Select **Python: Select Interpreter**
-3. Choose your Conda environment (for example `geo-env`)
+3. Choose your Conda environment (for example `sds-env`)
 4. Open `DIDit.py`
 5. Run the file using **Run → Run Without Debugging**
 
@@ -511,8 +517,8 @@ Confirm that:
 
 ---
 
-```{admonition}
-:class: tip
+```{admonition} Hint
+:class: hint
 If something behaves unexpectedly, check three things first:
 the opened folder, the selected Python environment, and the active terminal.
 

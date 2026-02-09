@@ -1,5 +1,5 @@
 ---
-title: L1 - Get Started
+title: L1 - Getting Started
 
 site:
  outline_maxdepth: 1

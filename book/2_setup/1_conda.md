@@ -403,8 +403,8 @@ Conda displays the currently active environment in your shell application beside
 
 From now on, every Python and conda command you run applies to this environment.
 
-``` {admonition}
-:class: warning
+``` {admonition} Attention
+:class: attention
 Most setup issues come from one of these mistakes.
 
 * Installing packages into the `base` environment by accident
@@ -425,7 +425,7 @@ conda deactivate
 
 After deactivation, you return to the base environment and the environment name disappears from the prompt.
 
-``` {admonition}
+``` {admonition} Tip
 :class: tip
 Activating and deactivating environments is cheap and safe. Switch environments whenever you change projects.
 ```
@@ -500,8 +500,8 @@ conda info --envs
 Conda lists all environments on your system.
 The environment marked with an asterisk is the active one.
 
-``` {admonition}
-:class: tip
+``` {admonition} Hint
+:class: hint
 If something behaves unexpectedly, the first thing to check is whether the correct environment is active.
 ```
 ---
@@ -615,7 +615,7 @@ Recreate an environment from such a file:
 conda env create --name sds-env-copy --file sds-env.yml
 ```
 
-``` {admonition}
+``` {admonition} Tip
 :class: tip
 Always export your environment when submitting assignments, sharing code, or finishing a project.
 ```
@@ -693,8 +693,8 @@ Use **uv** when:
 
 In this course, **Conda remains the default**, but uv is a useful complement to know.
 
-``` {admonition}
-:class: tip
+``` {admonition} Note
+:class: note
 Conda manages full software stacks. uv focuses on Python only and prioritizes speed.
 ```
 ---
@@ -774,7 +774,7 @@ uv run python script.py
 uv run jupyter lab
 ```
 
-``` {admonition}
+``` {admonition} Note
 :class: note
 Use uv for Python only workflows. For geospatial packages with system dependencies, always prefer Conda.
 ```
@@ -939,7 +939,7 @@ Good practice:
 
 Avoid putting everything into one large environment. Large environments are harder to debug, slower to solve, and difficult to reproduce.
 
-``` {admonition}
+``` {admonition} Tip
 :class: tip
 If you hesitate before installing a package, that is often a sign it belongs in a different environment.
 ```
@@ -991,8 +991,8 @@ If installations behave strangely, clearing cached packages can help:
 conda clean --all
 ```
 
-``` {admonition}
-:class: tip
+``` {admonition} Caution
+:class: caution
 Most environment problems come from installing packages into the wrong environment or mixing tools carelessly.
 ```
 
