@@ -92,6 +92,7 @@ Podcasts are great for **big-picture thinking**, **community insights**, and sta
   (Link to [Spotify](https://open.spotify.com/show/5vPpnDqdk4K2xuwqNbF6Gx) & [Apple Podcasts](https://podcasts.apple.com/us/podcast/spatial-stack-with-matt-forrest/id1748871891))
 
 * **[Geomob Podcast](https://thegeomob.com/)**  
+  *Hosts: Ed Freyfolge, Steven Feldman, Alastair Graham, Denise McKenzie*  
   A community-driven geospatial podcast linked to the Geomob event series across Europe.
   Focuses on geoinnovation, industry perspectives, and informal discussions.  
   (Link to [Spotify](https://open.spotify.com/show/528ERtu3bNVn3Mc0zFysCE) & [Apple Podcasts](https://podcasts.apple.com/us/podcast/geomob/id1500132553))

@@ -32,7 +32,7 @@ After completing this practical, you will be able to:
 ## Practical storyline
 
 In this practical, you will gradually build a **small spatial data model** for three Swiss cities  
-(**Zürich, Lugano, Geneva**).
+(**Zurich, Lugano, Geneva**).
 
 You will start with **single variables**, then group values into **lists**, and finally organise
 everything into **dictionaries**, ending with distance calculations between cities.
@@ -50,7 +50,7 @@ They are useful for names, labels, and individual measurements.
 
 ```python
 # City names
-z = "Zürich"
+z = "Zurich"
 g = "Geneva"
 l = "Lugano"
 
@@ -81,7 +81,7 @@ print("The distance from " + z + " to " + g + " is " + str(dist_zurich_geneva) +
 
 ### Tasks
 
-1. Modify the print statement to show the distance from Zürich to Lugano.
+1. Modify the print statement to show the distance from Zurich to Lugano.
 2. Rewrite the print statement using an **f-string**.
 
 ---
@@ -124,8 +124,8 @@ lugano_coords = [27, 10]
 
 ```python
 # Access individual coordinate values
-print("Zürich x:", zurich_coords[0])
-print("Zürich y:", zurich_coords[1])
+print("Zurich x:", zurich_coords[0])
+print("Zurich y:", zurich_coords[1])
 ```
 
 ### Tasks
@@ -143,7 +143,7 @@ Dictionaries allow us to link **keys** (names) to **values** (coordinates).
 
 ```python
 cities = {
-    "Zürich": zurich_coords,
+    "Zurich": zurich_coords,
     "Geneva": geneva_coords,
     "Lugano": lugano_coords
 }
@@ -159,7 +159,7 @@ cities.values()
 
 ```python
 # Retrieve coordinates from the dictionary
-cz = cities["Zürich"]
+cz = cities["Zurich"]
 cg = cities["Geneva"]
 cl = cities["Lugano"]
 ```
@@ -180,7 +180,7 @@ The Manhattan distance between two points is:
 ### Code
 
 ```python
-# Manhattan distance: Zürich – Lugano
+# Manhattan distance: Zurich – Lugano
 
 # We need to convert these to absolute values.
 # There are simpler ways but let rely on the tools we know already.
@@ -194,12 +194,12 @@ dy = dy ** 0.5
 
 manhattan_zl = dx + dy
 
-print(f"Manhattan distance from Zürich to Lugano is {manhattan_zl}")
+print(f"Manhattan distance from Zurich to Lugano is {manhattan_zl}")
 ```
 
 ### Tasks
 
-1. Calculate the Manhattan distance between Zürich & Geneva and Lugano & Geneva.
+1. Calculate the Manhattan distance between Zurich & Geneva and Lugano & Geneva.
 2. Store the results in new variables.
 
 ---
@@ -213,19 +213,19 @@ The Euclidean distance is:
 ### Code
 
 ```python
-# Euclidean distance: Zürich – Lugano
+# Euclidean distance: Zurich – Lugano
 
 dx = cz[0] - cl[0]
 dy = cz[1] - cl[1]
 
 euclidean_zl = (dx**2 + dy**2) ** 0.5
 
-print(f"Euclidean distance from Zürich to Lugano is {euclidean_zl}")
+print(f"Euclidean distance from Zurich to Lugano is {euclidean_zl}")
 ```
 
 ### Tasks
 
-1. Compute the Euclidean distance between Zürich & Geneva and Lugano & Geneva.
+1. Compute the Euclidean distance between Zurich & Geneva and Lugano & Geneva.
 2. Print both Manhattan and Euclidean distances clearly.
 
 ---
@@ -238,7 +238,7 @@ Computed values are also data and should be stored systematically.
 
 ```python
 distances = {
-    "ZürichLugano": {
+    "ZurichLugano": {
         "manhattan": manhattan_zl,
         "euclidean": euclidean_zl
     }
@@ -249,7 +249,7 @@ print(distances)
 
 ### Tasks
 
-1. Extend the dictionary to include Zürich–Geneva.
+1. Extend the dictionary to include Zurich–Geneva.
 2. Add Lugano–Geneva distances.
 3. Inspect the structure and explain how this resembles an attribute table.
 

@@ -9,6 +9,27 @@ The course concludes with an individual programming project in which you design 
 
 ---
 
+## Why Learn to Program?
+
+You might be wondering why you should even bother learning to program at all. After all, you are probably not a computer scientist, and neither are we. Yet all authors of this course use programming regularly as part of their scientific and applied work. Often, the programs we write are short, simple, and highly practical but they make a real difference.
+
+The reason is simple: **geography and geoscience have become increasingly quantitative**. We now work with larger datasets, repeated observations, numerical models, and automated analyses. Many of these tasks quickly become inefficient, error-prone, or impossible when done manually. Even basic programming skills allow you to explore data more flexibly, apply analyses consistently, and document exactly what you did.
+
+Programming does not replace GIS software, but it **extends it**. Many tools you already know, such as QGIS, are built around Python and allow you to automate workflows, inspect data programmatically, or develop custom tools. Understanding a bit of code helps you move beyond button-clicking and better understand what happens behind the scenes.
+
+:::{figure} images/01_QGIS-python.png
+:alt: Via the Python console you can interact with GIS data in QGIS.
+:width: 700px
+
+Via the Python console you can interact with GIS data in the [QGIS](https://www.qgis.org/) program.
+:::
+
+Programming can also be **surprisingly enjoyable**. Once you learn the basics, complex problems can be broken down into smaller, logical steps. You can test ideas immediately, adjust your approach, and see whether your solution works. This problem-solving mindset is one reason why programming is increasingly introduced early in education. The aim is not to train programmers, but to train **thinkers**.
+
+Finally, programming supports **[good scientific practice](https://microsite.geo.uzh.ch/olwa/olwa/en/html/index.html)**. The [scientific method](https://en.wikipedia.org/wiki/Scientific_method) relies on transparency, testing, and reproducibility. Writing code forces you to be explicit about your assumptions, your steps, and your decisions. Data processing, analysis, and visualisation become repeatable rather than ad-hoc. Throughout this course, you will learn programming practices that help make your work reproducible, communicable, and reusable, which are key principles of modern, [open science](https://book.the-turing-way.org/reproducible-research/open/).
+
+---
+
 ## Is This the Right Course for You?
 
 ### Target Audience
@@ -43,7 +64,7 @@ On successful completion of the course, you will be able to:
   
 ---
 
-## How to Approach This Course? 
+## How to Approach This Course?
 
 This course follows a flipped classroom approach that combines self-paced learning with interactive, in-person lab sessions. Each week, you are expected to engage with the lecture videos and the accompanying written material before attending the lab. These resources introduce the programming concepts and spatial data techniques that form the basis for the practical work.
 
@@ -69,7 +90,7 @@ According to UZH guidelines, a 5 ECTS module corresponds to approximately 150 ho
 
 ### Why the Effort Is Worthwhile
 
-TThere is a growing demand for analysts, planners, and geographers who can think computationally and work confidently with data and code. Across research, public administration, industry, and non-profit organisations, spatial data skills combined with programming literacy are increasingly sought after.
+There is a growing demand for analysts, planners, and geographers who can think computationally and work confidently with data and code. Across research, public administration, industry, and non-profit organisations, spatial data skills combined with programming literacy are increasingly sought after.
 
 By investing the time and effort required in this course, you are developing skills that are widely applicable and highly valued. Learning to reason with code opens up opportunities across many domains and allows you to engage more critically and creatively with spatial data.
 
@@ -115,7 +136,7 @@ In the following short video, these concerns are addressed directly. Learning to
 
 ## Why Python?
 
-Python is the programming language used throughout this course. It is widely adopted across science, data analysis, and applied domains because it combines expressive power with readability and a rich ecosystem of libraries. Python allows you to focus on problem solving, data workflows, and reproducibility rather than on technical overhead.
+Python is the programming language used throughout this course. It is widely adopted across science, data analysis, and applied domains because it combines expressive power with readability and a rich ecosystem of libraries. Python allows you to focus on problem solving, data workflows, and reproducibility rather than on technical overhead. For this course, Python provides the best balance between ease of entry and long-term relevance for spatial data science workflows.
 
 :::{figure} images/stackoverflow-trends-chart.svg
 :alt: The popularity of programming languages as indicated by the number of questions on Stack Overflow.

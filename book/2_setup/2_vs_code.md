@@ -1,5 +1,8 @@
 ---
 title: VS Code
+
+site:
+ outline_maxdepth: 1
 ---
 
 <div class="page-subtitle">
@@ -427,7 +430,7 @@ Take your time. If something does not work, use it as a chance to explore the in
 
 ---
 
-***Exercise 1: Opening a project workspace***
+### Exercise 1: Opening a project workspace
 
 **Goal**
 Learn how VS Code works with folders and projects.
@@ -451,7 +454,7 @@ This folder is now your **workspace**. VS Code will remember settings for this p
 
 ---
 
-***Exercise 2: Connecting VS Code to Conda***
+### Exercise 2: Connecting VS Code to Conda
 
 **Goal**
 Make sure VS Code uses the correct Python environment.
@@ -481,7 +484,7 @@ The path should point to your Conda environment.
 
 ---
 
-***Exercise 3: Working with terminal and notebooks***
+### Exercise 3: Working with terminal and notebooks
 
 **Goal**
 Use VS Code as a single place for code, commands, and notebooks.
