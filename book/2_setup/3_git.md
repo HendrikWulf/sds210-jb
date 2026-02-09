@@ -13,7 +13,7 @@ Keeping track of change
 
 ## 1. Introduction
 
-At some point, this will happen:
+At some point, this might happen:
 you delete a function that *definitely* worked yesterday, a notebook experiment goes wrong, or you realise that your “final_final_v3.ipynb” is not final at all.
 
 This is where **[Git](https://git-scm.com/)** comes in.

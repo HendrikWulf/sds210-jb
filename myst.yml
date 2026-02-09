@@ -132,7 +132,9 @@ project:
     - title: Feedback
       file: book/15_feedback.md
       # children:
-      #  - file: book/15_feedback/1_get_started.md             
+      #  - file: book/15_feedback/1_get_started.md
+    - title: Glossary
+      file: book/16_glossary.md
  #   - file: book/markdown.md
  #   - file: book/introduction.md
  #   - file: book/notebooks.ipynb
@@ -146,4 +148,3 @@ site:
     outline_maxdepth: 2
     style: _static/custom.css
   
-
