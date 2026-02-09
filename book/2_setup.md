@@ -1,13 +1,22 @@
-# Setup
+---
+title: Setup
 
-*Overview of Software Tools*
+site:
+ outline_maxdepth: 1
+ 
+---
+
+<div class="page-subtitle">
+Overview of Software Tools
+</div>
 
 ---
 
+
 ## 1. Introduction
 
-Knowing Python is important, but it’s only part of the story.  
-To work effectively with spatial data, you also need a **set of tools that work well together**.
+Knowing Python is important, but it’s only part of the story.
+To work effectively with spatial data, you also benefit from a **set of tools that work well together**.
 
 Think of geospatial programming like building something complex: one tool alone won’t get you very far. You need different tools for different jobs, like: managing software, writing and testing code, keeping track of changes, exploring data, and running analyses on your own computer or in the cloud.
 
@@ -16,11 +25,11 @@ In this section, you’ll get a **guided overview of the core tools** used in mo
 - how the tools fit together, and
 - why this setup supports reproducible and collaborative work.
 
-This overview will help you **build a mental map** of the workflow you’ll use throughout SDS210. In the following sessions and labs, you’ll gradually start using these tools in practice — one step at a time.
+This overview will help you **build a mental map** of the workflow you can build throughout this course. In the following lessons and labs, you can gradually start using these tools in practice, one step at a time.
 
 ```{admonition} How to use this page
 :class: note
-Read this page to understand what the tools are for and how they connect. You are not expected to install or master everything yet. We will work with these tools step by step in the labs.
+Read this page to understand what the tools are for and how they connect. You are not expected to install or master everything yet. We will start exploring these tools step by step in the labs.
 ```
 
 ---
@@ -35,13 +44,20 @@ After working through this section, you should be able to:
 
 Don’t worry if this feels abstract at first. These learning goals are about **understanding roles and workflows**, not about mastering every tool right away. You’ll revisit and apply them throughout the course as you start using the tools in practice.
 
+---
+
 ## 3. Essential Software Tools
 
-Modern geospatial programming is not built around a single tool, but around a **small ecosystem of tools**, each with a clear role in the workflow. In this section, you’ll get an overview of six core tools you’ll encounter throughout SDS210.
+Modern geospatial programming is not built around a single tool, but around a **small ecosystem of tools**, each with a clear role in the workflow. In this section, you’ll get an overview of six core tools you’ll encounter in Spatial Data Science.
 
 You don’t need to learn all of them at once. For now, focus on **what each tool is for** and **where it fits** in the bigger picture.
 
 ---
+
+:::{figure} 2_setup/images/0_1_conda_logo_full.svg
+:alt: Conda logo
+:width: 200px
+:::
 
 ### Package Management: Conda
 
@@ -49,11 +65,10 @@ You don’t need to learn all of them at once. For now, focus on **what each too
 [Conda](https://docs.conda.io) manages your Python setup *and* the libraries your code depends on, especially the tricky geospatial ones.
 
 **Think of it like this**  
-Conda is your `project environment manager`. Instead of having one messy Python installation for everything, Conda lets you create clean, isolated environments — one per project or lab.
+Conda is your `project environment manager`. Instead of having one messy Python installation for everything, Conda lets you create clean, isolated environments. One environment per project or lab.
 
 **Why it matters**  
-Geospatial libraries (e.g. for reading rasters or projections) rely on system-level components that are difficult to install correctly. Conda takes care of these dependencies for you and helps avoid the classic:  
-> *“It works on my laptop, but not on yours.”*
+Geospatial libraries (e.g. for reading rasters or projections) rely on system-level components that are difficult to install correctly. Conda takes care of these dependencies for you and helps avoid the classic: *“It works on my laptop, but not on yours.”*
 
 **What you gain**
 - One environment per project (no version conflicts)
@@ -66,6 +81,11 @@ If Conda is set up correctly, you spend your time **writing code**, not debuggin
 ```
 
 ---
+
+:::{figure} 2_setup/images/0_2_Visual_Studio_Code_1.35_icon.svg
+:alt: VS Code logo
+:width: 100px
+:::
 
 ### Code Development: VS Code
 
@@ -89,7 +109,13 @@ As projects grow, plain text editors quickly become limiting. VS Code helps you 
 :class: tip
 Good tools don’t replace thinking, they reduce friction so you can focus on problem solving.
 ```
+
 ---
+
+:::{figure} 2_setup/images/0_3_Git-logo.svg
+:alt: Git logo
+:width: 200px
+:::
 
 ### Version Control: Git
 
@@ -116,6 +142,11 @@ Git is not just for teams. It is just as valuable when you work alone on your ow
 
 ---
 
+:::{figure} 2_setup/images/0_4_Google_Colab_pic.png
+:alt: Colab logo
+:width: 150px
+:::
+
 ### Cloud Computing: Colab
 
 **What it does**  
@@ -141,6 +172,11 @@ Colab is especially useful for quick experiments, learning new tools, or running
 
 ---
 
+:::{figure} 2_setup/images/0_5_jupyter.svg
+:alt: jupyter logo
+:width: 100px
+:::
+
 ### Interactive Analysis: JupyterLab
 
 **What it does**  
@@ -164,6 +200,11 @@ Spatial data analysis is rarely linear. You try something, look at the result, a
 Well written notebooks explain not only *what* you did, but also *why* you did it.
 ```
 ---
+
+:::{figure} 2_setup/images/0_6_Docker_logo.png
+:alt: Docker logo
+:width: 200px
+:::
 
 ### Containerization: Docker
 
@@ -199,7 +240,7 @@ Docker is not about faster coding. It is about reliability, portability, and tru
 
 The real power of these tools comes from **using them together**. Each tool has a clear role, but none of them stands alone. Think of this section as a map of how everything connects.
 
-You will return to this workflow again and again throughout SDS210.
+This workflow can be used in any spatial programming project.
 
 ### A typical development workflow
 
@@ -233,6 +274,8 @@ In practice, your workflow often looks like this:
 You are not learning six separate tools. You are learning one workflow made of connected parts.
 ```
 
+---
+
 ## 5. Running Code Examples
 
 You can run all code examples from this Jupyter Book in different ways. Choose the option that best fits your situation and experience level.
@@ -241,28 +284,31 @@ You can run all code examples from this Jupyter Book in different ways. Choose t
 
 If your goal is to read and try examples quickly, use a cloud option. These options work directly in your browser and require no local installation.
 
-- **Binder**  
-  Opens the book examples in a temporary online environment. This is a good choice for a quick look or first exploration.  
-  https://mybinder.org/v2/gh/giswqs/intro-gispro/HEAD
-
 - **Google Colab**  
   Runs notebooks on cloud computers and is ideal if you want more computing power or an easy way to share your work.  
-  https://colab.research.google.com/github/giswqs/intro-gispro/blob/main
+  https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main
+- **Binder**  
+  Opens the book examples in a temporary online environment. This is a good choice for a quick look or first exploration.  
+  https://mybinder.org/v2/gh/HendrikWulf/sds210-jb/HEAD
 
 ### Local options
 
-If your goal is to read and try examples quickly, use a cloud option. These options run on your own machine and give you full control over your setup.
-
-- **Docker**  
-  Starts a ready to use environment that behaves the same on any computer. This is useful if you want a reliable and reproducible setup.  
+These options run on your own machine and give you full control over your setup.
 
 - **Conda environment**  
   Uses a local Python environment managed by Conda. You will learn how to set this up step by step in the next sections.
 
+- **Docker**  
+  Starts a ready to use environment that behaves the same on any computer. This is useful if you want a reliable and reproducible setup.  
+  This Docker option is not yet set up for this course, but will be implemented later on.
+
 ```{admonition} Recommendation
 :class: tip
-If you are unsure where to start, use a cloud option first. Move to a local setup once you feel more comfortable.
+If you are unsure where to start, use the Colab option first.  
+Move to a local Conda setup once you feel more comfortable.
 ```
+
+---
 
 ## 6. Key Takeaways
 
@@ -283,5 +329,7 @@ Local tools and cloud platforms each have their place. Being comfortable with bo
 **You are learning professional practice**  
 These tools reflect how geospatial programming is done in research and industry. The skills you build here are transferable and long lasting.
 
-> **Big picture:** This toolkit is not about complexity. It is about confidence, clarity, and control over your work. You will keep using and refining this workflow throughout the course.
-
+```{admonition} Big picture
+:class: tip
+This toolkit is not about complexity. It is about confidence, clarity, and control over your work. It is recommended to familiarize yourself with these tools as we move towards middle of the semester and start with the individual projects. This course gives you the chance to practise and refining your toolkit skills.
+```

@@ -1,5 +1,8 @@
 ---
 title: Conda
+
+site:
+ outline_maxdepth: 1
 ---
 
 <div class="page-subtitle">
@@ -20,13 +23,13 @@ Package managers help you install the right software, keep projects separated, a
 
 ### Why package management matters
 
-* Geospatial libraries rely on complex system dependencies  
-* Different projects need different package versions  
-+ Isolated environments prevent conflicts between projects  
-* Reproducible environments make results reliable  
-* Shared environment files support collaboration  
+* Geospatial libraries rely on complex system dependencies
+* Different projects need different package versions
+* Isolated environments prevent conflicts between projects
+* Reproducible environments make results reliable
+* Shared environment files support collaboration 
 
-In this course, you will mainly work with **Conda**, which is well suited for geospatial software because it can manage both Python packages and system libraries. You will also get to know **uv**, a very fast tool for managing Python packages when system level dependencies are not required.
+In this course, we introduce **Conda**, which is well suited for geospatial software because it can manage both Python packages and system libraries. You will also get to know **uv**, a very fast tool for managing Python packages when system level dependencies are not required.
 
 The goal of this section is not to memorise commands, but to understand **how to create reliable and reproducible environments**. These skills will save you time, reduce frustration, and support professional geospatial programming workflows throughout your Spatial Data Science journey.
 
@@ -102,9 +105,9 @@ After installing, open Anaconda Prompt to use Miniconda.
 Run the following commands **line by line** in the Terminal.
 
 These commands will:
-* create a directory called `miniconda3` in your home directory  
-* download the Miniconda installer script  
-* install Miniconda in silent mode  
+* create a directory called `miniconda3` in your home directory (-p flag stands for parents) 
+* download the Miniconda installer script to your new miniconda3 directory
+* install Miniconda in silent mode (-b), taking care of updates (-u), in the given  path (-p)
 * remove the installer script after installation  
 
 ```bash
@@ -133,6 +136,11 @@ conda init
 **Step 4: Verify your installation**
 
 Run any conda command. For example: `conda list` (displays a list of packages installed in your active environment and their versions) or `conda --version` (displays conda’s version number).
+
+```bash
+(base) name@computer ~ % conda --version
+ conda 25.11.1
+```
 
 :::::
 
@@ -174,7 +182,8 @@ conda init
 
 **Step 4: Verify your installation**
 
-Run any conda command. For example: `conda list` (displays a list of packages installed in your active environment and their versions) or `conda --version` (displays conda’s version number). 
+Run any conda command. For example: `conda list` (displays a list of packages installed in your active environment and their versions) or `conda --version` (displays conda’s version number).
+
 
 :::::
 
@@ -274,7 +283,7 @@ This short tutorial walks you through creating and using your first conda enviro
 
 The conda installation process creates an environment called `base`, which is where conda itself is installed. However, when starting work on a new project, it’s best practice to create a new environment. This keeps your environments maintainable and reproducible while also keeping your base environment stable.
 
-Let’s create a new environment called `geo-env` with Python 3.14 as the {abbr}`interpreter (The python installation that will run your code)`.
+Let’s create a new environment called `sds-env` with Python 3.14 as the {abbr}`interpreter (The python installation that will run your code)`.
 
 ---
 
@@ -319,23 +328,60 @@ Opening the Terminal to use conda.
 
 **2. Create a new environment**
 
-Use the *{abbr}`copy button (hover your mouse over the code block below)`* to copy the following command, paste it into your shell application, and press Enter (Windows) or Return (macOS/Linux) to run it.
+Use the **{abbr}`copy button (hover over the code block)`** 📄 to copy the command below.
+Paste it into your shell (Anaconda Prompt, Terminal, or PowerShell) and press Enter (Windows) or Return (macOS/Linux) to run it.
 
 ```bash
-# create env named geo-env with Python 3.14
-conda create --name geo-env python=3.14   
+conda create --name sds-env python=3.14   
 ```
-The `--name` flag sets the new environment’s name.
+This command tells Conda to:
+
+* create a **new isolated environment**
+* name it `sds-env`
+* install **Python 3.14** inside that environment
+
+The `--name` flag assigns a human-readable name, which makes the environment easy to activate and manage later.
+
+---
+
+When you create a **named** Conda environment, Conda stores it automatically in its default `envs` directory.
+
+::::::{tab-set}
+
+:::::{tab-item} Windows 
+
+`C:\Users\<username>\miniconda3\envs\sds-env`
+
+:::::
+
+:::::{tab-item} macOS/Linux
+
+`/Users/<username>/miniconda3/envs/sds-env`
+
+:::::
+
+::::::
+
+You usually do **not** need to interact with this folder directly.
+Conda takes care of activating, updating, and removing environments for you.
+
+```{admonition} Tip
+:class: tip
+
+Create environments in Conda’s `envs` directory  
+and keep your **project files** in a separate project folder.
+
+This separation keeps setups clean, reproducible, and easy to debug.
+```
 
 ---
 
 **3. Activate your new environment**
 
-You’ll need to activate your newly created environment before you can use it. Run the following command to activate `geo-env`:
+You’ll need to activate your newly created environment before you can use it. Run the following command to activate `sds-env`:
 
 ```bash
-# activate your environment geo-env
-conda activate geo-env   
+conda activate sds-env   
 ```
 Conda displays the currently active environment in your shell application beside the input line:
 
@@ -343,13 +389,13 @@ Conda displays the currently active environment in your shell application beside
 
 :::::{tab-item} Windows 
 ```powershell
-(geo-env) C:\Users\username>
+(sds-env) C:\Users\username>
 ```
 :::::
 
 :::::{tab-item} macOS/Linux
 ```bash
-(geo-env) ~
+(sds-env) ~
 ```
 :::::
 
@@ -371,10 +417,9 @@ If something breaks, stop and check your active environment first.
 
 **Deactivate your environment when you are done**
 
-When you finish working in an environment, you can leave it using:
+When you finish working in an environment, you can deactivate it using:
 
 ```bash
-# deactivate the current environment
 conda deactivate
 ```
 
@@ -402,8 +447,9 @@ We can find the additional conda packages that we need for our project on the co
 **conda-forge** is a community maintained channel that provides up to date packages, especially for geospatial and scientific software. Most geospatial libraries you will use in this course are best installed from conda-forge.
 ```
 
+The input below installs common geospatial packages and their dependencies from the conda-forge channel.
+
 ```bash
-# installs common geospatial packages and their dependencies from the conda-forge channel
 conda install --channel conda-forge pygis
 ```
 The `--channel` flag tells conda to give the specified channel top priority for installing packages and their dependencies. The short option `-c` can also be used instead.
@@ -424,13 +470,13 @@ To minimize the risk of dependency conflicts, follow these simple rules:
 - Install all Conda packages first
 - Use pip only for packages that are not available via Conda
 ```
-Assume your project needs a small helper library that is only published on PyPI, for example a lightweight utility for working with map tiles. First, make sure your Conda environment is active. Then install the package using pip:
+Assume your project needs a small helper library that is only published on [{abbr}`PyPI (Python Package Index)`](https://pypi.org/), for example a lightweight utility for working with map tiles. First, make sure your Conda environment is active. Then install the package using pip:
 
 ```bash
 pip install geospatial
 ```
 
-``` {admonition}
+``` {admonition} Fun Fact
 :class: note
 Many Python tools are named after reptiles. The Python package manager pip references the process of hatching eggs. Interestingly, the naming of the Python language itself had nothing to do with reptiles as it was inspired by the comedy series [Monty Python's Flying Circus](https://youtu.be/5ptUMe9eqYE?si=OzfQ_zW7W55Fwq9i). 
 ```
@@ -448,7 +494,6 @@ Think of this section as learning how to *stay in control* once your environment
 It is good practice to start a session by checking which environments exist and which one is currently active.
 
 ```bash
-# list all environments and see which one is active
 conda info --envs
 ```
 
@@ -466,8 +511,7 @@ If something behaves unexpectedly, the first thing to check is whether the corre
 To see which packages are installed in an environment, including where they came from, use:
 
 ```bash
-# inspect installed packages and their source channels
-conda list --name geo-env --show-channel-urls
+conda list --name sds-env --show-channel-urls
 ```
 
 This helps you understand:
@@ -484,22 +528,35 @@ This is especially useful when debugging or documenting your setup.
 
 If you need to modify an environment without activating it, you can always target it explicitly.
 
-Install packages into a specific environment:
+**Install** packages into a specific environment:
 
 ```bash
-# install packages into a specific environment
-conda install --name geo-env geopandas rasterio
+conda install --name sds-env geopandas rasterio
 ```
 
-Remove a package you no longer need:
+**Remove** a package you no longer need from the environment:
 
 ```bash
-# remove a package from the environment
-conda remove --name geo-env rasterio
+conda remove --name sds-env rasterio
 ```
 
-``` {admonition}
+---
+
+If a package was installed using `pip`, it should also be removed using `pip`.
+
+First, make sure you are targeting the **correct environment** (either by activating it or by using the full path to `pip`).
+
+**Remove** a package with pip:
+
+```bash
+pip uninstall geospatial
+```
+
+---
+
+``` {admonition} Tip
 :class: tip
+Always remove packages using the same tool you used to install them.  
 Specifying the environment name makes your commands explicit and reduces the risk of installing packages into the wrong environment.
 ```
 
@@ -510,8 +567,7 @@ Specifying the environment name makes your commands explicit and reduces the ris
 Over time, packages receive updates. To update all packages in an environment:
 
 ```bash
-# update all packages in the environment
-conda update --all --name geo-env
+conda update --all --name sds-env
 ```
 
 Use this with care in active projects, as updates may change behaviour.
@@ -526,8 +582,7 @@ Sometimes you want to experiment without breaking a working setup.
 Clone an existing environment:
 
 ```bash
-# clone an existing environment for testing
-conda create --clone geo-env --name geo-env-test
+conda create --clone sds-env --name sds-env-test
 ```
 
 This creates a full copy that you can safely modify.
@@ -535,8 +590,7 @@ This creates a full copy that you can safely modify.
 When an environment is no longer needed, remove it completely:
 
 ```bash
-# remove an environment completely
-conda remove --name geo-env-test --all
+conda remove --name sds-env-test --all
 ```
 
 Removing unused environments helps keep your system clean and avoids confusion later.
@@ -547,11 +601,10 @@ Removing unused environments helps keep your system clean and avoids confusion l
 
 One of the most important steps in professional workflows is **documenting your environment**.
 
-Export an environment to a file:
+Export an environment to a file (to your current working directory):
 
 ```bash
-# export environment for reproducibility
-conda env export --name geo-env > geo-env.yml
+conda env export --name sds-env > sds-env.yml
 ```
 
 This file records package names and versions so others can recreate the same setup.
@@ -559,8 +612,7 @@ This file records package names and versions so others can recreate the same set
 Recreate an environment from such a file:
 
 ```bash
-# recreate an environment from an environment file
-conda env create --name geo-env-copy --file geo-env.yml
+conda env create --name sds-env-copy --file sds-env.yml
 ```
 
 ``` {admonition}
@@ -576,10 +628,10 @@ By now, you have seen the full lifecycle of working with Conda for a project. Th
 
 ```bash
 # create a new environment for the project
-conda create -n geo-env python=3.14
+conda create -n sds-env python=3.14
 
 # activate the environment
-conda activate geo-env
+conda activate sds-env
 
 # install required geospatial packages
 conda install -c conda-forge geopandas rasterio
@@ -606,12 +658,14 @@ What matters is not the exact commands, but the pattern:
 * use pip only when Conda is not an option
 * document environments for reproducibility
 
-You will repeat this workflow throughout the course and in real world geospatial projects. Over time, it becomes second nature.
+You will repeat this workflow throughout your geospatial projects. Over time, it becomes second nature.
 
-``` {admonition}
+``` {admonition} Tip
 :class: tip
 Think in environments, not installations. A clean environment is the foundation of reliable and reproducible geospatial programming.
 ```
+
+---
 
 ## 6. Working with uv
 
@@ -633,7 +687,7 @@ Use **Conda** when:
 
 Use **uv** when:
 
-* working with pure Python packages from PyPI
+* working with pure Python packages from [{abbr}`PyPI (Python Package Index)`](https://pypi.org/)
 * setting up small or temporary environments
 * prototyping quickly or running experiments
 
@@ -647,7 +701,7 @@ Conda manages full software stacks. uv focuses on Python only and prioritizes sp
 
 ### Installing and creating an environment
 
-You only need to install uv once.
+You only need to install uv once to your `base` environment.
 
 ::::::{tab-set}
 
@@ -727,7 +781,139 @@ Use uv for Python only workflows. For geospatial packages with system dependenci
 
 ---
 
-**Key takeways**
+### A typical `uv` workflow
+
+With `uv`, environments usually live **inside the project folder**.
+This makes each lab self-contained and easy to reset.
+
+Assume you are working in your **SDS-labs directory**:
+
+```text
+SDS-labs/
+└── lab-03/
+```
+---
+
+#### 1. Go to your lab directory
+
+```bash
+cd SDS-labs/lab-03
+```
+
+This is where the environment will live.
+
+---
+
+#### 2. Create a virtual environment
+
+```bash
+uv venv
+```
+
+This creates a local environment:
+
+```text
+lab-03/
+├── .venv/        ← virtual environment
+└── notebooks/
+```
+
+You usually do **not** touch `.venv` directly.
+
+---
+
+#### 3. Activate the environment
+
+```bash
+source .venv/bin/activate        # macOS / Linux
+.venv\Scripts\activate           # Windows
+```
+
+Your shell now uses the Python from `.venv`.
+
+---
+
+#### 4. Install packages for the lab
+
+```bash
+uv pip install geopandas rasterio jupyterlab
+```
+
+Packages are installed **only for this lab**, not globally.
+
+To check what is installed:
+
+```bash
+uv pip list
+```
+
+---
+
+#### 5. Start JupyterLab
+
+```bash
+jupyter lab
+```
+
+* Jupyter opens **in your browser**
+* The notebook kernel uses the `.venv` environment
+* You work entirely in the browser
+
+---
+
+#### 6. Finish your work
+
+1. **Stop JupyterLab**
+   In the terminal:
+
+   ```
+   Ctrl + C
+   ```
+
+2. **Deactivate the environment**
+
+   ```bash
+   deactivate
+   ```
+
+Your system is now clean again.
+
+---
+
+#### 7. (Optional) Record dependencies
+
+To keep track of what was installed:
+
+```bash
+uv pip freeze > requirements.txt
+```
+
+This file allows you (or someone else) to recreate the environment later.
+
+---
+
+### Conda vs `uv` at a glance
+
+Both workflows follow the same logic:
+
+```text
+create → activate → install → work → stop → deactivate
+```
+
+```{admonition} When to use which?
+:class: tip
+
+Use **Conda** when:
+- you want one environment for an entire course/project
+- you rely heavily on compiled geospatial libraries
+
+Use **uv** when:
+- each lab should be isolated
+- you want fast setup and easy reset
+- you prefer project-local environments
+```
+
+### Key takeways
 
 * Conda is your main tool for geospatial environments
 * uv is a fast option for Python only tasks
@@ -737,7 +923,7 @@ This is not about using more tools, but about **using the right tool in the righ
 
 ---
 
-## 7. Best practices 
+## 7. Best practices
 
 As your projects grow, good habits around environments will save you a lot of time and frustration. The goal is not perfection, but **clarity and control**.
 
@@ -747,7 +933,7 @@ Each project should have its **own environment**.
 
 Good practice:
 
-* use descriptive but short names such as `geo-env`, `sds210-lab1`, or `thesis-env`
+* use descriptive but short names such as `sds-env`, `sds210-lab1`, or `thesis-env`
 * install only what the project actually needs
 * remove environments you no longer use
 
@@ -846,13 +1032,13 @@ You can stop after the Core tasks if you feel confident.
 
 ---
 
-***Exercise 1: Creating and Using a Project Environment***
+### Exercise 1: Creating and Using a Project Environment
 
 **Goal:** Create a clean Conda environment and use it for geospatial work.
 
 *Core*
 
-1. Create a new Conda environment called `geo-env` with Python 3.14
+1. Create a new Conda environment called `sds-env` with Python 3.14
 2. Activate the environment
 3. Install the `pygis` package from the `conda-forge` channel
 4. List all installed packages in the environment
@@ -860,13 +1046,13 @@ You can stop after the Core tasks if you feel confident.
 
 *Stretch*
 
-6. Install `geopandas` and `rasterio` explicitly into `geo-env`
+6. Install `geopandas` and `rasterio` explicitly into `sds-env`
 7. Check which channel each package was installed from
 8. Deactivate the environment and confirm that it is no longer active
 
 *Challenge*
 
-9. Create a second environment called `geo-env-alt` with Python 3.12
+9. Create a second environment called `sds-env-alt` with Python 3.12
 10. Compare the installed packages between the two environments
 
 
@@ -887,13 +1073,13 @@ You can stop after the Core tasks if you feel confident.
 # Core solution
 # =========================
 
-# 1) Create a new Conda environment called "geo-env" with Python 3.14
+# 1) Create a new Conda environment called "sds-env" with Python 3.14
 # This creates an isolated environment with its own Python interpreter.
-conda create --name geo-env python=3.14
+conda create --name sds-env python=3.14
 
 # 2) Activate the new environment
-# From now on, all Python and conda commands apply to geo-env.
-conda activate geo-env
+# From now on, all Python and conda commands apply to sds-env.
+conda activate sds-env
 
 # 3) Install the pygis meta-package from the conda-forge channel
 # pygis pulls in a common set of geospatial libraries and dependencies.
@@ -930,7 +1116,7 @@ conda list --show-channel-urls
 # This returns you to the base environment.
 conda deactivate
 
-# Confirm that geo-env is no longer active
+# Confirm that sds-env is no longer active
 # The active environment is marked with an asterisk (*).
 conda info --envs
 
@@ -941,19 +1127,19 @@ conda info --envs
 
 # 9) Create a second environment with a different Python version
 # This is useful for testing compatibility across Python versions.
-conda create --name geo-env-alt python=3.12
+conda create --name sds-env-alt python=3.12
 
 # Activate the second environment
-conda activate geo-env-alt
+conda activate sds-env-alt
 
-# List installed packages in geo-env-alt
+# List installed packages in sds-env-alt
 # At this point, it should contain only Python and core dependencies.
 conda list
 
 # 10) Compare environments by listing both explicitly
 # You can visually compare package names and versions.
-conda list --name geo-env
-conda list --name geo-env-alt
+conda list --name sds-env
+conda list --name sds-env-alt
 
 # Deactivate when finished
 conda deactivate
@@ -961,7 +1147,7 @@ conda deactivate
 
 ---
 
-***Exercise 2: Inspecting and Managing Environments***
+### Exercise 2: Inspecting and Managing Environments
 
 **Goal:** Learn how to stay in control once environments exist.
 
@@ -969,18 +1155,18 @@ conda deactivate
 
 1. List all Conda environments on your system
 2. Identify which environment is currently active
-3. Inspect the installed packages in `geo-env`, including their source channels
+3. Inspect the installed packages in `sds-env`, including their source channels
 
 *Stretch*
 
-4. Install an additional package into `geo-env` without activating it
+4. Install an additional package into `sds-env` without activating it
 5. Remove that package again
-6. Update all packages in `geo-env`
+6. Update all packages in `sds-env`
 
 *Challenge*
 
-7. Clone `geo-env` into a new environment called `geo-env-test`
-8. Remove `geo-env-test` once you are done
+7. Clone `sds-env` into a new environment called `sds-env-test`
+8. Remove `sds-env-test` once you are done
 
 ``` {admonition} Sample Solution - Exercise 2
 :class: dropdown
@@ -991,7 +1177,7 @@ conda deactivate
 # Goal: Learn how to inspect, modify, and clean up Conda
 #       environments once they exist.
 # Notes:
-#   - This solution assumes that "geo-env" already exists
+#   - This solution assumes that "sds-env" already exists
 #     from Exercise 1.
 #   - Commands are written to be run step by step in a shell.
 # ============================================================
@@ -1010,72 +1196,71 @@ conda info --envs
 
 # 2) Identify which environment is currently active
 # Look for the asterisk (*) in the output above.
-# If geo-env is active, it will be marked with *.
+# If sds-env is active, it will be marked with *.
 
-# 3) Inspect installed packages in geo-env, including source channels
+# 3) Inspect installed packages in sds-env, including source channels
 # This shows package names, versions, and where they came from.
-conda list --name geo-env --show-channel-urls
+conda list --name sds-env --show-channel-urls
 
 
 # =========================
 # Stretch solution
 # =========================
 
-# 4) Install an additional package into geo-env without activating it
+# 4) Install an additional package into sds-env without activating it
 # This is useful when managing environments programmatically or remotely.
-conda install --name geo-env --channel conda-forge maplibre
+conda install --name sds-env --channel conda-forge maplibre
 
 # 5) Remove the package again
 # This cleanly uninstalls the package and updates dependencies if needed.
-conda remove --name geo-env maplibre
+conda remove --name sds-env maplibre
 
-# 6) Update all packages in geo-env
+# 6) Update all packages in sds-env
 # Use this carefully in real projects, as updates may change behavior.
-conda update --all --name geo-env
+conda update --all --name sds-env
 
 
 # =========================
 # Challenge solution
 # =========================
 
-# 7) Clone geo-env into a new environment called geo-env-test
+# 7) Clone sds-env into a new environment called sds-env-test
 # This creates a full copy with the same Python version and packages.
-conda create --clone geo-env --name geo-env-test
+conda create --clone sds-env --name sds-env-test
 
 # Verify that the new environment exists
 conda info --envs
 
-# 8) Remove geo-env-test once you are done
+# 8) Remove sds-env-test once you are done
 # Make sure it is not active before removing it.
-conda remove --name geo-env-test --all
+conda remove --name sds-env-test --all
 
 # Final check to confirm cleanup
 conda info --envs
 
 ```
 
-
 ---
 
-***Exercise 3: Reproducibility with Environment Files***
+### Exercise 3: Reproducibility with Environment Files
 
 **Goal:** Practice exporting and recreating environments.
 
 *Core*
 
-1. Export the `geo-env` environment to a file called `geo-env.yml`
-2. Create a new environment called `geo-env-copy` from that file
-3. Activate `geo-env-copy` and verify that it works
+1. Export the `sds-env` environment to a file called `sds-env.yml`
+2. Create a new environment called `sds-env-copy` from that file
+3. Activate `sds-env-copy` and verify that it works
 
 *Stretch*
 
-4. Compare the package lists of `geo-env` and `geo-env-copy`
-5. Add one additional package to `geo-env-copy`
+4. Compare the package lists of `sds-env` and `sds-env-copy`
+5. Add one additional package to `sds-env-copy`
 6. Export the updated environment to a new file
 
 *Challenge*
 
-7. Remove the original `geo-env`
+7. Remove the original `sds-env`
 8. Recreate it only from the exported file
 
 
@@ -1088,7 +1273,7 @@ conda info --envs
 # Goal: Practice exporting, recreating, and validating Conda
 #       environments using environment files.
 # Notes:
-#   - This exercise assumes that "geo-env" already exists
+#   - This exercise assumes that "sds-env" already exists
 #     and contains geospatial packages from previous exercises.
 #   - Commands are meant to be run step by step.
 # ============================================================
@@ -1098,18 +1283,18 @@ conda info --envs
 # Core solution
 # =========================
 
-# 1) Export the existing geo-env environment to a YAML file
+# 1) Export the existing sds-env environment to a YAML file
 # This file captures package names and versions for reproducibility.
-conda env export --name geo-env > geo-env.yml
+conda env export --name sds-env > sds-env.yml
 
 # Optional sanity check: view the file contents
-# cat geo-env.yml
+# cat sds-env.yml
 
-# 2) Create a new environment called geo-env-copy from the file
-conda env create --name geo-env-copy --file geo-env.yml
+# 2) Create a new environment called sds-env-copy from the file
+conda env create --name sds-env-copy --file sds-env.yml
 
-# 3) Activate geo-env-copy
-conda activate geo-env-copy
+# 3) Activate sds-env-copy
+conda activate sds-env-copy
 
 # Verify that Python starts correctly
 python --version
@@ -1126,20 +1311,20 @@ conda deactivate
 # Stretch solution
 # =========================
 
-# 4) Compare package lists between geo-env and geo-env-copy
+# 4) Compare package lists between sds-env and sds-env-copy
 # This helps confirm that the environments are equivalent.
-conda list --name geo-env
-conda list --name geo-env-copy
+conda list --name sds-env
+conda list --name sds-env-copy
 
-# 5) Add one additional package to geo-env-copy
+# 5) Add one additional package to sds-env-copy
 # Activate the copy first
-conda activate geo-env-copy
+conda activate sds-env-copy
 
 # Install an additional geospatial helper package
 conda install --channel conda-forge maplibre
 
 # 6) Export the updated environment to a new file
-conda env export --name geo-env-copy > geo-env-copy.yml
+conda env export --name sds-env-copy > sds-env-copy.yml
 
 # Deactivate after finishing changes
 conda deactivate
@@ -1149,18 +1334,18 @@ conda deactivate
 # Challenge solution
 # =========================
 
-# 7) Remove the original geo-env
+# 7) Remove the original sds-env
 # Make sure it is not active before removing it.
-conda remove --name geo-env --all
+conda remove --name sds-env --all
 
-# Confirm that geo-env is gone
+# Confirm that sds-env is gone
 conda info --envs
 
-# 8) Recreate geo-env only from the exported file
-conda env create --name geo-env --file geo-env.yml
+# 8) Recreate sds-env only from the exported file
+conda env create --name sds-env --file sds-env.yml
 
 # Activate and verify the recreated environment
-conda activate geo-env
+conda activate sds-env
 python --version
 
 # Optional import check

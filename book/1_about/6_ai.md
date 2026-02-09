@@ -1,4 +1,4 @@
-# AI
+# Use of AI
 
 ## Use of AI in this course
 
@@ -47,7 +47,8 @@ If AI played a substantial role in your solution, be prepared to explain:
 - what you changed,
 - and why the final solution works.
 
-This reflects real-world programming practice, where understanding and accountability matter more than speed.
+This approach reflects real-world programming practice, where understanding and accountability matter more than speed.
+Experienced people share [this view](https://spatialists.ch/posts/2025/07/23-ai-and-programming/).
 
 ---
 

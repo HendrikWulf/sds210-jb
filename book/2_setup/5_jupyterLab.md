@@ -1,5 +1,8 @@
 ---
 title: JupyterLab
+
+site:
+ outline_maxdepth: 1
 ---
 
 <div class="page-subtitle">

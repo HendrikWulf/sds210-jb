@@ -72,7 +72,7 @@ We will support you on your learning path during the lab exercises and on Teams.
 
 :::{card} Yilin Lin
 :link: https://www.geo.uzh.ch/en/department/Staff/linyilin
-
+:footer: **Affiliation:** [{abbr}`GCO (Geocomputatione)`](https://www.geo.uzh.ch/en/units/gco.html)
 
 ```{image} https://www.geo.uzh.ch/dam/jcr:3159d6db-fb56-4e2f-a83f-f0a4d68ba1dc/881.jpg
 :alt: Photo of Yilin Lin

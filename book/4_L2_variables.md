@@ -1,4 +1,9 @@
-# L2 - Variables & Values
+---
+title: L2 - Variables & Values
+
+site:
+ outline_maxdepth: 1
+---
 
 <div class="page-subtitle">
 How Python represents data
