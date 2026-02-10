@@ -51,8 +51,8 @@ project:
       file: book/3_L1_get-started.md
       children:
         # - file: book/3_python/1_get_started.md
-        # - file: book/3_python/01_get_started.md
-        - file: book/3_L1_get-started/01_get_started.ipynb
+         - file: book/3_L1_get-started/01_motivation.md
+         - file: book/3_L1_get-started/01_get_started.ipynb
     - title: L2 - Variables & Values
       file: book/4_L2_variables.md
       children:
@@ -97,14 +97,14 @@ project:
       file: book/6_L4_functions.md
       children:
         - file: book/6_L4_functions/1_get_started.md
-    - title: L5 - Data & Co
-      file: book/7_L5_data.md
+    - title: L5 - Libraries & Co
+      file: book/7_L5_libraries.md
       children:
-        - file: book/7_L5_data/1_get_started.md
-    - title: L6 - Libraries & Co
-      file: book/8_L6_libraries.md
+        - file: book/7_L5_libraries/1_get_started.md
+    - title: L6 - Data & Co
+      file: book/8_L6_data.md
       children:
-        - file: book/8_L6_libraries/1_get_started.md
+        - file: book/8_L6_data/1_get_started.md        
     - title: L7 - Numpy & Co.
       file: book/9_L7_numpy.md
       children:
@@ -138,7 +138,7 @@ project:
  #   - file: book/markdown.md
  #   - file: book/introduction.md
  #   - file: book/notebooks.ipynb
- #   - file: book/bibliography.md
+    - file: book/references.md
 site:
   template: book-theme
   options:

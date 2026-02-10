@@ -1,357 +1,445 @@
 # Glossary
 
 :::{glossary}
+
 Accessor
-:  In Python libraries, an *accessor* is a method or attribute added to an existing data structure, such as a `Dataset` in `xarray` library, to provide specialized functionality. Accessors extend the capabilities of the base object without modifying its core structure.
+: In Python libraries, an *accessor* is a way to attach specialized functionality to an existing data structure without changing its core implementation.  
+  For example, libraries such as `xarray` add accessors to objects like a `Dataset` to provide domain-specific {term}`methods <Method>` and properties.
 
-Application Programming Interface
-:  An application programming interface or API is a set of protocols and tools that enable pieces of software to communicate and exchange information. For example, the Nominatim service has an API for accessing its geocoding service.
+[Application Programming Interface](https://en.wikipedia.org/wiki/API)
+: An *application programming interface* (API) is a defined set of rules and tools that allow different pieces of {term}`software` to communicate and exchange information.  
+  For example, the Nominatim service provides an API for accessing its geocoding functionality.
 
-API
-:  See {term}`Application Programming Interface`.
+[API](https://en.wikipedia.org/wiki/API)
+: See {term}`Application Programming Interface`.
 
 Argument
-:  The value passed to a function when it is called. Similar to a {term}`parameter`.
+: A value passed to a {term}`function` when it is called.  
+  Compare with a {term}`Parameter`, which refers to the variable name used in the function definition.
 
-Aspect
-:  Aspect shows the (compass) direction that a slope faces, derived from elevation data. It is usually measured in degrees from 0° (north) to 360°.
+[Aspect](https://en.wikipedia.org/wiki/Aspect_(geography))
+: Aspect describes the compass direction that a {term}`slope` faces and is derived from elevation data.  
+  It is usually measured in degrees from 0° (north) to 360°.
 
-Assertion
-:  A statement used in a Python program to check whether a given condition evaluates as `True` when the code is executed. When the condition is not `True`, an `AssertionError` is raised. Assertions are typically used for debugging and testing code.
+[Assertion](https://en.wikipedia.org/wiki/Assertion_(software_development))
+: A statement used in a Python program to check whether a condition evaluates to `True` when the code is executed.  
+  If the condition is not `True`, an `AssertionError` is raised. Assertions are commonly used for debugging and testing code.
 
-Binary predicate
-:  See {term}`Spatial predicate`.
+[Camel case](https://en.wikipedia.org/wiki/Camel_case)
+: A variable naming convention in which words are joined without spaces, with each new word starting with a capital letter (except the first).  
+  Example: `gpsStationId`.  
+  Compare with {term}`Snake case`.
 
-Camel case
-:  A variable naming convention in which words are joined without spaces by capitalizing the first letter of each word that follows the first. For example, `gpsStationId`.
+[Class](https://en.wikipedia.org/wiki/Class_(programming))
+: A reusable template for creating {term}`objects <Object>` that share common properties and behavior.  
+  For example, a class representing a geospatial point may store coordinates and provide methods such as distance calculations.
 
 Collection
-:  A group of data types known as containers, where multiple values can be stored together. The built-in container data types in Python are dictionary, list, set, and tuple.
+: A container that stores multiple values together.  
+  Built-in Python collection types include {term}`List`, {term}`Dictionary`, {term}`Set`, and {term}`Tuple`.
 
 Computer
-:  We use the definition of a computer given by {cite}`Zelle2017`: "A machine that stores and manipulates information under the control of a changeable program."
-  
+: We use the definition of a computer given by {cite}`Zelle2017`:  
+  “A machine that stores and manipulates information under the control of a changeable program.”
+
 Coordinate Reference System
-:  A coordinate reference system (CRS) described how the coordinates or geometries are related to the places on Earth. It typically includes a set of geographic or projected coordinates and a mathematical model that describes the shape of the Earth and the relationship between the coordinates and their positions on the Earth's surface. A CRS is used to locate positions accurately and to enable the exchange of geographic data between different systems and applications.
-  
+: A coordinate reference system (CRS) describes how coordinates or geometries relate to real locations on Earth.  
+  It defines the coordinate system, projection, and mathematical model needed to locate positions accurately and exchange geographic data between systems.
+
 Coordinate transformation
-:  See {term}`Map reprojection`.
+: See {term}`Map reprojection`.
 
 Cost surface
-:  A cost surface is a raster representation used in map algebra in which each cell value indicates the cost (e.g., time, energy, money, or difficulty) required to traverse that cell. Cost surfaces are used in spatial analysis to model and calculate the least-cost path or accumulated cost between locations, factoring in terrain, land use, or other impedance variables. Cost surfaces are essential in applications such as route optimization, habitat connectivity, and emergency response planning.
+: A raster representation in which each cell value indicates the cost (e.g. time, energy, money, or difficulty) required to traverse that cell.  
+  Cost surfaces are commonly used to compute least-cost paths or accumulated cost in spatial analysis.
 
 Curvature
-:  Curvature describes how fast the slope is increasing or decreasing as we move along a surface. A positive curvature means the surface is curving up (upwardly convex) at that cell. A negative curvature means the surface is curving down (downwardly convex) at that cell.
+: Curvature describes how quickly the {term}`slope` changes across a surface.  
+  Positive curvature indicates an upwardly convex surface, while negative curvature indicates a downwardly convex surface.
 
 DataFrame
-:  In pandas library, a DataFrame is a two-dimensional, tabular data structure with labeled rows and columns, similar to an Excel spreadsheet or SQL table. Each column can store data of different types (e.g., integers, floats, strings), and the DataFrame provides methods for data manipulation, including filtering, aggregation, and merging. It is one of the core data structures in pandas, widely used for data analysis and manipulation in Python.
-  
+: In the pandas library, a DataFrame is a two-dimensional, tabular data structure with labeled rows and columns.  
+  It supports data manipulation tasks such as filtering, aggregation, and merging and is a core structure for data analysis in Python.
+
 Data model
-:  A data model is an conceptual (abstract) model that shows how elements of data are organized and how they relate to one another in a standardized manner and how the data relate to properties of real-world entities. Examples of data models are e.g. vector data model consisting of points, lines and areas; and raster data model constituted of a grid-like structure that hold the values for each grid cell.    
+: A conceptual model that describes how data are structured, organized, and related to real-world entities.  
+  Common examples include the vector data model (points, lines, polygons) and the raster data model (grids of cell values).
 
 Data type
-:  An attribute defining the characteristics of a value in a program.
-  For example, type `int` is an integer (whole number).
-  
-DateOffset
-:  A specific `pandas` object that represents a duration of time using calendar duration standards, such as a week ("W"). 
-  
-DatetimeIndex
-:  An immutable array of datetime64 data that is specified as the index of the DataFrame. Can be used for indexing and grouping data based on time.
+: A classification that defines what kind of values a variable can store.  
+  Common data types include Boolean, integer, float, string, and date/time types.
 
-DE-9IM
-:  See {term}`Dimensionally Extended 9-Intersection Model`.
+DateOffset
+: A pandas object that represents a calendar-based time duration, such as days or weeks (e.g. `"W"` for one week).
+
+DatetimeIndex
+: An immutable array of datetime values used as the index of a pandas {term}`DataFrame`.  
+  It enables indexing, grouping, and analysis based on time.
 
 Decimal degrees
-:  A decimal degree is a method of expressing latitude and longitude geographic coordinates as decimal fractions instead of degrees, minutes, and seconds. It represents the angle between a point on the earth's surface and the equator or prime meridian, respectively, in units of decimal degrees. Decimal degrees provide a more convenient representation of geographic coordinates and make it easier to perform calculations with them.
+: A method for expressing latitude and longitude as decimal values rather than degrees, minutes, and seconds.  
+  Decimal degrees simplify calculations involving geographic coordinates.
 
-Delanay Triangulation
-:  Delaunay triangulation is a way of dividing a set of points into non-overlapping triangles (in 2D) or tetrahedra (in 3D) such that no point lies inside the circumcircle of any triangle. Delanay triangulation is widely used e.g. in interpolation and computer graphics for creating structured meshes from unstructured points.
-  
 Dependency
-:  Python packages are often linked to other Python libraries. These other packages (i.e. dependencies) are typically needed to be installed for a given Python package to work. 
+: A software package that another package relies on in order to function correctly.  
+  Dependencies typically need to be installed alongside the main package.
 
 Dictionary
-:  A built-in Python data structure comprising one or more unique "keys" and associated "values". Dictionary keys can be used to access associated values within a dictionary, and keys are typically numbers or character strings. Python dictionaries are enclosed in curly braces (`{` `}`) and dictionary items are listed in the form `key: value` separated by commas.
-
-Dimensionally Extended 9-Intersection Model 
-:  Dimensionally Extended 9-Intersection Model (DE-9IM) is a fundamental framework in GIS used for describing and analyzing spatial relationships between geometric objects. DE-9IM provides a matrix-based approach where the rows and columns represent the interior, boundary, and exterior of two geometric shapes being compared. By examining the intersections of these parts, a detailed characterization of their spatial relationship can be achieved, including spatial predicates such as "touches", "overlaps", and "contains".  
+: A built-in Python data structure that stores key–value pairs.  
+  Keys are used to access associated values, and dictionaries are enclosed in curly braces (`{}`).
 
 Docstring
-:  A text string used to document a section of code. Docstrings are frequently used for functions to describe what the function does as well as providing information about input parameters and function outputs. You are encouraged to create docstrings when making functions as they can be used with the Python help function to show users how functions work.
+: A text string used to document Python code, commonly {term}`functions <Function>` or classes.  
+  Docstrings describe purpose, parameters, and outputs and can be accessed using Python’s `help()` function.
 
 Edge effect
-:  Edge effect is spatial distortion (bias) that occurs at the boundaries of a geographic datasets (raster and vector), often due to incomplete data or the influence of neighboring areas not included in the analysis. It can affect the accuracy of calculations like filtering, classification, or spatial modeling near the dataset's edges.
+: Edge effect refers to spatial distortion (bias) that occurs near the boundaries of a geographic dataset, both raster and vector.  
+  It often arises from incomplete neighboring data and can affect operations such as filtering, classification, and spatial modeling near dataset edges.
 
 EPSG code
-:  An EPSG code is a unique identifier assigned to a specific coordinate reference system (CRS) or a spatial data transformation standard, as defined by the EPSG (European Petroleum Survey Group) registry. These codes, such as 4326 for WGS84 or 3857 for Web Mercator, simplify the process of referencing CRSs in geographic data processing.
+: An EPSG code is a numeric identifier that uniquely defines a {term}`Coordinate Reference System` (CRS) or a spatial data transformation.  
+  Examples include EPSG:4326 for WGS84 and EPSG:3857 for Web Mercator, which simplify referencing CRSs in geographic data processing.
 
 Fork
-:  A personal copy of a GitHub repository that is linked to a user's GitHub account. Forks can be used to modify files without affecting the original repository and also allow users to see how the original repository has changed since the fork was created.
+: A personal copy of a {term}`repository` hosted on GitHub and linked to a user’s account.  
+  Forks allow users to modify files without affecting the original repository while still tracking upstream changes.
 
 Function
-:  A reusable piece of code that performs a single action.
-  
+: A reusable block of instructions that performs a specific task.  
+  Functions may exist independently or as a {term}`method` associated with a {term}`Class`.
+
 Geocoding
-:  The process of converting addresses to coordinates / points, or vice versa (called reverse-geocoding). Also see {term}`Georeferencing`.
+: The process of converting addresses into geographic coordinates, or coordinates back into addresses (reverse geocoding).  
+  Compare with {term}`Georeferencing`, which assigns spatial reference to data rather than translating addresses.
 
 GeoDataFrame
-:  GeoDataFrame in geopandas library is similar to pandas {term}`DataFrame` but designed to handle geospatial data. Each row in a GeoDataFrame represents a geometric object (e.g., point, line, polygon) with associated attributes. `GeoDataFrame` bundles various methods that support spatial operations like geometric calculations and spatial joins, making it essential for geospatial analysis in Python.
-  
+: A data structure provided by geopandas that extends a pandas {term}`DataFrame` to support geospatial data.  
+  Each row represents a geometry (e.g. point, line, or polygon) with associated attributes and supports spatial operations such as spatial joins.
+
 Geographic coordinate conversion
-:  See {term}`Map reprojection`.
-  
+: See {term}`Map reprojection`.
+
 Georeferencing
-:  Attaching information about a location to a piece of information is commonly referred as georeferencing, geolocating or geocoding. For example a postal address can be used to specify a location of a place with relatively high spatial accuracy at a level of door/mailbox. 
+: The process of assigning real-world coordinates to data that initially lack spatial reference, such as scanned maps or images.  
+  Unlike {term}`Geocoding`, georeferencing does not involve address-based lookup.
 
 GeoSeries
-:  GeoSeries is used to store geospatial data, where each element is a geometric object like a point, line, or polygon. It extends the pandas {term}`Series` by supporting spatial operations, such as geometric transformations and spatial queries. A GeoSeries is often used to represent the geometry column in a {term}`GeoDataFrame`, making it a fundamental building block for geospatial analysis in Python.
+: A one-dimensional collection of geometric objects that extends a pandas {term}`Series` with spatial operations.  
+  A GeoSeries is commonly used as the geometry column within a {term}`GeoDataFrame`.
 
 Git
-:  A free and open-source distributed {term}`version control` system that tracks changes in {term}`source code`. Git allows multiple users to work on a project at the same time while maintaining a complete version history. Developed by Linus Torvalds.
+: A free and open-source distributed {term}`version control` system that tracks changes in {term}`source code`.  
+  Git enables collaborative development while preserving a complete history of changes.
 
 Git branch
-:  An parallel copy of files in a Git repository starting from a specific snapshot that allows for independent development without affecting the original files from which the branch was created. Branches can be useful for adding new features or experimenting without worrying that the changes will affect the original files or code functionality.
+: A parallel line of development in a Git {term}`repository` that starts from a specific snapshot.  
+  Branches allow independent development without affecting the main codebase.
 
 Git clone
-:  The command in {term}`Git` used to create a copy of an existing {term}`repository`. Cloning downloads the files, commit history, and branches from the repository.
+: A command in {term}`Git` used to create a local copy of an existing {term}`repository`, including its files and version history.
 
 Git commit
-:  Verb: The process of writing or {term}`merging <Git merge>` changes made in the working copy of files in a {term}`repository{term}` of a {term}`version control` system. Noun: A specific instance of changes to files in a {term}`repository` of a {term}`version control` system. Each commit includes a unique ID and a message describing the changes. Similar to {term}`revision` and {term}`version`.
+: Verb: the act of recording changes made to files in a {term}`repository`.  
+  Noun: a snapshot of the repository at a specific point in time, identified by a unique ID and a descriptive message.
 
 Git merge
-:  The command in {term}`Git` used to integrate changes from multiple {term}`commits <Git commit>` or branches. Merging combines commit histories and preserves changes both branches. If changes have been made to the same sections of the same file, merging may result in a merge conflict.
+: A Git command used to integrate changes from multiple {term}`commits <Git commit>` or branches into a single branch.  
+  If conflicting changes exist, a {term}`Git merge conflict` may occur.
 
 Git merge conflict
-:  A situation in which Git cannot automatically combine changes from different commits or branches because similar sections of the same files have been modified. This could occur in GitHub if you change similar sections of the same file locally and directly on GitHub. In such cases, the conflict must be resolved manually by editing together the changes and making a new commit.
+: A situation where Git cannot automatically combine changes because the same parts of a file were modified differently.  
+  Conflicts must be resolved manually before creating a new commit.
 
 Git pull
-:  The command in {term}`Git` used to fetch updates from a remote {term}`repository` and merge them into the current branch. Pulling ensures the local repository is up to date with the latest changes in the remote repository.
+: A Git command that fetches updates from a remote {term}`repository` and merges them into the current branch.
 
 Git push
-:  The command in {term}`Git` used to upload local {term}`commits <Git commit>` to a remote {term}`repository`. Pushing makes the latest changes available to others with access to the repository.
+: A Git command that uploads local {term}`commits <Git commit>` to a remote {term}`repository`, making changes available to others.
 
 Git remote
-:  A reference to a repository stored on a server or hosting service like GitHub. Remotes are often useful for keeping project files in sync when multiple users are working in the same code repository.
+: A reference to a repository stored on a server or hosting service such as GitHub.  
+  Remotes are used to synchronize work between local and shared repositories.
 
 GitHub
-:  An online platform for collaborative development of {term}`software` based around the {term}`Git` {term}`version control` system. GitHub provides tools for collaboration, version control, issue tracking, and code review.
+: An online platform for collaborative development of {term}`software` built around the {term}`Git` {term}`version control` system.  
+  GitHub provides tools for collaboration, issue tracking, and code review.
 
 Hillshade
-:  A hillshade is a grayscale 3D-like representation of the terrain surface, created by simulating the effect of sunlight shining across the landscape. In GIS, hillshading is derived from a Digital Elevation Model (DEM) and is used to visualize topographic relief. The shading is based on specified azimuth (direction) and altitude (angle) of the light source, typically representing the sun.
-
-Hypsometric curve
-:  The distribution of area above a given elevation in an region analyzed using hypsometric analysis. This is effectively a cumulative distribution of area as a function of elevation. The areas and elevations in hypsometric curves are frequently normalized to allow comparison between regions and for calculating a {term}`hypsometric integral`.
-
-Hypsometric integral
-:  The area under a {term}`hypsometric curve`. This value can be used as a metric of the volume of rock and/or soil that has been removed from a given region such as a watershed.
-
-Hypsometry
-:  The measurement of the distribution of elevations of Earth's (or other planet's) surface elevations within a specified area. Also known as hypsometric analysis.
+: A grayscale, three-dimensional visualization of terrain derived from a digital elevation model (DEM).  
+  Hillshading simulates illumination using a specified light source direction and angle to enhance topographic relief.
 
 IDE
-:  See {term}`Integrated Development Environment`.
+: See {term}`Integrated Development Environment`.
+
+Identifier
+: Also known as a name.  
+  An identifier is a reference to an {term}`Object` stored in memory. Objects are accessed using their identifiers.  
+  In some cases, multiple identifiers may refer to the same object, meaning they point to the same memory location.
 
 Immutable
-:  A data type that can be modified after being defined. In reality, things are a bit more complicated, but this is sufficient for our purposes. Opposite of {term}`Mutable`.
+: A data type whose value cannot be changed after it is created.  
+  This simplified definition is sufficient for our purposes. Opposite of {term}`Mutable`.
 
 Index
-:  A number indicating the location of a specific value stored in Python lists or tuples. The first index value of list is always 0.
+: A number indicating the position of a value within an ordered data structure such as a {term}`List` or {term}`Tuple`.  
+  In Python, indexing starts at 0.
 
 Inner join
-:  The inner join results in a DataFrame that contains only the rows with matching keys (or binary/spatial predicate) in both original (Geo)DataFrames, excluding all rows in either (Geo)DataFrame that do not have a match in the other. The match can be based on a common key that can be found in both DataFrames (as in table join) or on a spatial predicate in case the data is merged based on the spatial relationship between two spatial data layers.
-  
+: A join operation that returns only rows with matching keys (or spatial predicates) in both input (Geo)DataFrames.  
+  Matching can be based on a shared attribute (table join) or a spatial relationship when performing a spatial join.
+
 Integrated Development Environment
-:  An integrated development environment or IDE is a software program or package that provides a set of tools for writing, testing, and debugging software in a convenient, practical interface.
+: A software application that provides tools for writing, running, testing, and debugging {term}`software` in a single interface.  
+  Common features include a code editor, debugger, and integrated terminal.
 
 Interpolation
-:  Estimation of a value based on the known values in a data set. For example, an estimate of the mean daily temperature can be calculated from the average of the minimum and maximum temperatures that day.
+: The estimation of unknown values based on known values in a dataset.  
+  For example, mean daily temperature may be estimated from minimum and maximum temperature measurements.
 
 Interpreter
-:  An interpreter is a computer program that is used to execute program instructions written in Python (or other languages). The interpreter reads your statements of code and based on these instructions actually does the work that has been assigned to it. 
+: A program that executes instructions written in a programming language such as Python.  
+  The interpreter reads and executes code statements sequentially, performing the specified actions.
 
 Jupyter Notebook
-:  A web application that allows users to combine rich-formtted text with code cells in an interactive document. Jupyter Notebooks can contain nicely formatted text, equations, images, interactive visualizations, and more. More information can be found at <https://jupyter.org/>.
-
-KD-Tree
-:  A KD-Tree, or K-dimensional tree, is a space-partitioning data structure for organizing points in a k-dimensional space. KD-Trees are useful for making specific search tasks faster and more efficient, such as nearest neighbor search. The structure recursively divides the space into two half-spaces at each level, using one dimension at each step. This division is typically done by selecting a median value along one dimension to split the dataset, creating a binary tree. KD-Trees enable efficient querying of the space, such as finding points within a given range or nearest to a specific point, by significantly reducing the number of comparisons needed to locate them.
-
-K-Nearest Neighbor search
-:  K-Nearest Neighbor (KNN) search is a type of algorithm used to find the "k" closest points (or neighbors) to a given query point in a dataset. In the context of spatial data, KNN search can identify the nearest geographical features based on their spatial coordinates. The algorithm calculates distances between the query point and all points in the dataset, then selects the "k" smallest distances to determine the nearest neighbors. 
+: A web-based interactive document that combines formatted text with executable code cells.  
+  Jupyter Notebooks can include equations, images, visualizations, and code output and are widely used for data analysis and teaching.
 
 Left outer join
-:  A left outer join includes all the rows from the left (Geo)DataFrame and those rows from the right (Geo)DataFrame that have a matching key in the table, or that intersect or match based on the specified spatial relationship (e.g., intersects, contains, within). If there is no matching row in the right (Geo)DataFrame for a row in the left (Geo)DataFrame, the result will still include the row from the left (Geo)DataFrame, but with missing values (NaNs) in the columns from the right (Geo)DataFrame.
+: A join operation that retains all rows from the left (Geo)DataFrame and includes matching rows from the right (Geo)DataFrame.  
+  Rows in the left dataset without a match receive missing values (NaNs) for columns from the right dataset.
 
 Library
-:  A group of related modules. See definition of a {term}`module`.
+: Also known as a package or {term}`Module`.  
+  An installable collection of code that provides reusable functionality through classes, {term}`methods <Method>`, or standalone {term}`functions <Function>`.
 
 List
-:  A data type in Python that can be used to store collections of values. Values in Python lists can be added, removed, or modified, and the list items do not need to be the same data types. Python lists are enclosed in square brackets (`[` `]`) and list items are separated by commas.
+: A mutable Python data type used to store an ordered collection of values.  
+  List elements can be added, removed, or modified, and values do not need to share the same {term}`Data type`.
 
 Loop
-:  A programming construct that allows a section of code to be repeated a finite number of times or until a given condition is met.
+: A programming construct that repeats a block of code a fixed number of times or until a condition is met.
 
 Lossless compression
-:  Lossless compression is a data compression approach that is used to reduce the file size of a raster dataset when writing without compromising the data quality. Some commonly used lossless compression methods include `LZD` and `DEFLATE`.
+: A compression method that reduces file size without losing any data or precision.  
+  Common lossless compression methods include `LZW` and `DEFLATE`.
 
 Lossy compression
-:  Lossy compression is a data compression approach that can significantly reduce the file size of a raster dataset with some loss of data quality and precision. Some commonly used lossy compression methods include `JPEG` and `JPEG2000`.
-  
+: A compression method that reduces file size by discarding some data, resulting in reduced quality or precision.  
+  Common lossy compression methods include `JPEG` and `JPEG2000`.
+
 Map projection
-:  A map projection is a mathematical method to draw a graphical representation of the Earth's surface on a flat surface, i.e. a map. 
-  
+: A mathematical method for representing the curved surface of the Earth on a flat map.
+
 Map reprojection
-:  Map reprojection is a process of converting coordinates described in one coordinate reference system (CRS) to another. The transformation between coordinate systems involves both translation and rotation, and requires knowledge of the shape and size of the earth, as well as its orientation in space.  
+: The process of converting spatial data from one {term}`Coordinate Reference System` to another.  
+  Reprojection relies on mathematical transformations that account for the shape and orientation of the Earth.
 
 Markdown
-:  A lightweight markup language used to convert plain text input to rich-formatted output.
-  Markdown can, for example, be used to create simple documentation with different heading levels, text in bold and/or italics, text in lists, or documentation that includes hyperlinks.
-  More information can be found at <https://en.wikipedia.org/wiki/Markdown>.
-  
+: A lightweight markup language used to create formatted text from plain text input.  
+  Markdown supports headings, lists, emphasis, and hyperlinks and is commonly used for documentation.
+
 Metadata
-:  Metadata refers to data that provides information about other data. It often describes characteristics of the data, such as its content, quality, format, and other relevant characteristics. For example, the metadata of a satellite image may include information about the image's resolution, file size, coordinate reference system, and the date it was taken. 
+: Data that describe other data.  
+  Metadata commonly include information such as content, resolution, format, coordinate reference system, and acquisition date.
 
 Method
-:  A function that is associated with an instance of a specific Python data type. Methods can be accessed by typing the variable name of the instance, a period, and the function name.
+: A {term}`Function` that is associated with an instance of a specific data type or {term}`Class`.  
+  Methods are accessed using dot notation on an object.
 
 Module
-:  A file containing Python definitions and statements. Module files have the `.py` file extension.
+: A Python file (`.py`) that contains definitions, statements, and executable code.  
+  Modules are used to organize and reuse code.
 
 Mutable
-:  A data type that can be modified after being defined. In reality, things are a bit more complicated, but this is sufficient for our purposes. Opposite of {term}`Immutable`.
+: A data type whose value can be changed after it is created.  
+  Examples include lists and dictionaries. Opposite of {term}`Immutable`.
 
 Namespace
-:  A collection of names and information about the objects to which the names refer. The objects could be variables or methods. There are four namespaces in Python (sorted here in order of {term}`scope` from broadest to narrowest): built-in, global, enclosing, and local.
+: A scope that defines where Python looks for identifiers.  
+  Namespaces allow the same name to be reused in different contexts without conflict.  
+  Python uses four main namespaces (from broadest to narrowest): built-in, global, enclosing, and local.
+
+Object
+: A container that stores data (and possibly behavior) at a specific location in computer memory.  
+  Objects are accessed through an {term}`Identifier`.
 
 Optional parameter
-:  A function {term}`parameter` that does not need to be provided when calling the function in order to use it. Optional parameters will use default function values that are provided in the function definition in such cases.
+: A {term}`Parameter` that does not need to be explicitly provided when calling a {term}`Function`.  
+  If omitted, the parameter takes a default value defined in the function signature.
 
-Parameter
-:  A variable listed within the parentheses of a function definition. Similar to an {term}`argument`.
-
-Pothole case
-:  A variable naming convention that utilzes underscore characters (`_`) to separate words in the variable name. For example, `gps_station_id`. Also known as snake case.
+[Parameter](https://en.wikipedia.org/wiki/Parameter_(computer_programming))
+: Also known as an {term}`Argument`.  
+  A variable listed in the parentheses of a function definition that receives a value when the function is called.  
+  A parameter must either be assigned a value through an argument or have a default value.
 
 Program
-:  A detailed list of step-by-step instructions that tell the computer exactly what to do.
-  
+: A sequence of step-by-step instructions that tells a computer what actions to perform.
+
 Programming language
-:  A set of exact and unambiguous instructions that can be understood by the computer.
+: A formal system of precise and unambiguous instructions that a computer can interpret and execute.
+
+Property
+: Also known as an attribute or feature.  
+  A single value associated with a {term}`Record`, such as `time_stamp` or `temperature`.  
+  Properties are typically stored in columns.
 
 Radiometric resolution
-:  In satellite imagery, radiometric resolution refers to the ability of a sensor to measure and distinguish differences in the intensity of the electromagnetic radiation it detects. It is determined by the number of bits used to represent the data for each pixel, which defines the range of possible intensity values. For example, an 8-bit sensor can record 256 levels of intensity (0–255), while a 16-bit sensor can record 65,536 levels. 
+: In satellite imagery, radiometric resolution describes how precisely a sensor can distinguish differences in signal intensity.  
+  It is determined by the number of bits per pixel (e.g. 8-bit or 16-bit), which defines the range of possible values.
 
 Radius query
-:  A radius query is a type of spatial query that retrieves all points within a specified distance (radius) from a given query point. The query is performed typically on a {term}`KD-Tree` to efficiently find points that fall within a given distance from the query point. KD-Tree supports only Point objects, i.e. it cannot be used to search other geometric types, such as LineStrings or Polygons.
+: A type of {term}`Spatial queries` that retrieves all points within a specified distance from a query point.  
+  Radius queries are often implemented using spatial index structures such as a KD-tree.  
+
+Record
+: Also known as an observation or event.  
+  A single, usually independent, occurrence of a phenomenon, typically stored as a row in a table.
 
 Repository
-:  A collection of files, in {term}`Git` for example, and the history of their changes. Often referred to informally as a "repo."
+: A collection of files and their complete change history managed by a version control system such as {term}`Git`.  
+  Often referred to informally as a “repo”.
 
 Required parameter
-:  A function {term}`parameter` that must be defined when calling the function in order to use it. Required parameters do not have default function values given in the function definition. Also known as positional parameters.
+: A {term}`Parameter` that must be provided when calling a function.  
+  Required parameters do not have default values and are sometimes called positional parameters.
 
 Revision
-:  Another name for a {term}`version`.
+: Another term for a {term}`Version`.
 
 Right outer join
-:  Right outer join includes all the rows from the right (Geo)DataFrame and those rows from the left (Geo)DataFrame that have a matching key in the table, or that intersect or match based on the specified spatial relationship (e.g., intersects, contains, within). If there is no matching row in the left (Geo)DataFrame for a row in the right (Geo)DataFrame, the result will still include the row from the right (Geo)DataFrame, but with missing values (NaNs) in the columns from the left (Geo)DataFrame.
-
-R-tree
-:  An R-tree is a type of data structure used as a {term}`spatial index` to efficiently query spatial objects. It organizes spatial data by grouping nearby objects and representing these groups with their minimum bounding rectangle. This hierarchical structure allows to query spatial data efficiently by eliminating groups of objects that do not intersect with the query area. R-trees are widely used in geographic information systems (GIS), databases, and for various spatial search and optimization tasks, enabling fast access and retrieval of spatial data based on their location and geometric properties.
+: A join operation that retains all rows from the right (Geo)DataFrame and includes matching rows from the left (Geo)DataFrame.  
+  Rows in the right dataset without a match receive missing values (NaNs) for columns from the left dataset.
 
 Scope
-:  The region in which a name defined in a program has meaning. Python will search for names within the scope of {term}`namespaces <namespace>`; first in the local, then enclosing, then global, and finally in built-in.
+: The region of a program in which a name is valid and can be accessed.  
+  Python searches for names through a hierarchy of {term}`Namespaces <Namespace>`: local, enclosing, global, and built-in.
 
 Script
-:  A Python script is a collection of commands in a file that can be executed like a program. 
+: A file containing executable Python code that can be run like a {term}`Program`.
 
 Semantics
-:  The exact meaning of a component in a programming language, such as a statement or a function. For example, the `len()` function in Python is used to determine the length of a data structure that is defined in memory.
+: The meaning of a construct in a programming language, such as a statement or function.  
+  For example, the semantics of `len()` define that it returns the number of elements in a data structure.
 
 Series
-:  In pandas library, a Series is a one-dimensional array-like data structure that holds a sequence of values, each associated with a unique index. It can store data of any type, such as integers, floats, or strings. A Series is essentially a single column of data and can be used as a building block for a {term}`DataFrame`. It supports various operations for data manipulation and analysis, making it a fundamental component of pandas.
+: In pandas, a one-dimensional labeled data structure that stores a sequence of values with an associated index.  
+  A Series often represents a single column and serves as a building block for a {term}`DataFrame`.
+
+[Set](https://en.wikipedia.org/wiki/Set_(abstract_data_type))
+: A data type that can store distinct values, without any particular order. Rather than retrieving a specific element from a set, one typically tests a value for membership in a set.
 
 Shifting
-:  The process of adjusting references in time series data forward or backward in time. For example, values could be shifted backward by one week to compare data from a given week to equivalent data from the following week.
+: The process of moving values in a time series forward or backward in time.  
+  Shifting is commonly used to compare values across different time steps.
 
 Signed integer
-:  A (data) type of integer in Python that can represent both positive and negative whole numbers. The "signed" attribute means the number includes a "+" or "-" sign to indicate its value's polarity. For example, -5 and 42 are signed integers. In Python, integers are stored as signed by default and can handle very large values thanks to their dynamic size.
+: An integer data type that can represent both positive and negative whole numbers.  
+  In Python, integers are signed by default and can grow to arbitrary size.
 
 Slope
-:  Slope is a measure of the steepness or incline of the terrain. Slope is commonly calculated from elevation values in a raster and it represents the rate of change in elevation over distance and is typically expressed in degrees or percent.
+: A measure of terrain steepness derived from elevation data.  
+  Slope represents the rate of change in elevation over distance and is commonly expressed in degrees or percent.
+
+Snake case
+: A variable naming convention that uses lowercase letters and underscores (`_`) to separate words.  
+  Example: `gps_station_id`.  
+  Also known as pothole case. Compare with {term}`Camel case`.
 
 Software
-:  Another name for a {term}`program`.
+: Another term for a {term}`Program`.
 
 Source code
-:  The list of instructions in a {term}`computer` {term}`programming language` that define what a {term}`program` should do.
+: The human-readable instructions written in a {term}`Programming language` that define what a {term}`Program` does.
 
 Spatial extent
-:  In geographic data, spatial extent refers to the geographic area covered by a dataset or map. It is typically defined by the minimum and maximum coordinates (e.g., latitude and longitude) that bound the dataset, forming a rectangle or other boundary in geographic space.
+: In geographic data, spatial extent refers to the geographic area covered by a dataset or map.  
+  It is typically defined by minimum and maximum coordinates that bound the data, often forming a rectangular boundary.
 
 Spatial index
-:  A spatial index is a data structure designed to efficiently query spatial data, such as Points, LineStrings and Polygons within a multidimensional space. It optimizes the storage of spatial objects, enabling fast searches based on their geographic location and spatial relationships. Spatial indexes are crucial in geographic information systems (GIS) and spatial database management, where rapid access to spatial data is essential for tasks such as proximity searches, map rendering and spatial analysis. Common types of spatial indexes include R-trees, quad-trees, and k-d trees, each with its own method for partitioning space and organizing spatial data for efficient querying.
+: A data structure that enables efficient querying of spatial objects such as points, lines, and polygons.  
+  Spatial indexes speed up operations based on location or spatial relationships and are commonly used in GIS and spatial databases.  
+  Examples include R-trees, quad-trees, and k-d trees.  
 
 Spatial join
-:  A spatial join is a method used to combine spatial data based on the locations and relationships of the features in two separate geospatial datasets. It merges the two datasets based on their spatial relations, e.g. by joining information from all points in a given dataset that are within given polygons present in another dataset.
+: A method for combining two geospatial datasets based on the spatial relationships between their features.  
+  For example, attributes from polygons may be joined to points that fall within them.
 
 Spatial queries
-:  A spatial query is a process in GIS commonly used e.g. to select spatial features or properties based on the spatial relationships between geospatial data layers or geometries. Spatial queries are used for answering topology related questions on the basis of geometric information only, i.e., the spatial position and extent of the geometric objects involved.
+: Operations that select or analyze features based on spatial relationships such as distance, intersection, or containment.  
+  Spatial queries rely on geometric properties rather than attribute values alone.
 
 Spatial resolution
-:  The spatial resolution of a raster refers typically to the size of the cells in a raster dataset. It can also mean the ratio of screen pixels to image pixels at the current map scale. 
+: The level of spatial detail in raster data, typically expressed as the size of raster cells on the ground.  
+  Smaller cell sizes correspond to higher spatial resolution.
 
-Spatial predicate
-:  Spatial predicate is an output from {term}`DE-9IM` model that describe the spatial relationship between two geometric objects. Example spatial predicates are within, contains, touches and intersect.
-  
 Spatio-temporal data model
-:  A data model that incorporates time (t) as an additional dimension to the geographical dimension (x, y). 
+: A data model that represents both spatial dimensions (x, y) and a temporal dimension (t).  
 
 Spectral resolution
-:  In multispectral satellite data, spectral resolution refers to the ability of a sensor to distinguish between different wavelengths of electromagnetic radiation. It is defined by the number and width of the spectral bands the sensor can capture. Higher spectral resolution means the sensor can detect finer differences in wavelength, allowing for more detailed analysis of surface materials and phenomena.
+: In multispectral satellite data, spectral resolution describes how finely a sensor distinguishes wavelengths of electromagnetic radiation.  
+  It is determined by the number and width of spectral bands.
+
+Statement
+: A single instruction in a programming language that performs an action.  
+  A {term}`Program` consists of one or more statements.
 
 Subplots
-:  The term used in Matplotlib to refer to individual plots when more than one plot is part of a single figure.
+: Individual plots arranged within a single figure in Matplotlib.
 
 Syntax
-:  The precise form of a component in a programming language. For example, the print function in Python expects the syntax `print('hello')` in order to have the word hello displayed on the screen.
+: The formal structure required to write valid code in a programming language.  
+  For example, the correct syntax for printing text in Python is `print("hello")`.
 
 Temporal resolution
-:   In satellite imagery, temporal resolution refers to the frequency at which a specific area on Earth's surface is revisited and imaged by a satellite sensor. It determines how often data is collected for a given location and is typically expressed as the time interval between consecutive observations (e.g., daily, weekly). Higher temporal resolution enables more frequent monitoring, while lower temporal resolution provides less frequent updates but may cover broader areas or focus on finer spatial or spectral details.
+: In satellite imagery, temporal resolution refers to how frequently the same area on Earth is observed.  
+  It is typically expressed as the time interval between observations (e.g. daily or weekly).
 
 Topological spatial relations
-:  Topological spatial relations describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as contains, touches and intersects. In GIS, these kind of topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions.
-  
+: Relationships that describe how geometric objects relate to one another based on their boundaries and positions.  
+  Examples include contains, touches, and intersects.
+
 Tuple
-:  A [tuple](https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences) is a Python data structure that consists of a number of values separated by commas. Coordinate pairs are often represented as a tuple, such as: `(60.192059, 24.945831)`. Tuples belong to [sequence data types](https://docs.python.org/3/library/stdtypes.html#typesseq) in Python. Other sequence data types are lists and ranges. Tuples have many similarities with lists and ranges, but they are often used for different purposes. The main difference between tuples and lists is that tuples are [immutable](https://docs.python.org/3/glossary.html#term-immutable), which means that the contents of a tuple cannot be altered (while lists are mutable; you can, for example, add and remove values from lists).
+: An immutable Python sequence used to store ordered collections of values.  
+  Tuples are commonly used for fixed data such as coordinate pairs, for example `(60.192059, 24.945831)`.  
+  Compare with {term}`List`, which is mutable.
 
 Type conversion
-:  Changing the data type of a Python object. For example, `float(5)`.
+: The process of changing the {term}`Data type` of an object.  
+  For example, converting an integer to a float using `float(5)`.
 
 Unary union
-:  The unary union operation takes multiple geometries and merges them into a single geometry. This is useful when you have a collection of shapes and you want to treat them as a single entity for analysis or visualization.
+: A geometric operation that merges multiple geometries into a single geometry.  
+  Unary union is often used to treat collections of shapes as one object.  
 
 Unsigned integer
-:  A type of integer that represents only non-negative whole numbers, starting from zero. Unlike {term}`signed integers`, unsigned integers do not include a "+" or "-" sign, allowing them to use all their bits for positive values.
+: An integer data type that represents only non-negative values.  
+  Unlike {term}`Signed integer`, unsigned integers do not include negative numbers.
 
 Variable
-:  A way of storing values in the memory of the computer using specific names that you define.
+: An {term}`Object` that has an {term}`Identifier` (its name) and stores one or more values in memory.  
+  The value of a variable may change while a program is running.
 
 Version
-:  A specific instance of changes to files in a {term}`repository` of a {term}`version control` system. Also referred to as a {term}`revision`.
+: A specific recorded state of files in a {term}`Repository` managed by a {term}`Version control` system.  
+  Also referred to as a {term}`Revision`.
 
 Version control
-:  The practice of tracking changes to computer files, typically {term}`source code` files for {term}`computer programs <Program>`. Version control allows users to easily collaborate and revert to previous versions.
+: The practice of tracking and managing changes to files over time, especially {term}`Source code`.  
+  Version control enables collaboration and recovery of earlier versions.
 
 Virtual environment
-:  A virtual environment is a Python programming environment which works in a way that the Python interpreter, libraries and scripts installed into it are isolated from the ones installed in other virtual environments, as well as from (possible) system Python, i.e., one which is installed as part of your operating system.
+: An isolated Python environment with its own interpreter and installed libraries.  
+  Virtual environments prevent conflicts between dependencies used by different projects.
 
 Watershed
-:  An area of land where all surface water drains to a common outlet, such as a river, lake, or ocean.
-  
+: An area of land in which all surface water drains toward a common outlet such as a river, lake, or ocean.
+
 Well-known binary
-:  Well-known binary (WKB) is a format for representing vector geometry objects in compressed binary format which is useful for computer processing. The human-readable equivalent for WKB is `Well-known text` format. WKB can represent various geometric objects: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, Triangle, PolyhedralSurface, TIN (Triangulated irregular network) and GeometryCollection. Coordinates for the geometries can be represented in 2D, 3D or 4D (x,y,z,m).
+: A compact binary format for representing vector geometry objects in a machine-efficient form.  
+  The human-readable equivalent is {term}`Well-known text`.
 
 Well-known text
-:  Well-known text (WKT) is a text markup language for representing vector geometry objects. WKT can represent various geometric objects: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, Triangle, PolyhedralSurface, TIN (Triangulated irregular network) and GeometryCollection. Coordinates for the geometries can be represented in 2D, 3D or 4D (x,y,z,m). The binary equivalent for WKT is `Well-known binary` format.
+: A text-based format for representing vector geometry objects.  
+  The binary equivalent of WKT is {term}`Well-known binary`.
+
 :::
