@@ -17,7 +17,7 @@ In this lesson, the focus shifts from *how Python runs* to *how Python stores in
 
 At the heart of this lesson are **variables**.
 
-A variable is more than just a name. It is a way to **represent data**, give it meaning, and make it usable for analysis.
+A {term}`variable` is more than just a name. It is a way to **represent data**, give it meaning, and make it usable for analysis.
 
 ---
 
