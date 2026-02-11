@@ -52,6 +52,7 @@ project:
       children:
         # - file: book/3_python/1_get_started.md
          - file: book/3_L1_get-started/01_motivation.md
+         - file: book/3_L1_get-started/02_programming.md
          - file: book/3_L1_get-started/01_get_started.ipynb
     - title: L2 - Variables & Values
       file: book/4_L2_variables.md
