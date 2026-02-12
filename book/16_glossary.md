@@ -164,6 +164,9 @@ GitHub
 : An online platform for collaborative development of {term}`software` built around the {term}`Git` {term}`version control` system.  
   GitHub provides tools for collaboration, issue tracking, and code review.
 
+Hidden state
+: A hidden state occurs when a notebook works only because something was executed earlier, even though that dependency is not obvious from the current cell. In other words, the notebook depends on memory that the reader cannot see.
+
 Hillshade
 : A grayscale, three-dimensional visualization of terrain derived from a digital elevation model (DEM).  
   Hillshading simulates illumination using a specified light source direction and angle to enhance topographic relief.
@@ -203,6 +206,9 @@ Interpreter
 Jupyter Notebook
 : A web-based interactive document that combines formatted text with executable code cells.  
   Jupyter Notebooks can include equations, images, visualizations, and code output and are widely used for data analysis and teaching.
+
+Kernel
+: The kernel is the computational engine that runs the code in a notebook. It executes Python commands, stores variables in memory, and returns results to the notebook interface. If the kernel is restarted, all variables and previously computed results stored in memory are lost.
 
 Left outer join
 : A join operation that retains all rows from the left (Geo)DataFrame and includes matching rows from the right (Geo)DataFrame.  

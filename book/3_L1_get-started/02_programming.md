@@ -11,15 +11,13 @@ How we express ideas as code
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/3_L1_get-started/02_programming-python-jupyter.ipynb)
-
 ```{admonition} Big idea
 :class: tip
 We use Python and notebooks as a practical environment to turn ideas into code, explore data, and document our work in a reproducible way.
 ```
 
 In the previous section, you saw why programming matters for working with data.
-In this section, we move one step closer to practice:
+Now, we move one step closer to practice:
 
 * what we mean by *programming* in this course
 * why we use **Python** as our main language
@@ -31,11 +29,11 @@ By the end of the section, you should have a clear picture of how ideas become c
 
 ---
 
-## What programming means
+## 1. What programming means
 
 Programming means giving a computer precise instructions to process data and produce results.
 
-A computer does not interpret or guess. It follows the steps you write, exactly and repeatedly. The art of programming is to decide **what steps are needed**, in **which order**, and **under which conditions**.
+A computer does not interpret or guess. It follows the steps you write, exactly and repeatedly. The art of programming is to decide **what steps are needed**, in **which order**, and **under which conditions**. Programming is structured thinking. Before we write code, we clarify logic.
 
 ### Coding and programming
 
@@ -62,14 +60,15 @@ Even short programs can already be useful. A few lines of code can load a datase
 :class: dropdown
 
 Think of one task from your studies that feels repetitive or error prone.  
-Could you describe the steps in enough detail that a computer could follow them?
+Which steps would you repeat?
+Which steps could be described as clear rules?
 
 Keep that example in mind as you work through the next sections.
 ```
 
 ---
 
-## Why Python in this course
+## 2. Why Python in this course
 
 Python is the programming language we use throughout this course.
 
@@ -120,7 +119,7 @@ The goal is to use Python as a practical tool for working with spatial data.
 
 ---
 
-## Ways to run Python code
+## 3. Ways to run Python code
 
 There is more than one way to write and run Python code.
 Each option has its strengths, and you will encounter several during your studies.
@@ -228,7 +227,7 @@ At this stage, the focus now is learning how to think in code, not mastering dev
 
 ---
 
-## Jupyter in this course
+## 4. Jupyter in this course
 
 Jupyter is the system that allows notebooks to run in a web browser.
 
@@ -255,7 +254,7 @@ When you start JupyterLab, it opens in a browser window and shows these componen
 
 ---
 
-#### How to start JupyterLab 
+#### How to start JupyterLab
 
 If you installed [Miniconda](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/#id-3-installing-conda), the typical workflow looks like this:
 
@@ -387,22 +386,38 @@ You can:
 The JupyterLab starting window
 :::
 
+---
 
-```{admonition} First impression
-:class: note
+## 6. Summary
 
-When you open JupyterLab for the first time, it may look busy.  
-This is normal.
+In this section, you learned how ideas become executable code.
 
-At the beginning, you only need:
+You now understand that:
 
-- the file browser on the left  
-- notebook tabs in the main area  
-- the run button or Shift + Enter to execute cells  
+- **Programming** means designing precise steps that a computer can execute  
+- **Coding** is the act of expressing those steps in a programming language  
+- **Python** is our language of choice because it is readable, widely used, and powerful for scientific and spatial data work  
+- **Scripts** and **notebooks** are two different ways to run Python code  
+- **JupyterLab** is the environment we use to combine code, explanation, and results in one place  
 
-You will discover the other features gradually as they become useful.
-```
+Most importantly, you should understand that programming in this course is not about building large software systems. It is about:
 
-In this course, JupyterLab and notebooks together form your main programming environment: you read explanations, run code, inspect results, and document your analysis in one place.
+- expressing logic step by step  
+- making analysis reproducible  
+- turning data into insight  
 
-```
+---
+
+### Looking ahead
+
+In the next section, we move from concepts to structure and learn the basic rules that make Python code valid and readable.
+The aim is to write Python that the computer can understand. Here, small details matter:
+
+- names are case sensitive  
+- quotes must match  
+- indentation defines structure  
+
+In the next section, you will learn the core rules of **Python syntax**.  
+These rules are about writing code that is clear, consistent, and easy to debug.
+
+Once you understand the syntax, you can start turning ideas into working programs.
