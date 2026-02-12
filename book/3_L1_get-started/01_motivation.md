@@ -11,21 +11,20 @@ Why programming matters
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/3_L1_get-started/01_motivation.ipynb)
-
 ```{admonition} Big idea
 :class: tip
 Programming helps us turn raw data into insight by automating analysis, revealing patterns, and making results reproducible.
 ```
 
-Programming is not an end in itself in this course.
-It is a tool that helps us **make sense of data**.
+Welcome!  
+In this course, programming is not an end in itself.  
+It is a tool for **make sense of data**.
 
 Over the past decades, the amount of data that is openly available has grown enormously. Climate records, satellite imagery, sensor networks, and administrative datasets can now be accessed within seconds. This creates exciting opportunities, but also a challenge: raw data are rarely meaningful on their own.
 
 The central motivation of this course is simple:
 
-> **How can we turn complex data into insight that people can understand?**
+> *How can we turn complex data into insight?*
 
 ---
 
@@ -113,7 +112,7 @@ Combining both reveals dynamics.
 
 Animated visualizations, such as global temperature anomaly animations, allow us to follow processes as they unfold across the Earth. Patterns that were previously abstract become intuitive. Viewers can often explain what they see without needing technical background knowledge.
 
-What makes this particularly powerful is that such visualizations are not created by hand. They are produced through **reproducible code**.
+What makes this particularly powerful is that such visualizations are not created by hand. They are produced through **reproducible code**, which means anyone can inspect the steps, rerun the analysis, and verify the result.
 
 ```{admonition} Important perspective
 :class: note
@@ -128,11 +127,10 @@ about processes, not just a way to compute.
 
 Programming allows us to:
 
-* process large datasets reliably
-* repeat analyses without manual effort
-* test ideas quickly
-* document every step of an analysis
-* share methods transparently
+* automate complex workflows  
+* scale analysis to large datasets  
+* document every analytical step  
+* make results transparent and reproducible  
 
 Even basic programming skills already make a difference. A few lines of code can load thousands of measurements, summarize them, and produce a clear visual result.
 
@@ -154,9 +152,33 @@ The visual examples shown here are not goals in themselves. They are inspiration
 By the end of this part of the course, you will not just run code.
 You will use code to **ask and answer questions**.
 
-```{admonition} Looking ahead
-:class: tip
+---
 
-You will build understanding step by step.  
-Nothing in this course assumes prior programming experience.
-```
+## 6. Summary
+
+In this section, you explored **why programming matters**.
+
+You have seen that:
+
+- Raw data are often difficult to interpret directly  
+- Visualization can reveal patterns that remain otherwise hidden  
+- Reproducible code allows analyses to be transparent and repeatable  
+
+Programming is about transforming data into insight.  
+The key message is this:
+
+> Code is not just a technical skill.  
+> It is a structured way of thinking about data.
+
+---
+
+### Looking ahead
+
+So far, we have focused on **why** programming matters.  
+In the next section, you will learn:
+
+- what programming means in this course  
+- why we use Python  
+- how we run code using notebooks  
+
+We now move from motivation to method.
