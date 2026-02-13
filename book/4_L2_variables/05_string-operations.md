@@ -327,7 +327,7 @@ Species: African fish eagle, Country: Uganda
 ````{admonition} Sample solution (click to compare with your results)
 :class: dropdown
 
-```python
+```{code-cell} python
 # original record
 record = "Species:  African fish eagle , Country:  Uganda "
 

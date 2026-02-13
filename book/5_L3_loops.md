@@ -26,7 +26,7 @@ Instead of writing *more lines*, you will learn how to write **rules** that Pyth
 
 ---
 
-## From data to behaviour
+## 1. From data to behaviour
 
 Once data is stored in collections, such as lists or dictionaries, the real power of programming comes from being able to:
 
@@ -44,7 +44,7 @@ what runs, how often, and under which circumstances.
 
 ---
 
-## Why loops matter
+## 2. Why loops matter
 
 Without loops, programs do not scale.
 
@@ -64,7 +64,7 @@ This lesson teaches you how to express these ideas clearly and safely.
 
 ---
 
-## Why this matters for SDS
+## 3. Why this matters for SDS
 
 In spatial data science, repetition is unavoidable:
 
@@ -82,7 +82,7 @@ They turn static data into **dynamic processes**.
 
 ---
 
-## Learning objectives
+## 4. Learning objectives
 
 After this lesson, you will be able to:
 
@@ -97,7 +97,7 @@ After this lesson, you will be able to:
 
 ---
 
-## Looking ahead
+## 5. Looking ahead
 
 Lesson 3 is about **making code do more work for you**.
 

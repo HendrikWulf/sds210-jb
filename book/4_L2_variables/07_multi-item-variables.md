@@ -1331,7 +1331,7 @@ raw_attributes = {
 ````{admonition} Sample solution (click to expand)
 :class: dropdown
 
-```python
+```{code-cell} python
 # 1) Remove duplicates using a set
 unique_cities = set(raw_cities)
 

@@ -556,7 +556,7 @@ Goal: build confidence in recognising basic data types.
 
 ### Exercise 1: Recognising Data Types
 
-```python
+```{code-cell} python
 a = 25
 b = 25.0
 c = "25"
@@ -565,7 +565,7 @@ d = False
 
 Expected and confirmed data types:
 
-```python
+```{code-cell} python
 type(a)   # int
 type(b)   # float
 type(c)   # str
@@ -618,14 +618,14 @@ forecast_bahnhofstrasse = "39.0"
 
 Checking data types:
 
-```python
+```python{code-cell} 
 type(temp_celsius)              # float
 type(forecast_bahnhofstrasse)   # str
 ```
 
 Running the operation:
 
-```python
+```python{code-cell} 
 forecast_bahnhofstrasse - temp_celsius
 ```
 
@@ -666,25 +666,25 @@ Goal: understand explicit conversion and its consequences.
 
 Converting the string to a numeric value:
 
-```python
+```{code-cell} python
 forecast_bahnhof = float(forecast_bahnhofstrasse)
 ```
 
 Now the subtraction works:
 
-```python
+```{code-cell} python
 forecast_bahnhof - temp_celsius
 ```
 
 Converting the temperature to an integer:
 
-```python
+```{code-cell} python
 temp_celsius_int = int(temp_celsius)
 ```
 
 Inspecting the result:
 
-```python
+```{code-cell} python
 temp_celsius        # 37.6
 temp_celsius_int    # 37
 ```

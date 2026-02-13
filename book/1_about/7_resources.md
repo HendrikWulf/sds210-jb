@@ -108,14 +108,24 @@ Podcasts are great for **big-picture thinking**, **community insights**, and sta
 
 Blogs are ideal for **short-form insights**, **current debates**, and **practical tips** that often do not (yet) appear in textbooks or courses. They are especially useful for staying up to date with **emerging tools**, **methods**, and **perspectives** in spatial data science.
 
-* **[Strategic Geospatial](https://www.strategicgeospatial.com/)**  
-  Industry-focused blog covering trends, applications, and strategic developments in the geospatial sector.
+* **[Spatial Thoughts](https://spatialthoughts.substack.com/)**  
+  Practical tutorials, reflections, and insights on geospatial workflows, Python, and spatial data science by Ujaval Gandhi.
 
 * **[GeoAI Unpacked](https://geoaiunpacked.substack.com/)**  
   A Substack exploring the intersection of geospatial data, machine learning, and AI, with accessible explanations and applied examples.
 
-* **[Spatial Thoughts](https://spatialthoughts.substack.com/)**  
-  Practical tutorials, reflections, and insights on geospatial workflows, Python, and spatial data science by Ujaval Gandhi.
+* **[Strategic Geospatial](https://www.strategicgeospatial.com/)**  
+  Industry-focused blog covering trends, applications, and strategic developments in the geospatial sector.
+
+---
+
+## Others
+
+* **[W3 schools](https://www.w3schools.com/python/default.asp)**  
+  Python tutorials
+
+* **[stackoverflow](https://stackoverflow.com/questions)**  
+  Questions and answers
 
 ---
 
