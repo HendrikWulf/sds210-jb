@@ -6,13 +6,6 @@ site:
 ---
 
 <div class="page-subtitle">
-Subtitle
-</div>
-
----
-
-
-<div class="page-subtitle">
 From motivation to first notebook run
 </div>
 
@@ -29,7 +22,7 @@ That is what Lesson 1 is for.
 
 ---
 
-## From questions to code
+## 1. From questions to code
 
 Spatial data science starts with questions:
 
@@ -48,7 +41,7 @@ In this lesson, you move from motivation to method:
 
 ---
 
-## Why this matters for SDS
+## 2. Why this matters for SDS
 
 In later lessons you will work with:
 
@@ -67,7 +60,7 @@ If these basics are solid, the rest of the course becomes much easier.
 
 ---
 
-## Learning objectives
+## 3. Learning objectives
 
 After this lesson, you will be able to:
 
@@ -82,7 +75,7 @@ After this lesson, you will be able to:
 
 ---
 
-## Lesson structure
+## 4. Lesson structure
 
 This lesson has four short sections:
 
@@ -95,7 +88,7 @@ Each section is designed to be quick to read and immediately usable.
 
 ---
 
-## Looking ahead
+## 5. Looking ahead
 
 Lesson 1 is about *getting started safely*.
 In Lesson 2, you will build on this by learning how Python stores information using **variables and values**.

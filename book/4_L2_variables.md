@@ -21,7 +21,7 @@ A {term}`variable` is more than just a name. It is a way to **represent data**, 
 
 ---
 
-## Learning objectives
+## 1. Learning objectives
 
 After this lesson, you will be able to:
 
@@ -36,7 +36,7 @@ After this lesson, you will be able to:
 
 ---
 
-## From values to data
+## 2. From values to data
 
 At first, variables store **single values**:
 - a number
@@ -54,7 +54,7 @@ To handle this, Python provides **multi-item variables**, such as lists and dict
 
 ---
 
-## Why this matters for {abbr}`SDS (Spatial Data Science)`
+## 3. Why this matters for {abbr}`SDS (Spatial Data Science)`
 
 In spatial data science, almost everything is structured data:
 
@@ -71,7 +71,7 @@ This lesson introduces the **building blocks** you will reuse throughout the cou
 
 ---
 
-## Looking ahead
+## 4. Looking ahead
 
 The data structures you learn here are essential for the next steps in the course.
 

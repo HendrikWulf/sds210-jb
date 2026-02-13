@@ -262,7 +262,7 @@ data = [12, 15, 18, 21, 24]
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 data = [12, 15, 18, 21, 24]
 
 for i in range(len(data)):
@@ -299,7 +299,7 @@ Write a loop that:
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 temperatures = [5, 7, 9, 11, 13, 45, 14, 16]
 min_temp = -20
 max_temp = 40
@@ -342,7 +342,7 @@ Write a loop that:
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 temperatures = [3, None, 6, 7, None, 9]
 
 for i in range(len(temperatures)):
@@ -390,7 +390,7 @@ and **where** to use `break`.
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 values = [10, 12, None, 15, -999, 18]
 
 for i in range(len(values)):

@@ -851,31 +851,31 @@ Being able to inspect expression results helps you build confidence in your calc
 ````{admonition} Sample solution (click to compare with your results)
 :class: dropdown
 
-```python
+```{code-cell} python
 # Simple arithmetic expressions
 
 2 + 3        # addition
 ```
 
-```python
+```{code-cell} python
 4 * 5        # multiplication
 ```
 
-```python
+```{code-cell} python
 2 ** 3       # exponentiation
 ```
 
-```python
+```{code-cell} python
 # After changing one number and re-running the cell
 
 2 + 10
 ```
 
-```python
+```{code-cell} python
 4 * 6
 ```
 
-```python
+```{code-cell} python
 2 ** 4
 ```
 
@@ -924,25 +924,25 @@ time_hours = 2.5
 ````{admonition} Sample solution (click to compare with your results)
 :class: dropdown
 
-```python
+```{code-cell} python
 # Given values
 distance_km = 180
 time_hours = 2.5
 ```
 
-```python
+```{code-cell} python
 # Compute average speed
 speed_kmh = distance_km / time_hours
 speed_kmh
 ```
 
-```python
+```{code-cell} python
 # Comparison produces a boolean
 speed_above_70 = speed_kmh > 70
 speed_above_70
 ```
 
-```python
+```{code-cell} python
 # Print a readable message
 print(
     "The average speed is",
@@ -993,40 +993,40 @@ print(
 ````{admonition} Sample solution (click to compare with your results)
 :class: dropdown
 
-```python
+```{code-cell} python
 import math
 ```
 
-```python
+```{code-cell} python
 # Define angle in degrees
 angle_deg = 30
 ```
 
-```python
+```{code-cell} python
 # Convert degrees to radians
 angle_rad = angle_deg * math.pi / 180
 angle_rad
 ```
 
-```python
+```{code-cell} python
 # Compute sine of the angle
 sin_value = math.sin(angle_rad)
 sin_value
 ```
 
-```python
+```{code-cell} python
 # Logical checks
 greater_than_zero = sin_value > 0
 less_than_one = sin_value < 1
 ```
 
-```python
+```{code-cell} python
 # Combine conditions
 valid_range = greater_than_zero and less_than_one
 valid_range
 ```
 
-```python
+```{code-cell} python
 # Print result
 print(
     "Sine value:",

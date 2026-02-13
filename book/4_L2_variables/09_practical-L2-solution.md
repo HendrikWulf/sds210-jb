@@ -63,7 +63,7 @@ print(z, g, l)
 ````{admonition} Sample solution – Part 1
 :class: dropdown
 
-```python
+```{code-cell} python
 # City names
 z = "Zurich"    # name of the city Zurich
 g = "Geneva"    # name of the city Geneva
@@ -104,7 +104,7 @@ print("The distance from " + z + " to " + g + " is " + str(dist_zurich_geneva) +
 ````{admonition} Sample solution – Part 2
 :class: dropdown
 
-```python
+```{code-cell} python
 # Approximate travel distances (km)
 dist_zurich_geneva = 280
 dist_zurich_lugano = 205
@@ -146,7 +146,7 @@ print(f"{x} is of type {type(x)}, {y} is of type {type(y)}, and {z_val} is of ty
 ````{admonition} Sample solution – Part 3
 :class: dropdown
 
-```python
+```{code-cell} python
 x = 5
 y = x ** 2
 z_val = y ** 0.5
@@ -190,7 +190,7 @@ print("Zurich y:", zurich_coords[1])
 ````{admonition} Sample solution – Part 4
 :class: dropdown
 
-```python
+```{code-cell} python
 # CH1903+ coordinates (example realistic values)
 zurich_coords = [2680000, 1240000]
 geneva_coords = [2500000, 1120000]
@@ -246,7 +246,7 @@ cl = cities["Lugano"]
 ````{admonition} Sample solution – Part 5
 :class: dropdown
 
-```python
+```{code-cell} python
 cities = {
     "Zurich": zurich_coords,
     "Geneva": geneva_coords,
@@ -304,7 +304,7 @@ print(f"Manhattan distance from Zurich to Lugano is {manhattan_zl}")
 ````{admonition} Sample solution – Part 6
 :class: dropdown
 
-```python
+```{code-cell} python
 # Manhattan distance: Zurich – Geneva
 dx = cz[0] - cg[0]
 dx = dx ** 2
@@ -363,7 +363,7 @@ print(f"Euclidean distance from Zurich to Lugano is {euclidean_zl}")
 ````{admonition} Sample solution – Part 7
 :class: dropdown
 
-```python
+```{code-cell} python
 # Euclidean distance: Zurich – Geneva
 dx = cz[0] - cg[0]
 dy = cz[1] - cg[1]
@@ -410,7 +410,7 @@ print(distances)
 ````{admonition} Sample solution – Part 8
 :class: dropdown
 
-```python
+```{code-cell} python
 distances = {
     "ZurichLugano": {
         "manhattan": manhattan_zl,
@@ -477,7 +477,7 @@ You do **not** need to automate anything yet — focus on structure and clarity.
 ````{admonition} Sample solution – Optional challenge
 :class: dropdown
 
-```python
+```{code-cell} python
 city_data = {
     "Zurich": {
         "coords": zurich_coords,

@@ -408,7 +408,7 @@ Only refer to the sample solution once you have completed the exercise *yourself
 
 We start by defining two variables that represent our input values.
 
-```python
+```{code-cell} python
 distance_km = 120
 speed_kmh = 60
 ```
@@ -425,7 +425,7 @@ We now compute the travel time using the formula:
 
 time = distance ÷ speed
 
-```python
+```{code-cell} python
 travel_time_hours = distance_km / speed_kmh
 ```
 
@@ -440,7 +440,7 @@ The result is stored as a new value in `travel_time_hours`.
 
 In a Jupyter Notebook, writing the variable name as the last line displays its value automatically.
 
-```python
+```{code-cell} python
 travel_time_hours
 ```
 
@@ -452,7 +452,7 @@ This works because the notebook shows the result of the final expression in a ce
 
 The `print()` function is useful when you want formatted output or multiple values.
 
-```python
+```{code-cell} python
 print("Travel time in hours:", travel_time_hours)
 ```
 
@@ -464,7 +464,7 @@ This works in all Python environments, not just notebooks.
 
 Now we change the speed and recompute the travel time.
 
-```python
+```{code-cell} python
 speed_kmh = 80
 travel_time_hours = distance_km / speed_kmh
 travel_time_hours

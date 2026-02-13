@@ -270,7 +270,7 @@ Rewrite this using **one list comprehension**.
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 rainfall = [0, 5, 12, 0, 8, 20]
 non_zero = [r for r in rainfall if r > 0]
 ```
@@ -300,7 +300,7 @@ and rounds them to **one decimal place**.
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 elevation_m = [450, 1200, 50, 3200]
 elevation_km = [round(e / 1000, 1) for e in elevation_m]
 ```
@@ -334,7 +334,7 @@ Use **one list comprehension with if–else**.
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 temperatures = [-5, 3, 18, -12, 25]
 labels = ["cold" if t < 0 else "warm" for t in temperatures]
 ```

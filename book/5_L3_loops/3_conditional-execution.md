@@ -657,7 +657,7 @@ Write a loop that prints **only temperatures above 10**.
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 for t in temperatures:
     if t > 10:
         print(t)
@@ -697,7 +697,7 @@ Print the result for each value.
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 for d in distances:
     if d >= 5:
         print(d * 2)
@@ -737,7 +737,7 @@ that are also capitals.
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 for city in cities:
     if city in capitals:
         print(city)

@@ -269,7 +269,7 @@ Two possible average airspeeds are:
 ````{admonition} Sample solution (click to compare with your results)
 :class: dropdown
 
-```python
+```{code-cell} python
 # Migration distance
 distance_km = 1800
 
@@ -297,7 +297,7 @@ print(
 )
 ```
 
-```python
+```{code-cell} python
 # Debugging output to verify unit conversion
 print("DEBUG → speeds (km/h):", speed_kmh_slow, speed_kmh_fast)
 ```

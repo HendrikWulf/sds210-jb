@@ -59,22 +59,22 @@ project:
     - title: L2 - Variables & Values
       file: book/4_L2_variables.md
       children:
-        - file: book/4_L2_variables/01_variables.ipynb
-        # - file: book/4_L2_variables/01_variables.md
-        - file: book/4_L2_variables/02_naming-variables.ipynb
-        # - file: book/4_L2_variables/02_naming-variables.md
-        - file: book/4_L2_variables/03_data-types.ipynb
-        # - file: book/4_L2_variables/03_data-types.md
-        - file: book/4_L2_variables/04_operators-expressions.ipynb
-        # - file: book/4_L2_variables/04_operators-expressions.md
-        - file: book/4_L2_variables/05_string-operations.ipynb
-        # - file: book/4_L2_variables/05_string-operations.md
-        - file: book/4_L2_variables/06_formatting-output.ipynb
-        # - file: book/4_L2_variables/06_formatting-output.md
-        - file: book/4_L2_variables/07_multi-item-variables.ipynb
-        # - file: book/4_L2_variables/07_multi-item-variables.md
-        - file: book/4_L2_variables/08_practical-L2.ipynb
-        # - file: book/4_L2_variables/08_practical-L2.md
+        # - file: book/4_L2_variables/01_variables.ipynb
+        - file: book/4_L2_variables/01_variables.md
+        # - file: book/4_L2_variables/02_naming-variables.ipynb
+        - file: book/4_L2_variables/02_naming-variables.md
+        # - file: book/4_L2_variables/03_data-types.ipynb
+        - file: book/4_L2_variables/03_data-types.md
+        # - file: book/4_L2_variables/04_operators-expressions.ipynb
+        - file: book/4_L2_variables/04_operators-expressions.md
+        # - file: book/4_L2_variables/05_string-operations.ipynb
+        - file: book/4_L2_variables/05_string-operations.md
+        # - file: book/4_L2_variables/06_formatting-output.ipynb
+        - file: book/4_L2_variables/06_formatting-output.md
+        # - file: book/4_L2_variables/07_multi-item-variables.ipynb
+        - file: book/4_L2_variables/07_multi-item-variables.md
+        # - file: book/4_L2_variables/08_practical-L2.ipynb
+        - file: book/4_L2_variables/08_practical-L2.md
         # - file: book/4_L2_variables/09_practical-L2-solution.ipynb
         # - file: book/4_L2_variables/09_practical-L2-solution.md
     - title: L3 - Loops

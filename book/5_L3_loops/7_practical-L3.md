@@ -116,7 +116,7 @@ Do **not** hardcode any city names.
 Use this as a starting point if you are unsure how to begin.
 Try to adapt and extend it rather than copying it unchanged.
 
-```python
+```{code-cell} python
 for city in city_data:
     coords = city_data[city]
     print(f"{city}: x={coords[0]}, y={coords[1]}")
@@ -169,7 +169,7 @@ At the end, print or display the list of pairs.
 Use this structure as a starting point.
 Focus on understanding *why* it works.
 
-```python
+```{code-cell} python
 city_names = list(city_data.keys())
 
 pairs = []
@@ -230,7 +230,7 @@ The result should allow you to **reuse distances later**, not just print them on
 Use this structure as a starting point.
 Focus on *where* each operation belongs.
 
-```python
+```{code-cell} python
 distances = {}
 
 for city_a, city_b in pairs:
@@ -308,7 +308,7 @@ Write code that:
 Use this structure as a guide.
 Focus on *why* each variable exists.
 
-```python
+```{code-cell} python
 max_distance = 0
 most_distant_pair = None
 
@@ -382,7 +382,7 @@ Write code that:
 Use this structure as a starting point.
 Focus on the role of `break`.
 
-```python
+```{code-cell} python
 threshold = 2.5
 
 for city_a, city_b in pairs:
@@ -444,7 +444,7 @@ such as doubling the loop index.
 
 Use this structure as a starting point.
 
-```python
+```{code-cell} python
 numbers = []
 size = 10
 
@@ -480,7 +480,7 @@ Write code that:
 
 Use this logic as a guide.
 
-```python
+```{code-cell} python
 numbers_len = len(numbers)
 median = None
 
@@ -538,7 +538,7 @@ Fix the median calculation by adding **one single line of code**
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 numbers.sort()
 ```
 
@@ -592,7 +592,7 @@ Think carefully about:
 
 Use this structure as a starting point.
 
-```python
+```{code-cell} python
 n = 10
 fibonacci = [0, 1]
 
@@ -639,7 +639,7 @@ Here, you do **not** know in advance how many values are needed.
 
 Use this pattern as guidance.
 
-```python
+```{code-cell} python
 threshold = 100
 fibonacci = [0, 1]
 index = 2

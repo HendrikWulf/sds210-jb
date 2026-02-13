@@ -290,7 +290,7 @@ Before coding, think about:
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 temperatures = [3, 5, 7, 6, -42, 8, 9, 58, 10]
 min_temp = -20
 max_temp = 40
