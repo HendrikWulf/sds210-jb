@@ -64,13 +64,13 @@ If these basics are solid, the rest of the course becomes much easier.
 
 After this lesson, you will be able to:
 
-* **Explain why programming supports data understanding and reproducibility**
+* **Explain why programming supports data understanding and reproducibility**  
   Articulate how code transforms raw data into interpretable and repeatable results.
 
-* **Run and manage notebooks correctly**
+* **Run and manage notebooks correctly**  
   Execute cells in the right order, restart the kernel, and ensure that a notebook works from top to bottom without hidden state.
 
-* **Recognise core structural elements of Python syntax**
+* **Recognise core structural elements of Python syntax**  
   Identify identifiers, comments, strings, and indentation, and understand why they matter for readable and valid code.
 
 ---
