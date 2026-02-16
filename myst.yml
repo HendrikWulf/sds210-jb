@@ -143,7 +143,7 @@ project:
  #   - file: book/markdown.md
  #   - file: book/introduction.md
  #   - file: book/notebooks.ipynb
-    - file: book/references.bib
+ #   - file: book/references.bib
 site:
   template: book-theme
   options:
