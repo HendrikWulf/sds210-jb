@@ -121,11 +121,17 @@ Blogs are ideal for **short-form insights**, **current debates**, and **practica
 
 ## Others
 
-* **[W3 schools](https://www.w3schools.com/python/default.asp)**  
-  Python tutorials
+The following platforms are not structured courses, but they are extremely useful for **quick lookups**, **syntax clarification**, and **solving specific coding problems**.
 
-* **[stackoverflow](https://stackoverflow.com/questions)**  
-  Questions and answers
+Use them as reference tools when you need a fast answer or an alternative explanation.
+
+* **[W3Schools – Python Tutorial](https://www.w3schools.com/python/default.asp)**
+  A concise, example-driven reference for Python syntax and basic programming concepts.
+  Particularly useful for quickly checking how a specific function, method, or data type works.
+
+* **[Stack Overflow](https://stackoverflow.com/questions)**
+  A large community-driven question-and-answer platform for programmers.
+  Ideal for troubleshooting error messages, understanding unexpected behaviour, and exploring alternative implementations.
 
 ---
 
