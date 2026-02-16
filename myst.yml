@@ -50,12 +50,14 @@ project:
     - title: L1 - Get Started
       file: book/3_L1_get-started.md
       children:
-        # - file: book/3_python/1_get_started.md
          - file: book/3_L1_get-started/01_motivation.md
          - file: book/3_L1_get-started/02_programming.md
          - file: book/3_L1_get-started/03_syntax.md
          - file: book/3_L1_get-started/04_notebooks.md
-        #  - file: book/3_L1_get-started/01_get_started.ipynb
+         # - file: book/3_L1_get-started/05_practical-L1.ipynb
+         - file: book/3_L1_get-started/05_practical-L1.md
+         # - file: book/3_L1_get-started/05_practical-L1-solution.ipynb
+         # - file: book/3_L1_get-started/05_practical-L1-solution.md
     - title: L2 - Variables & Values
       file: book/4_L2_variables.md
       children:
@@ -141,7 +143,7 @@ project:
  #   - file: book/markdown.md
  #   - file: book/introduction.md
  #   - file: book/notebooks.ipynb
-    - file: book/references.md
+    - file: book/references.bib
 site:
   template: book-theme
   options:

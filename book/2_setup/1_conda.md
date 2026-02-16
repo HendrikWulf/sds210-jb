@@ -677,7 +677,7 @@ Sometimes, however, you may want a **lighter and faster tool** for Python only w
 
 ### What is uv and when to use it?
 
-**[uv](https://docs.astral.sh/uv/)** is a modern Python package manager written in Rust. It is designed to be *{abbr}`extremely fast (10-100x faster than pip)`* while remaining compatible with Python’s existing ecosystem.
+**[uv](https://docs.astral.sh/uv/)** is a modern Python package manager written in [Rust](https://en.wikipedia.org/wiki/Rust_(programming_language)). It is designed to be *{abbr}`extremely fast (10-100x faster than pip)`* while remaining compatible with Python’s existing ecosystem.
 
 Use **Conda** when:
 
@@ -1022,36 +1022,20 @@ By following these practices, you are not just learning tools. You are learning 
 
 These exercises help you practice the core skills needed to work confidently with Conda in real projects.
 
-Each exercise is structured in three levels:
-
-* **Core** tasks are required and ensure baseline competence
-* **Stretch** tasks deepen your understanding
-* **Challenge** tasks are optional and meant for exploration
-
-You can stop after the Core tasks if you feel confident.
-
 ---
 
 ### Exercise 1: Creating and Using a Project Environment
 
 **Goal:** Create a clean Conda environment and use it for geospatial work.
 
-*Core*
-
 1. Create a new Conda environment called `sds-env` with Python 3.14
 2. Activate the environment
 3. Install the `pygis` package from the `conda-forge` channel
 4. List all installed packages in the environment
 5. Start Python and verify that the environment is working
-
-*Stretch*
-
 6. Install `geopandas` and `rasterio` explicitly into `sds-env`
 7. Check which channel each package was installed from
 8. Deactivate the environment and confirm that it is no longer active
-
-*Challenge*
-
 9. Create a second environment called `sds-env-alt` with Python 3.12
 10. Compare the installed packages between the two environments
 
@@ -1067,11 +1051,6 @@ You can stop after the Core tasks if you feel confident.
 # Notes:
 #   - Replace environment names if you chose different ones.
 # ============================================================
-
-
-# =========================
-# Core solution
-# =========================
 
 # 1) Create a new Conda environment called "sds-env" with Python 3.14
 # This creates an isolated environment with its own Python interpreter.
@@ -1098,11 +1077,6 @@ python
 # >>> print(sys.version)
 # >>> exit()
 
-
-# =========================
-# Stretch solution
-# =========================
-
 # 6) Install additional geospatial packages explicitly
 # Even though pygis may already include some of them,
 # installing explicitly makes dependencies visible.
@@ -1119,11 +1093,6 @@ conda deactivate
 # Confirm that sds-env is no longer active
 # The active environment is marked with an asterisk (*).
 conda info --envs
-
-
-# =========================
-# Challenge solution
-# =========================
 
 # 9) Create a second environment with a different Python version
 # This is useful for testing compatibility across Python versions.
@@ -1151,20 +1120,12 @@ conda deactivate
 
 **Goal:** Learn how to stay in control once environments exist.
 
-*Core*
-
 1. List all Conda environments on your system
 2. Identify which environment is currently active
 3. Inspect the installed packages in `sds-env`, including their source channels
-
-*Stretch*
-
 4. Install an additional package into `sds-env` without activating it
 5. Remove that package again
 6. Update all packages in `sds-env`
-
-*Challenge*
-
 7. Clone `sds-env` into a new environment called `sds-env-test`
 8. Remove `sds-env-test` once you are done
 
@@ -1182,11 +1143,6 @@ conda deactivate
 #   - Commands are written to be run step by step in a shell.
 # ============================================================
 
-
-# =========================
-# Core solution
-# =========================
-
 # 1) List all Conda environments on your system
 # The active environment is marked with an asterisk (*).
 conda info --envs
@@ -1202,11 +1158,6 @@ conda info --envs
 # This shows package names, versions, and where they came from.
 conda list --name sds-env --show-channel-urls
 
-
-# =========================
-# Stretch solution
-# =========================
-
 # 4) Install an additional package into sds-env without activating it
 # This is useful when managing environments programmatically or remotely.
 conda install --name sds-env --channel conda-forge maplibre
@@ -1218,11 +1169,6 @@ conda remove --name sds-env maplibre
 # 6) Update all packages in sds-env
 # Use this carefully in real projects, as updates may change behavior.
 conda update --all --name sds-env
-
-
-# =========================
-# Challenge solution
-# =========================
 
 # 7) Clone sds-env into a new environment called sds-env-test
 # This creates a full copy with the same Python version and packages.
@@ -1246,20 +1192,12 @@ conda info --envs
 
 **Goal:** Practice exporting and recreating environments.
 
-*Core*
-
 1. Export the `sds-env` environment to a file called `sds-env.yml`
 2. Create a new environment called `sds-env-copy` from that file
 3. Activate `sds-env-copy` and verify that it works
-
-*Stretch*
-
 4. Compare the package lists of `sds-env` and `sds-env-copy`
 5. Add one additional package to `sds-env-copy`
 6. Export the updated environment to a new file
-
-*Challenge*
-
 7. Remove the original `sds-env`
 8. Recreate it only from the exported file
 
@@ -1277,11 +1215,6 @@ conda info --envs
 #     and contains geospatial packages from previous exercises.
 #   - Commands are meant to be run step by step.
 # ============================================================
-
-
-# =========================
-# Core solution
-# =========================
 
 # 1) Export the existing sds-env environment to a YAML file
 # This file captures package names and versions for reproducibility.
@@ -1306,11 +1239,6 @@ python -c "import geopandas, rasterio; print('OK')"
 # Deactivate again before continuing
 conda deactivate
 
-
-# =========================
-# Stretch solution
-# =========================
-
 # 4) Compare package lists between sds-env and sds-env-copy
 # This helps confirm that the environments are equivalent.
 conda list --name sds-env
@@ -1329,11 +1257,6 @@ conda env export --name sds-env-copy > sds-env-copy.yml
 # Deactivate after finishing changes
 conda deactivate
 
-
-# =========================
-# Challenge solution
-# =========================
-
 # 7) Remove the original sds-env
 # Make sure it is not active before removing it.
 conda remove --name sds-env --all
@@ -1350,7 +1273,6 @@ python --version
 
 # Optional import check
 python -c "import geopandas, rasterio; print('OK')"
-
 
 # Final cleanup
 conda deactivate
