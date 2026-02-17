@@ -134,12 +134,14 @@ String repetition is often used for:
 
 ### What Works and What Does Not
 
-However, repetition only works with **string multiplied by an integer**
+However, repetition only works with **string multiplied by an integer**  
+(or an integer multiplied with a string)
 
 For example:
 
 ```python
-"ab" * 3
+"climate" * 3
+3 * "biodiversity"
 ```
 
 Other combinations are not defined and will raise an error.  
