@@ -54,8 +54,8 @@ project:
          - file: book/3_L1_get-started/02_programming.md
          - file: book/3_L1_get-started/03_syntax.md
          - file: book/3_L1_get-started/04_notebooks.md
-         # - file: book/3_L1_get-started/05_practical-L1.ipynb
-         - file: book/3_L1_get-started/05_practical-L1.md
+         - file: book/3_L1_get-started/05_practical-L1.ipynb
+         # - file: book/3_L1_get-started/05_practical-L1.md
          # - file: book/3_L1_get-started/05_practical-L1-solution.ipynb
          # - file: book/3_L1_get-started/05_practical-L1-solution.md
     - title: L2 - Variables & Values
