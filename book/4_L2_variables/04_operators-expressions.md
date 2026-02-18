@@ -73,7 +73,7 @@ This behaviour is fundamental for working with variables later on.
 
 ---
 
-```{admonition} 
+```{admonition} Note
 :class: note
 
 Python does not remember expressions.  
@@ -188,7 +188,7 @@ You will encounter these operators later in loops, indexing, and data processing
 
 ---
 
-```{admonition}
+```{admonition} Info
 :class: info
 
 Operators act on operands.
@@ -302,7 +302,7 @@ The value `50` is no longer stored anywhere.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Update operators are only shorthand.
@@ -414,7 +414,7 @@ Although the values look similar, the comparison returns `False` because the dat
 
 ---
 
-```{admonition}
+```{admonition} Info
 :class: info
 
 Comparison operators describe relationships between values.
@@ -520,7 +520,7 @@ Important points to remember:
 
 ---
 
-```{admonition} 
+```{admonition} Note
 :class: note
 
 Logical operators allow you to express reasoning in code.
@@ -616,7 +616,7 @@ The key idea is:
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 When an operation fails, check the data types of the values involved.
@@ -714,7 +714,7 @@ Python evaluates the inner expressions first, then works outward.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 A function call is just another expression.
@@ -807,7 +807,7 @@ Clear output supports both debugging and communication with others.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Printing is not only for final results.

@@ -105,7 +105,7 @@ In the second case, Python joins text.
 
 The symbol is the same, but the **behaviour depends on the data type**.
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Operators are defined by data type.  
@@ -235,7 +235,7 @@ This prints the text on two separate lines.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Escape characters are instructions inside a string.  
@@ -293,7 +293,7 @@ This is especially helpful when working with text from files, sensors, or user i
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 `split()` separates text into parts.  

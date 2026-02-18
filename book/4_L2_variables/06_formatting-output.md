@@ -188,7 +188,7 @@ This affects **only the output**, not the stored value.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Formatting is about presentation, not calculation.

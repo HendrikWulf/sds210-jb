@@ -203,7 +203,7 @@ This behaviour can be surprising at first, so it is important to be aware of it.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 The loop variable does not disappear  
@@ -431,7 +431,7 @@ is simpler and clearer.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 If you only need the values,  
@@ -531,8 +531,8 @@ and deliberately avoid conditions.
 
 ---
 
-```{admonition}
-:class: note
+```{admonition} Caution
+:class: caution
 
 Nested loops can grow quickly.  
 Each extra loop multiplies the number of repetitions.

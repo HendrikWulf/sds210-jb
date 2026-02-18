@@ -93,7 +93,7 @@ Because `temp_celsius` is an expression that evaluates to a value, Jupyter shows
 
 This is very convenient for interactive work and quick checks.
 
-```{admonition}
+```{admonition} Note
 :class: note
 In Jupyter, only the **last expression** in a cell is shown automatically.
 Everything else must be displayed explicitly (for example using `print()`).
@@ -223,7 +223,7 @@ When this cell is executed:
 
 > **Variables do not remember past values.**
 
-A variable always points to **one current value** — the most recent one that was assigned.
+A variable always points to **one current value**. This value is the most recent one that was assigned.
 
 This explains why execution order and inspection are so important, which we will look at next.
 
@@ -253,9 +253,9 @@ This happens because:
 
 Python has no value to substitute for `temp_fahrenheit`.
 
-```{admonition}
-:class: warning
-If you see a NameError, it often means:
+```{admonition} Error
+:class: error
+If you see a `NameError`, it often means:
 - the variable has not been defined yet, or
 - the cell that defines it has not been run
 

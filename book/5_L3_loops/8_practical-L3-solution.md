@@ -439,7 +439,7 @@ such as doubling the loop index.
 
 ---
 
-````{admonition} Get started with code
+````{admonition} Get started with example code
 :class: dropdown
 
 Use this structure as a starting point.
@@ -475,7 +475,7 @@ Write code that:
 
 ---
 
-````{admonition} Get started with code
+````{admonition} Get started with example code
 :class: dropdown
 
 Use this logic as a guide.
@@ -587,7 +587,7 @@ Think carefully about:
 
 ---
 
-````{admonition} Get started with code
+````{admonition} Get started with example code
 :class: dropdown
 
 Use this structure as a starting point.
@@ -634,7 +634,7 @@ Here, you do **not** know in advance how many values are needed.
 
 ---
 
-````{admonition} Get started with code
+````{admonition} Get started with example code
 :class: dropdown
 
 Use this pattern as guidance.

@@ -93,7 +93,7 @@ The issue is **manual repetition**.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 If changing the data forces you to rewrite the code,  
@@ -182,7 +182,7 @@ Decisions handle **what to do**.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Repetition answers:  

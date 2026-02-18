@@ -53,7 +53,7 @@ Python provides four built in collection types that we will use throughout the c
 Each type has a specific purpose.
 Choosing the right one improves clarity and correctness.
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 A quick intuition for when to use what:
@@ -164,7 +164,7 @@ This updates a range of values in place.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Lists are mutable.  
@@ -293,7 +293,7 @@ Now changes to `b` do not affect `elevations_m`.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Copying lists explicitly avoids subtle bugs.  
@@ -391,7 +391,7 @@ Python protects the tuple from being modified.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Tuples are immutable.  
@@ -478,7 +478,7 @@ This creates a **new tuple** with updated values.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 If you find yourself doing this often,  
@@ -585,7 +585,7 @@ This is an easy way to clean categorical data.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Using `set()` is one of the simplest ways to remove duplicates from a collection.
@@ -634,7 +634,7 @@ The order of printed values may vary.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 If you need indexing or order, a set is the wrong data structure.
@@ -681,7 +681,7 @@ regions_set.discard("Mars")
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Use `discard()` when you are unsure whether the value exists.
@@ -824,7 +824,7 @@ This pattern is especially useful when working with:
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Use `[]` when a missing key should be an error.  
@@ -925,7 +925,7 @@ This makes dictionaries the natural choice for **attribute data**.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Python itself stores variables in dictionaries.  
@@ -1007,7 +1007,7 @@ Sets are designed for membership testing, not positional access.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 If you need ordered access, use a list or tuple.  
@@ -1094,7 +1094,7 @@ You just apply indexing repeatedly.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Indexing always works **from the outside in**.
@@ -1263,7 +1263,7 @@ b
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 This difference is a common source of bugs.  
@@ -1272,7 +1272,7 @@ When in doubt, make an explicit copy.
 
 ---
 
-```{admonition}
+```{admonition} Warning
 :class: warning
 
 Copying a collection only copies the **outer structure**.

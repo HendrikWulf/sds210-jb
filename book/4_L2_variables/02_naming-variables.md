@@ -119,7 +119,7 @@ The first is too vague.
 The second is technically descriptive but hard to read and use.  
 The third strikes a good balance.
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 A good variable name should answer one question clearly:  
