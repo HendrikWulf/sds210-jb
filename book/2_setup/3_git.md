@@ -171,8 +171,8 @@ git config --global user.name
 git config --global user.email
 ```
 
-```{admonition}
-:class: warning
+```{admonition} Caution
+:class: caution
 If Git is not installed or your name/email are wrong, **stop here and fix this first**. Otherwise, you will not be able to push your changes to GitHub.
 ```
 

@@ -144,7 +144,7 @@ This expresses a **data quality filter** in one line.
 
 ---
 
-```{admonition}
+```{admonition} Tip
 :class: tip
 
 Use list comprehension for  
@@ -206,8 +206,8 @@ labels = ["valid" if v >= 0 else "invalid" for v in values]
 If the expression becomes hard to read,
 prefer a normal `for` loop.
 
-```{admonition}
-:class: warning
+```{admonition} Attention
+:class: attention
 
 Shorter code is not better  
 if it is harder to understand.
@@ -347,7 +347,7 @@ labels = ["cold" if t < 0 else "warm" for t in temperatures]
 
 ---
 
-```{admonition}
+```{admonition} Tip
 :class: tip
 
 If you struggle to read a list comprehension,

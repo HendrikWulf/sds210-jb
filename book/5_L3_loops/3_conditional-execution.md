@@ -64,7 +64,7 @@ a specific block of code is executed.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Conditions do not stop loops.  
@@ -146,7 +146,7 @@ they are **different objects**.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Use `==` to compare values.  
@@ -213,7 +213,7 @@ True
 
 ---
 
-```{admonition}
+```{admonition} Tip
 :class: tip
 
 Comparison checks values.  
@@ -334,7 +334,7 @@ They are recommended even when not strictly required.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 If you have to pause to understand a condition,  
@@ -443,7 +443,7 @@ Output:
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Only one branch of an if–elif–else chain runs.  
@@ -507,7 +507,7 @@ The remaining conditions are ignored.
 
 ---
 
-```{admonition}
+```{admonition} Tip
 :class: tip
 
 Write conditions in the order  
@@ -578,7 +578,7 @@ but the output depends on the condition.
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 Filtering decides **which values** are used.  
@@ -623,7 +623,7 @@ for v in values:
 
 ---
 
-```{admonition}
+```{admonition} Tip
 :class: tip
 
 Readable patterns matter more than short code.  
@@ -811,7 +811,7 @@ In this section, you learned how **repetition and decisions work together**.
 
 ### Mental models to keep
 
-```{admonition}
+```{admonition} Tip
 :class: tip
 
 A loop answers:  

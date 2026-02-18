@@ -146,7 +146,7 @@ Since new notebooks will be added weekly, you should periodically:
 2. Replace your local folder
 3. Keep your own work in a separate folder to avoid overwriting
 
-(Advanced users may prefer cloning via Git.)
+(Advanced users may prefer cloning via [Git](https://hendrikwulf.github.io/sds210-jb/book/setup/git/).)
 ```
 
 ---

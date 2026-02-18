@@ -62,7 +62,7 @@ Use `pass` when you:
 
 ---
 
-```{admonition}
+```{admonition} Note
 :class: note
 
 `pass` does nothing on purpose.  
@@ -230,8 +230,8 @@ Now the loop always progresses.
 
 ---
 
-```{admonition}
-:class: warning
+```{admonition} Caution
+:class: caution
 
 In a `while` loop, always make sure  
 the loop can still progress after `continue`.

@@ -41,7 +41,7 @@ In this lesson, you move from motivation to method:
 
 ---
 
-## 2. Why this matters for SDS
+## 2. Why this matters for {abbr}`SDS (Spatial Data Science)`
 
 In later lessons you will work with:
 
