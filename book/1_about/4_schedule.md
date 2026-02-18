@@ -8,8 +8,8 @@ Labs: Thursdays 16:15 – 18:00, Fridays 10:15 – 12:00, and 12:15 – 13:45 in
 
 | {abbr}`W (Week)` | {abbr}`L (Lesson)` | Thu     | Fri      | Holidays         | Topic                                 |
 |:--:|:--:|:-------:|:--------:|:----------------:|----------------------------------------|
-| 1  | 1  | 19 Feb  | 20 Feb   |                  | Get Started with Python                |
-| 2  | 2  | 26 Feb  | 27 Feb   |                  | Variables & Values                     |
+| 1  | 1  | 19 Feb  | 20 Feb   |                  | Getting Started with Python                |
+| 2  | 2  | 26 Feb  | 27 Feb   |                  | Variables & Data Types                     |
 | 3  | 3  | 05 Mar  | 06 Mar   |                  | Loops and Conditional Statements       |
 | 4  | 4  | 12 Mar  | 13 Mar   |                  | Understanding and Defining Functions   |
 | 5  | 5  | 19 Mar  | 20 Mar   |                  | Handling Data, Dates and Text          |
@@ -31,8 +31,8 @@ Labs: Thursdays 16:15 – 18:00, Fridays 10:15 – 12:00, and 12:15 – 13:45 in
 
 | {abbr}`W (Week)` | {abbr}`L (Lesson)` |  Thu   |  Fri   | Project        | Topic                                   |
 |:--:|:--:|:------:|:------:|:--------------:|-------------------------------------------|
-| 1  | 1  | 19.02  | 20.02  |                | Get Started with Python                  |
-| 2  | 2  | 26.02  | 27.02  |                | Variables & Values                       |
+| 1  | 1  | 19.02  | 20.02  |                | Getting Started with Python                  |
+| 2  | 2  | 26.02  | 27.02  |                | Variables & Data Types                       |
 | 3  | 3  | 05.03  | 06.03  |                | Loops and Conditional Statements          |
 | 4  | 4  | 12.03  | 13.03  |                | Understanding and Defining Functions      |
 | 5  | 5  | 19.03  | 20.03  |                | Handling Data, Dates and Text             |

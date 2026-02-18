@@ -110,12 +110,12 @@ The GitLab repository below contains all exercises, practicals, and solutions in
 Throughout the semester, new notebooks will be added weekly.  
 Make sure you update your local copy regularly.
 
-1. Download the [SDS210 repository](https://gitlab.uzh.ch/hendrikwulf/sds210/-/archive/main/sds210-main.zip) and extract it to a suitable location on your computer.
+1. Download the [SDS210 repository](https://gitlab.com/HendrikWulf/sds210/-/archive/main/sds210-main.zip) and extract it to a suitable location on your computer.
 
 2. If you have not yet installed Conda, download and install **[Miniconda](https://www.anaconda.com/docs/getting-started/miniconda/install)**
    Follow the default installation settings described in the Setup section on [Conda](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/).
 
-3. Open `Anaconda Prompt` (Win) or `Terminal` (Mac) to run the following commands:
+3. Open `Anaconda Prompt` (Win) or your `Terminal` (Mac) to run the following commands:
 
 ```bash
 # Update conda (recommended)
@@ -125,7 +125,7 @@ conda update -n base -c defaults conda
 cd <path-to-sds210-repository-folder>
 
 # Create the environment (only once)
-conda env create -f env.yml
+conda env create -f environment.yml
 
 # Activate the environment
 conda activate sds210
