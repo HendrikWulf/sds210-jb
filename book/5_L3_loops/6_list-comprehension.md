@@ -11,6 +11,8 @@ A compact way to build lists
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/5_L3_loops/6_list-comprehension.ipynb)
+
 ```{admonition} Big idea
 :class: tip
 

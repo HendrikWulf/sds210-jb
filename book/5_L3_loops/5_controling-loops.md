@@ -12,6 +12,8 @@ Stopping early and skipping work
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/5_L3_loops/5_controling-loops.ipynb)
+
 ```{admonition} Big idea
 :class: tip
 

@@ -12,6 +12,8 @@ From single variables to structured spatial calculations
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/4_L2_variables/09_practical-L2-solution.ipynb)
+
 ## Learning objectives
 
 After completing this practical, you will be able to:

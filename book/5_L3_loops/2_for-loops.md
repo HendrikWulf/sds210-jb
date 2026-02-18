@@ -12,6 +12,8 @@ Doing the same thing many times
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/5_L3_loops/2_for-loops.ipynb)
+
 ```{admonition} Big idea
 :class: tip
 

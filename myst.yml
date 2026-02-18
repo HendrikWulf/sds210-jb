@@ -61,43 +61,43 @@ project:
     - title: L2 - Variables & Values
       file: book/4_L2_variables.md
       children:
-        # - file: book/4_L2_variables/01_variables.ipynb
-        - file: book/4_L2_variables/01_variables.md
-        # - file: book/4_L2_variables/02_naming-variables.ipynb
-        - file: book/4_L2_variables/02_naming-variables.md
-        # - file: book/4_L2_variables/03_data-types.ipynb
-        - file: book/4_L2_variables/03_data-types.md
-        # - file: book/4_L2_variables/04_operators-expressions.ipynb
-        - file: book/4_L2_variables/04_operators-expressions.md
-        # - file: book/4_L2_variables/05_string-operations.ipynb
-        - file: book/4_L2_variables/05_string-operations.md
-        # - file: book/4_L2_variables/06_formatting-output.ipynb
-        - file: book/4_L2_variables/06_formatting-output.md
-        # - file: book/4_L2_variables/07_multi-item-variables.ipynb
-        - file: book/4_L2_variables/07_multi-item-variables.md
-        # - file: book/4_L2_variables/08_practical-L2.ipynb
-        - file: book/4_L2_variables/08_practical-L2.md
+        - file: book/4_L2_variables/01_variables.ipynb
+        # - file: book/4_L2_variables/01_variables.md
+        - file: book/4_L2_variables/02_naming-variables.ipynb
+        # - file: book/4_L2_variables/02_naming-variables.md
+        - file: book/4_L2_variables/03_data-types.ipynb
+        # - file: book/4_L2_variables/03_data-types.md
+        - file: book/4_L2_variables/04_operators-expressions.ipynb
+        # - file: book/4_L2_variables/04_operators-expressions.md
+        - file: book/4_L2_variables/05_string-operations.ipynb
+        # - file: book/4_L2_variables/05_string-operations.md
+        - file: book/4_L2_variables/06_formatting-output.ipynb
+        # - file: book/4_L2_variables/06_formatting-output.md
+        - file: book/4_L2_variables/07_multi-item-variables.ipynb
+        # - file: book/4_L2_variables/07_multi-item-variables.md
+        - file: book/4_L2_variables/08_practical-L2.ipynb
+        # - file: book/4_L2_variables/08_practical-L2.md
         # - file: book/4_L2_variables/09_practical-L2-solution.ipynb
         # - file: book/4_L2_variables/09_practical-L2-solution.md
     - title: L3 - Loops
       file: book/5_L3_loops.md
       children:
-        # - file: book/5_L3_loops/1_why-is-this-relevant.ipynb
-        - file: book/5_L3_loops/1_why-is-this-relevant.md
-        # - file: book/5_L3_loops/2_for-loops.ipynb
-        - file: book/5_L3_loops/2_for-loops.md
-        # - file: book/5_L3_loops/3_conditional-execution.ipynb
-        - file: book/5_L3_loops/3_conditional-execution.md
-        # - file: book/5_L3_loops/4_while-loops.ipynb
-        - file: book/5_L3_loops/4_while-loops.md
-        # - file: book/5_L3_loops/5_controling-loops.ipynb
-        - file: book/5_L3_loops/5_controling-loops.md
-        # - file: book/5_L3_loops/6_list-comprehension.ipynb
-        - file: book/5_L3_loops/6_list-comprehension.md
-        # - file: book/5_L3_loops/7_practical-L3.ipynb
-        - file: book/5_L3_loops/7_practical-L3.md
+        - file: book/5_L3_loops/1_why-is-this-relevant.ipynb
+        # - file: book/5_L3_loops/1_why-is-this-relevant.md
+        - file: book/5_L3_loops/2_for-loops.ipynb
+        # - file: book/5_L3_loops/2_for-loops.md
+        - file: book/5_L3_loops/3_conditional-execution.ipynb
+        # - file: book/5_L3_loops/3_conditional-execution.md
+        - file: book/5_L3_loops/4_while-loops.ipynb
+        # - file: book/5_L3_loops/4_while-loops.md
+        - file: book/5_L3_loops/5_controling-loops.ipynb
+        # - file: book/5_L3_loops/5_controling-loops.md
+        - file: book/5_L3_loops/6_list-comprehension.ipynb
+        # - file: book/5_L3_loops/6_list-comprehension.md
+        - file: book/5_L3_loops/7_practical-L3.ipynb
+        # - file: book/5_L3_loops/7_practical-L3.md
         # - file: book/5_L3_loops/8_practical-L3-solution.ipynb
-        - file: book/5_L3_loops/8_practical-L3-solution.md
+        # - file: book/5_L3_loops/8_practical-L3-solution.md
     - title: L4 - Functions
       file: book/6_L4_functions.md
       children:
