@@ -12,6 +12,8 @@ Choosing what happens
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/5_L3_loops/3_conditional-execution.ipynb)
+
 ```{admonition} Big idea
 :class: tip
 
@@ -89,7 +91,6 @@ Comparison operators are used to compare two values.
 | `<=`     | Less than or equal to     | `2 <= 2`               | True   |
 | `>=`     | Greater than or equal to  | `2 >= 4`               | False  |
 :::
-
 
 Each comparison produces a Boolean result:
 either `True` or `False`.

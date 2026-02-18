@@ -12,6 +12,7 @@ Repeat while a condition is true
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/5_L3_loops/4_while-loops.ipynb)
 
 ```{admonition} Big idea
 :class: tip

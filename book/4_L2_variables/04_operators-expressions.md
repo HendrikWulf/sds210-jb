@@ -573,21 +573,15 @@ This is called `string concatenation`.
 
 ### Repeating Strings with Numbers
 
-Some operations work only in one direction.
+This operation repeats the string and works in both directions:
 
 ```python
 "Hot" * 3
 ```
 
-This repeats the string.
-
-However, reversing the operands does not work.
-
 ```python
 3 * "Hot"
 ```
-
-The data types and their order matter.
 
 ---
 

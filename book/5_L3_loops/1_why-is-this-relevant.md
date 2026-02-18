@@ -12,6 +12,8 @@ From manual work to automation
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/5_L3_loops/1_why-is-this-relevant.ipynb)
+
 ```{admonition} Big idea
 :class: tip
 

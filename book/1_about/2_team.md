@@ -114,6 +114,22 @@ All course participants **must join** the MS Teams team
 at the start, using the access code: **30gyzuu**.
 ```
 
+---
+
+This short video shows you how to access Teams using the access code.
+
+<iframe
+  width="100%"
+  height="450"
+  src="https://www.youtube.com/embed/TZ_eTpQSjHY?start=67"
+  title="How to sign in using the access code"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
+</iframe>
+
+---
+
 To ensure consistent communication, OLAT is used only to provide this course syllabus. All other course-related communication takes place on MS Teams. Please ensure that Teams notifcations for channels and assignments are `on` (via profile settings).
 
 :::{figure} images/02_Teams_notifications.png
