@@ -243,7 +243,7 @@ If something goes wrong, you can delete the environment and recreate it without 
 
 ### What is a package?
 
-A package is a **ready to use piece of software** that adds functionality to your environment.
+A package (aka. {term}`library`) is a **ready to use piece of software** that adds functionality to your environment.
 
 Packages allow you to reuse work done by others instead of writing everything from scratch. They include:
 
@@ -332,7 +332,7 @@ Use the **{abbr}`copy button (hover over the code block)`** 📄 to copy the com
 Paste it into your shell (Anaconda Prompt, Terminal, or PowerShell) and press Enter (Windows) or Return (macOS/Linux) to run it.
 
 ```bash
-conda create --name sds-env python=3.14   
+conda create --name sds-env python=3.14
 ```
 This command tells Conda to:
 
@@ -408,7 +408,7 @@ From now on, every Python and conda command you run applies to this environment.
 Most setup issues come from one of these mistakes.
 
 * Installing packages into the `base` environment by accident
-* Forgetting to activate the correct environment before installing or running code
+* Forgetting to **activate** the correct environment before installing or running code
 * Mixing conda and pip without thinking (install conda packages first, pip only if needed)
 * Copying the wrong operating system commands during installation
 
