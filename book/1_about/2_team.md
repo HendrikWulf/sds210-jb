@@ -116,6 +116,22 @@ at the start, using the access code: **30gyzuu**.
 
 ---
 
+````{admonition} How to access Teams using the access code?
+:class: dropdown
+
+On the Teams page, you will find the 'Join or Create Team' button in the top right-hand corner.  
+Clicking this button opens a new menu where you can paste the access code.  
+You will then be added to the team automatically.
+
+:::{figure} images/05_Teams-access-code.png
+:alt: How to sign in using the access code.
+:width: 700px
+
+How to sign in using the access code.
+:::
+
+---
+
 This short video shows you how to access Teams using the access code.
 
 <iframe
@@ -127,6 +143,7 @@ This short video shows you how to access Teams using the access code.
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
   allowfullscreen>
 </iframe>
+````
 
 ---
 
