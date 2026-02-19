@@ -191,7 +191,7 @@ You have now created variables that exist in the notebook’s memory.
 
 Restart the {term}`kernel` of the notebook:
 
-**Kernel → Restart**
+**Kernel → Restart** (in Colab: Runtime → Restart Session)
 
 Then run **only the last cell**.
 
@@ -361,7 +361,7 @@ If running locally:
 3. [Activate your environment](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/#id-5-working-with-conda):
 
 ```bash
-conda activate sds-env
+conda activate sds210
 ```
 
 4. [Start JupyterLab](https://hendrikwulf.github.io/sds210-jb/book/setup/jupyterlab/#id-3-getting-started):
