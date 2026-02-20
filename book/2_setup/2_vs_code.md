@@ -13,7 +13,7 @@ Setting Up Your Code Development Environment
 
 ## 1. Introduction
 
-**[Visual Studio Code](https://code.visualstudio.com/) (VS Code)** is a lightweight, extensible code editor. It is the place where you write code, run it, debug errors, explore data, and keep your work organised.
+**[Visual Studio Code](https://code.visualstudio.com/) (VS Code)** is a lightweight, extensible code editor. It is a place where you can write code, run it, debug errors, explore data, and keep your work organised.
 
 Think of VS Code as your **digital workspace**. Instead of switching between many tools, it brings code editing, terminals, notebooks, and version control together in one place. VS Code understands Python and helps you write cleaner code and spot problems earlier.
 
@@ -517,11 +517,8 @@ Confirm that:
 
 ---
 
-```{admonition} Hint
+```{admonition} Context
 :class: hint
-If something behaves unexpectedly, check three things first:
-the opened folder, the selected Python environment, and the active terminal.
-
 If all exercises worked, your VS Code setup is complete.
-From now on, **VS Code is your main workspace** for coding, notebooks, and environment management in SDS210.
+Feel free to run the course notebooks in VS Code and gradually explore its functionality over time. Think of VS Code as a central workspace for coding, working with notebooks, and managing environments. Alongside JupyterLab, it serves as a powerful IDE that integrates multiple tools into a single, efficient development environment.
 ```
