@@ -111,11 +111,11 @@ To use Git confidently, it helps to understand **how Git thinks**. Git does *not
 
 Instead, **Git** works with **snapshots**.
 
-A Git repository is best thought of as a **timeline of your project**. Each point on that timeline is a **commit** — a snapshot of the entire project at a specific moment: all tracked files, exactly as they looked then, plus a short message explaining what changed.
+A Git repository is best thought of as a **timeline of your project**. Each point on that timeline is a **commit**, which is a snapshot of the entire project at a specific moment. This snapshot includes all tracked files, exactly as they looked then, plus a short message explaining what changed.
 
 If a file did not change, Git simply reuses it internally. That’s why Git is fast and efficient, even for large projects.
 
-Because every commit is a snapshot, the project history is **fully recoverable**. You can go back to earlier states, compare two moments in time, or undo mistakes without panic. Nothing is overwritten — the past is still there.
+Because every commit is a snapshot, the project history is **fully recoverable**. You can go back to earlier states, compare two moments in time, or undo mistakes without panic. Nothing is overwritten - the past is still there.
 
 > The key idea: Git does **not** store “file versions”.
 > It stores **project states over time**.

@@ -105,9 +105,9 @@ After installing, open Anaconda Prompt to use Miniconda.
 Run the following commands **line by line** in the Terminal.
 
 These commands will:
-* create a directory called `miniconda3` in your home directory (-p flag stands for parents) 
+* create a directory called `miniconda3` in your home directory (`-p` flag stands for parents) 
 * download the Miniconda installer script to your new miniconda3 directory
-* install Miniconda in silent mode (-b), taking care of updates (-u), in the given  path (-p)
+* install Miniconda in silent mode (`-b`), taking care of updates (`-u`), in the given  path (`-p`)
 * remove the installer script after installation  
 
 ```bash
@@ -143,6 +143,69 @@ Run any conda command. For example: `conda list` (displays a list of packages in
 ```
 
 :::::
+
+
+:::::{tab-item} macOS (Intel)
+
+As of August 15, 2025, Anaconda has stopped building packages for Intel Mac computers (osx-64). Existing Intel (MacOSX-x86_64) installers are still available at https://repo.anaconda.com/miniconda/ and the last Miniconda installer release for Intel Mac computers will be 25.7.x.
+
+**Step 1: Download and install Miniconda**
+
+Run the following commands **line by line** in the Terminal.
+
+These commands will:
+
+* create a directory called `miniconda3` in your home directory (`-p` flag stands for parents)
+* download the Miniconda installer script for Intel-based Macs
+* install Miniconda in silent mode (`-b`), allow updates (`-u`), in the given path (`-p`)
+* remove the installer script after installation
+
+```bash
+mkdir -p ~/miniconda3
+curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm ~/miniconda3/miniconda.sh
+```
+
+---
+
+**Step 2: Activate Miniconda**
+
+After installation, **close and reopen your Terminal**, or run:
+
+```bash
+source ~/miniconda3/bin/activate
+```
+
+You should now see `(base)` at the beginning of your command prompt.
+
+---
+
+**Step 3: Initialize conda for your shell**
+
+Initialize conda so it works automatically in new terminal sessions:
+
+```bash
+conda init
+```
+
+Restart your Terminal afterwards if prompted.
+
+---
+
+**Step 4: Verify your installation**
+
+Run any conda command. For example: `conda list` (displays a list of packages installed in your active environment and their versions) or `conda --version` (displays conda’s version number).
+
+```bash
+(base) name@computer ~ % conda --version
+ conda 25.7.0
+```
+
+---
+
+:::::
+
 
 :::::{tab-item} Linux
 
