@@ -72,7 +72,8 @@ Both Miniconda and Anaconda can be installed either via:
 - a **command line installer**, or
 - a **graphical installer**
 
-Here, we focus on the **command line installation**, as it works reliably across systems and helps you better understand how your Python environment is set up. 
+Here, we focus on the **command line installation**, as it works reliably across systems and helps you better understand how your Python environment is set up.
+If you feel uncertain about using the shell, you may want to briefly review the [basic commands](https://www.w3schools.com/bash/bash_commands.php) and [networking](https://www.w3schools.com/bash/bash_curl.php) section in this [Bash Tutorial](https://www.w3schools.com/bash/index.php) by W3Schools before continuing.
 
 Official installation guides (recommended):
 * Miniconda: https://www.anaconda.com/docs/getting-started/miniconda/install  
@@ -88,13 +89,18 @@ Follow the steps below to install **Miniconda** using the command line. This app
 
 :::::{tab-item} Windows 
 
+Open **Windows PowerShell** (not the regular Command Prompt) and paste the three commands below there.
+
+To open PowerShell, press `Windows key` and type **PowerShell**
+
 These three commands quickly and quietly download the latest 64-bit Windows installer, rename it to a shorter file name, perform a silent install, and then delete the installer:
 ```powershell
 curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe -o .\miniconda.exe
 start /wait "" .\miniconda.exe /S
 del .\miniconda.exe
 ```
-After installing, open Anaconda Prompt to use Miniconda.
+
+After installing, close the PowerShell and open Anaconda Prompt to use Miniconda.
 
 :::::
 
@@ -346,7 +352,7 @@ This short tutorial walks you through creating and using your first conda enviro
 
 The conda installation process creates an environment called `base`, which is where conda itself is installed. However, when starting work on a new project, it’s best practice to create a new environment. This keeps your environments maintainable and reproducible while also keeping your base environment stable.
 
-Let’s create a new environment called `sds-env` with Python 3.14 as the {abbr}`interpreter (The python installation that will run your code)`.
+Let’s create a new environment called `sds-env` with Python 3.12 as the {abbr}`interpreter (The python installation that will run your code)`.
 
 ---
 
@@ -395,13 +401,13 @@ Use the **{abbr}`copy button (hover over the code block)`** 📄 to copy the com
 Paste it into your shell (Anaconda Prompt, Terminal, or PowerShell) and press Enter (Windows) or Return (macOS/Linux) to run it.
 
 ```bash
-conda create --name sds-env python=3.14
+conda create --name sds-env python=3.12
 ```
 This command tells Conda to:
 
 * create a **new isolated environment**
 * name it `sds-env`
-* install **Python 3.14** inside that environment
+* install **Python 3.12** inside that environment
 
 The `--name` flag assigns a human-readable name, which makes the environment easy to activate and manage later.
 
@@ -497,7 +503,7 @@ Activating and deactivating environments is cheap and safe. Switch environments 
 
 ### Adding packages to your environment
 
-Right now, your environment only has Python 3.14 and its dependencies installed. However, our project uses functionality that is not provided by the Python standard library, so we must install third-party packages to provide that functionality.
+Right now, your environment only has Python 3.12 and its dependencies installed. However, our project uses functionality that is not provided by the Python standard library, so we must install third-party packages to provide that functionality.
 
 ---
 
@@ -691,7 +697,7 @@ By now, you have seen the full lifecycle of working with Conda for a project. Th
 
 ```bash
 # create a new environment for the project
-conda create -n sds-env python=3.14
+conda create -n sds-env python=3.12
 
 # activate the environment
 conda activate sds-env
@@ -788,7 +794,7 @@ Navigate to your project directory and create a virtual environment:
 
 ```bash
 cd path/to/your/project
-uv venv --python 3.14
+uv venv --python 3.12
 ```
 
 Activate the environment:
@@ -1091,7 +1097,7 @@ These exercises help you practice the core skills needed to work confidently wit
 
 **Goal:** Create a clean Conda environment and use it for geospatial work.
 
-1. Create a new Conda environment called `sds-env` with Python 3.14
+1. Create a new Conda environment called `sds-env` with Python 3.12
 2. Activate the environment
 3. Install the `pygis` package from the `conda-forge` channel
 4. List all installed packages in the environment
@@ -1115,9 +1121,9 @@ These exercises help you practice the core skills needed to work confidently wit
 #   - Replace environment names if you chose different ones.
 # ============================================================
 
-# 1) Create a new Conda environment called "sds-env" with Python 3.14
+# 1) Create a new Conda environment called "sds-env" with Python 3.12
 # This creates an isolated environment with its own Python interpreter.
-conda create --name sds-env python=3.14
+conda create --name sds-env python=3.12
 
 # 2) Activate the new environment
 # From now on, all Python and conda commands apply to sds-env.

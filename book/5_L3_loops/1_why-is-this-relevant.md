@@ -1,5 +1,5 @@
 ---
-title: Why Loops Matters
+title: Why Loops Matter
 
 site:
  outline_maxdepth: 1
