@@ -104,6 +104,8 @@ project:
         - file: book/6_L4_functions/01_why_functions.md
         - file: book/6_L4_functions/02_core_mechanics.md
         - file: book/6_L4_functions/03_design_concepts.md
+        - file: book/6_L4_functions/04_advanced_features.md
+        - file: book/6_L4_functions/05_documentation.md
     - title: L5 - Libraries & Co
       file: book/7_L5_libraries.md
       children:

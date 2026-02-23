@@ -15,11 +15,11 @@ Documentation, introspection, and avoiding common pitfalls
 ```{admonition} Big Idea
 :class: tip
 
-In spatial data science, code is read far more often than it is written. Writing a function that merely *works* is not enough; a professional function must be self-explanatory, reproducible, and safe. Proper documentation ensures that you (and your colleagues) can understand and reuse your tools months after you wrote them.
+In data science, code is read far more often than it is written. Writing a function that merely *works* is not enough; a professional function must be self-explanatory, reproducible, and safe. Proper documentation ensures that you (and your colleagues) can understand and reuse your tools months after you wrote them.
 
 ```
 
-By this point, you know how to build powerful, flexible spatial tools. But as your scripts grow into larger pipelines, relying solely on memory to remember what each function does becomes impossible. In this final section, we will learn how to formally document our code and review the most common mistakes that break spatial pipelines.
+By this point, you know how to build powerful, flexible spatial tools. But as your scripts grow into larger pipelines, relying solely on memory to remember what each function does becomes impossible. In this final section, we will learn how to formally document our code and review the most common mistakes that break pipelines.
 
 ---
 
@@ -27,7 +27,7 @@ By this point, you know how to build powerful, flexible spatial tools. But as yo
 
 When you write functions, it is best practice to include built-in documentation that explains what the function does, what inputs it expects, and what output it returns.
 
-In Python, this is done using a **docstring** (documentation string). A docstring is a multi-line string enclosed in triple double quotes (`""" """`) placed immediately below the `def` statement.
+In Python, this is done using a **docstring** (documentation string). A {term}`docstring` is a multi-line string enclosed in triple double quotes (`""" """`) placed immediately below the `def` statement.
 
 While there are several formatting styles for docstrings, the **NumPy style** is the gold standard in the data science community. It uses clear, readable sections.
 
@@ -119,7 +119,7 @@ Furthermore, modern Integrated Development Environments (IDEs) like VS Code or P
 
 ## 3. The Common Mistakes Checklist
 
-Before you move on to the lab exercises, review this checklist. These are the most frequent, high-impact bugs that catch beginners off guard when building spatial functions.
+Before you move on to the exercises, review this checklist. These are the most frequent, high-impact bugs that catch beginners off guard when building functions.
 
 ```{admonition} Common Function Pitfalls
 :class: error
@@ -258,8 +258,8 @@ def log_movement(coord, track=[]):
     print("New track logged:", track)
 
 # Tracking the wolf pack
-log_movement([46.8, 8.2])
-log_movement([46.9, 8.3])
+log_movement([46.770343, 8.886892]) 
+log_movement([46.770352, 8.886903])
 
 ```
 
@@ -294,8 +294,8 @@ def log_movement(coord, track=None):
     return track
 
 # Safely testing the tracking tool
-wolf_track = log_movement([46.8, 8.2])
-wolf_track = log_movement([46.9, 8.3], track=wolf_track)
+wolf_track = log_movement([46.770343, 8.886892])
+wolf_track = log_movement([46.770352, 8.886903], track=wolf_track)
 
 print(f"Final safe track: {wolf_track}")
 ```
@@ -316,5 +316,5 @@ You now know how to:
 * Handle unpredictable data streams using `*args` and `**kwargs`.
 * Document your tools using professional, reproducible NumPy-style docstrings.
 
-**What comes next?**
-In the next chapter, we will take these custom tools and apply them to massive datasets using **Pandas** and **GeoPandas**, iterating over thousands of spatial features in seconds.
+### What comes next?
+In the next chapter, we will ...
