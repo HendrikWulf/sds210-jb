@@ -40,8 +40,8 @@ It also defines how that value behaves when Python uses it in expressions or cal
 Every variable in Python has a data type, even if you do not specify it explicitly.  
 The data type controls two important things:
 
-• which operations are allowed  
-• how Python interprets an expression  
+* which operations are allowed  
+* how Python interprets an expression  
 
 This explains why some lines of code work as expected while others fail, even if the syntax looks correct.
 
@@ -83,9 +83,9 @@ They represent individual values rather than collections of values.
 
 At this stage, your goal is to **recognise** them when you see them in code:
 
-• identify the type of a value  
-• understand what kind of information it represents  
-• develop an intuition for typical use cases  
+* identify the type of a value  
+* understand what kind of information it represents  
+* develop an intuition for typical use cases  
 
 Do not worry yet about all possible operations.  
 Those will come later.
@@ -99,10 +99,10 @@ They do not contain a decimal point.
 
 They are commonly used for:
 
-• counts  
-• indices  
-• IDs  
-• quantities that must be exact  
+* counts  
+* indices  
+* IDs  
+* quantities that must be exact  
 
 Example:
 
@@ -121,10 +121,10 @@ They can store numbers with a fractional part.
 
 Typical uses include:
 
-• measurements
-• coordinates
-• temperatures
-• calculated values
+* measurements
+* coordinates
+* temperatures
+* calculated values
 
 Example:
 
@@ -143,10 +143,10 @@ They are written inside quotation marks.
 
 Strings are often used for:
 
-• labels
-• names
-• categories
-• metadata and descriptions
+* labels
+* names
+* categories
+* metadata and descriptions
 
 Example:
 
@@ -165,10 +165,10 @@ They can only have one of two values: `True` or `False`.
 
 Typical uses include:
 
-• flags
-• conditions
-• yes or no states
-• on or off decisions
+* flags
+* conditions
+* yes or no states
+* on or off decisions
 
 Example:
 
@@ -182,9 +182,9 @@ Booleans are especially important when making decisions in code, which you will 
 
 At this point, focus on **recognition**:
 
-• Is the value a number or text?
-• Does it include a decimal point?
-• Does it represent a logical state?
+* Is the value a number or text?
+* Does it include a decimal point?
+* Does it represent a logical state?
 
 In the next section, we will learn how to check the data type of a variable directly in Python.
 
@@ -221,9 +221,9 @@ Even though both variables may look simple, Python treats them very differently 
 
 Checking the data type is especially useful when:
 
-• a calculation does not work as expected
-• Python raises an error message
-• a result looks strange or unexpected
+* a calculation does not work as expected
+* Python raises an error message
+* a result looks strange or unexpected
 
 In many cases, the **first step in debugging** is to ask:
 
@@ -257,9 +257,9 @@ It raises a **TypeError**.
 
 This error tells you something important:
 
-• the operation is not defined for these data types
-• numbers and strings behave differently
-• Python will not guess what you meant
+* the operation is not defined for these data types
+* numbers and strings behave differently
+* Python will not guess what you meant
 
 A `TypeError` is not a mistake you should fear.
 It is Python being precise and protective.
@@ -275,8 +275,8 @@ They help you understand how Python interprets your code.
 
 In practice, encountering a `TypeError` often means you should check:
 
-• the data type of each variable
-• whether the operation makes sense for those types
+* the data type of each variable
+* whether the operation makes sense for those types
 
 In the next section, you will learn how to make different data types work together when needed.
 
@@ -334,9 +334,9 @@ Observe the result carefully.
 At this stage, do not try to memorise rules.
 Instead, focus on **patterns**:
 
-• some operations work
-• some do not
-• Python is consistent in how it behaves
+* some operations work
+* some do not
+* Python is consistent in how it behaves
 
 This kind of small experiment helps build confidence and intuition.
 It also mirrors earlier exercises where you defined your own variables and explored what Python allows.
@@ -379,9 +379,9 @@ Inspection comes **before** fixing.
 
 This sequence is important:
 
-• observe the value  
-• check the data type  
-• decide what needs to change
+* observe the value  
+* check the data type  
+* decide what needs to change
 
 Once you understand what each variable represents, you can make them compatible by converting one data type into another.
 
@@ -459,23 +459,23 @@ If the original value contains a decimal part, Python **truncates** it.
 
 This means:
 
-• the decimal part is removed
-• the value is **not rounded**
+* the decimal part is removed
+* the value is **not rounded**
 
 For example, `62.9` becomes `62`, not `63`.
 
 This distinction matters, especially for scientific and spatial data:
 
-• truncation can silently reduce precision
-• small errors can accumulate
-• results may look plausible but be wrong
+* truncation can silently reduce precision
+* small errors can accumulate
+* results may look plausible but be wrong
 
 Because of this, type conversion should always be a **conscious decision**.
 
 Before converting, ask yourself:
 
-• Do I want an exact value or an approximation?
-• Is losing the decimal part acceptable here?
+* Do I want an exact value or an approximation?
+* Is losing the decimal part acceptable here?
 
 Understanding this pitfall early helps prevent subtle and hard to detect errors later on.
 
@@ -502,8 +502,8 @@ This error means something different from a `TypeError`.
 
 A `ValueError` tells you that:
 
-• the conversion itself is allowed
-• but the *value* does not make sense in this context
+* the conversion itself is allowed
+* but the *value* does not make sense in this context
 
 Not all strings represent numbers.
 Only strings that contain numeric content, such as `"77.0"` or `"12"`, can be converted to numeric types.
@@ -520,8 +520,8 @@ It points directly to a mismatch between **content** and **expected type**.
 
 When you see a `ValueError`, it is often useful to check:
 
-• what the value actually contains
-• whether the conversion makes sense conceptually
+* what the value actually contains
+* whether the conversion makes sense conceptually
 
 In the next section, we will briefly summarise the key ideas from this chapter and connect them to practical debugging strategies.
 
@@ -611,21 +611,21 @@ Goal: practise inspection and interpretation of error messages.
 
 ### Exercise 2: Inspection Before Fixing
 
-```python
+```{code-cell} python
 temp_celsius = 37.6
 forecast_bahnhofstrasse = "39.0"
 ```
 
 Checking data types:
 
-```python{code-cell} 
+```{code-cell} python
 type(temp_celsius)              # float
 type(forecast_bahnhofstrasse)   # str
 ```
 
 Running the operation:
 
-```python{code-cell} 
+```{code-cell} python
 forecast_bahnhofstrasse - temp_celsius
 ```
 
