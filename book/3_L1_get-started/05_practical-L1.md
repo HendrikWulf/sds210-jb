@@ -94,7 +94,7 @@ To run a code cell:
 # The line below prints text to the screen
 # Change it so that it prints something more meaningful.
 
-print("Wo sind die Prapsschnalinen?")
+print("Wo sind die Schnapspralinen?")
 ```
 
 ### Tasks
