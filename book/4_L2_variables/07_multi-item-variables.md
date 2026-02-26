@@ -1288,7 +1288,7 @@ It helps you avoid unintended side effects and keeps your workflows predictable.
 
 ---
 
-## 8. Short Exercise
+## 7. Short Exercise
 
 You receive raw field information and are asked to organise it into **appropriate data structures** so it can be used reliably later.
 
