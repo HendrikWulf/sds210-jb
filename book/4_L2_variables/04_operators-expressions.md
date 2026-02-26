@@ -5,7 +5,6 @@ site:
  outline_maxdepth: 1
 ---
 
-
 <div class="page-subtitle">
 Doing Things with Values
 </div>
@@ -17,72 +16,44 @@ Doing Things with Values
 ```{admonition} Big idea
 :class: tip
 
-Operators allow you to combine values into expressions.  
-Expressions are evaluated when code is executed and produce new values.
+Operators allow you to combine values into **expressions**.  
+Expressions are evaluated when code is executed to produce new values.
+
 ```
 
 So far, you have learned how to store values in variables, how to name them clearly, and how Python distinguishes between different data types.
 
-In this section, we focus on **how values interact**.
-We start with simple calculations, then build up to comparisons, logic, and function based expressions.
+In this section, we focus on **how values interact**. We start with simple calculations, then build up to comparisons, logic, and module-based mathematical expressions.
 
 ---
 
 ## 1. Expressions as Calculations
 
-An **expression** is a combination of values and operators that produces a result.
+An **expression** is a combination of values (operands) and operators that produces a result.
 
-In Python, expressions are evaluated when code is **executed**.  
-This makes Python usable as a simple calculator and as a language for building more complex calculations.
+:::{figure} images/06_operation.png
+:alt: The anatomy of a Python expression: operators combine operands to evaluate to a single new value.
+:width: 300px
+:align: center
 
----
+The anatomy of a Python expression: operators combine operands to evaluate to a single new value.
+:::
 
-### A First Mental Model
+Think of an expression as a question you ask Python: *"What is the result of this calculation right now?"*
 
-Think of an expression as a question you ask Python:
-
-> What is the result of this calculation right now?
-
-For example:
-
-```python
-1 + 1
-```
-
-```python
+```{code-cell} python
+# Python evaluates this expression and returns 35
 5 * 7
+
 ```
 
-When you run the cell, Python evaluates the expression and returns the result.
+An important idea is that expressions are evaluated **when you run the cell**, not when you type them. If you change a variable and run the cell again, Python recalculates the result using the newest values in memory.
 
----
-
-### Expressions Are Evaluated at Execution Time
-
-An important idea is that expressions are not evaluated when you write them, but **when you run the cell**.
-
-If you change an expression and run the cell again, Python recalculates the result.
-
-```python
-10 / 2
-```
-
-If you edit this to `10 / 4` and re run the cell, the result changes accordingly.
-
-This behaviour is fundamental for working with variables later on.
-
----
-
-```{admonition} Note
+```{admonition} Memory
 :class: note
+Python does not remember the expression itself. It only evaluates it and returns a value. If you want to keep that result for later, you must store it in a variable using `=`.
 
-Python does not remember expressions.  
-It only evaluates them and returns a value.
-
-If you want to keep a result, you must store it in a variable.
 ```
-
-Next, we will look at **arithmetic operators** and how they are used inside expressions.
 
 ---
 
@@ -99,19 +70,19 @@ At this stage, we focus only on **numeric operations**.
 
 Python supports the common arithmetic operators you already know.
 
-```python
+```{code-cell} python
 2 + 2
 ```
 
-```python
+```{code-cell} python
 5 - 3
 ```
 
-```python
+```{code-cell} python
 4 * 6
 ```
 
-```python
+```{code-cell} python
 10 / 2
 ```
 
@@ -124,16 +95,16 @@ Each expression is evaluated when the cell is executed and returns a numeric res
 Arithmetic operators do not only work with literal numbers.
 They also work with **variables that store numbers**.
 
-```python
+```{code-cell} python
 x = 7
 y = 3
 ```
 
-```python
+```{code-cell} python
 x + y
 ```
 
-```python
+```{code-cell} python
 x * y
 ```
 
@@ -146,7 +117,7 @@ An operand is simply a value or a variable that an operator acts on.
 
 Python uses `**` to raise a value to a power.
 
-```python
+```{code-cell} python
 2 ** 3
 ```
 
@@ -158,13 +129,13 @@ This means two to the power of three.
 
 Some additional arithmetic operators are useful in practice.
 
-```python
+```{code-cell} python
 7 % 3
 ```
 
 The modulus operator returns the remainder of a division.
 
-```python
+```{code-cell} python
 7 // 3
 ```
 
@@ -176,19 +147,17 @@ You will encounter these operators later in loops, indexing, and data processing
 
 ### Overview of Arithmetic Operators
 
-| Operator | Meaning        | Example  | Result |
-| :------: | -------------- | :------: | :----: |
-|      `+` | addition       | `2 + 3`  | `5`    |
-|      `-` | subtraction    | `5 - 2`  | `3`    |
-|      `*` | multiplication | `4 * 6`  | `24`   |
-|      `/` | division       | `10 / 2` | `5.0`  |
-|     `**` | exponentiation | `2 ** 3` | `8`    |
-|      `%` | remainder      | `7 % 3`  | `1`    |
-|     `//` | floor division | `7 // 3` | `2`    |
+| Operator | Meaning | Example | Result | Useful for... |
+| --- | --- | --- | --- | --- |
+| `+` | Addition | `2 + 3` | `5` | Combining distances |
+| `-` | Subtraction | `5 - 2` | `3` | Finding elevation differences |
+| `*` | Multiplication | `4 * 6` | `24` | Scaling coordinates |
+| `/` | Division | `10 / 2` | `5.0` | Calculating average speeds |
+| `**` | Exponentiation | `2 ** 3` | `8` | Squaring values (e.g., $x^2$) |
+| `%` | Modulus (Remainder) | `7 % 3` | `1` | Finding even/odd numbers |
+| `//` | Floor division | `7 // 3` | `2` | Counting whole segments |
 
----
-
-```{admonition} Info
+```{admonition} Operands
 :class: info
 
 Operators act on operands.
@@ -199,10 +168,6 @@ Operands can be:
 
 The data type of the operands determines whether an operation is allowed.
 ```
-
-Arithmetic operators are the basis for all numeric work in Python.
-Next, we will look at **assignment and comparison operators**, which allow us to store results and compare values.
-
 ---
 
 ## 3. Assignment and Update Operators
@@ -218,7 +183,7 @@ This section connects operators back to variables.
 
 The assignment operator `=` stores the result of an expression in a variable.
 
-```python
+```{code-cell} python
 x = 5
 ```
 
@@ -237,11 +202,11 @@ It only changes what value a variable refers to.
 
 You can assign the result of any expression.
 
-```python
+```{code-cell} python
 y = 2 + 3
 ```
 
-```python
+```{code-cell} python
 y
 ```
 
@@ -256,23 +221,23 @@ Python does not remember how the value was computed.
 
 Python provides **update operators** that combine calculation and assignment.
 
-```python
+```{code-cell} python
 x += 3
 ```
 
 This is a shorter way of writing:
 
-```python
+```{code-cell} python
 x = x + 3
 ```
 
 Other common update operators follow the same pattern.
 
-```python
+```{code-cell} python
 x -= 1
 ```
 
-```python
+```{code-cell} python
 x *= 2
 ```
 
@@ -292,7 +257,7 @@ An important mental model is this:
 
 After reassignment, the old value is gone.
 
-```python
+```{code-cell} python
 speed = 50
 speed = 80
 ```
@@ -302,7 +267,7 @@ The value `50` is no longer stored anywhere.
 
 ---
 
-```{admonition} Note
+```{admonition} Update operators
 :class: note
 
 Update operators are only shorthand.
@@ -313,108 +278,24 @@ They simply replace the stored value with a new one.
 
 ## 4. Comparison Operators
 
-Comparison operators allow you to **compare values**.
-Instead of producing numbers, comparisons produce **logical results**.
+Comparison operators allow you to **compare values**. Instead of producing numbers, comparisons produce **logical boolean results**: `True` or `False`.
 
-These results are boolean values: `True` or `False`.
+These operators are essential for filtering spatial data (e.g., "find all cities with a population greater than 100,000").
 
----
+| Operator | Meaning | Example | Result |
+| --- | --- | --- | --- |
+| `==` | **Equal to** (Note the double equals!) | `3 == 3` | `True` |
+| `!=` | **Not equal to** | `3 != 5` | `True` |
+| `>` | **Greater than** | `5 > 3` | `True` |
+| `<` | **Less than** | `2 < 1` | `False` |
+| `>=` | **Greater than or equal to** | `5 >= 5` | `True` |
+| `<=` | **Less than or equal to** | `4 <= 3` | `False` |
 
-### Equality and Inequality
-
-The equality operator `==` checks whether two values are equal.
-
-```python
-3 == 3
-```
-
-```python
-3 == 5
-```
-
-The inequality operator `!=` checks whether two values are different.
-
-```python
-3 != 5
-```
+**Data Types Matter:** Comparisons depend heavily on data types. `5 == "5"` will evaluate to `False` because an integer is never equal to a string!
 
 ---
 
-### Greater Than and Less Than
-
-You can compare numeric values using relational operators.
-
-```python
-5 > 3
-```
-
-```python
-2 < 1
-```
-
-You can also use combinations such as `greater than or equal` to.
-
-```python
-5 >= 5
-```
-
-```python
-4 <= 3
-```
-
----
-
-### Using Variables in Comparisons
-
-Comparisons work the same way with variables.
-
-```python
-x = 7
-y = 3
-```
-
-```python
-x > y
-```
-
-```python
-x == 3
-```
-
-The values stored in the variables are substituted into the comparison when it is evaluated.
-
----
-
-### What Comparisons Return
-
-Every comparison expression returns a boolean value.
-
-```python
-result = x > y
-result
-```
-
-Important points to remember:
-
-* comparisons produce `True` or `False`
-* comparisons do not change variable values
-* variables keep their original values after a comparison
-
----
-
-### Data Types Matter
-
-Comparisons depend on data types.
-
-```python
-5 == "5"
-```
-
-Although the values look similar, the comparison returns `False` because the data types are different.
-
----
-
-```{admonition} Info
+```{admonition} Comparisons
 :class: info
 
 Comparison operators describe relationships between values.
@@ -425,390 +306,112 @@ They only answer yes or no questions.
 ```
 
 Comparison operators are used to control program flow, filter data and make decisions based on conditions.
-In the next section, we will combine comparison results using **logical operators**.
 
 ---
 
 ## 5. Logical Operators
 
-Logical operators allow you to **combine comparison results**.
-They work with boolean values and always return a boolean result.
+Logical operators allow you to **combine multiple comparison results** into a single `True` or `False` answer.
 
-This makes it possible to express more complex conditions in a clear way.
+:::{figure} images/07_logical-operations.png
+:alt: Visualizing logical operators: `and` requires all conditions to be true, `or` requires at least one, and `not` reverses the condition.
+:align: center
 
----
-
-### The Three Logical Operators
+*Visualizing logical operators: `and` requires all conditions to be true, `or` requires at least one, and `not` reverses the condition.*
+:::
 
 Python provides three logical operators:
 
-* `and`
-* `or`
-* `not`
-
-Each of them works on boolean values.
-
----
-
-### Using `and`
-
-The operator `and` returns `True` only if **both conditions are true**.
-
-```python
+* **`and`**: Returns `True` only if **both** conditions are true.
+```{code-cell} python
 x = 7
+(x > 5) and (x < 10)  # Returns True because 7 is between 5 and 10
+
 ```
 
-```python
-x > 5 and x < 10
+* **`or`**: Returns `True` if **at least one** condition is true.
+```{code-cell} python
+(x < 5) or (x > 6)    # Returns True because 7 > 6
+
 ```
 
-If one of the conditions is false, the result is `False`.
 
-```python
-x > 5 and x < 6
+* **`not`**: **Reverses** the boolean value.
+```{code-cell} python
+not (x == 7)          # Returns False, because x IS 7
+
 ```
 
----
-
-### Using `or`
-
-The operator `or` returns `True` if **at least one condition is true**.
-
-```python
-x < 5 or x > 10
-```
-
-```python
-x < 5 or x > 6
-```
-
----
-
-### Using `not`
-
-The operator `not` **reverses** a boolean value.
-
-```python
-not (x > 5)
-```
-
-```python
-not (x < 5)
-```
-
----
-
-### Combining Expressions
-
-Logical operators are typically used together with comparisons.
-
-```python
-(x > 5 and x < 10) or x == 20
-```
-
-Even though the expression looks complex, the result is still a single boolean value.
-
----
-
-### What Logical Operators Return
-
-Important points to remember:
-
-* logical operators work on boolean values
-* results are always `True` or `False`
-* values stored in variables are not modified
-
----
-
-```{admonition} Note
-:class: note
-
-Logical operators allow you to express reasoning in code.
-Instead of asking one question, you can combine several and get a single clear answer.
-They are essential for filtering data, defining conditions and making decisions in code.
-```
-
-Next, we will look at how operator behaviour can change depending on **data types**.
+Logical operators allow you to express complex reasoning in code. Instead of asking one question, you can combine several and get a single, definitive answer.
 
 ---
 
 ## 6. Operator Behaviour & Data Types
 
-Operators do not behave the same way for all data types.
-What an operator does depends on **what kind of values** it is applied to.
+Operators do not behave the same way for all data types. What an operator does depends entirely on **what kind of values** it is applied to.
 
-This section connects operators back to data types and explains why some results are expected while others raise errors.
+When applied to numbers (`int`, `float`), the `+` and `*` operators perform standard arithmetic. But look what happens when we apply them to strings (`str`):
 
----
+```{code-cell} python
+# Concatenation: Joins strings together
+"Hot" + "Cold"   # Returns "HotCold"
 
-### Numbers and Arithmetic
-
-When operators are applied to numbers, Python performs arithmetic.
-
-```python
-2 + 3
+# Repetition: Multiplies the string
+"Hot" * 3        # Returns "HotHotHot"
+3 * "Hot"        # Returns "HotHotHot"
 ```
 
-```python
-4 * 5
+If you try to mix incompatible data types, the operation will fail:
+
+```{code-cell} python
+2 + "Hot"        # Raises a TypeError!
+
 ```
 
-The result is a numeric value, based on mathematical rules.
-
----
-
-### Strings and Concatenation
-
-When the same operator is applied to strings, the behaviour can change.
-
-```python
-"Hot" + "Cold"
-```
-
-Here, the `+` operator **joins strings together** instead of adding numbers.
-
-This is called `string concatenation`.
-
----
-
-### Repeating Strings with Numbers
-
-This operation repeats the string and works in both directions:
-
-```python
-"Hot" * 3
-```
-
-```python
-3 * "Hot"
-```
-
----
-
-### Operations That Fail
-
-Some combinations are not defined at all.
-
-```python
-2 + "Hot"
-```
-
-Python raises a `TypeError` because adding a number and a string does not make sense.
-
-This is not a bug.
-It is Python protecting you from an undefined operation.
-
----
-
-### Making Behaviour Predictable
-
-The key idea is:
-
-* operators are defined for specific data type combinations
-* the same symbol can behave differently depending on the data types
-* errors often mean that data types are incompatible
-
----
-
-```{admonition} Note
-:class: note
-
-When an operation fails, check the data types of the values involved.
-Once you know the data types, the behaviour of operators becomes predictable.
-```
-
-Next, we will look at how **functions** can be used inside expressions and combined with operators.
+This is not a bug; it is Python protecting you from an undefined operation. If an operation fails, check your data types!
 
 ---
 
 ## 7. Using Functions in Expressions
 
-So far, expressions have combined **values and operators**.
-Python also allows you to use **functions inside expressions**.
+Expressions can also include **functions**. Functions take an input, perform a complex calculation behind the scenes, and return a value that you can use mathematically.
 
-Functions extend what expressions can do, while keeping the same mental model.
+To access advanced mathematical functions, we must `import` the `math` module (a built-in library of extra Python tools).
 
----
-
-### Importing a Module
-
-Some functions are not available by default and need to be imported from a module.
-
-For mathematical functions, Python provides the `math` module.
-
-```python
+```{code-cell} python
 import math
+
+# Functions return values that can be used inside expressions
+diagonal = math.sqrt(16) + 2
+print(diagonal)  # Returns 6.0
+
 ```
 
-Once imported, the functions in the module are available for use.
+Modules also provide useful constants, which do not require parentheses because they are stored values, not functions:
 
----
+```{code-cell} python
+area = math.pi * (radius ** 2)
 
-### Calling Functions
-
-A function is called by writing its name followed by parentheses.
-
-```python
-math.sqrt(4)
 ```
-
-```python
-math.sin(3)
-```
-
-When a function is called, it:
-
-* takes input values
-* performs a calculation
-* returns a result
-
----
-
-### Using Constants
-
-Modules can also provide constant values.
-
-```python
-math.pi
-```
-
-Constants are values, not functions, so they do not use parentheses.
-
----
-
-### Functions Behave Like Values
-
-The key idea is that **functions return values**.
-
-This means the result of a function call can be used just like any other value.
-
-```python
-math.sqrt(4) + 2
-```
-
-```python
-2 * math.sin(1)
-```
-
----
-
-### Nesting Expressions
-
-Expressions can be nested by combining functions, operators, and values.
-
-```python
-math.sqrt(2 + 2)
-```
-
-```python
-math.sin(math.pi / 2)
-```
-
-Python evaluates the inner expressions first, then works outward.
-
----
-
-```{admonition} Note
-:class: note
-
-A function call is just another expression.
-Once evaluated, the returned value behaves exactly like a number, string, or boolean.
-
-Using functions inside expressions allows you to perform more complex calculations and build powerful logic from simple pieces.
-```
-
-Next, we will focus on **printing and inspecting expression results**, which helps you understand and debug your code.
 
 ---
 
 ## 8. Inspecting Expression Results
 
-Expressions often produce values that you want to **see and check**.
-Printing results makes calculations visible and helps you understand what your code is doing.
+When expressions become complex, it is helpful to inspect intermediate results to ensure your logic is correct.
 
-This is a normal and important part of programming.
+You can use the `print()` function to combine text and expression results for highly readable debugging output:
 
----
+```{code-cell} python
+distance = 150
+time = 2
 
-### Printing Expression Results
+# We can perform the expression directly inside the print statement!
+print("The average speed is", distance / time, "km/h")
 
-You can print the result of any expression using the `print()` function.
-
-```python
-print(2 + 2)
 ```
 
-```python
-print(math.sqrt(9))
-```
-
-The expression is evaluated first, and the result is then printed to the screen.
-
----
-
-### Combining Text and Results
-
-Printing becomes especially useful when you want to explain what a value represents.
-
-```python
-print("The square root of 9 is", math.sqrt(9))
-```
-
-This makes output easier to read and interpret, especially when working with many values.
-
----
-
-### Inspecting Intermediate Values
-
-When expressions become more complex, it is often helpful to inspect intermediate results.
-
-```python
-x = 7
-y = 3
-
-print("x + y =", x + y)
-print("x * y =", x * y)
-```
-
-This helps you verify that each part of a calculation behaves as expected.
-
----
-
-### Printing as a Debugging Tool
-
-Printing values is one of the simplest debugging techniques.
-
-You can use it to:
-
-* check whether a variable has the expected value
-* verify intermediate steps in a calculation
-* understand why a result looks wrong
-
-This approach is especially useful when learning and experimenting.
-
----
-
-### Improving Readability with Formatting
-
-Well formatted output makes results easier to understand.
-
-```python
-value = math.pi
-print("The value of pi is approximately", round(value, 3))
-```
-
-Clear output supports both debugging and communication with others.
-
----
-
-```{admonition} Note
-:class: note
-
-Printing is not only for final results.
-It is a tool for thinking, checking, and understanding what your code is doing at each step.
-
-Being able to inspect expression results helps you build confidence in your calculations and find and fix mistakes quickly.
-```
+Well-formatted output makes checking your work significantly easier and is a fundamental debugging habit.
 
 ---
 
@@ -816,219 +419,93 @@ Being able to inspect expression results helps you build confidence in your calc
 
 ### Exercise 1: Expressions as Calculations
 
-**Focus:** understanding expressions and execution  
-**Difficulty:** easy
+**Focus:** Understanding expressions and execution
 
-#### Task
+**Task:**
 
-1. Write three different arithmetic expressions:
+1. Write three different arithmetic expressions (one addition, one multiplication, one exponentiation).
+2. Run each expression in its own code cell.
+3. Change one number in the code and *do not* re-run the cell yet. Does the output change automatically?
 
-   * one using addition
-   * one using multiplication
-   * one using exponentiation
-2. Run each expression in its own code cell and observe the output.
-3. Change one number in each expression and re-run the cell.
-
-#### Questions to think about
-
-* When is the expression evaluated?
-* Does Python remember the expression or only the result?
-* What happens if you change the code but do not re-run the cell?
-
-```python
-# Simple arithmetic expressions
-
-# After changing one number and re-running the cell
-
-```
-
-````{admonition} Sample solution (click to compare with your results)
+``````{admonition} Sample solution (click to expand)
 :class: dropdown
 
 ```{code-cell} python
-# Simple arithmetic expressions
-
 2 + 3        # addition
-```
-
-```{code-cell} python
 4 * 5        # multiplication
-```
-
-```{code-cell} python
 2 ** 3       # exponentiation
 ```
+Changing the code has no effect until the cell is run again. Python does not remember the formula, it only evaluates the cell on command.
 
-```{code-cell} python
-# After changing one number and re-running the cell
-
-2 + 10
-```
-
-```{code-cell} python
-4 * 6
-```
-
-```{code-cell} python
-2 ** 4
-```
-
-**Explanation**
-
-* Each line is an expression.
-* Python evaluates the expression only when the cell is executed.
-* Python does not remember the expression itself, only the result.
-* Changing the code has no effect until the cell is run again.
-
-````
+``````
 
 ---
 
 ### Exercise 2: Operators, Variables, and Data Types
 
-**Focus:** variables, arithmetic, comparisons, data types  
-**Difficulty:** medium
+**Focus:** Variables, arithmetic, comparisons
 
-#### Task
-
-You are given the following variables:
-
-```python
-distance_km = 180
-time_hours = 2.5
-```
-
-1. Compute the average speed in km per hour and store it in a new variable.
-2. Check whether the speed is greater than 70 km per hour.
-3. Print a readable message that includes:
-
-   * the computed speed
-   * the result of the comparison
-
-``` python
-# The average speed is … km/h. Speed above 70 km/h: …
-```
-
-#### Questions to think about
-
-* Which expressions produce numbers and which produce booleans?
-* What data types are involved in each step?
-* What changes if you update `time_hours` and re-run the calculations?
-
-````{admonition} Sample solution (click to compare with your results)
-:class: dropdown
+**Task:**
+Given the following variables:
 
 ```{code-cell} python
-# Given values
 distance_km = 180
 time_hours = 2.5
+
 ```
+
+1. Compute the average speed in km/h and store it in a new variable.
+2. Create a boolean variable that checks whether the speed is greater than 70 km/h.
+3. Print a readable message that includes both the speed and the boolean result.
+
+``````{admonition} Sample solution (click to expand)
+:class: dropdown
 
 ```{code-cell} python
 # Compute average speed
 speed_kmh = distance_km / time_hours
-speed_kmh
-```
 
-```{code-cell} python
 # Comparison produces a boolean
 speed_above_70 = speed_kmh > 70
-speed_above_70
-```
 
-```{code-cell} python
 # Print a readable message
-print(
-    "The average speed is",
-    speed_kmh,
-    "km/h. Speed above 70 km/h:",
-    speed_above_70,
-)
+print("The average speed is", speed_kmh, "km/h. Speed above 70 km/h:", speed_above_70)
 ```
 
-**Explanation**
-
-* The division expression produces a numeric value (`float`).
-* The comparison expression produces a boolean (`True` or `False`).
-* Printing does not change values, it only makes results visible.
-* If `time_hours` is updated and the cells are re-run, all dependent results change.
-
-````
+``````
 
 ---
 
-### Exercise 3: Combining Comparisons, Logic, and Functions (challenge)
+### Exercise 3: Combining Comparisons, Logic, and Functions
 
-**Focus:** logical operators, functions, nested expressions  
-**Difficulty:** higher
+**Focus:** Logical operators, modules, nested expressions
 
-#### Task
+**Task:**
 
 1. Import the `math` module.
-2. Define a variable `angle_deg` with a value in degrees.
-3. Convert the angle to radians using `math.pi`.
-4. Compute the sine of the angle.
-5. Check whether the sine value is:
+2. Define a variable `angle_deg = 30`.
+3. Convert the angle to radians (Formula: `angle * math.pi / 180`).
+4. Compute the sine of the angle using `math.sin()`.
+5. Use logical operators to check if the sine value is **both** greater than 0 **and** less than 1.
 
-   * greater than 0
-   * smaller than 1
-6. Combine both checks using a logical operator.
-7. Print a clear message that shows:
-
-   * the sine value
-   * the result of the combined logical expression
-
-#### Questions to think about
-
-* Which parts of your code are expressions?
-* Which expressions are nested inside others?
-* Why does the final result still reduce to a single boolean value?
-
-````{admonition} Sample solution (click to compare with your results)
+``````{admonition} Sample solution (click to expand)
 :class: dropdown
 
 ```{code-cell} python
 import math
-```
 
-```{code-cell} python
-# Define angle in degrees
 angle_deg = 30
-```
-
-```{code-cell} python
-# Convert degrees to radians
 angle_rad = angle_deg * math.pi / 180
-angle_rad
-```
 
-```{code-cell} python
-# Compute sine of the angle
 sin_value = math.sin(angle_rad)
-sin_value
+
+# Combine conditions using 'and'
+valid_range = (sin_value > 0) and (sin_value < 1)
+
+print("Sine value:", sin_value, "| Is valid:", valid_range)
 ```
 
-```{code-cell} python
-# Logical checks
-greater_than_zero = sin_value > 0
-less_than_one = sin_value < 1
-```
-
-```{code-cell} python
-# Combine conditions
-valid_range = greater_than_zero and less_than_one
-valid_range
-```
-
-```{code-cell} python
-# Print result
-print(
-    "Sine value:",
-    sin_value,
-    "| In valid range (0 < sin < 1):",
-    valid_range,
-)
-````
+``````
 
 ---
 
@@ -1036,23 +513,13 @@ print(
 
 After completing this section, you should understand that:
 
-* **expressions combine values and operators**
-* expressions always produce a result
-* **expressions are evaluated when code is executed**
-* arithmetic operators work with numeric values
-* comparison and logical operators produce boolean values
-* operator behaviour depends on data types
-* functions return values that can be used in expressions
-
-Together, these ideas explain how Python works with values and how results are created step by step.
-
----
+* **Expressions combine values and operators** to produce a single result.
+* **Expressions are evaluated when code is executed.**
+* **Arithmetic operators** (`+`, `-`, `*`, `/`, `**`, `%`, `//`) act as a calculator.
+* **Comparison operators** (`==`, `>`, `<=`) always produce boolean values (`True` or `False`).
+* **Logical operators** (`and`, `or`, `not`) combine boolean conditions to build complex reasoning.
+* Operator behavior changes depending on data types (e.g., `+` adds numbers but joins strings).
 
 ### Looking Ahead
 
-Expressions are the foundation for making decisions in code.
-
-In the next section, you will learn about **strings and basic string operations**.
-Strings behave differently from numbers, especially when combined, repeated, or formatted.
-
-Isolating these behaviours early helps keep numeric reasoning clear while building confidence with text handling.
+Expressions are the foundation for making decisions in code. In the next section, we will take a deeper dive into **Strings**. Strings behave uniquely, especially when combined, sliced, or formatted. Isolating these behaviors early helps keep numeric reasoning clear while building your confidence with text handling.

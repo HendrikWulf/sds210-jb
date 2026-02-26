@@ -22,12 +22,12 @@ Printing makes results visible.
 Formatting makes results understandable.
 
 Clear output supports debugging, communication, and learning.
+
 ```
 
-So far, you have worked with values, expressions, and strings.  
-In many cases, Python already shows results automatically in a notebook.
+So far, you have worked with values, expressions, and strings. In many cases, you have seen that Python already shows results automatically when you run a notebook cell.
 
-In this section, you will learn **when and why to print values explicitly** and how to format output so it is readable and meaningful.
+In this section, you will learn **when and why to print values explicitly** and how to format output so it is readable, professional, and meaningful.
 
 ---
 
@@ -35,138 +35,117 @@ In this section, you will learn **when and why to print values explicitly** and 
 
 In a Jupyter Notebook, the **last expression in a code cell** is displayed automatically.
 
-```python
-2 + 3
+```{code-cell} python
+2 + 3  # This will display 5 below the cell
+
 ```
 
-This works without using `print()` and is convenient when you are exploring values interactively.
+This automatic display is highly convenient when you are exploring values interactively. However, it has clear limitations:
 
-However, automatic display has clear limitations and should not be relied on in all situations.
+* It only shows the **last expression** in a cell.
+* It only displays **one value**.
+* It is a **notebook-specific feature** (it will not work if you write a standard Python script later).
 
----
-
-### When Automatic Display Works
-
-Automatic display is useful when you are:
-
-* exploring values
-* testing expressions
-* checking intermediate results
-
-Keep in mind:
-
-* only the **last expression** in a cell is shown
-* only **one value** is displayed
-* this behaviour exists **only in notebooks**
-
----
-
-### Using `print()`
+### Using the `print()` function
 
 The `print()` function sends output to the screen explicitly.
 
-```python
+```{code-cell} python
 print(2 + 3)
+
 ```
 
-Printing works consistently:
-
-* in notebooks
-* in scripts
-* in larger programs
-
-This makes `print()` essential for debugging, explanations, and clear communication of results.
-
----
+Printing works consistently everywhere: in notebooks, in scripts, and in massive software programs. This makes `print()` essential for debugging, explaining steps, and clearly communicating your final results.
 
 ```{admonition} Key idea
 :class: note
-
 Automatic display is a **notebook feature**.  
 `print()` is a **Python feature**.
 
-When clarity matters, rely on `print()`.
+When clarity matters, or when you need to show multiple things from one cell, rely on `print()`.
+
 ```
 
 ---
 
 ## 2. Printing Multiple Values
 
-The `print()` function can display **multiple values at once**.
+The `print()` function can display **multiple values at once** if you separate them with commas. Python automatically inserts a space between each value.
 
-```python
+```{code-cell} python
 distance_km = 120
 speed_kmh = 80
 
+# Quick inspection of multiple variables
 print(distance_km, speed_kmh)
+
 ```
 
-Python automatically inserts spaces between the values.
-This makes `print()` useful for quick inspection of several variables at the same time.
+Output becomes much clearer when you add text labels. Clear labels turn raw numbers into meaningful information, helping your future self (and others) understand what the numbers represent.
 
----
-
-### Labels Improve Readability
-
-Output becomes much clearer when you add text labels.
-
-```python
+```{code-cell} python
 print("Distance:", distance_km, "Speed:", speed_kmh)
+
 ```
-
-This simple habit helps others and your future self understand what each value represents.
-
-Clear labels turn raw numbers into meaningful information.
 
 ---
 
 ## 3. Formatting Output with f-strings
 
-For more readable output, Python provides **f-strings**.
-They allow you to embed variable values directly into text.
+While separating items with commas works, modern Python provides a much more powerful tool for readable output: **f-strings**.
 
-```python
+F-strings allow you to embed variable values directly into the middle of a text string.
+
+```{code-cell} python
 travel_time_h = distance_km / speed_kmh
-print(f"Travel time: {travel_time_h} hours")
+
+print(f"The travel time is {travel_time_h} hours.")
+
 ```
 
-The `f` before the string tells Python to evaluate expressions inside `{}` and insert their values.  
-The `f` stands for *formatted*.
+:::{figure} images/09_f-string-anatomy.png
+:alt: *The anatomy of an f-string: combining fixed text, dynamic variables, and formatting rules.*
+:width: 700px
+:align: center
 
-Anything that produces a value can go inside `{}`.
+*The anatomy of an f-string: combining fixed text, dynamic variables, and formatting rules.*
+:::
 
-```python
-print(f"Double speed: {speed_kmh * 2} km/h")
+**How it works:**
+
+1. The `f` before the quotation mark tells Python: *"This is a formatted string."*
+2. The curly braces `{}` act as placeholders.
+3. Python evaluates whatever is inside the `{}` and injects the value directly into the text.
+
+You can even put full mathematical expressions inside the brackets!
+
+```{code-cell} python
+print(f"If we double our speed, we will go {speed_kmh * 2} km/h.")
+
 ```
 
 ---
 
 ### Formatting Numbers
 
-You can control **how numbers are displayed** using formatting inside f-strings.
+At times, calculations produce long, ugly decimals (e.g., `1.50000000002`). You can control **how numbers are displayed** by adding formatting rules inside the f-string brackets using a colon `:`.
 
-```python
+```{code-cell} python
+# Format the variable to show only 2 decimal places
 print(f"Travel time: {travel_time_h:.2f} hours")
+
 ```
 
-The part after the colon `:` defines the formatting rule:
+The part after the colon `:.2f` defines the formatting rule:
 
-* `.2` specifies **two digits after the decimal point**
-* `f` formats the value as a **floating-point number**
-
-Together, `.2f` means:
-
-> *Display this number as a decimal with exactly two digits after the decimal point.*
-
-For example, a value like `1.23456` is shown as `1.23`.
-
----
+* `.2` specifies **two digits after the decimal point**.
+* `f` formats the value as a standard **floating-point number**.
 
 ### Other Common Number Formats
 
 Different format specifiers change how numbers appear:
 
-```python
+```{code-cell} python
 value = 1.2345
 
 print(f"{value:.2f}")   # decimal format
@@ -203,22 +182,13 @@ This distinction is essential when presenting results, debugging, or comparing o
 
 ## 4. Why Formatting Matters
 
-Clear output helps you:
-
-* understand what your code is doing
-* communicate results to others
-* spot mistakes more easily
-
-Poorly formatted output forces the reader to guess meaning.
-Well formatted output makes intent obvious.
-
----
+Clear output helps you understand what your code is doing, communicate results to stakeholders, and spot mistakes easily. Poorly formatted output forces the reader to guess.
 
 ### Printing as a Debugging Tool
 
-Printing intermediate values is one of the simplest and most effective debugging techniques.
+Printing intermediate values is one of the simplest and most effective debugging techniques in data science. If a complex calculation is giving you the wrong answer, print out the pieces!
 
-```python
+```{code-cell} python
 print("Distance:", distance_km)
 print("Speed:", speed_kmh)
 print("Time:", travel_time_h)
@@ -226,24 +196,23 @@ print("Time:", travel_time_h)
 
 You can also use an f-string to make the output more readable.
 
-```python
+```{code-cell} python
 print(f"Distance = {distance_km} km, Speed = {speed_kmh} km/h, Time = {travel_time_h:.2f} h")
 ```
 
-This allows you to verify that values are correct at each step and to quickly identify where something goes wrong.
+This allows you to verify that values are correct at each specific step and quickly identify exactly where the math went wrong.
 
 ---
 
 ## 5. Short Exercise
 
-Many migratory birds travel long distances over several days.
-To understand such movements, we often estimate **travel time** from distance and average **airspeed**.
+Many migratory birds travel long distances over several days. To understand such movements, we often estimate **travel time** from distance and average **airspeed**.
 
-Assume a migratory bird flying from Northern Europe to Southern Europe.
-The estimated migration distance is:
+Assume a migratory bird is flying from Northern Europe to Southern Europe. The estimated migration distance is:
 
-```python
+```{code-cell} python
 distance_km = 1800
+
 ```
 
 Two possible average airspeeds are:
@@ -251,22 +220,19 @@ Two possible average airspeeds are:
 * **10 m/s** (slower sustained flight)
 * **15 m/s** (faster sustained flight)
 
----
-
 ### Task
 
-1. Convert the airspeed from **m/s to km/h**.
+1. Convert both airspeeds from **m/s to km/h** (Hint: multiply by `3.6`).
 2. Compute the estimated **travel time in hours** for **both speeds**.
-3. Display the results using **clear, formatted output** that:
+3. Display the results using **clear, formatted f-strings** that:
+* state the distance and the airspeed used
+* include correct units
+* round the final travel time to **two decimal places**
 
-   * states the distance and airspeed
-   * includes correct units
-   * rounds travel time to **two decimal places**
-4. Add **one print statement** that would help you debug the calculation if the result looks implausible.
 
----
+4. Add **one debug print statement** that would help you verify the unit conversion worked correctly.
 
-````{admonition} Sample solution (click to compare with your results)
+``````{admonition} Sample solution (click to expand)
 :class: dropdown
 
 ```{code-cell} python
@@ -277,40 +243,23 @@ distance_km = 1800
 speed_ms_slow = 10
 speed_ms_fast = 15
 
-# Convert airspeed from m/s to km/h
+# 1. Convert airspeed from m/s to km/h
 speed_kmh_slow = speed_ms_slow * 3.6
 speed_kmh_fast = speed_ms_fast * 3.6
 
-# Calculate travel times
+# 2. Calculate travel times
 time_h_slow = distance_km / speed_kmh_slow
 time_h_fast = distance_km / speed_kmh_fast
 
-# Formatted output
-print(
-    f"At an airspeed of {speed_ms_slow} m/s ({speed_kmh_slow:.1f} km/h), "
-    f"the migration takes about {time_h_slow:.2f} hours."
-)
+# 3. Formatted f-string output
+print(f"At {speed_ms_slow} m/s, the migration takes {time_h_slow:.2f} hours.")
+print(f"At {speed_ms_fast} m/s, the migration takes {time_h_fast:.2f} hours.")
 
-print(
-    f"At an airspeed of {speed_ms_fast} m/s ({speed_kmh_fast:.1f} km/h), "
-    f"the migration takes about {time_h_fast:.2f} hours."
-)
+# 4. Debugging output to verify unit conversion
+print(f"\nDEBUG -> speeds (km/h): Slow={speed_kmh_slow:.1f}, Fast={speed_kmh_fast:.1f}")
 ```
 
-```{code-cell} python
-# Debugging output to verify unit conversion
-print("DEBUG → speeds (km/h):", speed_kmh_slow, speed_kmh_fast)
-```
-
-**Explanation:**
-
-* Airspeed must be converted from meters per second to kilometers per hour before calculating travel time.
-* The conversion factor is *1 m/s = 3.6 km/h*.
-* Higher airspeed results in shorter travel time.
-* Debug output helps confirm that unit conversion happened correctly.
-* Formatting improves readability without affecting the calculation itself.
-
-````
+``````
 
 ---
 
@@ -318,17 +267,16 @@ print("DEBUG → speeds (km/h):", speed_kmh_slow, speed_kmh_fast)
 
 After this section, you should understand that:
 
-* notebooks display the last expression in a cell automatically
-* `print()` makes output explicit and works in all Python contexts
-* multiple values can be printed together in a single statement
-* f-strings make output more readable and expressive
-* formatting affects how values are shown, not how they are stored
-* printing is a key tool for debugging and communication
+* Notebooks display the last expression automatically, but `print()` makes output explicit and works in all Python environments.
+* Multiple values can be printed together by separating them with commas.
+* **f-strings** (`f"Text {variable}"`) are the modern, clean way to embed variables directly into text.
+* Formatting rules (like `:.2f`) alter how values visually appear on the screen without changing the underlying stored data.
+* Printing well-labeled outputs is a crucial habit for debugging and communication.
 
 ---
 
 ### Looking Ahead
 
-You now know how to see and present results clearly.
+You now know how to see and present individual results clearly.
 
-Next, we move on to **multi item variables**, which allow a single variable to store multiple values such as coordinates, paths, or attributes.
+Next, we move on to **multi-item variables** (Lists and Dictionaries), which allow a single variable to store massive collections of values—like hundreds of spatial coordinates or attributes—at the same time!
