@@ -1,5 +1,5 @@
 ---
-title: Conda
+title: Conda 
 
 site:
  outline_maxdepth: 1
