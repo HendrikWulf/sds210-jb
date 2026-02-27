@@ -134,9 +134,9 @@ You should now see `(base)` at the beginning of your command prompt.
 
 **Step 3: Initialize conda for your shell**
 
-Initialize conda so it works automatically in new terminal sessions:
+Initialize conda for all currently available shells so it works automatically in new terminal sessions:
 ```bash
-conda init
+conda init --all
 ```
 
 **Step 4: Verify your installation**
@@ -147,6 +147,19 @@ Run any conda command. For example: `conda list` (displays a list of packages in
 (base) name@computer ~ % conda --version
  conda 25.11.1
 ```
+
+````{admonition} Do not auto-activate (base)
+:class: dropdown
+
+If you prefer a clean shell without automatically activating the base environment:
+
+```bash
+~/miniconda3/bin/conda config --set auto_activate_base false
+```
+
+After this, `conda` will be available, but no environment will be active by default.
+
+````
 
 :::::
 
