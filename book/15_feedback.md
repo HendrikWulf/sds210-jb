@@ -63,7 +63,8 @@ Each page of the course website has an **“Edit this page”** ✏️ icon at t
 You can:
 1. Click the pen icon  
 2. Make small corrections or clarifications via GitHub 
-3. Commit the changes for that specific page  
+3. Commit the changes for that specific page
+4. Open a Pull Request (PR) so we can review and merge your improvement
 
 This is especially useful for:
 - fixing typos

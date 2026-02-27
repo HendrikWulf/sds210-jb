@@ -20,6 +20,14 @@ project:
       url: https://mybinder.org
       ref: main
 
+  exports:
+    # id: book-pdf
+    format: pdf
+    # pick ONE of these templates / engines you actually use:
+    # template: plain_latex_book   # LaTeX-based
+    # template: plain_typst_book # Typst-based (if you use Typst templates)
+    # output: exports/sds210-book.pdf
+
   license: CC-BY-SA-4.0
   open_access: true
 
@@ -56,7 +64,7 @@ project:
          - file: book/3_L1_get-started/04_notebooks.md
          - file: book/3_L1_get-started/05_practical-L1.ipynb
          # - file: book/3_L1_get-started/05_practical-L1.md
-         - file: book/3_L1_get-started/05_practical-L1-solution.ipynb
+         # - file: book/3_L1_get-started/05_practical-L1-solution.ipynb
          # - file: book/3_L1_get-started/05_practical-L1-solution.md
     - title: L2 - Variables & Values
       file: book/4_L2_variables.md
