@@ -12,7 +12,7 @@ Doing the same thing many times
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/5_L3_loops/2_for-loops.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/5_L3_loops/02_for-loops.ipynb)
 
 ```{admonition} Big idea
 :class: tip
@@ -22,6 +22,7 @@ Loops allow the computer to
 
 We write the instruction once.  
 The computer does the repetition.
+
 ```
 
 Programs become powerful when they can repeat work automatically.
@@ -50,19 +51,18 @@ The number of repetitions is controlled by the data, not by you.
 
 Consider a simple list of values:
 
-```python
+```{code-cell} python
 values = [3, 7, 12]
+
 ```
 
-When a loop runs over this list, it does **not** see the list all at once.
-
-Instead, it works like this:
+When a loop runs over this list, it does **not** see the list all at once. Instead, it works like this:
 
 * first, it sees `3`
 * then, it sees `7`
 * finally, it sees `12`
 
-At each step, the same instructions are executed again.
+At each step, the exact same instructions are executed again.
 
 ---
 
@@ -76,7 +76,7 @@ This variable:
 * changes automatically on each repetition
 * exists while the loop is running
 
-The name of the loop variable is chosen by you and should be meaningful.
+The name of the loop variable is chosen by you and should be descriptive.
 
 ---
 
@@ -97,19 +97,15 @@ Understanding this execution model is more important than memorising syntax.
 
 ### Iterating over collections
 
-The most common loop in Python is the `for` loop.
+The most common loop in Python is the `for` loop. It is used to iterate over collections such as lists.
 
-It is used to iterate over collections such as lists.
-
-```python
+```{code-cell} python
 for item in collection:
     do_something(item)
+
 ```
 
-This line tells Python to take one value from the collection at a time
-and run the same instructions for each value.
-
-Read it like a sentence:
+This line tells Python to take one value from the collection at a time and run the same instructions for each value. Read it like a sentence:
 
 > For each `item` in the `collection`, do something with it.
 
@@ -121,15 +117,17 @@ The loop continues until the collection has no values left.
 
 Consider a simple list of city names:
 
-```python
+```{code-cell} python
 cities = ["Tokyo", "Delhi", "Shanghai", "Jakarta"]
+
 ```
 
 Now run the following loop:
 
-```python
+```{code-cell} python
 for city in cities:
     print(city)
+
 ```
 
 **What you will see as output:**
@@ -139,17 +137,25 @@ Tokyo
 Delhi
 Shanghai
 Jakarta
+
 ```
 
-Python executes the same `print(city)` instruction four times.
-Each time, `city` refers to a different value from the list.
+Python executes the same `print(city)` instruction four times. Each time, `city` refers to a different value from the list.
 
-The code itself does not change.
-Only the value of `city` changes.
+The code itself does not change. Only the value of `city` changes.
 
 ---
 
 ### How Python executes this loop
+
+:::{figure} images/02_loop_iteration_pointer.png
+:alt: Diagram showing a loop variable sequentially pointing to elements in a list one by one.
+:width: 700px
+:align: center
+
+*The loop variable acts as a temporary container. It holds the first value, executes the code, and then automatically moves to the next value until the list is empty.*
+:::
+
 
 Internally, Python proceeds step by step:
 
@@ -165,30 +171,24 @@ At any moment, the loop variable holds **exactly one value**.
 
 ### Loop body and indentation
 
-Everything indented below the `for` statement
-belongs to the loop.
+Everything indented below the `for` statement belongs to the loop.
 
-```python
+```{code-cell} python
 for city in cities:
     print(city)
     print("----")
+
 ```
 
-Both `print` statements are part of the loop body,
-so both run once for each city.
+Both `print` statements are part of the loop body, so both run once for each city.
 
-When the indentation ends, the loop ends.
-
-Python does not use an explicit “end loop” keyword.
-Structure is defined entirely by indentation.
+When the indentation ends, the loop ends. Python does not use an explicit “end loop” keyword. Structure is defined entirely by indentation.
 
 ---
 
 ### Loop variable lifetime
 
-The loop variable is a **normal variable**.
-
-It is assigned a new value on each repetition.
+The loop variable is a **normal variable**. It is assigned a new value on each repetition.
 
 After the loop finishes:
 
@@ -197,34 +197,35 @@ After the loop finishes:
 
 You can verify this directly:
 
-```python
+```{code-cell} python
 print(city)
+# Output: Jakarta
+
 ```
 
 This behaviour can be surprising at first, so it is important to be aware of it.
 
----
-
 ```{admonition} Note
 :class: note
 
-The loop variable does not disappear  
-when the loop ends.
+The loop variable does not disappear when the loop ends!
+
 ```
+
 ---
 
 ## 3. Looping with range
 
 ### Repeating a fixed number of times
 
-Sometimes you do not want to loop over a list.
-You simply want to repeat an action a **known number of times**.
+Sometimes you do not want to loop over a list. You simply want to repeat an action a **known number of times**.
 
 This is what `range()` is for.
 
-```python
+```{code-cell} python
 for i in range(5):
     print(i)
+
 ```
 
 When this code runs, you will see:
@@ -235,10 +236,10 @@ When this code runs, you will see:
 2
 3
 4
+
 ```
 
-The loop runs five times.
-On each repetition, the loop variable takes on the next number in the sequence.
+The loop runs five times. On each repetition, the loop variable takes on the next number in the sequence.
 
 ---
 
@@ -246,23 +247,18 @@ On each repetition, the loop variable takes on the next number in the sequence.
 
 When `range()` is given a single number, it produces a sequence of integers:
 
-```python
-range(5)
-```
+```{code-cell} python
+range(5) # Conceptually produces: 0, 1, 2, 3, 4
 
-Conceptually, this corresponds to:
-
-```text
-0, 1, 2, 3, 4
 ```
 
 Important details:
 
-* the sequence starts at `0`
-* the final value is **not included**
-* the length of the sequence matches the number you provide
+* the sequence always starts at `0` (unless specified otherwise)
+* the final value is **not included** (it stops *before* 5)
+* the length of the sequence matches the number you provide (5 numbers total)
 
-This start at zero, stop before the end behaviour is very common in programming.
+This "start at zero, stop before the end" behaviour is the standard in Python.
 
 ---
 
@@ -270,17 +266,19 @@ This start at zero, stop before the end behaviour is very common in programming.
 
 The `range()` function can take one, two, or three arguments.
 
-```python
+```{code-cell} python
 range(stop)
 range(start, stop)
 range(start, stop, step)
+
 ```
 
 For example:
 
-```python
+```{code-cell} python
 for i in range(2, 9, 3):
     print(i)
+
 ```
 
 This produces:
@@ -289,12 +287,12 @@ This produces:
 2
 5
 8
+
 ```
 
 Read this as:
 
-> Start at 2, increase by 3 each time, stop before reaching 9.
-
+> Start at **2**, increase by **3** each time, stop before reaching **9**.
 
 ```{admonition} What would be the output of range(4, 15, 3)?
 :class: dropdown
@@ -310,7 +308,7 @@ Using these arguments gives you precise control over how many repetitions occur.
 
 You can learn a bit more about range by typing `help(range)`.
 
-```python
+```{code-cell} python
 help(range)
 ```
 
@@ -330,27 +328,22 @@ Loops with `range()` are often used for:
 
 ### When values are not enough
 
-So far, you have looped directly over the values in a list.
-In many cases, this is exactly what you want.
+So far, you have looped directly over the values in a list. In many cases, this is exactly what you want.
 
-Sometimes, however, you also need to know **where** a value appears in a list.
-
-This is where **index values** become useful.
-
----
+Sometimes, however, you also need to know **where** a value appears in a list. This is where **index values** become useful.
 
 ### Accessing values by index
 
-Recall that list elements are accessed using an index.
-The first element has index `0`.
+Recall that list elements are accessed using an index. The first element has index `0`.
 
 We can combine this idea with `range()` and `len()`.
 
-```python
+```{code-cell} python
 cities = ["Buenos Aires", "São Paulo", "Lima", "Bogotá", "Santiago"]
 
 for i in range(len(cities)):
     print(f"{cities[i]} is at index {i}")
+
 ```
 
 **Output:**
@@ -365,9 +358,9 @@ Santiago is at index 4
 
 Here is what happens:
 
-* `len(cities)` gives the number of elements in the list
-* `range(len(cities))` produces the indices `0, 1, 2, ...`
-* `i` takes on each index value
+* `len(cities)` gives the number of elements in the list (5)
+* `range(5)` produces the indices `0, 1, 2, 3, 4`
+* `i` takes on each index value step-by-step
 * `cities[i]` accesses the corresponding city
 
 ---
@@ -388,19 +381,16 @@ This pattern is common and worth recognising.
 
 ### Using indices with related lists
 
-Index-based loops are especially useful
-when you have **multiple lists that belong together**.
+Index-based loops are especially useful when you have **multiple lists that belong together**.
 
-Consider the following example:
-
-```python
+```{code-cell} python
 cities = ["Buenos Aires", "Brasília", "Lima", "Bogotá", "Santiago"]
 countries = ["Argentina", "Brazil", "Peru", "Colombia", "Chile"]
 ```
 
 Each city corresponds to a country at the same index.
 
-```python
+```{code-cell} python
 for i in range(len(cities)):
     print(cities[i], "is the capital of", countries[i])
 ```
@@ -415,8 +405,22 @@ Bogotá is the capital of Colombia
 Santiago is the capital of Chile
 ```
 
-The index `i` allows access to matching elements
-from both lists at the same time.
+The index `i` allows access to matching elements from both lists at the exact same time.
+
+``````{admonition} Pro-Tip: The Pythonic Way (zip)
+:class: tip
+
+While `range(len())` is great for understanding how indices work, Python has a built-in function specifically for looping over multiple lists at once called `zip()`.
+
+```{code-cell} python
+for city, country in zip(cities, countries):
+    print(city, "is the capital of", country)
+
+```
+
+This does the exact same thing, but is cleaner and easier to read!
+
+``````
 
 ---
 
@@ -449,19 +453,19 @@ between lists, use indices.
 
 ### Repetition inside repetition
 
-A loop can be placed **inside another loop**.
-This is called a **nested loop**.
+A loop can be placed **inside another loop**. This is called a **nested loop**.
 
-```python
+```{code-cell} python
 for a in first_list:
     for b in second_list:
         print(a, b)
-````
+
+```
 
 In this structure:
 
 * the **outer loop** controls the larger repetition
-* the **inner loop** runs fully for each outer value
+* the **inner loop** runs fully from start to finish for *each* outer value
 
 ---
 
@@ -469,17 +473,19 @@ In this structure:
 
 Consider two small lists:
 
-```python
+```{code-cell} python
 colors = ["red", "blue"]
 shapes = ["circle", "square"]
+
 ```
 
 Now run the nested loop:
 
-```python
+```{code-cell} python
 for color in colors:
     for shape in shapes:
         print(color, shape)
+
 ```
 
 **Observed output:**
@@ -489,10 +495,10 @@ red circle
 red square
 blue circle
 blue square
+
 ```
 
-Each color is combined with **every** shape.
-The same pattern repeats until all combinations are produced.
+Each color is combined with **every** shape before the outer loop moves on to the next color.
 
 ---
 
@@ -511,33 +517,26 @@ This creates a grid-like pattern of repetition.
 
 ### Visualising the pattern
 
-You can think of nested loops as filling a table:
+You can think of nested loops as filling a table or a spatial grid:
 
 * rows correspond to the outer loop
 * columns correspond to the inner loop
 
-Every cell represents one execution of the inner loop body.
+:::{figure} images/03_nested_loops_grid.png
+:alt: A 2D grid showing execution flow moving row by row, illustrating how an outer loop and inner loop interact.
+:width: 700px
+:align: center
 
----
+*The outer loop locks into a row, while the inner loop runs through all the columns. Once a row is finished, the outer loop moves down one step and the inner loop starts over.*
+:::
 
-### When nested loops are useful
+Every cell represents one execution of the inner loop body. This is incredibly useful in spatial data science for working with coordinate pairs `(x, y)` or raster pixels!
 
-Nested loops are useful when:
-
-* combining values from two collections
-* working with two dimensions
-* generating all possible pairs
-
-At this stage, examples stay simple
-and deliberately avoid conditions.
-
----
-
-```{admonition} Caution
+```{admonition} Exponential growth
 :class: caution
 
-Nested loops can grow quickly.  
-Each extra loop multiplies the number of repetitions.
+Nested loops can grow quickly. Each extra loop multiplies the number of repetitions. Looping through 100 X coordinates and 100 Y coordinates results in 10,000 repetitions!
+
 ```
 
 ---
@@ -553,7 +552,7 @@ Focus on **understanding what happens**, not on writing the shortest code.
 
 You are given a list of elevations (in meters):
 
-```python
+```{code-cell} python
 elevations = [450, 1200, 890, 2300]
 ```
 
@@ -564,7 +563,7 @@ elevations = [450, 1200, 890, 2300]
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 for elevation in elevations:
     print(elevation)
 ```
@@ -589,7 +588,7 @@ Write a loop that prints the numbers 1 to 5. Use `range()` to control the number
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 for i in range(1, 6):
     print(i)
 ```
@@ -607,7 +606,7 @@ The loop stops before reaching `6`.
 
 You are given two related lists:
 
-```python
+```{code-cell} python
 cities = ["Quito", "La Paz", "Asunción"]
 countries = ["Ecuador", "Bolivia", "Paraguay"]
 ```
@@ -619,7 +618,7 @@ countries = ["Ecuador", "Bolivia", "Paraguay"]
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 for i in range(len(cities)):
     print(cities[i], "is in", countries[i])
 ```
@@ -638,7 +637,7 @@ Indices allow coordination between multiple lists.
 
 You are given x and y coordinates:
 
-```python
+```{code-cell} python
 x_coords = [3, 4, 5]
 y_coords = [8, 9]
 ```
@@ -651,7 +650,7 @@ y_coords = [8, 9]
 ````{admonition} Sample solution
 :class: dropdown
 
-```python
+```{code-cell} python
 for x in x_coords:
     for y in y_coords:
         print(x, y)
@@ -671,7 +670,7 @@ The total number of repetitions is
 
 Without running the code, predict the output:
 
-```python
+```{code-cell} python
 values = [10, 20, 30]
 
 for v in values:
@@ -706,11 +705,10 @@ The loop variable still exists after the loop and holds the last value.
 
 ---
 
+
 ## 7. Summary
 
 In this section, you learned how Python expresses **repetition** using loops.
-
----
 
 ### Key ideas
 
@@ -721,18 +719,17 @@ In this section, you learned how Python expresses **repetition** using loops.
 * Index-based loops allow access to positions and related lists
 * Nested loops combine repetition across multiple dimensions
 
----
-
 ```{admonition} Mental models to remember
 :class: tip
 
 A loop answers the question:  
 “How do I do the same thing many times?”
-```
 
 * The code inside the loop stays the same
 * Only the loop variable changes
 * Indentation defines what is repeated
+
+```
 
 ---
 
@@ -740,7 +737,4 @@ A loop answers the question:
 
 So far, all loops have repeated the **same action**.
 
-Next, we will introduce **conditions**,
-which allow loops to behave differently
-for different values. 
-So, repetition becomes **decision-aware**.
+Next, we will introduce **conditions**, which allow loops to behave differently for different values. Repetition is about to become **decision-aware**.

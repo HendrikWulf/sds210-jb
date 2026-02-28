@@ -90,22 +90,22 @@ project:
     - title: L3 - Loops
       file: book/5_L3_loops.md
       children:
-        - file: book/5_L3_loops/1_why-is-this-relevant.ipynb
-        # - file: book/5_L3_loops/1_why-is-this-relevant.md
-        - file: book/5_L3_loops/2_for-loops.ipynb
-        # - file: book/5_L3_loops/2_for-loops.md
-        - file: book/5_L3_loops/3_conditional-execution.ipynb
-        # - file: book/5_L3_loops/3_conditional-execution.md
-        - file: book/5_L3_loops/4_while-loops.ipynb
-        # - file: book/5_L3_loops/4_while-loops.md
-        - file: book/5_L3_loops/5_controling-loops.ipynb
-        # - file: book/5_L3_loops/5_controling-loops.md
-        - file: book/5_L3_loops/6_list-comprehension.ipynb
-        # - file: book/5_L3_loops/6_list-comprehension.md
-        - file: book/5_L3_loops/7_practical-L3.ipynb
-        # - file: book/5_L3_loops/7_practical-L3.md
-        # - file: book/5_L3_loops/8_practical-L3-solution.ipynb
-        # - file: book/5_L3_loops/8_practical-L3-solution.md
+        - file: book/5_L3_loops/01_why-is-this-relevant.ipynb
+        # - file: book/5_L3_loops/01_why-is-this-relevant.md
+        - file: book/5_L3_loops/02_for-loops.ipynb
+        # - file: book/5_L3_loops/02_for-loops.md
+        - file: book/5_L3_loops/03_conditional-execution.ipynb
+        # - file: book/5_L3_loops/03_conditional-execution.md
+        - file: book/5_L3_loops/04_while-loops.ipynb
+        # - file: book/5_L3_loops/04_while-loops.md
+        - file: book/5_L3_loops/05_controlling-loops.ipynb
+        # - file: book/5_L3_loops/05_controlling-loops.md
+        - file: book/5_L3_loops/06_list-comprehension.ipynb
+        # - file: book/5_L3_loops/06_list-comprehension.md
+        - file: book/5_L3_loops/07_practical-L3.ipynb
+        # - file: book/5_L3_loops/07_practical-L3.md
+        # - file: book/5_L3_loops/08_practical-L3-solution.ipynb
+        # - file: book/5_L3_loops/08_practical-L3-solution.md
     - title: L4 - Functions
       file: book/6_L4_functions.md
       children:
