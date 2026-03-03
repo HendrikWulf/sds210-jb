@@ -2,13 +2,18 @@
 
 title: Practical L4
 
-## site: outline_maxdepth: 1
+site: 
+    outline_maxdepth: 1
 
 ---
 
 <div class="page-subtitle">
 From repetitive scripts to reusable spatial tools
 </div>
+
+---
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/6_L4_functions/06_practical_L4.ipynb)
 
 ---
 
@@ -39,25 +44,25 @@ Instead of giving you all the data immediately, let's look at how you find it.
 ### Task: Find the coordinates
 
 1. Open a new browser tab and navigate to [map.geo.admin.ch](https://map.geo.admin.ch).
-2. Search for "Zurich" and "Geneva". Right-click on the map to find both their **CH1903+ / LV95** coordinates (meters) and their **WGS 84 (lat/lon)** coordinates (degrees).
-3. Complete the dictionary below by filling in the values for Zurich and Geneva. (The rest are provided to save you time).
+2. Search for a location (e.g. "Wienacht"). Right-click on the map to find both their **CH1903+ / LV95** coordinates (meters) and their **WGS 84 (lat/lon)** coordinates (degrees).
+3. Complete the dictionary below by filling in the values for your chosen place (the rest are provided to save you time).
 
 ---
 
-```python
+```{code-cell} python
 import math
 
 swiss_cities = {
     "Zurich":   {"lv95": [2682217, 1247945], "latlon": [47.377210, 8.527313]},
-    "Geneva":   {...},
-    "Lugano":   {...},
-    "Basel":    {...},
-    "Bern":     {...},
-    "Sion":     {...},
-    "St.Gallen":{...},
-    "Davos":    {...},
-    "Andermatt":{...},
-    "Neuchatel":{...}
+    "Geneva":   {"lv95": [2499959, 1117840], "latlon": [46.204559, 6.142456]},
+    "Lugano":   {"lv95": [2720031, 1098728], "latlon": [46.029430, 8.988879]},
+    "Basel":    {"lv95": [2611415, 1267104], "latlon": [47.554552, 7.590273]},
+    "Bern":     {"lv95": [2598634, 1200387], "latlon": [46.954559, 7.420685]},
+    "Sion":     {"lv95": [2592607, 1118393], "latlon": [46.216943, 7.342848]},
+    "St.Gallen":{"lv95": [2747116, 1254357], "latlon": [47.423584, 9.388511]},
+    "Davos":    {"lv95": [2784107, 1182025], "latlon": [46.763954, 9.849066]},
+    "Andermatt":{"lv95": [2690960, 1163987], "latlon": [46.620943, 8.626235]},
+    "YourPlace":{...}
 }
 ```
 
@@ -80,13 +85,7 @@ Test it on "Geneva" (it should return "GEN").
 
 ---
 
-```python
-def create_id(name):
-    # Slicing the first 3 characters and converting to upper case
-    short_name = name[:3].upper()
-    return short_name
-
-print(f"Test Geneva: {create_id('Geneva')}")
+```{code-cell} python
 
 ```
 
@@ -103,11 +102,15 @@ We need two different mathematical tools:
 
 Write a function `euclidean(coords1, coords2)` that expects two lists of `[x, y]` coordinates. It should calculate the distance using the Pythagorean theorem and return the result converted from meters to kilometers (divide by 1000).
 
+```{code-cell} python
+
+```
+
 ### Task B: The Haversine Function
 
 The Haversine math is complex. Wrap the provided logic inside a function definition called `haversine(coords1, coords2)` and `return` the `distance`. Note that it expects `[lat, lon]`.
 
-```python
+```{code-cell} python
 # Wrap this inside a function definition:
 lat1, lon1 = coords1[0], coords1[1]
 lat2, lon2 = coords2[0], coords2[1]
@@ -128,7 +131,7 @@ distance = R * c
 
 ---
 
-## Part 4 – The Comparison Matrix & `continue`
+## Part 4 – The Comparison Matrix
 
 Now we will build a distance matrix. We want to iterate through all cities and calculate the distance between them using *both* distance methods to see how much the flat projection (LV95) distorts reality compared to the spherical model (Haversine).
 
@@ -148,7 +151,7 @@ Here is a short example of how to format such a table, with explanations.
 If you find that too tricky, you can also print your results as a list.  
 The table simply aids the interpretation of your results.
 
-```python
+```{code-cell} python
 # A simple list of three items
 items = ["A", "B", "C"]
 
@@ -201,7 +204,7 @@ This is what the **output** of our example table will look like:
 
 You can start implementing Part 4 here:
 
-```python
+```{code-cell} python
 cities = list(swiss_cities.keys())
 
 
@@ -226,8 +229,9 @@ Write a function called `route_length` that:
 
 ---
 
-```python
+```{code-cell} python
 # Define your route_length function here
+# ...
 
 # Extract Lat/Lon coordinates for our trip
 c_basel = swiss_cities["Basel"]["latlon"]
@@ -255,8 +259,9 @@ Write a function called `create_spatial_feature` that:
 
 ---
 
-``` python
+```{code-cell} python
 # Define your create_spatial_feature function here
+# ...
 
 # Let's create Geneva with some unpredictable metadata
 geneva_feature = create_spatial_feature(
@@ -282,7 +287,7 @@ Copy your `euclidean` function from Part 3. Add a complete, formatted docstring 
 
 ---
 
-```python
+```{code-cell} python
 def euclidean(coords1, coords2):
     """
     ...
@@ -303,6 +308,9 @@ Answer briefly in comments or markdown:
 2. Explain how the `continue` keyword made your matrix loop more logical.
 3. What is the difference between `*args` and `**kwargs` when building tools like `route_length` and `create_spatial_feature`?
 
+```{code-cell} python
+
+```
 ---
 
 Congratulations! You now have a solid foundation in core Python programming. You know how to store data (Variables), iterate over it (Loops), make decisions (If-statements), and package logic into reproducible tools (Functions).

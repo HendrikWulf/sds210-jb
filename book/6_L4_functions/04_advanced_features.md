@@ -12,6 +12,10 @@ Handling arbitrary inputs and metadata
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/6_L4_functions/04_advanced_features.ipynb)
+
+---
+
 ```{admonition} Big Idea
 :class: tip
 
@@ -41,7 +45,7 @@ When you place an asterisk before a parameter name in a function definition, Pyt
 Visualizing `*args`: Multiple individual inputs are collected and packed into a single tuple.
 :::
 
-```python
+```{code-cell} python
 def average_elevation(*args):
     """Calculates the average of an arbitrary number of elevations."""
     # args is just a tuple containing all the inputs!
@@ -86,7 +90,7 @@ When you place a double asterisk before a parameter name (conventionally `**kwar
 Visualizing `**kwargs`: Multiple keyword-value pairs are collected and packed into a single dictionary.
 :::
 
-```python
+```{code-cell} python
 def describe_point(lat, lon, **kwargs):
     """Prints a point's coordinates and any associated metadata."""
     print(f"Point Coordinates: {lat} N, {lon} E")
@@ -128,7 +132,7 @@ The asterisk operators can also be used *outside* of function definitions to do 
 
 Consider a bounding box stored as a list of four coordinates: `[min_lon, min_lat, max_lon, max_lat]`. If you have a function that expects four separate arguments, you can use the `*` operator to unpack the list directly into the function call.
 
-```python
+```{code-cell} python
 def calculate_area(min_lon, min_lat, max_lon, max_lat):
     width = max_lon - min_lon
     height = max_lat - min_lat
@@ -160,7 +164,7 @@ Imagine you have a function to style and plot a map marker, and your styling dat
 Visualizing dictionary unpacking: A dictionary's key-value pairs are unpacked and match the function's parameter names.
 :::
 
-```python
+```{code-cell} python
 def plot_marker(lat, lon, label, color="red", size=10):
     print(f"Plotting {label} at ({lat}, {lon}) | Color: {color}, Size: {size}")
 
@@ -191,7 +195,7 @@ Notice how Python automatically matches the `"lat"` key in the dictionary to the
 
 You can also use the asterisk to elegantly split lists into variables. Notice how the `*rest` variable below scoops up everything in the middle of the list:
 
-```python
+```{code-cell} python
 # Unpacking a route into start, middle, and end waypoints
 first, *rest, last = ["Point A", "Point B", "Point C", "Point D", "Point E"]
 
@@ -234,7 +238,7 @@ Here is a comparison for converting meters to feet:
 
 **Named Function:**
 
-```python
+```{code-cell} python
 def to_feet(meters):
     return meters * 3.28084
 
@@ -242,7 +246,7 @@ def to_feet(meters):
 
 **Lambda Function:**
 
-```python
+```{code-cell} python
 # It takes an argument (meters), evaluates the math, and automatically returns it
 to_feet_lambda = lambda meters: meters * 3.28084
 
@@ -260,7 +264,7 @@ Lambda functions shine brightest when used inside other functions. For example, 
 Visualizing lambda sorting: The lambda function extracts a specific value (e.g., 'elevation') from each item, which is then used to determine the sort order of the original list.
 :::
 
-```python
+```{code-cell} python
 stations = [
     {"name": "Station A", "elevation": 1200},
     {"name": "Station B", "elevation": 400},

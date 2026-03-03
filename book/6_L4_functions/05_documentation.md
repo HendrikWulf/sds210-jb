@@ -12,6 +12,10 @@ Documentation, introspection, and avoiding common pitfalls
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/6_L4_functions/05_documentation.ipynb)
+
+---
+
 ```{admonition} Big Idea
 :class: tip
 
@@ -33,7 +37,7 @@ While there are several formatting styles for docstrings, the **NumPy style** is
 
 Let's document our `haversine` distance calculator:
 
-```python
+```{code-cell} python
 import math
 
 def haversine(lat1, lon1, lat2, lon2):
@@ -87,7 +91,7 @@ Because Python actively reads docstrings and makes them available to the user in
 
 You can simply pass the function's name into Python's built-in `help()` function:
 
-```python
+```{code-cell} python
 # Ask Python how the function works
 help(haversine)
 
@@ -151,7 +155,7 @@ You have been handed a poorly documented tool written by a former colleague. It 
 **Your Task:** Write a complete, professional **NumPy-style docstring** for this function. Ensure you include a brief description, the `Parameters`, the `Returns`, and at least one `Examples` block.
 *(Hint: 1 knot = 1.852 km/h)*
 
-```python
+```{code-cell} python
 def knots_to_kmh(speed_knots):
     return speed_knots * 1.852
 
@@ -196,7 +200,7 @@ The following script contains three different spatial functions that try to calc
 1. Read the code and identify which specific mistake each function makes.
 2. Fix all three functions so they work correctly and safely.
 
-```python
+```{code-cell} python
 # Function A
 def get_area_a(L):
     area = L * L
@@ -251,7 +255,7 @@ Look at their code below. It uses the dangerous "Mutable Default Trap," and it p
 3. Change the function so it `returns` the updated list instead of `printing` it.
 4. Add a basic NumPy-style docstring explaining what the function does.
 
-```python
+```{code-cell} python
 # The Dangerous Script
 def log_movement(coord, track=[]):
     track.append(coord)
@@ -317,4 +321,9 @@ You now know how to:
 * Document your tools using professional, reproducible NumPy-style docstrings.
 
 ### What comes next?
-In the next chapter, we will ...
+
+In the upcoming practical exercises, you will:
+
+* build reusable spatial tools by turning mathematical logic into well-structured functions
+* compare geometric models programmatically using nested loops and formatted output 
+* design flexible, professional tools using `*args`, `**kwargs`, and NumPy-style docstrings

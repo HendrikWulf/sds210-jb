@@ -12,6 +12,10 @@ Building reusable tools
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/6_L4_functions/02_core_mechanics.ipynb)
+
+---
+
 ```{admonition} Big Idea
 :class: tip
 
@@ -29,7 +33,7 @@ Every function in Python has a specific, predictable structure. A function is de
 
 Here is the blueprint:
 
-```python
+```{code-cell} python
 def function_name(parameters):
     # The body of the function (indented)
     return value
@@ -61,7 +65,7 @@ Calculating the area of a circular buffer zone using its radius ($r$).
 
 Here is how we package that logic into a function:
 
-```python
+```{code-cell} python
 def calculate_buffer_area(radius):
     return 3.14159 * (radius ** 2)
 
@@ -77,7 +81,7 @@ This is an example function, annotated to highlight its important elements.
 
 To use it, we simply **call** the function by its name and pass it a number. We can then store the result in a variable or embed it directly into a `print()` statement:
 
-```python
+```{code-cell} python
 # Calling the function and storing the result
 nesting_zone_area = calculate_buffer_area(50)
 
@@ -111,7 +115,7 @@ Let's look at our previous buffer area example. If we define `calculate_buffer_a
 
 Instead of relying on order, you can explicitly state the parameter name in the function call. When you use keyword arguments, the order no longer matters.
 
-```python
+```{code-cell} python
 # Calling the function using a keyword argument
 calculate_buffer_area(radius=50)
 
@@ -135,7 +139,7 @@ A diagram illustrating great-circle distance (drawn in red) between two points o
 
 Here is what that function looks like in Python:
 
-```python
+```{code-cell} python
 from math import radians, sin, cos, sqrt, atan2
 
 def haversine(lat1, lon1, lat2, lon2):
@@ -158,7 +162,7 @@ Look at the four parameters required by this function: `lat1`, `lon1`, `lat2`, `
 
 For example, let's calculate the distance between Beirut (33.8869° N, 35.5131° E) and Jerusalem (31.7683° N, 35.2137° E). Because the latitudes and longitudes are numerically very similar, positional arguments can become a trap:
 
-```python
+```{code-cell} python
 # BAD: All these numbers look similar (31-35). Did I pass Lat/Lon or Lon/Lat?
 dist = haversine(33.8869, 35.5131, 31.7683, 35.2137)
 
@@ -168,7 +172,7 @@ This is incredibly dangerous in spatial analysis. If you accidentally provide th
 
 Using **keyword arguments** makes your code self-documenting, safe, and highly readable:
 
-```python
+```{code-cell} python
 # GOOD: Clear, safe, and readable. 
 dist = haversine(lat1=33.8869, lon1=35.5131, lat2=31.7683, lon2=35.2137)
 
@@ -200,7 +204,7 @@ Here is the core difference:
 
 Let's look at the difference in action by creating two functions that calculate population density, but handle the output very differently:
 
-```python
+```{code-cell} python
 # Function 1: Only prints the result to the screen
 def print_density(population, area):
     print(population / area)
@@ -213,7 +217,7 @@ def calculate_density(population, area):
 
 If you just run `print_density(5000, 10)`, the number `500.0` appears on your screen. It looks like it worked perfectly! But what happens if we try to capture that output and save it to a variable for our spatial analysis?
 
-```python
+```{code-cell} python
 output = print_density(5000, 10)
 print("The stored output is:", output)
 
@@ -243,7 +247,7 @@ If you try to do math with `None` later in your code, your program will crash.
 
 If you want to use the result of a function later in your code, you **must** use `return`.
 
-```python
+```{code-cell} python
 # This works! The data is saved in memory.
 output = calculate_density(5000, 10)
 print("The stored output is:", output)
@@ -276,7 +280,7 @@ Let's look at how this works. Suppose we know the radius of a city limit in kilo
 
 We already built a tool to calculate density. Let's build a quick tool to calculate the area based on the radius:
 
-```python
+```{code-cell} python
 # Tool 1: Calculate Area
 def calculate_area(radius):
     return 3.14159 * (radius ** 2)
@@ -289,7 +293,7 @@ def calculate_density(population, area):
 
 Now, we can simply build a new function that calls the tools we already made!
 
-```python
+```{code-cell} python
 # Tool 3: Combining our existing tools
 def estimate_city_density(population, radius):
     # Step 1: Call the first function and save its returned data
@@ -334,7 +338,7 @@ Many migratory birds are capable of staggering non-stop flights spanning thousan
 
 Here is our raw data in Degrees, Minutes, and Seconds (DMS):
 
-```python
+```{code-cell} python
 reserves = {
     # North-West (Americas)
     "Yukon Delta, USA": {"lat": "61 00 00.0", "lon": "-163 00 00.0"},

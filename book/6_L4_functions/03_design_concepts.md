@@ -12,6 +12,10 @@ Managing scope, defaults, and side effects
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/6_L4_functions/03_design_concepts.ipynb)
+
+---
+
 ```{admonition} Big Idea
 :class: tip
 
@@ -42,7 +46,7 @@ A visual analogy of scope: a function creates a "soundproof" local scope inside 
 
 When you create a variable *inside* a function, it is a **local variable**. It only exists within that specific function's room. Once the function finishes running, the room is demolished, and the variable disappears.
 
-```python
+```{code-cell} python
 def calculate_area():
     # This variable only exists inside this function
     area = 1500
@@ -73,7 +77,7 @@ Python searches for variables from the inside out. If it cannot find a variable 
 
 This can lead to incredibly dangerous bugs. Look at this example:
 
-```python
+```{code-cell} python
 # A global variable defined at the top of our notebook
 base_elevation = 1500
 
@@ -108,7 +112,7 @@ However, we can design our tools to be much more flexible by providing **optiona
 
 Imagine a function that checks if a GPS point is within a certain accuracy threshold. Most of the time, our acceptable threshold is 5 meters. We can set that as the default!
 
-```python
+```{code-cell} python
 # 'threshold' is now an optional parameter with a default of 5
 def check_accuracy(point_accuracy, threshold=5):
     if point_accuracy <= threshold:
@@ -121,7 +125,7 @@ def check_accuracy(point_accuracy, threshold=5):
 
 Now, the user has a choice:
 
-```python
+```{code-cell} python
 # Option 1: Provide one argument. Python uses the default threshold (5).
 check_accuracy(3)
 
@@ -135,7 +139,7 @@ check_accuracy(3, threshold=2)
 
 There is a strict grammatical rule in Python regarding defaults: **Required parameters must always come before optional parameters in the function definition**.
 
-```python
+```{code-cell} python
 # GOOD: Required comes first
 def create_buffer(geometry, buffer_size=50): 
 
@@ -155,7 +159,7 @@ We just learned that we can set default values (like `threshold=5`). But what ha
 
 Let's write a function that takes a new GPS waypoint and adds it to a route list. If no route list is provided, it should default to an empty list.
 
-```python
+```{code-cell} python
 # THE DANGEROUS WAY
 def add_waypoint(waypoint, route=[]):
     route.append(waypoint)
@@ -166,7 +170,7 @@ def add_waypoint(waypoint, route=[]):
 
 Watch what happens when we use it to track two different animals:
 
-```python
+```{code-cell} python
 track_bear = add_waypoint("Point A")
 print(f"Bear Track: {track_bear}")
 
@@ -193,7 +197,7 @@ When you define a function, Python evaluates the default arguments **only once**
 
 To fix this, we must use `None` as our default value, and create the fresh list *inside* the function block.
 
-```python
+```{code-cell} python
 # THE SAFE WAY
 def add_waypoint(waypoint, route=None):
     if route is None:
@@ -297,7 +301,7 @@ A junior analyst wrote the following code to convert a list of elevations from f
 
 **Your Task:** Without running the code, explain why the error occurs, and fix the code so it properly prints the result.
 
-```python
+```{code-cell} python
 def feet_to_meters(elevation_ft):
     converted = elevation_ft * 0.3048
     return converted
@@ -392,7 +396,7 @@ You are writing a code pipeline to track pollution sampling sites along differen
 2. Why is this happening?
 3. Rewrite the function using best practices so that the Isar and the Inn get their own independent lists of samples.
 
-```python
+```{code-cell} python
 def log_sample(ph_level, river_samples=[]):
     river_samples.append(ph_level)
     return river_samples

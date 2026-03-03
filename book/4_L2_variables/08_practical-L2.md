@@ -59,6 +59,10 @@ print(z, g, l)
 2. The variable names `z`, `g`, and `l` are poor choices. Rename them to better follow the descriptive naming conventions learned earlier in this chapter.
 3. Add a short comment explaining what each variable represents.
 
+```{code-cell} python
+
+```
+
 ---
 
 ## Part 2 – Variables and formatted output
@@ -82,6 +86,10 @@ print("The distance from " + z + " to " + g + " is " + str(dist_zurich_geneva) +
 
 1. Modify the print statement to show the distance from Zurich to Lugano.
 2. Rewrite the print statement using a modern **f-string** for better readability.
+
+```{code-cell} python
+
+```
 
 ---
 
@@ -107,6 +115,10 @@ print(f"{x} is of type {type(x)}, {y} is of type {type(y)}, and {z_val} is of ty
 2. Observe how the **data types** change.
 3. Explain (in a comment) why the square root results in a `float` data type even if the answer is a whole number.
 
+```{code-cell} python
+
+```
+
 ---
 
 ## Part 4 – Coordinates as lists
@@ -131,6 +143,10 @@ print("Zurich y:", zurich_coords[1])
 
 1. Replace the example coordinates above with real Swiss CH1903+ values by looking them up on [map.geo.admin.ch](https://map.geo.admin.ch).
 2. Add a comment explaining why a **list** (or a **tuple**) is a suitable data structure for coordinates.
+
+```{code-cell} python
+
+```
 
 ---
 
@@ -164,6 +180,10 @@ cl = cities["Lugano"]
 
 1. Print the coordinates of Geneva explicitly using the dictionary.
 2. Explain (in a comment) why dictionaries are more flexible and powerful than storing individual variables for every city.
+
+```{code-cell} python
+
+```
 
 ---
 
@@ -207,6 +227,10 @@ print(f"Manhattan distance from Zurich to Lugano is {manhattan_zl}")
 1. Calculate the Manhattan distance between Zurich & Geneva, and Lugano & Geneva.
 2. Store the results in appropriately named new variables.
 
+```{code-cell} python
+
+```
+
 ---
 
 ## Part 7 – Euclidean distance
@@ -234,6 +258,10 @@ print(f"Euclidean distance from Zurich to Lugano is {euclidean_zl}")
 1. Compute the Euclidean distance between Zurich & Geneva, and Lugano & Geneva.
 2. Print both Manhattan and Euclidean distances clearly using f-strings. Which one is always shorter?
 
+```{code-cell} python
+
+```
+
 ---
 
 ## Part 8 – Storing distance results
@@ -260,6 +288,10 @@ print(distances)
 2. Add the distances for Lugano–Geneva.
 3. Inspect the structure and explain (in a comment) how this resembles an attribute table in GIS.
 
+```{code-cell} python
+
+```
+
 ---
 
 ## Reflection
@@ -269,6 +301,10 @@ Take a moment to review what you've built. Answer briefly in comments or markdow
 1. Why are **lists** (or tuples) suitable for coordinates?
 2. Why are **dictionaries** useful for spatial data?
 3. Which step helped you most to understand how Python executes mathematical distance calculations?
+
+```{code-cell} python
+
+```
 
 ---
 
@@ -281,6 +317,10 @@ Design a single comprehensive dictionary that stores:
 * distances to other cities
 
 You do **not** need to automate anything yet. Focus solely on structure and clarity. How would you design the "perfect" data structure to hold all this information?
+
+```{code-cell} python
+
+```
 
 ---
 

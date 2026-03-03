@@ -12,6 +12,10 @@ From repeating code to reusing logic
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/6_L4_functions/01_why_functions.ipynb)
+
+---
+
 ```{admonition} Big idea
 :class: tip
 
@@ -55,7 +59,7 @@ $$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$
 
 In Python, you might write this calculation manually:
 
-```python
+```{code-cell} python
 # Calculating distance between Point A and Point B
 distance = ((x2 - x1)**2 + (y2 - y1)**2)**0.5
 
@@ -101,7 +105,7 @@ This idea is called **reusing logic**, and it is done using a **function**.
 
 Instead of repeating the math, you package it into a self-contained block:
 
-```python
+```{code-cell} python
 def euclidean_distance(x1, y1, x2, y2):
     return ((x2 - x1)**2 + (y2 - y1)**2)**0.5
 
@@ -109,7 +113,7 @@ def euclidean_distance(x1, y1, x2, y2):
 
 Now, whenever you or anyone else needs to find a distance, you simply call its name:
 
-```python
+```{code-cell} python
 # The complex math is hidden away, leaving clean, readable code
 dist_ab = euclidean_distance(10, 20, 15, 25)
 dist_cd = euclidean_distance(100, 50, -10, 40)
