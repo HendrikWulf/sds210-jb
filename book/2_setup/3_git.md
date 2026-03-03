@@ -13,15 +13,13 @@ Keeping track of change
 
 ## 1. Introduction
 
-At some point, this might happen:
-you delete a function that *definitely* worked yesterday, a notebook experiment goes wrong, or you realise that your “final_final_v3.ipynb” is not final at all.
+At some point, this might happen: you delete a function that *definitely* worked yesterday, a notebook experiment goes wrong, or you realise that your `final_final_v3.ipynb` is not final at all.
 
 This is where **[Git](https://git-scm.com/)** comes in.
 
 Git is a version control system that **tracks every change** you make to your project files. It builds a complete history of your project, step by step. You can go back in time, compare versions, undo mistakes, and understand *what changed, when, and why*. Think of Git as a **never-forget undo button** for your code and notebooks.
 
 This is especially useful in spatial data science, where projects evolve through trial and error. With Git, you can:
-
 * experiment freely without losing any work
 * understand what changed and why
 * collaborate without overwriting each other
@@ -38,254 +36,50 @@ Git works locally on your computer and integrates well with tools you will use, 
   allowfullscreen>
 </iframe>
 
+---
+
 ## 2. Learning Objectives
 
 After working through this section, you should be able to:
-
 * use **Git** to track changes in code and notebooks
 * save and restore project states using commits
 * sync a local project with **GitHub**
 
 These objectives focus on using Git as a **practical safety net** in your daily workflow. You will keep building on them as your projects grow and become more collaborative.
 
+---
+
 ## 3. Git vs. GitHub
 
-Before learning any commands, it’s important to get the **big picture** right. One of the most common sources of confusion is mixing up **Git** and **GitHub**. 
+Before learning any commands, it’s important to get the **big picture** right. One of the most common sources of confusion is mixing up **Git** and **GitHub**.
+
+:::{figure} images/3_1_git_vs_github.png
+:alt: Diagram comparing Git on a local laptop to GitHub in the cloud.
+:width: 500px
+:align: center
+
+Git is the software running on your computer. GitHub is the online platform where you store and share your Git repositories.
+:::
 
 **Git** runs on *your computer*.
-It tracks changes to your files and stores the full history of your project locally. You can use Git completely offline. A Git repository is best thought of as a **timeline** of your project.
-Each point on that timeline is a **commit**, a snapshot of the entire project at a specific moment:
+It tracks changes to your files and stores the full history of your project locally. You can use Git completely offline. A Git repository is best thought of as a **timeline** of your project. Each point on that timeline is a **commit**, a snapshot of the entire project at a specific moment. Every commit includes all tracked files exactly as they looked then, plus a **short message** explaining what changed.
 
-* all tracked files
-* exactly as they looked then
-* with a short message explaining what changed
-
-Git does **not** save “versions of files”.
-It saves **project states over time**. 
-That’s why you can always go back, compare states, or undo mistakes without losing work.
+**How Git thinks:** Git does **not** save “versions of files” (like `script_v1`, `script_v2`). It saves **project states over time**. If a file did not change, Git simply reuses it internally. Because every commit is a snapshot, nothing is ever overwritten. The past is still there, so you can always go back or undo mistakes without panic.
 
 **GitHub** lives *online*.
-It hosts Git repositories on the web and acts as a **shared, central copy** of your project.
-GitHub allows you to:
-
-* back up your work safely
-* collaborate with others without overwriting their changes
-* share your work or make it public
-
-GitHub does not track changes by itself, it **stores and synchronises** the history created by Git.
-
-> **In short:** Git does the thinking. GitHub does the sharing.
-
----
+It hosts Git repositories on the web and acts as a **shared, central copy** of your project. GitHub allows you to back up your work safely, collaborate with others without overwriting their changes, and share your work publicly. GitHub does not track changes by itself; it **stores and synchronises** the history created by Git.
 
 **What happens where?**
 
-* **Locally (Git)**
+* **Locally (Git):** Edit files, track changes, create commits, view history.
+* **Online (GitHub):** Store a backup, sync between machines, collaborate, share code.
 
-  * edit files
-  * track changes
-  * create commits
-  * view project history
-
-* **Online (GitHub)**
-
-  * store a copy of the repository
-  * sync work between machines
-  * collaborate with others
-  * share or publish code
-
-
-```scss
-Your computer (Git)        GitHub (online)
-------------------        ----------------
-edit files
-↓
-commit history   ───────▶ backup & sharing
-```
-
----
-
-**How Git thinks**
-
-To use Git confidently, it helps to understand **how Git thinks**. Git does *not* save files one by one like `report_v1`, `report_v2`, or `final_final.ipynb`.
-
-Instead, **Git** works with **snapshots**.
-
-A Git repository is best thought of as a **timeline of your project**. Each point on that timeline is a **commit**, which is a snapshot of the entire project at a specific moment. This snapshot includes all tracked files, exactly as they looked then, plus a short message explaining what changed.
-
-If a file did not change, Git simply reuses it internally. That’s why Git is fast and efficient, even for large projects.
-
-Because every commit is a snapshot, the project history is **fully recoverable**. You can go back to earlier states, compare two moments in time, or undo mistakes without panic. Nothing is overwritten - the past is still there.
-
-> The key idea: Git does **not** store “file versions”.
-> It stores **project states over time**.
-
-Once this mental model clicks, Git commands stop feeling like magic and start feeling logical.
-
-## 4. Git Setup
-
-Before using Git in practice, we set it up **once**. This removes friction later and avoids confusing errors.
-
-**Step 1: GitHub account**
-
-Log in to your **[GitHub account](https://github.com/login)**. If you don't have one yet, [create an account](https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home).  
-Use an email address you’ll remember, as you’ll need the same one for Git.
-
-**Step 2: Git installation**
-
-Check in your Terminal whether **Git** is already installed:
-
-```bash
-# Check Git version
-git --version
-
-# Check installation location
-which git # macOS/Linux
-where git # Windows
-```
-
-If Git responds with a version number, you’re good. If not, use [this link](https://git-scm.com/install/) to install (G)it for your operating system, test it with `git --version` and come back here.
-
-**Step 3: Identity configuration**
-
-Git needs to know who you are. Set your name and email **once**:
-
-```bash
-# Replace with your actual name and GitHub email
-git config --global user.name "Your Name"
-git config --global user.email "your@email"
-```
-
-This information is attached to every commit you make.
-
-**Step 4: Verify everything**
-
-Check your setup:
-
-```bash
-# View all global configuration
-git config --global --list
-
-# Check specific values
-git config --global user.name
-git config --global user.email
-```
-
-```{admonition} Caution
-:class: caution
-If Git is not installed or your name/email are wrong, **stop here and fix this first**. Otherwise, you will not be able to push your changes to GitHub.
-```
-
-<iframe
-  width="100%"
-  height="450"
-  src="https://player.vimeo.com/video/41493906"
-  title="Get Going with Git"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen>
-</iframe>
-
----
-
-## 5. Understanding Git
-
-Before diving into commands, let’s understand the key concepts that make Git powerful for geospatial
-programming.
-
-### Core Git concepts
-
-These four concepts cover almost everything you’ll need to know.
-
-**Repository:**
-A repository (short: repo) is just a **project folder** that Git watches.
-It contains your files *and* the hidden information Git uses to track changes and history.
-
----
-
-**Commit:**
-A commit is a **snapshot of the project** at a specific moment in time.
-
-* it has a unique ID
-* it includes a short message explaining what changed
-* you can always return to it
-
-Think of a commit as a reliable **save point**.
-
----
-
-**Branch:**
-A branch is a **parallel timeline** of the same project.
-
-* the `main` branch usually contains stable, working code
-* other branches are used for experiments or new features
-
-Branches let you try things out without breaking what already works.
-
----
-
-**Remote**
-A remote is a **linked copy of your repository stored online**, for example on GitHub.
-
-* it acts as a backup
-* it allows syncing between machines
-* it enables collaboration
-
-Git manages history locally. Remotes help you share it.
-
----
-
-### The Git workflow 
-
-Almost everything you do with **Git** follows the **same simple loop**:
+```{admonition} The Big Picture
+:class: tip
+**Git** does the thinking (tracking changes locally).  
+**GitHub** does the sharing (hosting backups online).
 
 ```
-edit → stage → commit → push
-```
-
-If you understand this loop, Git will feel more familiar.
-
----
-
-**1. Working directory - *edit***
-
-This is your normal project folder.
-You edit files here: Python scripts, notebooks, text files.
-At this point, Git is only *watching* and nothing is saved yet.
-
----
-
-**2. Staging area - *select***
-
-The staging area is where you **choose** what should go into the next snapshot.
-You don’t have to commit everything you changed. You decide what belongs together.
-
-> Think of staging as saying: *“These changes go together.”*
-
----
-
-**3. Commit - *save a snapshot***
-
-A commit creates a **snapshot of the staged changes** and adds it to the project history.
-Each commit has:
-
-* a unique ID
-* a short message explaining what changed
-
-Once committed, that state is safe. You can always return to it.
-
----
-
-**4. Push / pull - *sync with GitHub***
-
-* **push** → send your commits to **GitHub**
-* **pull** → bring remote changes back to your computer
-
-This is how you:
-
-* back up your work
-* sync between machines
-* collaborate with others
 
 <iframe
   width="100%"
@@ -299,471 +93,351 @@ This is how you:
 
 ---
 
-#### Git in VS Code
+## 4. Git Setup
+
+Before using Git in practice, we set it up **once**. This removes friction later and avoids confusing errors.
+
+**Step 1: GitHub account** Log in to your **[GitHub account](https://github.com/login)**. If you don't have one yet, [create an account](https://github.com/signup). Use an email address you’ll remember, as you’ll need the same one for Git.
+
+**Step 2: Git installation** Check in your Terminal whether **Git** is already installed:
+
+```bash
+# Check Git version
+git --version
+
+# Check installation location
+which git   # macOS/Linux
+where git   # Windows
+
+```
+
+If Git responds with a version number, you’re good. If not, use [this link](https://git-scm.com/install/) to install Git for your operating system, test it with `git --version`, and come back here.
+
+**Step 3: Identity configuration** Git needs to know who you are. Set your name and email **once**:
+
+```bash
+# Replace with your actual name and GitHub email
+git config --global user.name "Your Name"
+git config --global user.email "your@email"
+
+```
+
+This information is attached to every commit you make.
+
+**Step 4: Verify everything** Check your setup:
+
+```bash
+# View all global configuration
+git config --global --list
+
+```
+
+```{admonition} Caution
+:class: caution
+If Git is not installed or your name/email are wrong, **stop here and fix this first**. Otherwise, you will not be able to push your changes to GitHub later.
+
+```
+
+<iframe
+width="100%"
+height="450"
+src="https://player.vimeo.com/video/41493906"
+title="Get Going with Git"
+frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen>
+</iframe>
+
+---
+
+## 5. Understanding Git
+
+Before diving into commands, let’s understand the key concepts that make Git powerful for geospatial programming.
+
+### Core Git Concepts
+
+* **Repository (Repo):** A project folder that Git watches. It contains your files *and* the hidden information Git uses to track changes and history.
+* **Commit:** A snapshot of the project at a specific moment in time. Think of it as a reliable **save point**. Each commit has a unique ID, includes a short message explaining what changed, and once created, it is a state you can always return to.
+* **Branch:** A parallel timeline of the same project. The `main` branch contains stable, working code, while other branches are used for experiments. They let you try things out without breaking what already works.
+* **Remote:** A linked copy of your repository stored online (e.g., on GitHub). While Git manages history locally, remotes allow you to back up your work, sync between machines, and collaborate.
+
+### The Git Workflow
+
+Almost everything you do with **Git** follows the **same simple loop**:
+
+`Edit → Stage → Commit → Push`
+
+If you understand this loop, Git will feel familiar.
+
+1. **Working Directory (*edit*):** This is your normal project folder. You edit files here (scripts, notebooks). At this point, Git is only *watching*, and nothing is saved yet.
+2. **Staging Area (*select*):** This is where you **choose** which changes should go into the next snapshot. You decided what changes form a logical step together; you don't have to commit everything you edited at once.
+> Think of staging as saying: *“These specific changes are ready to be saved.”*
+
+
+3. **Commit (*save a snapshot*):** This creates a permanent **snapshot of the staged changes** and adds it to the project history. Once committed, that state is safe.
+4. **Push / Pull (*sync with GitHub*):** These commands align the histories of your computer and your linked GitHub remote.
+* **push** → send your local commits to **GitHub** (to back up or share).
+* **pull** → bring remote changes from GitHub back to your computer.
+
+---
+
+### Git in VS Code
 
 VS Code includes built-in Git support. If Git is installed on your system, no additional extensions are required.
 
-In the **Source Control** panel, you can see the same workflow you just learned:
-
-- modified files → staging  
-- staged files → commit  
-- commit → push / pull  
-
-VS Code also provides a visual diff viewer, which helps you inspect changes line by line before committing.
-
-Extensions such as GitLens can add extra features, but they are **not required** for this course.
+In the **Source Control** panel (the branch icon on the left), you can see the same workflow you just learned visualized: modified files move to staging (+), staged files move to commit, and committed changes move to push. VS Code also provides a visual diff viewer, which helps you inspect changes line by line before staging them.
 
 ---
 
-#### Key takeaway
+### Key Takeaway
 
-```
+```text
 Working directory → Staging area → Local history → GitHub
      (edit)            (add)         (commit)      (push)
+
 ```
+
+:::{figure} images/3_2_git_staging_workflow.png
+:alt: The Git workflow moving from Working Directory to Staging Area to Local Repository to GitHub.
+:width: 700px
+:align: center
+
+The core Git loop: editing files, staging the specific changes you want to save, committing them to history, and pushing the backup online.
+:::
 
 > Git is not a collection of random commands.
 > It’s one loop, repeated over and over — and it will be the backbone of this course.
+---
 
 ## 6. Working with Git
 
-In this subsection, you will learn how to use Git in practice: how to start projects, track changes, sync with GitHub, and recover from mistakes. These workflows will be reused throughout your work with Git and spatial projects.
+In this section, you will learn how to use Git in practice. We will cover two distinct workflows you will use in this course: syncing the official course material, and managing your own personal projects.
 
----
+### Workflow A: Syncing the SDS210 Course Material
 
-### Starting a new project
+Throughout this course, new practical notebooks are released weekly on GitLab. Instead of downloading ZIP files every week, you can use Git to download the repository **once** and update it with a single command.
 
-There are **two common ways** to start working with Git. Which one you use depends on where the project starts.
-
----
-
-#### Option A: Start a project locally (empty folder → Git)
-
-Use this when you are starting **your own project from scratch**.
+**1. Navigate to your desired location** Open your terminal (*Terminal* on macOS/Linux, *Git Bash* or *Anaconda Prompt* on Windows). Decide where you want to store the course folder and use `cd` (change directory) to go there.
 
 ```bash
-# go to your project folder
-cd ~/my-geo-project
+# Example (macOS/Linux):
+cd ~/Documents
 
-# turn the folder into a Git repository
-git init
+# Example (Windows, Git Bash):
+cd /c/Users/<username>/Documents
 
-# check the repository status
-git status
 ```
 
-That’s it.
-Your folder is now a Git repository and ready for commits. At this stage, everything still lives **only on your computer**.
+*(Tip: Type `ls` to list the files in your current folder to ensure you are in the right place.)*
 
----
-
-#### Option B: Clone an existing project (GitHub → local copy)
-
-Use this when a project already exists on **GitHub** (e.g. course material, group work, or an example repository).
-
-1. Open the repository on GitHub
-2. Click the **Code** button
-3. Copy the repository URL
-
-Then clone it:
+**2. Clone the repository (Do this ONCE)** Download the repository to your computer. This creates a new folder called `sds210/` in your current directory.
 
 ```bash
-# Download the repository from GitHub and create a local copy
-# This also sets up a connection (remote) back to GitHub
-git clone https://github.com/username/repository-name.git
+git clone https://gitlab.com/HendrikWulf/sds210.git
 
-# Change your directory to the newly created project folder
-cd repository-name
 ```
 
-This creates:
+**3. Enter the repository folder** This is the step that is most frequently forgotten! To run Git commands on the course material, you must be **inside** the folder that contains the hidden `.git` directory.
 
-* a local copy of the project
-* a Git repository
-* a connection to GitHub
+```bash
+cd sds210
 
-```{note}
-If a repository does not belong to you (for example course material or someone else’s project), you usually cannot push changes to it. In this case, first fork the repository on GitHub to create a copy under your own account, and then clone your fork, not the original repository.
-In collaborative workflows, changes are typically shared back via a **pull request**, which allows others to review your work before it is merged.
 ```
+
+If you list (`ls`) all files (`-a`) you should see the course files and folders, including the hidden `.git` folder:
+
+```bash
+ls -a
+
+```
+
+**4. Update the repository (Do this WEEKLY)** Whenever new notebooks are added to the course, open your terminal, navigate inside your `sds210` folder, and pull the updates:
+
+```bash
+git pull
+
+```
+
+:::{figure} images/3_3_sds210_safe_workflow.png
+:alt: Diagram showing the sds210 folder syncing from GitLab and notebooks being copied to an sds210-work folder.
+:width: 500px
+:align: center
+
+Always copy notebooks out of the main course repository into your personal work folder before editing them to prevent merge conflicts.
+:::
+
+```{admonition} Crucial: Don't lose your own work!
+:class: caution
+
+If you edit the course notebooks directly inside the `sds210` folder and save them with their original name, pulling weekly updates may result in **merge conflicts** or overwrite your answers. 
+
+**The Safe Workflow:**
+1. Treat the `sds210/` repository as the **clean, read-only course source**.
+2. Create a separate folder next to it for your own work (e.g., `sds210-work/`).
+3. Copy the notebooks you want to solve or modify from the course folder into your work folder. 
+
+```
+
+#### Troubleshooting Course Updates
+
+* **“fatal: not a git repository”** You are trying to pull, but you are not inside the cloned folder.
+*Fix:* Run `cd path/to/sds210` first.
+* **“Updates were rejected” / Merge conflicts** This happens if you accidentally modified files directly inside the repo instead of your work folder.
+*Fix:* Move your modified notebook to a safe location outside the folder or rename them. Then, you can force the repo to match the online version using `git restore .` followed by `git pull`.
 
 ---
 
-#### Repository structure
+### Workflow B: Starting Your Own Project
 
-A clear repository structure makes Git more useful and your projects easier to understand for others *and* for future you.
+When you are starting **your own personal project** from scratch (like your final assignment), you won't clone an existing repository. Instead, you will create an empty folder and turn it into a Git repository.
 
-For your project in this course, a simple and flexible structure is enough:
+```bash
+cd ~/Documents/my-geo-project
+git init       # Turn the empty folder into a Git repository
+git status     # Check the repository status
+
+```
+
+Everything now lives **only on your computer** until you link it to GitHub.
+
+#### Repository Structure & Ignoring Files
+
+A clear repository structure makes Git more useful. For your personal projects, a simple structure is enough:
 
 ```text
 my-project/
 ├── README.md
 ├── .gitignore
-├── requirements.txt
 ├── data/
 │   ├── raw/
 │   └── processed/
-├── src/
-│   ├── data_processing.py
-│   └── analysis.py
 ├── notebooks/
-│   └── exploratory_analysis.ipynb
 └── outputs/
-    ├── figures/
-    └── results/
+
 ```
 
-You don’t need to follow this structure perfectly. The goal is **separation of concerns**:
+```{admonition} The .gitignore file
+:class: important
+Git works best when tracking **code and documentation**, not heavy data. 
+**Do NOT track:** large datasets (`.csv`, `.tif`), temporary files, or environment files with passwords. Create a text file named `.gitignore` and type folder names (like `data/`) inside it to force Git to ignore them.
 
-* raw vs processed data
-* code vs notebooks
-* inputs vs outputs
-
-For larger or long-term data science projects, you may want to use a standardised project structure, such as *[Cookiecutter Data Science](https://cookiecutter-data-science.drivendata.org/)*.
-
-
-#### What to track and what to ignore
-
-Git works best when you track **code and documentation**, not everything your analysis produces.
-
-**Track these files:**
-- source code (`.py`, `.r`, `.sql`)
-- Jupyter notebooks (`.ipynb`)
-- configuration files (`requirements.txt`, `environment.yml`)
-- documentation (`README.md`)
-- small reference datasets
-
-**Do NOT track these files (use `.gitignore`):**
-- large data files
-- temporary or cache files
-- generated outputs that can be recreated
-- environment files with secrets
-- editor-specific files (e.g. `.vscode/`)
-
----
-
-### Track changes
-
-Once a repository is set up, the everyday workflow starts: you **edit files**, **stage changes**, and **commit snapshots**.
-
----
-
-#### 1. Make a change
-
-Edit an existing file or create a new one, for example:
-
-```text
-analysis.py
 ```
 
-At this point, Git notices that something changed, but nothing is saved yet.
+#### Tracking Your Changes
 
----
-
-#### 2. Check the current state
-
-Before doing anything else, check what Git sees:
+Once your personal repository is set up, the everyday workflow starts: **edit, stage, commit**.
 
 ```bash
-# Show which files changed and their status
-git status
-```
+# 1. Check the current state
+git status   # Tells you WHAT is different
+git diff     # Tells you exactly HOW files changed line-by-line
 
-To see *what exactly* changed inside files:
-
-```bash
-# Show line-by-line differences
-git diff
-```
-
-`git status` tells you *what is different*.
-`git diff` tells you *how it is different*.
-
----
-
-#### 3. Stage changes (select what belongs together)
-
-Staging means choosing which changes should go into the next snapshot.
-
-```bash
-# Stage a specific file
+# 2. Stage changes (Select what belongs in this snapshot)
 git add analysis.py
-```
+git add .               # Alternatively, stage ALL changes in the folder
 
-Or, if all changes belong together:
-
-```bash
-# Stage all changes in the current directory
-git add .
-```
-
-Think of staging as saying: *“These changes form one logical step.”*
-
----
-
-#### 4. Commit changes (save a snapshot)
-
-Once changes are staged, create a commit:
-
-```bash
-# Commit staged changes with a message (-m)
-git commit -m "Add rainfall analysis function"
-```
-
-This creates a snapshot that you can always return to.
-
-You can also commit all **already tracked** files in one step:
-
-```bash
-# Stage and commit all tracked files (-a) at once
-git commit -am "Update visualization parameters"
-```
-
-Use `-am` (all tracked + message) only when you know what is already tracked.
-New files still need `git add` first.
-
----
-
-#### Writing good commit messages
-
-Commit messages are part of your project documentation. In geospatial and data-driven projects, they should clearly describe **what changed and why**. 
-Good commit messages help you (and others) understand how an analysis evolved over time.
-
-**Examples:**
-
-```bash
+# 3. Commit changes (Save the snapshot)
 git commit -m "Add NDVI calculation for Landsat 8 imagery"
-git commit -m "Fix coordinate transformation bug in UTM conversion"
-git commit -m "Update flood mapping algorithm to handle edge cases"
+
+# Shortcut: Stage and commit all already-tracked files at once
+git commit -am "Update visualization parameters"
+
 ```
 
-**Guidelines:**
+*Note: Commit messages should be short (under 50 chars), start with a verb (Add, Fix, Update), and clearly describe **what changed and why**.*
 
-* Start with a **verb** (Add, Fix, Update, Remove)
-* Keep it **short** (ideally under 50 characters)
-* Be **specific** about what changed
+#### Backing Up to GitHub
 
-Clear concise messages are far more valuable than overly detailed ones.
-
----
-
-### Working with GitHub
-
-GitHub is a **remote repository** that allows you to store your project online, back it up, and collaborate with others. To exchange changes between your computer and GitHub, your local Git repository needs to be **linked** to the remote repository on GitHub.
-
-#### 1. Connect your local repository to GitHub
-
-If your repository is not yet connected to GitHub, add the remote repository URL once:
+To safely back up your personal project and share it, you need to link your local repository to GitHub.
 
 ```bash
-# Add the GitHub repository as a remote called "origin"
-git remote add origin https://github.com/<your-username>/<repo-name>.git
-```
+# Connect local repo to GitHub (Run ONCE per project)
+git remote add origin [https://github.com/](https://github.com/)<your-username>/<repo-name>.git
 
-You only need to do this **once per repository**.
-
-You can verify (-v) the connection with:
-
-```bash
-# Show all configured remote repositories and their URLs
+# Verify the connection worked
 git remote -v
-```
-This lists the remote name (usually origin) and shows where Git will push to and pull from.
-If you see a GitHub URL here, the connection is set up correctly.
 
----
-
-#### 2. Push changes to GitHub
-
-After committing changes locally, you still have them only on your computer.
-To upload them to GitHub, you need to push.
-
-**First push (sets the default branch):**
-
-```bash
-# Push the local 'main' branch to the remote called 'origin'
-# -u sets an upstream link so Git remembers where to push/pull
+# Push changes to GitHub for the FIRST time (sets default branch)
 git push -u origin main
-```
 
-This uploads your commits to GitHub, links your local main branch to origin/main on GitHub and makes future pushes simpler. You only need `-u origin main` once.
-
-**All subsequent pushes:**
-
-```bash
-# Push new commits using the remembered upstream connection
+# All subsequent pushes
 git push
-```
-Git now knows which branch to push and where to push it. That’s why this command is short.
 
----
-
-#### 3. Pull changes from GitHub
-
-To bring changes **from GitHub back to your computer** (for example when switching machines or working with others), use:
-
-```bash
-# Download changes from GitHub and merge them into your local branch
+# If collaborating, download others' updates to your computer
 git pull
+
 ```
 
-This step fetches new commits from GitHub and merges them into your current branch.
-In most cases, this happens automatically and quietly.
-
-> If Git reports conflicts during a pull, this simply means the same file was changed in two places. Resolve the conflict, commit the result, and continue.
-
-
 ---
 
-### Basic branching
+### Basic Branching
 
-Branching lets you work on **new ideas without breaking what already works**.
-Instead of changing your main project directly, you create a **separate timeline** for experiments or fixes.
-For most individual lab work, staying on the `main` branch is fine. Branches become especially useful in group work and larger projects.
+Branching lets you work on **new ideas without breaking what already works**. Instead of changing your main project directly, you create a **separate timeline** for experiments or fixes.
 
+:::{figure} images/3_4_git_branching_merging.png
+:alt: Diagram showing a main Git branch and a parallel experiment branch that merges back.
+:width: 600px
+:align: center
 
----
+Branching allows you to safely experiment on a parallel timeline without affecting the stable `main` branch until you are ready to merge.
+:::
 
-#### Create a new branch
 
 ```bash
-# Create a new branch called 'satellite-analysis'
-# and switch to it immediately
-git checkout -b satellite-analysis
-```
+# Create a new branch called 'experiment' and switch to it immediately
+git checkout -b experiment
 
-You are now working on a **separate version** of the project.
-The `main` branch stays unchanged.
-
----
-
-#### Check which branch you are on
-
-```bash
-# List all branches
-# The current branch is marked with *
+# Check which branch you are currently on
 git branch
-```
 
-This helps you avoid committing to the wrong branch.
+# ... edit files, add, and commit your experimental work ...
 
----
-
-#### Switch back to the main branch
-
-```bash
-# Switch back to the main branch
+# Switch back to the stable main branch
 git checkout main
+
+# Merge your successful experiment into the main branch
+git merge experiment
+
+# Delete the branch after a successful merge to keep things tidy
+git branch -d experiment
+
 ```
 
-Nothing is lost here. Branches remember their own history.
+### Viewing History and Undoing
 
----
-
-#### Merge your work back into main
-
-Once your work on the branch is done and tested, merge it:
+One of Git’s biggest strengths is that it keeps a complete history of your project.
 
 ```bash
-# Merge the branch into the current branch (main)
-git merge satellite-analysis
-```
-
-This brings the changes from `satellite-analysis` into `main`.
-
----
-
-#### Clean up after merging
-
-After a successful merge, the branch is no longer needed:
-
-```bash
-# Delete the branch (only works if it was merged)
-git branch -d satellite-analysis
-```
-
-This keeps your repository tidy.
-
-> Remember, a branch is a **safe workspace** to experiment freely before merging when things work.
-
-### Viewing project history
-
-One of Git’s biggest strengths is that it keeps a **complete history** of your project. You can inspect that history at any time.
-
-```bash
-# Show the full commit history (newest first)
+# Show the full commit history (press 'q' to exit)
 git log
-```
 
-This shows:
-
-* commit IDs
-* authors
-* dates
-* commit messages
-
-If the output is long, press `q` to exit.
-
----
-
-For a shorter, easier-to-read view:
-
-```bash
-# Show a compact one-line history
+# Show a compact one-line history (often the most useful)
 git log --oneline
-```
 
-This is often the most useful overview.
-
----
-
-To see the history of a **single file**:
-
-```bash
 # Show commits that affected one specific file
 git log -- data_processing.py
+
 ```
 
-This helps you understand when and why a file changed.
-
----
-
-#### Undoing changes
-
-Sometimes you realise that the **last commit was a mistake** — for example, the message was wrong or the commit was too early.
-
-To undo the last commit **without losing your work**:
+Sometimes you realise that the **last commit was a mistake** (e.g., the message was wrong or it was too early). To undo the last commit **without losing your work**:
 
 ```bash
-# Undo the last commit but keep all changes staged
+# Undo the last commit BUT keep your file changes safe in the staging area
 git reset --soft HEAD~1
+
 ```
 
-What this does:
-
-* removes the last commit from history
-* keeps all changes in your working directory
-* lets you recommit correctly
-
-> This is a **safe undo**: nothing is deleted.
-
-Only use `git reset` on commits that **have not been pushed to GitHub yet**.
-If a commit is already shared, undoing it requires a different approach.
+*(Note: Only use `git reset` on commits that **have not been pushed to GitHub yet**.)*
 
 ---
 
 ## 7. Exercises
 
-hese exercises focus on using Git as a **practical safety net** for your work. You are not expected to memorise commands — use the section above as a reference.
-
----
+These exercises focus on using Git as a **practical safety net**. Use the section above as a reference.
 
 #### Exercise 1: Git setup check
 
-**Objective:**
-Confirm that Git is correctly installed and configured on your system.
-
-**Tasks:**
+**Objective:** Confirm that Git is correctly installed and configured.
 
 1. Open a terminal.
 2. Check that Git is installed:
@@ -791,10 +465,7 @@ Confirm that Git is correctly installed and configured on your system.
 
 #### Exercise 2: Your project repository
 
-**Objective:**
-Create a small, clean project repository and track its first changes.
-
-**Tasks:**
+**Objective:** Create a clean project repository and track its first changes.
 
 1. Create a new folder for a project (e.g. `my-first-git-project`).
 2. Initialise a Git repository inside it:
@@ -832,12 +503,9 @@ Create a small, clean project repository and track its first changes.
 
 ---
 
-#### Exercise 3: Safe experimentation with branches and history
+#### Exercise 3: Safe experimentation with branches
 
-**Objective:**
-Practice experimenting safely and using Git history as a safety net.
-
-**Tasks:**
+**Objective:** Practice experimenting safely using Git history.
 
 1. Create a new branch called `experiment`:
 
@@ -863,9 +531,4 @@ Practice experimenting safely and using Git history as a safety net.
 
 ---
 
-After these exercises, you should feel that:
-
-* Git helps you **stay in control**
-* mistakes are **recoverable**
-* and Git is a tool that *supports* your learning, not one that gets in the way
-
+After these exercises, you should feel that Git helps you **stay in control**, mistakes are **recoverable**, and Git is a tool that *supports* your learning rather than getting in the way.
