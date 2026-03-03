@@ -74,6 +74,10 @@ print(city_data)
 2. Add one more city with coordinates of your choice to the original lists.
 3. Explain in a comment why a dictionary is useful here.
 
+```{code-cell} python
+
+```
+
 ---
 
 ## Part 2 – Looping over structured data
@@ -88,6 +92,10 @@ Write a loop that iterates over all cities in `city_data` and prints the city na
 2. Modify the output to include coordinate units (e.g., km).
 3. Add a comment explaining **what the loop variable `city` represents**.
 
+```{code-cell} python
+
+```
+
 ---
 
 ## Part 3 – Generating city pairs
@@ -101,6 +109,10 @@ Write code that extracts all city names from `city_data` and uses **nested loops
 1. Explain in a comment why the inner loop starts at `i + 1`.
 2. Verify that no city is paired with itself.
 3. Count how many city pairs are generated and explain why this number makes sense.
+
+```{code-cell} python
+
+```
 
 ---
 
@@ -127,6 +139,10 @@ Write code that loops over all city pairs, computes both Euclidean and Manhattan
 1. Explain in a comment why the distance calculation must happen **inside the loop**.
 2. Inspect the structure of the `distances` dictionary and explain how it resembles an **attribute table** in GIS.
 
+```{code-cell} python
+
+```
+
 ---
 
 ## Part 5 – Tracking the maximum distance
@@ -143,6 +159,10 @@ Write code that iterates over the `distances` dictionary, checks the Euclidean d
 2. Compare the results: Are the most distant city pairs the same? If not, why might that happen?
 3. Explain why **tracking values during iteration** is more efficient than checking results afterwards.
 
+```{code-cell} python
+
+```
+
 ---
 
 ## Part 6 – Stopping early with `break`
@@ -155,6 +175,10 @@ Write code that loops over all city pairs, computes the Euclidean distance, and 
 
 1. Explain what happens **immediately after** `break` is executed.
 2. Discuss situations in spatial data science where early stopping saves time.
+
+```{code-cell} python
+
+```
 
 ---
 
@@ -169,6 +193,10 @@ Loops are often used to **prepare data for analysis**. Here, you will extract th
 3. **The Problem:** If you run your median calculation on the list exactly as it was extracted from the dictionary, your result is likely incorrect. Why? What hidden assumption does the median rely on?
 4. **The Fix:** Fix the calculation by sorting the data *before* computing the median.
 
+```{code-cell} python
+
+```
+
 ---
 
 ## Part 8 – Optional – Fibonacci sequence
@@ -177,6 +205,10 @@ Loops are often used to **prepare data for analysis**. Here, you will extract th
 
 1. Generate a Fibonacci sequence of exactly 10 values using a `for` loop. Why does the loop start at index `2`?
 2. Generate a Fibonacci sequence using a `while` loop that stops only when a value exceeds `100`.
+
+```{code-cell} python
+
+```
 
 ---
 
@@ -187,6 +219,10 @@ Answer briefly in comments or markdown:
 1. What did loops automate for you in this practical?
 2. Where did conditions change program behaviour?
 3. When would you use `for` instead of `while`?
+
+```{code-cell} python
+
+```
 
 ---
 

@@ -1,6 +1,19 @@
-# Practical L4 - solutions
+---
 
-*From repetitive scripts to reusable spatial tools*
+title: Practical L4 - Solutions
+
+site: 
+    outline_maxdepth: 1
+
+---
+
+<div class="page-subtitle">
+From repetitive scripts to reusable spatial tools
+</div>
+
+---
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/6_L4_functions/06_practical_L4_solutions.ipynb)
 
 ---
 
@@ -36,7 +49,7 @@ Instead of giving you all the data immediately, let's look at how you find it.
 
 ---
 
-```python
+```{code-cell} python
 import math
 
 swiss_cities = {
@@ -72,7 +85,7 @@ Test it on "Geneva" (it should return "GEN").
 
 ---
 
-```python
+```{code-cell} python
 def create_id(name):
     # Slicing the first 3 characters and converting to upper case
     short_name = name[:3].upper()
@@ -99,7 +112,7 @@ Write a function `euclidean(coords1, coords2)` that expects two lists of `[x, y]
 
 The Haversine math is complex. Wrap the provided logic inside a function definition called `haversine(coords1, coords2)` and `return` the `distance`. Note that it expects `[lat, lon]`.
 
-```python
+```{code-cell} python
 # Wrap this inside a function definition:
 lat1, lon1 = coords1[0], coords1[1]
 lat2, lon2 = coords2[0], coords2[1]
@@ -120,7 +133,7 @@ distance = R * c
 
 ---
 
-```python
+```{code-cell} python
 def euclidean(coords1, coords2):
     dx = coords1[0] - coords2[0]
     dy = coords1[1] - coords2[1]
@@ -148,7 +161,7 @@ print(f"Euclidean ZUR-GEN: {euclidean(z_lv95, g_lv95):.1f} km")
 
 ---
 
-## Part 4 – The Comparison Matrix & `continue`
+## Part 4 – The Comparison Matrix
 
 Now we will build a distance matrix. We want to iterate through all cities and calculate the distance between them using *both* methods to see how much the flat projection (LV95) distorts reality compared to the spherical model (Haversine).
 
@@ -164,7 +177,7 @@ Write a nested loop to create a **Difference Matrix** (Euclidean distance minus 
 
 ---
 
-``` python
+```{code-cell} python
 cities = list(swiss_cities.keys())
 
 # Print the top header row (x-axis)
@@ -223,7 +236,7 @@ Write a function called `route_length` that:
 
 ---
 
-```python
+```{code-cell} python
 def route_length(*route_coords):
     total_length = 0
     
@@ -263,7 +276,7 @@ Write a function called `create_spatial_feature` that:
 
 ---
 
-```python
+```{code-cell} python
 def create_spatial_feature(name, coordinates, **metadata):
     feature = {
         "feature_name": name,
@@ -296,7 +309,7 @@ Copy your `euclidean` function from Part 3. Add a complete, formatted docstring 
 
 ---
 
-```python
+```{code-cell} python
 def euclidean(coords1, coords2):
     """
     Calculates the straight-line Euclidean distance between two points.
