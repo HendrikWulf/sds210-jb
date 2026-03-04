@@ -437,7 +437,7 @@ is simpler and clearer.
 
 ---
 
-```{admonition} Note
+```{admonition} Values vs. Indices
 :class: note
 
 If you only need the values,  

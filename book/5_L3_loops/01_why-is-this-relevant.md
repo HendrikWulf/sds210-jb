@@ -41,7 +41,7 @@ To understand why, let's ask a new kind of question:
 
 > *What if the same operation must be applied to many values?*
 
-Consider a simple list of major cities in the Global South:
+Consider a simple list of major cities:
 
 ```{code-cell} python
 cities = ["Lagos", "Nairobi", "Dhaka", "São Paulo"]
