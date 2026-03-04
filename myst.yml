@@ -124,7 +124,8 @@ project:
     - title: L5 - Libraries & Co
       file: book/7_L5_libraries.md
       children:
-        - file: book/7_L5_libraries/1_get_started.md
+        # - file: book/7_L5_libraries/01_script_files.md
+        # - file: book/7_L5_libraries/02_standard_library.md
     - title: L6 - Data & Co
       file: book/8_L6_data.md
       children:
