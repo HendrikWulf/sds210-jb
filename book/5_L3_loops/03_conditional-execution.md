@@ -165,7 +165,7 @@ print("a" in "data")
 
 ```
 
-```{admonition} Summary Tip
+```{admonition} Summary
 :class: tip
 
 **Comparison** (`==`, `>`) checks values.  
@@ -496,7 +496,7 @@ Unlike filtering, transforming generally produces an output for *every* value, b
 
 ---
 
-### A small prediction check
+### Concept check
 
 Before running the code, predict the output:
 
@@ -703,9 +703,7 @@ In this section, you learned how **repetition and decisions work together**.
 * Logical operators (`and`, `or`, `not`) combine conditions.
 * Placing `if` inside a loop enables core data workflows like **filtering** and **transforming**.
 
-### Mental models to keep
-
-```{admonition} Tip
+```{admonition} Mental models to keep
 :class: tip
 
 A loop answers:  
@@ -714,9 +712,9 @@ A loop answers:
 A condition answers:  
 “What should happen this time?”
 
-```
-
 Readable code makes both answers instantly obvious to whoever is reading it.
+
+```
 
 ---
 

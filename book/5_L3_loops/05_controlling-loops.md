@@ -80,6 +80,13 @@ This is useful when your goal has been reached and continuing the loop would jus
 
 ### Example: Stop when an outlier is found
 
+```{admonition} Tracking positions with enumerate()
+:class: info
+In this example, we want to print a warning that includes both the temperature **and** the specific day it was recorded. 
+
+Instead of dealing with `range(len())`, Python provides a highly readable tool called `enumerate()`. It automatically counts items as it loops, giving you two variables at once: the count (which we call `day`) and the value (`temp`). By adding `start=1`, we tell Python to start counting at Day 1 instead of 0!
+```
+
 ```{code-cell} python
 temperatures = [3, 5, 7, 6, 8, 9, 10, 111, 11]
 min_temp = -20

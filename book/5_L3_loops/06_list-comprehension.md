@@ -314,8 +314,8 @@ You are working with elevation values in meters:
 elevation_m = [450, 1200, 50, 3200]
 ```
 
-Create a new list that converts these values to **kilometres**
-and rounds them to **one decimal place**.
+Create a new list that converts these values to kilometres and rounds them to one decimal place. 
+You can use Python's built-in `round()` function for this, which takes the number to round and the desired number of decimal places (e.g., `round(value, 1)`).
 
 ---
 
