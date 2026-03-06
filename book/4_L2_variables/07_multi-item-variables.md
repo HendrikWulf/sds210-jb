@@ -756,7 +756,7 @@ city_info.get("area_km2", "not available")
 ```
 
 If the key exists, its value is returned.
-If not, the default value is returned instead.
+If not, the default value `None` is returned instead.
 
 This pattern is especially useful when working with:
 
@@ -836,15 +836,15 @@ city_info.clear()
 Dictionaries provide useful methods for exploring their structure.
 
 ```{code-cell} python
-city_info.keys()
+city_info.keys()    # returns all dictionary keys (e.g. "name", "population")
 ```
 
 ```{code-cell} python
-city_info.values()
+city_info.values()  # returns all stored values (e.g. attributes for each city)
 ```
 
 ```{code-cell} python
-city_info.items()
+city_info.items()   # returns key–value pairs as tuples (key, value)
 ```
 
 These return *views* of the dictionary and are often used when looping.

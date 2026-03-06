@@ -131,7 +131,7 @@ Write a loop that iterates over all cities in `city_data` and prints the city na
 
 # We use .items() to cleanly access both the key and the value at the same time
 for city, coords in city_data.items():
-    print(f"{city}: X = {coords[0]} km, Y = {coords[1]} km")
+    print(f"{city}: X = {coords[0]} m, Y = {coords[1]} m")
 ```
 
 ``````
@@ -358,7 +358,7 @@ Loops are often used to **prepare data for analysis**. Here, you will extract th
 1. Create an empty list called `euclidean_list`. Loop through the `distances` dictionary from Part 4, extract the Euclidean distance for each pair, and append it to the list.
 2. Compute the **median** of `euclidean_list` using index logic (`// 2`).
 3. **The Problem:** If you run your median calculation on the list exactly as it was extracted from the dictionary, your result is likely incorrect. Why? What hidden assumption does the median rely on?
-4. **The Fix:** Fix the calculation by sorting the data *before* computing the median.
+4. **The Fix:** Fix the calculation by sorting the data *before* computing the median using `sort()` (`list_sorted = list.sort()`).
 
 ---
 
