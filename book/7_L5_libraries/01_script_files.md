@@ -314,6 +314,3 @@ By writing modular tools in separate scripts, you keep your main notebooks clean
 
 You have now built and imported your own custom module. But you do not have to write every tool from scratch! In the next section, we will explore the **Python Standard Library** and discover how to use the exact same `import` syntax to unlock powerful tools that are already built into Python.
 
-```
-
-```
