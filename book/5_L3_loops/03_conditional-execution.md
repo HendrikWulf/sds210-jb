@@ -720,12 +720,10 @@ Readable code makes both answers instantly obvious to whoever is reading it.
 
 ### What comes next
 
-So far, loops have always run to completion or until their main condition becomes false.
+So far, your decisions have happened inside a loop that already knows **how long it will run**.
+Next, you will learn a new kind of repetition: a loop that continues **until a condition changes**.
+You will meet the while loop, which is useful when you do not know in advance how many repetitions are needed.
+The key shift is this:
 
-Next, you will learn how to **override this behaviour** from inside the loop:
-
-* **`break`**: to stop a loop entirely, no matter what
-* **`continue`**: to skip the rest of the current repetition and jump to the next one
-* **List comprehensions**: a compact, Pythonic way to combine loops and conditions into a single line
-
-These tools give you precise control over exactly how and when repetition happens.
+* for loops focus on **what to loop over**
+* while loops focus on **when to stop**
