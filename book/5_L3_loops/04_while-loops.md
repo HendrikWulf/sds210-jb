@@ -148,11 +148,22 @@ When writing `while` loops, always ask yourself:
 
 Being explicit about this step is the difference between a correct `while` loop and a program that freezes.
 
+```{admonition} Escaping an infinite loop
+:class: danger
+
+If you accidentally run an infinite loop, your notebook will freeze and the cell will show a `[*]` (or a spinning loading icon) indicating it is stuck running forever. **Do not panic!** You do not need to close your browser. You can force the code to stop:
+
+* **JupyterLab:** Click the **Stop** button (the black square) in the top toolbar, or go to the menu and select **Kernel > Interrupt Kernel**.
+* **Google Colab:** Click the rotating stop button directly on the left side of the running cell.
+* **VS Code:** Click the Interrupt button (the square stop icon) to the left of the running cell, or click Interrupt in the notebook toolbar at the top of the screen.
+
+```
+
 ---
 
 ## 4. While loops with decisions
 
-### Combining while and if (The "Flag" Pattern)
+### Combining while and if
 
 A `while` loop can also be combined with an `if` statement to control **when repetition should stop**. This is often called using a "flag variable."
 
