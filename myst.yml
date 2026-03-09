@@ -129,6 +129,8 @@ project:
         # - file: book/7_L5_libraries/03_party_modules.md
         # - file: book/7_L5_libraries/04_web_api.md
         # - file: book/7_L5_libraries/05_geocoding.md
+        # - file: book/7_L5_libraries/06_practical_L5.md
+        # - file: book/7_L5_libraries/06_practical_L5_solutions.md
     - title: L6 - Data & Co
       file: book/8_L6_data.md
       children:
