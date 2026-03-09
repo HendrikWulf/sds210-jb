@@ -13,7 +13,7 @@ Using batteries included with Python
 
 ---
 
-Python is famous for having "batteries included." This means that when you install Python, you also get the Python Standard Library. This library is a large collection of powerful modules that provide ready to use solutions for common programming tasks. Because these modules are bundled directly with Python, you do not need to download or install anything extra to use them.
+Python is famous for having "batteries included." This means that when you install Python, you also get the Python Standard Library. This library is a large collection of powerful modules that provide ready-to-use solutions for common programming tasks. Because these modules are bundled directly with Python, you do not need to download or install anything extra to use them.
 
 You just have to unlock them using the `import` command.
 
@@ -183,14 +183,26 @@ The `random` module offers many ways to generate random numbers and make random 
 
 ## 4. Navigating your computer
 
-When working with local data, you often need to know exactly which folder your Python code is running in. The `os` module (Operating System) and the `pathlib` module help you interact with your computer files.
+When working with local data, you often need to know exactly which folder your Python code is running in, or you need to build paths to your data files. The `os` module (Operating System) and the `pathlib` module help you interact with your computer's file system.
+
+While `os` is the older, traditional way to handle paths using text strings, modern Python developers prefer `pathlib` because it treats paths as smart objects that automatically handle the messy differences between Windows and Mac/Linux folders.
 
 ```{code-cell} python
 import os
+from pathlib import Path
 
-# Get the current working directory
-current_folder = os.getcwd()
-print(f"Python is currently looking for files in: {current_folder}")
+# Using OS to get the current working directory
+current_folder_os = os.getcwd()
+print(f"OS Path: {current_folder_os}")
+
+# Using Pathlib to do the same thing, but creating a smart Path object
+current_folder_pathlib = Path.cwd()
+print(f"Pathlib Object: {current_folder_pathlib}")
+
+# Pathlib makes joining folders to file names incredibly easy using the / operator
+data_file = current_folder_pathlib / "data" / "elevations.csv"
+print(f"Looking for data at: {data_file}")
+
 
 ```
 
@@ -217,6 +229,37 @@ The `os` module and its submodule `os.path` provide essential tools for navigati
 | `os.remove(path)` | Deletes a file. |
 
 *Tip: You can view the complete list of OS functions anytime by visiting the [official Python documentation](https://docs.python.org/3/library/os.html).*
+
+
+``````
+
+``````{admonition} Useful tools in the pathlib module
+:class: dropdown
+
+The `pathlib` module provides an object-oriented approach to file systems. Instead of passing messy text strings around, you work with `Path` objects. Here are the most common properties and methods:
+
+| Method / Property | Description |
+| :--- | :--- |
+| **Creating Paths** | |
+| `Path.cwd()` | Returns the Current Working Directory as a `Path` object. |
+| `Path.home()` | Returns the user's home directory. |
+| `path_obj / "folder"` | The division operator (`/`) magically joins Path objects and strings together to build safe file paths. |
+| **Path Properties** | *(Assume `p = Path('C:/data/map.tif')`)* |
+| `p.name` | Returns the final file name with its extension (`map.tif`). |
+| `p.stem` | Returns the file name *without* the extension (`map`). |
+| `p.suffix` | Returns the file extension (`.tif`). |
+| `p.parent` | Returns the logical parent directory (`C:/data`). |
+| **Checking Status** | |
+| `p.exists()` | Returns `True` if the path actually exists on your computer. |
+| `p.is_file()` | Returns `True` if the path points to a regular file. |
+| `p.is_dir()` | Returns `True` if the path points to a directory. |
+| **File & Folder Operations** | |
+| `p.mkdir(parents=True, exist_ok=True)` | Creates the directory. Using `parents=True` creates any missing folders along the way, and `exist_ok=True` prevents crashes if the folder already exists. |
+| `p.glob(pattern)` | Searches the directory for files matching a pattern (e.g., `p.glob('*.csv')`). |
+| `p.rglob(pattern)` | Same as `glob()`, but searches *recursively* through all subfolders. |
+
+*Tip: You can view the complete list of object-oriented path operations anytime by visiting the [official Python documentation](https://docs.python.org/3/library/pathlib.html).*
+
 
 ``````
 
@@ -278,7 +321,23 @@ To practice using the Standard Library, complete the following tasks.
 
 ### Exercise 1: Random coordinates
 
-Using the `random` module, write a loop that generates 3 random coordinate pairs. Assume the latitude must be an integer between 45 and 47, and the longitude must be an integer between 6 and 9. Print each pair.
+Using the `random` module, write a loop that generates 3 random coordinate pairs (representing latitude and longitude). Assume the latitude must be a decimal between 45.0 and 47.0, and the longitude must be a decimal between 6.0 and 9.0. Print each pair rounded to 4 decimal places.
+
+```{admonition} Atomic coordinates!
+:class: info
+
+If you run `random.uniform(45.0, 47.0)` without rounding it, Python will spit out a number with up to 15 to 17 decimal places (e.g., `45.123456789012345`). 
+
+Why so many? Python stores decimal numbers using a hardware standard called **double-precision (64-bit) floats**. This allocates a massive amount of computer memory just to track the tiny fractions of a number, ensuring extreme accuracy for complex scientific and astronomical calculations.
+
+But in the context of geographic coordinates (where 1 degree is roughly 111 km), what does that precision actually mean on the ground?
+* **4 decimal places** (`.1234`): ~11 meters (accuracy of a standard smartphone GPS).
+* **6 decimal places** (`.123456`): ~11 centimeters (the width of a hand).
+* **8 decimal places** (`.12345678`): ~1 millimeter (the size of a grain of sand).
+* **15 decimal places** (`.123456789012345`): ~0.1 nanometers. This is literally **the width of a single atom**!
+
+When you don't round your coordinates, your Python script is specifying a location on Earth down to the atomic level. Unless you are doing sub-atomic geospatial tracking, rounding to 4 or 5 decimal places is usually plenty!
+```
 
 ``````{admonition} Sample solution
 :class: dropdown
@@ -287,13 +346,14 @@ Using the `random` module, write a loop that generates 3 random coordinate pairs
 import random
 
 for i in range(3):
-    lat = random.randint(45, 47)
-    lon = random.randint(6, 9)
-    print(f"Coordinate {i+1}: [{lat}, {lon}]")
+    # Use random.uniform to generate floating-point numbers
+    lat = random.uniform(45.0, 47.0)
+    lon = random.uniform(6.0, 9.0)
+    print(f"Coordinate {i+1}: [{lat:.4f}, {lon}]")
 ```
 
 **Key idea:**
-The `randint` function requires a start and end value and generates a new random integer every time it is called inside the loop.
+While `randint` generates whole numbers, `uniform` generates floating-point numbers, which is perfect for creating realistic, randomized geographic coordinates.
 
 ``````
 
