@@ -377,6 +377,10 @@ To calculate decimal degrees, we can use the formula below:
 2. Use the built-in `float()` or `int()` functions to convert them to numbers.
 3. Calculate and **return** the Decimal Degrees, handling both positive and negative degrees.
 
+```{code-cell} python
+
+```
+
 ``````{admonition} Sample solution
 :class: dropdown
 
@@ -426,6 +430,10 @@ Inside this function:
 2. Pass those four clean numeric variables directly into the `haversine()` tool.
 3. **Return** the final distance in kilometers.
 
+```{code-cell} python
+
+```
+
 ``````{admonition} Sample solution
 :class: dropdown
 
@@ -472,6 +480,10 @@ Inside your function:
 3. Inside the loop, calculate the distance between the starting reserve and the current loop reserve using your `reserve_distance()` tool from Exercise 2.
 4. If the distance is greater than `0` (so the bird doesn't just stay where it is) AND less than or equal to the `max_range`, append the `name` to your `reachable` list.
 5. **Return** the final list of reachable reserves.
+
+```{code-cell} python
+
+```
 
 ``````{admonition} Sample solution
 :class: dropdown

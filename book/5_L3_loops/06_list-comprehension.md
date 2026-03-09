@@ -264,7 +264,6 @@ In those cases, stick to a normal `for` loop.
 
 ## 7. Exercises
 
-
 The following exercises help you practice **reading, writing, and deciding**
 when list comprehension is appropriate.
 
@@ -286,8 +285,6 @@ for r in rainfall:
 ```
 
 Rewrite this using **one list comprehension**.
-
----
 
 ````{admonition} Sample solution
 :class: dropdown
@@ -317,7 +314,7 @@ elevation_m = [450, 1200, 50, 3200]
 Create a new list that converts these values to kilometres and rounds them to one decimal place. 
 You can use Python's built-in `round()` function for this, which takes the number to round and the desired number of decimal places (e.g., `round(value, 1)`).
 
----
+
 
 ````{admonition} Sample solution
 :class: dropdown
@@ -351,7 +348,7 @@ Create a list of labels:
 
 Use **one list comprehension with if–else**.
 
----
+
 
 ````{admonition} Sample solution
 :class: dropdown

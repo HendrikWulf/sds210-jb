@@ -209,6 +209,10 @@ Open your `spatial_tools.py` file in the text editor.
 2. Remember from Lesson 2 that you can get the absolute (positive) difference by squaring it and taking the square root: `((x2 - x1)**2)**0.5`.
 3. Save the file.
 
+```{code-cell} python
+
+```
+
 ``````{admonition} Sample solution (spatial_tools.py)
 :class: dropdown
 
@@ -238,6 +242,10 @@ Stay in your `spatial_tools.py` file.
 1. Update your existing `calculate_distance` function to support the new method.
 2. Add an `elif method == "manhattan":` block that extracts the coordinates from the `pt1` and `pt2` lists and passes them to your new `manhattan_distance` function.
 3. Save the file again.
+
+```{code-cell} python
+
+```
 
 ``````{admonition} Sample solution (spatial_tools.py)
 :class: dropdown
@@ -274,6 +282,10 @@ Return to your Jupyter notebook.
 1. **Restart the kernel** to clear the memory.
 2. Import your updated module.
 3. Test both the Euclidean and Manhattan functionality to see how much longer the grid-based path is compared to the straight-line path.
+
+```{code-cell} python
+
+```
 
 ``````{admonition} Sample solution (Jupyter Notebook)
 :class: dropdown

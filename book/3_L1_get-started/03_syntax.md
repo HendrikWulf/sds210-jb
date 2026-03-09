@@ -41,7 +41,7 @@ An **identifier** is a name used for:
 
 Example:
 
-```{code-cell} python
+```python
 x = 5
 X = "Harry"
 
@@ -58,7 +58,7 @@ Python is **case sensitive**.
 
 What will this print?
 
-```python
+```{code-cell} python
 value = 10
 Value = 20
 print(value)

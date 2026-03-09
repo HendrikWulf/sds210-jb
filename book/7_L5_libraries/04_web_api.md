@@ -69,7 +69,7 @@ When an API sends data back to you, it almost always uses a format called **JSON
 
 The `requests` module has a built-in `.json()` method that automatically converts the raw text response from the server directly into a Python dictionary that you can navigate.
 
-```python
+```{code-cell} python
 # Assuming 'response' is a successful request holding JSON data
 data = response.json()
 
@@ -227,7 +227,8 @@ Since we are sending 10 requests in a row, we must respect the server's rate lim
 6. Extract the `windspeed` value from the `current_weather` dictionary and print it alongside the city name.
 7. Add `time.sleep(0.5)` at the very end of your loop to pause for half a second before the next city is processed.
 
-```python
+
+```{code-cell} python
 import requests
 import time
 
@@ -325,6 +326,10 @@ MeteoSwiss provides yearly aggregations in a separate file ending in `_y.csv` in
 6. Inside the loop, check if the string `"WFJ"` is in the line (to skip the header and only process data rows).
 7. If it is a data row, split the line using `.split(";")`.
 8. Extract the year (index `1`) and the average temperature (index `2`), and print them.
+
+```{code-cell} python
+
+```
 
 ``````{admonition} Sample solution
 :class: dropdown

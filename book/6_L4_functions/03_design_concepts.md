@@ -353,6 +353,10 @@ Calculating a simplified bounding box. By adding and subtracting a buffer value 
 2. Make `buffer` an **optional** parameter with a default value of `0.5` degrees.
 3. The function should **return** a dictionary containing `min_lat`, `max_lat`, `min_lon`, and `max_lon`. (Hint: `min_lat` is `lat - buffer`, `max_lat` is `lat + buffer`, etc.)
 
+```{code-cell} python
+
+```
+
 ``````{admonition} Sample solution
 :class: dropdown
 
@@ -411,7 +415,6 @@ inn_data = log_sample(6.8)
 print(f"Isar: {isar_data}")
 print(f"Inn: {inn_data}")
 
-
 ```
 
 ``````{admonition} Sample solution
@@ -448,8 +451,8 @@ print(f"Inn: {inn_data}")
 # Now prints correctly: 
 # Isar: [7.2, 7.4]
 # Inn: [6.8]
-```
 
+```
 
 ``````
 

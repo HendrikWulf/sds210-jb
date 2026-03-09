@@ -145,6 +145,10 @@ Use forward geocoding to find the coordinates of your hometown or current univer
 2. Use `.geocode()` to search for your chosen place.
 3. Print the resulting `latitude` and `longitude`.
 
+```{code-cell} python
+
+```
+
 ``````{admonition} Sample solution
 :class: dropdown
 
