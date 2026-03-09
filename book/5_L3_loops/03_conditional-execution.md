@@ -527,7 +527,6 @@ for v in values:
 
 ``````
 
-
 ---
 
 ## 6. Exercises

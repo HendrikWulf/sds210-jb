@@ -162,6 +162,10 @@ Write down short answers in your own words, or think of suitable ones.
 
 ---
 
+```{code-cell} python
+
+```
+
 ``````{admonition} Sample solution
 :class: dropdown
 

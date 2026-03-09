@@ -168,7 +168,8 @@ We have provided a list of cities in geographical order from north to south, alo
 6. Use `time.sleep(1)` to pause for one second so you can watch the progress bar update.
 7. Print the final cumulative distance after the loop finishes.
 
-```python
+
+```{code-cell} python
 # Copy this list into your script
 route = [
     ("Bogotá", (4.7110, -74.0721)),
@@ -250,6 +251,10 @@ Use the `geopy` package to calculate the exact difference. Because `geopy` uses 
 3. To measure the meridian, create points at `(0, 0)` and the North Pole `(90, 0)`.
 4. Calculate the geodesic distance for both quarter-circles in kilometers.
 5. Multiply both by 4 to estimate the full circumferences, then print their difference.
+
+```{code-cell} python
+
+```
 
 ``````{admonition} Sample solution
 :class: dropdown

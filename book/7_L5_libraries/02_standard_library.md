@@ -339,6 +339,10 @@ But in the context of geographic coordinates (where 1 degree is roughly 111 km),
 When you don't round your coordinates, your Python script is specifying a location on Earth down to the atomic level. Unless you are doing sub-atomic geospatial tracking, rounding to 4 or 5 decimal places is usually plenty!
 ```
 
+```{code-cell} python
+
+```
+
 ``````{admonition} Sample solution
 :class: dropdown
 
