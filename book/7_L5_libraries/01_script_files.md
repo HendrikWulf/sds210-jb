@@ -90,6 +90,14 @@ If you do not see your script file in the list, you have two options:
 
 Now that your notebook and your script are in the same folder, you can access your custom functions using an `import` statement.
 
+:::{figure} images/03_import_directory_structure.png
+:alt: A diagram showing a notebook and a python script sitting in the same folder, with an import arrow connecting them.
+:width: 500px
+:align: center
+
+*Python looks for the imported script file in the same working directory as your active notebook.*
+:::
+
 Let us import our `euclidean_distance()` function from the script file:
 
 ```{code-cell} python
@@ -166,6 +174,14 @@ Save the file once more. Your custom module now contains two functions.
 Now that we have updated our script, we want to test the new `calculate_distance` function in our notebook. However, when working in a Jupyter Notebook, reloading updated modules can be tricky.
 
 To save memory, Python only imports a script **once** per session. If you change a script file and save it, simply running the `import` cell again will not load your new changes. Python thinks it already has the file and ignores the command.
+
+:::{figure} images/04_kernel_memory_trap.png
+:alt: A diagram showing the disconnect between a saved file on a hard drive and the cached version in the Jupyter Kernel memory.
+:width: 700px
+:align: center
+
+*When a script is first imported, it is loaded into the Kernel's active memory. Updating the text file on your hard drive does not update the memory until the Kernel is explicitly restarted.*
+:::
 
 The easiest way to force Python to see your updates is to restart the IPython kernel.
 

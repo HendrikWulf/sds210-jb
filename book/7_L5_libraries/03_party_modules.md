@@ -44,6 +44,14 @@ As discussed in the environment setup chapter, there are two main package manage
 * **pip**: The default Python package installer. It downloads packages from the Python Package Index (PyPI).
 * **conda**: A powerful manager that handles Python packages as well as complex system software (like C++ libraries). This makes it the preferred choice for geospatial data science, where tools often rely on heavy external libraries.
 
+:::{figure} images/09_package_manager_flow.png
+:alt: Flowchart showing package managers pulling packages from the cloud into a local environment.
+:width: 600px
+:align: center
+
+*Package managers act as an app store for code, fetching external libraries from cloud repositories (like PyPI or conda-forge) and installing them safely into your local virtual environment.*
+:::
+
 ---
 
 ## 3. Installing external packages
@@ -154,7 +162,7 @@ Practice managing and using third party modules with these tasks.
 
 ---
 
-### Exercise 1: Planning a motorcycle tour
+### Exercise 1: Planning a e-motorcycle tour
 
 The `tqdm` library makes tracking long tasks incredibly easy. Let us use it to plan an epic e-motorcycle tour down the Andes mountains in South America, calculating the distance of each leg of the trip.
 
@@ -243,6 +251,13 @@ Before you write the code, take a guess: How much longer is the circumference of
 Write a script below to find the real answer!
 
 ```
+:::{figure} images/10_oblate_spheroid_bulge.png
+:alt: Diagram of the Earth showing an exaggerated equatorial bulge to illustrate an oblate spheroid.
+:width: 700px
+:align: center
+
+*Due to its rotation, the Earth is not a perfect sphere but an oblate spheroid, bulging at the equator and slightly flattened at the poles.*
+:::
 
 Use the `geopy` package to calculate the exact difference. Because `geopy` uses the WGS-84 ellipsoid model of the Earth by default, it perfectly accounts for this equatorial bulge.
 

@@ -47,10 +47,18 @@ print(f"The value of pi is approximately {pi:.44f}")
 
 The `math` module provides access to advanced mathematical functions and constants. A great spatial data science example is calculating the exact distance between two coordinates on the spherical Earth using the Haversine formula.
 
+:::{figure} images/05_haversine_spherical_distance.png
+:alt: Diagram comparing great-circle distance on a sphere's surface to a straight line cutting through it.
+:width: 500px
+:align: center
+
+*The Haversine formula calculates the shortest distance between two points across the spherical surface of the Earth (great-circle distance), rather than a straight line through it.*
+:::
+
 ```{code-cell} python
 import math
 
-san_francisco = (37.77, -122.41)
+san_francisco = (37.77, -122.41) 
 new_york = (40.66, -73.94)
 
 def haversine_distance(origin, destination):
@@ -187,6 +195,14 @@ When working with local data, you often need to know exactly which folder your P
 
 While `os` is the older, traditional way to handle paths using text strings, modern Python developers prefer `pathlib` because it treats paths as smart objects that automatically handle the messy differences between Windows and Mac/Linux folders.
 
+:::{figure} images/06_pathlib_directory_tree.png
+:alt: A directory tree diagram showing how pathlib joins folder names to reach a target file.
+:width: 600px
+:align: center
+
+*Pathlib allows you to navigate directory trees programmatically, intelligently joining parent folders to file names using the `/` operator.*
+:::
+
 ```{code-cell} python
 import os
 from pathlib import Path
@@ -271,6 +287,14 @@ JSON (JavaScript Object Notation) is a lightweight text format used to store and
 
 This is a critical skill for working with Web APIs, which almost always return data in JSON format.
 
+:::{figure} images/07_json_parsing_diagram.png
+:alt: A diagram showing a raw text string transforming into a structured Python dictionary.
+:width: 600px
+:align: center
+
+*The `json.loads()` function translates a flat string of text into a structured, hierarchical Python dictionary that you can navigate using keys.*
+:::
+
 ```{code-cell} python
 import json
 
@@ -339,6 +363,14 @@ But in the context of geographic coordinates (where 1 degree is roughly 111 km),
 When you don't round your coordinates, your Python script is specifying a location on Earth down to the atomic level. Unless you are doing sub-atomic geospatial tracking, rounding to 4 or 5 decimal places is usually plenty!
 ```
 
+:::{figure} images/08_coordinate_precision_scale.png
+:alt: An infographic scale showing how geographic coordinate precision relates to physical sizes like meters, millimeters, and nanometers.
+:width: 600px
+:align: center
+
+*The relationship between the number of decimal places in a geographic coordinate and the physical distance it represents on the ground.*
+:::
+
 ```{code-cell} python
 
 ```
@@ -359,7 +391,7 @@ for i in range(3):
 **Key idea:**
 While `randint` generates whole numbers, `uniform` generates floating-point numbers, which is perfect for creating realistic, randomized geographic coordinates.
 
-``````
+`````
 
 ---
 

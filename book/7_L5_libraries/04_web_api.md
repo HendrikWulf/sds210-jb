@@ -21,6 +21,14 @@ You do not need to download every dataset you want to analyze.
 
 ```
 
+:::{figure} images/11_api_concept.png
+:alt: Diagram comparing local data access with API data access.
+:width: 700px
+:align: center
+
+*Conceptual diagram: Instead of downloading a massive dataset locally, your code uses an API to request only the specific data needed from a remote server, receiving a concise response.*
+:::
+
 So far, we have worked with tools and data running locally on your computer. But the true power of spatial data science unlocks when your code can talk to the rest of the world.
 
 In this section, you will learn how to write Python code that fetches live information from external servers, such as real-time weather data, without ever opening a web browser.
@@ -39,6 +47,14 @@ For spatial analysis, Web APIs are critical. They allow you to access massive co
 * Downloading specific slices of massive satellite datasets.
 
 Most spatial {term}`API`s use a standard called {abbr}`REST (Representational State Transfer)`, meaning you interact with them over standard web protocols ([HTTP](https://en.wikipedia.org/wiki/HTTP)), exactly like your web browser does when loading a page.
+
+:::{figure} images/12_browser_vs_python.png
+:alt: Analogy comparing how a browser gets HTML with how Python gets JSON.
+:width: 700px
+:align: center
+
+*Analogy: Standard websites send visual HTML data to your browser, while APIs send structured raw data (like JSON) directly to your Python code.*
+:::
 
 ---
 
@@ -64,6 +80,14 @@ print(response.status_code)
 ## 3. Understanding JSON
 
 When an API sends data back to you, it almost always uses a format called **JSON** (JavaScript Object Notation). [JSON](https://en.wikipedia.org/wiki/JSON) is the universal language for data exchange on the web. Conveniently, it looks and behaves almost exactly like nested Python dictionaries and lists.
+
+:::{figure} images/13_json_structure.png
+:alt: A comparison diagram showing raw JSON text on the left, an arrow labeled ".json()", and a visualized Python dictionary hierarchy on the right.
+:width: 700px
+:align: center
+
+*Visual representation of JSON data: The text format on the left is automatically parsed into a structured, hierarchical Python dictionary/list on the right, allowing easy data access using keys.*
+:::
 
 *(Note: When dealing with vector shapes like polygons, APIs use a spatial flavor of this format called GeoJSON. We will explore GeoJSON later in the course.)*
 
@@ -181,6 +205,14 @@ If you run this code, you will see exactly 12 lines of data (one for each month 
 
 While we *can* use basic string tools like `.splitlines()` and `.split(";")` to read a CSV, doing complex data analysis this way is tedious. Later on, you will learn how to use the `pandas` library to turn these raw CSV strings into powerful, analyzable data tables!
 
+:::{figure} images/14_csv_split_logic.png
+:alt: Flowchart showing raw text being split into lines, then one line being split into columns by semicolons.
+:width: 700px
+:align: center
+
+*Visualizing the CSV processing logic: The raw text file is split into a list of lines, and then specific data lines are filtered and split again by semicolons into distinct data columns.*
+:::
+
 ---
 
 ## 6. API rate limiting
@@ -188,6 +220,14 @@ While we *can* use basic string tools like `.splitlines()` and `.split(";")` to 
 Computers are fast. It is very easy to write a loop that sends thousands of queries per second to check the weather in every city globally. Servers cannot handle that much traffic from a single user, so API providers enforce **rate limiting**.
 
 If you send too many requests too fast, the server will reject them and return an error code (often HTTP 429 "Too Many Requests").
+
+:::{figure} images/15_rate_limiting.png
+:alt: Diagram of a turnstile rejecting too many rapid requests.
+:width: 700px
+:align: center
+
+*Analogy for Rate Limiting: An API is like a turnstile that only allows one request per second. Sending thousands of queries simultaneously causes congestion, leading to rejection by the server.*
+:::
 
 ### The time module
 

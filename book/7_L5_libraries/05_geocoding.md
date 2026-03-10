@@ -18,6 +18,14 @@ We understand the world through names and addresses. Computers understand the wo
 **Geocoding** is the bridge that translates human places into machine locations.
 ```
 
+:::{figure} images/16_geocoding_concept.png
+:alt: Conceptual diagram comparing Forward Geocoding (Text to Coordinates) and Reverse Geocoding (Coordinates to Text).
+:width: 700px
+:align: center
+
+*Geocoding is the essential bridge in spatial data science, translating between the human world of names and addresses and the computer world of geometry and coordinates.*
+:::
+
 In the previous section, we used coordinates to fetch weather data from an API. In the real world, however, you may not receive a dataset that is perfectly formatted with latitudes and longitudes. Instead, you may get a list of street addresses, city names, or famous landmarks.
 
 In this section, you will learn how to convert place names into geographic coordinates so you can map them, and how to do the exact reverse.
@@ -39,6 +47,14 @@ In the "Third Party Modules" section, we already installed and used the `geopy` 
 While we could write custom `requests` code to query a geocoding API manually, `geopy` acts as a unified wrapper for dozens of different geocoding services, making the process incredibly smooth. Today, we will use it to access **[Nominatim](https://nominatim.org/)**, which is the free geocoding service powered by OpenStreetMap data.
 
 To get started, we import the `Nominatim` tool from `geopy.geocoders`.
+
+:::{figure} images/17_geopy_wrapper_nominatim.png
+:alt: Flowchart showing Python code connecting to a geopy object, which then connects to the Nominatim API cloud server.
+:width: 650px
+:align: center
+
+*The `geopy` library acts as a helpful intermediary. Your Python code talks to `geopy`, which handles the complex work of sending requests to the Nominatim (OpenStreetMap) API server over the internet and parsing the response.*
+:::
 
 ```{code-cell} python
 from geopy.geocoders import Nominatim
@@ -101,6 +117,14 @@ location = geolocator.reverse(mystery_coordinate)
 print("What is located at this coordinate?")
 print(location.address)
 ```
+
+:::{figure} images/18_reverse_geocode_map.png
+:alt: A map snippet of Rome with a pin at the specified coordinates, alongside a data card showing the resulting address ('Casa Manco', street name, etc.).
+:width: 600px
+:align: center
+
+*Reverse geocoding takes abstract mathematical coordinates (`41.8775, 12.4736`) and retrieves the rich, human-readable address data associated with that precise location.*
+:::
 
 Just like that, `geopy` asks OpenStreetMap what exists at those exact coordinates, revealing a great pizza restaurant called "[Casa Manco](https://casamanco.it/)"!
 
