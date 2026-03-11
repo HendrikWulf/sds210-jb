@@ -50,7 +50,7 @@ def average_elevation(*args):
     """Calculates the average of an arbitrary number of elevations."""
     # args is just a tuple containing all the inputs!
     if len(args) == 0:
-        return 0
+        raise ValueError("At least one elevation must be provided.")
         
     total = sum(args)
     num_items = len(args)
@@ -128,17 +128,22 @@ Just like with `*args`, there is nothing special about the word "kwargs". You co
 
 ## 3. Unpacking Collections
 
-The asterisk operators can also be used *outside* of function definitions to do the exact opposite: **unpacking** lists or dictionaries into separate variables.
+The asterisk operators can also be used *outside* of function definitions to do the opposite: **unpacking** a collection into separate variables.
 
-Consider a bounding box stored as a list of four coordinates: `[min_lon, min_lat, max_lon, max_lat]`. If you have a function that expects four separate arguments, you can use the `*` operator to unpack the list directly into the function call.
+Consider a bounding box stored as a list of four coordinates:  
+`[min_x, min_y, max_x, max_y]`. 
+If you have a function that expects four separate arguments, you can use the `*` operator to unpack the list directly into the function call.
 
 ```{code-cell} python
-def calculate_area(min_lon, min_lat, max_lon, max_lat):
-    width = max_lon - min_lon
-    height = max_lat - min_lat
+def calculate_area(min_x, min_y, max_x, max_y):
+    """Calculate the area of a rectangular bounding box."""
+    
+    width = max_x - min_x
+    height = max_y - min_y
     return width * height
 
-# Our data is trapped inside a list
+
+# Our data is stored inside a list
 bbox = [2634400, 1137300, 2652000, 1159800]
 
 # WITHOUT unpacking (Messy):
@@ -146,9 +151,18 @@ area = calculate_area(bbox[0], bbox[1], bbox[2], bbox[3])
 
 # WITH unpacking (Clean):
 area = calculate_area(*bbox)
-print(f'The area of the bounding box is {area} square meters')
 
+print(f"The area of the bounding box is {area} square meters")
+````
+
+```{admonition} Spatial note
+:class: note
+
+This calculation assumes that the coordinates are in a **projected coordinate reference system (CRS)** where units are measured in meters (for example Swiss LV95 / EPSG:2056 or UTM).
+
+If the coordinates were geographic longitude and latitude (e.g. EPSG:4326), this simple formula would **not produce a correct area**, because degrees are not linear distance units and Earth’s curvature must be considered.
 ```
+
 
 ### Unpacking Dictionaries with `**`
 
@@ -228,40 +242,22 @@ The dual nature of asterisks: They **pack** arguments when defining a function a
 
 ## 4. The Lambda Function
 
-Sometimes you need a tiny, single-use function for a quick calculation (like converting units or formatting text). Defining a full function block with `def` and `return` can feel like overkill.
+Sometimes you need a tiny, single-use function for a quick operation (like extracting a value or formatting text). Defining a full function block with `def` and `return` can feel like overkill if you are only going to use it once.
 
-For these situations, Python offers **lambda functions**. A lambda function is a small, anonymous function (a function without a name) written in a single line.
+For these situations, Python offers **lambda functions**. A lambda function is a small, **anonymous function** (a function without a name) written in a single line. It evaluates an expression and automatically returns the result.
 
-The syntax is: `lambda arguments : expression`
+The syntax is: `lambda arguments: expression`
 
-Here is a comparison for converting meters to feet:
+Because they are nameless, **you should not assign a lambda to a variable**. Instead, lambdas shine brightest when you pass them directly into other functions or methods that require a function as an argument.
 
-**Named Function:**
-
-```{code-cell} python
-def to_feet(meters):
-    return meters * 3.28084
-
-```
-
-**Lambda Function:**
-
-```{code-cell} python
-# It takes an argument (meters), evaluates the math, and automatically returns it
-to_feet_lambda = lambda meters: meters * 3.28084
-
-print(to_feet_lambda(100))
-
-```
-
-Lambda functions shine brightest when used inside other functions. For example, if you have a list of metadata dictionaries and you want to quickly sort them by a specific key, a lambda function does the job in one line:
+A perfect example is sorting a list of dictionaries. If you have a list of metadata dictionaries, you can use a lambda function to quickly sort them by a specific key in just one line.
 
 :::{figure} images/15_lambda.png
 :alt: Diagram illustrating how a lambda function acts as a key extractor for sorting a list of dictionaries.
 :width: 800px
 :align: center
 
-Visualizing lambda sorting: The lambda function extracts a specific value (e.g., 'elevation') from each item, which is then used to determine the sort order of the original list.
+*Visualizing lambda sorting: The lambda function extracts a specific value (e.g., 'elevation') from each item, which is then used to determine the sort order of the original list.*
 :::
 
 ```{code-cell} python
@@ -272,9 +268,11 @@ stations = [
 ]
 
 # Sort the list based on the "elevation" value of each dictionary
+# The lambda function is created and consumed right here in one line!
 stations.sort(key=lambda station: station["elevation"])
 
 print(stations)
+
 
 ```
 

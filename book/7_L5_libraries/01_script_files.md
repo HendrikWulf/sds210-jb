@@ -84,6 +84,31 @@ If you do not see your script file in the list, you have two options:
 
 ```
 
+#### Concept check
+
+Imagine your file browser looks like this:
+
+```text
+project_folder/
+├── analysis.ipynb      <-- You are working here
+└── scripts/
+    └── my_code.py
+
+```
+
+If you run `%ls` in `analysis.ipynb`, will you see `my_code.py`? Will a standard `import my_code` work?
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**No** and **No**.
+
+1. `%ls` lists files in the *current* directory (`project_folder`). It will show the `scripts` folder, but not the contents *inside* it.
+2. Therefore, a standard `import my_code` will fail because Python cannot see the file sitting in the subfolder. To fix this, you would need to move `my_code.py` up into `project_folder`.
+
+
+```
+
 ---
 
 ## 3. Importing script functions
@@ -124,6 +149,37 @@ It is often useful to import the whole script and all of its functions at once. 
 import spatial_tools as st
 
 dist_meters = st.euclidean_distance(2683000, 1248000, 2600000, 1200000)
+
+```
+
+#### Concept check
+
+Look at these two different ways to import the same function. Predict how you would call the function in the cell immediately following the import.
+
+**Scenario A:**
+
+```python
+from spatial_tools import euclidean_distance
+# How do I call it here?
+
+```
+
+**Scenario B:**
+
+```python
+import spatial_tools as st
+# How do I call it here?
+
+```
+
+```{admonition} Scenario A or B?
+:class: dropdown
+
+**Scenario A:** You brought the function directly into your notebook's namespace. You call it simply by its name:
+`euclidean_distance(...)`
+
+**Scenario B:** You imported the whole module as an object named `st`. You must use "dot notation" to access the function inside that object:
+`st.euclidean_distance(...)`
 
 ```
 

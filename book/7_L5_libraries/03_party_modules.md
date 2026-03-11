@@ -118,6 +118,29 @@ By simply wrapping our sequence in `tqdm()`, we get a visual progress bar, a per
 
 ```
 
+#### Concept check
+
+Look closely at our import statement:
+`from tqdm import tqdm`
+
+If we changed our code to instead read:
+`import tqdm`
+
+How would you have to rewrite the loop initialization line (`for i in tqdm(range(5)):`) to make it work without crashing?
+
+```{admonition} Test your namespace knowledge!
+:class: dropdown
+
+You would have to write:
+`for i in tqdm.tqdm(range(5)):`
+
+**Why?**
+When you write `import tqdm`, you are importing the entire *module* (the folder of code) named `tqdm`. To use the specific progress-bar *function* (which is also named `tqdm`) inside that folder, you must use dot notation: `module.function()`, which results in `tqdm.tqdm()`.
+
+Using `from tqdm import tqdm` skips the folder name and pulls the specific function directly into your main workspace, allowing you to just write `tqdm()`.
+
+```
+
 ---
 
 ## 6. Practical example: Spatial distance
@@ -317,3 +340,9 @@ In this section, you learned how to break out of the built in Python ecosystem a
 * Import and use external libraries just like your own local scripts.
 * Use `tqdm` to instantly add visual progress bars to your loops.
 * Use `geopy` to calculate highly accurate spatial distances.
+
+### What comes next?
+
+You now know how to extend Python with powerful community tools. But what if the data you need isn't saved on your computer?
+
+In the next section, **Using Web APIs**, you will learn how to connect Python directly to the live internet. You will discover how to use the `requests` module to ask remote servers for exact data—like live weather forecasts and historical climate records—and pull it straight into your code without ever opening a web browser.

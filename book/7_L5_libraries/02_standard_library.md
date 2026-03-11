@@ -144,6 +144,32 @@ The `statistics` module provides robust functions for calculating mathematical s
 
 ``````
 
+#### Concept check
+
+Predict the result of these two common rounding operations. Remember to think about what "up" and "down" mean on a number line.
+
+```{code-cell} python
+import math
+
+# Predict both results
+up_round = math.ceil(-5.2)
+down_round = math.floor(-5.2)
+
+```
+
+```{admonition} Up or Down?
+:class: dropdown
+
+* `math.ceil(-5.2)` result is **`-5`**.
+* `math.floor(-5.2)` result is **`-6`**.
+
+Think of a number line:
+`math.ceil` always rounds towards **positive infinity**. The nearest integer "greater than" -5.2 is -5.
+`math.floor` always rounds towards **negative infinity**. The nearest integer "less than" -5.2 is -6.
+
+
+```
+
 ---
 
 ## 3. Adding unpredictability
@@ -186,6 +212,35 @@ The `random` module offers many ways to generate random numbers and make random 
 *Tip: You can view the complete list of random functions anytime by visiting the [official Python documentation](https://docs.python.org/3/library/random.html).*
 
 ``````
+
+#### Concept check
+
+We need to pick two test sites. Predict which method guarantees you will select two **unique** cities.
+
+```python
+import random
+cities = ["Zurich", "Geneva", "Basel", "Bern"]
+
+# Method A (requires two function calls)
+site_1 = random.choice(cities)
+site_2 = random.choice(cities)
+
+# Method B (requires one function call)
+sites_group = random.sample(cities, k=2)
+
+```
+
+```{admonition} Unique results?
+:class: dropdown
+
+**Method B** guarantees you will get two unique, different cities.
+
+The `random.sample()` function performs sampling **without replacement**. Once a city is picked, it cannot be picked again in that same call.
+
+**Method A** uses `random.choice()` twice. This is sampling **with replacement**. There is a 1-in-4 chance that `site_2` will randomly pick the exact same city as `site_1`.
+
+
+```
 
 ---
 
@@ -279,6 +334,33 @@ The `pathlib` module provides an object-oriented approach to file systems. Inste
 
 ``````
 
+#### Concept check
+
+Examine how the `/` operator works. Predict the type and content of the `final_path` variable.
+
+```python
+from pathlib import Path
+
+# Assume our current folder is: C:/project/data/
+my_folder = Path.cwd()
+
+# The division operator works on smart objects!
+final_path = my_folder.parent / "output" / "map.tif"
+
+```
+
+```{admonition} Smart object or flat string?
+:class: dropdown
+
+The variable `final_path` is a **`<Path>` object** containing the path **`C:/project/output/map.tif`**.
+
+The `/` operator on a Path object is extremely useful:
+1. It cleverly joins path segments while intelligently handling parental navigation (the `.parent` property moved the path one folder "up" before joining).
+2. The result is **still a Path object**, not just a simple string. You could immediately continue to call methods like `final_path.exists()` on it.
+
+
+```
+
 ---
 
 ## 5. Formatting data with JSON
@@ -328,6 +410,47 @@ The `json` module provides straightforward functions for reading and writing JSO
 
 *Tip: You can view the complete documentation anytime by visiting the [official Python documentation](https://docs.python.org/3/library/json.html).*
 ``````
+
+#### Concept check
+
+You have successfully used `json.loads()` to convert an API response into a Python dictionary named `data`.
+
+Examine the raw JSON structure. Predict the nested key access required to extract the **longitude** (the first value in the `coordinates` list).
+
+```json
+{
+  "properties": {
+    "name": "Eiffel Tower",
+    "location": {
+      "city": "Paris",
+      "coordinates": [2.29, 48.85]
+    }
+    ...
+  }
+}
+
+```
+
+```python
+# Predict the correct indexing path here. Fill in the blanks:
+# Hint: You will need multiple sets of []
+longitude_val = data[...][...][...][...]
+
+```
+
+```{admonition} Drill down!
+:class: dropdown
+
+The correct path is:
+`longitude_val = data["properties"]["location"]["coordinates"][0]`
+
+**Explain the hierarchy:**
+1. **`data["properties"]`**: Gets you into the main dictionary.
+2. **`data["properties"]["location"]`**: Gets you into the nested location dictionary.
+3. **`data["properties"]["location"]["coordinates"]`**: Returns the list `[2.29, 48.85]`.
+4. **`data["properties"]["location"]["coordinates"][0]`**: Extracts index 0, the very first item in that list, which is the longitude `2.29`.
+
+```
 
 ```{admonition} Python Easter Eggs
 :class: tip
@@ -439,4 +562,6 @@ In this section, you learned how to leverage the Python Standard Library to solv
 
 ### What comes next?
 
-The Standard Library is powerful, but it does not contain everything. What if you want to pull live routing data or weather forecasts directly from the internet? In the next section, we will explore **Third Party Modules and Web APIs**, where you will learn how to install external packages to connect Python to the rest of the world.
+The Standard Library is powerful, but it has its limits. What if you need to calculate highly accurate spatial distances across the Earth's curved surface, or add visual progress bars to a massive loop?
+
+Instead of writing that complex code from scratch, you can tap into the massive open-source community. In the next section, **Third Party Modules**, we will explore how to find, install, and use external packages to extend Python's capabilities far beyond its built-in tools.

@@ -42,50 +42,32 @@ Before we can calculate distances or query APIs, we need exact coordinates. Your
 ```{code-cell} python
 from geopy.geocoders import Nominatim
 
-# Initialize the geocoder with a unique app name
+# Initialize the geocoder with a unique app name. 
+# Review the Geocoding section to learn more about the user_agent parameter. 
 geolocator = Nominatim(user_agent="sds_euro_logistics_YOUR_ID")
 
 origin_address = "Spitalgasse 47-51, 3001 Bern, Switzerland"
 dest_address = "Corso del Lavoro e della Scienza, 3, 38122 Trento TN, Italy"
 
-origin_loc = geolocator.geocode(origin_address)
-dest_loc = geolocator.geocode(dest_address)
-
-# Extract coordinates as (latitude, longitude) tuples
-origin_coords = (origin_loc.latitude, origin_loc.longitude)
-dest_coords = (dest_loc.latitude, dest_loc.longitude)
-
-print(f"Origin: {origin_coords}")
-print(f"Destination: {dest_coords}")
-
-
 ```
 
 ### Tasks
 
-1. Run the code above to verify the geocoder is working.
-2. Change the destination address to a real street address of your choice anywhere in the world.
-3. Print the full official address returned by Nominatim for your new destination to ensure it found the correct place.
-
-```{code-cell} python
-
-
-```
+1. Geocode the `origin_address` and `dest_address`. Extract their latitudes and longitudes into two tuples named `origin_coords` and `dest_coords`. (see previous section on [Geocoding](https://hendrikwulf.github.io/sds210-jb/book/l5-libraries/geocoding#id-2-geocoding-with-geopy))
+2. Print the coordinates and verify them on a map service (like Google Maps or OpenStreetMap) to ensure they are correct.
+3. Change the destination address to a real street address of your choice anywhere in the world and geocode it.
+4. Print the full official address returned by Nominatim for your new destination using the `.address` attribute to ensure it found the correct place.
 
 ---
 
 ## 2. The geodesic baseline
 
-To understand how much the road network bends and curves around the Alps, we first need to know the absolute shortest possible path between our two points.
+To understand how much the road network bends and curves around the Alps, we first need to know the absolute shortest possible path between our two points (`origin_coords` and `dest_coords`).
 
 ### Code
 
 ```{code-cell} python
 from geopy import distance
-
-geodesic_dist = distance.geodesic(origin_coords, dest_coords).km
-
-print(f"The bird flies: {geodesic_dist:.1f} km")
 
 
 ```
@@ -94,11 +76,7 @@ print(f"The bird flies: {geodesic_dist:.1f} km")
 
 1. Calculate the geodesic distance between your origin and your newly chosen destination.
 2. Store the result in a variable called `baseline_km` so we can compare it later.
-
-```{code-cell} python
-
-
-```
+3. Print the result.
 
 ---
 
@@ -108,10 +86,9 @@ Now we want the real world driving distance. For this, we will use the **OpenRou
 
 ### Task: Get your API Key
 
-1. Visit the [OpenRouteService Sign Up page](https://www.google.com/search?q=https://openrouteservice.org/dev/%23/signup) and create a free account.
-2. Once logged in, navigate to your Dashboard.
-3. Generate a new token (you can select "Free" and name it "sds_course").
-4. Copy the long string of characters and paste it into the variable below.
+1. Visit the [HeiGIT Sign Up page](https://account.heigit.org/signup) to create a free account for [OpenRouteService](https://openrouteservice.org/).
+2. Once logged in, you can find your Basic Key at the top of the page.
+3. Copy the long string of characters and numbers and paste it into the variable below as a string.
 
 ```{code-cell} python
 # Paste your personal API key inside the quotes
@@ -124,7 +101,7 @@ ORS_API_KEY = "replace_this_with_your_actual_key"
 
 ## 4. Querying the driving route
 
-With our key ready, we can construct a request to the ORS directions endpoint. The API requires the coordinates to be formatted in `longitude, latitude` order, which is the reverse of what `geopy` gives us!
+With our key ready, we can construct a request to the ORS directions endpoint. The API requires the coordinates to be formatted in `longitude, latitude` order, which is the exact reverse of what `geopy` gives us!
 
 ### Code
 
@@ -145,35 +122,34 @@ api_url = 'https://api.openrouteservice.org/v2/directions/driving-car'
 # Send the request
 response = requests.get(api_url, params=parameters)
 
-# Check if successful
-if response.status_code == 200:
-    data = response.json()
-    
-    # Extract the summary dictionary
-    summary = data['features'][0]['properties']['summary']
-    
-    driving_km = summary['distance'] / 1000
-    duration_mins = summary['duration'] / 60
-    
-    print(f"Driving distance: {driving_km:.1f} km")
-    print(f"Estimated time: {duration_mins:.1f} minutes")
-    
-else:
-    print("Request failed.")
-    print("Reason:", response.text)
-
 
 ```
 
 ### Tasks
 
-1. Run the code above to get the driving distance for your route across the Alps.
-2. Calculate and print the **detour factor**: the driving distance divided by the geodesic baseline distance from Part 2. A detour factor of 1.0 means a perfectly straight road; 1.5 means you have to drive 50% further than the straight line distance.
+1. Write an `if` statement to check if the `response.status_code` was successful (code 200).
+2. Inside the statement, convert the JSON response into a Python dictionary.
+3. Extract the `summary` dictionary by navigating through the JSON hierarchy (`data['features'][0]['properties']['summary']`).
+4. Calculate the driving distance in kilometers and the estimated time in hours and minutes. Print them nicely.
+5. Calculate and print the **detour factor**: the driving distance divided by the geodesic baseline distance from Part 2. A detour factor of 1.0 means a perfectly straight road; 1.5 means you have to drive 50% further than the straight line distance.
 
-```{code-cell} python
+:::{figure} images/20_ors_json_navigation.png
+:alt: A diagram illustrating nested boxes representing a JSON structure. An arrow traces the path from the root 'data' object, through 'features[0]', 'properties', to the 'summary' dictionary containing distance and duration.
+:width: 600px
+:align: center
 
+*Mental model for navigating the deep hierarchy of the OpenRouteService JSON response to find the summary statistics.*
+:::
 
-```
+---
+
+:::{figure} images/19_geodesic_vs_driving_map.png
+:alt: A map snippet showing Switzerland and Northern Italy. A dotted red line connects Bern and Trento directly. A solid blue line shows the winding road network path connecting the same cities through mountain passes.
+:width: 700px
+:align: center
+
+*Visualization comparing the absolute shortest path (geodesic dotted line) with the actual road network route (solid blue line) from Bern to Trento. This route involves teleporting and a drunken GPS navigator, who ultimately wants to go sailing. But you can probably see that the complex terrain of the Alps forces a detour, resulting in a high detour factor.*
+:::
 
 ---
 
@@ -183,11 +159,12 @@ Before dispatching the driver across international borders, it is good practice 
 
 ### Tasks
 
-1. Write a `requests.get()` call to the Open-Meteo API (`https://api.open-meteo.com/v1/forecast`).
-2. Pass the `latitude` and `longitude` of your **destination** in the parameters, along with `"current_weather": "true"`.
+1. Build a `parameters` dictionary containing the `latitude` and `longitude` of your **destination**, along with `"current_weather": "true"`.
+2. Write a `requests.get()` call to the Open-Meteo API (`https://api.open-meteo.com/v1/forecast`) passing in your parameters.
 3. Parse the JSON response to extract and print the current temperature.
 
 ```{code-cell} python
+# Write your weather fetching code here
 
 
 ```
@@ -198,7 +175,16 @@ Before dispatching the driver across international borders, it is good practice 
 
 Now it is time to put everything together. The delivery company has given you a list of coordinates for long haul deliveries starting from Bern and heading to various corners of Europe.
 
-You need to query the ORS API for the driving distance to each location. Because you are querying an external API inside a loop, you **must** use rate limiting to avoid getting your account temporarily blocked.
+You need to query the ORS API for the driving distance and travel time, and the Open-Meteo API for the destination's current weather. Because you are querying external APIs inside a loop, you **must** use rate limiting to avoid getting your account temporarily blocked.
+
+:::{figure} images/21_api_chaining_flowchart.png
+:alt: A technical flowchart showing a loop iterating through cities. Inside, a box makes an ORS API call, another makes an Open-Meteo call, followed by a 'time.sleep()' pause icon, before returning to the start of the loop.
+:width: 700px
+:align: center
+
+*Logic flow for an automated logistics pipeline: Chaining two distinct API requests (Routing and Weather) inside a loop, utilizing rate limiting to avoid server overload.*
+:::
+
 
 ### Code
 
@@ -223,17 +209,15 @@ start_string = f"{origin_lon},{origin_lat}"
 
 ### Tasks
 
-1. Import `time` and `tqdm`.
+1. Import `time`, `tqdm`, and `requests`.
 2. Write a `for` loop that iterates over the `deliveries` dictionary (using `.items()`). Wrap the dictionary items in `tqdm()` to show a progress bar.
-3. Inside the loop, format the destination latitude and longitude into an `end_string` (`longitude,latitude`).
-4. Build the `parameters` dictionary and make the `requests.get()` call to the ORS API.
-5. Extract the driving distance in kilometers and print it alongside the city name.
-6. **Crucial step**: Add `time.sleep(2)` at the end of the loop to ensure you stay well within the ORS limit of 40 requests per minute.
+3. Inside the loop, build the parameters and make a `requests.get()` call to the **ORS API** to get the route.
+4. Extract the driving distance in kilometers and calculate the travel time in hours and minutes.
+5. Make a second `requests.get()` call inside the same loop to the **Open-Meteo API** using the destination's coordinates to fetch the current weather.
+6. Extract the temperature from the weather response.
+7. Print a summary line for the city that includes the driving distance, the estimated travel time, and the current weather.
+8. **Crucial step**: Add `time.sleep(2)` at the end of the loop to ensure you stay well within the ORS limit of 40 requests per minute.
 
-```{code-cell} python
-
-
-```
 
 ---
 
@@ -246,14 +230,8 @@ Take a moment to review what you have built. Answer briefly in comments or markd
 3. What would happen if you ran your loop in Part 6 on a list of 500 deliveries without including `time.sleep(2)`?
 
 ```{code-cell} python
-
+# Write your reflections here.
 
 ```
 
 ---
-
-## What comes next
-
-You have successfully connected Python to the global ecosystem of Web APIs! You can now translate human addresses into coordinates, calculate precise international routing networks, and fetch live weather data.
-
-However, printing numbers to a console is only the beginning. In the upcoming chapters, we will introduce **Pandas** and **GeoPandas**, which will allow you to store, analyze, and map thousands of API results simultaneously in powerful, structured tables.
