@@ -183,6 +183,14 @@ response = requests.get(api_url, params=parameters)
 4. Calculate the driving distance in kilometers and the estimated time in hours and minutes. Print them nicely.
 5. Calculate and print the **detour factor**: the driving distance divided by the geodesic baseline distance from Part 2. A detour factor of 1.0 means a perfectly straight road; 1.5 means you have to drive 50% further than the straight line distance.
 
+:::{figure} images/20_ors_json_navigation.png
+:alt: A diagram illustrating nested boxes representing a JSON structure. An arrow traces the path from the root 'data' object, through 'features[0]', 'properties', to the 'summary' dictionary containing distance and duration.
+:width: 600px
+:align: center
+
+*Mental model for navigating the deep hierarchy of the OpenRouteService JSON response to find the summary statistics.*
+:::
+
 ``````{admonition} Sample solution
 :class: dropdown
 
@@ -221,6 +229,14 @@ A high detour factor in mountainous regions like the Alps indicates a very compl
 
 
 ``````
+
+:::{figure} images/19_geodesic_vs_driving_map.png
+:alt: A map snippet showing Switzerland and Northern Italy. A dotted red line connects Bern and Trento directly. A solid blue line shows the winding road network path connecting the same cities through mountain passes.
+:width: 700px
+:align: center
+
+*Visualization comparing the absolute shortest path (geodesic dotted line) with the actual road network route (solid blue line) from Bern to Trento. This route involves teleporting and a drunken GPS navigator, who ultimately wants to go sailing. But you can probably see that the complex terrain of the Alps forces a detour, resulting in a high detour factor.*
+:::
 
 ---
 
@@ -281,6 +297,15 @@ By reusing the exact same variables (`dest_coords`) across different APIs, you c
 Now it is time to put everything together. The delivery company has given you a list of coordinates for long haul deliveries starting from Bern and heading to various corners of Europe.
 
 You need to query the ORS API for the driving distance and travel time, and the Open-Meteo API for the destination's current weather. Because you are querying external APIs inside a loop, you **must** use rate limiting to avoid getting your account temporarily blocked.
+
+:::{figure} images/21_api_chaining_flowchart.png
+:alt: A technical flowchart showing a loop iterating through cities. Inside, a box makes an ORS API call, another makes an Open-Meteo call, followed by a 'time.sleep()' pause icon, before returning to the start of the loop.
+:width: 700px
+:align: center
+
+*Logic flow for an automated logistics pipeline: Chaining two distinct API requests (Routing and Weather) inside a loop, utilizing rate limiting to avoid server overload.*
+:::
+
 
 ### Code
 

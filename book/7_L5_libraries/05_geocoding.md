@@ -99,6 +99,24 @@ else:
 
 Notice that Nominatim returns the full, officially formatted address alongside the exact latitude and longitude.
 
+#### Concept check
+
+Imagine you try to geocode a fictional or highly misspelled place:
+`location = geolocator.geocode("City of Atlantis")`
+
+If you try to run `print(location.latitude)` on the very next line, what will happen?
+
+```{admonition} Will it print, skip, or crash?
+:class: dropdown
+
+**It will crash with an `AttributeError`.**
+
+When Nominatim cannot find a matching location, it does not crash on the `.geocode()` line. Instead, it quietly returns a special Python value called `None` (meaning "nothing"). 
+
+If you try to extract a latitude from `None`, Python throws an error because "nothing" doesn't have a latitude! This is why you must **always** use an `if location:` check before trying to extract the coordinates, just like in the example code above.
+
+```
+
 ---
 
 ## 4. Reverse geocoding
@@ -116,6 +134,23 @@ location = geolocator.reverse(mystery_coordinate)
 
 print("What is located at this coordinate?")
 print(location.address)
+```
+
+#### Concept check
+
+Which `geolocator` method (`.geocode()` or `.reverse()`) would you use for the following scenarios?
+
+1. You have a CSV file containing a column of customer zip codes and city names.
+2. You have a GPX file exported from your smartwatch tracking your morning run.
+3. You have a database of Mastodon posts containing geotags (latitude/longitude metadata).
+
+```{admonition} Choose your method!
+:class: dropdown
+
+1. **`.geocode()` (Forward)**: You have text (zip codes/cities) and need to find where they are on a map.
+2. **`.reverse()` (Reverse)**: A smartwatch GPX track is pure coordinate data. If you want to know which streets you ran on, you must reverse-geocode the points.
+3. **`.reverse()` (Reverse)**: The geotags are already spatial coordinates. To group the posts by neighborhood or city name, you must reverse-geocode them.
+
 ```
 
 :::{figure} images/18_reverse_geocode_map.png
@@ -152,7 +187,7 @@ for place in tqdm(places):
         print(f"\n{place} is located at {loc.latitude}, {loc.longitude}")
     
     # Crucial: sleep for 1.5 seconds to respect Nominatim's strict rules
-    time.sleep(1.5)
+    time.sleep(1)
 ```
 
 ---
@@ -204,7 +239,7 @@ Write a loop to reverse-geocode them to find out exactly where these accidents o
 1. Loop through the `accident_coords` list.
 2. For each coordinate string, use `.reverse()` to find the location.
 3. Print the full address so the safety team knows where to go.
-4. Add a `time.sleep(1.5)` command to respect Nominatim's strict API limits.
+4. Add a `time.sleep(1)` command to respect Nominatim's strict API limits.
 
 ```{code-cell} python
 import time
@@ -261,7 +296,7 @@ for coordinate in accident_coords:
         print(f"Install road safety signs at: {full_address}\n")
     
     # Pause for 1.5 seconds to respect the server limits
-    time.sleep(1.5)
+    time.sleep(1)
 ```
 
 **Key idea:**
@@ -282,3 +317,7 @@ In this section, you learned how to convert human language into geographic coord
 * Because geocoding relies on public servers, you must respect **rate limits** by using `time.sleep()` inside your loops.
 
 You now possess the foundational skills to fetch live data from the internet and translate raw addresses into mappable coordinates. Next, we will start introducing tools designed to handle this data in bulk.
+
+### What comes next?
+
+You now have all the core tools to connect Python to the real world. In the upcoming **Practical**, you will put these skills to the test by building an automated logistics pipeline for a European delivery company. You will combine `geopy` and the `requests` module to translate addresses, calculate live driving routes, and fetch real-time weather forecasts—chaining multiple Web APIs together in a single, rate-limited loop!

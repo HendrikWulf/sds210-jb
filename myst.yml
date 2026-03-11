@@ -124,12 +124,19 @@ project:
     - title: L5 - Libraries & Co
       file: book/7_L5_libraries.md
       children:
+        - file: book/7_L5_libraries/01_script_files.ipynb
         # - file: book/7_L5_libraries/01_script_files.md
+        - file: book/7_L5_libraries/02_standard_library.ipynb
         # - file: book/7_L5_libraries/02_standard_library.md
+        - file: book/7_L5_libraries/03_party_modules.ipynb
         # - file: book/7_L5_libraries/03_party_modules.md
+        - file: book/7_L5_libraries/04_web_api.ipynb
         # - file: book/7_L5_libraries/04_web_api.md
+        - file: book/7_L5_libraries/05_geocoding.ipynb
         # - file: book/7_L5_libraries/05_geocoding.md
+        - file: book/7_L5_libraries/06_practical_L5.ipynb
         # - file: book/7_L5_libraries/06_practical_L5.md
+        # - file: book/7_L5_libraries/07_practical_L5_solution.ipynb
         # - file: book/7_L5_libraries/07_practical_L5_solution.md
     - title: L6 - Data & Co
       file: book/8_L6_data.md

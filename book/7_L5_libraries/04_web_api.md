@@ -74,6 +74,22 @@ response = requests.get('[https://objectiveunclear.com/](https://objectiveunclea
 print(response.status_code)
 
 ```
+#### Concept check
+
+Imagine you write a script to download a dataset from a government API, but you accidentally misspell the URL: `requests.get('https://api.weather.gov/spelled_wrong')`.
+
+Will Python crash on this line? What will the `status_code` likely be?
+
+```{admonition} Will it crash?
+:class: dropdown
+
+**Python will not crash, but the status code will be 404 (Not Found).**
+
+The `requests` module successfully did its job: it sent a message to the server, and the server successfully replied with "I can't find that page." 
+
+Because Python itself doesn't crash when a URL is wrong, it is entirely up to you as the programmer to write an `if response.status_code == 200:` check before trying to extract data. If you try to run `.json()` on a 404 error page, *then* your code will crash!
+
+```
 
 ---
 
@@ -146,6 +162,36 @@ else:
 By changing the latitude and longitude in the `parameters` dictionary, you can instantly fetch the current weather for anywhere on Earth.
 
 > *If you are curious, inspect the `data["current_weather"]` dictionary to see which other weather parameters are included, like `windspeed` and `winddirection`.*
+
+#### Concept check
+
+Assume you successfully pinged the Open-Meteo API and converted the response into a Python dictionary called `data`. The raw JSON structure looks like this:
+
+```json
+{
+  "latitude": 47.37,
+  "longitude": 8.54,
+  "current_weather": {
+    "temperature": 15.2,
+    "windspeed": 9.4,
+    "winddirection": 270,
+    "time": "2023-10-25T14:00"
+  }
+}
+
+```
+
+How would you extract the `winddirection` value (270) and save it to a variable?
+
+```{admonition} Drill down the dictionary!
+:class: dropdown
+
+`direction = data["current_weather"]["winddirection"]`
+
+**Why?**
+You cannot just ask for `data["winddirection"]` because that key is hidden inside a nested dictionary. You must step through the hierarchy sequentially: first opening the `"current_weather"` dictionary, and *then* selecting the `"winddirection"` key inside it.
+
+```
 
 ---
 
@@ -429,3 +475,9 @@ In this section, you learned how to break out of your local machine and fetch dy
 * Data on the web is heavily exchanged using **JSON**.
 * You extract data from a response by parsing the JSON into a standard Python dictionary using `.json()`.
 * **Rate limiting** is critical. You must use `time.sleep()` to slow down your loops and respect the provider's server limits.
+
+### What comes next?
+
+You now know how to fetch live data using exact latitude and longitude. But what if you only have a list of street addresses, city names, or landmarks?
+
+In the next section, **Geocoding**, we will use Web APIs to bridge the gap between human language and computer geometry. You will learn how to automatically translate everyday text into exact, mappable coordinates, and vice versa.
