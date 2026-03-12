@@ -60,6 +60,7 @@ print(z, g, l)
 3. Add a short comment explaining what each variable represents.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -88,6 +89,7 @@ print("The distance from " + z + " to " + g + " is " + str(dist_zurich_geneva) +
 2. Rewrite the print statement using a modern **f-string** for better readability.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -116,6 +118,7 @@ print(f"{x} is of type {type(x)}, {y} is of type {type(y)}, and {z_val} is of ty
 3. Explain (in a comment) why the square root results in a `float` data type even if the answer is a whole number.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -145,6 +148,7 @@ print("Zurich y:", zurich_coords[1])
 2. Add a comment explaining why a **list** (or a **tuple**) is a suitable data structure for coordinates.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -182,6 +186,7 @@ cl = cities["Lugano"]
 2. Explain (in a comment) why dictionaries are more flexible and powerful than storing individual variables for every city.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -228,6 +233,7 @@ print(f"Manhattan distance from Zurich to Lugano is {manhattan_zl}")
 2. Store the results in appropriately named new variables.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -259,6 +265,7 @@ print(f"Euclidean distance from Zurich to Lugano is {euclidean_zl}")
 2. Print both Manhattan and Euclidean distances clearly using f-strings. Which one is always shorter?
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -289,6 +296,7 @@ print(distances)
 3. Inspect the structure and explain (in a comment) how this resembles an attribute table in GIS.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -303,6 +311,7 @@ Take a moment to review what you've built. Answer briefly in comments or markdow
 3. Which step helped you most to understand how Python executes mathematical distance calculations?
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -319,6 +328,7 @@ Design a single comprehensive dictionary that stores:
 You do **not** need to automate anything yet. Focus solely on structure and clarity. How would you design the "perfect" data structure to hold all this information?
 
 ```{code-cell} python
+# Write your code here
 
 ```
 

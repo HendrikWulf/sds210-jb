@@ -378,6 +378,7 @@ To calculate decimal degrees, we can use the formula below:
 3. Calculate and **return** the Decimal Degrees, handling both positive and negative degrees.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -431,6 +432,7 @@ Inside this function:
 3. **Return** the final distance in kilometers.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -482,6 +484,7 @@ Inside your function:
 5. **Return** the final list of reachable reserves.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -517,7 +520,7 @@ def find_reachable(start_name, all_reserves, max_range):
 
 ```{admonition} Key insight
 :class: hint
-This is how real spatial querying works! You just built a custom proximity tool. Because you used modular design, your `find_reachable` function is incredibly easy to read. It simply loops through data and calls `reserve_distance`, which handles the messy DMS cleaning and complex Haversine math completely behind the scenes.
+This is how spatial querying works! You just built a custom proximity tool. Because you used modular design, your `find_reachable` function is very easy to read. It simply loops through data and calls `reserve_distance`, which handles the DMS cleaning and Haversine math completely behind the scenes.
 ```
 
 ``````
@@ -526,7 +529,7 @@ This is how real spatial querying works! You just built a custom proximity tool.
 
 ## 6. Summary
 
-In this section, you learned the absolute minimum viable mechanics needed to build and use a function safely:
+In this section, you learned the viable mechanics needed to build and use a function safely:
 
 * **Define** your tool using the `def` keyword, a verb-based name, and an indented code block.
 * **Parameters** are the placeholders in your definition; **arguments** are the actual values you pass when calling the function.
@@ -538,6 +541,6 @@ In this section, you learned the absolute minimum viable mechanics needed to bui
 
 ### What comes next?
 
-You now have the basic mechanics down for predictable, single-value functions. But spatial data is rarely predictable. What happens if you need to calculate the distance for an unknown number of GPS waypoints? Or what if your user forgets to input an argument?
+You now understand the basic mechanics of building predictable, modular functions.  You know how to pass data in, and how to safely `return` data back out. 
 
-In the next section, we will level up your functions by exploring **Advanced Inputs** (optional parameters, `*args`, `**kwargs`) and learning how to safely manage where your variables "live" (scope).
+But as you start designing more complex spatial tools, you need to understand how Python manages memory behind the scenes. In the next section, **Function Design Concepts**, we will look at where your variables actually "live" (scope), how to make your tools more flexible using optional parameters, and how to avoid the dangerous memory traps that catch many beginner data scientists.

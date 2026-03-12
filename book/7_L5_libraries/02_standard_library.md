@@ -495,6 +495,7 @@ When you don't round your coordinates, your Python script is specifying a locati
 :::
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
