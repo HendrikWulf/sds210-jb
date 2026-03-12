@@ -282,6 +282,7 @@ Open your `spatial_tools.py` file in the text editor.
 3. Save the file.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -316,6 +317,7 @@ Stay in your `spatial_tools.py` file.
 3. Save the file again.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -356,6 +358,7 @@ Return to your Jupyter notebook.
 3. Test both the Euclidean and Manhattan functionality to see how much longer the grid-based path is compared to the straight-line path.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 

@@ -414,6 +414,7 @@ MeteoSwiss provides yearly aggregations in a separate file ending in `_y.csv` in
 8. Extract the year (index `1`) and the average temperature (index `2`), and print them.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 

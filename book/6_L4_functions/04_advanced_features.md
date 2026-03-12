@@ -371,6 +371,7 @@ Test your understanding of flexible interfaces!
 Write a function called `total_trail_distance()` that accepts any number of trail segment lengths (in kilometers) using `*args`. It should return the total summed distance of the trail.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -396,6 +397,7 @@ Write a function `create_feature(name, **kwargs)` that takes a required `name` a
 `{"name": name, "properties": {all_the_kwargs}}`
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -425,6 +427,7 @@ You have a list of coordinate pairs: `coords = [[8.54, 47.37], [6.14, 46.20], [7
 Using the `.sort()` method and a `lambda` function, sort this list based *only* on the latitude (the second item in each pair, index `1`).
 
 ```{code-cell} python
+# Write your code here
 
 ```
 

@@ -163,6 +163,7 @@ Write down short answers in your own words, or think of suitable ones.
 ---
 
 ```{code-cell} python
+# Write your code here
 
 ```
 

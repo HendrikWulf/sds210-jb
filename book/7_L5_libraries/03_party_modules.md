@@ -291,6 +291,7 @@ Use the `geopy` package to calculate the exact difference. Because `geopy` uses 
 5. Multiply both by 4 to estimate the full circumferences, then print their difference.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 

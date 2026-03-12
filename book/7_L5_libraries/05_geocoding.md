@@ -205,6 +205,7 @@ Use forward geocoding to find the coordinates of your hometown or current univer
 3. Print the resulting `latitude` and `longitude`.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 

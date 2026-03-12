@@ -86,6 +86,7 @@ Test it on "Geneva" (it should return "GEN").
 ---
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -103,6 +104,7 @@ We need two different mathematical tools:
 Write a function `euclidean(coords1, coords2)` that expects two lists of `[x, y]` coordinates. It should calculate the distance using the Pythagorean theorem and return the result converted from meters to kilometers (divide by 1000).
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -309,6 +311,7 @@ Answer briefly in comments or markdown:
 3. What is the difference between `*args` and `**kwargs` when building tools like `route_length` and `create_spatial_feature`?
 
 ```{code-cell} python
+# Write your code here
 
 ```
 ---

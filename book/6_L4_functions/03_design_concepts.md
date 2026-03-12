@@ -75,7 +75,7 @@ This is actually a brilliant feature! It means you can use simple variable names
 
 Python searches for variables from the inside out. If it cannot find a variable inside the function (local scope), it will peek outside into the main script (global scope) to see if it exists there.
 
-This can lead to incredibly dangerous bugs. Look at this example:
+This can lead to dangerous bugs. Look at this example:
 
 ```{code-cell} python
 # A global variable defined at the top of our notebook
@@ -354,6 +354,7 @@ Calculating a simplified bounding box. By adding and subtracting a buffer value 
 3. The function should **return** a dictionary containing `min_lat`, `max_lat`, `min_lon`, and `max_lon`. (Hint: `min_lat` is `lat - buffer`, `max_lat` is `lat + buffer`, etc.)
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
