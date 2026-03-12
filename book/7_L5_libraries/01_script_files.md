@@ -11,6 +11,20 @@ Moving code out of the notebook
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/7_L5_libraries/01_script_files.ipynb)
+
+---
+
+```{admonition} Big idea
+:class: tip
+
+Don't copy and paste the same code into every notebook.
+
+By moving your custom functions into a dedicated Python script file (`.py`), you can **import** them into any project. This keeps your notebooks clean, makes your code reusable, and creates a single, reliable source of truth for your tools.
+
+
+```
+
 Up to this point, you have been keeping your Python code and Markdown comments in a single Jupyter notebook document. This is great for exploration and learning. However, there are cases where you want to have Python code in a separate document. When you have long Python code blocks or a set of functions used across many different notebooks, moving them out makes your notebook much easier to read and use.
 
 An alternative to typing all your commands directly into cells is to list them in a Python script file. A Python script file is simply a plain text file containing a list of the commands you want to run, formatted exactly as if you were to type them into a cell. Python script files traditionally use the `.py` file extension.

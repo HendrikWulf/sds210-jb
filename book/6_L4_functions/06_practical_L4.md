@@ -31,13 +31,11 @@ After completing this practical, you will be able to:
 
 ## Practical storyline
 
-Up to now, we have used simple, dummy coordinates. In the real world, spatial data comes in different coordinate reference systems (CRS).
-
-In this practical, you will process a realistic dataset of 10 Swiss cities containing both **Swiss Grid (LV95)** coordinates and **Global Geographic (Lat/Lon)** coordinates. You will build a mini-library of functions to clean the data, calculate distances using different geometric models, compare the results in a matrix, and structure outputs flexibly.
+In this practical, you will process a dataset of 10 Swiss cities containing both **Swiss Grid (LV95)** coordinates and **Global Geographic (Lat/Lon)** coordinates. You will build a mini-library of functions to clean the data, calculate distances using different geometric models, compare the results in a matrix, and structure outputs flexibly.
 
 ---
 
-## Part 1 – Assembling the realistic dataset
+## Part 1 – Assembling the dataset
 
 Instead of giving you all the data immediately, let's look at how you find it.
 

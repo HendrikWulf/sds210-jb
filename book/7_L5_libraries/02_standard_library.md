@@ -13,7 +13,23 @@ Using batteries included with Python
 
 ---
 
-Python is famous for having "batteries included." This means that when you install Python, you also get the Python Standard Library. This library is a large collection of powerful modules that provide ready-to-use solutions for common programming tasks. Because these modules are bundled directly with Python, you do not need to download or install anything extra to use them.
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/7_L5_libraries/02_stadard_library.ipynb)
+
+---
+
+```{admonition} Big idea
+:class: tip
+
+Python comes with "batteries included."
+
+Before you spend hours writing complex code to solve a common problem (like advanced math, statistics, or file management), check the **Standard Library**. Python likely already has a built-in tool designed to do exactly what you need—you just have to import it.
+
+
+```
+
+In the previous section, you learned how to write and import your own custom scripts. While building your own tools is a vital skill, you rarely need to invent everything from scratch.
+
+When you install Python, it automatically comes pre-packaged with the **Python Standard Library**. This is a substantial collection of highly optimized, ready-to-use modules. Whether you need to run complex statistical math, generate random coordinate samples, or navigate your computer's file system, the tools are already sitting on your machine. You do not need to download or install anything extra.
 
 You just have to unlock them using the `import` command.
 

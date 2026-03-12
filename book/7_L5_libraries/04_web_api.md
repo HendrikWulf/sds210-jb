@@ -12,6 +12,10 @@ Connecting Python to the live web
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/7_L5_libraries/04_web_api.ipynb)
+
+---
+
 ```{admonition} Big idea
 :class: tip
 
