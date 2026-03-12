@@ -13,6 +13,10 @@ Connecting Python to the real world
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/7_L5_libraries/07_practical_L5_solution.ipynb)
+
+---
+
 ## Learning objectives
 
 After completing this practical, you will be able to:
