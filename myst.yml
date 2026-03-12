@@ -121,7 +121,7 @@ project:
         # - file: book/6_L4_functions/06_practical_L4.md
         # - file: book/6_L4_functions/07_practical_L4_solution.ipynb
         # - file: book/6_L4_functions/07_practical_L4_solution.md
-    - title: L5 - Libraries & Co
+    - title: L5 - Libraries & APIs
       file: book/7_L5_libraries.md
       children:
         - file: book/7_L5_libraries/01_script_files.ipynb
