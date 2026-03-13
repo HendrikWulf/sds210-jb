@@ -75,6 +75,7 @@ print(city_data)
 3. Explain in a comment why a dictionary is useful here.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -93,6 +94,7 @@ Write a loop that iterates over all cities in `city_data` and prints the city na
 3. Add a comment explaining **what the loop variable `city` represents**.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -111,6 +113,10 @@ Write code that extracts all city names from `city_data` and uses **nested loops
 3. Count how many city pairs are generated and explain why this number makes sense.
 
 ```{code-cell} python
+# Write your code here
+
+city_names = list(city_data.keys())
+pairs = []
 
 ```
 
@@ -140,6 +146,7 @@ Write code that loops over all city pairs, computes both Euclidean and Manhattan
 2. Inspect the structure of the `distances` dictionary and explain how it resembles an **attribute table** in GIS.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -160,6 +167,7 @@ Write code that iterates over the `distances` dictionary, checks the Euclidean d
 3. Explain why **tracking values during iteration** is more efficient than checking results afterwards.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -177,6 +185,7 @@ Write code that loops over all city pairs, computes the Euclidean distance, and 
 2. Discuss situations in spatial data science where early stopping saves time.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -194,6 +203,7 @@ Loops are often used to **prepare data for analysis**. Here, you will extract th
 4. **The Fix:** Fix the calculation by sorting the data *before* computing the median using `sort()` (`list_sorted = list.sort()`).
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -207,6 +217,7 @@ Loops are often used to **prepare data for analysis**. Here, you will extract th
 2. Generate a Fibonacci sequence using a `while` loop that stops only when a value exceeds `100`.
 
 ```{code-cell} python
+# Write your code here
 
 ```
 
@@ -221,6 +232,7 @@ Answer briefly in comments or markdown:
 3. When would you use `for` instead of `while`?
 
 ```{code-cell} python
+# Write your reflections here
 
 ```
 
