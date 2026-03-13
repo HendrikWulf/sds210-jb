@@ -55,7 +55,7 @@ project:
         - file: book/2_setup/4_colab.md
         - file: book/2_setup/5_jupyterLab.md
         - file: book/2_setup/6_docker.md
-    - title: L1 - Get Started
+    - title: L1 - Getting Started
       file: book/3_L1_get-started.md
       children:
          - file: book/3_L1_get-started/01_motivation.md
@@ -119,7 +119,7 @@ project:
         # - file: book/6_L4_functions/05_documentation.md
         - file: book/6_L4_functions/06_practical_L4.ipynb
         # - file: book/6_L4_functions/06_practical_L4.md
-        # - file: book/6_L4_functions/07_practical_L4_solution.ipynb
+        - file: book/6_L4_functions/07_practical_L4_solution.ipynb
         # - file: book/6_L4_functions/07_practical_L4_solution.md
     - title: L5 - Libraries & APIs
       file: book/7_L5_libraries.md
