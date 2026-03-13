@@ -37,7 +37,7 @@ Imagine you are building a logistics tool for a long haul European delivery comp
 
 ---
 
-## 1. Geocoding the locations
+## Part 1 - Geocoding the locations
 
 Before we can calculate distances or query APIs, we need exact coordinates. Your delivery truck starts at a warehouse in Bern, Switzerland, and the first delivery is to a science museum in Trento, Italy.
 
@@ -64,7 +64,7 @@ dest_address = "Corso del Lavoro e della Scienza, 3, 38122 Trento TN, Italy"
 
 ---
 
-## 2. The geodesic baseline
+## Part 2 - The geodesic baseline
 
 To understand how much the road network bends and curves around the Alps, we first need to know the absolute shortest possible path between our two points (`origin_coords` and `dest_coords`).
 
@@ -84,7 +84,7 @@ from geopy import distance
 
 ---
 
-## 3. Setting up OpenRouteService
+## Part 3 - Setting up OpenRouteService
 
 Now we want the real world driving distance. For this, we will use the **OpenRouteService (ORS)** API. Because calculating road routes across entire countries is computationally heavy, ORS requires a personal API key to track usage.
 
@@ -103,7 +103,7 @@ ORS_API_KEY = "replace_this_with_your_actual_key"
 
 ---
 
-## 4. Querying the driving route
+## Part 4 - Querying the driving route
 
 With our key ready, we can construct a request to the ORS directions endpoint. The API requires the coordinates to be formatted in `longitude, latitude` order, which is the exact reverse of what `geopy` gives us!
 
@@ -157,7 +157,7 @@ response = requests.get(api_url, params=parameters)
 
 ---
 
-## 5. Fetching live weather for the driver
+## Part 5 - Fetching live weather for the driver
 
 Before dispatching the driver across international borders, it is good practice to check the current weather at the destination. We can do this using the Open-Meteo API, which does not require a key.
 
@@ -175,7 +175,7 @@ Before dispatching the driver across international borders, it is good practice 
 
 ---
 
-## 6. Automating the logistics pipeline
+## Part 6 - Automating the logistics pipeline
 
 Now it is time to put everything together. The delivery company has given you a list of coordinates for long haul deliveries starting from Bern and heading to various corners of Europe.
 
