@@ -85,7 +85,7 @@ To use it, we simply **call** the function by its name and pass it a number. We 
 # Calling the function and storing the result
 nesting_zone_area = calculate_buffer_area(50)
 
-# Embedding the function call inside another function
+# Embedding the function call inside an f-string
 print(f"A 100 m buffer covers {calculate_buffer_area(100)} square meters.")
 
 ```
