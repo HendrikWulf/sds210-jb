@@ -486,30 +486,6 @@ To practice using the Standard Library, complete the following tasks.
 
 Using the `random` module, write a loop that generates 3 random coordinate pairs (representing latitude and longitude). Assume the latitude must be a decimal between 45.0 and 47.0, and the longitude must be a decimal between 6.0 and 9.0. Print each pair rounded to 4 decimal places.
 
-```{admonition} Atomic coordinates!
-:class: info
-
-If you run `random.uniform(45.0, 47.0)` without rounding it, Python will spit out a number with up to 15 to 17 decimal places (e.g., `45.123456789012345`). 
-
-Why so many? Python stores decimal numbers using a hardware standard called **double-precision (64-bit) floats**. This allocates a massive amount of computer memory just to track the tiny fractions of a number, ensuring extreme accuracy for complex scientific and astronomical calculations.
-
-But in the context of geographic coordinates (where 1 degree is roughly 111 km), what does that precision actually mean on the ground?
-* **4 decimal places** (`.1234`): ~11 meters (accuracy of a standard smartphone GPS).
-* **6 decimal places** (`.123456`): ~11 centimeters (the width of a hand).
-* **8 decimal places** (`.12345678`): ~1 millimeter (the size of a grain of sand).
-* **15 decimal places** (`.123456789012345`): ~0.1 nanometers. This is literally **the width of a single atom**!
-
-When you don't round your coordinates, your Python script is specifying a location on Earth down to the atomic level. Unless you are doing sub-atomic geospatial tracking, rounding to 4 or 5 decimal places is usually plenty!
-```
-
-:::{figure} images/08_coordinate_precision_scale.png
-:alt: An infographic scale showing how geographic coordinate precision relates to physical sizes like meters, millimeters, and nanometers.
-:width: 600px
-:align: center
-
-*The relationship between the number of decimal places in a geographic coordinate and the physical distance it represents on the ground.*
-:::
-
 ```{code-cell} python
 # Write your code here
 
@@ -532,6 +508,31 @@ for i in range(3):
 While `randint` generates whole numbers, `uniform` generates floating-point numbers, which is perfect for creating realistic, randomized geographic coordinates.
 
 `````
+
+```{admonition} Atomic coordinates!
+:class: info
+
+Python represents floating-point numbers with about 15–17 significant digits. (e.g., `45.123456789012345`). 
+
+Why so many? Python stores decimal numbers using a hardware standard called **double-precision (64-bit) floats**. This allocates a massive amount of computer memory just to track the tiny fractions of a number, ensuring extreme accuracy for complex scientific and astronomical calculations.
+
+But in the context of geographic coordinates (where 1 degree is roughly 111 km), what does that precision actually mean on the ground?
+* **4 decimal places** (`.1234`): ~11 meters (accuracy of a standard smartphone GPS).
+* **6 decimal places** (`.123456`): ~11 centimeters (the width of a hand).
+* **8 decimal places** (`.12345678`): ~1 millimeter (the size of a grain of sand).
+* **15 decimal places** (`.123456789012345`): ~0.1 nanometers. This is literally **the width of a single atom**!
+
+When you don't round your coordinates, your Python script is specifying a location on Earth down to the atomic level. Unless you are doing sub-atomic geospatial tracking, rounding to 4 or 5 decimal places is usually plenty!
+```
+
+:::{figure} images/08_coordinate_precision_scale.png
+:alt: An infographic scale showing how geographic coordinate precision relates to physical sizes like meters, millimeters, and nanometers.
+:width: 600px
+:align: center
+
+*The relationship between the number of decimal places in a geographic coordinate and the physical distance it represents on the ground.*
+:::
+
 
 ---
 

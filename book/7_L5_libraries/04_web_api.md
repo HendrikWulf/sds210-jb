@@ -72,7 +72,7 @@ When you send a request, the server sends back a response containing both the da
 import requests
 
 # Ask a web server for its homepage
-response = requests.get('[https://objectiveunclear.com/](https://objectiveunclear.com/)')
+response = requests.get('https://objectiveunclear.com/airloom.html?airport=ZRH')
 
 # Check if the request was successful
 print(response.status_code)
