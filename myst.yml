@@ -141,7 +141,7 @@ project:
     - title: L6 - Data Frames
       file: book/08_L06_data-frames.md
       children:
-        - file: book/08_L06_data-frames/01_pandas_model.md
+        # - file: book/08_L06_data-frames/01_pandas_model.md
         # - file: book/08_L06_libraries/02_data_in_out.md
         # - file: book/08_L06_libraries/03_slicing_dicing.md
         # - file: book/08_L06_libraries/04_cleaning.md
