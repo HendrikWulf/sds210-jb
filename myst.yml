@@ -64,7 +64,7 @@ project:
          - file: book/03_L01_get-started/04_notebooks.md
          - file: book/03_L01_get-started/05_practical-L1.ipynb
          # - file: book/03_L01_get-started/05_practical-L1.md
-    - title: L2 - Variables & Values
+    - title: L2 - Variables
       file: book/04_L02_variables.md
       children:
         - file: book/04_L02_variables/01_variables.ipynb
@@ -121,7 +121,7 @@ project:
         # - file: book/06_L04_functions/06_practical_L4.md
         - file: book/06_L04_functions/07_practical_L4_solution.ipynb
         # - file: book/06_L04_functions/07_practical_L4_solution.md
-    - title: L5 - Libraries & APIs
+    - title: L5 - Libraries
       file: book/07_L05_libraries.md
       children:
         - file: book/07_L05_libraries/01_script_files.ipynb
@@ -153,31 +153,31 @@ project:
     - title: L7 - Vector Data
       file: book/09_L07_vector-data.md
       children:
-        - file: book/09_L07_vector-data/1_get_started.md
+        - file: book/09_L07_vector-data/01_get_started.md
     - title: L8 - Visualization
       file: book/10_L08_visualization.md
       children:
-        - file: book/10_L08_visualization/1_get_started.md
+        - file: book/10_L08_visualization/01_get_started.md
     - title: L9 - Raster Data
       file: book/11_L09_raster-data.md
       children:
-        - file: book/11_L09_raster-data/1_get_started.md
+        - file: book/11_L09_raster-data/01_get_started.md
     - title: L10 - Time Series
       file: book/12_L10_time-series.md
       children:
-        - file: book/12_L10_time-series/1_get_started.md
+        - file: book/12_L10_time-series/01_get_started.md
     - title: L11 - Object Oriented
       file: book/13_L11_object-oriented.md
       children:
-        - file: book/13_L11_object-oriented/1_get_started.md
+        - file: book/13_L11_object-oriented/01_get_started.md
     - title: L12 - Reproducibility
       file: book/14_L12_reproducibility.md
       children:
-        - file: book/14_L12_reproducibility/1_get_started.md
+        - file: book/14_L12_reproducibility/01_get_started.md
     - title: Projects
       file: book/15_projects.md
       children:
-        - file: book/15_projects/1_get_started.md
+        - file: book/15_projects/01_get_started.md
     - title: Glossary
       file: book/16_glossary.md
     - title: Feedback
