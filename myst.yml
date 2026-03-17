@@ -36,142 +36,146 @@ project:
   toc:
     - file: index.md
     - title: About
-      file: book/1_about.md
+      file: book/01_about.md
       children:
-        - file: book/1_about/1_welcome.md
-        - file: book/1_about/2_team.md
-        - file: book/1_about/3_syllabus.md
-        - file: book/1_about/4_schedule.md
-        - file: book/1_about/5_error_culture.md
-        - file: book/1_about/6_ai.md
-        - file: book/1_about/7_resources.md
-        - file: book/1_about/8_acknowledgments.md
+        - file: book/01_about/1_welcome.md
+        - file: book/01_about/2_team.md
+        - file: book/01_about/3_syllabus.md
+        - file: book/01_about/4_schedule.md
+        - file: book/01_about/5_error_culture.md
+        - file: book/01_about/6_ai.md
+        - file: book/01_about/7_resources.md
+        - file: book/01_about/8_acknowledgments.md
     - title: Setup
-      file: book/2_setup.md
+      file: book/02_setup.md
       children:
-        - file: book/2_setup/1_conda.md
-        - file: book/2_setup/2_vs_code.md
-        - file: book/2_setup/3_git.md
-        - file: book/2_setup/4_colab.md
-        - file: book/2_setup/5_jupyterLab.md
-        - file: book/2_setup/6_docker.md
+        - file: book/02_setup/1_conda.md
+        - file: book/02_setup/2_vs_code.md
+        - file: book/02_setup/3_git.md
+        - file: book/02_setup/4_colab.md
+        - file: book/02_setup/5_jupyterLab.md
+        - file: book/02_setup/6_docker.md
     - title: L1 - Getting Started
-      file: book/3_L1_get-started.md
+      file: book/03_L01_get-started.md
       children:
-         - file: book/3_L1_get-started/01_motivation.md
-         - file: book/3_L1_get-started/02_programming.md
-         - file: book/3_L1_get-started/03_syntax.md
-         - file: book/3_L1_get-started/04_notebooks.md
-         - file: book/3_L1_get-started/05_practical-L1.ipynb
-         # - file: book/3_L1_get-started/05_practical-L1.md
+         - file: book/03_L01_get-started/01_motivation.md
+         - file: book/03_L01_get-started/02_programming.md
+         - file: book/03_L01_get-started/03_syntax.md
+         - file: book/03_L01_get-started/04_notebooks.md
+         - file: book/03_L01_get-started/05_practical-L1.ipynb
+         # - file: book/03_L01_get-started/05_practical-L1.md
     - title: L2 - Variables & Values
-      file: book/4_L2_variables.md
+      file: book/04_L02_variables.md
       children:
-        - file: book/4_L2_variables/01_variables.ipynb
-        # - file: book/4_L2_variables/01_variables.md
-        - file: book/4_L2_variables/02_naming-variables.ipynb
-        # - file: book/4_L2_variables/02_naming-variables.md
-        - file: book/4_L2_variables/03_data-types.ipynb
-        # - file: book/4_L2_variables/03_data-types.md
-        - file: book/4_L2_variables/04_operators-expressions.ipynb
-        # - file: book/4_L2_variables/04_operators-expressions.md
-        - file: book/4_L2_variables/05_string-operations.ipynb
-        # - file: book/4_L2_variables/05_string-operations.md
-        - file: book/4_L2_variables/06_formatting-output.ipynb
-        # - file: book/4_L2_variables/06_formatting-output.md
-        - file: book/4_L2_variables/07_multi-item-variables.ipynb
-        # - file: book/4_L2_variables/07_multi-item-variables.md
-        - file: book/4_L2_variables/08_practical-L2.ipynb
-        # - file: book/4_L2_variables/08_practical-L2.md
-        - file: book/4_L2_variables/09_practical-L2-solution.ipynb
-        # - file: book/4_L2_variables/09_practical-L2-solution.md
+        - file: book/04_L02_variables/01_variables.ipynb
+        # - file: book/04_L02_variables/01_variables.md
+        - file: book/04_L02_variables/02_naming-variables.ipynb
+        # - file: book/04_L02_variables/02_naming-variables.md
+        - file: book/04_L02_variables/03_data-types.ipynb
+        # - file: book/04_L02_variables/03_data-types.md
+        - file: book/04_L02_variables/04_operators-expressions.ipynb
+        # - file: book/04_L02_variables/04_operators-expressions.md
+        - file: book/04_L02_variables/05_string-operations.ipynb
+        # - file: book/04_L02_variables/05_string-operations.md
+        - file: book/04_L02_variables/06_formatting-output.ipynb
+        # - file: book/04_L02_variables/06_formatting-output.md
+        - file: book/04_L02_variables/07_multi-item-variables.ipynb
+        # - file: book/04_L02_variables/07_multi-item-variables.md
+        - file: book/04_L02_variables/08_practical-L2.ipynb
+        # - file: book/04_L02_variables/08_practical-L2.md
+        - file: book/04_L02_variables/09_practical-L2-solution.ipynb
+        # - file: book/04_L02_variables/09_practical-L2-solution.md
     - title: L3 - Loops
-      file: book/5_L3_loops.md
+      file: book/05_L03_loops.md
       children:
-        - file: book/5_L3_loops/01_why-is-this-relevant.ipynb
-        # - file: book/5_L3_loops/01_why-is-this-relevant.md
-        - file: book/5_L3_loops/02_for-loops.ipynb
-        # - file: book/5_L3_loops/02_for-loops.md
-        - file: book/5_L3_loops/03_conditional-execution.ipynb
-        # - file: book/5_L3_loops/03_conditional-execution.md
-        - file: book/5_L3_loops/04_while-loops.ipynb
-        # - file: book/5_L3_loops/04_while-loops.md
-        - file: book/5_L3_loops/05_controlling-loops.ipynb
-        # - file: book/5_L3_loops/05_controlling-loops.md
-        - file: book/5_L3_loops/06_list-comprehension.ipynb
-        # - file: book/5_L3_loops/06_list-comprehension.md
-        - file: book/5_L3_loops/07_practical-L3.ipynb
-        # - file: book/5_L3_loops/07_practical-L3.md
-        - file: book/5_L3_loops/08_practical-L3-solution.ipynb
-        # - file: book/5_L3_loops/08_practical-L3-solution.md
+        - file: book/05_L03_loops/01_why-is-this-relevant.ipynb
+        # - file: book/05_L03_loops/01_why-is-this-relevant.md
+        - file: book/05_L03_loops/02_for-loops.ipynb
+        # - file: book/05_L03_loops/02_for-loops.md
+        - file: book/05_L03_loops/03_conditional-execution.ipynb
+        # - file: book/05_L03_loops/03_conditional-execution.md
+        - file: book/05_L03_loops/04_while-loops.ipynb
+        # - file: book/05_L03_loops/04_while-loops.md
+        - file: book/05_L03_loops/05_controlling-loops.ipynb
+        # - file: book/05_L03_loops/05_controlling-loops.md
+        - file: book/05_L03_loops/06_list-comprehension.ipynb
+        # - file: book/05_L03_loops/06_list-comprehension.md
+        - file: book/05_L03_loops/07_practical-L3.ipynb
+        # - file: book/05_L03_loops/07_practical-L3.md
+        - file: book/05_L03_loops/08_practical-L3-solution.ipynb
+        # - file: book/05_L03_loops/08_practical-L3-solution.md
     - title: L4 - Functions
-      file: book/6_L4_functions.md
+      file: book/06_L04_functions.md
       children:
-        - file: book/6_L4_functions/01_why_functions.ipynb
-        # - file: book/6_L4_functions/01_why_functions.md
-        - file: book/6_L4_functions/02_core_mechanics.ipynb
-        # - file: book/6_L4_functions/02_core_mechanics.md
-        - file: book/6_L4_functions/03_design_concepts.ipynb
-        # - file: book/6_L4_functions/03_design_concepts.md
-        - file: book/6_L4_functions/04_advanced_features.ipynb
-        # - file: book/6_L4_functions/04_advanced_features.md
-        - file: book/6_L4_functions/05_documentation.ipynb
-        # - file: book/6_L4_functions/05_documentation.md
-        - file: book/6_L4_functions/06_practical_L4.ipynb
-        # - file: book/6_L4_functions/06_practical_L4.md
-        - file: book/6_L4_functions/07_practical_L4_solution.ipynb
-        # - file: book/6_L4_functions/07_practical_L4_solution.md
+        - file: book/06_L04_functions/01_why_functions.ipynb
+        # - file: book/06_L04_functions/01_why_functions.md
+        - file: book/06_L04_functions/02_core_mechanics.ipynb
+        # - file: book/06_L04_functions/02_core_mechanics.md
+        - file: book/06_L04_functions/03_design_concepts.ipynb
+        # - file: book/06_L04_functions/03_design_concepts.md
+        - file: book/06_L04_functions/04_advanced_features.ipynb
+        # - file: book/06_L04_functions/04_advanced_features.md
+        - file: book/06_L04_functions/05_documentation.ipynb
+        # - file: book/06_L04_functions/05_documentation.md
+        - file: book/06_L04_functions/06_practical_L4.ipynb
+        # - file: book/06_L04_functions/06_practical_L4.md
+        - file: book/06_L04_functions/07_practical_L4_solution.ipynb
+        # - file: book/06_L04_functions/07_practical_L4_solution.md
     - title: L5 - Libraries & APIs
-      file: book/7_L5_libraries.md
+      file: book/07_L05_libraries.md
       children:
-        - file: book/7_L5_libraries/01_script_files.ipynb
-        # - file: book/7_L5_libraries/01_script_files.md
-        - file: book/7_L5_libraries/02_standard_library.ipynb
-        # - file: book/7_L5_libraries/02_standard_library.md
-        - file: book/7_L5_libraries/03_party_modules.ipynb
-        # - file: book/7_L5_libraries/03_party_modules.md
-        - file: book/7_L5_libraries/04_web_api.ipynb
-        # - file: book/7_L5_libraries/04_web_api.md
-        - file: book/7_L5_libraries/05_geocoding.ipynb
-        # - file: book/7_L5_libraries/05_geocoding.md
-        - file: book/7_L5_libraries/06_practical_L5.ipynb
-        # - file: book/7_L5_libraries/06_practical_L5.md
-        # - file: book/7_L5_libraries/07_practical_L5_solution.ipynb
-        # - file: book/7_L5_libraries/07_practical_L5_solution.md
-    - title: L6 - Data & Co
-      file: book/8_L6_data.md
+        - file: book/07_L05_libraries/01_script_files.ipynb
+        # - file: book/07_L05_libraries/01_script_files.md
+        - file: book/07_L05_libraries/02_standard_library.ipynb
+        # - file: book/07_L05_libraries/02_standard_library.md
+        - file: book/07_L05_libraries/03_party_modules.ipynb
+        # - file: book/07_L05_libraries/03_party_modules.md
+        - file: book/07_L05_libraries/04_web_api.ipynb
+        # - file: book/07_L05_libraries/04_web_api.md
+        - file: book/07_L05_libraries/05_geocoding.ipynb
+        # - file: book/07_L05_libraries/05_geocoding.md
+        - file: book/07_L05_libraries/06_practical_L5.ipynb
+        # - file: book/07_L05_libraries/06_practical_L5.md
+        # - file: book/07_L05_libraries/07_practical_L5_solution.ipynb
+        # - file: book/07_L05_libraries/07_practical_L5_solution.md
+    - title: L6 - Data Frames
+      file: book/08_L06_data-frames.md
       children:
-        - file: book/8_L6_data/1_get_started.md        
-    - title: L7 - Numpy & Co.
-      file: book/9_L7_numpy.md
+        - file: book/08_L06_data-frames/1_get_started.md        
+    - title: L7 - Vector Data
+      file: book/09_L07_vector-data.md
       children:
-        - file: book/9_L7_numpy/1_get_started.md
-    - title: L8 - Pandas & Co.
-      file: book/10_L8_pandas.md
+        - file: book/09_L07_vector-data/1_get_started.md
+    - title: L8 - Visualization
+      file: book/10_L08_visualization.md
       children:
-        - file: book/10_L8_pandas/1_get_started.md
-    - title: L9 - Matplotlib & Co.
-      file: book/11_L9_matplotlib.md
+        - file: book/10_L08_visualization/1_get_started.md
+    - title: L9 - Raster Data
+      file: book/11_L09_raster-data.md
       children:
-        - file: book/11_L9_matplotlib/1_get_started.md
-    - title: L10 - Object Oriented
-      file: book/12_L10_object-oriented.md
+        - file: book/11_L09_raster-data/1_get_started.md
+    - title: L10 - Time Series
+      file: book/12_L10_time-series.md
       children:
-        - file: book/12_L10_object-oriented/1_get_started.md
-    - title: L11 - Organising Code
-      file: book/13_L11_organising-code.md
+        - file: book/12_L10_time-series/1_get_started.md
+    - title: L11 - Object Oriented
+      file: book/13_L11_object-oriented.md
       children:
-        - file: book/13_L11_organising-code/1_get_started.md
+        - file: book/13_L11_object-oriented/1_get_started.md
+    - title: L12 - Reproducibility
+      file: book/14_L12_reproducibility.md
+      children:
+        - file: book/14_L12_reproducibility/1_get_started.md
     - title: Projects
-      file: book/14_projects.md
+      file: book/15_projects.md
       children:
-        - file: book/14_projects/1_get_started.md
-    - title: Feedback
-      file: book/15_feedback.md
-      # children:
-      #  - file: book/15_feedback/1_get_started.md
+        - file: book/15_projects/1_get_started.md
     - title: Glossary
       file: book/16_glossary.md
+    - title: Feedback
+      file: book/17_feedback.md
+      # children:
+      #  - file: book/17_feedback/1_get_started.md  
  #   - file: book/markdown.md
  #   - file: book/introduction.md
  #   - file: book/notebooks.ipynb
