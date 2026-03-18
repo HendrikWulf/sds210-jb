@@ -91,14 +91,14 @@ In Pandas, the DataFrame object owns its tools. These built in tools are called 
 
 :::
 
-For example, to get a technical summary of your data, you use the `.info()` method:
+For example, to get a technical summary of your data, you use the `.info()` {term}`method`:
 
 ```{code-cell} python
 data.info()
 
 ```
 
-:::{table} Output of data.info() method
+:::{table} Output of data.info() {term}`method`
 :label: df-info-table
 :align: center
 
@@ -211,13 +211,18 @@ Answer the following questions:
 3. If a DataFrame acts like a dictionary of Series, what are the "keys" of that dictionary?
 4. Is `.mean()` a standard Python function or a Pandas method?
 
-```{admonition} Check your understanding
+```{code-cell} python
+# Write your code here
+
+```
+
+```{admonition} Sample solution
 :class: dropdown
 
 1. `weather_data` is a **DataFrame**. It is a two dimensional table loaded from the CSV file.
 2. `weather_data["temperature"]` is a **Series**. Extracting a single column from a DataFrame always returns a one dimensional Series.
 3. **The column names.** Just like `my_dictionary["key"]` extracts a value, `weather_data["temperature"]` uses the column name as a key to extract the entire Series.
-4. `.mean()` is a **Pandas method**. Notice the dot notation: we are asking the Series object to calculate its own average.
+4. `.mean()` is a **Pandas {term}`method`**. Notice the dot notation: we are asking the Series object to calculate its own average.
 
 
 ```

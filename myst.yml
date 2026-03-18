@@ -142,14 +142,14 @@ project:
       file: book/08_L06_data-frames.md
       children:
         # - file: book/08_L06_data-frames/01_pandas_model.md
-        # - file: book/08_L06_libraries/02_data_in_out.md
-        # - file: book/08_L06_libraries/03_slicing_dicing.md
-        # - file: book/08_L06_libraries/04_cleaning.md
-        # - file: book/08_L06_libraries/05_vectorization.md
-        # - file: book/08_L06_libraries/06_aggregating_joining.md
-        # - file: book/08_L06_libraries/07_temporal_data.md
-        # - file: book/08_L06_libraries/08_practical_L6.md
-        # - file: book/08_L06_libraries/08_practical_L6-solutions.md
+        # - file: book/08_L06_data-frames/02_data_in_out.md
+        # - file: book/08_L06_data-frames/03_slicing_dicing.md
+        # - file: book/08_L06_data-frames/04_cleaning.md
+        # - file: book/08_L06_data-frames/05_vectorization.md
+        # - file: book/08_L06_data-frames/06_aggregating_joining.md
+        # - file: book/08_L06_data-frames/07_temporal_data.md
+        # - file: book/08_L06_data-frames/08_practical_L6.md
+        # - file: book/08_L06_data-frames/08_practical_L6-solutions.md
     - title: L7 - Vector Data
       file: book/09_L07_vector-data.md
       children:
