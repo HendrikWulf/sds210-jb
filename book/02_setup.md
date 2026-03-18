@@ -54,7 +54,7 @@ You don’t need to learn all of them at once. For now, focus on **what each too
 
 ---
 
-:::{figure} 2_setup/images/0_1_conda_logo_full.svg
+:::{figure} 02_setup/images/0_1_conda_logo_full.svg
 :alt: Conda logo
 :width: 200px
 :::
@@ -82,7 +82,7 @@ If Conda is set up correctly, you spend your time **writing code**, not debuggin
 
 ---
 
-:::{figure} 2_setup/images/0_2_Visual_Studio_Code_1.35_icon.svg
+:::{figure} 02_setup/images/0_2_Visual_Studio_Code_1.35_icon.svg
 :alt: VS Code logo
 :width: 100px
 :::
@@ -112,7 +112,7 @@ Good tools don’t replace thinking, they reduce friction so you can focus on pr
 
 ---
 
-:::{figure} 2_setup/images/0_3_Git-logo.svg
+:::{figure} 02_setup/images/0_3_Git-logo.svg
 :alt: Git logo
 :width: 200px
 :::
@@ -142,7 +142,7 @@ Git is not just for teams. It is just as valuable when you work alone on your ow
 
 ---
 
-:::{figure} 2_setup/images/0_4_Google_Colab_pic.png
+:::{figure} 02_setup/images/0_4_Google_Colab_pic.png
 :alt: Colab logo
 :width: 150px
 :::
@@ -172,7 +172,7 @@ Colab is especially useful for quick experiments, learning new tools, or running
 
 ---
 
-:::{figure} 2_setup/images/0_5_jupyter.svg
+:::{figure} 02_setup/images/0_5_jupyter.svg
 :alt: jupyter logo
 :width: 100px
 :::
@@ -201,7 +201,7 @@ Well written notebooks explain not only *what* you did, but also *why* you did i
 ```
 ---
 
-:::{figure} 2_setup/images/0_6_Docker_logo.png
+:::{figure} 02_setup/images/0_6_Docker_logo.png
 :alt: Docker logo
 :width: 200px
 :::

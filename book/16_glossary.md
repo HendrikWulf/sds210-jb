@@ -25,6 +25,10 @@ Argument
 : A statement used in a Python program to check whether a condition evaluates to `True` when the code is executed.  
   If the condition is not `True`, an `AssertionError` is raised. Assertions are commonly used for debugging and testing code.
 
+Attribute
+: A value or variable that is associated with an instance of a specific data type or {term}`Class`.  
+  Attributes represent static characteristics or properties of an object and are accessed using dot notation without parentheses.
+
 [Camel case](https://en.wikipedia.org/wiki/Camel_case)
 : A variable naming convention in which words are joined without spaces, with each new word starting with a capital letter (except the first).  
   Example: `gpsStationId`.  
