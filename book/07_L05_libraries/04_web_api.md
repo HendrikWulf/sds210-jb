@@ -134,7 +134,7 @@ We want to find out the current temperature in Zurich. To do this, we need to pa
 import requests
 
 # 1. Define the API endpoint URL
-api_url = "[https://api.open-meteo.com/v1/forecast](https://api.open-meteo.com/v1/forecast)"
+api_url = "https://api.open-meteo.com/v1/forecast"
 
 # 2. Define our query parameters (Zurich coordinates)
 parameters = {
