@@ -212,8 +212,8 @@ if response.status_code == 200:
     driving_km = summary['distance'] / 1000
     duration_seconds = summary['duration']
     
-    hours = int(duration_seconds // 3600)
-    minutes = int((duration_seconds % 3600) // 60)
+    hours = int(duration_seconds // 3600)           # floor division → gives only whole hours
+    minutes = int((duration_seconds % 3600) // 60)  # modulo → remainder after division
     
     print(f"Driving distance: {driving_km:.1f} km")
     print(f"Estimated time: {hours} h {minutes} min")

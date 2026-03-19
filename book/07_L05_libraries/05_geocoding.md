@@ -71,7 +71,7 @@ To use Nominatim, we first need to initialize our geocoder. OpenStreetMap requir
 
 Because Nominatim is a free public service, they use the `user_agent` to monitor traffic and prevent abuse. If every student in this course uses the exact same app name, the server might think one person is spamming them and block our access. 
 
-Please change the string below to something unique, such as a random number, your name or whatever.
+Please change the string below to something unique, such as a random number, your name or whatever you deem suitable.
 ```
 
 ```{code-cell} python
@@ -190,7 +190,7 @@ for place in tqdm(places):
     if loc:
         print(f"\n{place} is located at {loc.latitude}, {loc.longitude}")
     
-    # Crucial: sleep for 1.5 seconds to respect Nominatim's strict rules
+    # Crucial: sleep for 1 second to respect Nominatim's strict rules
     time.sleep(1)
 ```
 
@@ -300,7 +300,7 @@ for coordinate in accident_coords:
         full_address = location.address
         print(f"Install road safety signs at: {full_address}\n")
     
-    # Pause for 1.5 seconds to respect the server limits
+    # Pause for 1 second to respect the server limits
     time.sleep(1)
 ```
 

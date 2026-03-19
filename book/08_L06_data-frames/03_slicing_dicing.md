@@ -1,8 +1,10 @@
 ---
+
 title: Slicing and Dicing
 
 site:
  outline_maxdepth: 1
+
 ---
 
 <div class="page-subtitle">
@@ -25,6 +27,7 @@ In the previous section, we successfully loaded the Kloten weather dataset. Let 
 
 ```{code-cell} python
 import pandas as pd
+from IPython.display import display
 
 # Load the Kloten summer weather data, skipping metadata
 data = pd.read_csv('kloten_summer_2022.txt', skiprows=10)
@@ -137,7 +140,7 @@ Name: MAX, Length: 92, dtype: bool
 
 This returns a Series of `True` and `False` values, often called a **mask**. 
 
-To actually filter the data, we place this conditional mask *inside* the selection brackets. Pandas will keep every row that evaluates to `True` and hide every row that evaluates to `False`. 
+To actually filter the data, we place this conditional mask *inside* the selection brackets. Pandas will keep every row that evaluates to `True` and hide every row that evaluates to `False`.
 
 For absolute clarity, here is how you do it in two steps:
 
@@ -233,9 +236,10 @@ display(either_extreme_days)
 | 65 | 20220805 | 33.4 | 19.1 | 29.5  | 33.0  |
 
 :::
+
 ---
 
-## 4. Sorting Data
+## 4. Sorting Data (sort_values)
 
 Once you have isolated your data, you frequently want to order it. The `.sort_values()` method allows you to sort your DataFrame by one or more columns. 
 
@@ -474,13 +478,14 @@ display(top_japan_cities.head(5))
 ```
 
 **Expected Output:**
-|      | city    | population |
-|------|---------|------------|
-| 15   | Tokyo   | 37732000.0 |
-| 149  | Osaka   | 15126000.0 |
-| 232  | Nagoya  | 9197000.0  |
-| 1381 | Sapporo | 2665000.0  |
-| 1223 | Fukuoka | 2128000.0  |
+|     | city     | population |
+| --- | -------- | ---------- |
+| 0   | Tokyo    | 37785000.0 |
+| 23  | Ōsaka    | 15126000.0 |
+| 45  | Nagoya   | 9197000.0  |
+| 197 | Yokohama | 3757630.0  |
+| 366 | Fukuoka  | 2286000.0  |
+
 
 *(Note: The exact index numbers on the left might differ slightly depending on the version of the dataset, but the top 5 cities and populations should match!)*
 ``````
@@ -504,4 +509,3 @@ In this section, you learned how to slice and dice your data to extract exactly 
 Now that you can navigate, slice, and filter your data, you might notice a glaring issue: real-world data is rarely perfect. 
 
 If you try to do math on a column where numbers are accidentally stored as text, or if a sensor went offline and left blank gaps in your dataset, your code will crash. In the next section, **Cleaning the Mess**, we will learn how to standardize messy column headers, fix text strings, and handle the infamous `NaN` (Not a Number) so your data is pristine and ready for analysis!
-```
