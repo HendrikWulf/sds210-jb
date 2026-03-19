@@ -1,9 +1,16 @@
 ---
+<<<<<<< HEAD
 
 title: Cleaning the Mess
 
 site:
     outline_maxdepth: 1
+=======
+title: Cleaning the Mess
+
+site:
+ outline_maxdepth: 1
+>>>>>>> ae5f2ec (Refactor code structure for improved readability and maintainability)
 
 ---
 
@@ -29,7 +36,10 @@ In this section, we will learn standard techniques to programmatically clean a d
 
 ```{code-cell} python
 import pandas as pd
+<<<<<<< HEAD
 from IPython.display import display
+=======
+>>>>>>> ae5f2ec (Refactor code structure for improved readability and maintainability)
 
 # Define relative path to the file
 fp = "kloten_summer_2022.txt"
