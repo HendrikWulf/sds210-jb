@@ -141,10 +141,15 @@ project:
     - title: L6 - Data Frames
       file: book/08_L06_data-frames.md
       children:
+        - file: book/08_L06_data-frames/01_pandas_model.ipynb
         # - file: book/08_L06_data-frames/01_pandas_model.md
+        - file: book/08_L06_data-frames/02_data_in_out.ipynb
         # - file: book/08_L06_data-frames/02_data_in_out.md
+        - file: book/08_L06_data-frames/03_slicing_dicing.ipynb
         # - file: book/08_L06_data-frames/03_slicing_dicing.md
+        - file: book/08_L06_data-frames/04_cleaning.ipynb
         # - file: book/08_L06_data-frames/04_cleaning.md
+        - file: book/08_L06_data-frames/05_vectorization.ipynb
         # - file: book/08_L06_data-frames/05_vectorization.md
         # - file: book/08_L06_data-frames/06_aggregating_joining.md
         # - file: book/08_L06_data-frames/07_temporal_data.md
