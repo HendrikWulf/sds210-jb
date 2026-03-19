@@ -397,7 +397,8 @@ This is a critical skill for working with Web APIs, which almost always return d
 import json
 
 # A string of text formatted as JSON
-api_response_text = '{"city": "Zurich", "coordinates": [47.37, 8.54], "population": 415000}'
+api_response_text = '{"city": "Zurich", "coordinates": [8.54, 47.37], "population": 415000}'
+# Coordinates are stored as [longitude, latitude], like in GeoJSON
 
 # Convert the text string into a real Python dictionary
 data = json.loads(api_response_text)
@@ -406,6 +407,18 @@ data = json.loads(api_response_text)
 print(data["city"])
 print(data["coordinates"])
 
+```
+
+```{admonition} Coordinate order matters
+:class: warning
+
+Be careful: coordinate order is not always the same across formats and libraries.
+
+In many Python distance functions, coordinates are often written as **(latitude, longitude)**.
+
+In contrast, GeoJSON-style coordinate arrays usually store coordinates as **[longitude, latitude]**.
+
+Always check the expected order before using coordinates in calculations.
 ```
 
 ``````{admonition} Useful tools in the json module
@@ -431,7 +444,7 @@ The `json` module provides straightforward functions for reading and writing JSO
 
 You have successfully used `json.loads()` to convert an API response into a Python dictionary named `data`.
 
-Examine the raw JSON structure. Predict the nested key access required to extract the **longitude** (the first value in the `coordinates` list).
+Examine the raw JSON structure. Here, the `coordinates` list follows **GeoJSON convention**, so the order is **[longitude, latitude]**. Predict the nested key access required to extract the **longitude** (the first value in the list).
 
 ```json
 {
@@ -501,6 +514,10 @@ for i in range(3):
     # Use random.uniform to generate floating-point numbers
     lat = random.uniform(45.0, 47.0)
     lon = random.uniform(6.0, 9.0)
+    
+    # Note: latitude display is rounded (.4f) while longitude is not,
+    # to highlight the difference between rounded and full-precision coordinates
+    # You can adjust it, as you like.
     print(f"Coordinate {i+1}: [{lat:.4f}, {lon}]")
 ```
 
