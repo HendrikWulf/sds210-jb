@@ -322,7 +322,7 @@ Since we are sending 10 requests in a row, we must respect the server's rate lim
 import requests
 import time
 
-api_url = "[https://api.open-meteo.com/v1/forecast](https://api.open-meteo.com/v1/forecast)"
+api_url = "https://api.open-meteo.com/v1/forecast"
 
 # City name as the key, a tuple of (latitude, longitude) as the value
 megacities = {
@@ -350,7 +350,7 @@ megacities = {
 import requests
 import time
 
-api_url = "[https://api.open-meteo.com/v1/forecast](https://api.open-meteo.com/v1/forecast)"
+api_url = "https://api.open-meteo.com/v1/forecast"
 
 megacities = {
     "Tokyo": (35.687, 139.7495),
@@ -429,7 +429,7 @@ MeteoSwiss provides yearly aggregations in a separate file ending in `_y.csv` in
 import requests
 
 # 1. Update the URL for Weissfluhjoch (wfj) and yearly data (_y)
-csv_url = "[https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/wfj/ogd-smn_wfj_y.csv](https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/wfj/ogd-smn_wfj_y.csv)"
+csv_url = "https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/wfj/ogd-smn_wfj_y.csv"
 
 # 2. Fetch the data
 response = requests.get(csv_url)
