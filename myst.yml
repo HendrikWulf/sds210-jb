@@ -136,7 +136,7 @@ project:
         # - file: book/07_L05_libraries/05_geocoding.md
         - file: book/07_L05_libraries/06_practical_L5.ipynb
         # - file: book/07_L05_libraries/06_practical_L5.md
-        # - file: book/07_L05_libraries/07_practical_L5_solution.ipynb
+        - file: book/07_L05_libraries/07_practical_L5_solution.ipynb
         # - file: book/07_L05_libraries/07_practical_L5_solution.md
     - title: L6 - Data Frames
       file: book/08_L06_data-frames.md
