@@ -189,7 +189,7 @@ Practice managing and using third party modules with these tasks.
 
 ---
 
-### Exercise 1: Planning a e-motorcycle tour
+### Exercise 1: Planning an e-motorcycle tour
 
 The `tqdm` library makes tracking long tasks incredibly easy. Let us use it to plan an epic e-motorcycle tour down the Andes mountains in South America, calculating the distance of each leg of the trip.
 

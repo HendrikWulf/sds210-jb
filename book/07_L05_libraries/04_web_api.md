@@ -216,7 +216,7 @@ import requests
 
 # 1. Define the URL for the Kloten (KLO) monthly CSV file
 # Notice the 'm' at the end of the filename for 'monthly'
-csv_url = "[https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/klo/ogd-smn_klo_m.csv](https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/klo/ogd-smn_klo_m.csv)"
+csv_url = "https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/klo/ogd-smn_klo_m.csv"
 
 # 2. Fetch the data
 response = requests.get(csv_url)
