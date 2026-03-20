@@ -138,7 +138,8 @@ First, we check the dimensions using the `.shape` attribute. It returns a tuple 
 data.shape
 ```
 
-**Output:** ```text
+**Output:**
+```text
 (92, 5)
 ```
 
@@ -148,7 +149,8 @@ Next, we extract the exact column names using `.columns.values`. This is incredi
 data.columns.values
 ```
 
-**Output:** ```text
+**Output:**
+```text
 array(['YEARMODA', 'MAX', 'MIN', 'TEMP1', 'TEMP2'], dtype=object)
 ```
 
