@@ -1,16 +1,9 @@
 ---
-<<<<<<< HEAD
 
 title: Cleaning the Mess
 
 site:
     outline_maxdepth: 1
-=======
-title: Cleaning the Mess
-
-site:
- outline_maxdepth: 1
->>>>>>> ae5f2ec (Refactor code structure for improved readability and maintainability)
 
 ---
 
@@ -36,10 +29,7 @@ In this section, we will learn standard techniques to programmatically clean a d
 
 ```{code-cell} python
 import pandas as pd
-<<<<<<< HEAD
 from IPython.display import display
-=======
->>>>>>> ae5f2ec (Refactor code structure for improved readability and maintainability)
 
 # Define relative path to the file
 fp = "kloten_summer_2022.txt"
@@ -233,21 +223,21 @@ display(data.head())
 
 Based on the visual map above, how would you write the code to extract just the **year** (the first four characters) into a new column called `year`?
 
-```{admonition} Check your understanding
+``````{admonition} Check your understanding
 :class: dropdown
 
 ```python
 data["year"] = data["date"].str.slice(start=0, stop=4)
 ```
 You start at index 0, and stop at 4 (which grabs indices 0, 1, 2, and 3). 
-```
+``````
 
 ### Other String Cleaning Methods
+
 Now we have a clean `month` column we can use for grouping later. The `.str` accessor offers many other useful cleaning methods that you will use frequently with messy text data:
 * `.str.upper()` or `.str.lower()` to standardize capitalization.
 * `.str.strip()` to remove accidental invisible white spaces from the beginning or end of words.
 * `.str.contains("keyword")` to search for specific substrings.
-```
 
 ---
 
