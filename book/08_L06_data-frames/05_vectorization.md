@@ -27,7 +27,7 @@ Before we explore this superpower, we need some fresh data. For this section, we
 
 ```{admonition} Download the Dataset
 :class: note
-Please download the extended dataset from [this GitLab link](https://gitlab.com/HendrikWulf/sds210/-/blob/main/data/kloten_summer_2022_extended.txt) and save it to your local working directory.
+Please download the extended dataset from [this GitLab link](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt) and save it to your local working directory.
 ```
 
 We can actually perform some data cleaning right at the moment we read the file! By using advanced parameters in the `read_csv()` function, we can handle varying spaces, skip specific rows of dashes, and convert missing data markers all in one step.
@@ -228,7 +228,8 @@ data[columns_to_plot].plot(
     title="Daily Temperatures and Range (Kloten, Summer 2022)",
     ylabel="Temperature (°C)",       # Always label your axes!
     xlabel="Days after June 1st",    # Clarify what the bottom numbers mean
-    grid=True                        # Add a faint grid for readability
+    grid=True,                       # Add a faint grid for readability
+    # subplots=True                    # each column in its own subplot
 )
 ```
 

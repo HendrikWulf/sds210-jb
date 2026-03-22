@@ -1,5 +1,5 @@
 ---
-title: Summarizing, Aggregating, and Joining
+title: Aggregating and Joining
 
 site:
  outline_maxdepth: 1
@@ -15,7 +15,6 @@ Extracting Insights from Relational Data
 
 ---
 
-
 ```{admonition} Big idea
 :class: tip
 
@@ -27,9 +26,9 @@ Before we begin, make sure you have downloaded the necessary datasets for this s
 ```{admonition} Download the Datasets
 :class: note
 Please download these files to your local working directory:
-* [kloten_summer_2022_rain_sun.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/data/kloten_summer_2022_rain_sun.csv)
-* [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/data/kloten_summer_2022_extended.txt)
-* [Lugano_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/data/Lugano_summer_2022_extended.txt)
+* [kloten_summer_2022_rain_sun.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_rain_sun.csv)
+* [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
+* [Lugano_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/Lugano_summer_2022_extended.txt)
 ```
 
 Let us load our primary extended Kloten dataset. We will also extract the month from the date string right away, as we will need it for grouping later.
@@ -111,6 +110,22 @@ Name: month, dtype: int64
 
 These three methods (`unique`, `nunique`, and `value_counts`) form your standard toolkit for exploring categorical data. This is incredibly useful for tasks like checking how many unique weather stations are present in a massive global dataset, or finding out which station recorded the most data points!
 
+#### Concept Check: Which counting tool?
+
+Imagine you are analyzing a dataset of 10,000 recorded bird sightings. You want to know exactly how many *different species* of birds were observed in total (e.g., the answer should be a single number, like 45). 
+
+Which method should you use on the `species` column?
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**You should use `.nunique()`.**
+
+* `.unique()` would return a massive array listing all 45 names.
+* `.value_counts()` would return a table showing how many times each of the 45 birds was spotted.
+* `.nunique()` strictly returns the integer **45** (the number of unique elements), which is exactly what you need!
+```
+
 ---
 
 ## 2. Basic Statistics
@@ -137,7 +152,7 @@ If you want a comprehensive overview of your entire dataset, the `.describe()` m
 ```{code-cell} python
 # Generate summary statistics for specific columns
 columns_to_check = ["tmax", "tmin", "wind_speed"]
-display(data[columns_to_check].describe())
+display(data[columns_to_check].describe().round(2))
 ```
 
 :::{table} Output of describe()
@@ -185,8 +200,22 @@ columns_to_aggregate = ["tmax", "tmin", "wind_speed"]
 # 3. APPLY & COMBINE: Apply the mean() function
 monthly_averages = grouped_data[columns_to_aggregate].mean()
 
-display(monthly_averages)
+display(monthly_averages.round(1))
 ```
+
+:::{table} Output without reset_index()
+:align: center
+
+|       | tmax      | tmin      | wind_speed |
+|-------|-----------|-----------|------------|
+| **month** |           |           |            |
+| 06    | 25.9 | 13.1 | 2.4   |
+| 07    | 28.2 | 14.6 | 2.6   |
+| 08    | 27.1 | 14.1 | 2.6   |
+
+:::
+
+Notice how `month` is sitting lower than the other column headers? That is because `.groupby()` automatically turns your grouping category into the DataFrame's Index!
 
 ### The Chained Approach
 
@@ -247,6 +276,7 @@ combined_data = combined_data.drop(columns=["YEARMODA"])
 # Display a few columns from the newly merged massive dataset
 columns_to_show = ["DATE", "tmax", "rh", "precipitation", "sunshine_duration"]
 display(combined_data[columns_to_show].head(3))
+
 ```
 
 :::{table} Output of merged DataFrames
@@ -265,10 +295,40 @@ Because both tables shared the exact same dates, Pandas neatly attached the rain
 ```{admonition} Duplicate Keys
 :class: tip
 Notice that we added `.drop(columns=["YEARMODA"])` to our code above. When you use `left_on` and `right_on` to merge, the resulting DataFrame actually contains *both* key columns (so it will have both a `DATE` and a `YEARMODA` column containing the exact same numbers). Dropping one immediately keeps your table perfectly clean!
+
 ```
 
+```{admonition} The "Inner" Join Default
+:class: warning
+By default, `pd.merge()` performs an **inner join**. This means if the Kloten table has a date that is *missing* from the supplementary table, that entire day will be deleted from your final `combined_data`! 
+
+If you want to keep all the original days regardless of whether supplementary data exists, you must specify a left join by adding the parameter `how="left"` to your merge function.
+```
+
+#### Concept Check: The Shared Key
+
+You have Table A (containing `city_name` and `population`) and Table B (containing `mayor_name` and `city_name`).
+
+If you want to merge these tables so you can see the population and the mayor side-by-side, what column name should you pass to the `on=` parameter in `pd.merge()`?
+
+``````{admonition} Check your understanding
+:class: dropdown
+
+**`on="city_name"`**
+
+To successfully stitch two tables together horizontally, you must identify the "key"—the column that exists in *both* datasets containing identical matching values. In this case, `city_name` is the only overlapping variable that links the population to the mayor!
+
+Here is what the full code would look like. Because the key column has the exact same name in both tables, we can use the convenient `on=` parameter instead of typing out `left_on` and `right_on`:
+
+```{code-cell} python
+combined_table = pd.merge(table_a, table_b, on="city_name")
+
+```
+``````
+
 ---
-## 5. Exercise: Combine and Extract Insights
+
+## 5. Exercise
 
 It is time to put your relational data skills to the test. You have been asked to compare the summer weather of Kloten (near Zurich) with Lugano (in southern Switzerland).
 
@@ -338,7 +398,7 @@ display(monthly_comparison.round(1))
 
 ---
 
-## 6. Summary: Relational Data and Knowledge
+## 6. Summary
 
 You have officially transitioned from just manipulating rows of data to generating actionable knowledge and insights.
 

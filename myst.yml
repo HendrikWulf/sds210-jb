@@ -151,10 +151,14 @@ project:
         # - file: book/08_L06_data-frames/04_cleaning.md
         - file: book/08_L06_data-frames/05_vectorization.ipynb
         # - file: book/08_L06_data-frames/05_vectorization.md
+        - file: book/08_L06_data-frames/06_aggregating_joining.ipynb
         # - file: book/08_L06_data-frames/06_aggregating_joining.md
+        - file: book/08_L06_data-frames/07_temporal_data.ipynb
         # - file: book/08_L06_data-frames/07_temporal_data.md
+        - file: book/08_L06_data-frames/08_practical_L6.ipynb
         # - file: book/08_L06_data-frames/08_practical_L6.md
-        # - file: book/08_L06_data-frames/08_practical_L6-solutions.md
+        # - file: book/08_L06_data-frames/09_practical_L6-solutions.ipynb
+        # - file: book/08_L06_data-frames/09_practical_L6-solutions.md
     - title: L7 - Vector Data
       file: book/09_L07_vector-data.md
       children:
