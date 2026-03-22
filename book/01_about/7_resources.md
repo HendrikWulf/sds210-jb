@@ -35,7 +35,9 @@ These courses work well alongside this course. You don’t need to complete any 
 
 ## Python Books
 
-These books work well as **companions**. Use them to look things up, revisit concepts, or read selected chapters when something is unclear.
+These books work well as **companions**. Use them to look things up, revisit concepts, or read selected chapters when something is unclear.  
+UZH students also have access to a large collection of Python and data science books via the [O’Reilly for Higher Education platform](https://www.ub.uzh.ch/en/ueber-die-ub/news/o%E2%80%99reilly-for-higher-education-new-licence.html) provided by the University Library.
+
 
 * **[Introduction to Python for Geographic Data Analysis](https://pythongis.org/)**  
   *Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp*  

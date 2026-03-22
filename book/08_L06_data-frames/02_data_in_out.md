@@ -38,7 +38,7 @@ One of the most useful features of pandas is its ability to interact with numero
 
 Once you have acquired your data, the next step in every data science workflow is to load it. Pandas provides a single, highly optimised function for this: `pd.read_csv()`.
 
-We will load a dataset containing daily weather observations from the Kloten weather station in Zurich for the summer of 2022. You can download this dataset from: https://gitlab.com/HendrikWulf/sds210/-/blob/main/data/kloten_summer_2022.txt and add it to your working directory on your local file system.
+We will load a dataset containing daily weather observations from the Kloten weather station in Zurich for the summer of 2022. You can download this dataset from: https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt and add it to your working directory on your local file system.
 
 You might notice the file is named `kloten_summer_2022.txt`. Why use `read_csv` for a `.txt` file? 
 File extensions are simply naming conventions. Whether a file ends in `.csv`, `.txt`, or `.dat`, if the internal contents are plain text separated by commas, `pd.read_csv()` is the correct tool to read it.

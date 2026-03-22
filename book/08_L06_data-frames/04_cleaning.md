@@ -25,7 +25,7 @@ Real-world spatial and environmental data is often messy. Before performing calc
 
 Real-world data is rarely ready for immediate analysis. Files from environmental sensors, satellites, or crowdsourced databases often contain irregular formatting, missing observations, or incorrect data types. Skipping the data cleaning stage is dangerous, as it leads to errors in calculations and misleading visualizations.
 
-In this section, we will learn standard techniques to programmatically clean a dataset using Pandas. We will return to our `kloten_summer_2022.txt` dataset, applying the skipping logic learned in previous sections to load a fresh DataFrame.
+In this section, we will learn standard techniques to programmatically clean a dataset using Pandas. We will return to our [kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt) dataset, applying the skipping logic learned in previous sections to load a fresh DataFrame.
 
 ```{code-cell} python
 import pandas as pd
@@ -123,7 +123,7 @@ temp_max     float64
 temp_min     float64
 temp_10am    float64
 temp_2pm     float64
-dtype: object
+dtype:        object
 ```
 
 We see that `date` is currently stored as an integer (`int64`). Since we intend to perform string slicing on the date in the next subsection, we must first convert it to a string.
@@ -144,7 +144,7 @@ temp_max     float64
 temp_min     float64
 temp_10am    float64
 temp_2pm     float64
-dtype: object
+dtype:        object
 ```
 
 ```{admonition} Why does it say "object"?

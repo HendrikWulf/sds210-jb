@@ -23,7 +23,7 @@ Selecting and filtering data in Pandas
 Now that your data is loaded into a two dimensional grid, you need to know how to navigate it. Pandas allows you to instantly extract specific columns, filter rows based on logical conditions, and sort your information without writing complex loops.
 ```
 
-In the previous section, we successfully loaded the Kloten weather dataset. Let us quickly reload it so we have a fresh DataFrame to work with.
+In the previous section, we successfully loaded the [kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt) weather dataset. Let us quickly reload it to your local working directory so we have a fresh DataFrame to work with.
 
 ```{code-cell} python
 import pandas as pd
