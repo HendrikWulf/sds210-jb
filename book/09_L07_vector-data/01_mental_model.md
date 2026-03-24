@@ -30,6 +30,7 @@ Before we begin, make sure you have downloaded the necessary datasets for this s
 ```{admonition} Download the Datasets
 :class: note
 Please download these files to your local working directory:
+* [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
 * [NuclearPowerPlant.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/NuclearPowerPlant.csv)
 * [meteoswiss_pollen_network.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/meteoswiss_pollen_network.csv)
 ```
@@ -104,7 +105,7 @@ When computers communicate about these shapes, they often use a standardized str
 :width: 700px
 :align: center
 
-*Visual representation of the fundamental 2D geometry primitives.*
+*Visual representation of the fundamental 2D geometry primitives. Source: [Wikipedia](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry)*
 :::
 
 ### Creating Geometries in Python
@@ -146,7 +147,7 @@ Just like the fundamental primitives, these complex entities have standardized W
 :width: 700px
 :align: center
 
-*Visual representation of multi-part geometries. A single MultiPolygon object can represent multiple disconnected areas, and even contain holes.*
+*Visual representation of multi-part geometries. A single MultiPolygon object can represent multiple disconnected areas, and even contain holes. Source: [Wikipedia](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry)*
 :::
 
 Creating these in Python is just as straightforward as creating the primitives. You just wrap the individual geometries in a list:
