@@ -1,5 +1,5 @@
 ---
-title: Reading, Writing, & Peeking
+title: Reading, Writing & Peeking
 
 site:
  outline_maxdepth: 1
@@ -175,19 +175,19 @@ This quick visual peek is the ultimate sanity check. If you expected a map of Sw
 
 Furthermore, `.plot()` allows you to immediately begin exploring attribute data visually. While standard Pandas colors cells in a spreadsheet based on values, GeoPandas can use those values to color the actual physical geography. 
 
-To demonstrate, we will create a map using the full `ch_gpkg` dataset. Looking at the attributes (displayed below), we can see that this dataset contains four distinct land entities: the main landmass of Switzerland, the nation of Liechtenstein, and two small *enclaves* (foreign land completely surrounded by Switzerland) belonging to Germany and Italy. We also have a numerical column, `einwohnerzahl`, representing the population of each territory.
+To demonstrate, we will create a map using the full `ch_gpkg` dataset. Looking at the attributes (displayed below), we can see that this dataset contains four distinct land entities: the main landmass of Switzerland, the nation of Liechtenstein, and two small *enclaves* (foreign land completely surrounded by Switzerland) belonging to Germany and Italy. We also have a numerical columns, `landesflaeche` and `einwohnerzahl`, representing the land area and population of each territory.
 
 **The Input Data (`ch_gpkg.head()`):**
 
 :::{table} Swiss National Borders GeoDataFrame
 :align: center
 
-| | id | name | einwohnerzahl | geometry |
-|---|---|---|---|---|
-| **0** | 1 | Liechtenstein | 40886 | MULTIPOLYGON Z (...) |
-| **1** | 2 | Schweiz | 9051029 | MULTIPOLYGON Z (...) |
-| **2** | 3 | Deutschland | 1621 | MULTIPOLYGON Z (...) |
-| **3** | 4 | Italia | 1793 | MULTIPOLYGON Z (...) |
+| | id | name | landesflaeche | einwohnerzahl | geometry |
+|---|---|---|---|---|---|
+| **0** | 1 | Liechtenstein | 16048.0 | 40886 | MULTIPOLYGON Z (...) |
+| **1** | 2 | Schweiz | 4129069.0 | 9051029 | MULTIPOLYGON Z (...) |
+| **2** | 3 | Deutschland | 763.0 | 1621 | MULTIPOLYGON Z (...) |
+| **3** | 4 | Italia | 264.0 | 1793 | MULTIPOLYGON Z (...) |
 
 :::
 
@@ -220,7 +220,7 @@ ch_gpkg.plot(
 
 What if we want to map the population (`einwohnerzahl`) instead of just categorizing the names? 
 
-Fortunately, because our GeoDataFrame is built directly on top of Pandas, we can easily calculate the population density (inhabitants divided by area) across all rows instantly, save it to a brand new column, and plot *that* ratio instead! 
+Fortunately, because our GeoDataFrame is built directly on top of Pandas, we can easily calculate the population density (inhabitants divided by area) across all rows instantly, save it to a brand new column, and plot *that* ratio instead!
 
 For this map, we will use the built-in `YlOrRd` (Yellow-Orange-Red) colormap, which is one standard choice for sequential plots.
 
@@ -229,7 +229,6 @@ For this map, we will use the built-in `YlOrRd` (Yellow-Orange-Red) colormap, wh
 ch_gpkg["pop_density"] = ch_gpkg["einwohnerzahl"] / ch_gpkg["landesflaeche"]
 
 # 2. Plotting the normalized density ratio
-# We use the perceptually uniform 'batlow' colormap
 ch_gpkg.plot(
     column="pop_density", 
     cmap="YlOrRd",  
@@ -241,7 +240,7 @@ ch_gpkg.plot(
 ```
 
 :::{figure} images/08_swiss_population_density.png
-:alt: A density map of Switzerland and its enclaves using the batlow colormap. The enclaves and Liechtenstein might show up in brighter/lighter hues if their density is higher than the vast, mountainous main landmass of Switzerland.
+:alt: A density map of Switzerland and its enclaves using the YlOrRd colormap. The enclaves and Liechtenstein might show up in brighter/lighter hues if their density is higher than the vast, mountainous main landmass of Switzerland.
 :width: 800px
 :align: center
 
@@ -262,20 +261,6 @@ However, modern spatial data science is increasingly moving towards cloud-comput
 
 Let us export our Swiss boundaries dataset into three different formats to prepare it for different use cases:
 
-
-```{admonition} Which format should I choose?
-:class: important
-
-The spatial data ecosystem is vast, but you generally only need to rely on these three modern formats:
-
-* **GeoPackage (`.gpkg`): The Desktop Standard.** Use this for general storage and when sharing data with colleagues who use desktop software like QGIS. It stores everything securely in a single, highly compressed SQLite database file.
-* **GeoParquet (`.parquet`): The Data Science Standard.** Use this when working strictly in Python/R, or when dealing with massive datasets (millions of rows). It is a columnar format that compresses incredibly well and reads/writes phenomenally fast.
-* **GeoJSON (`.geojson`): The Web Standard.** Use this strictly if you are passing data to a web developer or displaying it on an interactive website. It is text-based and human-readable, but files become massive and slow to load if you have complex geometries.
-
-**What about Shapefiles (`.shp`)?** The industry is actively moving away from the legacy Shapefile. It splits your data across multiple messy files, strictly limits your column names to 10 characters, and has a 2GB size limit. Leave it in the past!
-```
-
-
 ```{code-cell} python
 # 1. Export as a GeoPackage (For sharing with QGIS/ArcGIS users)
 ch_gpkg.to_file("switzerland_processed.gpkg")
@@ -288,6 +273,18 @@ ch_gpkg.to_file("switzerland_processed.geojson")
 ch_gpkg.to_parquet("switzerland_processed.parquet")
 
 print("Spatial data successfully exported in multiple formats!")
+```
+
+```{admonition} Which format should I choose?
+:class: important
+
+The spatial data ecosystem is vast, but you generally only need to rely on these three modern formats:
+
+* **GeoPackage (`.gpkg`): The Desktop Standard.** Use this for general storage and when sharing data with colleagues who use desktop software like QGIS. It stores everything securely in a single, highly compressed SQLite database file.
+* **GeoParquet (`.parquet`): The Data Science Standard.** Use this when working strictly in Python/R, or when dealing with massive datasets (millions of rows). It is a columnar format that compresses incredibly well and reads/writes phenomenally fast.
+* **GeoJSON (`.geojson`): The Web Standard.** Use this strictly if you are passing data to a web developer or displaying it on an interactive website. It is text-based and human-readable, but files become massive and slow to load if you have complex geometries.
+
+**What about Shapefiles (`.shp`)?** The industry is actively moving away from the legacy Shapefile. It splits your data across multiple messy files, strictly limits your column names to 10 characters, and has a 2GB size limit. Leave it in the past!
 ```
 
 ---
