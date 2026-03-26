@@ -225,7 +225,7 @@ Based on the visual map above, how would you write the code to extract just the 
 ``````{admonition} Check your understanding
 :class: dropdown
 
-```python
+```{code-cell} python
 data["year"] = data["date"].str.slice(start=0, stop=4)
 ```
 You start at index 0, and stop at 4 (which grabs indices 0, 1, 2, and 3). 

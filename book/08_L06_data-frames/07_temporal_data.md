@@ -676,7 +676,7 @@ Can you also solve what day of the week were you born using the `.day_name()` me
 ````{admonition} Sample Solution
 :class: dropdown, tip
 
-```python
+```{code-cell} python
 # 1. Enter your birthday in YYYY-MM-DD format
 my_birthday = "1999-08-15"
 
@@ -707,7 +707,7 @@ Now, let us analyze the Säntis mountain dataset (`saentis_hourly_temp_precip_20
 ````{admonition} Sample Solution
 :class: dropdown, tip
 
-```python
+```{code-cell} python
 fp_saentis = "saentis_hourly_temp_precip_20200101_20260101.csv"
 
 # Load the data and parse the dates in one step
@@ -733,7 +733,7 @@ The data is currently hourly. That is far too detailed to see the seasonal shift
 ````{admonition} Sample Solution
 :class: dropdown, tip
 
-```python
+```{code-cell} python
 # Resample to month-start (MS) and calculate the mean
 monthly_saentis = saentis["temperature"].resample("MS").mean()
 
@@ -761,7 +761,7 @@ Using your newly resampled `monthly_saentis` data, can you find the exact month 
 ````{admonition} Sample Solution
 :class: dropdown, tip
 
-```python
+```{code-cell} python
 # Find the date (index) of the maximum value
 hottest_month = monthly_saentis.idxmax()
 

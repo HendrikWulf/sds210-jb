@@ -233,7 +233,7 @@ The `random` module offers many ways to generate random numbers and make random 
 
 We need to pick two test sites. Predict which method guarantees you will select two **unique** cities.
 
-```python
+```{code-cell} python
 import random
 cities = ["Zurich", "Geneva", "Basel", "Bern"]
 
@@ -354,7 +354,7 @@ The `pathlib` module provides an object-oriented approach to file systems. Inste
 
 Examine how the `/` operator works. Predict the type and content of the `final_path` variable.
 
-```python
+```{code-cell} python
 from pathlib import Path
 
 # Assume our current folder is: C:/project/data/
@@ -460,7 +460,7 @@ Examine the raw JSON structure. Here, the `coordinates` list follows **GeoJSON c
 
 ```
 
-```python
+```{code-cell} python
 # Predict the correct indexing path here. Fill in the blanks:
 # Hint: You will need multiple sets of []
 longitude_val = data[...][...][...][...]
