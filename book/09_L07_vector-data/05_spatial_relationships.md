@@ -425,7 +425,7 @@ Helicopters have limited fuel, and in medical emergencies, time is critical. Loo
 
 You can make your nearest neighbor search even faster by passing the `max_distance` parameter:
 
-```python
+```{code-cell} python
 # Only find hospitals if they are within 15,000 meters
 emergency_plan = huts_gdf.sjoin_nearest(
     hospitals_gdf, 

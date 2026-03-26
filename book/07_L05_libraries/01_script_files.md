@@ -172,7 +172,7 @@ Look at these two different ways to import the same function. Predict how you wo
 
 **Scenario A:**
 
-```python
+```{code-cell} python
 from spatial_tools import euclidean_distance
 # How do I call it here?
 
@@ -180,7 +180,7 @@ from spatial_tools import euclidean_distance
 
 **Scenario B:**
 
-```python
+```{code-cell} python
 import spatial_tools as st
 # How do I call it here?
 

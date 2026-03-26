@@ -71,7 +71,7 @@ Notice that our `tmean` column has a missing value (NaN) on the third day. We wi
 If you were asked to calculate the temperature range (maximum minus minimum) for every single day in pure Python, you would have to write a `for` loop. You would instruct the computer to look at row 0, subtract the numbers, save the result, move to row 1, subtract the numbers, and so on.
 
 Here is what that clunky code looks like:
-```python
+```{code-cell} python
 # The slow, pure Python way (DO NOT DO THIS)
 temp_ranges = []
 for i in range(len(data)):
@@ -92,7 +92,7 @@ Pandas uses a concept called **Vectorization**. Under the hood, Pandas pushes yo
 :::
 
 Look at how much cleaner the vectorized version is:
-```python
+```{code-cell} python
 # The fast, vectorized Pandas way
 temp_ranges = data["tmax"] - data["tmin"]
 ```

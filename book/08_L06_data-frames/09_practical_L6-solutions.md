@@ -66,7 +66,7 @@ import pandas as pd
 ````{admonition} Sample Solution
 :class: dropdown
 
-```python
+```{code-cell} python
 import pandas as pd
 
 # 1. Load the dataset and instantly parse the timestamp column
@@ -105,7 +105,7 @@ Based on your `.info()` output, you should have noticed a few glaring issues. Th
 ````{admonition} Sample Solution
 :class: dropdown
 
-```python
+```{code-cell} python
 # 1. Rename columns using a dictionary
 climate_data = climate_data.rename(columns={
     "T_MAX_C": "temp_max",
@@ -146,7 +146,7 @@ The data is finally clean. Now, the resort management wants to know about "Extre
 ````{admonition} Sample Solution
 :class: dropdown
 
-```python
+```{code-cell} python
 # 1. Vectorize the temperature swing calculation
 climate_data["temp_swing"] = climate_data["temp_max"] - climate_data["temp_min"]
 
@@ -186,7 +186,7 @@ Management doesn't just want to see extreme individual days; they want to see th
 ````{admonition} Sample Solution
 :class: dropdown
 
-```python
+```{code-cell} python
 # 1. Resample to monthly ('MS') averages
 monthly_climate = climate_data.resample("MS").mean()
 
@@ -230,7 +230,7 @@ To find out, we will calculate a linear trendline (the slope) using NumPy.
 ````{admonition} Sample Solution
 :class: dropdown
 
-```python
+```{code-cell} python
 # 1. Import NumPy
 import numpy as np
 
