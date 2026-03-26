@@ -194,7 +194,7 @@ This is why checking your dtypes is so important. If a numeric column shows up a
 
 ## 5. Exercise: Mental Model Check
 
-et us test your new mental model. Look at the code snippet below and identify the structural components.
+Let us test your new mental model. Look at the code snippet below and identify the structural components.
 
 ```{code-cell} python
 import pandas as pd

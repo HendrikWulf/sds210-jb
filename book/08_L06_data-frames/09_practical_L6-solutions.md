@@ -58,7 +58,6 @@ Please download this file to your local working directory:
 
 ```{code-cell} python
 import pandas as pd
-from IPython.display import display
 
 # Write your code here
 
@@ -69,7 +68,6 @@ from IPython.display import display
 
 ```python
 import pandas as pd
-from IPython.display import display
 
 # 1. Load the dataset and instantly parse the timestamp column
 climate_data = pd.read_csv("magic_mountain_weather.csv", parse_dates=["TIMESTAMP"])
@@ -203,7 +201,7 @@ monthly_climate[["temp_max", "10_year_trend"]].plot(
     title="Alpine Maximum Temperatures: Monthly Noise vs. 10-Year Trend",
     ylabel="Temperature (°C)",
     grid=True
-)
+);
 ```
 ````
 
@@ -217,12 +215,12 @@ To find out, we will calculate a linear trendline (the slope) using NumPy.
 
 ### Tasks
 
-1. Import the `numpy` library.
-2. **Resample to Annual:** Take the `temp_max` column from your cleaned `climate_data` and `.resample("YE")` it to get annual (Year-End) averages. Chain `.dropna()` to the end of it to ensure no missing years mess up the math. Save this to a variable called `annual_temps`.
+1. **Import:** Import the `numpy` library.
+2. **Resample to Annual:** Take the `temp_max` column from your cleaned `climate_data` and `.resample("YE")` it to get annual (Year-End) averages. Make sure to apply `.mean()` and then chain `.dropna()` to the end of it to ensure no missing years mess up the math. Save this to a variable called `annual_temps`.
 3. **Create the Time Array:** Create a simple numerical array representing the passing years (0, 1, 2, 3...) using `years_passed = np.arange(len(annual_temps))`.
-4. **Calculate the Slope:** Use `np.polyfit(years_passed, annual_temps, 1)` to fit a straight line to your data. Extract the `slope` and `intercept` from the result.
-5. **Print the Verdict:** Print the warming trend in °C per year, and calculate the *total* warming over the entire dataset (`slope * len(years_passed)`).
-
+4. **Calculate the Trend:** Use `coefficients = np.polyfit(years_passed, annual_temps, 1)` to fit a straight line to your data. Then, use `np.polyval(coefficients, years_passed)` to generate the actual Y-values for your `trend_line`.
+5. **Print the Verdict:** Extract the `slope` and `intercept` from your coefficients. Print the warming trend in °C per year, and calculate the *total* warming over the entire dataset (`slope * len(years_passed)`).
+6. **Visualize the Warming:** Convert your `trend_line` array back into a Pandas Series (making sure to use `annual_temps.index` so the years match). Combine the actual annual temperatures and your new trend line into a single DataFrame, and `.plot()` them together to visually prove the warming trend!
 
 ```{code-cell} python
 # Write your code here
@@ -243,13 +241,26 @@ annual_temps = climate_data["temp_max"].resample("YE").mean().dropna()
 years_passed = np.arange(len(annual_temps))
 
 # 4. Use NumPy to fit a straight line (1st-degree polynomial)
-slope, intercept = np.polyfit(years_passed, annual_temps, 1)
+coefficients = np.polyfit(years_passed, annual_temps, 1)
+trend_line = np.polyval(coefficients, years_passed)
 
 # 5. Calculate total warming and print the verdict
+slope, intercept = coefficients
 total_warming = slope * len(years_passed)
-
 print(f"The long-term warming trend is {slope:.4f} °C per year.")
 print(f"Total warming over the dataset: {total_warming:.2f} °C")
+
+# 6. Put the trend back into the dataframe
+trend_series = pd.Series(trend_line, index=annual_temps.index)
+df_annual = pd.DataFrame({"annual": annual_temps, "trend": trend_series})
+df_annual.plot(
+    figsize=(12, 6),
+    color=["lightsalmon", "crimson"],
+    style=["-", "--"],
+    linewidth=2,
+    ylabel="Temperature (°C)",
+    grid=True,
+);
 ```
 ````
 

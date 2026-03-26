@@ -7,9 +7,9 @@ site:
 
 ---
 
-\<div class="page-subtitle"\>
+<div class="page-subtitle">
 Mastering tabular data and time series analysis
-\</div\>
+</div\>
 
 ---
 

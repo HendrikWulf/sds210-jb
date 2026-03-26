@@ -34,7 +34,6 @@ We can actually perform some data cleaning right at the moment we read the file!
 
 ```{code-cell} python
 import pandas as pd
-from IPython.display import display
 
 # Define relative path to the file
 fp = "kloten_summer_2022_extended.txt"
@@ -198,7 +197,7 @@ Let us plot our maximum temperature (red), minimum temperature (blue), and our n
 columns_to_plot = ["tmax", "tmin", "temp_range"]
 
 # 2. Create a basic plot with custom colors
-data[columns_to_plot].plot(color=["red", "blue", "green"])
+data[columns_to_plot].plot(color=["red", "blue", "green"]);
 ```
 
 :::{figure} images/07_quick_plot.png
@@ -230,7 +229,7 @@ data[columns_to_plot].plot(
     xlabel="Days after June 1st",    # Clarify what the bottom numbers mean
     grid=True,                       # Add a faint grid for readability
     # subplots=True                    # each column in its own subplot
-)
+);
 ```
 
 :::{figure} images/08_pro_plot.png
@@ -376,7 +375,7 @@ data["tmean_error"].plot(
     title="Approximation Error (True Mean vs. Min/Max Mean)", 
     ylabel="Difference (°C)",
     figsize=(10, 4)
-)
+);
 ```
 *Observation: If the plot mostly dips below 0, it means the (max+min)/2 method consistently overestimates the true 24-hour average!*
 ````
@@ -419,7 +418,7 @@ data[columns_to_plot].plot(
     ylabel="Temperature (°C)",
     xlabel="Days after June 1st",
     figsize=(10, 4)
-)
+);
 ```
 ````
 

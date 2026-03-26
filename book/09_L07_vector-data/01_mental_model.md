@@ -299,6 +299,7 @@ If you have multiple geometry columns and you want to perform calculations on a 
 :class: tip
 Returning to our train analogy: If your `route_path` is the active geometry, calling `.plot()` will draw the rail lines on a map. If you then run `trains_gdf.set_geometry("start_station")` and call `.plot()` again, the map will instantly change to show a scatter plot of the station points! 
 ```
+
 ---
 
 ## 5. Exercise: Make it Spatial
@@ -326,7 +327,6 @@ Your task is to ingest this purely tabular data, explore its structure, and upgr
 ```{code-cell} python
 import pandas as pd
 import geopandas as gpd
-from IPython.display import display
 
 # 1. Load the raw tabular data
 power_plants_df = pd.read_csv("NuclearPowerPlant.csv")

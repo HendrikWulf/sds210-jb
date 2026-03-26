@@ -323,7 +323,7 @@ ax = diurnal_cycle.plot(
     linewidth=2,
     marker="o",        # Add dots for each specific hour
     color="darkorange"
-)
+);
 
 # Add a grid and set the bottom axis to show every 2 hours
 ax.grid(True, linestyle="--", alpha=0.7)
@@ -589,7 +589,7 @@ ax = historical_data["tmean"].plot(
     color="lightgray", 
     alpha=0.5,           # Make it partially transparent
     label="Daily Mean (Raw Weather)"
-)
+);
 
 # 2. Add the 1-year rolling average (blue)
 historical_data["1_year_trend"].plot(
@@ -597,7 +597,7 @@ historical_data["1_year_trend"].plot(
     color="dodgerblue", 
     linewidth=1.5, 
     label="1-Year Trend"
-)
+);
 
 # 3. Add the 10-year rolling average (red)
 historical_data["10_year_trend"].plot(
@@ -605,7 +605,7 @@ historical_data["10_year_trend"].plot(
     color="crimson", 
     linewidth=3, 
     label="10-Year Climate Trend"
-)
+);
 
 # 4. Add styling and labels
 ax.set_title("40-Year Temperature Trends in Kloten (1980 - 2026)", fontsize=14)
@@ -744,7 +744,7 @@ ax = monthly_saentis.plot(
     ylabel="Temperature (°C)",
     color="purple",
     marker="o"
-)
+);
 ax.grid(True, linestyle="--", alpha=0.6)
 ```
 ````
