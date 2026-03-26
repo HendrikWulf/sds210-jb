@@ -154,7 +154,7 @@ You do not need to set up complex mapping software or configure coordinate grids
 
 ```{code-cell} python
 # Instantly visualize the geometric shapes
-ch_gpkg.plot(figsize=(8, 5), color="dodgerblue", edgecolor="black")
+ch_gpkg.plot(figsize=(8, 5), color="dodgerblue", edgecolor="black");
 ```
 
 :::{figure} images/06_swiss_borders_basic.png
@@ -203,7 +203,7 @@ ch_gpkg.plot(
     legend=True,
     legend_kwds={'title': "Inhabitants", 'loc': "upper left"},
     edgecolor="grey"
-)
+);
 ```
 
 :::{figure} images/07_swiss_population_categorical.png
@@ -236,7 +236,7 @@ ch_gpkg.plot(
     legend=True,
     legend_kwds={'label': "Population Density (Inhabitants / Area)"},
     edgecolor="grey"
-)
+);
 ```
 
 :::{figure} images/08_swiss_population_density.png
@@ -310,13 +310,12 @@ It is time to test your new spatial I/O skills. We have provided you with a myst
 
 ```{code-cell} python
 import geopandas as gpd
-from IPython.display import display
 
 # 1. Load the mystery file
 mystery_gdf = gpd.read_file("country_in_europe.gpkg")
 
 # 2. Visualize the borders to guess the country!
-mystery_gdf.plot(figsize=(8, 8), color="mediumseagreen", edgecolor="black")
+mystery_gdf.plot(figsize=(8, 8), color="mediumseagreen", edgecolor="black");
 
 # 3. Verify your guess by inspecting the data structure
 display(mystery_gdf.head())

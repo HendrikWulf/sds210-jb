@@ -274,14 +274,14 @@ world_gdf.plot(
     figsize=(10, 5), 
     color="lightgrey", 
     edgecolor="white"
-)
+);
 
 # 3. Plot the new Projected CRS (Meters)
 world_equal_area.plot(
     figsize=(10, 5), 
     color="mediumseagreen", 
     edgecolor="white"
-)
+);
 ```
 
 :::{figure} images/12_projection_comparison.png

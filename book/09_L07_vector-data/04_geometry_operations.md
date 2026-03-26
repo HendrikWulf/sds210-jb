@@ -134,7 +134,7 @@ cantons_gdf.plot(
     legend=True,
     legend_kwds={'label': "Border Length (km)"},
     edgecolor="white"
-)
+);
 ```
 
 :::{figure} images/13_cantons_perimeter.png
@@ -169,10 +169,10 @@ In GeoPandas, layering maps is done by saving the first plot as a variable (usua
 
 ```{code-cell} python
 # 1. Draw the base map (Cantons) and save the canvas as 'ax'
-ax = cantons_gdf.plot(figsize=(10, 6), color="whitesmoke", edgecolor="lightgrey")
+ax = cantons_gdf.plot(figsize=(10, 6), color="whitesmoke", edgecolor="lightgrey");
 
 # 2. Draw the centroids ON TOP of the base map by passing 'ax=ax'
-ch_centroid.plot(ax=ax, color="red", marker="x", markersize=100)
+ch_centroid.plot(ax=ax, color="red", marker="x", markersize=100);
 
 ax.set_title("The Geographic Center(s) of Switzerland")
 ```
@@ -261,10 +261,10 @@ zone_1_evac = npp_gdf.geometry.buffer(16000)
 zone_2_monitor = npp_gdf.geometry.buffer(80000)
 
 # 4. Plot the results layered over the Swiss border
-ax = ch_gdf.plot(figsize=(10, 6), color="none", edgecolor="black", linewidth=1.5)
-zone_2_monitor.plot(ax=ax, color="orange", alpha=0.3, label="80km Monitoring")
-zone_1_evac.plot(ax=ax, color="red", alpha=0.5, label="16km Evacuation")
-npp_gdf.plot(ax=ax, color="black", marker="*", markersize=50)
+ax = ch_gdf.plot(figsize=(10, 6), color="none", edgecolor="black", linewidth=1.5);
+zone_2_monitor.plot(ax=ax, color="orange", alpha=0.3, label="80km Monitoring");
+zone_1_evac.plot(ax=ax, color="red", alpha=0.5, label="16km Evacuation");
+npp_gdf.plot(ax=ax, color="black", marker="*", markersize=50);
 
 ax.set_title("Nuclear Safety Zones in Switzerland")
 ```
@@ -319,20 +319,20 @@ grisons_hull = grisons_gdf.geometry.convex_hull
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))
 
 # Canvas 1: Simplify
-grisons_gdf.plot(ax=ax1, color="lightgrey")
-grisons_simple.plot(ax=ax1, color="none", edgecolor="blue", linewidth=2)
+grisons_gdf.plot(ax=ax1, color="lightgrey");
+grisons_simple.plot(ax=ax1, color="none", edgecolor="blue", linewidth=2);
 ax1.set_title("Simplified (5km tolerance)")
 ax1.axis("off") # This hides the coordinate numbers to make it look cleaner
 
 # Canvas 2: Envelope
-grisons_gdf.plot(ax=ax2, color="lightgrey")
-grisons_box.plot(ax=ax2, color="none", edgecolor="red", linewidth=2)
+grisons_gdf.plot(ax=ax2, color="lightgrey");
+grisons_box.plot(ax=ax2, color="none", edgecolor="red", linewidth=2);
 ax2.set_title("Envelope (Bounding Box)")
 ax2.axis("off")
 
 # Canvas 3: Convex Hull
-grisons_gdf.plot(ax=ax3, color="lightgrey")
-grisons_hull.plot(ax=ax3, color="none", edgecolor="green", linewidth=2)
+grisons_gdf.plot(ax=ax3, color="lightgrey");
+grisons_hull.plot(ax=ax3, color="none", edgecolor="green", linewidth=2);
 ax3.set_title("Convex Hull")
 ax3.axis("off")
 
@@ -413,10 +413,10 @@ centroid_distance = original_centroid.values[0].distance(hull_centroid.values[0]
 print(f"Distance between centroids: {centroid_distance:.2f} meters")
 
 # Optional Visual Sanity Check
-ax = ch_hull.plot(figsize=(8, 5), color="lightgreen", alpha=0.5)
-ch_buffer.plot(ax=ax, color="dodgerblue", alpha=0.5)
-original_centroid.plot(ax=ax, color="red", marker="o")
-hull_centroid.plot(ax=ax, color="black", marker="x")
+ax = ch_hull.plot(figsize=(8, 5), color="lightgreen", alpha=0.5);
+ch_buffer.plot(ax=ax, color="dodgerblue", alpha=0.5);
+original_centroid.plot(ax=ax, color="red", marker="o");
+hull_centroid.plot(ax=ax, color="black", marker="x");
 ax.set_title("Switzerland: Boundary Buffer & Convex Hull")
 ```
 

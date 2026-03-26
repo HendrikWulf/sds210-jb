@@ -29,7 +29,6 @@ In this section, we will learn standard techniques to programmatically clean a d
 
 ```{code-cell} python
 import pandas as pd
-from IPython.display import display
 
 # Define relative path to the file
 fp = "kloten_summer_2022.txt"

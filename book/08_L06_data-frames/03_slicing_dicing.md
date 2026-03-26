@@ -27,7 +27,6 @@ In the previous section, we successfully loaded the [kloten_summer_2022.txt](htt
 
 ```{code-cell} python
 import pandas as pd
-from IPython.display import display
 
 # Load the Kloten summer weather data, skipping metadata
 data = pd.read_csv('kloten_summer_2022.txt', skiprows=10)
