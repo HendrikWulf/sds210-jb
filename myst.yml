@@ -163,15 +163,15 @@ project:
       file: book/09_L07_vector-data.md
       children:
         - file: book/09_L07_vector-data/01_mental_model.ipynb
-        - file: book/09_L07_vector-data/01_mental_model.md
+        # - file: book/09_L07_vector-data/01_mental_model.md
         - file: book/09_L07_vector-data/02_spatial_io.ipynb
-        - file: book/09_L07_vector-data/02_spatial_io.md
+        # - file: book/09_L07_vector-data/02_spatial_io.md
         - file: book/09_L07_vector-data/03_crs.ipynb
-        - file: book/09_L07_vector-data/03_crs.md
+        # - file: book/09_L07_vector-data/03_crs.md
         - file: book/09_L07_vector-data/04_geometry_operations.ipynb
-        - file: book/09_L07_vector-data/04_geometry_operations.md
+        # - file: book/09_L07_vector-data/04_geometry_operations.md
         - file: book/09_L07_vector-data/05_spatial_relationships.ipynb
-        - file: book/09_L07_vector-data/05_spatial_relationships.md
+        # - file: book/09_L07_vector-data/05_spatial_relationships.md
         # - file: book/09_L07_vector-data/06_spatial_analysis.md
         # - file: book/09_L07_vector-data/07_classification.md
         # - file: book/09_L07_vector-data/08_practical.md
