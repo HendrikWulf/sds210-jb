@@ -172,7 +172,7 @@ project:
         # - file: book/09_L07_vector-data/04_geometry_operations.md
         - file: book/09_L07_vector-data/05_spatial_relationships.ipynb
         # - file: book/09_L07_vector-data/05_spatial_relationships.md
-        - file: book/09_L07_vector-data/06_spatial_analysis.md
+        # - file: book/09_L07_vector-data/06_spatial_analysis.md
         # - file: book/09_L07_vector-data/07_classification.md
         # - file: book/09_L07_vector-data/08_practical.md
         # - file: book/09_L07_vector-data/09_practical-solutions.md
