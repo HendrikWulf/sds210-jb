@@ -221,6 +221,7 @@ To find out, we will calculate a linear trendline (the slope) using NumPy.
 4. **Calculate the Trend:** Use `coefficients = np.polyfit(years_passed, annual_temps, 1)` to fit a straight line to your data. Then, use `np.polyval(coefficients, years_passed)` to generate the actual Y-values for your `trend_line`.
 5. **Print the Verdict:** Extract the `slope` and `intercept` from your coefficients. Print the warming trend in °C per year, and calculate the *total* warming over the entire dataset (`slope * len(years_passed)`).
 6. **Visualize the Warming:** Convert your `trend_line` array back into a Pandas Series (making sure to use `annual_temps.index` so the years match). Combine the actual annual temperatures and your new trend line into a single DataFrame, and `.plot()` them together to visually prove the warming trend!
+7. **Try a Small Change:** Now apply exactly the same workflow to `temp_min` instead of `temp_max` by changing just those two letters in your code. Compare the new slope and plot with your original result and observe how the long-term trend differs between minimum and maximum temperature.
 
 ```{code-cell} python
 # Write your code here
@@ -235,7 +236,7 @@ To find out, we will calculate a linear trendline (the slope) using NumPy.
 import numpy as np
 
 # 2. Resample to Annual ('Y') averages and drop any resulting NaNs
-annual_temps = climate_data["temp_max"].resample("YE").mean().dropna()
+annual_temps = climate_data["temp_max"].resample("YE").mean().dropna()      # 7. replace ["temp_max"] with ["temp_min"]
 
 # 3. Create a simple array representing the passing years (0, 1, 2, 3...)
 years_passed = np.arange(len(annual_temps))
