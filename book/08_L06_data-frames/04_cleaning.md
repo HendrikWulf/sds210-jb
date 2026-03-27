@@ -158,14 +158,14 @@ You might also want to convert floating-point numbers into integers to save memo
 Look at what happens to the first value of our `temp_max` column (originally `19.6`):
 
 ```{code-cell} python
-# Look at the first value
-original_val = data["temp_max"].iloc[0]
+# Look at the fifth value of the temp_10am column
+original_val = data["temp_10am"].iloc[4]
 
 # Truncation (Drops the decimal)
-truncated_val = data["temp_max"].astype(int).iloc[0]
+truncated_val = data["temp_10am"].astype(int).iloc[4]
 
 # Mathematically correct rounding
-rounded_val = data["temp_max"].round(0).astype(int).iloc[0]
+rounded_val = data["temp_10am"].round(0).astype(int).iloc[4]
 
 print(f"Original: {original_val}")
 print(f"astype(int): {truncated_val} <-- Truncated!")
@@ -272,7 +272,7 @@ print(f"There are {missing_count} missing values in temp_max.")
 
 **Output:**
 ```text
-There are 4 missing values in temp_max.
+There are 10 missing values in temp_max.
 ```
 
 Even better, we can use `.isna()` as a boolean filter inside our selection brackets to isolate and view only the rows that are missing data!
