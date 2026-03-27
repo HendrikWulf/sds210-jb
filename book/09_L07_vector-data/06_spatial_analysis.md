@@ -324,7 +324,7 @@ ax.set_axis_off()
 
 :::
 
-:::{figure} images/21_highways_overlay.png
+:::{figure} images/28_highways_overlay.png
 :alt: A map of Switzerland showing the highway network. The highways change color exactly as they cross the light grey cantonal borders, proving that the continuous lines were physically cut into smaller segments by the overlay operation.
 :width: 800px
 :align: center
@@ -427,7 +427,7 @@ ax.set_axis_off()
 
 :::
 
-:::{figure} images/26_hospital_landing_site_count.png
+:::{figure} images/29_hospital_landing_site_count.png
 :alt: A map of Switzerland showing the cantons shaded in different intensities of blue. Darker blue indicates a higher number of hospital landing sites. Red crosses are overlaid across the map, pinpointing the exact location of each hospital helipad. The canton of Bern is the darkest blue, containing the highest cluster of red crosses.
 :width: 800px
 :align: center
