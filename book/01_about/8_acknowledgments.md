@@ -9,7 +9,7 @@ Thank you, Ross, for all your hard work here!
 :alt: Monty Python.
 :width: 700px
 
-Credit where credit is due! Without these guys, we wouldn't be using Python in this course. Source: [Wikipadia](https://en.wikipedia.org/wiki/Monty_Python#)
+Credit where credit is due! Without these guys, we wouldn't be using Python in this course. Source: [Wikipedia](https://en.wikipedia.org/wiki/Monty_Python#)
 :::
 
 Finally, I would like to thank the [Jupyter Book team](https://jupyterbook.org/stable/community/team/) for developing an community-driven tool that enables the creation of reproducible, accessible, and hopefully engaging educational content.
