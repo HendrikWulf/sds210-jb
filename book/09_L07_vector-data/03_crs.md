@@ -177,9 +177,9 @@ You are tasked with calculating the exact area (in square kilometers) of all the
 
 Based on the cheat sheet above, which EPSG code should you transform your data into before doing the math?
 
-A) EPSG 4326 (WGS 84)
-B) EPSG 3857 (Web Mercator)
-C) EPSG 2056 (CH1903+ / LV95)
+A) EPSG 4326 (WGS 84)  
+B) EPSG 3857 (Web Mercator)  
+C) EPSG 2056 (CH1903+ / LV95)  
 
 ```{admonition} Check your understanding
 :class: dropdown
