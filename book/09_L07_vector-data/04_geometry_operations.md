@@ -1,5 +1,5 @@
 ---
-title: Measuring and Modifying Geometries
+title: Measuring & Modifying
 
 site: 
     outline_maxdepth: 1

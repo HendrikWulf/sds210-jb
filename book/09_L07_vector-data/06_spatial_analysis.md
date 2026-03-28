@@ -1,5 +1,5 @@
 ---
-title: Combining and Aggregating Spatial Data
+title: Vector Analysis
 
 site: 
     outline_maxdepth: 1
@@ -7,7 +7,7 @@ site:
 ---
 
 <div class="page-subtitle">
-The Pinnacle of Vector Analysis
+Combining and Aggregating Spatial Data
 </div>
 
 ---
@@ -110,12 +110,12 @@ If you look at the `.sjoin()` code above, you will notice two very specific argu
 
 Let us use the diagrams below to understand exactly how these parameters work.
 
-:::{figure} images/27_spatial_join_anatomy.png
-:alt: A two-part diagram. The top part contrasts 'Within' (point entirely inside a shape) with 'Intersects' (point touching the shape's border). The bottom part contrasts an 'Inner Join' (drops points outside the shape) with a 'Left Join' (keeps all points, but assigns 'NaN' or missing data to points outside the shape).
-:width: 700px
+:::{figure} images/26_spatial-join-alternatives.png
+:alt: A diagram showing 6 points and 4 polygons (A, B, C, D). It demonstrates how changing the spatial predicate (within vs intersects) and join type (inner, left outer, right outer) changes the resulting attribute table.
+:width: 800px
 :align: center
 
-*The Anatomy of a Spatial Join. The `predicate` argument defines the strictness of the geographic rule, while the `how` argument determines what happens to the data points that fail that rule.*
+*Spatial Join Alternatives: Notice how the fate of Point 3 (outside all polygons) and Point 6 (exactly on a border) changes depending on the parameters we choose. Source: [Geopython](https://python-gis-book.readthedocs.io/en/latest/part2/chapter-06/nb/06-spatial-join.html#the-basic-logic-of-spatial-join)*
 :::
 
 **1. The Spatial Predicate (`predicate`)**
@@ -129,13 +129,30 @@ The join type determines what happens to geometries that completely fail the spa
 * **Left Outer Join (`how="left"`):** The safe option. Look at result table *iii*. The "Left" dataset (Layer 1: Points) is prioritized. Every single point is kept. **Point 3** survives, but because it has no overlapping polygon, its new columns simply say `No data` (or `NaN` in Pandas).
 * **Right Outer Join (`how="right"`):** Look at result table *iv*. The "Right" dataset (Layer 2: Polygons) is prioritized. Every single polygon is kept. **Polygon D** has zero points inside it, but it is kept in the final table with `No data` in the point columns.
 
-:::{figure} images/26_spatial-join-alternatives.png
-:alt: A diagram showing 6 points and 4 polygons (A, B, C, D). It demonstrates how changing the spatial predicate (within vs intersects) and join type (inner, left outer, right outer) changes the resulting attribute table.
-:width: 800px
+:::{figure} images/27_spatial_join_anatomy.png
+:alt: A two-part diagram. The top part contrasts 'Within' (point entirely inside a shape) with 'Intersects' (point touching the shape's border). The bottom part contrasts an 'Inner Join' (drops points outside the shape) with a 'Left Join' (keeps all points, but assigns 'NaN' or missing data to points outside the shape).
+:width: 700px
 :align: center
 
-*Spatial Join Alternatives: Notice how the fate of Point 3 (outside all polygons) and Point 6 (exactly on a border) changes depending on the parameters we choose. Source: [Geopython](https://python-gis-book.readthedocs.io/en/latest/part2/chapter-06/nb/06-spatial-join.html#the-basic-logic-of-spatial-join)*
+*The Anatomy of a Spatial Join. The `predicate` argument defines the strictness of the geographic rule, while the `how` argument determines what happens to the data points that fail that rule.*
 :::
+
+#### Concept Check: The Disappearing Data
+
+**Scenario:** You have a Point dataset of all 300 hospitals in Switzerland and a Polygon dataset of high-risk avalanche zones. You want to create a safety report that lists *every single hospital in the country*, with an extra column indicating if it is in an avalanche zone or not. 
+
+Which join type must you use to ensure hospitals in safe zones are not deleted from your final table?
+
+A) `how="inner"`  
+B) `how="left"`  
+C) `how="right"`  
+
+````{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+A Left Outer Join (`how="left"`) prioritizes your primary left dataset (the hospitals). It will keep every single hospital in the table. If a hospital is not inside an avalanche polygon, GeoPandas will safely fill the avalanche attribute columns with `NaN` (Not a Number). If you used `how="inner"`, any hospital outside an avalanche zone would be permanently deleted from your results!
+````
 
 ### Aggregating the Fused Data
 
@@ -276,12 +293,79 @@ plt.show()
 
 Spatial Joins (`sjoin`) only transfer attributes; they never alter the actual shapes of your geometries. But what if you need to physically cut a geometry into smaller pieces?
 
-A **Spatial Overlay** (`.overlay()`) mathematically intersects two layers, physically slicing the geometries exactly where they cross boundaries. 
+A **Spatial Overlay** (`.overlay()`) mathematically intersects two layers, physically slicing the geometries exactly where they cross boundaries to create entirely new shapes. 
 
-```{admonition} Other Overlay Types
-:class: note
-In this example, we use the `intersection` method to find where the layers overlap. However, GeoPandas overlays also support `union` (combining all areas), `difference` (subtracting one area from another), and `symmetric_difference` (areas where the two layers *do not* overlap)!
-```
+:::{figure} images/30_vector_overlay_processes.png
+:alt: Four diagrams illustrating vector overlay operations (Intersection, Union, Difference, and Symmetric difference) between a circle and two adjoining rectangles. The resulting geometries for each operation are shaded in green, demonstrating how the layers are physically cut and combined.
+:width: 700px
+:align: center
+
+*Typical vector overlay operations between two geographic layers (circle and rectangles). The resulting geometries for each operation are shaded in green, demonstrating how the layers are physically cut and combined. Source: [GeoPython](https://pythongis.org/part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html#vector-overlay-operations)*
+:::
+
+When performing an overlay, you use the `how` parameter to control exactly which parts of the sliced geometries are kept in the final dataset. The five main operations are:
+
+* **`intersection`**: Keeps only the areas where the two layers overlap. 
+* **`union`**: Keeps all geometries from both layers, splitting them into new distinct pieces wherever their borders cross.
+* **`difference`**: Keeps only the areas of the first layer that *do not* overlap with the second layer.
+* **`symmetric_difference`**: Keeps the areas from both layers that *do not* overlap (the exact opposite of intersection).
+* **`identity`**: Computes a geometric intersection, but keeps all features of the primary input layer, splitting them where they overlap the second layer.
+
+::::::{tab-set}
+
+:::::{tab-item} Intersection
+:::{figure} images/31_1_intersection.png
+:alt: A map showing postal areas and a circular buffer. An arrow points to the result, which keeps only the postal areas strictly inside the circular buffer.
+:width: 700px
+:align: center
+
+*Result of the Intersection overlay. Only the overlapping areas are kept. Source: [GeoPython](https://pythongis.org/part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html#vector-overlay-operations)*
+:::
+:::::
+
+:::::{tab-item} Union
+:::{figure} images/31_2_union.png
+:alt: A map showing postal areas and a circular buffer. An arrow points to the result, which combines both the postal areas and the buffer into a single layer, splitting shapes where their boundaries cross.
+:width: 700px
+:align: center
+
+*Result of the Union overlay. Both geometries are kept and split at their intersections. Source: [GeoPython](https://pythongis.org/part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html#vector-overlay-operations)*
+:::
+:::::
+
+:::::{tab-item} Difference
+:::{figure} images/31_3_difference.png
+:alt: A map showing postal areas and a circular buffer. An arrow points to the result, which keeps only the parts of the postal areas that are completely outside the circular buffer, leaving a round hole in the middle.
+:width: 700px
+:align: center
+
+*Result of the Difference overlay. The buffer area is subtracted from the original postal areas. Source: [GeoPython](https://pythongis.org/part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html#vector-overlay-operations)*
+:::
+:::::
+
+:::::{tab-item} Symmetric Difference
+:::{figure} images/31_4_sym_difference.png
+:alt: A map showing postal areas and a circular buffer. An arrow points to the result, which keeps areas from both shapes that do not overlap, creating a ring of buffer and outer postal areas with an empty hole where they originally intersected.
+:width: 700px
+:align: center
+
+*Result of the Symmetric Difference overlay. Only the non-overlapping parts of both geometries are kept. Source: [GeoPython](https://pythongis.org/part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html#vector-overlay-operations)*
+:::
+:::::
+
+:::::{tab-item} Identity
+:::{figure} images/31_5_identity.png
+:alt: A map showing postal areas and a circular buffer. An arrow points to the result, which keeps all original postal areas but splits them where the buffer overlaps.
+:width: 700px
+:align: center
+
+*Result of the Identity overlay. Original features are kept and split where they overlap with the identity feature. Source: [GeoPython](https://pythongis.org/part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html#vector-overlay-operations)*
+:::
+:::::
+
+::::::
+
+### Applying an Intersection Overlay
 
 To demonstrate why this is vital, let us calculate the total length of highways in each canton. A highway is typically a single, continuous line that spans across multiple cantons. If we just did a spatial join, the entire length of the highway would be assigned to just one canton. We must use `.overlay()` to physically cut the highway lines at the cantonal borders first!
 
@@ -333,6 +417,23 @@ ax.set_axis_off()
 :::
 
 Because `.overlay()` computationally slices thousands of vertices, it is one of the heaviest operations in GeoPandas. However, it is absolutely essential when dealing with long networks like rivers, roads, or animal migration paths that cross administrative boundaries.
+
+#### Concept Check: The Overlay Trap
+
+**Scenario:** You have a Polygon representing a large farm. In its attribute table, the `area_sqkm` column says **10**. You use `.overlay(how="intersection")` to physically cut the farm exactly in half using a municipal border. 
+
+If you immediately look at the attribute table of your two newly cut farm pieces, what will their `area_sqkm` columns say?
+
+A) 5  
+B) 10  
+C) NaN (No data)  
+
+````{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B (10)**
+When you use `.overlay()`, GeoPandas physically cuts the geometries, but it **does not** automatically recalculate the numbers in your old attribute columns! Both new halves will simply inherit the original "10" from the parent shape. Whenever you use `.overlay()` to cut lines or polygons, you must immediately recalculate your length and area columns using `.geometry.length` or `.geometry.area` to avoid catastrophic math errors later.
+````
 
 ---
 
