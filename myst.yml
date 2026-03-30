@@ -183,7 +183,8 @@ project:
     - title: L8 - Visualization
       file: book/10_L08_visualization.md
       children:
-        - file: book/10_L08_visualization/01_get_started.md
+        - file: book/10_L08_visualization/01_get_started.ipynb
+        # - file: book/10_L08_visualization/01_get_started.md
     - title: L9 - Raster Data
       file: book/11_L09_raster-data.md
       children:
