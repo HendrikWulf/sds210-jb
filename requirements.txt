@@ -5,3 +5,4 @@ jupytext
 matplotlib
 mystmd
 numpy
+folium

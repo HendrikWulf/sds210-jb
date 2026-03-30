@@ -33,7 +33,7 @@ Please download these files to your local working directory:
 * [swissBoundaries3D_switzerland.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.gpkg)
 * [swissBoundaries3D_switzerland.geojson](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.geojson)
 * [swissBoundaries3D_switzerland.zip](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.zip) (Contains the Shapefile)
-* [mystery_country.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/mystery_country.gpkg) (For the exercise at the end!)
+* [country_in_europe.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/country_in_europe.gpkg) (For the exercise at the end!)
 ```
 
 ---
