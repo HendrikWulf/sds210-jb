@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #333; }
+        .container { display: flex; flex-wrap: wrap; gap: 20px; max-width: 900px; margin: 0 auto; }
+        .interactive-area { flex: 1; min-width: 400px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .info-area { flex: 1; min-width: 300px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        
+        /* SVG Styling */
+        svg { width: 100%; height: auto; cursor: pointer; }
+        .fig-bg { fill: #f0f4f8; stroke: #cbd5e1; stroke-width: 2; transition: all 0.2s; }
+        .axes-bg { fill: white; stroke: #94a3b8; stroke-width: 2; transition: all 0.2s; }
+        .grid-line { stroke: #e2e8f0; stroke-width: 1; stroke-dasharray: 4; transition: all 0.2s; }
+        .data-line { fill: none; stroke: #3b82f6; stroke-width: 4; transition: all 0.2s; }
+        .axis-line { stroke: #333; stroke-width: 2; transition: all 0.2s; }
+        .label { font-size: 14px; font-weight: bold; fill: #475569; transition: all 0.2s; }
+        .legend-box { fill: white; stroke: #cbd5e1; stroke-width: 1; transition: all 0.2s; }
+        
+        /* Hover & Active States */
+        .interactive-group:hover * { filter: brightness(0.85); stroke-width: 3px; }
+        .interactive-group.active .fig-bg { stroke: #ef4444; stroke-width: 4; }
+        .interactive-group.active .axes-bg { stroke: #ef4444; stroke-width: 4; }
+        .interactive-group.active .data-line { stroke: #ef4444; stroke-width: 6; }
+        .interactive-group.active .label { fill: #ef4444; font-size: 16px; }
+        .interactive-group.active .grid-line { stroke: #ef4444; stroke-width: 2; }
+        .interactive-group.active .axis-line { stroke: #ef4444; stroke-width: 4; }
+        .interactive-group.active .legend-box { stroke: #ef4444; stroke-width: 3; }
+
+        h2 { margin-top: 0; color: #1e293b; }
+        #def-title { color: #ef4444; border-bottom: 2px solid #ef4444; padding-bottom: 5px; }
+        #def-text { font-size: 1.1em; line-height: 1.5; color: #475569; }
+        .hint { font-size: 0.9em; color: #64748b; font-style: italic; text-align: center; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="interactive-area">
+        <div class="hint">Click on any part of the plot below to explore its anatomy.</div>
+        <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+            <g class="interactive-group" data-target="figure">
+                <rect class="fig-bg" x="10" y="10" width="480" height="380" rx="8"></rect>
+                <text class="label" x="20" y="30">Figure (fig)</text>
+            </g>
+
+            <g class="interactive-group" data-target="title">
+                <text class="label" x="250" y="45" text-anchor="middle" font-size="18">Plot Title</text>
+            </g>
+
+            <g class="interactive-group" data-target="axes">
+                <rect class="axes-bg" x="70" y="60" width="380" height="260"></rect>
+                <text class="label" x="80" y="80">Axes (ax)</text>
+            </g>
+
+            <g class="interactive-group" data-target="grid">
+                <line class="grid-line" x1="70" y1="125" x2="450" y2="125"></line>
+                <line class="grid-line" x1="70" y1="190" x2="450" y2="190"></line>
+                <line class="grid-line" x1="70" y1="255" x2="450" y2="255"></line>
+                <line class="grid-line" x1="165" y1="60" x2="165" y2="320"></line>
+                <line class="grid-line" x1="260" y1="60" x2="260" y2="320"></line>
+                <line class="grid-line" x1="355" y1="60" x2="355" y2="320"></line>
+            </g>
+
+            <g class="interactive-group" data-target="xaxis">
+                <line class="axis-line" x1="70" y1="320" x2="450" y2="320"></line>
+                <text class="label" x="70" y="340" font-size="12" text-anchor="middle">0</text>
+                <text class="label" x="260" y="340" font-size="12" text-anchor="middle">5</text>
+                <text class="label" x="450" y="340" font-size="12" text-anchor="middle">10</text>
+            </g>
+
+            <g class="interactive-group" data-target="yaxis">
+                <line class="axis-line" x1="70" y1="60" x2="70" y2="320"></line>
+                <text class="label" x="60" y="325" font-size="12" text-anchor="end">0</text>
+                <text class="label" x="60" y="195" font-size="12" text-anchor="end">50</text>
+                <text class="label" x="60" y="65" font-size="12" text-anchor="end">100</text>
+            </g>
+
+            <g class="interactive-group" data-target="xlabel">
+                <text class="label" x="260" y="370" text-anchor="middle">X-Axis Label (e.g., Time)</text>
+            </g>
+
+            <g class="interactive-group" data-target="ylabel">
+                <text class="label" x="30" y="190" transform="rotate(-90 30 190)" text-anchor="middle">Y-Axis Label (e.g., Value)</text>
+            </g>
+
+            <g class="interactive-group" data-target="line">
+                <path class="data-line" d="M 70 250 Q 165 60 260 190 T 450 120"></path>
+            </g>
+
+            <g class="interactive-group" data-target="legend">
+                <rect class="legend-box" x="350" y="70" width="90" height="40" rx="4"></rect>
+                <line class="data-line" x1="360" y1="90" x2="380" y2="90" stroke-width="3"></line>
+                <text class="label" x="390" y="95" font-size="12">Data 1</text>
+            </g>
+        </svg>
+    </div>
+
+    <div class="info-area">
+        <h2>Component Definition</h2>
+        <h3 id="def-title">Hover/Click a component</h3>
+        <p id="def-text">Select an element on the plot to the left to see its definition and role within the Matplotlib Object-Oriented interface.</p>
+    </div>
+</div>
+
+<script>
+    const definitions = {
+        figure: { title: "Figure (fig)", text: "The Figure is the top-level container in the Matplotlib hierarchy. Think of it as the blank window, the physical page, or the picture frame. By itself, it displays no data. It acts as the backdrop that holds all other elements (Axes, titles, legends)." },
+        axes: { title: "Axes (ax)", text: "The Axes is the actual individual plotting box (the painting inside the frame). This is the object you interact with the most. It contains the data representation, the number lines (Axis), and the grid. A Figure can contain one or multiple Axes." },
+        title: { title: "Title", text: "Text placed at the top of the Axes to describe the plot. Set using <code>ax.set_title()</code> in the Object-Oriented interface." },
+        grid: { title: "Grid", text: "Background intersection lines that help viewers visually align data points with the values on the axes. Toggled using <code>ax.grid(True)</code>." },
+        xaxis: { title: "X-Axis", text: "The horizontal number line. Note the spelling difference: an <b>Axes</b> (the plot box) contains an X-<b>Axis</b> (the number line) and a Y-<b>Axis</b>. It manages the ticks, tick locations, and scale (e.g., linear vs. logarithmic)." },
+        yaxis: { title: "Y-Axis", text: "The vertical number line. It controls the scale and tick markers for the vertical data values." },
+        xlabel: { title: "X-Axis Label", text: "Descriptive text placed outside the X-axis numbers to explain what the data represents (including units). Set using <code>ax.set_xlabel()</code>." },
+        ylabel: { title: "Y-Axis Label", text: "Descriptive text placed outside the Y-axis numbers to explain what the data represents. Set using <code>ax.set_ylabel()</code>." },
+        line: { title: "Line (Line Plot)", text: "The visual representation of your actual data. Depending on the method you call on the Axes (e.g., <code>ax.plot()</code>, <code>ax.scatter()</code>, <code>ax.bar()</code>), this could be a line, dots, or bars." },
+        legend: { title: "Legend", text: "A small box containing a key that links the visual elements (like line colors or marker shapes) to the labels of the datasets. Generated using <code>ax.legend()</code>." }
+    };
+
+    const groups = document.querySelectorAll('.interactive-group');
+    const titleEl = document.getElementById('def-title');
+    const textEl = document.getElementById('def-text');
+
+    groups.forEach(group => {
+        const target = group.getAttribute('data-target');
+        
+        const updateContent = () => {
+            // Remove active class from all
+            groups.forEach(g => g.classList.remove('active'));
+            // Add to current
+            group.classList.add('active');
+            // Update text
+            titleEl.innerHTML = definitions[target].title;
+            textEl.innerHTML = definitions[target].text;
+        };
+
+        // Work on both hover and click for accessibility/mobile
+        group.addEventListener('mouseenter', updateContent);
+        group.addEventListener('click', updateContent);
+    });
+</script>
+</body>
+</html>

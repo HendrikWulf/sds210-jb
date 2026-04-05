@@ -178,13 +178,25 @@ project:
         # - file: book/09_L07_vector-data/07_classification.md
         - file: book/09_L07_vector-data/08_practical_L7.ipynb
         # - file: book/09_L07_vector-data/08_practical_L7.md
-        # - file: book/09_L07_vector-data/09_practical_L7-solutions.ipynb
+        - file: book/09_L07_vector-data/09_practical_L7-solutions.ipynb
         # - file: book/09_L07_vector-data/09_practical_L7-solutions.md
     - title: L8 - Visualization
       file: book/10_L08_visualization.md
       children:
-        - file: book/10_L08_visualization/01_get_started.ipynb
-        # - file: book/10_L08_visualization/01_get_started.md
+        - file: book/10_L08_visualization/01_matplotlib.ipynb
+        # - file: book/10_L08_visualization/01_matplotlib.md
+        - file: book/10_L08_visualization/02_static_mapping.ipynb
+        # - file: book/10_L08_visualization/02_static_mapping.md
+        - file: book/10_L08_visualization/03_cartographic_design.ipynb
+        # - file: book/10_L08_visualization/03_cartographic_design.md
+        - file: book/10_L08_visualization/04_king_context.ipynb
+        # - file: book/10_L08_visualization/04_king_context.md
+        - file: book/10_L08_visualization/05_interactive_maps.ipynb
+        # - file: book/10_L08_visualization/05_interactive_maps.md
+        - file: book/10_L08_visualization/06_practical_L8.ipynb
+        # - file: book/10_L08_visualization/06_practical_L8.md
+        # - file: book/10_L08_visualization/07_practical_L8-solutions.ipynb
+        # - file: book/10_L08_visualization/07_practical_L8-solutions.md
     - title: L9 - Raster Data
       file: book/11_L09_raster-data.md
       children:
@@ -222,5 +234,6 @@ site:
     favicon: fav.ico
     folders: true
     outline_maxdepth: 2
+    allowDangerousHtml: true
     style: _static/custom.css
   
