@@ -216,7 +216,12 @@ project:
     - title: Projects
       file: book/15_projects.md
       children:
-        - file: book/15_projects/01_get_started.md
+        - file: book/15_projects/01_topics.md
+        - file: book/15_projects/02_workflow.md
+        - file: book/15_projects/03_repository.md
+        - file: book/15_projects/04_assessment.md
+        - file: book/15_projects/05_reports.md
+        - file: book/15_projects/06_presentation.md
     - title: Glossary
       file: book/16_glossary.md
     - title: Feedback
