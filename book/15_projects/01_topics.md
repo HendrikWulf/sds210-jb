@@ -124,7 +124,7 @@ Choose this topic if you enjoy cartography, working with JSON-like web data, and
 :class: tip
 
 The dataset for this project is available for download via [Google Drive](https://drive.google.com/drive/folders/1SmEzlCAJJGYY-TdB58JX6ADvVxSQrMqj?usp=sharing). Alternatively, you can access the files directly on the university course server under `course/sds210/data/projects/project_3/`.
-For reference, you can also explore the [Google Earth Engine script](https://code.earthengine.google.com/...) used to generate this data.
+For reference, you can also explore the [Google Earth Engine script](https://code.earthengine.google.com/04afb4de7a1d95d988d2972e3ed87ffd) used to generate this data.
 ```
 
 This project focuses on tracking long-term environmental change in Zurich using satellite-derived indicators. You will analyze **urban heat patterns** over time using Landsat-based Land Surface Temperature (LST), and compare it alongside vegetation indicators like the Normalized Difference Vegetation Index (NDVI).
@@ -181,7 +181,7 @@ Choose this topic if you enjoy time-series analysis, working with continuous sat
 :class: tip
 
 The dataset for this project is available for download via [Google Drive](https://drive.google.com/drive/folders/1cnFhMAxAHG-53SUhneyHhJmdYA7DOddb?usp=sharing). Alternatively, you can access the files directly on the university course server under `course/sds210/data/projects/project_4/`.
-For reference, you can also explore the [Google Earth Engine script](https://code.earthengine.google.com/...) used to generate this data.
+For reference, you can also explore the [Google Earth Engine script](https://code.earthengine.google.com/390d19d45a224c4a36829bf1a3ac60a6) used to generate this data.
 ```
 
 This project focuses on identifying environmental damage using advanced **change detection** techniques. You will utilize both **[AlphaEarth embeddings](https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_SATELLITE_EMBEDDING_V1_ANNUAL)** and **Sentinel-2 satellite composites** to compare spatial patterns before and after a major catastrophic event. The suggested case study is the devastating **Hawaii wildfires of 2023**.
