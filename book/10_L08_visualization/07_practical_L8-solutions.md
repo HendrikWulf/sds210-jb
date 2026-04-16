@@ -124,12 +124,13 @@ l1 = gpd.read_file(basins_l1_fp).to_crs(epsg=4326)
 l2 = gpd.read_file(basins_l2_fp).to_crs(epsg=4326)
 l3 = gpd.read_file(basins_l3_fp).to_crs(epsg=4326)
 
-# 2. Format the tooltip strings using a lambda function
-format_area = lambda x: f"Area: {x:,.0f} km²".replace(',', "'")
+# 2. Format the tooltip strings using a function
+def format_area(x):
+    return f"Area: {x:,.0f} km²".replace(",", "'")
 
-l1['Tooltip_Area'] = l1['UP_AREA'].apply(format_area)
-l2['Tooltip_Area'] = l2['UP_AREA'].apply(format_area)
-l3['Tooltip_Area'] = l3['UP_AREA'].apply(format_area)
+l1["Tooltip_Area"] = l1["UP_AREA"].apply(format_area)
+l2["Tooltip_Area"] = l2["UP_AREA"].apply(format_area)
+l3["Tooltip_Area"] = l3["UP_AREA"].apply(format_area)
 
 # 3. Initialize the Web App
 basin_app = folium.Map(location=[20, 0], zoom_start=3, tiles="CartoDB DarkMatter")
