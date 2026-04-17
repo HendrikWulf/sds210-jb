@@ -180,7 +180,7 @@ Before we move on to real spatial data containing those missing elements, take a
     allowfullscreen>
 </iframe>
 
-*For improved visibility of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_L09_ch01_01_terrain_matrix/).* 
+*Interactive Terrain Matrix Editor. For improved visibility of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_L09_ch01_01_terrain_matrix/).* 
 
 ---
 
