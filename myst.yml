@@ -202,7 +202,7 @@ project:
       children:
         - file: book/11_L09_raster-data/01_get_started.md
         # - file: book/11_L09_raster-data/01_raster_model.md
-        # - file: book/11_L09_raster-data/02_numpy.md
+        - file: book/11_L09_raster-data/02_numpy.md
         # - file: book/11_L09_raster-data/03_rasterio.md
         # - file: book/11_L09_raster-data/04_metadata.md
         # - file: book/11_L09_raster-data/05_algebra.md
