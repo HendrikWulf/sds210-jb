@@ -195,14 +195,14 @@ project:
         # - file: book/10_L08_visualization/05_interactive_maps.md
         - file: book/10_L08_visualization/06_practical_L8.ipynb
         # - file: book/10_L08_visualization/06_practical_L8.md
-        # - file: book/10_L08_visualization/07_practical_L8-solutions.ipynb
+        - file: book/10_L08_visualization/07_practical_L8-solutions.ipynb
         # - file: book/10_L08_visualization/07_practical_L8-solutions.md
     - title: L9 - Raster Data
       file: book/11_L09_raster-data.md
       children:
         - file: book/11_L09_raster-data/01_get_started.md
         # - file: book/11_L09_raster-data/01_raster_model.md
-        - file: book/11_L09_raster-data/02_numpy.md
+        # - file: book/11_L09_raster-data/02_numpy.md
         # - file: book/11_L09_raster-data/03_rasterio.md
         # - file: book/11_L09_raster-data/04_metadata.md
         # - file: book/11_L09_raster-data/05_algebra.md
