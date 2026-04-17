@@ -31,7 +31,7 @@ To follow along with this chapter, we are heading to Zurich, Switzerland. Please
 :class: note
 
 * [Zurich Quarters (Zurich_quarters.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/Zurich_quarters.gpkg)
-* [PubliBike Stations (Zurich_PubliBike_stations.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/Zurich_PubliBike_stations.gpkg)
+* [EV Charging Stations (EV_charging_stations.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/EV_charging_stations.gpkg)
 * [Bike Parking (Zurich_bike_parking.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/Zurich_bike_parking.gpkg)
 ```
 
