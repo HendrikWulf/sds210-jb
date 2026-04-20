@@ -4,7 +4,7 @@
 
 AI tools such as large language models (LLMs) can be valuable companions when learning Python programming, **if used intentionally and responsibly**.
 
-In this course, you may use AI tools (e.g. [Copilot](https://www.zi.uzh.ch/de/staff/software-elearning/copilot.html), ChatGPT, Claude, Gemini) to:
+In this course, you may use AI tools (e.g. Claude, Gemini, [Copilot](https://www.zi.uzh.ch/de/staff/software-elearning/copilot.html), ChatGPT) to:
 - clarify Python syntax and concepts,
 - debug errors and understand error messages,
 - explore alternative implementations or approaches,
