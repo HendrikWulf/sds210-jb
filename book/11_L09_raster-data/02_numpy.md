@@ -1,5 +1,5 @@
 ---
-title: Crunching Numbers with NumPy
+title: Crunching NumPy
 
 site:
   outline_maxdepth: 1
@@ -8,6 +8,10 @@ site:
 <div class="page-subtitle">
 Meeting the mathematical engine behind raster data
 </div>
+
+---
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/11_L09_raster-data/02_numpy.ipynb)
 
 ---
 
@@ -368,7 +372,7 @@ print(selected)
 This kind of targeted updating is useful when simulating terrain, applying masks, or changing selected raster cells.
 
 <iframe
-src="https://www.google.com/search?q=https://hendrikwulf.github.io/sds210_assets_L09_ch01_02_array_visualizer/"
+src="https://hendrikwulf.github.io/sds210_assets_L09_ch02_array_visualizer/"
 width="100%"
 title="Interactive Array Slicing and Masking Visualizer"
 frameborder="0"
@@ -376,7 +380,7 @@ style="height: 700px; min-height: 700px; border: none; border-radius: 8px; box-s
 allowfullscreen>
 </iframe>
 
-*Interactive Array Slicing and Masking Visualizer. For improved visibility of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_L09_ch01_01_terrain_matrix/).* 
+*Interactive Array Slicing and Masking Visualizer. For improved visibility of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_L09_ch02_array_visualizer/).* 
 
 
 ---

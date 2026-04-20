@@ -12,6 +12,10 @@ Continuous surfaces and the matrix
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/11_L09_raster-data/01_raster_model.ipynb)
+
+---
+
 In the previous chapters, you mastered the art of vector data. You learned how to represent the world using discrete geometries like points, lines, and polygons. You queried their intersections, measured their borders, and mapped their attributes.
 
 But what happens when the phenomenon you want to study does not have a clear boundary?
