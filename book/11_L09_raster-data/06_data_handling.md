@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 ---
 title: Data Handling
 
@@ -435,6 +434,3 @@ Effectively managing how data moves in and out of your computer's memory is cruc
   * **Respect memory limits:** Satellite files are massive. Protect your system by reading only the specific bands you need, reducing data precision, or utilizing windowed reading.
   * **Clip to save time:** Subsetting arrays using array indices, geographic coordinates, or exact vector polygons (masks) restricts processing strictly to your area of interest.
   * **Reproject to align:** Use `rasterio.warp` to resample and transform pixel grids to match local Coordinate Reference Systems (like moving from UTM to local standard projections).
-=======
-# Concepts
->>>>>>> Stashed changes
