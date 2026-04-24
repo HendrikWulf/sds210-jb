@@ -36,7 +36,7 @@ After completing this practical, you will be able to:
 
 ## Practical storyline
 
-You have been tasked with monitoring the massive expansion of the Urtmorin Solar Park in China. The project is a critical piece of the global energy transition.
+You have been tasked with monitoring the massive expansion of the Urtmorin [Solar Park](https://en.wikipedia.org/wiki/List_of_photovoltaic_power_stations) in China. The project is a critical piece of the global energy transition.
 
 To bypass the complexities of cloud-masking raw data on your local machine, a data engineer has already pre-processed the Sentinel-2 data in Google Earth Engine. They have provided you with two clean, median composites representing the summer seasons of **2017** (before major expansion) and **2025** ('current' state). Both images contain six spectral bands (B2, B3, B4, B8, B11, B12).
 
@@ -102,9 +102,9 @@ The 6 bands in our file correspond to the following NumPy indices (0-based):
 
 ### Tasks
 1. **Load the Data:** Use `rasterio.open()` to read the entire 2017 and 2025 images into NumPy arrays called `img_2017` and `img_2025`. Check their `.shape` to confirm they have 6 bands.
-2. **Define a Normalization Function:** Just like you did with Landsat, define a `normalize(array, vmin=0, vmax=3500)` function that clips the array to those bounds and scales it to a `0-1` range for display. *(Note: We use `3500` instead of `0.4` here because Sentinel-2 reflectance is scaled up to ~10,000).*
+2. **Define a Normalization Function:** Just like you did with Landsat, define a `normalize(array, vmin=0, vmax=3500)` function that [clips](https://numpy.org/devdocs/reference/generated/numpy.clip.html#numpy.clip) the array to those bounds and scales it to a `0-1` range for display. *(Note: We use `3500` instead of `0.4` here because Sentinel-2 reflectance is scaled up to ~10,000).*
 3. **Extract and Normalize Bands:** For both 2017 and 2025, extract the 2D arrays for SWIR-2 (`Index 5`), NIR (`Index 3`), and Red (`Index 2`). Pass each of these 2D arrays through your `normalize` function.
-4. **Stack and Plot:** Use `np.dstack()` to stack your three normalized bands into False Color Composites (`fcc_2017` and `fcc_2025`). Plot both composites side-by-side using `plt.subplots(1, 2)`.
+4. **Stack and Plot:** Use [`np.dstack()`](https://numpy.org/devdocs/reference/generated/numpy.dstack.html#numpy-dstack) to stack your three normalized bands into False Color Composites (`fcc_2017` and `fcc_2025`). Plot both composites side-by-side using `plt.subplots(1, 2)`.
 
 ```{code-cell} python
 # Write your code here
@@ -121,12 +121,12 @@ The goal is twofold: first, scale the reflectance values from their original ran
 ```{admonition} Why Cosine Similarity and [-1, 1] Scaling?
 :class: note
 
-Cosine similarity evaluates the angle between two vectors, making it highly robust against overall brightness changes (like shadows or slight illumination differences). Scaling data to `[-1, 1]` and computing cosine similarity is a standard technique used with advanced AI Foundation Models, such as **Alpha Earth embeddings**. In this practical, we are mimicking that exact preprocessing workflow to test its suitability and performance directly on raw Sentinel-2 spectral bands.
+Cosine similarity evaluates the angle between two vectors, making it highly robust against overall brightness changes (like shadows or slight illumination differences). Scaling data to `[-1, 1]` and computing cosine similarity is a standard technique used with AI Foundation Models, such as **Alpha Earth embeddings**. In this practical, we are mimicking that exact preprocessing workflow to test the suitability and performance of the cosine similarity on raw Sentinel-2 spectral bands.
 ```
 
 ### Tasks
 
-1.  **Handle NaNs and Scale the Arrays:** Satellite imagery often contains "NoData" pixels around the edges represented as `NaN` (Not a Number). If left unchecked, these NaNs will propagate through our equations and break the analysis. First, wrap your raw arrays in `np.nan_to_num()` to safely convert missing values to `0`. Then, create `scaled_2017` and `scaled_2025` using the following formula:
+1.  **Handle NaNs and Scale the Arrays:** Satellite imagery often contains "NoData" pixels around the edges represented as `NaN` (Not a Number). If left unchecked, these NaNs will propagate through our equations and potentially break the analysis. First, wrap your raw arrays in `np.nan_to_num()` to safely convert missing values to `0`. Then, create `scaled_2017` and `scaled_2025` using the following formula:
     $x_{scaled} = \frac{x}{5000.0} - 1.0$
     *(Note: We are using the original `(Bands, Rows, Cols)` arrays so the math broadcasts correctly across the entire matrix!)*
 2.  **Calculate Vector Lengths (Norm):** To normalize a vector, we first need its length (magnitude). Calculate the Euclidean norm by squaring the scaled array, summing it across the bands (`axis=0`), and taking the square root. Save these as `norm_2017` and `norm_2025`.

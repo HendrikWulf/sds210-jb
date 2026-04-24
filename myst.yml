@@ -214,12 +214,21 @@ project:
         # - file: book/11_L09_raster-data/06_data_handling.md
         - file: book/11_L09_raster-data/07_practical_L9.ipynb
         # - file: book/11_L09_raster-data/07_practical_L9.md
-        # - file: book/11_L09_raster-data/08_practical_L9-solutions.ipynb
+        - file: book/11_L09_raster-data/08_practical_L9-solutions.ipynb
         # - file: book/11_L09_raster-data/08_practical_L9-solutions.md
     - title: L10 - Time Series
       file: book/12_L10_time-series.md
       children:
         - file: book/12_L10_time-series/01_get_started.md
+        # - file: book/12_L10_time-series/01_data_cube_model.md
+        # - file: book/12_L10_time-series/02_data_in_out.md
+        # - file: book/12_L10_time-series/03_sampling_the_cube.md
+        # - file: book/12_L10_time-series/04_rioarray.md
+        # - file: book/12_L10_time-series/05_map_algebra.md
+        # - file: book/12_L10_time-series/06_temporal_aggregation.md
+        # - file: book/12_L10_time-series/07_computing_trends.md
+        # - file: book/12_L10_time-series/08_practical_L10.md
+        # - file: book/12_L10_time-series/09_practical_L10-solutions.md
     - title: L11 - Object Oriented
       file: book/13_L11_object-oriented.md
       children:
