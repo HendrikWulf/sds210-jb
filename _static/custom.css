@@ -26,6 +26,13 @@ html {
   margin: 0;
 }
 
+.figure-caption-like {
+  font-size: 0.9em;
+  font-style: italic;
+  text-align: center;
+  color: var(--pst-color-text-muted);
+  margin-top: 0.25rem;
+}
 
 /* Ensure full-width elements don't exceed 100% of the screen width 
 .full-width {

@@ -18,3 +18,5 @@ tqdm
 pyarrow
 cmcrameri
 gdown
+cftime
+cartopy
