@@ -46,6 +46,7 @@ To spot erroneous values, such as a sensor error recording a fill value of 9999,
 ```{code-cell} python
 # Plot a histogram with 50 bins to check the overall data distribution
 ds.air.plot.hist(bins=50, histtype="stepfilled", alpha=0.8)
+plt.xlabel("Air Temperature [°K]")
 plt.show()
 ```
 
@@ -64,8 +65,9 @@ ds.air.sel(lat=[75.0, 50.0, 25.0], lon=260.0, method="nearest").plot.line(
     x="time", 
     hue="lat", 
     figsize=(10, 4),
-    linewidth=2
+    linewidth=1
 )
+plt.ylabel("Air Temperature [°K]")
 plt.show()
 ```
 
@@ -83,7 +85,7 @@ You can heavily customize these maps using dictionaries like `cbar_kwargs` to fo
 ds.air.isel(time=0).plot.pcolormesh(
     robust=True, 
     cmap="RdYlBu_r",
-    cbar_kwargs={"orientation": "horizontal", "pad": 0.1}
+    cbar_kwargs={"orientation": "horizontal", "pad": 0.15, "label": "Air Temperature [°K]"}
 )
 
 # 2. Overlay a contour plot on the same axis
@@ -113,7 +115,7 @@ ds.air.isel(time=slice(0, 4)).plot(
     col="time", 
     col_wrap=2, 
     robust=True,
-    cbar_kwargs={"orientation": "horizontal", "shrink": 0.8, "aspect": 40}
+    cbar_kwargs={"orientation": "horizontal", "shrink": 0.8, "aspect": 40, "label": "Air Temperature [°K]"}
 )
 plt.show()
 ```
@@ -128,10 +130,10 @@ When you create a faceted plot, `xarray` returns a `FacetGrid` object. This obje
 Most importantly, you can use `.map()` or `.map_dataarray()` to apply a custom `matplotlib` or `xarray` plotting function to every single panel simultaneously. For example, you can easily overlay topographic contours or a specific point of interest across all time steps.
 
 ```{code-cell} python
-fg = ds.air.isel(time=slice(0, 4)).plot(col="time", col_wrap=2, robust=True)
+fg = ds.air.isel(time=slice(0, 4)).plot(col="time", col_wrap=2, robust=True, cbar_kwargs={"label": "Air Temperature [°K]"})
 
 # Map a contour plot onto every panel using the original DataArray
-fg.map_dataarray(xr.plot.contour, colors="k", levels=5, linewidths=0.5, add_colorbar=False)
+fg.map_dataarray(xr.plot.contour, x="lon", y="lat", colors="k", levels=5, linewidths=0.5, add_colorbar=False)
 
 # Map a standard matplotlib point marker onto every panel
 fg.map(lambda: plt.plot(260.0, 40.0, marker="*", color="white", markersize=15))
@@ -197,7 +199,7 @@ ds.air.isel(time=0).plot(
     transform=ccrs.PlateCarree(), 
     robust=True,
     cmap="inferno",
-    cbar_kwargs={"shrink": 0.7}
+    cbar_kwargs={"shrink": 0.7, "label": "Air Temperature [°K]"}
 )
 
 # 3. Add coastlines to the axis to provide geographic context
@@ -223,7 +225,8 @@ fg = ds.air.isel(time=slice(0, 3)).plot(
     subplot_kws={"projection": ccrs.LambertConformal(central_longitude=-95, central_latitude=45)},
     cbar_kwargs={"orientation": "horizontal", "shrink": 0.8, "aspect": 40},
     robust=True,
-    cmap="inferno"
+    cmap="inferno",
+    label= "Air Temperature [°K]"
 )
 
 # Apply a coastline to every single axis in the facet grid
@@ -321,6 +324,10 @@ An interactive heatmap with a built-in time slider. Grouping by the time dimensi
 You can easily upgrade the manual slider into a playback animation. By specifying `widget_type="scrubber"`, the map will play forward automatically, revealing dynamic environmental processes. You can also control the placement of this tool using the `widget_location` argument.
 
 ```{code-cell} python
+import logging
+# Suppress the deserialization warnings from the 'param' library
+logging.getLogger('param').setLevel(logging.ERROR)
+
 # Convert the slider into an automatic playback scrubber
 ds.air.hvplot(
     groupby="time", 

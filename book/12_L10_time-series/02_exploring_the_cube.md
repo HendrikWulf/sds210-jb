@@ -11,7 +11,7 @@ Reading, inspecting, and visualizing multidimensional datasets
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/12_L10_time-series/02_exploring_data_cubes.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/12_L10_time-series/02_exploring_the_cube.ipynb)
 
 ---
 
