@@ -58,7 +58,7 @@ However, environmental data cubes often go beyond just time. A single `xarray` o
 To visualize how a 2D grid transforms into a 3D time series, explore the interactive widget below.
 
 <iframe 
-    src="data_cube_visualizer.html"
+    src="https://hendrikwulf.github.io/sds210_assets_L10_ch01_data_cube_visualizer/"
     width="100%"
     title="Interactive Data Cube Explorer"
     frameborder="0"
@@ -86,7 +86,7 @@ Every `DataArray` consists of four key properties:
 * **Coordinates (coords):** The specific tick labels along those dimensions (e.g., `2024-05-30`, or `47.3°N`).
 * **Attributes (attrs):** A dictionary holding arbitrary metadata (e.g., units, sensor type, or data source).
 
-:::{figure} images/xarray_terminology.png
+:::{figure} images/01_xarray_terminology.png
 :alt: Diagram showing Xarray terminology including dimensions, coordinates, and attributes attached to an array of data.
 :width: 600px
 :align: center
@@ -102,7 +102,7 @@ In environmental science, you rarely measure just one variable. A weather model 
 
 You can think of a `Dataset` as the `xarray` equivalent of a `geopandas.GeoDataFrame`. Just as a GeoDataFrame stores multiple columns of data over the same exact geographic shapes, a Dataset stores multiple physical variables over the exact same multidimensional cube.
 
-:::{figure} images/dataset-diagram.png
+:::{figure} images/02_dataset-diagram.png
 :alt: Diagram of an Xarray Dataset showing multiple variables like temperature and precipitation sharing the same latitude, longitude, and time dimensions.
 :width: 600px
 :align: center
@@ -142,57 +142,105 @@ A **Dataset** is the collection of aligned DataArrays. Most operations you learn
 ```
 
 ---
-
 ## 4. Why labels beat indices
 
 The greatest advantage of the Data Cube model is that you stop writing code based on computer logic and start writing code based on human logic. 
 
-Suppose you have a pure NumPy array with the shape `(2920, 25, 53)`. To extract a single value, you must remember the exact numerical position for every single axis.
-
-```python
-# Pure NumPy: You must memorize that axis 0 is time, 1 is lat, 2 is lon
-temperature = air_matrix[0, 2, 3]
-```
-
-That works, but it is highly prone to silent errors. Did you just select the first day, or the first latitude? `xarray` solves the *"what does axis 0 mean again?"* problem by offering extremely flexible routines that combine the speed of NumPy with the labels of Pandas.
-
-### Positional selection (`isel`)
-
-If you know the exact numerical position of your data but do not want to guess the axis order, you use **Index Selection** (`isel`). You provide the integer position, but explicitly name the dimension.
+Under the hood, the values are still stored as a NumPy array. You can access that raw array with `.values`:
 
 ```{code-cell} python
-# Using isel: The axis order no longer matters!
-air.isel(time=0, lat=2, lon=3)
+air_matrix = air_temperature_array.values
+air_matrix.shape
 ```
 
-### Label selection (`sel`)
+This gives the familiar shape:
 
-The true superpower of `xarray` is **Label Selection** (`sel`). In label selection, the element position is automatically looked up from the coordinate values. You simply ask for exactly what you want.
+```text
+(2920, 25, 53)
+```
+
+If you work with this raw NumPy array directly, you must remember the meaning of every axis yourself.
 
 ```{code-cell} python
-# Using sel: Selecting data using explicit human-readable labels
-air.sel(time="2013-01-01", lat=73.14, lon=52.53, method="nearest")
+# Pure NumPy: you must know that axis 0 is time, 1 is latitude, and 2 is longitude
+temperature = air_matrix[100, 12, 20]
+temperature
 ```
 
-This labeled approach is infinitely safer. It documents your code naturally and allows you to easily take geographic or temporal "slices" (for example, requesting all temperatures from `slice("2013-01-01", "2013-01-10")`).
+That works, but it is fragile. The code no longer tells you what `100`, `12`, and `20` actually mean. You need to remember that:
 
-```{admonition} What does the asterisk (*) mean?
+* `100` refers to the 101st time step
+* `12` refers to the 13th latitude
+* `20` refers to the 21st longitude
+
+This is exactly the problem that `xarray` solves.
+
+### Positional selection with `isel()`
+
+If you know the array positions but want your code to remain readable, use **index selection** with `isel()`.
+
+```{code-cell} python
+# Explicitly name the dimensions while still selecting by position
+air_temperature_array.isel(time=100, lat=12, lon=20)
+```
+
+This is already safer than raw NumPy indexing because the dimension names make your intention clear.
+
+You can also inspect which labels belong to that selected cell:
+
+```{code-cell} python
+sample = air_temperature_array.isel(time=100, lat=12, lon=20)
+
+print(sample)
+print("Latitude:", float(sample["lat"]))
+print("Longitude:", float(sample["lon"]))
+print("Time:", str(sample["time"].values))
+```
+
+### Label selection with `sel()`
+
+The real strength of `xarray` is **label selection** with `sel()`. Here you select values using meaningful coordinate labels instead of integer positions.
+
+From the previous example, the selected cell corresponds to:
+
+* `time = "2013-01-26T00:00:00.000000000"`
+* `lat = 45.0`
+* `lon = 250.0`
+
+Now you can select the exact same value again, but this time using the labels directly:
+
+```{code-cell} python
+air_temperature_array.sel(
+    time="2013-01-26T00:00:00.000000000",
+    lat=45.0,
+    lon=250.0
+)
+```
+
+This is much easier to read because the code itself now tells you what you selected:
+
+* the timestamp `2013-01-26`
+* the latitude `45.0`
+* the longitude `250.0`
+
+Instead of remembering array positions, you work directly with the labels that give the data meaning.
+
+````{admonition} Why are some longitudes greater than 180°?
 :class: note
 
-When you print a Dataset or DataArray, you will often see an asterisk `*` next to the coordinate names (e.g., `* time`). 
+Some global datasets use longitude values from `0` to `360` instead of `-180` to `180`. In that convention, `250.0°` is perfectly valid and corresponds to `-110.0°`. 
 
-This indicates it is an **Indexed Coordinate**. Under the hood, `xarray` has built a highly optimized search index (similar to a database) for that specific dimension. This is what allows the `.sel()` method to find your specific dates and latitudes instantly without slowing down your computer. 
+```{math}
+\lambda_{[-180,180]} =
+\begin{cases}
+\lambda_{[0,360]} - 360, & \text{if } \lambda_{[0,360]} > 180 \\
+\lambda_{[0,360]}, & \text{otherwise}
+\end{cases}
+
 ```
 
-### Why this matters in practice
-
-Named dimensions become especially valuable when:
-* datasets have many overlapping axes
-* you are combining multiple variables
-* you resample or aggregate data across time
-* you return to your code after a few weeks and still want to understand it
-
-If your spatial analysis depends on remembering what each axis integer means, your code is already more fragile than it needs to be.
+Both values describe the same location on Earth. This is common in climate and Earth system datasets because it keeps longitude coordinates continuous across global grids.
+````
 
 ---
 
@@ -216,60 +264,28 @@ Your code will use `xarray` to do the thinking, the labeling, and the math in me
 
 ---
 
-## 6. Exercise: Inspecting a data cube
+## 6. Exercise: Thinking in cubes
 
-It is time to see a real data cube in action. `xarray` includes a few built in tutorial datasets so you can practice navigating multidimensional spaces without downloading large files.
-
-Your task is to load the standard air temperature dataset and inspect its structure.
-
-```{code-cell} python
-import xarray as xr
-
-# Load the tutorial data cube
-ds = xr.tutorial.open_dataset("air_temperature")
-
-# Print the dataset representation to the screen
-ds
-```
-
-Look closely at the output in your Jupyter notebook. 
+Look again at the interactive cube visualizer and the examples in this chapter.
 
 **Your task:**
-Identify the following components in the printed output:
-1. What are the three **Dimensions** of this cube?
-2. What are the specific **Coordinates** defining the spatial resolution?
-3. What is the name of the **Data variable** held inside this container?
-4. Can you find the metadata **Attributes** explaining who created the data?
 
-````{admonition} Sample solution
+1. Name three possible dimensions of an environmental data cube.
+2. Explain the difference between a **DataArray** and a **Dataset** in one or two sentences.
+3. Explain why label based selection is easier to read than pure NumPy indexing.
+4. Give one example of a scientific question that requires a data cube instead of a single raster.
+
+````md
+```{admonition} Sample solution
 :class: dropdown
 
-When you run the code, you will see an interactive HTML representation of the Dataset. 
+A good answer could be:
 
-1. **Dimensions:** The cube is built on `lat` (latitude), `lon` (longitude), and `time`.
-2. **Coordinates:** You can see that `lat` runs from 75.0 down to 15.0, and `time` covers the entire year of 2013 and 2014.
-3. **Data variables:** There is one variable inside this container called `air`.
-4. **Attributes:** By clicking the document icons on the right side of the output, you can read metadata stating the data comes from the "NMC reanalysis".
-
-**Accessing data programmatically**
-
-While the interactive HTML output is fantastic for exploring visually, you will often need to access this metadata directly in your code to automate your spatial analysis. You can tap into all of this information using the following properties:
-
-```{code-cell} python
-# 1. Print the dimensions
-print(ds.dims)
-
-# 2. Print the coordinates
-print(ds.coords)
-
-# 3. List the data variables
-print(list(ds.data_vars))
-
-# 4. Access a specific attribute
-print(ds.attrs.get("description"))
+1. Three common dimensions are `time`, `lat`, and `lon`. Other possible dimensions are `band`, `x`, `y`, or `level`.
+2. A `DataArray` stores one labeled variable together with its dimensions, coordinates, and metadata. A `Dataset` is a container that stores multiple aligned DataArrays sharing the same coordinates.
+3. Label based selection is easier to read because it uses meaningful values such as dates and coordinates instead of raw integer positions.
+4. A question such as “How did air temperature change at one location over two years?” requires a data cube because it needs repeated observations through time.
 ```
-
-**Why this is powerful:** In one glance, you understand the entire spatial and temporal scope of the dataset. Because `xarray` makes this context accessible to both your eyes and your code, your scripts can automatically adapt to the data structure. If this were a raw NumPy array, you would only see `(2920, 25, 53)` and have absolutely no idea what those numbers represent or what the matrix contains.
 ````
 
 ---
