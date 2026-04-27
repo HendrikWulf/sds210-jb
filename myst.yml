@@ -223,9 +223,9 @@ project:
         # - file: book/12_L10_time-series/01_data_cube_model.md
         - file: book/12_L10_time-series/02_exploring_the_cube.ipynb
         # - file: book/12_L10_time-series/02_exploring_the_cube.md
-        # - file: book/12_L10_time-series/03_visualizing_the_cube.ipynb
+        - file: book/12_L10_time-series/03_visualizing_the_cube.ipynb
         # - file: book/12_L10_time-series/03_visualizing_the_cube.md
-        # - file: book/12_L10_time-series/04_sampling_the_cube.ipynb
+        - file: book/12_L10_time-series/04_sampling_the_cube.ipynb
         # - file: book/12_L10_time-series/04_sampling_the_cube.md
         # - file: book/12_L10_time-series/05_getting_raster_data.ipynb
         # - file: book/12_L10_time-series/05_getting_raster_data.md

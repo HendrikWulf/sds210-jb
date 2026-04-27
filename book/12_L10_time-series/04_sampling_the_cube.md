@@ -11,7 +11,7 @@ Navigating multi dimensional data across space, time, and conditions
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/12_L10_time-series/03_sampling_the_cube.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/12_L10_time-series/04_sampling_the_cube.ipynb)
 
 ---
 
@@ -98,8 +98,8 @@ air.sel(time="2013-01-01", lat=40.0, lon=260.0)
 Because coordinates are backed by an index, these lookups are highly efficient. You can also use `slice()` with `.sel` to filter data between specific geographic or temporal bounds.
 
 ```{code-cell} python
-# Select a range of longitudes using coordinate values
-air.sel(lon=slice(210, 215))
+# Select a range of longitudes and limit the output display
+air.sel(lon=slice(210, 215)).head(time=1)
 ```
 
 ### Nearest neighbor lookups
@@ -112,7 +112,7 @@ In real-world Geospatial Data Science, your target coordinates (e.g., a weather 
 ```{code-cell} python
 # Find the value at a coordinate that isn't exactly in the grid
 # method="nearest" finds the closest match
-air.sel(lat=52.25, lon=151.89, method="nearest", tolerance=2)
+air.sel(lat=52.25, lon=251.89, method="nearest", tolerance=2)
 ```
 
 <div class="figure-caption-like">
@@ -180,7 +180,7 @@ One of Xarray's most convenient features is its ability to interpret partial dat
 air.sel(time="2014")
 
 # Extract all data for a specific month
-air.sel(time="2013-05")
+air.sel(time="2013-05").head(time=1)
 ```
 
 ### Temporal intervals with slice
@@ -189,7 +189,7 @@ To select a continuous range of time, use the Python `slice` function. This is t
 
 ```{code-cell} python
 # Select a window from May to mid October
-air.sel(time=slice("2013-05-01", "2013-10-15"))
+air.sel(time=slice("2013-05-01", "2013-10-15")).head(time=1)
 ```
 
 ```{admonition} Slices are inclusive
@@ -236,15 +236,15 @@ plt.title("A single latitude cross section");
 A rectangular subset, or bounding box, is the most common way to isolate a specific study area. You define these windows using the `slice()` function within `.sel()`.
 
 ```{code-cell} python
-# Define a geographic subset for the Central US
+# Define a geographic subset for Central Canada
 # Latitude in this dataset is stored in descending order (North to South)
+# Longitude 255-275 corresponds roughly to 105W-85W
 subset = air.sel(
-    lon=slice(240, 280),
-    lat=slice(50, 30)
+    lon=slice(255, 275),
+    lat=slice(60, 45)
 )
-
-subset.isel(time=0).plot()
-plt.title("Regional bounding box subset");
+subset.mean(dim="time").plot()
+plt.title("Regional bounding box subset")
 ```
 
 <div class="figure-caption-like">
@@ -267,7 +267,7 @@ Selecting a single cell by its coordinates is the spatial equivalent of selectin
 ```{code-cell} python
 # Isolate one location across all time steps
 # This returns a 1D DataArray of temperature over time
-specific_station = air.sel(lat=40.0, lon=260.0)
+specific_station = air.sel(lat=50.0, lon=260.0)
 specific_station
 ```
 
@@ -276,11 +276,11 @@ specific_station
 In professional Geospatial Data Science workflows, it is best practice to define your study area once and persist it as a new object. This makes your code more readable and prevents you from accidentally running heavy calculations on the full global dataset when you only need a local subset.
 
 ```{code-cell} python
-# Define and persist a regional subset
-western_us = air.sel(lon=slice(235, 260), lat=slice(55, 30))
+# Define and persist a regional subset for Western Canada
+western_canada = air.sel(lon=slice(230, 255), lat=slice(70, 50))
 
 # All subsequent analysis now uses the smaller, more efficient object
-western_us.mean(dim="time").plot();
+western_canada.mean(dim="time").plot();
 ```
 
 By persisting subsets, you move from general exploration to a focused analysis of a specific geographic region.
@@ -299,15 +299,14 @@ A boolean mask is a binary array of the same shape as your data, containing only
 
 Xarray provides the `.where()` method to apply these masks. Unlike coordinate selection, `.where()` typically preserves the **shape** of the original data. Values that do not meet the condition are replaced with a "mask" value—by default, `NaN` (Not a Number).
 
-
 ```{code-cell} python
-# Keep only "warm" pixels above 300 Kelvin
-warm_mask = air > 300
+# Keep only "warm" pixels above 270 Kelvin
+warm_mask = air > 270
 warm_data = air.where(warm_mask)
 
 # Visualize the first time step
 warm_data.isel(time=0).plot()
-plt.title("Filtered values: Temperature > 300K");
+plt.title("Filtered values: Temperature > 270K");
 ```
 
 <div class="figure-caption-like">
@@ -318,7 +317,7 @@ If you need to replace masked values with a specific placeholder instead of `NaN
 
 ```{code-cell} python
 # Replace everything else with a specific NoData value
-air.where(air > 300, -9999)
+air.where(air > 270, -9999).head(time=1)
 ```
 
 ### Clipping with `drop=True`
@@ -387,8 +386,15 @@ In a data cube with dimensions `(time, lat, lon)`, selecting one specific coordi
 ```{code-cell} python
 # Select a specific coordinate point
 # This isolates one 'pixel' through the entire temporal dimension
-point_ts = air.sel(lat=40.0, lon=260.0)
+point_ts = air.sel(lat=50.0, lon=260.0)
 point_ts
+```
+
+```{code-cell} python
+# Rapid validation of the temporal signal
+point_ts.plot(figsize=(10, 4))
+plt.title("Air temperature time series at Lat: 50.0, Lon: 260.0")
+plt.ylabel("Temperature (K)");
 ```
 
 ### Handling coordinate grid mismatches
@@ -399,8 +405,15 @@ The **`method="nearest"`** parameter tells Xarray to find the single closest ava
 ```{code-cell} python
 # Find the value at a coordinate that is not exactly in the grid
 # 'nearest' picks the center of the closest pixel
-point_ts_nearest = air.sel(lat=41.2, lon=261.3, method="nearest")
+point_ts_nearest = air.sel(lat=51.2, lon=261.3, method="nearest")
 point_ts_nearest
+```
+
+```{code-cell} python
+# Rapid validation of the temporal signal
+point_ts_nearest.plot(figsize=(10, 4))
+plt.title("Air temperature time series nearest to Lat: 51.2, Lon: 261.3")
+plt.ylabel("Temperature (K)");
 ```
 
 ### Continuous estimation with interpolation
@@ -414,13 +427,30 @@ Instead of snapping to the nearest pixel, interpolation uses neighboring observa
 point_ts_interp = air.interp(lat=41.2, lon=261.3, method="linear")
 ```
 
+```{code-cell} python
+import matplotlib.pyplot as plt
+
+# Plot both the nearest-neighbor and interpolated time series for comparison
+plt.figure(figsize=(12, 5))
+
+# Limit to a small window of time to see the interpolation details clearly
+point_ts_nearest.isel(time=slice(0, 50)).plot(label="Nearest Neighbor", marker='o', alpha=0.6)
+point_ts_interp.isel(time=slice(0, 50)).plot(label="Linear Interpolation", linestyle='--', color='red')
+
+plt.title("Temperature Time Series: Nearest vs. Interpolated (51.2N, 261.3E)")
+plt.ylabel("Air Temperature [°K]")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+```
+
 ### Visualizing temporal trends
 One of the most efficient features of Xarray is its ability to automatically detect the dimensions of a result. Because the extracted object is 1D, calling `.plot()` immediately generates a line chart with correctly formatted time labels.
 
 ```{code-cell} python
-# Rapid validation of the temporal signal
-point_ts.plot(figsize=(10, 4))
-plt.title("Air temperature time series at Lat: 40.0, Lon: 260.0")
+# Rapid validation of the temporal signal using a scatter plot
+point_ts.plot.line(marker='o', linestyle='none', markersize=2, figsize=(10, 4))
+plt.title("Air temperature time series at Lat: 50.0, Lon: 260.0")
 plt.ylabel("Temperature (K)");
 ```
 
@@ -446,19 +476,19 @@ Xarray handles this through **Vectorized Indexing**. If you provide selection co
 import pandas as pd
 import xarray as xr
 
-# Define coordinates for three specific observation sites
-locations = pd.DataFrame({
-    "site_name": ["Accra", "Kumasi", "Tamale"],
-    "lat": [5.6, 6.7, 9.4],
-    "lon": [-0.2, -1.6, -0.8]
+# Define coordinates for Fairbanks, Vancouver, and Oaxaca
+city_coords = pd.DataFrame({
+    "city": ["Fairbanks", "Montreal", "Oaxaca"],
+    "lat": [64.8, 45.5, 17.1],
+    "lon": [212.2, 286.4, 263.3]
 })
 
-# Convert coordinates to xarray-friendly arrays with a shared dimension 'points'
-x_locs = xr.DataArray(locations["lon"], dims="points")
-y_locs = xr.DataArray(locations["lat"], dims="points")
+# Convert to xarray arrays
+x_cities = xr.DataArray(city_coords["lon"], dims="city", coords={"city": city_coords["city"]})
+y_cities = xr.DataArray(city_coords["lat"], dims="city", coords={"city": city_coords["city"]})
 
-# Sample all points simultaneously using nearest neighbor lookup
-sampled_sites = air.sel(lon=x_locs, lat=y_locs, method="nearest")
+# Sample the data
+city_samples = air.sel(lon=x_cities, lat=y_cities, method="nearest")
 sampled_sites
 ```
 
@@ -467,10 +497,11 @@ sampled_sites
 Because the resulting object preserves the new `"points"` dimension, you can immediately visualize the differences between your selected locations using a line plot. This allows for a rapid assessment of whether different sites follow similar temporal trends.
 
 ```{code-cell} python
-# Plot the temperature trends for all three sites on one chart
-sampled_sites.plot.line(x="time", hue="points", figsize=(10, 4))
-plt.title("Temperature comparison across multiple observation sites")
-plt.ylabel("Temperature (K)");
+# Plot the comparison
+city_samples.plot.line(x="time", hue="city", figsize=(12, 5))
+plt.title("Air Temperature Comparison: Fairbanks, Montreal, and Oaxaca")
+plt.ylabel("Temperature (K)")
+plt.show()
 ```
 
 <div class="figure-caption-like">
@@ -485,14 +516,14 @@ This process is called a **Spatial Reduction**. By calculating the mean across b
 
 ```{code-cell} python
 # 1. Define a focused geographic study area (bounding box)
-region = air.sel(lon=slice(235, 255), lat=slice(55, 35))
+region = air.sel(lon=slice(235, 255), lat=slice(60, 50))
 
 # 2. Reduce the spatial dimensions to their mean value
 region_mean = region.mean(dim=["lat", "lon"])
 
 # 3. Visualize the smoothed regional trend
 region_mean.plot(figsize=(10, 4), color="darkred")
-plt.title("Regional mean air temperature (Western US)")
+plt.title("Regional mean air temperature (Western Canada)")
 plt.ylabel("Temperature (K)");
 ```
 
