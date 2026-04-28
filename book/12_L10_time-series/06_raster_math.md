@@ -28,6 +28,17 @@ To demonstrate this, we will combine a Landsat 9 optical image (7 bands) and a C
 1. **The Treeline:** The elevation where vegetation sharply decreases.
 2. **The Snowline:** The elevation where snow cover sharply increases.
 
+**Preparing the Data**
+
+To follow along with this chapter and complete the exercises, please download the following datasets and place them in a `data` folder next to your notebook.
+
+```{admonition} Data Downloads
+:class: note
+
+* [Copernicus DEM New Zealand (Copernicus_DEM_NZ_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L10/data/Copernicus_DEM_NZ_subset.tif)
+* [Landsat 9 Multispectral Subset (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L10/data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
+```
+
 ---
 
 ## 1. Preparing the Data Cube
