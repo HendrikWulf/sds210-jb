@@ -233,7 +233,7 @@ project:
         # - file: book/12_L10_time-series/06_raster_math.md
         - file: book/12_L10_time-series/07_temporal_aggregation.ipynb
         # - file: book/12_L10_time-series/07_temporal_aggregation.md
-        # - file: book/12_L10_time-series/08_computing_trends.ipynb
+        - file: book/12_L10_time-series/08_computing_trends.ipynb
         # - file: book/12_L10_time-series/08_computing_trends.md
         # - file: book/12_L10_time-series/09_practical_L10.ipynb
         # - file: book/12_L10_time-series/09_practical_L10.md
