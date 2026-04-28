@@ -1,5 +1,5 @@
 ---
-title: Computing Long-Term Trends
+title: Long-Term Trends
 
 site: 
   outline_maxdepth: 1
@@ -70,7 +70,7 @@ A trend map is not just a picture of change. It is the result of fitting this si
 ```
 
 <iframe 
-    src="linear_regression_explorer.html"
+    src="https://hendrikwulf.github.io/sds210_assets_L10_ch08_linear_regression_visualizer/"
     width="100%"
     title="Interactive Linear Regression Explorer"
     frameborder="0"
@@ -78,7 +78,7 @@ A trend map is not just a picture of change. It is the result of fitting this si
     allowfullscreen>
 </iframe>
 
-*For an alternative standalone version of the explorer, follow this [link](linear_regression_explorer.html).*
+*For an alternative standalone version of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_L10_ch08_linear_regression_visualizer/).*
 
 ---
 
@@ -247,10 +247,9 @@ You might notice that this intercept map closely resembles a standard global dis
 
 The geographic variation in temperature across the Earth is enormous, often spanning more than 30°C from the equator to the freezing poles. In contrast, the long term climate trend we extracted earlier is relatively small (measured in fractions of a degree per decade). Because the climate change signal is so small compared to the massive spatial temperature gradient, the mathematical intercept mirrors the physical state of the ocean.
 
+---
 
---- 
-
-## 6. Modeling the Seasonal Cycle with Harmonic Regression
+## 6. Modeling the Seasonal Cycle
 
 In our previous examples, we relied on a simple linear regression to calculate long term trends. However, we lumped all the data together and ignored the inherent seasonal variations. 
 
@@ -269,9 +268,8 @@ $$\hat{y}(t) = \beta_0 + \beta_1 t + \beta_2 \cos\left(2\pi \frac{t}{T}\right) +
 
 By fitting this model, we compress decades of complex spectral-temporal dynamics into just four interpretable numbers per pixel.
 
-
 <iframe 
-    src="harmonic_regression_explorer.html"
+    src="https://hendrikwulf.github.io/sds210_assets_L10_ch08_harmonic_regression_visualizer/"
     width="100%"
     title="Interactive Harmonic Regression Explorer"
     frameborder="0"
@@ -279,7 +277,7 @@ By fitting this model, we compress decades of complex spectral-temporal dynamics
     allowfullscreen>
 </iframe>
 
-*For an alternative standalone version of the explorer, follow this [link](harmonic_regression_explorer.html).*
+*For an alternative standalone version of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_L10_ch08_harmonic_regression_visualizer/).*
 
 ### Preparing the Time Coordinate
 
