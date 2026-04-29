@@ -7,7 +7,7 @@ site:
 ---
 
 <div class="page-subtitle">
-Mastering geographic shapes and spatial analysis
+Integrating geographic shapes in spatial analysis
 </div>
 
 ---
