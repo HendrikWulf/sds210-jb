@@ -8,7 +8,7 @@ site:
 ---
 
 <div class="page-subtitle">
-Mastering tabular data and time series analysis
+Using tabular data and time series analysis
 </div\>
 
 ---
