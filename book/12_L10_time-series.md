@@ -36,7 +36,7 @@ This lesson introduces the final core paradigm of spatial data science: **The Da
 
 ---
 
-## 1. From 2D grids to labeled multidimensional spaces
+## 1. Meet multidimensional cubes
 
 Programming time series analysis requires another major shift in your mental model. 
 

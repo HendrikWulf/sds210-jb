@@ -200,7 +200,7 @@ Instead, you can use `xr.open_datatree("file.nc")`. This returns a `DataTree` ob
 The `rioxarray` package provides the `.rio` accessor. It acts as a bridge between the multidimensional power of `xarray` and the foundational geospatial algorithms of the `rasterio` and GDAL libraries.
 
 ### Loading geospatial metadata
-Let us load a new dataset to explore these features: a Copernicus Digital Elevation Model (DEM) subset over New Zealand. We will use the `rasterio` engine to open the GeoTIFF.
+Let us load a new dataset to explore these features: a Copernicus Digital Elevation Model (DEM) subset over New Zealand. You can download the DEM [here](https://gitlab.com/HendrikWulf/sds210/-/blob/2085f7fae2ea7abb440770465bbc7783f49da090/L10/data/Copernicus_DEM_NZ_subset.tif). We will use the `rasterio` engine to open the GeoTIFF.
 
 ```{code-cell} python
 import xarray as xr

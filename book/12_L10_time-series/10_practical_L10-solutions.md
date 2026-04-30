@@ -419,7 +419,7 @@ scatter_plot * reg_line
 
 ````{admonition} What about the outliers?
 :class: dropdown
-Yes. What about them? Data points that significantly deviate from the overall pattern—can heavily influence a standard linear regression trend line, pulling it away from the bulk of the data and potentially leading to misleading conclusions about the relationship between Snow Cover Fraction (SCF) and elevation.
+Yes, good point. Data points that significantly deviate from the overall pattern—can heavily influence a standard linear regression trend line, pulling it away from the bulk of the data and potentially leading to misleading conclusions about the relationship between Snow Cover Fraction (SCF) and elevation.
 
 To address this, we use a **robust approach** below called **RANSAC (Random Sample Consensus)**. This algorithm iteratively selects a random subset of the data to estimate the model, effectively identifying and ignoring outliers to find a trend line that best represents the "inlier" population.
 
