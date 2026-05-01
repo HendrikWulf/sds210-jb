@@ -237,7 +237,7 @@ project:
         # - file: book/12_L10_time-series/08_computing_trends.md
         - file: book/12_L10_time-series/09_practical_L10.ipynb
         # - file: book/12_L10_time-series/09_practical_L10.md
-        # - file: book/12_L10_time-series/10_practical_L10-solutions.ipynb
+        - file: book/12_L10_time-series/10_practical_L10-solutions.ipynb
         # - file: book/12_L10_time-series/10_practical_L10-solutions.md
     - title: L11 - Object Oriented
       file: book/13_L11_object-oriented.md
