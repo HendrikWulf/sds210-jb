@@ -13,14 +13,14 @@ Explaining and demonstrating your project in a short individual discussion
 
 The project presentation is the second and final part of your project assessment. It is your opportunity to step away from the keyboard, orally explain your workflow, demonstrate your code, and prove that you fully understand your design decisions.
 
-In SDS210, the presentation is not a separate afterthought—it is a core component of the project itself. A reproducible repository is vital, but it only holds value if you can confidently articulate what you built, why you built it, and what your results actually mean.
+In SDS210, the presentation is not a separate afterthought. Tt is a core component of the project itself. A reproducible repository is vital, but it only holds value if you can confidently articulate what you built, why you built it, and what your results actually mean.
 
-This component accounts for **50%** of your final project grade. It consists of a strictly timed **5-minute presentation** followed by a **5-minute Q&A discussion**. You will bring your laptop and use your actual code as the visual guide—no PowerPoint slides are required or expected.
+This component accounts for **50%** of your final project grade. It consists of a **5-minute presentation** followed by a **5-minute Q&A discussion**. You will bring your laptop and use your actual code as the visual guide. There are no PowerPoint slides required or expected.
 
-```{admonition} Big idea
+```{admonition} General idea
 :class: tip
 
-The goal of the presentation is not to impress assessors with as much technical jargon as possible in five minutes. The goal is to explain your project clearly, confidently, and convincingly.
+The goal of the presentation is to explain your project clearly, confidently, and convincingly.
 ```
 
 ---
@@ -45,9 +45,9 @@ Do not think of the discussion as a memory test. Think of it as a conversation a
 
 Presentations are scheduled using a shared Excel sheet, which will be published on **Monday, 04 May 2026**.
 
-Once the sheet is live, select a single available time slot that fits your schedule. Please book early to secure a convenient time and reduce end-of-semester stress. Treat this booking as a strict professional appointment. The spreadsheet will also indicate the specific room for your presentation—make sure you know where it is before your time arrives.
+Once the sheet is live, select a single available time slot that fits your schedule. Please book within that week to ensure your appointment with us. The spreadsheet will also indicate the specific room for your presentation—make sure you know where it is before your time arrives.
 
-If you encounter a severe scheduling emergency, contact the teaching team immediately.
+If you encounter a severe scheduling emergency, contact the teaching team immediately via the [X-Projects channel](https://teams.microsoft.com/l/channel/19%3Ab55c8b9654fb40458699d65813dfdf22%40thread.tacv2/X%20-%20Projects?groupId=0f4ed36a-38a8-4028-aae5-928f54b1b186&tenantId=c7e438db-e462-4c22-a90a-c358b16980b3) on Teams.
 
 ```{admonition} Important
 :class: important
