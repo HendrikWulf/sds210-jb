@@ -43,9 +43,9 @@ Do not think of the discussion as a memory test. Think of it as a conversation a
 
 ## 2. Booking Your Slot
 
-Presentations are scheduled using a shared Excel sheet, which will be published on **Monday, 04 May 2026**.
+Presentations are scheduled using [this shared Excel sheet](https://uzh.sharepoint.com/:x:/r/sites/26FSSDS210-ProgrammingwithSpatialData/Shared%20Documents/X%20-%20Projects/SDS210_26FS_CodeDiscussion-plan_v3.xlsx?d=w942f1040926b4551ba9492a09a9b9c16&csf=1&web=1&e=D3jXTY), which will be published on **Monday, 04 May 2026**.
 
-Once the sheet is live, select a single available time slot that fits your schedule. Please book within that week to ensure your appointment with us. The spreadsheet will also indicate the specific room for your presentation—make sure you know where it is before your time arrives.
+Once the sheet is live, select a single available time slot that fits your schedule. Please book within that week to ensure your appointment with us. The spreadsheet will also indicate the specific room for your presentation. Make sure you know where it is before your time arrives.
 
 If you encounter a severe scheduling emergency, contact the teaching team immediately via the [X-Projects channel](https://teams.microsoft.com/l/channel/19%3Ab55c8b9654fb40458699d65813dfdf22%40thread.tacv2/X%20-%20Projects?groupId=0f4ed36a-38a8-4028-aae5-928f54b1b186&tenantId=c7e438db-e462-4c22-a90a-c358b16980b3) on Teams.
 
