@@ -1,5 +1,5 @@
 ---
-title: Introduction to Object-Oriented Programming
+title: Introduction to OOP
 
 site: 
     outline_maxdepth: 1
@@ -49,7 +49,7 @@ While this might initially look like a mere syntactic shortcut—moving the vari
 
 ---
 
-## 2. When procedural code starts to break down
+## 2. When procedural code starts to break
 
 To understand why this architectural shift is necessary, consider how procedural code scales. Imagine you are writing a script to track live data from weather stations across Switzerland. 
 
@@ -155,7 +155,7 @@ Object-Oriented Programming rests on four foundational pillars. While these term
 
 ---
 
-## 6. The Big Picture: When to use which paradigm?
+## 6. When to use which paradigm?
 
 Python is a multi-paradigm language. You are never forced to write object-oriented code. In fact, you can build highly effective, professional-grade analytical pipelines using purely procedural code and libraries like NumPy or Pandas. 
 
