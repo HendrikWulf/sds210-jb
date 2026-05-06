@@ -1,9 +1,8 @@
 ---
-title: Methods: behavior attached to data
+title: Methods driven behavior
 
 site: 
     outline_maxdepth: 1
-
 ---
 
 <div class="page-subtitle">
@@ -39,8 +38,6 @@ In this chapter, you will extend your first geospatial classes by adding methods
 In the previous chapter, we defined a `GeoPoint` class with coordinates and a name. That was already a massive improvement over scattering variables across a script. However, an object with only attributes is still just a passive storage container.
 
 In spatial data science, you inevitably want your objects to *do* things. A bounding box needs to calculate its area. A sensor needs to update its calibration. A point needs to report its location. While you could write standalone procedural functions for these tasks, it is much cleaner to attach the behavior directly to the data it operates on.
-
-
 
 ```{admonition} From passive storage to active objects
 :class: important
@@ -313,7 +310,7 @@ This is a highly natural object oriented pattern. The bounding box is responsibl
 
 ---
 
-## 5. Why methods can be cleaner than free functions
+## 5. Why methods can be cleaner functions
 
 At this point, you might ask a highly practical design question: "Why not just write ordinary standalone functions?" 
 

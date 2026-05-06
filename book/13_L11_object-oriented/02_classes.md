@@ -3,7 +3,6 @@ title: The idea of a class
 
 site: 
     outline_maxdepth: 1
-
 ---
 
 <div class="page-subtitle">
