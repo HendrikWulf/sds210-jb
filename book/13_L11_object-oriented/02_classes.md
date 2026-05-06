@@ -12,6 +12,10 @@ From blueprints to geospatial objects
 
 ---
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/13_L11_object-oriented/02_classes.ipynb)
+
+---
+
 ```{admonition} Big idea
 :class: tip
 
@@ -260,8 +264,6 @@ It is time to put your blueprint-building skills to the test. Imagine you are ta
 4. Instantiate two distinct earthquakes (e.g., one in California, one in Japan) and assign them to variables.
 5. Print the `magnitude` of your first earthquake, and the `planet` attribute of your second earthquake.
 6. Dynamically update the magnitude of your first earthquake to a new value.
-
-
 
 ```{code-cell} python
 # Write your code here
