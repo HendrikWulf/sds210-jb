@@ -74,7 +74,7 @@ Your project is evaluated using a strict 10-point rubric that reflects the core 
 
 ### How to Interpret the Criteria
 
-Do not fall into the trap of assuming you need a highly advanced, machine-learning-driven project to score well. As you can see from the weightings above, **Innovation** is only worth 1%. The vast majority of your grade depends on the **clarity, reproducibility, and explanation** of your work.
+Do not fall into the trap of assuming you need a highly advanced, machine-learning-driven project to score well. As you can see from the weightings above, **Innovation** is only worth 3%. The vast majority of your grade depends on the **clarity, reproducibility, and explanation** of your work.
 
 ```{admonition} A useful mindset
 :class: note
