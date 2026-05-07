@@ -242,11 +242,14 @@ project:
     - title: L11 - Object Oriented
       file: book/13_L11_object-oriented.md
       children:
-        - file: book/13_L11_object-oriented/01_get_started.md
-        # - file: book/13_L11_object-oriented/01_introduction_oop.md
+        - file: book/13_L11_object-oriented/01_introduction_oop.md
+        - file: book/13_L11_object-oriented/02_classes.ipynb
         # - file: book/13_L11_object-oriented/02_classes.md
+        - file: book/13_L11_object-oriented/03_methods.ipynb
         # - file: book/13_L11_object-oriented/03_methods.md
+        - file: book/13_L11_object-oriented/04_inheritance.ipynb
         # - file: book/13_L11_object-oriented/04_inheritance.md
+        - file: book/13_L11_object-oriented/05_procedural_vs_oop.ipynb
         # - file: book/13_L11_object-oriented/05_procedural_vs_oop.md
     - title: L12 - Reproducibility
       file: book/14_L12_reproducibility.md

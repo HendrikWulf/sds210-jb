@@ -35,9 +35,9 @@ In this chapter, you will extend your first geospatial classes by adding methods
 
 ## 1. Methods as functions inside a class
 
-In the previous chapter, we defined a `GeoPoint` class with coordinates and a name. That was already a massive improvement over scattering variables across a script. However, an object with only attributes is still just a passive storage container.
+In the previous chapter, we defined a `GeoPoint` class with coordinates and a name. That was already a big improvement over scattering variables across a script. However, an object with only attributes is still just a passive storage container.
 
-In spatial data science, you inevitably want your objects to *do* things. A bounding box needs to calculate its area. A sensor needs to update its calibration. A point needs to report its location. While you could write standalone procedural functions for these tasks, it is much cleaner to attach the behavior directly to the data it operates on.
+In spatial data science, you likely want your objects to *do* things. A bounding box may need to calculate its area. A sensor may need to update its calibration. A point may need to report its location. While you could write standalone procedural functions for these tasks, it is much cleaner to attach the behavior directly to the data it operates on.
 
 ```{admonition} From passive storage to active objects
 :class: important
@@ -137,7 +137,7 @@ print("Area (sq m):", study_area.area())
 ```
 
 
-Notice how the `area()` method calls two other methods belonging to the same object: `self.width()` and `self.height()`. This is a highly common architectural pattern. Methods are not isolated; they build on each other to create complex behaviors.
+Notice how the `area()` method calls two other methods belonging to the same object: `self.width()` and `self.height()`. This is a highly common architectural pattern. Methods are not isolated entities; they build on each other to create complex behaviors.
 
 ```{admonition} A good first question
 :class: tip
@@ -151,15 +151,18 @@ When designing a new spatial class, ask yourself:
 Use the interactive visualizer below to explore how an object calculates derived state. As you adjust the raw instance attributes (`xmin`, `ymin`, `xmax`, `ymax`), watch how the object's internal methods automatically recalculate its `width()`, `height()`, and `area()`.
 
 <iframe 
-    src="../_static/bounding_box_explorer.html" 
-    width="100%" 
+    src="https://hendrikwulf.github.io/sds210_assets_L11_ch03_bounding_box_explorer/" 
+    width="100%"
     title="Derived State Explorer" 
     frameborder="0" 
     style="height: 650px; min-height: 650px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" 
     allowfullscreen>
 </iframe>
 
-*For an alternative standalone version of the explorer, follow this [link](../_static/bounding_box_explorer.html).*
+<figcaption>
+        <em><b>Interactive Explorer: Derived State.</b><br>
+        Adjust the raw instance attributes using the sliders to see how the <code>BoundingBox</code> object dynamically recalculates its derived state through internal methods. For improved visibility of the explorer, follow this <a href="[https://hendrikwulf.github.io/sds210_assets_L11_ch03_bounding_box_explorer/](https://hendrikwulf.github.io/sds210_assets_L11_ch03_bounding_box_explorer/)" target="_blank">link</a>.</em>
+</figcaption>
 
 ---
 
@@ -308,6 +311,20 @@ print("Contains B?", study_area.contains(point_b))
 
 This is a highly natural object oriented pattern. The bounding box is responsible for deciding whether a point lies inside it. You can see how classes start to collaborate to build richer systems: a `GeoPoint` measures distance to another `GeoPoint`, while a `BoundingBox` tests containment of a `GeoPoint`.
 
+<iframe 
+    src="https://hendrikwulf.github.io/sds210_assets_L11_ch03_spatial_system_explorer/" 
+    width="100%"
+    title="Spatial System Explorer" 
+    frameborder="0" 
+    style="height: 650px; min-height: 650px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" 
+    allowfullscreen>
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Collaborating Objects.</b><br>
+    Drag the points on the canvas to update their individual coordinates. As their internal states change, watch the dashboard to see how the different objects interact in real time: the <code>BoundingBox</code> continuously evaluates whether it <code>.contains()</code> Point B, while the Route object dynamically recalculates its total length by asking the points for the distance between them. For improved visibility of the explorer, follow this <a href="[https://hendrikwulf.github.io/sds210_assets_L11_ch03_spatial_system_explorer/](https://hendrikwulf.github.io/sds210_assets_L11_ch03_spatial_system_explorer/)" target="_blank">link</a>.</em>
+</figcaption>
+
 ---
 
 ## 5. Why methods can be cleaner functions
@@ -406,6 +423,11 @@ class GeoPoint:
         self.y = y
         self.name = name
 
+    def distance_to(self, other_point):
+        dx = self.x - other_point.x
+        dy = self.y - other_point.y
+        return (dx**2 + dy**2) ** 0.5
+        
     # Customizing the readable print output
     def __str__(self):
         return f"{self.name or 'Unnamed point'} ({self.x}, {self.y})"

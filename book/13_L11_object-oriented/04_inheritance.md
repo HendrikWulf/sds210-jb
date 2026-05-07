@@ -128,7 +128,7 @@ print(isinstance(zurich, PointFeature))
 Because `NamedPoint` inherits from `PointFeature`, the `zurich` object is recognized as belonging to both categories. The child class is more specific, but it still belongs to the broader parent category.
 
 <iframe 
-    src="../_static/mro_explorer.html" 
+    src="https://hendrikwulf.github.io/sds210_assets_L11_ch04_method_resolution_order_visualizer/" 
     width="100%" 
     height="650px" 
     frameborder="0" 
@@ -136,8 +136,8 @@ Because `NamedPoint` inherits from `PointFeature`, the `zurich` object is recogn
 </iframe>
 
 <figcaption>
-    <b>Interactive Explorer: Method Resolution Order (MRO)</b>. <br>
-    Click the buttons above to visualize how Python searches the inheritance tree to execute your code. Notice how it always checks the specific instance first before falling back to the parent blueprints.
+    <em><b>Interactive Explorer: Method Resolution Order (MRO)</b>. <br>
+    Click the buttons above to visualize how Python searches the inheritance tree to execute your code. Notice how it always checks the specific instance first before falling back to the parent blueprints. For improved visibility of the explorer, follow this <a href="[https://hendrikwulf.github.io/sds210_assets_L11_ch04_method_resolution_order_visualizer/](https://hendrikwulf.github.io/sds210_assets_L11_ch04_method_resolution_order_visualizer/)" target="_blank">link</a>.</em>
 </figcaption>
 
 ---

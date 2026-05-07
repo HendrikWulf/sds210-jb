@@ -21,7 +21,7 @@ From blueprints to geospatial objects
 A class is a blueprint for building reusable objects that bundle related data and behavior. In geospatial programming, this helps you model meaningful entities such as points, stations, or bounding boxes instead of scattering their properties across many separate variables.
 ```
 
-In the previous section, we established why Object Oriented Programming is a powerful paradigm for managing complexity. We discussed how organizing code around entities (nouns) rather than standalone actions (verbs) prevents spatial data pipelines from becoming brittle. 
+In the previous section, we established why Object Oriented Programming is a powerful paradigm for managing complexity. We discussed how organizing code around entities (nouns) rather than standalone actions (verbs) can prevent spatial data pipelines from becoming fragile.
 
 Now, it is time to build those entities. In this chapter, we will unpack the foundational concept of a **class**, construct our first spatial objects, and understand how they manage their own internal data.
 
@@ -57,7 +57,7 @@ A class defines a *kind* of thing. An instance is one *specific example* of that
 `zurich = City(...)` is the instance.
 ```
 
-You have actually been working with objects all along. `10` is an object of the `int` class, `"hello"` is an object of the `str` class, and `[1, 2, 3]` is an object of the `list` class. 
+You have actually been working with objects all along. `7` is an object of the `int` class, `"Ay, caramba!"` is an object of the `str` class, and `[1, 4, 4]` is an object of the `list` class.
 
 The paradigm shift here is that you will no longer be restricted to Python's default options. By defining a class, you are effectively creating a brand new data type tailored to your specific analytical needs.
 
@@ -107,7 +107,7 @@ However, a blueprint that does not specify any internal state is not very useful
 
 To make our `GeoPoint` blueprint useful, it needs a starting state. If we do not explicitly set the coordinate positions, we end up with an empty object with no geographic meaning. 
 
-We guarantee this structure using a special initialization method called `__init__()`. Methods that begin and end with double underscores are known as dunder methods, signaling that they have a special built in behavior in Python. 
+We guarantee this structure using a special initialization method called `__init__()`. Methods that begin and end with **d**ouble **under**scores are known as *dunder methods*, signaling that they have a special built in behavior in Python.
 
 Let us upgrade our `GeoPoint` class to require coordinates upon creation:
 
@@ -145,13 +145,13 @@ You may have noticed a mathematical discrepancy in our previous example. When we
 
 What happened to the first argument?
 
-The keyword `self` is one of the most common sources of confusion when transitioning to object oriented programming, but its purpose is highly logical. `self` simply refers to the **current active object**.
+The keyword `self` is one of the most common sources of confusion when transitioning to object oriented-programming, but its purpose is actually very logical. `self` simply refers to the **current active object**.
 
 When you instantiate a class, Python automatically passes the newly created instance into the method as the very first argument. You never pass it manually. 
 
 ### A dynamic placeholder
 
-Inside the class blueprint, Python does not yet know whether you are building Zurich, Tokyo, or a sensor station in the Alps. It uses `self` as a dynamic placeholder that effectively means "this specific object right here."
+Inside the class blueprint, Python does not yet know whether you are building Zurich, Tokyo, or a sensor station in the Alps. It uses `self` as a dynamic placeholder that effectively means *"this specific object right here"*.
 
 When the code executes `self.latitude = latitude`, it is instructing Python: "Take the raw geographic value passed by the user, and securely bind it to *this specific point's* internal state." This mechanism ensures that Tokyo's coordinates do not accidentally overwrite Zurich's coordinates.
 
