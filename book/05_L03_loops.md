@@ -1,5 +1,5 @@
 ---
-title: L3 - Loops
+title: L3 - Loops & Conditional Statements
 
 site:
  outline_maxdepth: 1

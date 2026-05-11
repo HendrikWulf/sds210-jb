@@ -1,6 +1,6 @@
 ---
 
-title: L5 - Libraries
+title: L5 - Using Libraries & Web APIs
 
 site:
     outline_maxdepth: 1

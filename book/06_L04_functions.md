@@ -1,6 +1,6 @@
 ---
 
-title: L4 - Functions
+title: L4 - Defining Functions
 
 site: 
     outline_maxdepth: 1
