@@ -1,5 +1,5 @@
 ---
-title: L10 - Time Series
+title: L10 - Data Cubes & Time Series
 
 site: 
     outline_maxdepth: 1

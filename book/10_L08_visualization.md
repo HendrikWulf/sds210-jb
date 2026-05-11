@@ -1,6 +1,6 @@
 ---
 
-title: L8 - Data Visualization
+title: L8 - Visualizing Spatial Data
 
 site:
     outline_maxdepth: 1

@@ -1,5 +1,5 @@
 ---
-title: L1 - Getting Started
+title: L1 - Getting Started with Python
 
 site:
  outline_maxdepth: 1
