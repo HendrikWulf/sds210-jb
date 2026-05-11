@@ -1,6 +1,6 @@
 ---
 
-title: L6 - Data Frames
+title: L6 - Working with DataFrames
 
 site:
  outline\_maxdepth: 1

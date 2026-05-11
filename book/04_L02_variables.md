@@ -1,5 +1,5 @@
 ---
-title: L2 - Variables
+title: L2 - Variables & Data Types
 
 site:
  outline_maxdepth: 1

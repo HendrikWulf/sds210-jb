@@ -1,5 +1,5 @@
 ---
-title: L7 - Vector Data
+title: L7 - Analysing Vector Data
 
 site: 
     outline_maxdepth: 1

@@ -1,5 +1,5 @@
 ---
-title: L9 - Raster Data
+title: L9 - Arrays & Raster Data
 
 site: 
     outline_maxdepth: 1

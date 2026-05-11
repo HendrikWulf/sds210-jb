@@ -19,7 +19,7 @@ Labs: Thursdays 16:15 – 18:00, Fridays 10:15 – 12:00, and 12:15 – 13:45 in
 | 9  | 8  | 16 Apr  | 17 Apr   |                  | Visualizing Spatial Data               |
 | 10 | 9  | 23 Apr  | 24 Apr   |                  | Arrays and Raster Data                 |
 | 11 | 10 | 30 Apr  | `01 May` | `May Day`        | Data Cubes and Time Series             |
-| 12 | 11 | 07 May  | 08 May   |                  | Object Oriented Programming            |
+| 12 | 11 | 07 May  | 08 May   |                  | Object-Oriented Programming            |
 | 13 | 12 | `14 May`| 15 May   | `Ascension Day`  | Reproducibility and Best Practices     |
 | 14 | -  | 21 May  | 22 May   |                  | Project Feedback                       |
 | 15 | -  | 28 May  | 29 May   |                  | Project Presentation Week              |
@@ -42,7 +42,7 @@ Labs: Thursdays 16:15 – 18:00, Fridays 10:15 – 12:00, and 12:15 – 13:45 in
 | 9  | 8  | 16.04  | 17.04  | `Projects Introduction` | Visualizing Spatial Data         |
 | 10 | 9  | 23.04  | 24.04  |                | Arrays and Raster Data                    |
 | 11 | 10 | 30.04  | 01.05  |                | Data Cubes and Time Series                |
-| 12 | 11 | 07.05  | 08.05  |                | Object Oriented Programming               |
+| 12 | 11 | 07.05  | 08.05  |                | Object-Oriented Programming               |
 | 13 | 12 | 14.05  | 15.05  |                | PReproducibility and Best Practices       |
 | 14 | -  | 21.05  | 22.05  | `Project Report Submission`       | Project Feedback       |
 | 15 | -  | 28.05  | 29.05  | `Code Discussion and Justification`| Project Presentation Week  |
