@@ -34,14 +34,14 @@ Think of the report as an executive summary for a peer who has access to your re
 ```{admonition} Keep the focus clear
 :class: note
 
-Your report is not a lab journal and certainly not a line-by-line code tutorial. Focus strictly on the core question, the overarching workflow, key implementation strategies, and your most significant roadblocks.
+In your report focus on the core question, the overarching workflow, key implementation strategies, and your most significant roadblocks.
 ```
 
 ---
 
 ## 2. Required Contents and Structure
 
-According to the syllabus, the written report is strictly limited to **two pages** in PDF format. Because space is limited, you must be selective. You do not have room to include long code snippets, massive tables, or explanations of minor parameter tweaks. The report must highlight the absolute most important parts of your project without duplicating what is already visible in the notebook.
+The written report is limited to **two pages** in PDF format (excluding images). Because space is limited, you must be selective. You do not have room to include long code snippets, massive tables, or explanations of minor parameter tweaks. The report should highlight the most important parts of your project without duplicating what is already visible in the notebook.
 
 ### A Practical Report Structure
 
@@ -70,7 +70,7 @@ If not, simplify and refocus.
 
 ## 3. Submission Format Requirements
 
-Your final submission must be uploaded as a **single PDF document** via the MS Teams assignment. However, this single PDF must actually contain two distinct parts merged together:
+Your final submission must be uploaded as a **single PDF document** via the MS Teams assignment. However, this single PDF should contain two distinct parts merged together:
 
 1.  **The Written Report:** Your concise, two-page project summary.
 2.  **The Notebook Export:** A PDF export (via Markdown/HTML print) of your fully executed Jupyter Notebook.
@@ -83,7 +83,7 @@ Your written report must include a clickable link to your **public GitHub or Git
 
 ### Notebook Expectations
 
-Your exported Jupyter Notebook is not just a script; it is part of your documentation. The syllabus requires your notebook to feature logically structured code, well-defined functions, meaningful variable names, and concise comments explaining complex operations.
+Your exported Jupyter Notebook is not just a script; it is part of your documentation. Your notebook should feature logically structured code, well-defined functions, meaningful variable names, and concise comments explaining complex operations.
 
 ```{admonition} Submission Checklist
 :class: important
@@ -106,7 +106,7 @@ In SDS210, the use of AI tools (like ChatGPT or GitHub Copilot) is permitted, pr
 
 ### What is Expected
 
-You are strictly responsible for all content submitted in your project. Any AI-assisted text or code must be critically reviewed, edited, validated, and fully understood by you. Copying AI-generated text or code without revision, understanding, or acknowledgment is considered plagiarism and will be sanctioned according to University of Zurich guidelines.
+You are responsible for all content submitted in your project. Any AI-assisted text or code must be critically reviewed, edited, validated, and fully understood by you. Copying AI-generated text or code without revision, understanding, or acknowledgment is considered plagiarism and will be sanctioned according to University of Zurich guidelines.
 
 ### Acceptable vs. Unacceptable Use
 
