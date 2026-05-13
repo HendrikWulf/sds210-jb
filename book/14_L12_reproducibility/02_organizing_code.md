@@ -1,6 +1,5 @@
 ---
 title: Organizing code
-
 site:
   outline_maxdepth: 1
 ---
@@ -26,6 +25,12 @@ In the previous chapter, you focused on readable code at the scale of the line a
 Jupyter Notebooks are excellent for exploration, visualization, and early spatial analysis. But as projects grow, one notebook can become difficult to manage. Imports, file paths, cleaning steps, reprojections, plots, and exports accumulate until the workflow becomes hard to follow and even harder to rerun reliably.
 
 This chapter shows how to move beyond the giant notebook. You will learn how to split repeated logic into functions, move reusable code into modules, organize files more clearly, and build spatial workflows that are easier to understand, reuse, and reproduce.
+
+```{admonition} A note on your course project
+:class: note
+
+While this chapter teaches you how to break a massive workflow into separate scripts and folders, **it is perfectly fine to use a single Jupyter Notebook from start to finish for your SDS210 student project.** The modular techniques introduced here (like `pathlib`, custom functions, and `.py` modules) are essential for large-scale, professional spatial data science. We want you to understand how to build these pipelines, but you are not strictly required to build a complex multi-file repository for your course submission. Apply these principles where they help clarify your work, but focus on writing clean, readable code first!
+```
 
 ---
 
@@ -61,7 +66,62 @@ Well-organized code is not only nicer to read; it makes mistakes easier to detec
 
 ---
 
-## 2. Splitting logic into functions
+## 2. Robust file paths with `pathlib`
+
+Before you can break up a giant notebook and organize your code into separate files, you must ensure your script knows how to find your data. One of the most common causes of fragile code is poor path handling. How you write file paths determines whether your code is portable or entirely brittle.
+
+### The problem with absolute paths
+
+An absolute path points to a specific location on a specific hard drive. It might look like this:
+```python
+# This will crash on any computer except yours
+stations_gdf = gpd.read_file("C:/Users/name/Documents/SDS210/data/raw/stations_epsg2056.shp")
+```
+
+This path is not portable. It will break as soon as:
+* you share the code with a project partner
+* you move the project folder to a new location
+* the operating system changes
+
+### Use relative paths instead
+
+Relative paths are much safer because they are anchored to the project folder itself, rather than your personal machine. 
+
+While you could write a relative path as a simple string (e.g., `"../data/raw/stations.shp"`), modern Python provides a much better tool: the `pathlib` module. `pathlib` is the absolute best practice because it automatically handles the different slash directions (`\` vs `/`) required by Windows, macOS, and Linux.
+
+### A geospatial example
+
+Here is how you use `pathlib` to safely navigate a standard project structure, assuming your current notebook is inside a `notebooks/` folder:
+
+```{code-cell} python
+from pathlib import Path
+import geopandas as gpd
+
+# 1. Define the root data directory relative to this notebook (go up one level)
+data_dir = Path("../data")
+
+# 2. Build explicit paths to your raw and processed folders using the / operator
+raw_dir = data_dir / "raw"
+processed_dir = data_dir / "processed"
+
+# 3. Create the path to the specific file
+vector_path = raw_dir / "buildings_epsg2056.gpkg"
+
+# 4. Load the data safely
+# buildings_gdf = gpd.read_file(vector_path)
+```
+
+By using `Path` and the `/` operator, your code becomes incredibly easy to read and adapt. If you need to save an output later, you can simply write `buildings_gdf.to_file(processed_dir / "clean_buildings.gpkg")`.
+
+```{admonition} Portability starts with paths
+:class: important
+
+If your code only works on your own laptop because every file path points to your personal Desktop or Downloads folder, the workflow is not reproducible.
+```
+
+---
+
+## 3. Splitting logic into functions
 
 Once your paths are robust, the next major step toward better organization is moving repeated or conceptually distinct logic into **functions**.
 
@@ -120,7 +180,7 @@ If you find yourself copying and pasting the exact same code block more than onc
 
 ---
 
-## 3. A standard project layout
+## 4. A standard project layout
 
 A good project layout makes your code easier to navigate and your workflows easier to rerun. It reduces cognitive load; when a reader sees a folder named `data/raw/`, they instantly know what kind of files belong there before reading a single line of code.
 
@@ -180,7 +240,7 @@ If your preprocessing happens manually outside the code (like clicking around in
 
 ---
 
-## 4. Moving reusable code into modules
+## 5. Moving reusable code into modules
 
 With a clean folder structure in place, we can finally solve the "scrolling problem." 
 
@@ -239,7 +299,7 @@ If a function is useful in more than one notebook, it is a strong candidate for 
 
 ---
 
-## 5. Keeping notebooks focused on narrative
+## 6. Keeping notebooks focused on narrative
 
 This chapter is not an argument against Jupyter Notebooks. It is an argument for using notebooks for what they do best.
 
@@ -347,69 +407,73 @@ A strong spatial notebook emphasizes exploration, interpretation, and communicat
 
 ---
 
-## 6. Robust file paths with `pathlib`
+## 7. Advanced: Orchestrating the workflow
 
-Before you can break up a giant notebook and organize your code into separate files, you must ensure your script knows how to find your data. One of the most common causes of fragile code is poor path handling. How you write file paths determines whether your code is portable or entirely brittle.
+Once you have separated your code into modules and organized your folders, you might wonder: *How do I run the whole project from start to finish?*
 
-### The problem with absolute paths
+In a fully modular setup, you do not want to open five different notebooks and click "Run All" in a specific order. Instead, advanced spatial workflows use a central "main" script to orchestrate the execution. 
 
-An absolute path points to a specific location on a specific hard drive. It might look like this:
-```python
-# This will crash on any computer except yours
-stations_gdf = gpd.read_file("C:/Users/name/Documents/SDS210/data/raw/stations_epsg2056.shp")
-```
+Because separate notebooks do not naturally share memory (RAM), the main function manages the flow of data by reading and writing intermediate files.
 
-This path is not portable. It will break as soon as:
-* you share the code with a project partner
-* you move the project folder to a new location
-* the operating system changes
+**The Data Flow:**
+1. `01_ingest.ipynb` runs ➔ Writes `stations_cleaned.gpkg` to `data/processed/`
+2. `02_analysis.ipynb` runs ➔ Reads the GeoPackage, attaches DEM data, and writes a new output.
 
-### Use relative paths instead
+### Execution with Papermill
 
-Relative paths are much safer because they are anchored to the project folder itself, rather than your personal machine. 
+In professional data science, tools like `papermill` are used to execute notebooks programmatically. Papermill allows your main script to treat Jupyter Notebooks as if they were functions, passing parameters (like dates or file paths) into them and saving the executed output.
 
-While you could write a relative path as a simple string (e.g., `"../data/raw/stations.shp"`), modern Python provides a much better tool: the `pathlib` module. `pathlib` is the absolute best practice because it automatically handles the different slash directions (`\` vs `/`) required by Windows, macOS, and Linux.
-
-### A geospatial example
-
-Here is how you use `pathlib` to safely navigate the standard project structure we established earlier, assuming your current notebook is inside the `notebooks/` folder:
+A simple orchestrator script (`main.py`) sitting in your root directory might look like this:
 
 ```{code-cell} python
+import papermill as pm
 from pathlib import Path
-import geopandas as gpd
 
-# 1. Define the root data directory relative to this notebook (go up one level)
-data_dir = Path("../data")
+def run_spatial_pipeline(study_area_name):
+    print(f"Starting pipeline for {study_area_name}...")
+    
+    # Step 1: Clean the raw data
+    pm.execute_notebook(
+        input_path='notebooks/01_preparation.ipynb',
+        output_path='outputs/01_preparation_executed.ipynb',
+        parameters={'study_area': study_area_name}
+    )
+    
+    # Step 2: Run the DEM analysis
+    pm.execute_notebook(
+        input_path='notebooks/02_dem_analysis.ipynb',
+        output_path='outputs/02_dem_analysis_executed.ipynb',
+        parameters={'study_area': study_area_name}
+    )
+    
+    print("Pipeline complete!")
 
-# 2. Build explicit paths to your raw and processed folders using the / operator
-raw_dir = data_dir / "raw"
-processed_dir = data_dir / "processed"
-
-# 3. Create the path to the specific file
-vector_path = raw_dir / "buildings_epsg2056.gpkg"
-
-# 4. Load the data safely
-# buildings_gdf = gpd.read_file(vector_path)
+# This standard Python idiom ensures the pipeline only runs if you execute 
+# this specific file directly (e.g., by running `python main.py` in the terminal). 
+# It prevents the code from running automatically if you simply import a 
+# function from this file into another script or notebook.
+if __name__ == "__main__":
+    run_spatial_pipeline('swiss_alps')
 ```
 
-By using `Path` and the `/` operator, your code becomes incredibly easy to read and adapt. If you need to save an output later, you can simply write `buildings_gdf.to_file(processed_dir / "clean_buildings.gpkg")`.
+### Why orchestrate?
 
-```{admonition} Portability starts with paths
-:class: important
+Orchestration ensures that your entire workflow—from raw data to final map—can be reproduced with a single command. It eliminates the risk of human error, such as forgetting to run step 2 before running step 3. 
 
-If your code only works on your own laptop because every file path points to your personal Desktop or Downloads folder, the workflow is not reproducible.
-```
+While you may not need `papermill` for your first course project, understanding this architecture prepares you for building automated spatial pipelines in the real world.
 
-## 7. Summary
+---
+
+## 8. Summary
 
 Organizing your code is an act of empathy for your collaborators and your future self. A well-structured project guarantees that your analysis can be easily understood, debugged, and rerun months later on a completely different computer without crashing.
 
 **Key Takeaways:**
 * **Never edit raw data manually:** Treat raw data as strictly read-only. All spatial filtering and cleaning must happen programmatically in Python.
+* **Use robust relative paths:** Always utilize `pathlib` instead of absolute paths to ensure your scripts can locate data regardless of the operating system.
 * **Stop copy-pasting:** Move repetitive logic into functions to clarify your intent and prevent subtle spatial bugs (like buffering before reprojecting).
 * **Adopt a standard project layout:** Explicitly separate your raw data, processed data, notebooks, and scripts into distinct, predictable folders.
 * **Extract utility code into modules:** Store complex, reusable spatial functions in external `.py` scripts (like `spatial_utils.py`) to reduce notebook clutter.
 * **Let notebooks tell the story:** Keep your notebook cells short and explicitly separate your workflow stages (Input ➔ Prep ➔ Analysis ➔ Viz ➔ Export).
-* **Use robust relative paths:** Always utilize `pathlib` instead of absolute paths to ensure your scripts can locate data regardless of the operating system.
 
 In the next chapter, we will tie all of these best practices together by exploring full project reproducibility, version control, and environment management.

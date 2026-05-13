@@ -57,7 +57,7 @@ A beautifully formatted report cannot compensate for a weak, confused presentati
 
 ## 2. Assessment Criteria
 
-Your project is evaluated using a strict 10-point rubric that reflects the core philosophies of spatial data science. We do not just grade technical correctness; we place massive value on code structure, clarity, reproducibility, and thoughtful problem-solving.
+Your project is evaluated using a 10-point rubric that reflects the core philosophies of spatial data science. We do not just grade technical correctness; we place massive value on code structure, clarity, reproducibility, and thoughtful problem-solving.
 
 ### The 10 Grading Dimensions
 
@@ -67,7 +67,7 @@ Your project is evaluated using a strict 10-point rubric that reflects the core 
 4.  **Correctness (5%):** Your code executes flawlessly from top to bottom. All spatial operations and mathematical calculations produce accurate, expected results without errors.
 5.  **Structure (5%):** Your project features a highly modular design. You make excellent use of custom functions to prevent repetition (the DRY principle) and clearly separate your logic (loading, cleaning, analysis, plotting).
 6.  **Documentation (5%):** Comprehensive Markdown cells narrate your Jupyter Notebook workflow. Clear inline comments explain *why* specific code is written, and your custom functions have concise, accurate docstrings.
-7.  **Readability (5%):** Your code is exceptionally easy to read. Variable and function names are highly descriptive, and your formatting and indentation are strictly consistent.
+7.  **Readability (5%):** Your code is exceptionally easy to read. Variable and function names are highly descriptive, and your formatting and indentation are consistent.
 8.  **Robustness (4%):** Your code anticipates and gracefully handles edge cases (e.g., missing data/NaNs, invalid geometries), making it safe against unexpected inputs. 
 9.  **Efficiency (3%):** You make perfect use of vectorized operations in Pandas/GeoPandas, avoiding unnecessary or slow `for` loops, and utilizing highly efficient spatial joins.
 10. **Innovation (3%):** You utilize a highly creative approach, such as advanced thematic mapping, custom interactive elements, or unique data combinations that go well beyond basic course expectations.
