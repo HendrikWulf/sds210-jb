@@ -254,7 +254,12 @@ project:
     - title: L12 - Reproducibility
       file: book/14_L12_reproducibility.md
       children:
-        - file: book/14_L12_reproducibility/01_get_started.md
+        - file: book/14_L12_reproducibility/01_writing_readable_python.md
+        - file: book/14_L12_reproducibility/02_organizing_code.md
+        - file: book/14_L12_reproducibility/03_defensive_coding.md
+        - file: book/14_L12_reproducibility/04_reproducible_environments.md
+        - file: book/14_L12_reproducibility/05_document_code.md
+        - file: book/14_L12_reproducibility/06_reproducible_research.md
     - title: Projects
       file: book/15_projects.md
       children:

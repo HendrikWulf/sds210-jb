@@ -132,7 +132,7 @@ If someone saw your variable name in isolation, would they know roughly what it 
 
 ---
 
-## 3. Indentation, whitespace, and line length
+## 3. Indentation, whitespace, & line length
 
 Readable code is not only about naming. It is also about visual structure. Python enforces indentation syntactically, but it does not force you to format the inside of your blocks clearly. That part is your responsibility.
 
