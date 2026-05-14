@@ -299,7 +299,7 @@ If a function is useful in more than one notebook, it is a strong candidate for 
 
 ---
 
-## 6. Keeping notebooks focused on narrative
+## 6. Focus on the narrative
 
 This chapter is not an argument against Jupyter Notebooks. It is an argument for using notebooks for what they do best.
 

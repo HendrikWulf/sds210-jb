@@ -32,7 +32,7 @@ In this chapter, you will learn what an environment actually is, why geospatial 
 
 ---
 
-## 1. Why "it works on my machine" is not enough
+## 1. "Works on my machine" isn't enough
 
 A reproducibility problem often begins with invisible assumptions about software.
 
@@ -198,7 +198,7 @@ For your SDS210 projects, a practical balance means:
 
 ---
 
-## 4. Lightweight strategies for student projects
+## 4. Suitable strategies for your projects
 
 In professional data engineering, reproducible environments often involve Docker containers and automated continuous integration pipelines. For a student project or an introductory spatial analysis, that level of infrastructure is not needed. What you need is a realistic, lightweight standard that is easy to follow.
 
@@ -223,7 +223,7 @@ Reproducibility is a spectrum. By writing readable code (Chapter 1), organizing 
 
 ---
 
-## 5. Exercise (check)
+## 5. Exercise
 
 Below is a short import block from a hypothetical geospatial notebook. 
 
@@ -285,6 +285,8 @@ To instantly recreate the exact software environment, run the following command 
 conda env create --name sds210-project-copy --file environment.yml
 ```
 
+````
+
 ```{admonition} Reflection
 :class: note
 
@@ -292,11 +294,22 @@ Look back at the import block. Which package would you trust *least* to "just wo
 
 ```
 
-````
-
 ---
 
 ## 6. Summary
 
+A workflow is only reproducible if its underlying software environment can also be recreated. Readable code, organized directories, and defensive checks are essential, but they are still not enough if the software conditions remain an undocumented, invisible assumption.
 
+**Key Takeaways:**
+* **"It works on my machine" is a trap:** Relying on a single, global "base" environment guarantees that your code will eventually break or conflict with other projects.
+* **Use isolated workshops:** Virtual environments act as dedicated, soundproof rooms containing *only* the specific tools needed for a single project.
+* **Geospatial workflows are fragile:** Because Python spatial libraries wrap complex C++ engines (like GDAL and PROJ), they are especially vulnerable to missing dependencies. `conda` is generally the safest tool for managing these.
+* **Beware of version drift:** Packages evolve. Unpinned dependencies can silently change mathematical behavior or spatial outputs over time (e.g., syntax changes in `geopandas`). You must lock your versions.
+* **Record your ecosystem:** Use `environment.yml` (for Conda) or `requirements.txt` (for pip) to explicitly record the packages and major versions your project requires.
+* **Ship and document:** Always include your exported environment file in your repository and provide the exact terminal command to recreate it in your `README.md`.
 
+Even for student projects, lightweight and deliberate environment management is a critical step in transitioning from writing fragile, temporary scripts to producing robust scientific research.
+
+### What comes next
+
+The next step is to bring all of these ideas together at the level of the full research workflow: code, data, documentation, and project structure that others can rerun and verify from start to finish.
