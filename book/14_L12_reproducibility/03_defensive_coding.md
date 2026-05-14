@@ -1,5 +1,5 @@
 ---
-title: Defensive coding and code quality
+title: Defensive coding
 
 site:
   outline_maxdepth: 1
@@ -402,7 +402,7 @@ A silent failure is dangerous because it lets the workflow continue with broken 
 
 ---
 
-## 6. Testing small parts before chaining them together
+## 6. Testing parts before chaining them
 
 Many defensive coding problems are not solved by syntax alone; they are solved by workflow habits. A common, frustrating habit is writing ten processing steps in a row and then only inspecting the final map. If the map is blank, the debugging problem is now spread across the entire workflow. 
 
