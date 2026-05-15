@@ -23,16 +23,16 @@ This final lesson acts as a synthesis. We will transition from simply writing sc
 
 ## 1. Programming as communication
 
-To master best practices, it helps to reframe programming entirely. Programming is not just about giving instructions to a computer; it is an act of communication.
+To master best practices, it helps to reframe programming. Programming is not just about giving instructions to a computer; it is also an act of communication.
 
-When you write a spatial workflow, you are communicating:
+When you write a spatial workflow, you are potentially communicating:
 
 * with your future self
 * with collaborators
 * with instructors and reviewers
 * with anyone who needs to rerun your work
 
-Computers do not care what your code looks like, but humans do. In the context of spatial data science, "good code" means prioritizing readability before cleverness. It means ensuring maintainability as projects grow, and treating coding best practices as a form of scientific integrity.
+Computers do not really care what your code looks like, but humans do. In the context of spatial data science, "good code" means prioritizing readability before cleverness. It means ensuring maintainability as projects grow, and treating coding best practices as a form of scientific integrity.
 
 ---
 
@@ -40,7 +40,7 @@ Computers do not care what your code looks like, but humans do. In the context o
 
 In spatial data science, reproducibility is not an optional add on. It is part of doing spatial data science responsibly.
 
-Geospatial workflows are complex. A final map or summary statistic is rarely the result of a single operation. It depends on a deep stack of computational choices, such as reprojecting data, applying spatial thresholds, and clipping rasters. If these intermediate steps cannot be rerun and verified by another researcher, the final result becomes impossible to trust.
+Geospatial workflows are complex. A final map or summary statistic is rarely the result of a single operation. They depend on a series of computational choices, such as reprojecting data, applying spatial thresholds and clipping rasters. If these intermediate steps cannot be repeated and verified by another researcher, it becomes difficult to trust the final result.
 
 [*The Turing Way*](https://book.the-turing-way.org/reproducible-research/reproducible-research/) defines reproducibility in data research as making data and code available so the analysis can be fully rerun. Similarly, the *PLOS "[Ten Simple Rules](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285#s5)"* frames reproducibility as a practical minimum standard for computational research. By adopting these professional habits, you ensure that your spatial analyses can stand up to scientific scrutiny.
 
@@ -50,17 +50,17 @@ Geospatial workflows are complex. A final map or summary statistic is rarely the
 
 After this lesson, you will be able to:
 
-* **Write more readable code**
-Apply PEP 8 principles to reduce errors, speed up debugging, and make spatial workflows easier to understand and maintain.
-* **Organize spatial projects**
+* **Write more readable code**  
+Apply [PEP 8](https://peps.python.org/pep-0008/) principles to reduce errors, speed up debugging, and make spatial workflows easier to understand and maintain.
+* **Organize spatial projects**  
 Structure workflows so they do not collapse under their own complexity. Move beyond one giant notebook by utilizing robust relative paths and standard project layouts.
-* **Code defensively**
+* **Code defensively**  
 Write geospatial code that anticipates mistakes, explicitly checks assumptions, and fails clearly when something is wrong.
-* **Capture software environments**
+* **Capture software environments**  
 Record exact dependencies to move beyond the "it works on my machine" problem, recognizing that reproducibility includes the software ecosystem.
-* **Document for interpretability**
+* **Document for interpretability**  
 Use READMEs, docstrings, and inline comments to ensure your project explains *why* things happen, not just *what* happens.
-* **Practice reproducible research**
+* **Practice reproducible research**  
 Combine code, data, and environments so that another person, or you at a later time, can fully recover the exact same results.
 
 ---
