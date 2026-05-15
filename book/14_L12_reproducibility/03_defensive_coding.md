@@ -168,7 +168,7 @@ def calculate_lapse_rate(gdf):
     return gdf["temperature_c"] / gdf["elevation_m"]
 ```
 
-Another classic silent error is performing a spatial join or an intersection on datasets with mismatching projections. Protect your spatial functions by strictly enforcing CRS alignment:
+Another classic silent error is performing a spatial join or an intersection on datasets with mismatching projections. Protect your spatial functions by enforcing CRS alignment:
 
 ```{code-cell} python
 def intersect_study_area(points_gdf, boundary_gdf):

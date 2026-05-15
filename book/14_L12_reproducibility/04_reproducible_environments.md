@@ -128,7 +128,7 @@ Another classic breakage involves Coordinate Reference Systems. In older version
 # Worked in geopandas < 0.9
 my_gdf.to_crs(crs={'+init': 'epsg:2056'})
 ```
-In modern versions, this exact line of code throws a fatal error. The library now strictly requires a string:
+In modern versions, this exact line of code throws a fatal error. The library now requires a string:
 ```python
 # Required in modern geopandas
 my_gdf.to_crs("EPSG:2056")
@@ -181,15 +181,15 @@ dependencies:
 ```
 A collaborator can recreate this isolated room on their machine by running `conda env create -f environment.yml`.
 
-```{admonition} Flexible vs. Strict versions
+```{admonition} Flexible vs. versions
 :class: tip
 
-Notice the `*` in `geopandas=1.0.*`. This allows minor bug fixes to be installed but prevents major updates (like version 2.0) that might break your code. For absolute, 100% strict reproducibility (often required for academic publication), you would lock down the exact build versions (e.g., `1.0.1`).
+Notice the `*` in `geopandas=1.0.*`. This allows minor bug fixes to be installed but prevents major updates (like version 2.0) that might break your code. For absolute, 100% reproducibility (often required for academic publication), you would lock down the exact build versions (e.g., `1.0.1`).
 ```
 
 ### The balance between strict and practical
 
-For enterprise-level data engineering, environments are locked down to the exact hash of every tiny sub-dependency. For student projects, that level of engineering is overkill. The goal is reasonable reproducibility, not perfection. 
+For enterprise-level data engineering, environments are locked down to the exact hash of every tiny sub-dependency. For student projects, that level of engineering is overkill. The goal is reasonable reproducibility, not perfection.
 
 For your SDS210 projects, a practical balance means:
 * recording all the main libraries you imported

@@ -409,7 +409,7 @@ Set an explicit random seed (e.g., `np.random.seed(42)`) before the sampling ste
 Threat 5:
 The processed layer overwrites the raw input.
 Improvement:
-Keep raw data strictly untouched in `data/raw/` and write derived outputs to `data/processed/`.
+Keep raw data untouched in `data/raw/` and write derived outputs to `data/processed/`.
 
 Threat 6:
 The notebook has no introduction or narrative context.

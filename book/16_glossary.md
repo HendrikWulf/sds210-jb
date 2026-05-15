@@ -282,6 +282,8 @@ Optional parameter
   A variable listed in the parentheses of a function definition that receives a value when the function is called.  
   A parameter must either be assigned a value through an argument or have a default value.
 
+PEP 8
+
 Program
 : A sequence of step-by-step instructions that tells a computer what actions to perform.
 
