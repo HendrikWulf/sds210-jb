@@ -29,7 +29,7 @@ This chapter shows how to move beyond the giant notebook. You will learn how to 
 ```{admonition} A note on your course project
 :class: note
 
-While this chapter teaches you how to break a massive workflow into separate scripts and folders, **it is perfectly fine to use a single Jupyter Notebook from start to finish for your SDS210 student project.** The modular techniques introduced here (like `pathlib`, custom functions, and `.py` modules) are essential for large-scale, professional spatial data science. We want you to understand how to build these pipelines, but you are not strictly required to build a complex multi-file repository for your course submission. Apply these principles where they help clarify your work, but focus on writing clean, readable code first!
+While this chapter teaches you how to break a massive workflow into separate scripts and folders, **it is perfectly fine to use a single Jupyter Notebook from start to finish for your SDS210 course project.** The modular techniques introduced here (like `pathlib`, custom functions, and `.py` modules) are essential for large-scale, professional spatial data science. We want you to understand how to build these pipelines, but you are not required to build a complex multi-file code for your course submission. Apply these principles where they help clarify your work, but focus on writing clean, readable code first!
 ```
 
 ---
@@ -46,7 +46,7 @@ In spatial data science, workflows naturally expand. A seemingly simple task oft
 5. plot the result
 6. export the final table or figure
 
-None of these tasks are wrong. The problem appears when they are all mixed together without clear structure. A small error in an early preprocessing step—such as a wrong CRS assumption—can silently propagate through the rest of the analysis. 
+None of these tasks are wrong. The problem can appear when they are all mixed together without clear structure. A small error in an early preprocessing step - such as a wrong CRS assumption - can silently propagate through the rest of the analysis.
 
 ### The trap of hidden states and manual fixes
 
@@ -54,9 +54,9 @@ Long, disorganized notebooks encourage bad habits, such as relying on "hidden st
 
 A common symptom of a disorganized workflow is the temptation to "fix" raw data outside of Python. Imagine you download a CSV of Swiss weather stations and notice some coordinates are missing. It is very tempting to open the file in Excel, manually delete the bad rows, save it, and then load it into your notebook.
 
-**Never do this.** If you manually edit raw data, your workflow is instantly severed. When a colleague tries to run your notebook on the original dataset, it will crash. When the agency publishes an updated dataset next month, you will have to remember exactly which rows you manually deleted. 
+**Never do this.** Manually editing raw data instantly breaks your workflow. When a colleague tries to run your notebook on the original dataset, it will crash. When the agency publishes an updated dataset next month, you will have to remember exactly which rows you manually deleted. 
 
-Every single step—from filtering out missing coordinates to renaming columns—must be done programmatically in your code. Raw data should always be treated as strictly read-only.
+Each step, from filtering out missing coordinates to renaming columns, must be performed programmatically in your code. Raw data should always be treated as read-only.
 
 ```{admonition} Structure is part of correctness
 :class: important
@@ -469,7 +469,7 @@ While you may not need `papermill` for your first course project, understanding 
 Organizing your code is an act of empathy for your collaborators and your future self. A well-structured project guarantees that your analysis can be easily understood, debugged, and rerun months later on a completely different computer without crashing.
 
 **Key Takeaways:**
-* **Never edit raw data manually:** Treat raw data as strictly read-only. All spatial filtering and cleaning must happen programmatically in Python.
+* **Never edit raw data manually:** Treat raw data as read-only. All spatial filtering and cleaning must happen programmatically in Python.
 * **Use robust relative paths:** Always utilize `pathlib` instead of absolute paths to ensure your scripts can locate data regardless of the operating system.
 * **Stop copy-pasting:** Move repetitive logic into functions to clarify your intent and prevent subtle spatial bugs (like buffering before reprojecting).
 * **Adopt a standard project layout:** Explicitly separate your raw data, processed data, notebooks, and scripts into distinct, predictable folders.

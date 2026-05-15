@@ -18,14 +18,14 @@ Code style as a tool for clarity, debugging, and scientific trust
 ```{admonition} Big idea
 :class: tip
 
-Readable code reduces errors, speeds up debugging, and makes spatial workflows easier to understand, maintain, and rerun. Computers do not care what your code looks like, but humans do.
+Readable code reduces errors, speeds up debugging, and makes spatial workflows easier to understand, maintain, and rerun.
 ```
 
 By now, you can write Python that reads data, processes vectors and rasters, builds data cubes, and models objects with classes. That is a major step. But there is an important difference between code that merely **works** and code that is genuinely **good to work with**.
 
-In spatial data science, you rarely write code only once. You come back to it later. You adapt it for a new study area. You share it with classmates, project partners, instructors, or your future self. At that point, readability stops being cosmetic. It becomes a scientific advantage.
+In spatial data science, you rarely write code only once. Often, you come back to it later. You adapt it for a new study area. You share it with classmates, project partners, instructors, or your future self. At that point, readability stops being cosmetic. It becomes a scientific advantage.
 
-This chapter introduces practical conventions for writing clearer Python. These are not arbitrary rules. They are small design decisions that make code easier to scan, easier to debug, and easier to trust. The central reference for this is **PEP 8**, the official Python style guide, but we will keep the discussion grounded in real geospatial examples rather than abstract formatting rules.
+This chapter introduces practical conventions for writing clearer Python. These are not arbitrary rules. They are small design decisions that make code easier to scan, easier to debug, and easier to trust. The central reference for this is **PEP 8**, the [official Python style guide](https://peps.python.org/pep-0008/), but we will keep the discussion grounded in real geospatial examples rather than extended formatting rules.
 
 ---
 
