@@ -283,6 +283,9 @@ Optional parameter
   A parameter must either be assigned a value through an argument or have a default value.
 
 PEP 8
+: The official Python style guide.
+  It defines widely used conventions for writing readable and consistent Python code, including naming, indentation, whitespace, line length, comments, and docstrings.
+  The purpose of PEP 8 is to make Python code more readable, easier to debug and simpler to maintain.
 
 Program
 : A sequence of step-by-step instructions that tells a computer what actions to perform.

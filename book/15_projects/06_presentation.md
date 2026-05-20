@@ -65,7 +65,7 @@ We recommend the following structure for your 5-minute pitch:
 
   * **The Problem (1 min):** Hook the audience. What is the core spatial question, and why does it matter?
   * **Data & Workflow (1 min):** Briefly state where your data came from and summarize the high-level steps of your analysis.
-  * **Key Implementation (1.5 mins):** This is the core of your demo. Show the one or two most important code cells—the "engine" of your project (e.g., a complex spatial join, a clever loop, or how you handled missing data).
+  * **Key Implementation (1.5 mins):** This is the core of your demo. Show the one or two most important code cells, the "engine" of your project (e.g., a complex spatial join, a clever loop, or how you handled missing data).
   * **Results (1 min):** Display your final map or chart and interpret what it means.
   * **Reflection (30 sec):** Honestly share one major technical challenge you faced or a limitation of your current approach.
 
