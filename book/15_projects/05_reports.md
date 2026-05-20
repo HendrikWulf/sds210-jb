@@ -51,7 +51,7 @@ To ensure you hit all the required grading criteria, we recommend structuring yo
   * **Workflow and Implementation:** Summarize the logical steps of your workflow. Focus on your overarching approach to data cleaning, spatial analysis, and visualization rather than minute technical details.
   * **Results:** Present your main findings, outputs, and spatial observations clearly.
   * **Challenges and Reflection:** Discuss at least one meaningful technical or analytical challenge you encountered. Describe how you dealt with it and what you learned from the debugging or redesign process.
-  * **Repository Link & AI Statement:** You *must* include the URL to your public GitHub/GitLab repository. If you utilized AI tools, you must also include a short disclosure statement (see Section 4).
+  * **Repository Link & AI Statement:** You *must* include the URL to your public GitHub/GitLab repository. If you used AI tools, you must also include a short disclosure statement (see Section 4).
 
 <!-- end list -->
 
