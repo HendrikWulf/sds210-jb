@@ -6,9 +6,9 @@ site:
 
 ---
 
-<div class="page-subtitle">
+```{div} page-subtitle
 Integrating geographic shapes in spatial analysis
-</div>
+```
 
 ---
 
@@ -50,15 +50,15 @@ GeoPandas provides the tools to read industry-standard GIS files, perform these 
 
 After this lesson, you will be able to:
 
-  * **Manage spatial data structures**
+* **Manage spatial data structures**
     Transition from standard Pandas to GeoPandas, loading professional GIS files and manipulating Points, Lines, and Polygons.
-  * **Navigate Coordinate Reference Systems (CRS)**
+* **Navigate Coordinate Reference Systems (CRS)**
     Safely flatten the 3D Earth onto a 2D metric grid to ensure your area and distance calculations are mathematically accurate.
-  * **Generate spatial metrics and shapes**
+* **Generate spatial metrics and shapes**
     Engineer new geometries like proximity buffers and centroids, and calculate intrinsic properties like border length and surface area.
-  * **Perform topological queries and spatial joins**
+* **Perform topological queries and spatial joins**
     Filter data based on physical relationships (like `within` or `intersects`) and fuse distinct datasets together using geography as the key.
-  * **Classify and map data**
+* **Classify and map data**
     Bridge the gap between raw spatial analysis and human readability by normalizing counts and applying statistical classification schemes to create choropleth maps.
 
 ---
@@ -67,14 +67,14 @@ After this lesson, you will be able to:
 
 This lesson is structured to take you from basic spatial shapes to complete geographic assessments:
 
-1.  **The Spatial Mental Model**: Adding the "Geo" to your data structures.
-2.  **Reading, Writing & Peeking**: Loading, visualizing, and saving professional geographic files.
-3.  **Coordinate Reference Systems (CRS)**: The "Where" of spatial data and safely flattening the Earth.
-4.  **Measuring & Modifying**: Generating new geospatial metrics and shapes.
-5.  **Spatial Relationships**: Asking spatial questions to filter data based on topology.
-6.  **Vector Analysis**: Combining and aggregating datasets using spatial joins and overlays.
-7.  **Data Classification**: Categorizing continuous data to create readable thematic maps.
-8.  **Practical L7**: Applying these skills to assess the climate crisis across Swiss cantons using live weather APIs.
+1. **The Spatial Mental Model**: Adding the "Geo" to your data structures.
+2. **Reading, Writing & Peeking**: Loading, visualizing, and saving professional geographic files.
+3. **Coordinate Reference Systems (CRS)**: The "Where" of spatial data and safely flattening the Earth.
+4. **Measuring & Modifying**: Generating new geospatial metrics and shapes.
+5. **Spatial Relationships**: Asking spatial questions to filter data based on topology.
+6. **Vector Analysis**: Combining and aggregating datasets using spatial joins and overlays.
+7. **Data Classification**: Categorizing continuous data to create readable thematic maps.
+8. **Practical L7**: Applying these skills to assess the climate crisis across Swiss cantons using live weather APIs.
 
 ---
 
@@ -84,9 +84,9 @@ Lesson 7 is about **thinking in space**.
 
 You will learn not only *how to map data*, but how to:
 
-  * seamlessly blend tabular data processing with geometric mathematics
-  * solve complex proximity and intersection problems
-  * design statistically sound, visually clear geographic visualizations
+* seamlessly blend tabular data processing with geometric mathematics
+* solve complex proximity and intersection problems
+* design statistically sound, visually clear geographic visualizations
 
 If Lesson 6 was about *taming data*, Lesson 7 is about **grounding it in the real world**.
 

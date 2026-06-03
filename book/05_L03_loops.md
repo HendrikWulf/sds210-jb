@@ -5,9 +5,9 @@ site:
  outline_maxdepth: 1
 ---
 
-<div class="page-subtitle">
+```{div} page-subtitle
 Controlling program flow
-</div>
+```
 
 ---
 

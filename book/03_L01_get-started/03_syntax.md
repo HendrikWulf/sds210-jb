@@ -12,7 +12,7 @@ How Python code is structured
 
 ```{admonition} Big idea
 :class: tip
-Python follows clear structural rules. Understanding syntax helps you write readable code and avoid errors.
+Python follows clear structural rules. Understanding {term}`syntax` helps you write readable code and avoid errors.
 ```
 
 ---
@@ -33,11 +33,7 @@ It also makes your code easier for others to read and reuse.
 
 ## 1. Identifiers and case
 
-An **identifier** is a name used for:
-
-- variables  
-- functions  
-- classes  
+An {term}`identifier` is a name used for {term}`variable`s, {term}`function`s and {term}`class`es.
 
 Example:
 
@@ -49,7 +45,7 @@ print(x)
 print(X)
 ```
 
-Python is **case sensitive**.
+Python is {term}`case sensitive`.
 
 `x` and `X` are two different identifiers.
 
@@ -123,7 +119,7 @@ Triple quotes are useful for multi line text.
 
 ## 4. Statements and lines
 
-Each line in Python normally represents one **statement**.
+Each line in Python normally represents one {term}`statement`.
 
 ```{code-cell} python
 x = 5
@@ -250,7 +246,7 @@ Clear structure is essential for reproducible workflows.
 
 ### Looking ahead
 
-In the next section, you will apply your syntax knowledge in a real notebook environment. You will:
+In the next section, you will apply your syntax knowledge in a real {term}`notebook` environment. You will:
 
 - run cells interactively  
 - observe how execution order matters  

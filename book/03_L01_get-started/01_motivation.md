@@ -35,7 +35,7 @@ Large datasets often appear as long tables of numbers, timestamps, or coded valu
 
 Consider the first few lines of a climate data file:
 
-```
+```text
 029740 99999 195201010000 200  23 ***  15 OVC 7 2 *  5.0 63 ** ** ** ** ...
 029740 99999 195201010600 220  18 ***   8 OVC 7 2 *  2.2 63 ** ** ** ** ...
 029740 99999 195201011200 220  21 ***   5 OVC 7 * *  3.8 59 ** ** ** ** ...
@@ -74,7 +74,7 @@ Figure from NOAA [Global Climate Report](https://www.ncei.noaa.gov/access/monito
 
 Maps add another layer of understanding. When the same data are shown spatially, we begin to see regional differences and geographic patterns. Space suddenly becomes part of the story.
 
-:::{figure} images/02_global-tempeatures_space.png
+:::{figure} images/02_global-temperatures_space.png
 :alt: NOAA Global Climate Report.
 :width: 700px
 
@@ -161,9 +161,9 @@ In this section, you explored **why programming matters**.
 
 You have seen that:
 
-- Raw data are often difficult to interpret directly  
-- Visualization can reveal patterns that remain otherwise hidden  
-- Reproducible code allows analyses to be transparent and repeatable  
+* Raw data are often difficult to interpret directly  
+* Visualization can reveal patterns that remain otherwise hidden  
+* Reproducible code allows analyses to be transparent and repeatable  
 
 Programming is about transforming data into insight.  
 The key message is this:
@@ -178,8 +178,8 @@ The key message is this:
 So far, we have focused on **why** programming matters.  
 In the next section, you will learn:
 
-- what programming means in this course  
-- why we use Python  
-- how we run code using notebooks  
+* what programming means in this course  
+* why we use Python  
+* how we run code using {term}`notebooks`  
 
 We now move from motivation to method.

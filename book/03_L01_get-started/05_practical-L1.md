@@ -12,7 +12,6 @@ Understanding and execution notebooks
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/03_L01_get-started/05_practical-L1.ipynb)
 
-
 ## Learning objectives
 
 After completing this practical, you will be able to:
@@ -20,8 +19,8 @@ After completing this practical, you will be able to:
 * distinguish between **Markdown cells** and **Code cells**
 * execute notebook cells in the correct order
 * explain why execution order and kernel state matter
-* restart a kernel and run a notebook from top to bottom safely
-* avoid common mistakes caused by hidden state
+* restart a {term}`kernel` and run a notebook from top to bottom safely
+* avoid common mistakes caused by {term}`hidden state`
 
 ---
 
@@ -67,8 +66,8 @@ They do not execute Python code.
 2. Change some of the words in this sentence: "This is really very important."
 3. Make one word _italic_ and another **bold** using `*` and `_` signs.
 4. Run the cell again (`Ctrl + Enter`).
-5. Using the Markdown guide below, figure out how to render a third word __bold__ and *italic*. 
-   
+5. Using the Markdown guide below, figure out how to render a third word **bold** and _italic_.
+
 Markdown reference:
 [https://www.markdownguide.org/basic-syntax/](https://www.markdownguide.org/basic-syntax/)
 
@@ -79,7 +78,6 @@ Markdown reference:
 Code cells contain Python instructions.  
 The example below contains **Python code**.  
 When you click on it, notice how the cell type changes from Markdown to Code in the dropdown above.
-
 
 To run a code cell:
 
@@ -100,7 +98,7 @@ print("Wo sind die Schnapspralinen?")
 ### Tasks
 
 1. Modify the printed text.
-2. Add a comment explaining what the code does.
+2. Add a {term}`comment` explaining what the code does.
 3. Run the cell.
 
 ---
@@ -173,8 +171,8 @@ The **order** in which you run cells matters.
 A common programming pattern is:
 
 1. compute something  
-2. store it in variables
-3. reuse it 
+2. store it in {term}`variable`s
+3. reuse it
 
 ```python
 a = x - y
@@ -258,7 +256,6 @@ Remember: execution order matters.
 4. Restart the kernel and run only one later cell.
 5. Add a Markdown cell describing what you did in form of a bullet point list
 6. Save your notebook locally and open it in JupyterLab
-
 
 ````{admonition} Sample solution (click to expand)
 :class: dropdown
@@ -390,10 +387,10 @@ If it does not, it likely depends on {term}`hidden state`.
 
 You have learned to:
 
-- distinguish Markdown and Code cells  
-- execute cells interactively  
-- understand why execution order matters  
-- store and reuse values  
+* distinguish Markdown and Code cells  
+* execute cells interactively  
+* understand why execution order matters  
+* store and reuse values  
 
 These mechanics may seem simple, but they are foundational.
 Reliable execution is the basis for trustworthy analysis.
@@ -401,4 +398,4 @@ Reliable execution is the basis for trustworthy analysis.
 ### What comes next
 
 So far, you have learned **how notebooks run**.
-In the next lessson, you will focus on variables and data structures.
+In the next lesson, you will focus on variables and data structures.

@@ -13,7 +13,7 @@ How we express ideas as code
 
 ```{admonition} Big idea
 :class: tip
-We use Python and notebooks as a practical environment to turn ideas into code, explore data, and document our work in a reproducible way.
+We use Python and notebooks as a practical environment to turn ideas into code, explore data, and document our work in a [reproducible](https://en.wikipedia.org/wiki/Reproducibility) way.
 ```
 
 In the previous section, you saw why programming matters for working with data.
@@ -33,7 +33,7 @@ By the end of the section, you should have a clear picture of how ideas become c
 
 Programming means giving a computer precise instructions to process data and produce results.
 
-A computer does not interpret or guess. It follows the steps you write, exactly and repeatedly. The art of programming is to decide **what steps are needed**, in **which order**, and **under which conditions**. Programming is structured thinking. Before we write code, we clarify logic.
+A computer does not interpret or guess. It follows the steps you write, exactly and repeatedly. The art of {term}`computer programming` is to decide **what steps are needed**, in **which order**, and **under which conditions**. Programming is structured thinking. Before we write code, we clarify logic.
 
 ### Coding and programming
 
@@ -75,7 +75,7 @@ Python is the programming language we use throughout this course.
 There are many languages, but Python is particularly suitable for scientific and spatial work. It combines a gentle learning curve with strong tools for serious data analysis.
 
 :::{figure} images/03_programming-languages.png
-:alt: Examples of printing “Hello, world!” in different programming languages. 
+:alt: Examples of printing “Hello, world!” in different programming languages.
 :width: 700px
 
 Examples of printing “Hello, world!” in different programming languages. Credit: [GeoPython](https://python-gis-book.readthedocs.io/en/latest/part1/chapter-01/nb/01-computers-and-programs.html#what-is-a-programming-language)
@@ -96,7 +96,7 @@ Python works well for this course because it:
 In practice this means you can focus on **questions and workflows**, not on low level technical details.
 
 :::{figure} images/04_programming_languages_carto.png
-:alt: Popular programming languages. 
+:alt: Popular programming languages.
 :width: 700px
 
 Figure showing the most popular programming languages from the survey on *The State of Spatial Data Science - 2024*. Credit: [Carto](https://carto.com/blog/the-state-of-spatial-data-science-2024-report)
@@ -128,7 +128,7 @@ In this course we mainly use **notebooks**, but it helps to know what else exist
 
 ### Scripts
 
-Python scripts are plain text files with the file extension `.py`.
+Python {term}`script`s are plain text files with the file extension `.py`.
 
 They are well suited for:
 
@@ -136,7 +136,7 @@ They are well suited for:
 * tasks you want to repeat in the same way
 * automation on servers or as scheduled jobs
 
-To run a script, you typically call Python from your {term}`Integrated Development Environment`, a terminal or from a Python {term}`interpreter`.
+To run a script, you typically call Python from your {term}`Integrated Development Environment`, a {term}`terminal` or from a Python {term}`interpreter`.
 
 :::{figure} images/05_python-script-example2.png
 :alt: Example of a Python script file.
@@ -151,7 +151,7 @@ Scripts are common in software development and production systems. For learning 
 
 Jupyter notebooks combine several elements in a single interactive document:
 
-* code cells
+* {term}`code cell`s
 * formatted text & equations
 * figures and tables
 * intermediate and final results
@@ -209,7 +209,7 @@ Compared to the simple Python interpreter, IDEs provide many tools in one place,
 * error highlighting
 * version control integration
 
-IDEs can look complex at first, but they can also be very helpful. Many IDEs highlight syntax errors immediately and suggest fixes, which makes it easier to learn and debug your code.
+IDEs can look complex at first, but they can also be very helpful. Many IDEs highlight {term}`syntax` errors immediately and suggest fixes, which makes it easier to learn and debug your code.
 
 Several popular IDEs are used for Python:
 
@@ -231,7 +231,7 @@ At this stage, the focus now is learning how to think in code, not mastering dev
 
 Jupyter is the system that allows notebooks to run in a web browser.
 
-From your perspective, you open a notebook in a tab, write code in cells, and run them. In the background, a **Jupyter server** executes the Python code and sends the results back to your browser. That server can run:
+From your perspective, you open a notebook in a tab, write code in cells, and run them. In the background, a {term}`Jupyter server` executes the Python code and sends the results back to your browser. That server can run:
 
 * **on your own computer**, for example when you start JupyterLab locally
 * **on a university or research server**, which you access remotely
@@ -298,9 +298,9 @@ When you are finished:
 
 2. Press:
 
-   ```
-   Control + C
-   ```
+```bash
+Control + C
+```
 
 3. Confirm with `y` if prompted.
 
@@ -394,17 +394,17 @@ In this section, you learned how ideas become executable code.
 
 You now understand that:
 
-- **Programming** means designing precise steps that a computer can execute  
-- **Coding** is the act of expressing those steps in a programming language  
-- **Python** is our language of choice because it is readable, widely used, and powerful for scientific and spatial data work  
-- **Scripts** and **notebooks** are two different ways to run Python code  
-- **JupyterLab** is the environment we use to combine code, explanation, and results in one place  
+* **Programming** means designing precise steps that a computer can execute  
+* **Coding** is the act of expressing those steps in a programming language  
+* **Python** is our language of choice because it is readable, widely used, and powerful for scientific and spatial data work  
+* **Scripts** and **notebooks** are two different ways to run Python code  
+* **JupyterLab** is the environment we use to combine code, explanation, and results in one place  
 
 Most importantly, you should understand that programming in this course is not about building large software systems. It is about:
 
-- expressing logic step by step  
-- making analysis reproducible  
-- turning data into insight  
+* expressing logic step by step  
+* making analysis reproducible  
+* turning data into insight  
 
 ---
 
@@ -413,9 +413,9 @@ Most importantly, you should understand that programming in this course is not a
 In the next section, we move from concepts to structure and learn the basic rules that make Python code valid and readable.
 The aim is to write Python that the computer can understand. Here, small details matter:
 
-- names are case sensitive  
-- quotes must match  
-- indentation defines structure  
+* names are case sensitive  
+* quotes must match  
+* indentation defines structure  
 
 In the next section, you will learn the core rules of **Python syntax**.  
 These rules are about writing code that is clear, consistent, and easy to debug.

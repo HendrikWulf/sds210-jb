@@ -13,7 +13,7 @@ Different options to work with notebooks
 
 ```{admonition} Big idea
 :class: tip
-A notebook is an interactive document where **code runs in a {term}`kernel`** and outputs appear immediately.  
+A {term}`notebook` is an interactive document where **code runs in a {term}`kernel`** and outputs appear immediately.  
 Choosing the right way to run notebooks helps you work efficiently and keep your work reproducible.
 ```
 
@@ -32,7 +32,6 @@ There is no single “best” option. Use what fits your setup and learning goal
 This page gives you a quick overview of the main options.
 The hands-on practice (editing cells, running code, restart & run all, avoiding hidden state) is covered in the **Practical** section.
 
-
 ## 1. Running online
 
 ### Option 1: Using Colab
@@ -42,11 +41,11 @@ The hands-on practice (editing cells, running code, restart & run all, avoiding 
 For this course, Colab is the recommended option if you want to get started quickly and run notebooks online.
 
 Click the **“Open in Colab”** button at the top of this page.  
-This opens a copy of the notebook directly from GitHub, where you can run and modify the code interactively. 
+This opens a copy of the notebook directly from {term}`GitHub`, where you can run and modify the code interactively.
 
 ```{admonition} Note
 :class: note
-Colab does not change the original notebook in the course repository.  
+Colab does not change the original notebook in the course {term}`repository`.  
 If you want to keep your work, save the notebook to Google Drive or download it.
 ```
 
@@ -58,7 +57,7 @@ Binder is another free online service that lets you run Jupyter notebooks in the
 
 Binder launches a temporary Jupyter environment based on the course GitHub repository. Startup can take a minute or two, especially when many users access Binder at the same time.
 
-The launch button (🚀) in the top right corner starts a temporary Binder session, when you copy https://mybinder.org` as the URL placeholder. Once launched you can run the notebook in your browser.
+The launch button (🚀) in the top right corner starts a temporary Binder session, when you copy <https://mybinder.org`> as the URL placeholder. Once launched you can run the notebook in your browser.
 
 ```{admonition} Important
 :class: important
@@ -85,6 +84,7 @@ It is not intended for longer work sessions or saving progress.
 In-page execution uses a temporary Binder-backed environment. Startup may take some time, and sessions are not persistent. 
 Any changes or results are lost when the page is refreshed.
 ```
+
 ---
 
 ## 2. Running locally
@@ -146,7 +146,7 @@ Since new notebooks will be added weekly, you should periodically:
 2. Replace your local folder
 3. Keep your own work in a separate folder to avoid overwriting
 
-(Advanced users may prefer cloning via [Git](https://hendrikwulf.github.io/sds210-jb/book/setup/git/).)
+(Advanced users may prefer cloning via [{term}`Git`](https://hendrikwulf.github.io/sds210-jb/book/setup/git/).)
 ```
 
 ---
@@ -171,8 +171,8 @@ See the **Setup** chapter for detailed instructions on:
 
 * [installing Conda](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/#id-3-installing-conda)
 * [creating environments](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/#creating-an-environment)
-* [installing JupyterLab](https://hendrikwulf.github.io/sds210-jb/book/setup/jupyterlab/#installing-jupyterlab)
 * [configuring VS Code](https://hendrikwulf.github.io/sds210-jb/book/setup/vs-code/#id-3-installing-vs-code)
+* [installing JupyterLab](https://hendrikwulf.github.io/sds210-jb/book/setup/jupyterlab/#installing-jupyterlab)
 
 Running notebooks locally gives you:
 
@@ -185,14 +185,14 @@ Running notebooks locally gives you:
 ## 3. Summary
 
 Here is a quick comparison of your options:
-
- Option                     | Installation needed | Persistent work | Best for                           |
+<!-- markdownlint-disable MD055 MD060-->
+ Option                      | Installation needed | Persistent work | Best for                           |
 | -------------------------- | ------------------- | --------------- | ---------------------------------- |
+| Local (VS Code/JupyterLab) | Yes                 | Yes             | Projects, long-term use            |
 | Colab                      | No                  | Yes (if saved)  | Quick start, easy access           |
 | Binder                     | No                  | No              | Temporary testing in Jupyter       |
 | In-page ⏻                  | No                  | No              | Small experiments on the book page |
-| Local (JupyterLab/VS Code) | Yes                 | Yes             | Projects, long-term use            |
-
+<!-- markdownlint-enable MD055 MD060 -->
 This page introduced the **different ways to run notebooks**:
 
 * **Colab** is the fastest way to start online
@@ -200,4 +200,4 @@ This page introduced the **different ways to run notebooks**:
 * **In-page execution** runs cells directly in the book (temporary)
 * **Local JupyterLab / VS Code** is best for serious work and long-term projects
 
-Next, go to the **Practical** section to actually run cells, restart the kernel, and learn how to avoid hidden state.
+Next, go to the **Practical** section to actually run cells, restart the kernel, and learn how to avoid {term}`hidden state`.
