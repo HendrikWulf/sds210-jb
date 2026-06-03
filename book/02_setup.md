@@ -6,12 +6,11 @@ site:
  
 ---
 
-<div class="page-subtitle">
+```{div} page-subtitle
 Overview of Software Tools
-</div>
+```
 
 ---
-
 
 ## 1. Introduction
 
@@ -21,6 +20,7 @@ To work effectively with spatial data, you also benefit from a **set of tools th
 Think of geospatial programming like building something complex: one tool alone won’t get you very far. You need different tools for different jobs, like: managing software, writing and testing code, keeping track of changes, exploring data, and running analyses on your own computer or in the cloud.
 
 In this section, you’ll get a **guided overview of the core tools** used in modern geospatial programming workflows. You won’t be expected to master them yet. The goal is to understand:
+
 - what each tool is used for,
 - how the tools fit together, and
 - why this setup supports reproducible and collaborative work.
@@ -61,16 +61,20 @@ You don’t need to learn all of them at once. For now, focus on **what each too
 
 ### Package Management: Conda
 
-**What it does**  
+#### What it does
+
 [Conda](https://docs.conda.io) manages your Python setup *and* the libraries your code depends on, especially the tricky geospatial ones.
 
-**Think of it like this**  
+#### Think of it like this
+
 Conda is your `project environment manager`. Instead of having one messy Python installation for everything, Conda lets you create clean, isolated environments. One environment per project or lab.
 
-**Why it matters**  
+#### Why it matters
+
 Geospatial libraries (e.g. for reading rasters or projections) rely on system-level components that are difficult to install correctly. Conda takes care of these dependencies for you and helps avoid the classic: *“It works on my laptop, but not on yours.”*
 
-**What you gain**
+#### What you gain
+
 - One environment per project (no version conflicts)
 - Reliable installation of complex geospatial libraries
 - Reproducible setups across different machines and operating systems
@@ -88,17 +92,21 @@ If Conda is set up correctly, you spend your time **writing code**, not debuggin
 :::
 
 ### Code Development: VS Code
+<!-- markdownlint-disable MD024 -->
+#### What it does
 
-**What it does**  
 [VS Code](https://code.visualstudio.com) is your **main workspace** for writing, reading, and debugging code.
 
-**Think of it like this**  
+#### Think of it like this
+
 VS Code is your `control centre`. It’s where code, notebooks, version control, and debugging come together in one interface.
 
-**Why it matters**  
+#### Why it matters
+
 As projects grow, plain text editors quickly become limiting. VS Code helps you write cleaner code, catch mistakes early, and understand what your program is doing, which is especially important when working with spatial data and larger scripts.
 
-**What you gain**
+#### What you gain
+<!-- markdownlint-enable MD024 -->
 - Smart code completion and helpful error messages  
 - Integrated debugging tools to step through your code  
 - Support for both Python scripts and Jupyter notebooks  
@@ -118,17 +126,21 @@ Good tools don’t replace thinking, they reduce friction so you can focus on pr
 :::
 
 ### Version Control: Git
+<!-- markdownlint-disable MD024 -->
+#### What it does
 
-**What it does**  
 [Git](https://git-scm.com) keeps track of changes in your files over time and records how your project evolves.
 
-**Think of it like this**  
+#### Think of it like this
+
 Git is your `time machine and safety net`. You can go back to earlier versions, compare changes, and try new ideas without risking your working code.
 
-**Why it matters**  
+#### Why it matters
+
 Geospatial projects often grow quickly and involve many files, datasets, and experiments. Git helps you stay organised, avoid losing work, and collaborate with others in a structured and transparent way.
 
-**What you gain**
+#### What you gain
+<!-- markdownlint-enable MD024 -->
 - A complete history of your project  
 - The ability to experiment safely and undo mistakes  
 - Clear collaboration workflows when working with others  
@@ -148,17 +160,21 @@ Git is not just for teams. It is just as valuable when you work alone on your ow
 :::
 
 ### Cloud Computing: Colab
+<!-- markdownlint-disable MD024 -->
+#### What it does
 
-**What it does**  
 [Colab](https://colab.research.google.com) lets you run Jupyter notebooks in your web browser using cloud based computing resources.
 
-**Think of it like this**  
+#### Think of it like this
+
 Colab is a `ready to use computer in the cloud`. You open a notebook and start coding without installing anything on your own machine.
 
-**Why it matters**  
+#### Why it matters
+
 Setting up geospatial software can be time consuming and hardware intensive. Colab removes these barriers by giving you instant access to a working environment that runs on powerful remote machines.
 
-**What you gain**
+#### What you gain
+<!-- markdownlint-enable MD024 -->
 - Immediate access with no local installation  
 - Computing power beyond your own laptop  
 - Pre installed Python and geospatial libraries  
@@ -178,17 +194,21 @@ Colab is especially useful for quick experiments, learning new tools, or running
 :::
 
 ### Interactive Analysis: JupyterLab
+<!-- markdownlint-disable MD024 -->
+#### What it does
 
-**What it does**  
 [JupyterLab](https://jupyterlab.readthedocs.io) is an interactive environment where you can run code, inspect results, create visualisations, and document your thinking in one place.
 
-**Think of it like this**  
+#### Think of it like this
+
 JupyterLab is your `digital lab notebook`. It lets you mix code, maps, plots, and explanations while you explore and refine your analysis.
 
-**Why it matters**  
+#### Why it matters
+
 Spatial data analysis is rarely linear. You try something, look at the result, adjust your approach, and try again. JupyterLab supports this iterative way of working and makes your reasoning visible and reproducible.
 
-**What you gain**
+#### What you gain
+<!-- markdownlint-enable MD024 -->
 - Code, figures, and explanations in a single document  
 - A flexible workspace for working with multiple notebooks and files  
 - Strong support for interactive data exploration  
@@ -199,6 +219,7 @@ Spatial data analysis is rarely linear. You try something, look at the result, a
 :class: tip
 Well written notebooks explain not only *what* you did, but also *why* you did it.
 ```
+
 ---
 
 :::{figure} 02_setup/images/0_6_Docker_logo.png
@@ -207,17 +228,21 @@ Well written notebooks explain not only *what* you did, but also *why* you did i
 :::
 
 ### Containerization: Docker
+<!-- markdownlint-disable MD024 -->
+#### What it does
 
-**What it does**  
 [Docker](https://www.docker.com) packages an entire software environment into a container. This includes the operating system, Python, libraries, and your code.
 
-**Think of it like this**  
+#### Think of it like this
+
 Docker is a `sealed box` that contains everything your project needs to run. If the box runs on one computer, it will run the same way on another.
 
-**Why it matters**  
+#### Why it matters
+
 Geospatial software often depends on complex system libraries that are hard to install consistently. Docker removes this uncertainty and makes sure your analysis behaves the same across different machines and setups.
 
-**What you gain**
+#### What you gain
+<!-- markdownlint-enable MD024 -->
 - Identical environments across different computers  
 - Simple distribution of complex software setups  
 - Isolation between projects to avoid conflicts  
@@ -286,10 +311,10 @@ If your goal is to read and try examples quickly, use a cloud option. These opti
 
 - **Google Colab**  
   Runs notebooks on cloud computers and is ideal if you want more computing power or an easy way to share your work.  
-  https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main
+  <https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main>
 - **Binder**  
   Opens the book examples in a temporary online environment. This is a good choice for a quick look or first exploration.  
-  https://mybinder.org/v2/gh/HendrikWulf/sds210-jb/HEAD
+  <https://mybinder.org/v2/gh/HendrikWulf/sds210-jb/HEAD>
 
 ### Local options
 

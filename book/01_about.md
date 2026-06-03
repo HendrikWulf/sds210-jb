@@ -16,6 +16,7 @@ You do not need to read everything in this section in one go.
 Instead, treat it as a **reference point** that you can return to throughout the semester whenever you want to better understand *why* the course is structured the way it is.
 
 The following subsections cover:
+
 - the course motivation and learning objectives,
 - guidance on workload, expectations, and study strategies,
 - perspectives on programming, Python, and geospatial data,
@@ -23,4 +24,3 @@ The following subsections cover:
 - team, contact information, and organisational details.
 
 Together, they define the **conceptual and pedagogical framework** within which all technical content of the course is embedded.
-

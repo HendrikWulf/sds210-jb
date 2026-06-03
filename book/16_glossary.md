@@ -34,9 +34,17 @@ Attribute
   Example: `gpsStationId`.  
   Compare with {term}`Snake case`.
 
+[Case sensitive](https://en.wikipedia.org/wiki/Case_sensitivity)
+: A property of a programming language where uppercase and lowercase letters are treated as distinct.  
+  For example, `x` and `X` refer to different {term}`Identifiers <Identifier>` in Python.  
+
 [Class](https://en.wikipedia.org/wiki/Class_(programming))
 : A reusable template for creating {term}`objects <Object>` that share common properties and behavior.  
   For example, a class representing a geospatial point may store coordinates and provide methods such as distance calculations.
+
+Code cell
+: A cell in a Jupyter notebook that contains executable code.  
+  When run, the code is sent to the {term}`Kernel` and the output is displayed directly below the cell.
 
 Collection
 : A container that stores multiple values together.  
@@ -45,6 +53,14 @@ Collection
 Computer
 : We use the definition of a computer given by {cite}`Zelle2017`:  
   “A machine that stores and manipulates information under the control of a changeable program.”
+
+[Computer programming](https://en.wikipedia.org/wiki/Computer_programming)
+: The act of writing instructions in a programming language so that a computer can execute them.  
+  Coding focuses on translating ideas into syntactically correct code, while programming also includes planning and problem-solving.
+
+[Comment](https://en.wikipedia.org/wiki/Comment_(computer_programming))
+: A line or part of a line in code that is ignored by the interpreter and used to explain the code to humans.  
+  In Python, comments start with `#`.
 
 Coordinate Reference System
 : A coordinate reference system (CRS) describes how coordinates or geometries relate to real locations on Earth.  
@@ -96,6 +112,10 @@ Docstring
 : A text string used to document Python code, commonly {term}`functions <Function>` or classes.  
   Docstrings describe purpose, parameters, and outputs and can be accessed using Python’s `help()` function.
 
+[Dynamic typing](https://en.wikipedia.org/wiki/Dynamic_typing)
+: A property of a programming language where variable types are determined at runtime rather than explicitly declared.  
+  Python is dynamically typed, allowing flexible and rapid code development.
+
 Edge effect
 : Edge effect refers to spatial distortion (bias) that occurs near the boundaries of a geographic dataset, both raster and vector.  
   It often arises from incomplete neighboring data and can affect operations such as filtering, classification, and spatial modeling near dataset edges.
@@ -103,6 +123,10 @@ Edge effect
 EPSG code
 : An EPSG code is a numeric identifier that uniquely defines a {term}`Coordinate Reference System` (CRS) or a spatial data transformation.  
   Examples include EPSG:4326 for WGS84 and EPSG:3857 for Web Mercator, which simplify referencing CRSs in geographic data processing.
+
+Execution order
+: The sequence in which notebook cells are run.  
+  In Jupyter notebooks, execution order determines the state of variables in memory and can affect results independently of the visual order of cells.
 
 Fork
 : A personal copy of a {term}`repository` hosted on GitHub and linked to a user’s account.  
@@ -187,6 +211,10 @@ Immutable
 : A data type whose value cannot be changed after it is created.  
   This simplified definition is sufficient for our purposes. Opposite of {term}`Mutable`.
 
+[Indentation](https://en.wikipedia.org/wiki/Indentation_(programming))
+: The use of whitespace at the beginning of a line to define code structure.  
+  In Python, indentation determines blocks of code such as loops, conditions, and functions.
+
 Index
 : A number indicating the position of a value within an ordered data structure such as a {term}`List` or {term}`Tuple`.  
   In Python, indexing starts at 0.
@@ -207,9 +235,13 @@ Interpreter
 : A program that executes instructions written in a programming language such as Python.  
   The interpreter reads and executes code statements sequentially, performing the specified actions.
 
-Jupyter Notebook
-: A web-based interactive document that combines formatted text with executable code cells.  
-  Jupyter Notebooks can include equations, images, visualizations, and code output and are widely used for data analysis and teaching.
+[JupyterLab](https://en.wikipedia.org/wiki/Project_Jupyter)
+: A browser-based interactive development environment for working with Jupyter notebooks, code, and data.  
+  It provides a file browser, notebook interface, terminal, and editor in a single workspace.
+
+Jupyter server
+: A backend process that executes code from a Jupyter notebook and communicates results to the browser interface.  
+  The server can run locally or remotely.
 
 Kernel
 : The kernel is the computational engine that runs the code in a notebook. It executes Python commands, stores variables in memory, and returns results to the notebook interface. If the kernel is restarted, all variables and previously computed results stored in memory are lost.
@@ -248,6 +280,10 @@ Markdown
 : A lightweight markup language used to create formatted text from plain text input.  
   Markdown supports headings, lists, emphasis, and hyperlinks and is commonly used for documentation.
 
+Markdown cell
+: A cell in a Jupyter notebook that contains formatted text written in {term}`Markdown`.  
+  Markdown cells are used for explanations, documentation, and structuring a notebook.
+
 Metadata
 : Data that describe other data.  
   Metadata commonly include information such as content, resolution, format, coordinate reference system, and acquisition date.
@@ -268,6 +304,10 @@ Namespace
 : A scope that defines where Python looks for identifiers.  
   Namespaces allow the same name to be reused in different contexts without conflict.  
   Python uses four main namespaces (from broadest to narrowest): built-in, global, enclosing, and local.
+
+[Notebook](https://en.wikipedia.org/wiki/Project_Jupyter#Jupyter_Notebook)
+: A web-based interactive document that combines formatted text with executable code cells.  
+  Jupyter Notebooks can include equations, images, visualizations, and code output and are widely used for data analysis and teaching.
 
 Object
 : A container that stores data (and possibly behavior) at a specific location in computer memory.  
@@ -398,6 +438,10 @@ Statement
 : A single instruction in a programming language that performs an action.  
   A {term}`Program` consists of one or more statements.
 
+[String](https://en.wikipedia.org/wiki/String_(computer_science))
+: A sequence of characters used to represent text in a program.  
+  In Python, strings are enclosed in single (`'`), double (`"`), or triple quotes (`"""`).
+
 Subplots
 : Individual plots arranged within a single figure in Matplotlib.
 
@@ -408,6 +452,10 @@ Syntax
 Temporal resolution
 : In satellite imagery, temporal resolution refers to how frequently the same area on Earth is observed.  
   It is typically expressed as the time interval between observations (e.g. daily or weekly).
+
+[Terminal](https://en.wikipedia.org/wiki/Computer_terminal)
+: A command-line interface used to interact with a computer by typing text commands.  
+  Terminals are commonly used to run Python scripts, manage environments, and start tools such as {term}`JupyterLab`.
 
 Topological spatial relations
 : Relationships that describe how geometric objects relate to one another based on their boundaries and positions.  
