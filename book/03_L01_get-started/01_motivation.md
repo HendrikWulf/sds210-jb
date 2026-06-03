@@ -14,7 +14,7 @@ Why programming matters
 
 ```{admonition} Big idea
 :class: tip
-Programming helps us turn raw data into insight by automating analysis, revealing patterns, and making results reproducible.
+Programming helps us turn raw data into insight by automating analysis, revealing patterns, and making results [reproducible](https://en.wikipedia.org/wiki/Reproducibility).
 ```
 
 Welcome!  
