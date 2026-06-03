@@ -2,9 +2,9 @@
 title: Feedback
 ---
 
-<div class="page-subtitle">
+```{div} page-subtitle
 Ways you can contribute to the course.
-</div>
+```
 
 ---
 
@@ -16,7 +16,7 @@ This course uses **two complementary forms of feedback**:
 
 ---
 
-## 1. General Feedback 
+## 1. General Feedback
 
 For overall impressions, reflections, and ideas, we use a shared **Padlet board**.  
 This allows everyone to contribute anonymous, informal feedback in a low-threshold way.
@@ -54,19 +54,23 @@ This includes, for example:
 You have **two simple options**:
 
 ### Drop a note on [Teams](https://hendrikwulf.github.io/sds210-jb/book/about/team/#ms-teams)
+
 If you just want to flag an issue, simply leave a short comment on [Teams](https://hendrikwulf.github.io/sds210-jb/book/about/team/#ms-teams) in the respective lesson channel.  
 Even a brief pointer like *“This section on X was confusing”* can be helpful.
 
 ### Edit the page directly
+
 Each page of the course website has an **“Edit this page”** ✏️ icon at the top.
 
 You can:
+
 1. Click the pen icon  
-2. Make small corrections or clarifications via GitHub 
+2. Make small corrections or clarifications via GitHub
 3. Commit the changes for that specific page
 4. Open a Pull Request (PR) so we can review and merge your improvement
 
 This is especially useful for:
+
 - fixing typos
 - improving wording
 - adding a short clarification or example
@@ -77,4 +81,3 @@ Your contributions are highly appreciated!
 
 Thank you for helping us continuously improve this course.  
 Your feedback directly shapes future iterations (including this semester).
-

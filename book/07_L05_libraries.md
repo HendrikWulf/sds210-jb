@@ -7,9 +7,9 @@ site:
 
 ---
 
-<div class="page-subtitle">
+```{div} page-subtitle
 Connecting Python to the wider world
-</div>
+```
 
 ---
 
@@ -81,4 +81,3 @@ You will learn not only *how to download tools*, but how to:
 If Lesson 4 was about *thinking in structure and reuse*, Lesson 5 is about **thinking globally**.
 
 The skills you learn here—importing packages and fetching data—are the absolute prerequisites for the next major phase of the course. In the upcoming lesson 7, we will introduce Pandas and GeoPandas, the ultimate third-party libraries that will change how you handle spatial data in bulk. However, before that you need to know how to manage it locally. In the next lesson, we will cover how to read and write files, parse CSVs and JSONs, and clean messy text data.
-

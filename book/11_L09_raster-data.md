@@ -6,9 +6,9 @@ site:
 
 ---
 
-<div class="page-subtitle">
+```{div} page-subtitle
 Welcome to the matrix
-</div>
+```
 
 ---
 
@@ -52,17 +52,17 @@ By combining the spatial metadata management of Rasterio with the matrix mathema
 
 After this lesson, you will be able to:
 
-  * **Shift to the continuous mental model**
+* **Shift to the continuous mental model**
     Understand the raster data structure, the relationship between spatial resolution and pixel grids, and the performance limitations of standard Python.
-  * **Master the numerical engine**
+* **Master the numerical engine**
     Wield NumPy to slice, reshape, and filter multi-dimensional arrays, utilizing vectorization to execute instantaneous mathematical operations across millions of values.
-  * **Bridge files and memory**
+* **Bridge files and memory**
     Use Rasterio to safely read and write massive GeoTIFFs, securely managing the spatial metadata (Coordinate Reference Systems and Affine Transforms) that ties raw numbers to Earth.
-  * **Visualize environmental surfaces**
+* **Visualize environmental surfaces**
     Translate raw numerical grids into interpretable spatial patterns by building RGB composites, stretching data histograms, and simulating 3D terrain with multidimensional hillshades.
-  * **Execute Map Algebra**
+* **Execute Map Algebra**
     Derive complex environmental indices (like NDSI, EVI, and NDWI) and detect temporal landscape changes by calculating the spectral distance between perfectly aligned satellite bands.
-  * **Handle massive spatial data**
+* **Handle massive spatial data**
     Actively manage your computer's memory by reading chunks, modifying data types, clipping arrays to precise geographic vector boundaries, and reprojecting rasters safely.
 
 ---
@@ -71,13 +71,13 @@ After this lesson, you will be able to:
 
 This lesson is structured to take you from the theoretical foundations of the grid to building custom satellite change-detection algorithms:
 
-1.  **The Raster Model**: Shifting paradigms from discrete geometries to continuous fields and the performance wall.
-2.  **Crunching NumPy**: Meeting the mathematical engine behind raster data and mastering multidimensional array manipulation.
-3.  **Reading Spatial Grids**: Using Rasterio to extract data from GeoTIFF files while preserving crucial spatial metadata.
-4.  **Visualizing Raster Layers**: Moving from quick previews to meaningful cartography with False Color Composites and terrain hillshades.
-5.  **Map Algebra**: Performing pixel-by-pixel mathematics to calculate environmental indices and spectral distance.
-6.  **Data Handling**: Managing memory, clipping rasters with vector polygons, reprojecting, and securely exporting your results.
-7.  **Practical L9**: Applying these skills to translate cloud-based algorithms into raw Python math to track the massive expansion of a global solar park.
+1. **The Raster Model**: Shifting paradigms from discrete geometries to continuous fields and the performance wall.
+2. **Crunching NumPy**: Meeting the mathematical engine behind raster data and mastering multidimensional array manipulation.
+3. **Reading Spatial Grids**: Using Rasterio to extract data from GeoTIFF files while preserving crucial spatial metadata.
+4. **Visualizing Raster Layers**: Moving from quick previews to meaningful cartography with False Color Composites and terrain hillshades.
+5. **Map Algebra**: Performing pixel-by-pixel mathematics to calculate environmental indices and spectral distance.
+6. **Data Handling**: Managing memory, clipping rasters with vector polygons, reprojecting, and securely exporting your results.
+7. **Practical L9**: Applying these skills to translate cloud-based algorithms into raw Python math to track the massive expansion of a global solar park.
 
 ---
 
@@ -87,9 +87,9 @@ Lesson 9 is about **the matrix**.
 
 You will learn not only *how to open satellite imagery*, but how to:
 
-  * treat the environment as a continuous mathematical surface
-  * apply complex linear algebra across millions of data points simultaneously
-  * systematically combine discrete vector boundaries with continuous raster arrays
+* treat the environment as a continuous mathematical surface
+* apply complex linear algebra across millions of data points simultaneously
+* systematically combine discrete vector boundaries with continuous raster arrays
 
 If Lesson 7 and 8 were about *mapping boundaries*, Lesson 9 is about **analyzing every pixel within them**.
 

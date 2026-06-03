@@ -5,9 +5,9 @@ site:
   outline_maxdepth: 1
 ---
 
-<div class="page-subtitle">
+```{div} page-subtitle
 How to document, submit, and reflect on your programming project
-</div>
+```
 
 ---
 
@@ -47,11 +47,11 @@ The written report is limited to **two pages** in PDF format (excluding images).
 
 To ensure you hit all the required grading criteria, we recommend structuring your two-page report as follows:
 
-  * **Introduction:** Briefly explain your chosen project topic, the specific spatial question you are answering, and the ultimate aim of the analysis.
-  * **Workflow and Implementation:** Summarize the logical steps of your workflow. Focus on your overarching approach to data cleaning, spatial analysis, and visualization rather than minute technical details.
-  * **Results:** Present your main findings, outputs, and spatial observations clearly.
-  * **Challenges and Reflection:** Discuss at least one meaningful technical or analytical challenge you encountered. Describe how you dealt with it and what you learned from the debugging or redesign process.
-  * **Repository Link & AI Statement:** You *must* include the URL to your public GitHub/GitLab repository. If you used AI tools, you must also include a short disclosure statement (see Section 4).
+* **Introduction:** Briefly explain your chosen project topic, the specific spatial question you are answering, and the ultimate aim of the analysis.
+* **Workflow and Implementation:** Summarize the logical steps of your workflow. Focus on your overarching approach to data cleaning, spatial analysis, and visualization rather than minute technical details.
+* **Results:** Present your main findings, outputs, and spatial observations clearly.
+* **Challenges and Reflection:** Discuss at least one meaningful technical or analytical challenge you encountered. Describe how you dealt with it and what you learned from the debugging or redesign process.
+* **Repository Link & AI Statement:** You *must* include the URL to your public GitHub/GitLab repository. If you used AI tools, you must also include a short disclosure statement (see Section 4).
 
 <!-- end list -->
 
@@ -72,8 +72,8 @@ If not, simplify and refocus.
 
 Your final submission must be uploaded as a **single PDF document** via the MS Teams assignment. However, this single PDF should contain two distinct parts merged together:
 
-1.  **The Written Report:** Your concise, two-page project summary.
-2.  **The Notebook Export:** A PDF export (via Markdown/HTML print) of your fully executed Jupyter Notebook.
+1. **The Written Report:** Your concise, two-page project summary.
+2. **The Notebook Export:** A PDF export (via Markdown/HTML print) of your fully executed Jupyter Notebook.
 
 This combined format allows the assessors to read your high-level summary and immediately scroll down to verify the documented code and visual outputs that support it.
 

@@ -5,9 +5,9 @@ site:
  outline_maxdepth: 1
 ---
 
-<div class="page-subtitle">
+```{div} page-subtitle
 How Python represents data
-</div>
+```
 
 ---
 
@@ -39,6 +39,7 @@ After this lesson, you will be able to:
 ## 2. From values to data
 
 At first, variables store **single values**:
+
 - a number
 - a piece of text
 - a logical state (true or false)
@@ -46,6 +47,7 @@ At first, variables store **single values**:
 Very quickly, however, real-world problems require more than one value at a time.
 
 Spatial data is a good example:
+
 - a location has **coordinates**
 - a city has **multiple attributes**
 - distances are **derived** from other values
@@ -63,6 +65,7 @@ In spatial data science, almost everything is structured data:
 - results should be stored, not just printed
 
 The way you choose and organise variables determines:
+
 - how readable your code is
 - how easy it is to extend your analysis
 - how naturally your work scales to tables, rasters, and spatial objects later on
@@ -76,6 +79,7 @@ This lesson introduces the **building blocks** you will reuse throughout the cou
 The data structures you learn here are essential for the next steps in the course.
 
 In the following lessons, you will use them to:
+
 - process collections automatically using loops
 - work with tabular data using Pandas
 - represent spatial features using GeoDataFrames

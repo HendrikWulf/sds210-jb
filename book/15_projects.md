@@ -5,9 +5,9 @@ site:
   outline_maxdepth: 1
 ---
 
-<div class="page-subtitle">
+```{div} page-subtitle
 The programming project in SDS210
-</div>
+```
 
 ---
 
@@ -51,20 +51,19 @@ The project runs alongside the second half of the course. Because coding involve
 
 ### Suggested project rhythm
 
-  * **Weeks 9 to 10:** Explore the available topics and select one that aligns with your interests. Familiarize yourself with the data, clarify your core question, set up your repository and Git, and sketch out a rough workflow on paper.
-  * **Weeks 10 to 12:** Build your analysis iteratively. Test your ideas, refine your code structure, and actively comment and document your work as you write it.
-  * **Weeks 13 to 14:** Polish the project. Verify your reproducibility, finalize your map visualizations, and draft the final report and presentation.
+* **Weeks 9 to 10:** Explore the available topics and select one that aligns with your interests. Familiarize yourself with the data, clarify your core question, set up your repository and Git, and sketch out a rough workflow on paper.
+* **Weeks 10 to 12:** Build your analysis iteratively. Test your ideas, refine your code structure, and actively comment and document your work as you write it.
+* **Weeks 13 to 14:** Polish the project. Verify your reproducibility, finalize your map visualizations, and draft the final report and presentation.
 
 ### Key dates
 
 Please mark the following project dates in your calendar:
-
-  * **Monday, 20 April 2026**: Project report assignment published on MS Teams.
-  * **Monday, 04 May 2026**: Presentation schedule published [here](https://hendrikwulf.github.io/sds210-jb/book/projects/presentation#id-2-booking-your-slot).
-  * **Friday, 22 May 2026 at 18:00**: Deadline for project report submission.
-  * **Wednesday, 27 May to Monday, 01 June 2026**: Individual project presentations.
-
-<!-- end list -->
+<!-- markdownlint-disable MD059 -->
+* **Monday, 20 April 2026**: Project report assignment published on MS Teams.
+* **Monday, 04 May 2026**: Presentation schedule published [here](https://hendrikwulf.github.io/sds210-jb/book/projects/presentation#id-2-booking-your-slot).
+* **Friday, 22 May 2026 at 18:00**: Deadline for project report submission.
+* **Wednesday, 27 May to Monday, 01 June 2026**: Individual project presentations.
+<!-- markdownlint-enable MD059 -->
 
 ```{admonition} Good Time Management
 :class: important

@@ -6,9 +6,9 @@ site:
 
 ---
 
-<div class="page-subtitle">
+```{div} page-subtitle
 Moving beyond sequential scripts to build scalable spatial tools
-</div>
+```
 
 ---
 
@@ -20,7 +20,7 @@ This lesson introduces **Object-Oriented Programming (OOP)**, a paradigm shift i
 
 ## 1. From actions to entities
 
-Programming complex spatial workflows requires a major shift in your mental model. In Procedural Programming, state (storing data) and logic (doing things with data) are kept strictly isolated. You store state in discrete variables and pass those variables through a pipeline of standalone functions. 
+Programming complex spatial workflows requires a major shift in your mental model. In Procedural Programming, state (storing data) and logic (doing things with data) are kept strictly isolated. You store state in discrete variables and pass those variables through a pipeline of standalone functions.
 
 Object-Oriented Programming forcibly merges these two concepts. Instead of floating independently, state and logic are bundled together into a single, cohesive software entity known as an object. Rather than writing scripts that micromanage data pipelines, you are now architecting systems of self-contained entities that know exactly what they are and how to manage themselves.
 
@@ -28,7 +28,7 @@ Object-Oriented Programming forcibly merges these two concepts. Instead of float
 
 ## 2. Why this matters for {abbr}`SDS (Spatial Data Science)`
 
-In spatial data science, this paradigm is inescapable. 
+In spatial data science, this paradigm is inescapable.
 
 You have actually been relying on it since you drew your first map: A Coordinate is an object managing an X and Y state. A GeoDataFrame is an object managing a tabular attribute table and an underlying geometry array, with built-in methods to `.plot()` or `.to_crs()` (reproject) itself. A Data Cube (`xarray.Dataset`) is a highly complex object managing an n-dimensional matrix, coordinate reference systems, and temporal indices, offering methods to efficiently calculate a `.mean()` across time.
 
@@ -57,11 +57,11 @@ After this lesson, you will be able to:
 
 This lesson is structured to take you from the theoretical foundations of OOP to making high-level architectural decisions for your spatial workflows:
 
-1.  **Introduction to OOP**: Moving beyond sequential scripts and exploring the core pillars of object-oriented design.
-2.  **The Idea of a Class**: Distinguishing between blueprints and instances, and constructing geospatial objects with distinct attributes.
-3.  **Methods-Driven Behavior**: Equipping passive data containers with internal logic, spatial interaction methods, and magic dunder methods.
-4.  **Inheritance and Extension**: Creating class hierarchies to eliminate redundant code and specialize geographic features.
-5.  **Procedural vs. OOP**: Evaluating both paradigms side-by-side to choose the right design strategy for specific spatial problems.
+1. **Introduction to OOP**: Moving beyond sequential scripts and exploring the core pillars of object-oriented design.
+2. **The Idea of a Class**: Distinguishing between blueprints and instances, and constructing geospatial objects with distinct attributes.
+3. **Methods-Driven Behavior**: Equipping passive data containers with internal logic, spatial interaction methods, and magic dunder methods.
+4. **Inheritance and Extension**: Creating class hierarchies to eliminate redundant code and specialize geographic features.
+5. **Procedural vs. OOP**: Evaluating both paradigms side-by-side to choose the right design strategy for specific spatial problems.
 
 ---
 

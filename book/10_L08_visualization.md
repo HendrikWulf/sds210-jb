@@ -7,9 +7,9 @@ site:
 
 ---
 
-<div class="page-subtitle">
+```{div} page-subtitle
 Cartographic design and interactive web maps
-</div>
+```
 
 ---
 
@@ -51,15 +51,15 @@ By combining the structural control of Matplotlib with the interactivity of mode
 
 After this lesson, you will be able to:
 
-  * **Master the visualization engine**
+* **Master the visualization engine**
     Transition from quick, state-based plotting to the Object-Oriented Matplotlib interface, gaining precise control over Figures, Axes, and layout grids.
-  * **Compose multilayered maps**
+* **Compose multilayered maps**
     Use GeoPandas to seamlessly stack different spatial datasets (polygons, lines, points) onto a single canvas, managing visual hierarchy with the `zorder` parameter.
-  * **Apply cartographic design principles**
+* **Apply cartographic design principles**
     Design ethical thematic maps (choropleths) by selecting perceptually uniform colormaps, scaling data distributions, formatting legends, and gracefully handling missing data (`NaN`).
-  * **Add geographic context**
+* **Add geographic context**
     Fetch and embed internet map tiles (like OpenStreetMap) directly beneath your spatial data using the `contextily` library, while successfully navigating coordinate projections.
-  * **Build interactive web dashboards**
+* **Build interactive web dashboards**
     Bridge the gap between Python and JavaScript by using `Folium` and the `.explore()` method to generate interactive, scalable web maps with dynamic tooltips and clustered markers.
 
 ---
@@ -68,12 +68,12 @@ After this lesson, you will be able to:
 
 This lesson is structured to take you from the mechanics of drawing lines to building interactive, data-driven web maps:
 
-1.  **The Matplotlib Model**: Understanding the "Figure vs. Axes" architecture and the Object-Oriented approach to plotting.
-2.  **Mapping with GeoPandas**: Utilizing the wrapper to easily plot complex geometries and compose multilayered maps.
-3.  **Cartographic Design**: Creating thematic choropleths, selecting scientific colormaps, and handling missing data accurately.
-4.  **Context is King**: Fetching real-world basemap tiles from the internet to ground your abstract polygons.
-5.  **Going Interactive**: Transitioning from static images to dynamic web maps using Folium and GeoPandas `.explore()`.
-6.  **Practical L8**: Applying these skills to build an interactive web app and render a high-resolution, dark-themed atlas of global river networks.
+1. **The Matplotlib Model**: Understanding the "Figure vs. Axes" architecture and the Object-Oriented approach to plotting.
+2. **Mapping with GeoPandas**: Utilizing the wrapper to easily plot complex geometries and compose multilayered maps.
+3. **Cartographic Design**: Creating thematic choropleths, selecting scientific colormaps, and handling missing data accurately.
+4. **Context is King**: Fetching real-world basemap tiles from the internet to ground your abstract polygons.
+5. **Going Interactive**: Transitioning from static images to dynamic web maps using Folium and GeoPandas `.explore()`.
+6. **Practical L8**: Applying these skills to build an interactive web app and render a high-resolution, dark-themed atlas of global river networks.
 
 :::{figure} 10_L08_visualization/images/15_practical_preview.png
 :alt: A preview image of the practical lesson, showing a map or diagram relevant to the exercises.
@@ -91,9 +91,9 @@ Lesson 8 is about **communication and design**.
 
 You will learn not only *how to draw maps*, but how to:
 
-  * construct complex, multilayered visual narratives
-  * apply scientific color theory to prevent data distortion
-  * build modern, interactive tools for data exploration
+* construct complex, multilayered visual narratives
+* apply scientific color theory to prevent data distortion
+* build modern, interactive tools for data exploration
 
 If Lesson 7 was about *analyzing the world*, Lesson 8 is about **showing it to others**.
 
