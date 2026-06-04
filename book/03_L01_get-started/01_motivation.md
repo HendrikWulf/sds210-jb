@@ -180,6 +180,6 @@ In the next section, you will learn:
 
 * what programming means in this course  
 * why we use Python  
-* how we run code using {term}`notebooks`  
+* how we run code using {term}`notebook`s  
 
 We now move from motivation to method.
