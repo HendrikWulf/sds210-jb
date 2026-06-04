@@ -7,9 +7,9 @@ site:
 
 ---
 
-```{div} page-subtitle
+<div class="page-subtitle">
 Using tabular data and time series analysis
-```
+</div>
 
 ---
 

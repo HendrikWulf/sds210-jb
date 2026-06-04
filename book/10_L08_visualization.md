@@ -7,9 +7,9 @@ site:
 
 ---
 
-```{div} page-subtitle
+<div class="page-subtitle">
 Cartographic design and interactive web maps
-```
+</div>
 
 ---
 

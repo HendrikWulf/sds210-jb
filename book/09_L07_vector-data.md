@@ -6,9 +6,9 @@ site:
 
 ---
 
-```{div} page-subtitle
+<div class="page-subtitle">
 Integrating geographic shapes in spatial analysis
-```
+</div>
 
 ---
 

@@ -6,9 +6,9 @@ site:
 
 ---
 
-```{div} page-subtitle
+<div class="page-subtitle">
 Discovering multidimensional data cubes and temporal dynamics
-```
+</div>
 
 ---
 

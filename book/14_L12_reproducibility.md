@@ -7,9 +7,9 @@ outline_maxdepth: 1
 
 ---
 
-```{div} page-subtitle
+<div class="page-subtitle">
 Writing spatial workflows that others can understand, rerun, and trust
-```
+</div>
 
 ---
 

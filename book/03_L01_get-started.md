@@ -5,9 +5,9 @@ site:
  outline_maxdepth: 1
 ---
 
-```{div} page-subtitle
+<div class="page-subtitle">
 From motivation to first notebook run
-```
+</div>
 
 ---
 

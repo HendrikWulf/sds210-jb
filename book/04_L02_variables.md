@@ -5,9 +5,9 @@ site:
  outline_maxdepth: 1
 ---
 
-```{div} page-subtitle
+<div class="page-subtitle">
 How Python represents data
-```
+</div>
 
 ---
 
