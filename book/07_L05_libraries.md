@@ -7,9 +7,9 @@ site:
 
 ---
 
-```{div} page-subtitle
+<div class="page-subtitle">
 Connecting Python to the wider world
-```
+</div>
 
 ---
 

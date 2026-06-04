@@ -6,9 +6,9 @@ site:
 
 ---
 
-```{div} page-subtitle
+<div class="page-subtitle">
 Moving beyond sequential scripts to build scalable spatial tools
-```
+</div>
 
 ---
 
