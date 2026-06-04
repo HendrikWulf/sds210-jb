@@ -63,7 +63,7 @@ We will support you on your learning path during the lab exercises and on Teams.
 :link: https://www.geo.uzh.ch/en/department/Staff/riccardopedrelli.html
 :footer: **Affiliation:** [{abbr}`RSE (Remote Sensing of Environmental Change)`](https://www.geo.uzh.ch/en/units/rse.html)
 
-```{image} https://www.geo.uzh.ch/dam/jcr:ef17d40a-f266-470d-926b-a8cf1882da82/823.jpg
+```{image} https://citynews-bolognatoday.stgy.ovh/~media/original-hi/3327814322990/riccardo-pedrelli-tra-i-primi-in-italia-nei-300-metri.jpg
 :alt: Photo of Riccardo Pedrelli
 :width: 100%
 ```
