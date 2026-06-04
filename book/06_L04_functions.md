@@ -7,9 +7,9 @@ site:
 
 ---
 
-```{div} page-subtitle
+<div class="page-subtitle">
 From repeating code to reusing logic
-```
+</div>
 
 ---
 

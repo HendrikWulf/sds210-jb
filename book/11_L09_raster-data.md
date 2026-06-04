@@ -6,9 +6,9 @@ site:
 
 ---
 
-```{div} page-subtitle
+<div class="page-subtitle">
 Welcome to the matrix
-```
+</div>
 
 ---
 

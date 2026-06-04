@@ -2,9 +2,9 @@
 title: Feedback
 ---
 
-```{div} page-subtitle
+<div class="page-subtitle">
 Ways you can contribute to the course.
-```
+</div>
 
 ---
 
