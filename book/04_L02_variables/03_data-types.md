@@ -3,11 +3,14 @@ title: Data Types
 
 site:
  outline_maxdepth: 1
+
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 What Kind of Values Variables Can Store
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -16,22 +19,36 @@ What Kind of Values Variables Can Store
 ```{admonition} Big idea
 :class: tip
 
-Variables store values.  
-**Data types** describe what kind of values those are and what operations make sense for them.
+{term}`Variables <Variable>` store values.  
+**{term}`Data types <Data type>`** describe what kind of values those are and what operations make sense for them.
 
-While variables hold values in memory, data types determine how Python interprets those values when they are used in expressions and calculations.
+While variables hold values in memory, data types determine how Python interprets those values when they are used in {term}`expressions <Expression>` and calculations.
+
 
 ```
 
 In this section, you will learn how Python classifies values, how to inspect their data types, and how data types explain both successful operations and common errors.
 
-Understanding data types is essential for debugging and for writing code that behaves predictably. These ideas will form a foundation for calculations, comparisons, and logical decisions later in the course.
+Understanding data types is essential for {term}`debugging <Debugging>` and for writing code that behaves predictably. These ideas will form a foundation for calculations, comparisons, and logical decisions later in the course.
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Data types cause 90% of beginner errors; essential for every lab)  
+**Project Relevance:** ★★★ (Fundamental to processing, filtering, and mapping any dataset)  
+**Foundation:** ★★★ (A non-negotiable core programming concept)  
+
+**Time to Read:** 7 minutes  
+**In a nutshell:** Data types define how Python interprets the values you store, dictating what mathematical or logical operations are allowed and explaining why certain errors occur.  
+**Skip this if:** You already know the difference between `int`, `float`, `str`, and `bool`, and know how to use `type()` to diagnose and fix `TypeError`s and `ValueError`s.
+
+```
 
 ---
 
 ## 1. What Is a Data Type?
 
-A **data type** describes what kind of value a variable stores. It also defines how that value behaves when Python uses it in expressions or calculations.
+A data type describes what kind of value a variable stores. It also defines how that value behaves when Python uses it in expressions or calculations.
 
 Every variable in Python has a data type, even if you do not specify it explicitly. The data type controls two important things:
 
@@ -44,6 +61,7 @@ For example, text behaves differently from numbers:
 
 ```{code-cell} python
 weather_forecast = "Hot"
+
 
 ```
 
@@ -80,7 +98,7 @@ These types are often called *primitive* data types. They represent individual v
 
 ### 2.1 Integers (int)
 
-Integers are **whole numbers**. They do not contain a decimal point.
+**{term}`Integers <Integer>`** are **whole numbers**. They do not contain a decimal point.
 They are commonly used for:
 
 * counts (e.g., number of weather stations)
@@ -90,13 +108,14 @@ They are commonly used for:
 ```{code-cell} python
 num_points = 120
 
+
 ```
 
 The value `120` is a whole number, so Python assigns it the data type `int`.
 
 ### 2.2 Floating Point Numbers (float)
 
-Floating point numbers represent **decimal values**. They can store numbers with a fractional part.
+**{term}`Floating point numbers <Floating-point number>`** represent **decimal values**. They can store numbers with a fractional part.
 Typical uses include:
 
 * measurements
@@ -106,13 +125,14 @@ Typical uses include:
 ```{code-cell} python
 temp_celsius = 37.6
 
+
 ```
 
 Because the value contains a decimal point, Python interprets it as a `float`.
 
 ### 2.3 Strings (str)
 
-Strings represent **text data**. They are always written inside quotation marks (single or double).
+**{term}`Strings <String>`** represent **text data**. They are always written inside quotation marks (single or double).
 Strings are often used for:
 
 * labels and names
@@ -122,13 +142,14 @@ Strings are often used for:
 ```{code-cell} python
 weather_forecast = "Hot"
 
+
 ```
 
 Even if a string contains numbers (like `"120"`), Python treats it as text, not as a mathematical value.
 
 ### 2.4 Booleans (bool)
 
-Booleans represent **logical values**. They can only be exactly one of two values: `True` or `False` (notice the capital letters).
+**{term}`Booleans <Boolean>`** represent **logical values**. They can only be exactly one of two values: `True` or `False` (notice the capital letters).
 Typical uses include:
 
 * flags
@@ -137,6 +158,7 @@ Typical uses include:
 
 ```{code-cell} python
 is_georeferenced = True
+
 
 ```
 
@@ -153,6 +175,7 @@ Python provides a simple diagnostic tool for this purpose: the `type()` function
 ```{code-cell} python
 type(weather_forecast)
 
+
 ```
 
 Python returns `str`. It tells us that `weather_forecast` is a string.
@@ -161,6 +184,7 @@ Now compare this with a numeric value:
 
 ```{code-cell} python
 type(temp_celsius)
+
 
 ```
 
@@ -179,9 +203,10 @@ Consider the following expression:
 ```{code-cell} python
 temp_celsius + weather_forecast
 
+
 ```
 
-At first glance, this may look harmless. However, `temp_celsius` is a number (`float`), while `weather_forecast` is text (`str`). Python tries to interpret what the `+` operation should mean here and then stops, raising a **`TypeError`**.
+At first glance, this may look harmless. However, `temp_celsius` is a number (`float`), while `weather_forecast` is text (`str`). Python tries to interpret what the `+` operation should mean here and then stops, raising a **{term}`TypeError`**.
 
 This error tells you something important:
 
@@ -203,6 +228,7 @@ Start by defining two string variables:
 a = "Hot"
 b = "Cold"
 
+
 ```
 
 ### Add two strings
@@ -210,11 +236,13 @@ b = "Cold"
 ```{code-cell} python
 a + b
 
+
 ```
 
 ```{admonition} What happens?
 :class: dropdown
 Python merges the two texts together (called *concatenation*). The output is `'HotCold'`.
+
 
 ```
 
@@ -223,11 +251,13 @@ Python merges the two texts together (called *concatenation*). The output is `'H
 ```{code-cell} python
 a - b
 
+
 ```
 
 ```{admonition} What happens?
 :class: dropdown
 Python raises a `TypeError`. You can stick words together with `+`, but it makes no logical sense to subtract the word "Cold" from the word "Hot".
+
 
 ```
 
@@ -236,11 +266,13 @@ Python raises a `TypeError`. You can stick words together with `+`, but it makes
 ```{code-cell} python
 a * 3
 
+
 ```
 
 ```{admonition} What happens?
 :class: dropdown
 Python repeats the string! The output is `'HotHotHot'`.
+
 
 ```
 
@@ -257,12 +289,14 @@ Consider this realistic example of a temperature reading imported from a text fi
 ```{code-cell} python
 forecast_bahnhofstrasse = "39.0"
 
+
 ```
 
 At first glance, this looks like a number. However, the quotation marks mean it is stored as **text**.
 
 ```{code-cell} python
 type(forecast_bahnhofstrasse) # Returns: str
+
 
 ```
 
@@ -272,7 +306,7 @@ If we want to compare this value mathematically with a temperature stored as a n
 
 ## 7. Converting Data Types (Type Casting)
 
-Sometimes values have the *right information* but the *wrong data type*. In these cases, Python does not guess what you want to do. You must tell it explicitly. This is called **type casting**.
+Sometimes values have the *right information* but the *wrong data type*. In these cases, Python does not guess what you want to do. You must tell it explicitly. This is called **{term}`type casting <Type conversion>`**.
 
 Type casting creates a **new value** with a different data type.
 
@@ -291,6 +325,7 @@ To use our string `"39.0"` in calculations, we convert it explicitly:
 ```{code-cell} python
 forecast_high = float(forecast_bahnhofstrasse)
 
+
 ```
 
 Now inspect the result:
@@ -298,12 +333,14 @@ Now inspect the result:
 ```{code-cell} python
 type(forecast_high) # Returns: float
 
+
 ```
 
 Because the data types are now compatible, we can perform calculations:
 
 ```{code-cell} python
 forecast_high - temp_celsius
+
 
 ```
 
@@ -314,9 +351,10 @@ You can also convert numeric values to integers:
 ```{code-cell} python
 temp_celsius_int = int(temp_celsius)
 
+
 ```
 
-If the original value contains a decimal part, Python **truncates** it. It removes the decimal completely; **it does not round**.
+If the original value contains a decimal part, Python **{term}`truncates <Truncation>`** it. It removes the decimal completely; **it does not round**.
 
 For example, `int(62.9)` becomes `62`, not `63`.
 
@@ -339,13 +377,54 @@ Consider this example:
 ```{code-cell} python
 float("Cold")
 
+
 ```
 
-Here, we ask Python to convert a string into a floating point number. Python attempts the conversion and stops, raising a **`ValueError`**.
+Here, we ask Python to convert a string into a floating point number. Python attempts the conversion and stops, raising a **{term}`ValueError`**.
 
 A `ValueError` tells you that the conversion itself is a valid *idea*, but the *actual content* does not make sense. Only strings that contain numeric content, such as `"77.0"` or `"-12"`, can be converted to numeric types.
 
 Think of a `ValueError` as Python saying: *"I understand you want a float. But I cannot magically turn the letters C-o-l-d into a number."*
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L02_ch03_01_operations_simulator/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Python Data Types & Conversions.</b><br>
+    Use the "Operations Simulator" to see why adding two strings differs from adding two integers, and trigger a <code>TypeError</code> by mixing incompatible types. Use the "Type Casting Simulator" to force values into new types, watching out for <code>ValueError</code>s and the silent truncation of decimals. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L02_ch03_01_operations_simulator/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
+
+#### Concept Check: Decoding the Error
+
+You are building a script to calculate elevation changes. You read a value from a messy text file, storing it as `start_elevation = "1425.5"`. Because you only care about whole meters, you attempt to run the following code:
+
+```python
+clean_elevation = int(start_elevation)
+
+```
+
+Python immediately crashes and displays an error. Based on what you just learned, what kind of error is this, and why did it happen?
+
+A) `TypeError`, because `int()` only accepts floats, not strings.
+
+B) `ValueError`, because the string contains a decimal point, meaning its internal contents are invalid for a direct `int()` conversion.
+
+C) `SyntaxError`, because the variable is missing quotation marks.
+
+````{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+It is a `ValueError`. The *idea* of converting a string to an integer is allowed (which is why it is not a `TypeError`), but the *contents* of this specific string (`"1425.5"`) confuse Python because integers cannot contain decimals. To fix this, you would first need to convert the string to a decimal using `float("1425.5")`, and *then* you could convert that float into an integer using `int()`.
+
+````
 
 ---
 
@@ -363,13 +442,14 @@ b = 25.0
 c = "25"
 d = False
 
+
 ```
 
 1. For each variable, write down what data type you expect.
 2. Use `type()` to check your answers.
 3. Identify which variables *look similar* but behave differently.
 
-``````{admonition} Sample solution (click to expand)
+````{admonition} Sample solution (click to expand)
 :class: dropdown
 
 ```{code-cell} python
@@ -381,7 +461,8 @@ type(d)   # bool (logical state)
 
 Variables `a`, `b`, and `c` may look similar to a human, but they behave completely differently in Python because their data types dictate their behavior.
 
-``````
+
+````
 
 ### Exercise 2: Inspection Before Fixing
 
@@ -391,13 +472,14 @@ You are given two variables:
 temp_celsius = 37.6
 forecast_bahnhofstrasse = "39.0"
 
+
 ```
 
 1. Check the data type of each variable.
 2. Predict what will happen when you run: `forecast_bahnhofstrasse - temp_celsius`
 3. Run the code and observe the error. Explain **why** Python refuses this operation.
 
-``````{admonition} Sample solution (click to expand)
+````{admonition} Sample solution (click to expand)
 :class: dropdown
 
 Checking data types:
@@ -408,7 +490,8 @@ type(forecast_bahnhofstrasse)   # str
 
 Python raises a **`TypeError`**. It refuses this operation because subtraction is not defined between text and a number. Even though `"39.0"` looks like a number, it is stored as text.
 
-``````
+
+````
 
 ### Exercise 3: Making Values Compatible
 
@@ -418,7 +501,7 @@ Continue with the variables from Exercise 2.
 2. Convert `temp_celsius` to an integer and inspect the result.
 3. Compare the values before and after conversion. Why could this difference matter in spatial analysis?
 
-``````{admonition} Sample solution (click to expand)
+````{admonition} Sample solution (click to expand)
 :class: dropdown
 
 Converting the string to a numeric value makes the math work:
@@ -436,7 +519,8 @@ print(temp_celsius_int)  # 37
 
 This matters in spatial analysis because truncation destroys precision. A coordinate truncated from `47.37` to `47` would move a point by several kilometers!
 
-``````
+
+````
 
 ---
 
@@ -454,7 +538,8 @@ At this point, you should understand the following core ideas:
 
 ### What Comes Next
 
-So far, you have focused on **what values are** and **how Python understands them**.  
+So far, you have focused on **what values are** and **how Python understands them**.
+
 The next step is to focus on **what you can do with those values**.
 
 In the next section, you will build on this foundation by applying data types in more complex expressions and operations.

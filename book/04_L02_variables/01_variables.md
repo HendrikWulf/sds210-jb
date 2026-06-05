@@ -249,7 +249,7 @@ If you want dependent values to change, you must **recalculate them explicitly**
 
 <figcaption>
     <em><b>Interactive Explorer: Variable Independence.</b><br>
-    Click the "Run Next Step" button to step through the Python script line by line and watch how the computer's memory updates. Notice that when <code>temp_celsius</code> is updated to 20.0 in the final step, <code>temp_fahrenheit</code> remains completely unaffected at 50.0. This visualizes how variables store independent snapshots of values rather than active mathematical links. For improved visibility of the explorer, follow this <a href="[PLACEHOLDER_URL]" target="_blank">link</a>.</em>
+    Click the "Run Next Step" button to step through the Python script line by line and watch how the computer's memory updates. Notice that when <code>temp_celsius</code> is updated to 20.0 in the final step, <code>temp_fahrenheit</code> remains completely unaffected at 50.0. This visualizes how variables store independent snapshots of values rather than active mathematical links. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L02_ch01_01_computer_memory/" target="_blank">link</a>.</em>
 </figcaption>
 <!-- markdownlint-enable MD033 -->
 
