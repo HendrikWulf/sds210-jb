@@ -90,7 +90,9 @@ print(elevations_m[0])   # First item: 450
 print(elevations_m[-1])  # Last item: 545
 
 ```
+
 Indexing allows you to retrieve individual values from a sequence.
+
 ### Slicing Lists
 
 Slicing lets you extract a **range of values**.
@@ -542,6 +544,7 @@ messy_list = ["forest", "water", "urban", "water", "forest"]
 unique_classes = set(messy_list)
 
 ```
+
 ---
 
 ```{admonition} Removing duplicates
@@ -551,6 +554,7 @@ Using `set()` is one of the simplest ways to remove duplicates from a collection
 ```
 
 ---
+
 ### Fast Membership Testing
 
 One of the main strengths of sets is checking if a value exists. This is much faster in a set than in a list.
@@ -560,7 +564,7 @@ One of the main strengths of sets is checking if a value exists. This is much fa
 
 ```
 
-### No Indexing!
+### No Indexing
 
 Because sets do not preserve order, they **do not support indexing**.
 This attempt will fail:
@@ -568,7 +572,9 @@ This attempt will fail:
 ```{code-cell} python
 regions_set[0]
 ```
+
 To access values, you must **iterate**.
+
 ```{code-cell} python
 for land_cover in unique_classes:
     print(land_cover)
@@ -807,7 +813,7 @@ New keys are added.
 
 ---
 
-### Removing Items
+### Removing items
 
 You can remove entries using `pop()`.
 
@@ -958,7 +964,6 @@ If you need fast uniqueness checks, use a set.
 ```
 
 ---
-
 
 ### Multi dimensional collections
 
@@ -1113,6 +1118,7 @@ list_a.append(4)
 print(list_b) # Output: [1, 2, 3, 4]
 
 ```
+
 Both lists show the updated content.
 
 This behaviour applies to:
@@ -1256,13 +1262,13 @@ raw_attributes = {
 1. Create a **set** called `unique_cities` from `raw_cities` to remove duplicates.
 2. Convert that set back into a **sorted list** called `cities_sorted` (Hint: use `sorted(unique_cities)`).
 3. Build a final **dictionary** called `station_record` with the following keys:
+
 * `"name"` → extract this from `raw_attributes`
 * `"coordinates"` → the coordinate tuple
 * `"cities"` → the sorted list you just made
 * `"discharge_m3s"` → extract this from `raw_attributes` using `.get()`, defaulting to `"not available"`
 
-
-4. Use an f-string to print the station name and its latitude (index `0` of the coordinate tuple) from your new dictionary.
+1. Use an f-string to print the station name and its latitude (index `0` of the coordinate tuple) from your new dictionary.
 
 ``````{admonition} Sample solution (click to expand)
 :class: dropdown

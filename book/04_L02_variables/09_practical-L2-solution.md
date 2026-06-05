@@ -38,7 +38,7 @@ You will start with **single variables**, then group values into **lists**, and 
 This mirrors how spatial data handling evolves in real projects.
 
 ---
-
+<!-- markdownlint-disable MD024 -->
 ## Part 1 – Single-value variables
 
 Single variables store exactly one value. They are useful for names, labels, and individual measurements.
@@ -483,9 +483,9 @@ Take a moment to review what you've built. Answer briefly in comments or markdow
 
 Design a single comprehensive dictionary that stores:
 
-* city name
-* coordinates
-* distances to other cities
+- city name
+- coordinates
+- distances to other cities
 
 You do **not** need to automate anything yet. Focus solely on structure and clarity. How would you design the "perfect" data structure to hold all this information?
 
@@ -508,3 +508,4 @@ city_data = {
 The focus here is not automation, but choosing a **clear and meaningful hierarchy**. If we added Geneva to this dictionary, it would have its own `"coords"` and `"distances"` sub-dictionary, keeping our data extremely organized.
 
 ``````
+<!-- markdownlint-enable MD024 -->
