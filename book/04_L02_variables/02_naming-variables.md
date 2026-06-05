@@ -193,7 +193,7 @@ Visual for different programming naming conventions.
 
 <figcaption>
     <em><b>Interactive Explorer: Python Variable Name Validator.</b><br>
-    Type different variable names into the text field to see if they are valid in Python, if they clash with reserved keywords, and which stylistic convention they belong to. Try typing a reserved word like <code>True</code>, an invalid name like <code>2nd_place</code>, or a valid but poorly styled name like <code>myVariableName</code>. For improved visibility of the explorer, follow this <a href="[PLACEHOLDER_URL]" target="_blank">link</a>.</em>
+    Type different variable names into the text field to see if they are valid in Python, if they clash with reserved keywords, and which stylistic convention they belong to. Try typing a reserved word like <code>True</code>, an invalid name like <code>2nd_place</code>, or a valid but poorly styled name like <code>myVariableName</code>. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L02_ch02_variable_name_validator/" target="_blank">link</a>.</em>
 </figcaption>
 <!-- markdownlint-enable MD033 -->
 
