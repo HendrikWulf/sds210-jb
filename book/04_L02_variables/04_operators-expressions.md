@@ -168,6 +168,7 @@ Operands can be:
 
 The data type of the operands determines whether an operation is allowed.
 ```
+
 ---
 
 ## 3. Assignment and Update Operators
@@ -323,6 +324,7 @@ Logical operators allow you to **combine multiple comparison results** into a si
 Python provides three logical operators:
 
 * **`and`**: Returns `True` only if **both** conditions are true.
+
 ```{code-cell} python
 x = 7
 (x > 5) and (x < 10)  # Returns True because 7 is between 5 and 10
@@ -330,13 +332,14 @@ x = 7
 ```
 
 * **`or`**: Returns `True` if **at least one** condition is true.
+
 ```{code-cell} python
 (x < 5) or (x > 6)    # Returns True because 7 > 6
 
 ```
 
-
 * **`not`**: **Reverses** the boolean value.
+
 ```{code-cell} python
 not (x == 7)          # Returns False, because x IS 7
 

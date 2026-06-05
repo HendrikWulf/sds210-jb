@@ -3,11 +3,14 @@ title: Variables
 
 site:
  outline_maxdepth: 1
+
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Storing and Reusing Values
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -15,13 +18,26 @@ Storing and Reusing Values
 
 ```{admonition} Big idea
 :class: tip
-Variables allow us to store values, reuse results, and build readable workflows instead of repeating calculations.
+{term}`Variables <Variable>` allow us to store values, reuse results, and build readable workflows instead of repeating calculations.
+
 
 ```
 
-In this section, you will learn how Python uses variables to keep track of values in memory and how those values can be reused and updated throughout a program. You will also see how variables behave in a Jupyter Notebook, why execution order matters, and how small changes to one variable affect (or do not affect) others.
+In this section, you will learn how Python uses variables to keep track of values in memory and how those values can be reused and updated throughout a {term}`program <Program>`. You will also see how variables behave in a {term}`Jupyter Notebook <Notebook>`, why {term}`execution order <Execution order>` matters, and how small changes to one variable affect (or do not affect) others.
 
-These concepts form the foundation for all later programming tasks in this course, from simple calculations to more complex geospatial workflows.
+These concepts form the foundation for all later {term}`programming <Computer programming>` tasks in this course, from simple calculations to more complex geospatial workflows.
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for every upcoming practical)  
+**Project Relevance:** ★★★ (Fundamental to all Python projects)  
+**Foundation:** ★★★ (Core programming concept)  
+
+**Time to Read:** 6 minutes  
+**In a nutshell:** Variables are how Python stores data in memory, allowing you to cleanly reuse and update values instead of constantly typing out raw numbers.  
+**Skip this if:** You already know how to assign values (`x = 10`), update them, and understand that variables store independent snapshots rather than active mathematical links.
+```
 
 ---
 
@@ -43,7 +59,7 @@ A variable is **not** the value itself, and it is **not** a container that remem
 
 ### Assigning a Value to a Variable
 
-To create a variable, you use the **assignment operator** `=`.
+To create a variable, you use the **{term}`assignment operator <Assignment operator>`** `=`.
 
 ```{code-cell} python
 temp_celsius = 10.0
@@ -58,6 +74,7 @@ temp_celsius = 10.0
 :class: note
 Assigning a variable does **not** produce any output.  
 The value is stored silently in memory.
+
 ```
 
 ---
@@ -76,18 +93,18 @@ You will use variables constantly when working with coordinates, distances, and 
 
 ## 2. Seeing Variable Values
 
-In a **Jupyter Notebook**, you can display the value of a variable simply by writing its name as the last line of a code cell.
+In a **Jupyter Notebook**, you can display the value of a variable simply by writing its name as the last line of a {term}`code cell <Code cell>`.
 
 ```{code-cell} python
 temp_celsius
 
 ```
 
-**Why does this work?** Jupyter Notebooks have a special, convenient behaviour: *The output of the last expression in a code cell is displayed automatically.*
+**Why does this work?** Jupyter Notebooks have a special, convenient behaviour: *The output of the last {term}`expression <Expression>` in a code cell is displayed automatically.*
 
 ### Using `print()`
 
-If you want to display multiple things from a single cell, or add formatted text, you must use the `print()` function explicitly. This works in any Python environment, not just notebooks.
+If you want to display multiple things from a single cell, or add formatted text, you must use the `print()` {term}`function <Function>` explicitly. This works in any Python environment, not just notebooks.
 
 ```{code-cell} python
 print("Temperature in Celsius:", temp_celsius)
@@ -121,7 +138,7 @@ Let’s pause briefly and try this yourself.
 2. Assign it any numeric value you like.
 3. Display its value in the notebook.
 
-*Tip: Use a **meaningful variable name** formatted in **`snake_case`** (words separated by underscores).*
+*Tip: Use a **meaningful variable name** formatted in**{term}`snake_case <Snake case>`** (words separated by underscores).*
 
 ```{code-cell} python
 # Define and display your variable here
@@ -221,6 +238,50 @@ When we defined `temp_fahrenheit`, Python performed the math right then and stor
 
 If you want dependent values to change, you must **recalculate them explicitly** by running the calculation cell again.
 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L02_ch01_01_computer_memory/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Variable Independence.</b><br>
+    Click the "Run Next Step" button to step through the Python script line by line and watch how the computer's memory updates. Notice that when <code>temp_celsius</code> is updated to 20.0 in the final step, <code>temp_fahrenheit</code> remains completely unaffected at 50.0. This visualizes how variables store independent snapshots of values rather than active mathematical links. For improved visibility of the explorer, follow this <a href="[PLACEHOLDER_URL]" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
+
+---
+
+#### Concept Check: The Memory Snapshot
+
+You are running a short spatial script and execute the following three lines of code in order:
+
+```python
+x_coordinate = 10
+y_coordinate = x_coordinate + 5
+x_coordinate = 20
+
+```
+
+If you print the value of `y_coordinate` right now, what will Python output?
+
+A) 15
+
+B) 25
+
+C) 10
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: A**
+Python variables store values, not relationships. When `y_coordinate` was defined on the second line, `x_coordinate` was exactly 10, so `y_coordinate` permanently stored the snapshot value of 15. Updating `x_coordinate` to 20 later on does not automatically flow backwards and update `y_coordinate`.
+
+```
+
 ---
 
 ## 8. Short Exercise
@@ -243,7 +304,7 @@ This exercise revises the key ideas from this section.
 
 Try to complete this yourself before checking the example solution below.
 
-``````{admonition} Example solution
+````{admonition} Example solution
 :class: dropdown
 
 ```{code-cell} python
@@ -262,14 +323,16 @@ speed_kmh = 80
 travel_time_hours = distance_km / speed_kmh
 
 print("New travel time (hours):", travel_time_hours)
+
 ```
 
 **Key takeaways:**
+
 * Reassigning `speed_kmh` replaces its old value.
 * `travel_time_hours` did not update automatically when speed changed; we had to write the calculation again to get the new result.
 * The notebook displays exactly what is currently held in memory based on the order we executed the commands.
 
-``````
+````
 
 ---
 
@@ -295,4 +358,4 @@ In the next section, you will learn:
 
 * why variable names matter for readability and collaboration
 * what Python allows and disallows in variable names
-* common naming styles such as `snake_case` and `camelCase`
+* common naming styles such as `snake_case`...

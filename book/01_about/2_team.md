@@ -6,7 +6,7 @@ We will support you on your learning path during the lab exercises and on Teams.
 ::::{grid} 3
 
 :::{card} Fitim Abdullahu
-:link: https://www.zhaw.ch/de/ueber-uns/person/abdu
+:link: <https://www.zhaw.ch/de/ueber-uns/person/abdu>
 :footer: **Affiliation:** [{abbr}`IDS (Institut für Data Science)`](https://www.zhaw.ch/en/engineering/institutes-centres/ids)
 
 ```{image} https://www.zhaw.ch/typo3temp/assets/_processed_/a/c/csm_abdu20250513082319_ad4607dd1d.webp
@@ -17,10 +17,10 @@ We will support you on your learning path during the lab exercises and on Teams.
 :::
 
 :::{card} Hendrik Wulf
-:link: https://www.geo.uzh.ch/en/department/Staff/hendrikwulf.html
+:link: <https://www.geo.uzh.ch/en/department/Staff/hendrikwulf.html>
 :footer: **Affiliation:** [{abbr}`SDS (Spatial Data Science)`](https://www.geo.uzh.ch/en/studying/sds_minor.html), [{abbr}`EDS (Earth Data Science)`](https://www.geo.uzh.ch/en/units/eds.html)
 
-```{image} https://www.geo.uzh.ch/dam/jcr:166ed713-500d-41da-90d2-47dfcc2d34f0/169.jpg 
+```{image} https://www.geo.uzh.ch/dam/jcr:166ed713-500d-41da-90d2-47dfcc2d34f0/169.jpg
 :alt: Photo of Hendrik Wulf
 :width: 100%
 ```
@@ -28,7 +28,7 @@ We will support you on your learning path during the lab exercises and on Teams.
 :::
 
 :::{card} Lucas Kugler
-:link: https://www.geo.uzh.ch/en/department/Staff/lucaskugler
+:link: <https://www.geo.uzh.ch/en/department/Staff/lucaskugler>
 :footer: **Affiliation:** [{abbr}`RSE (Remote Sensing of Environmental Change)`](https://www.geo.uzh.ch/en/units/rse.html)
 
 ```{image} https://www.geo.uzh.ch/dam/jcr:57a1f8a1-b2b6-4f68-8a4c-dd46823fb980/817.jpeg
@@ -39,20 +39,21 @@ We will support you on your learning path during the lab exercises and on Teams.
 :::
 
 :::{card} Luis Gentner
-:link: https://www.geo.uzh.ch/en/department/Staff/gentnerluis
+:link: <https://www.geo.uzh.ch/en/department/Staff/gentnerluis>
 :footer: **Affiliation:** [{abbr}`RSE (Remote Sensing of Environmental Change)`](https://www.geo.uzh.ch/en/units/rse.html), [{abbr}`EDS (Earth Data Science)`](https://www.geo.uzh.ch/en/units/eds.html)
 
 ```{image} https://www.geo.uzh.ch/dam/jcr:57e8247a-38d1-4b7b-bdad-2370e3f45976/856.jpg
 :alt: Photo of Luis Gentner
 :width: 100%
 ```
+
 :::
 
 :::{card} Jonas Wydler
-:link: https://www.geo.uzh.ch/en/units/rsws/staff/jonaswydler 
+:link: <https://www.geo.uzh.ch/en/units/rsws/staff/jonaswydler>
 :footer: **Affiliation:** [{abbr}`RSWS (Remote Sensing of Water Systems)`](https://www.geo.uzh.ch/en/units/rsws.html)
 
-```{image} https://www.geo.uzh.ch/dam/jcr:f73c359f-d757-4598-b455-fd95f72fb71b/600.jpg 
+```{image} https://www.geo.uzh.ch/dam/jcr:f73c359f-d757-4598-b455-fd95f72fb71b/600.jpg
 :alt: Photo of Jonas Wydler
 :width: 100%
 ```
@@ -60,7 +61,7 @@ We will support you on your learning path during the lab exercises and on Teams.
 :::
 
 :::{card} Riccardo Pedrelli
-:link: https://www.geo.uzh.ch/en/department/Staff/riccardopedrelli.html
+:link: <https://www.geo.uzh.ch/en/department/Staff/riccardopedrelli.html>
 :footer: **Affiliation:** [{abbr}`RSE (Remote Sensing of Environmental Change)`](https://www.geo.uzh.ch/en/units/rse.html)
 
 ```{image} https://citynews-bolognatoday.stgy.ovh/~media/original-hi/3327814322990/riccardo-pedrelli-tra-i-primi-in-italia-nei-300-metri.jpg
@@ -71,8 +72,8 @@ We will support you on your learning path during the lab exercises and on Teams.
 :::
 
 :::{card} Yilin Lin
-:link: https://www.geo.uzh.ch/en/department/Staff/linyilin
-:footer: **Affiliation:** [{abbr}`GCO (Geocomputatione)`](https://www.geo.uzh.ch/en/units/gco.html)
+:link: <https://www.geo.uzh.ch/en/department/Staff/linyilin>
+:footer: **Affiliation:** [{abbr}`GCO (Geocomputation)`](https://www.geo.uzh.ch/en/units/gco.html)
 
 ```{image} https://www.geo.uzh.ch/dam/jcr:3159d6db-fb56-4e2f-a83f-f0a4d68ba1dc/881.jpg
 :alt: Photo of Yilin Lin
@@ -147,7 +148,7 @@ This short video shows you how to access Teams using the access code.
 
 ---
 
-To ensure consistent communication, OLAT is used only to provide this course syllabus. All other course-related communication takes place on MS Teams. Please ensure that Teams notifcations for channels and assignments are `on` (via profile settings).
+To ensure consistent communication, OLAT is used only to provide this course syllabus. All other course-related communication takes place on MS Teams. Please ensure that Teams notifications for channels and assignments are `on` (via profile settings).
 
 :::{figure} images/02_Teams_notifications.png
 :alt: Teams notifications settings.
@@ -155,6 +156,5 @@ To ensure consistent communication, OLAT is used only to provide this course syl
 
 Teams notifications settings.
 :::
-
 
 If you need help outside of lab hours, please post your question in the appropriate lab channel on Teams. All students are encouraged to respond and help where possible. This shared discussion space benefits everyone and reduces duplicate questions.
