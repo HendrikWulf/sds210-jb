@@ -36,7 +36,7 @@ You will start with **single variables**, then group values into **lists**, and 
 This mirrors how spatial data handling evolves in real projects.
 
 ---
-
+<!-- markdownlint-disable MD024 -->
 ## Part 1 – Single-value variables
 
 Single variables store exactly one value. They are useful for names, labels, and individual measurements.
@@ -331,7 +331,7 @@ You do **not** need to automate anything yet. Focus solely on structure and clar
 # Write your code here
 
 ```
-
+<!-- markdownlint-enable MD024 -->
 ---
 
 ### What Comes Next

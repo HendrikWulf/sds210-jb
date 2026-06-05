@@ -14,7 +14,6 @@ Seeing results clearly
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/04_L02_variables/06_formatting-output.ipynb)
 
-
 ```{admonition} Big idea
 :class: tip
 
@@ -225,12 +224,12 @@ Two possible average airspeeds are:
 1. Convert both airspeeds from **m/s to km/h** (Hint: multiply by `3.6`).
 2. Compute the estimated **travel time in hours** for **both speeds**.
 3. Display the results using **clear, formatted f-strings** that:
+
 * state the distance and the airspeed used
 * include correct units
 * round the final travel time to **two decimal places**
 
-
-4. Add **one debug print statement** that would help you verify the unit conversion worked correctly.
+1. Add **one debug print statement** that would help you verify the unit conversion worked correctly.
 
 ``````{admonition} Sample solution (click to expand)
 :class: dropdown
