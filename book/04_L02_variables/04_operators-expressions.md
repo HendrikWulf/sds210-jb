@@ -5,9 +5,11 @@ site:
  outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Doing Things with Values
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -16,20 +18,34 @@ Doing Things with Values
 ```{admonition} Big idea
 :class: tip
 
-Operators allow you to combine values into **expressions**.  
+**{term}`Operators <Operator>`** allow you to combine values into **{term}`expressions <Expression>`**.  
 Expressions are evaluated when code is executed to produce new values.
+
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for every single calculation or data filter you write)  
+**Project Relevance:** ★★★ (Core to creating new spatial metrics or handling conditions)  
+**Foundation:** ★★★ (Fundamental grammar of programming)  
+
+**Time to Read:** 8 minutes  
+**In a nutshell:** Operators turn static data into dynamic code, allowing you to perform calculations, update variables, and formulate logical rules.  
+**Skip this if:** You are fully comfortable with arithmetic (`%`, `//`), update operators (`+=`), and boolean logic (`and`, `or`, `not`) in Python.
 
 ```
 
 So far, you have learned how to store values in variables, how to name them clearly, and how Python distinguishes between different data types.
 
-In this section, we focus on **how values interact**. We start with simple calculations, then build up to comparisons, logic, and module-based mathematical expressions.
+In this section, we focus on **how values interact**. We start with simple calculations, then build up to comparisons, logic, and {term}`module`-based mathematical expressions.
 
 ---
 
 ## 1. Expressions as Calculations
 
-An **expression** is a combination of values (operands) and operators that produces a result.
+An expression is a combination of values (operands) and operators that produces a result.
 
 :::{figure} images/06_operation.png
 :alt: The anatomy of a Python expression: operators combine operands to evaluate to a single new value.
@@ -45,6 +61,7 @@ Think of an expression as a question you ask Python: *"What is the result of thi
 # Python evaluates this expression and returns 35
 5 * 7
 
+
 ```
 
 An important idea is that expressions are evaluated **when you run the cell**, not when you type them. If you change a variable and run the cell again, Python recalculates the result using the newest values in memory.
@@ -52,6 +69,7 @@ An important idea is that expressions are evaluated **when you run the cell**, n
 ```{admonition} Memory
 :class: note
 Python does not remember the expression itself. It only evaluates it and returns a value. If you want to keep that result for later, you must store it in a variable using `=`.
+
 
 ```
 
@@ -72,18 +90,22 @@ Python supports the common arithmetic operators you already know.
 
 ```{code-cell} python
 2 + 2
+
 ```
 
 ```{code-cell} python
 5 - 3
+
 ```
 
 ```{code-cell} python
 4 * 6
+
 ```
 
 ```{code-cell} python
 10 / 2
+
 ```
 
 Each expression is evaluated when the cell is executed and returns a numeric result.
@@ -98,14 +120,17 @@ They also work with **variables that store numbers**.
 ```{code-cell} python
 x = 7
 y = 3
+
 ```
 
 ```{code-cell} python
 x + y
+
 ```
 
 ```{code-cell} python
 x * y
+
 ```
 
 Here, `x` and `y` are **operands**.
@@ -115,10 +140,11 @@ An operand is simply a value or a variable that an operator acts on.
 
 ### Exponentiation
 
-Python uses `**` to raise a value to a power.
+Python uses `` to raise a value to a power.
 
 ```{code-cell} python
 2 ** 3
+
 ```
 
 This means two to the power of three.
@@ -131,12 +157,14 @@ Some additional arithmetic operators are useful in practice.
 
 ```{code-cell} python
 7 % 3
+
 ```
 
 The modulus operator returns the remainder of a division.
 
 ```{code-cell} python
 7 // 3
+
 ```
 
 Floor division returns the number of whole divisions.
@@ -167,6 +195,7 @@ Operands can be:
 - variables that store numeric values
 
 The data type of the operands determines whether an operation is allowed.
+
 ```
 
 ---
@@ -186,6 +215,7 @@ The assignment operator `=` stores the result of an expression in a variable.
 
 ```{code-cell} python
 x = 5
+
 ```
 
 Here, Python:
@@ -205,10 +235,12 @@ You can assign the result of any expression.
 
 ```{code-cell} python
 y = 2 + 3
+
 ```
 
 ```{code-cell} python
 y
+
 ```
 
 The expression `2 + 3` is evaluated first.
@@ -224,22 +256,26 @@ Python provides **update operators** that combine calculation and assignment.
 
 ```{code-cell} python
 x += 3
+
 ```
 
 This is a shorter way of writing:
 
 ```{code-cell} python
 x = x + 3
+
 ```
 
 Other common update operators follow the same pattern.
 
 ```{code-cell} python
 x -= 1
+
 ```
 
 ```{code-cell} python
 x *= 2
+
 ```
 
 Each update:
@@ -261,6 +297,7 @@ After reassignment, the old value is gone.
 ```{code-cell} python
 speed = 50
 speed = 80
+
 ```
 
 After the second line, `speed` refers only to `80`.
@@ -273,13 +310,14 @@ The value `50` is no longer stored anywhere.
 
 Update operators are only shorthand.
 They simply replace the stored value with a new one.
+
 ```
 
 ---
 
 ## 4. Comparison Operators
 
-Comparison operators allow you to **compare values**. Instead of producing numbers, comparisons produce **logical boolean results**: `True` or `False`.
+Comparison operators allow you to **compare values**. Instead of producing numbers, comparisons produce **logical {term}`boolean <Boolean>` results**: `True` or `False`.
 
 These operators are essential for filtering spatial data (e.g., "find all cities with a population greater than 100,000").
 
@@ -304,6 +342,7 @@ Comparison operators describe relationships between values.
 They do not perform calculations.
 They do not modify data.
 They only answer yes or no questions.
+
 ```
 
 Comparison operators are used to control program flow, filter data and make decisions based on conditions.
@@ -329,12 +368,14 @@ Python provides three logical operators:
 x = 7
 (x > 5) and (x < 10)  # Returns True because 7 is between 5 and 10
 
+
 ```
 
 * **`or`**: Returns `True` if **at least one** condition is true.
 
 ```{code-cell} python
 (x < 5) or (x > 6)    # Returns True because 7 > 6
+
 
 ```
 
@@ -343,11 +384,25 @@ x = 7
 ```{code-cell} python
 not (x == 7)          # Returns False, because x IS 7
 
+
 ```
 
 Logical operators allow you to express complex reasoning in code. Instead of asking one question, you can combine several and get a single, definitive answer.
 
----
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L02_ch04_01_logical_operator_simulator/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Logical Operator Simulator.</b><br>
+    Toggle the input states between True and False and switch the operator to see exactly how <code>and</code>, <code>or</code>, and <code>not</code> logic gates process combinations to output a final Boolean result. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L02_ch04_01_logical_operator_simulator/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ## 6. Operator Behaviour & Data Types
 
@@ -362,6 +417,7 @@ When applied to numbers (`int`, `float`), the `+` and `*` operators perform stan
 # Repetition: Multiplies the string
 "Hot" * 3        # Returns "HotHotHot"
 3 * "Hot"        # Returns "HotHotHot"
+
 ```
 
 If you try to mix incompatible data types, the operation will fail:
@@ -369,9 +425,40 @@ If you try to mix incompatible data types, the operation will fail:
 ```{code-cell} python
 2 + "Hot"        # Raises a TypeError!
 
+
 ```
 
 This is not a bug; it is Python protecting you from an undefined operation. If an operation fails, check your data types!
+
+---
+
+#### Concept Check: The Logic Puzzle
+
+You are analyzing a dataset of trees and want to filter for old oak trees. You write the following expression to check a specific tree:
+
+```python
+tree_type = "Oak"
+tree_age = 120
+
+is_old_oak = (tree_type == "Oak") and (tree_age > 100) or (tree_age < 0)
+
+```
+
+What will be the final evaluated boolean value of `is_old_oak`, and why?
+
+A) `False`, because you cannot mix strings and integers in an `and` statement.
+
+B) `TypeError`, because `tree_age < 0` is mathematically impossible.
+
+C) `True`, because the first two conditions evaluate to `True` combined by `and`, and the `or` condition is ignored since the first part is already `True`.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: C**
+Expressions evaluate step-by-step. `(tree_type == "Oak")` is `True`. `(tree_age > 100)` is `True`. So `True and True` resolves to `True`. The second half is `or (tree_age < 0)`. `True or False` ultimately resolves to `True`. Logical operators do not care about the underlying data types, only whether the *comparison* itself evaluates to a boolean!
+
+```
 
 ---
 
@@ -388,12 +475,14 @@ import math
 diagonal = math.sqrt(16) + 2
 print(diagonal)  # Returns 6.0
 
+
 ```
 
 Modules also provide useful constants, which do not require parentheses because they are stored values, not functions:
 
 ```{code-cell} python
 area = math.pi * (radius ** 2)
+
 
 ```
 
@@ -411,6 +500,7 @@ time = 2
 
 # We can perform the expression directly inside the print statement!
 print("The average speed is", distance / time, "km/h")
+
 
 ```
 
@@ -430,7 +520,12 @@ Well-formatted output makes checking your work significantly easier and is a fun
 2. Run each expression in its own code cell.
 3. Change one number in the code and *do not* re-run the cell yet. Does the output change automatically?
 
-``````{admonition} Sample solution (click to expand)
+```{code-cell} python
+# Do the exercise here
+
+```
+
+````{admonition} Sample solution (click to expand)
 :class: dropdown
 
 ```{code-cell} python
@@ -440,7 +535,8 @@ Well-formatted output makes checking your work significantly easier and is a fun
 ```
 Changing the code has no effect until the cell is run again. Python does not remember the formula, it only evaluates the cell on command.
 
-``````
+
+````
 
 ---
 
@@ -455,13 +551,14 @@ Given the following variables:
 distance_km = 180
 time_hours = 2.5
 
+
 ```
 
 1. Compute the average speed in km/h and store it in a new variable.
 2. Create a boolean variable that checks whether the speed is greater than 70 km/h.
 3. Print a readable message that includes both the speed and the boolean result.
 
-``````{admonition} Sample solution (click to expand)
+````{admonition} Sample solution (click to expand)
 :class: dropdown
 
 ```{code-cell} python
@@ -475,7 +572,8 @@ speed_above_70 = speed_kmh > 70
 print("The average speed is", speed_kmh, "km/h. Speed above 70 km/h:", speed_above_70)
 ```
 
-``````
+
+````
 
 ---
 
@@ -491,7 +589,12 @@ print("The average speed is", speed_kmh, "km/h. Speed above 70 km/h:", speed_abo
 4. Compute the sine of the angle using `math.sin()`.
 5. Use logical operators to check if the sine value is **both** greater than 0 **and** less than 1.
 
-``````{admonition} Sample solution (click to expand)
+```{code-cell} python
+# Do the exercise here
+
+```
+
+````{admonition} Sample solution (click to expand)
 :class: dropdown
 
 ```{code-cell} python
@@ -508,7 +611,8 @@ valid_range = (sin_value > 0) and (sin_value < 1)
 print("Sine value:", sin_value, "| Is valid:", valid_range)
 ```
 
-``````
+
+````
 
 ---
 
@@ -518,7 +622,7 @@ After completing this section, you should understand that:
 
 * **Expressions combine values and operators** to produce a single result.
 * **Expressions are evaluated when code is executed.**
-* **Arithmetic operators** (`+`, `-`, `*`, `/`, `**`, `%`, `//`) act as a calculator.
+* **Arithmetic operators** (`+`, `-`, `*`, `/`, ``, `%`, `//`) act as a calculator.
 * **Comparison operators** (`==`, `>`, `<=`) always produce boolean values (`True` or `False`).
 * **Logical operators** (`and`, `or`, `not`) combine boolean conditions to build complex reasoning.
 * Operator behavior changes depending on data types (e.g., `+` adds numbers but joins strings).
