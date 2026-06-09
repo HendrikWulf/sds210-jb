@@ -4,6 +4,12 @@ project:
   # copyright: '2026'
   github: HendrikWulf/sds210-jb
 
+  exports:
+    - id: book-pdf
+      format: pdf
+      template: plain_typst_book # Typst-based (if you use Typst templates)
+      output: exports/sds210-book.pdf
+
   binder: https://mybinder.org
 
   exclude:
@@ -19,14 +25,6 @@ project:
       provider: github
       url: https://mybinder.org
       ref: main
-
-  exports:
-    # id: book-pdf
-    format: pdf
-    # pick ONE of these templates / engines you actually use:
-    # template: plain_latex_book   # LaTeX-based
-    # template: plain_typst_book # Typst-based (if you use Typst templates)
-    # output: exports/sds210-book.pdf
 
   license: CC-BY-SA-4.0
   open_access: true
@@ -83,7 +81,7 @@ project:
         # - file: book/04_L02_variables/07_multi-item-variables.md
         - file: book/04_L02_variables/08_practical-L2.ipynb
         # - file: book/04_L02_variables/08_practical-L2.md
-        - file: book/04_L02_variables/09_practical-L2-solution.ipynb
+        # - file: book/04_L02_variables/09_practical-L2-solution.ipynb
         # - file: book/04_L02_variables/09_practical-L2-solution.md
     - title: L3 - Loops
       file: book/05_L03_loops.md
@@ -102,7 +100,7 @@ project:
         # - file: book/05_L03_loops/06_list-comprehension.md
         - file: book/05_L03_loops/07_practical-L3.ipynb
         # - file: book/05_L03_loops/07_practical-L3.md
-        - file: book/05_L03_loops/08_practical-L3-solution.ipynb
+        # - file: book/05_L03_loops/08_practical-L3-solution.ipynb
         # - file: book/05_L03_loops/08_practical-L3-solution.md
     - title: L4 - Functions
       file: book/06_L04_functions.md
@@ -119,7 +117,7 @@ project:
         # - file: book/06_L04_functions/05_documentation.md
         - file: book/06_L04_functions/06_practical_L4.ipynb
         # - file: book/06_L04_functions/06_practical_L4.md
-        - file: book/06_L04_functions/07_practical_L4_solution.ipynb
+        # - file: book/06_L04_functions/07_practical_L4_solution.ipynb
         # - file: book/06_L04_functions/07_practical_L4_solution.md
     - title: L5 - Libraries
       file: book/07_L05_libraries.md
@@ -136,7 +134,7 @@ project:
         # - file: book/07_L05_libraries/05_geocoding.md
         - file: book/07_L05_libraries/06_practical_L5.ipynb
         # - file: book/07_L05_libraries/06_practical_L5.md
-        - file: book/07_L05_libraries/07_practical_L5_solution.ipynb
+        # - file: book/07_L05_libraries/07_practical_L5_solution.ipynb
         # - file: book/07_L05_libraries/07_practical_L5_solution.md
     - title: L6 - Data Frames
       file: book/08_L06_data-frames.md
@@ -157,7 +155,7 @@ project:
         # - file: book/08_L06_data-frames/07_temporal_data.md
         - file: book/08_L06_data-frames/08_practical_L6.ipynb
         # - file: book/08_L06_data-frames/08_practical_L6.md
-        - file: book/08_L06_data-frames/09_practical_L6-solutions.ipynb
+        # - file: book/08_L06_data-frames/09_practical_L6-solutions.ipynb
         # - file: book/08_L06_data-frames/09_practical_L6-solutions.md
     - title: L7 - Vector Data
       file: book/09_L07_vector-data.md 
@@ -178,7 +176,7 @@ project:
         # - file: book/09_L07_vector-data/07_classification.md
         - file: book/09_L07_vector-data/08_practical_L7.ipynb
         # - file: book/09_L07_vector-data/08_practical_L7.md
-        - file: book/09_L07_vector-data/09_practical_L7-solutions.ipynb
+        # - file: book/09_L07_vector-data/09_practical_L7-solutions.ipynb
         # - file: book/09_L07_vector-data/09_practical_L7-solutions.md
     - title: L8 - Visualization
       file: book/10_L08_visualization.md
@@ -195,7 +193,7 @@ project:
         # - file: book/10_L08_visualization/05_interactive_maps.md
         - file: book/10_L08_visualization/06_practical_L8.ipynb
         # - file: book/10_L08_visualization/06_practical_L8.md
-        - file: book/10_L08_visualization/07_practical_L8-solutions.ipynb
+        # - file: book/10_L08_visualization/07_practical_L8-solutions.ipynb
         # - file: book/10_L08_visualization/07_practical_L8-solutions.md
     - title: L9 - Raster Data
       file: book/11_L09_raster-data.md
@@ -214,7 +212,7 @@ project:
         # - file: book/11_L09_raster-data/06_data_handling.md
         - file: book/11_L09_raster-data/07_practical_L9.ipynb
         # - file: book/11_L09_raster-data/07_practical_L9.md
-        - file: book/11_L09_raster-data/08_practical_L9-solutions.ipynb
+        # - file: book/11_L09_raster-data/08_practical_L9-solutions.ipynb
         # - file: book/11_L09_raster-data/08_practical_L9-solutions.md
     - title: L10 - Time Series
       file: book/12_L10_time-series.md
@@ -237,7 +235,7 @@ project:
         # - file: book/12_L10_time-series/08_computing_trends.md
         - file: book/12_L10_time-series/09_practical_L10.ipynb
         # - file: book/12_L10_time-series/09_practical_L10.md
-        - file: book/12_L10_time-series/10_practical_L10-solutions.ipynb
+        # - file: book/12_L10_time-series/10_practical_L10-solutions.ipynb
         # - file: book/12_L10_time-series/10_practical_L10-solutions.md
     - title: L11 - Object Oriented
       file: book/13_L11_object-oriented.md

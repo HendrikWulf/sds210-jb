@@ -25,7 +25,7 @@ A good report does not try to explain every single line of code. It selects the 
 
 ## 1. The Purpose of the Report
 
-Programming in spatial data science is not just about making code run; it is about making your workflow understandable to others. Your code might execute perfectly, but if your report fails to explain the core problem and your methodology, a massive part of the project is missing. Conversely, a beautifully written report cannot mask a broken, unreproducible workflow. The report, notebook, and repository must work together.
+Programming in spatial data science is not just about making code run; it is about making your workflow understandable to others. Your code might execute perfectly, but if your report fails to explain the core problem and your methodology, a key part of the project is missing. Conversely, a beautifully written report cannot mask a broken, unreproducible workflow. The report, notebook, and repository must work together.
 
 A strong report tells the story of your project in a compact, focused way. It should help an informed reader understand exactly what spatial problem you addressed and why it matters. It must clearly outline how you designed your workflow, highlight your most important implementation steps, present your final results, and candidly discuss the challenges you faced and how you resolved them.
 
@@ -41,11 +41,15 @@ In your report focus on the core question, the overarching workflow, key impleme
 
 ## 2. Required Contents and Structure
 
-The written report is limited to **two pages** in PDF format (excluding images). Because space is limited, you must be selective. You do not have room to include long code snippets, massive tables, or explanations of minor parameter tweaks. The report should highlight the most important parts of your project without duplicating what is already visible in the notebook.
+The written report is limited to approximately **6,000 characters with spaces** (±1,000), which corresponds to about **two pages** of text. Figures and images are not included in this limit.
+
+Because the report is short, you need to be selective. Focus on the most important aspects of your project: the research question, data, methods, key results, and interpretation. More detailed explanations, code, intermediate steps, and additional outputs should be documented in your notebook.
+
+Key figures and images should be included with the report where they support your argument. Make sure they are readable, appropriately sized, and accompanied by clear captions. Figure captions are excluded from the character count.
 
 ### A Practical Report Structure
 
-To ensure you hit all the required grading criteria, we recommend structuring your two-page report as follows:
+To ensure you hit all the required grading criteria, we recommend structuring your report as follows:
 
 * **Introduction:** Briefly explain your chosen project topic, the specific spatial question you are answering, and the ultimate aim of the analysis.
 * **Workflow and Implementation:** Summarize the logical steps of your workflow. Focus on your overarching approach to data cleaning, spatial analysis, and visualization rather than minute technical details.
@@ -72,7 +76,7 @@ If not, simplify and refocus.
 
 Your final submission must be uploaded as a **single PDF document** via the MS Teams assignment. However, this single PDF should contain two distinct parts merged together:
 
-1. **The Written Report:** Your concise, two-page project summary.
+1. **The Written Report:** Your concise, project summary including key figures and images.
 2. **The Notebook Export:** A PDF export (via Markdown/HTML print) of your fully executed Jupyter Notebook.
 
 This combined format allows the assessors to read your high-level summary and immediately scroll down to verify the documented code and visual outputs that support it.
