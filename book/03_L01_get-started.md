@@ -5,9 +5,11 @@ site:
  outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 From motivation to first notebook run
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
