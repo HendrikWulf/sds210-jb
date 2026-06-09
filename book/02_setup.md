@@ -3,7 +3,18 @@ title: Setup
 
 site:
  outline_maxdepth: 1
- 
+
+exports:
+  - id: setup-pdf
+    format: pdf
+    template: plain_latex_book
+    output: exports/02_setup.pdf
+downloads:
+  - file: 02_setup.md
+    title: Jupyter Notebook
+  - id: setup-pdf
+    title: Download PDF
+
 ---
 
 <div class="page-subtitle">
