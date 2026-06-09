@@ -50,7 +50,7 @@ In this project, you will:
 
 ### Suggested task
 
-Your task is to create a workflow that reads, structures, and analyses the ZüriWieNeu data in a clear and reproducible way. Once your data are prepared and organised, you must formulate and answer at least four interesting questions using your code.
+Your task is to create a workflow that reads, structures, and analyses the ZüriWieNeu data in a clear and reproducible way. Once your data are prepared and organised, you must formulate and answer **at least four interesting questions** using your code.
 
 Examples of project questions include:
 
@@ -99,14 +99,14 @@ In this project, you will:
 
 ### Suggested task
 
-Your task is to find a suitable wildfire dataset and build a Python system that automatically reads, analyzes, and maps the data. You must think carefully about which properties are the most informative to the user and how they should be represented visually (e.g., using varying marker sizes or colors).
+Your task is to find a suitable wildfire dataset and build a Python system that automatically reads, analyzes, and maps the data. You must think carefully about which properties are the most informative to the user and how they should be represented visually (e.g., using varying marker sizes or colors). Furthermore, your workflow should include **at least one spatial analysis**, investigating the distribution of fires across biomes, counties, or any other suitable feature at your chosen mapping scale.
 
 Examples of project questions include:
 
   * Where are the most recent or most severe wildfires located?
   * How do the events differ in physical size, thermal intensity, or duration?
-  * Which attributes are most critical for visual symbolization on a public dashboard?
-  * How can interactive elements (like popups and tooltips) improve the map's readability?
+  * Which biomes are most affected by fires?
+  * How can interactive elements (like pop-ups and tooltips) improve the map's readability?
 
 <!-- end list -->
 

@@ -501,6 +501,11 @@ Continue with the variables from Exercise 2.
 2. Convert `temp_celsius` to an integer and inspect the result.
 3. Compare the values before and after conversion. Why could this difference matter in spatial analysis?
 
+```{code-cell} python
+# Do the exercise here
+
+```
+
 ````{admonition} Sample solution (click to expand)
 :class: dropdown
 
