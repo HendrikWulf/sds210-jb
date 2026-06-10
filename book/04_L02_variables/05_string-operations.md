@@ -24,6 +24,10 @@ They follow different rules than numbers and deserve special attention.
 
 ```
 
+So far, you have mainly worked with numeric values. In this section, we focus on text values, called strings.
+
+Strings behave fundamentally differently from numbers. By isolating their special behaviour here, we avoid confusion later when data processing becomes more complex. After this section, you will be able to safely combine, clean, and prepare text for output.
+
 ```{admonition} Chapter Relevance
 :class: dropdown
 
@@ -36,10 +40,6 @@ They follow different rules than numbers and deserve special attention.
 **Skip this if:** You already know how to concatenate, slice, use escape characters (`\n`), and apply string methods like `.split()`, `.strip()`, and `.replace()`.
 
 ```
-
-So far, you have mainly worked with numeric values. In this section, we focus on text values, called strings.
-
-Strings behave fundamentally differently from numbers. By isolating their special behaviour here, we avoid confusion later when data processing becomes more complex. After this section, you will be able to safely combine, clean, and prepare text for output.
 
 ---
 
