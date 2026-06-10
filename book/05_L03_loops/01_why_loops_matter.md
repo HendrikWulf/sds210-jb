@@ -6,26 +6,38 @@ site:
  
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 From manual work to automation
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/05_L03_loops/01_why-is-this-relevant.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/05_L03_loops/01_why_loops_matter.ipynb)
 
 ```{admonition} Big idea
 :class: tip
 
-Computers are powerful because they can  
-**repeat the same action** and  
-**make decisions based on data**.
-
+Computers are powerful because they can **repeat the same action** and **make decisions based on data**.  
 Without repetition and decisions, code does not scale.
 
 ```
 
-So far, you have learned how to store values and collections of values. You can define variables, work with lists, and access individual elements.
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★☆☆ (Relevant idea to writing any spatial data processing script)  
+**Project Relevance:** ★☆☆ (Important approach for automating workflows across spatial datasets)  
+**Foundation:** ★★★ (A non-negotiable core programming concept)  
+
+**Time to Read:** 4 minutes  
+**In a nutshell:** This chapter explains the transition from manual, line-by-line coding to automated, scalable data processing using loops and conditions.  
+**Skip this if:** You already understand why loops (`for` / `while`) and conditional statements (`if` / `else`) are necessary for scaling code beyond a single variable.
+
+```
+
+So far, you have learned how to store values and collections of values. You can define **{term}`variables <Variable>`**, work with **{term}`lists <List>`**, and access individual elements.
 
 However, writing useful spatial programs requires more than just storing data. It requires **processing data systematically**.
 
@@ -46,15 +58,17 @@ Consider a simple list of major cities:
 ```{code-cell} python
 cities = ["Lagos", "Nairobi", "Dhaka", "São Paulo"]
 
+
 ```
 
-Suppose you want to display each city. One option is to access each element manually using its index:
+Suppose you want to display each city. One option is to access each element manually using its **{term}`index <Index>`**:
 
 ```{code-cell} python
 print(cities[0])
 print(cities[1])
 print(cities[2])
 print(cities[3])
+
 
 ```
 
@@ -75,6 +89,7 @@ For example, if you add one more city to the data:
 ```{code-cell} python
 cities.append("Kinshasa")
 
+
 ```
 
 Your code will still only print the first four cities. You would have to manually type `print(cities[4])` to fix it. The real issue here is not indexing; the issue is **manual repetition**.
@@ -84,6 +99,7 @@ Your code will still only print the first four cities. You would have to manuall
 
 If changing your underlying data forces you to rewrite your code,  
 your code is doing too much manual work.
+
 
 ```
 
@@ -107,13 +123,14 @@ but rather:
 
 > “For **each city** in this collection, print its name.”
 
-This idea is called **iteration** (or looping). Instead of repeating code yourself, you write the instruction once and let the computer repeat the work for you.
+This idea is called **{term}`iteration <Iteration>`** (or looping). Instead of repeating code yourself, you write the instruction once and let the computer repeat the work for you.
 
 Here is a sneak peek of what that looks like in Python:
 
 ```{code-cell} python
 for city in cities:
     print(city)
+
 
 ```
 
@@ -123,9 +140,23 @@ for city in cities:
 Good code depends on **structure**, not on the current size of the data. 
 Whether your list has 4 cities or 4,000 cities, those two lines of code above will process all of them without needing a single change.
 
+
 ```
 
----
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L03_ch01_01_loop_scalability_visualizer/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Loop Scalability Visualizer.</b><br>
+    Run the simulation to see how manual execution and loop execution produce the same initial result. Then, add a city to the list and run the code again to witness exactly why manual indexing fails when data scales. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L03_ch01_01_loop_scalability_visualizer/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ## 3. Making Loops Smarter with Decisions
 
@@ -152,7 +183,7 @@ Every decision has the same basic shape:
 
 This introduces another core idea:
 
-> Code can **branch** based on conditions.
+> Code can branch based on conditions.
 
 This is how programs react to data instead of just processing it blindly.
 
@@ -186,39 +217,27 @@ Repetition answers:
 
 Decisions answer:  
 “How do I react to differences in data?”
-```
-
-## 5. Concept Check
-
-Before learning the actual Python syntax for loops, pause and reflect on the concept.
-
-### Task
-
-You are given a list of river names:
-
-```{code-cell} python
-rivers = ["Nile", "Congo", "Zambezi", "Niger"]
 
 ```
 
-Answer the following **without writing code**.
+## 5. Concept Check: The Scaling Problem
 
-1. If you used **manual indexing**, how many `print()` statements would you need?
-2. What would happen to that manual code if one more river were added to the list?
-3. If you used a **loop**, would the code need to change if the list grows?
+You are given a list of river names, and you need to print each one. Currently, there are four rivers: `rivers = ["Nile", "Congo", "Zambezi", "Niger"]`. You write four separate `print()` statements using manual indexing (e.g., `print(rivers[0])`).
 
-Write down short answers in your own words.
+Tomorrow, your colleague updates the database, adding 15 new rivers to the list. If you do NOT use a loop, what happens when you run your script?
 
----
+A) The script automatically detects the new rivers and prints all 19 of them.
 
-```{admonition} Sample solution
+B) The script crashes with an `IndexError` because the list length has changed.
+
+C) The script only prints the first four rivers, completely ignoring the 15 new ones.
+
+```{admonition} Check your understanding
 :class: dropdown
 
-1. Four `print()` statements, one for each river.
-2. The new river would be ignored unless you manually typed a fifth `print()` statement.
-3. No, the exact same loop would automatically process the new river.
+**Answer: C**
+Manual indexing is rigid. Your four `print()` statements will flawlessly print the first four items, but they have no way of knowing the list has grown. A loop, however, automatically adapts to the size of the data structure, meaning the exact same code would print 4 rivers today and 19 rivers tomorrow.
 
-**Key insight:** A loop adapts to the size of the data. Manual code does not.
 
 ```
 
