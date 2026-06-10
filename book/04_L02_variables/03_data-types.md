@@ -24,12 +24,7 @@ What Kind of Values Variables Can Store
 
 While variables hold values in memory, data types determine how Python interprets those values when they are used in {term}`expressions <Expression>` and calculations.
 
-
 ```
-
-In this section, you will learn how Python classifies values, how to inspect their data types, and how data types explain both successful operations and common errors.
-
-Understanding data types is essential for {term}`debugging <Debugging>` and for writing code that behaves predictably. These ideas will form a foundation for calculations, comparisons, and logical decisions later in the course.
 
 ```{admonition} Chapter Relevance
 :class: dropdown
@@ -43,6 +38,10 @@ Understanding data types is essential for {term}`debugging <Debugging>` and for 
 **Skip this if:** You already know the difference between `int`, `float`, `str`, and `bool`, and know how to use `type()` to diagnose and fix `TypeError`s and `ValueError`s.
 
 ```
+
+In this section, you will learn how Python classifies values, how to inspect their data types, and how data types explain both successful operations and common errors.
+
+Understanding data types is essential for {term}`debugging <Debugging>` and for writing code that behaves predictably. These ideas will form a foundation for calculations, comparisons, and logical decisions later in the course.
 
 ---
 

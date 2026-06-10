@@ -24,9 +24,6 @@ They change how well **humans understand it**, including your future self.
 
 ```
 
-In this section, you will learn how to choose clear and meaningful {term}`variable <Variable>` names in Python.
-Good naming makes your {term}`code <Source code>` easier to read, {term}`debug <Debugging>`, and share, even months after you first wrote it.
-
 ```{admonition} Chapter Relevance
 :class: dropdown
 
@@ -39,6 +36,9 @@ Good naming makes your {term}`code <Source code>` easier to read, {term}`debug <
 **Skip this if:** You already know Python's naming restrictions (no spaces, no reserved words) and habitually use `snake_case` for all your variables.
 
 ```
+
+In this section, you will learn how to choose clear and meaningful {term}`variable <Variable>` names in Python.
+Good naming makes your {term}`code <Source code>` easier to read, {term}`debug <Debugging>`, and share, even months after you first wrote it.
 
 ---
 

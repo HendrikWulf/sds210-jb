@@ -86,8 +86,8 @@ project:
     - title: L3 - Loops
       file: book/05_L03_loops.md
       children:
-        - file: book/05_L03_loops/01_why-is-this-relevant.ipynb
-        # - file: book/05_L03_loops/01_why-is-this-relevant.md
+        - file: book/05_L03_loops/01_why_loops_matter.ipynb
+        # - file: book/05_L03_loops/01_why_loops_matter.md
         - file: book/05_L03_loops/02_for-loops.ipynb
         # - file: book/05_L03_loops/02_for-loops.md
         - file: book/05_L03_loops/03_conditional-execution.ipynb

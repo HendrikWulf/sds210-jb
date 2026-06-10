@@ -6,9 +6,11 @@ site:
  
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Doing the same thing many times
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -17,11 +19,22 @@ Doing the same thing many times
 ```{admonition} Big idea
 :class: tip
 
-Loops allow the computer to  
-**repeat actions for us**.
+Loops allow the computer to **repeat actions for us**.  
+We write the instruction once. The computer does the repetition.
 
-We write the instruction once.  
-The computer does the repetition.
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for automating tasks across multiple files or coordinates)  
+**Project Relevance:** ★★★ (Data processing at scale is impossible without loops)  
+**Foundation:** ★★★ (Core grammar of Python)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** The `for` loop allows you to write an instruction once and have Python automatically repeat it for every item in a dataset.  
+**Skip this if:** You are fully comfortable iterating over lists directly, using `range()` for indexed loops, and writing nested loops.
 
 ```
 
@@ -43,7 +56,7 @@ Instead of writing the same instruction many times, we describe a pattern:
 
 This idea applies to many situations, such as:
 
-* printing all values in a list
+* printing all values in a **{term}`lists <List>`**
 * performing the same calculation repeatedly
 * stepping through a sequence in order
 
@@ -53,6 +66,7 @@ Consider a simple list of values:
 
 ```{code-cell} python
 values = [3, 7, 12]
+
 
 ```
 
@@ -68,7 +82,7 @@ At each step, the exact same instructions are executed again.
 
 ### The loop variable
 
-Each loop introduces a **temporary variable**.
+Each loop introduces a temporary **{term}`variable <Variable>`**.
 
 This variable:
 
@@ -103,6 +117,7 @@ The most common loop in Python is the `for` loop. It is used to iterate over col
 for item in collection:
     do_something(item)
 
+
 ```
 
 This line tells Python to take one value from the collection at a time and run the same instructions for each value. Read it like a sentence:
@@ -120,6 +135,7 @@ Consider a simple list of city names:
 ```{code-cell} python
 cities = ["Tokyo", "Delhi", "Shanghai", "Jakarta"]
 
+
 ```
 
 Now run the following loop:
@@ -127,6 +143,7 @@ Now run the following loop:
 ```{code-cell} python
 for city in cities:
     print(city)
+
 
 ```
 
@@ -137,6 +154,7 @@ Tokyo
 Delhi
 Shanghai
 Jakarta
+
 
 ```
 
@@ -155,7 +173,6 @@ The code itself does not change. Only the value of `city` changes.
 
 *The loop variable acts as a temporary container. It holds the first value, executes the code, and then automatically moves to the next value until the list is empty.*
 :::
-
 
 Internally, Python proceeds step by step:
 
@@ -176,7 +193,8 @@ Everything indented below the `for` statement belongs to the loop.
 ```{code-cell} python
 for city in cities:
     print(city)
-    print("----")
+    print("---")
+
 
 ```
 
@@ -201,6 +219,7 @@ You can verify this directly:
 print(city)
 # Output: Jakarta
 
+
 ```
 
 This behaviour can be surprising at first, so it is important to be aware of it.
@@ -210,7 +229,23 @@ This behaviour can be surprising at first, so it is important to be aware of it.
 
 The loop variable does not disappear when the loop ends!
 
+
 ```
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L03_ch02_02_for_loop_mechanics/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: For-Loop Mechanics Visualizer.</b><br>
+    Click "Next Step" to trace exactly how Python executes a loop. Pay close attention to how the temporary loop variable grabs one item from the collection at a time, allowing the exact same line of code (the print statement) to produce different results. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L03_ch02_02_for_loop_mechanics/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -226,6 +261,7 @@ This is what `range()` is for.
 for i in range(5):
     print(i)
 
+
 ```
 
 When this code runs, you will see:
@@ -236,6 +272,7 @@ When this code runs, you will see:
 2
 3
 4
+
 
 ```
 
@@ -249,6 +286,7 @@ When `range()` is given a single number, it produces a sequence of integers:
 
 ```{code-cell} python
 range(5) # Conceptually produces: 0, 1, 2, 3, 4
+
 
 ```
 
@@ -271,6 +309,7 @@ range(stop)
 range(start, stop)
 range(start, stop, step)
 
+
 ```
 
 For example:
@@ -278,6 +317,7 @@ For example:
 ```{code-cell} python
 for i in range(2, 9, 3):
     print(i)
+
 
 ```
 
@@ -287,6 +327,7 @@ This produces:
 2
 5
 8
+
 
 ```
 
@@ -301,8 +342,8 @@ Read this as:
 7
 10
 13
-```
 
+```
 
 Using these arguments gives you precise control over how many repetitions occur.
 
@@ -310,17 +351,8 @@ You can learn a bit more about range by typing `help(range)`.
 
 ```{code-cell} python
 help(range)
+
 ```
-
----
-
-### Typical use cases
-
-Loops with `range()` are often used for:
-
-* counters
-* repeated actions
-* controlled sequences of numbers
 
 ---
 
@@ -330,7 +362,7 @@ Loops with `range()` are often used for:
 
 So far, you have looped directly over the values in a list. In many cases, this is exactly what you want.
 
-Sometimes, however, you also need to know **where** a value appears in a list. This is where **index values** become useful.
+Sometimes, however, you also need to know **where** a value appears in a list. This is where **{term}`index <Index>`** values become useful.
 
 ### Accessing values by index
 
@@ -344,6 +376,7 @@ cities = ["Buenos Aires", "São Paulo", "Lima", "Bogotá", "Santiago"]
 for i in range(len(cities)):
     print(f"{cities[i]} is at index {i}")
 
+
 ```
 
 **Output:**
@@ -354,6 +387,7 @@ São Paulo is at index 1
 Lima is at index 2
 Bogotá is at index 3
 Santiago is at index 4
+
 ```
 
 Here is what happens:
@@ -386,6 +420,7 @@ Index-based loops are especially useful when you have **multiple lists that belo
 ```{code-cell} python
 cities = ["Buenos Aires", "Brasília", "Lima", "Bogotá", "Santiago"]
 countries = ["Argentina", "Brazil", "Peru", "Colombia", "Chile"]
+
 ```
 
 Each city corresponds to a country at the same index.
@@ -393,6 +428,7 @@ Each city corresponds to a country at the same index.
 ```{code-cell} python
 for i in range(len(cities)):
     print(cities[i], "is the capital of", countries[i])
+
 ```
 
 **Output:**
@@ -403,11 +439,12 @@ Brasília is the capital of Brazil
 Lima is the capital of Peru
 Bogotá is the capital of Colombia
 Santiago is the capital of Chile
+
 ```
 
 The index `i` allows access to matching elements from both lists at the exact same time.
 
-``````{admonition} Pro-Tip: The Pythonic Way (zip)
+````{admonition} The Pythonic Way (zip)
 :class: tip
 
 While `range(len())` is great for understanding how indices work, Python has a built-in function specifically for looping over multiple lists at once called `zip()`.
@@ -420,7 +457,7 @@ for city, country in zip(cities, countries):
 
 This does the exact same thing, but is cleaner and easier to read!
 
-``````
+````
 
 ---
 
@@ -469,7 +506,7 @@ In this structure:
 
 ---
 
-### A concrete example
+### An example
 
 Consider two small lists:
 
@@ -532,12 +569,46 @@ You can think of nested loops as filling a table or a spatial grid:
 
 Every cell represents one execution of the inner loop body. This is incredibly useful in spatial data science for working with coordinate pairs `(x, y)` or raster pixels!
 
+<!-- markdownlint-disable MD033 -->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L03_ch02_01_nested_loop_visualizer/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Nested Loop Visualizer.</b><br>
+    Click "Step Forward" to see exactly how Python processes the inner loop completely before advancing the outer loop. This row-by-row execution is identical to how image pixels and coordinate grids are processed! For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L03_ch02_01_nested_loop_visualizer/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
+
 ```{admonition} Exponential growth
 :class: caution
 
 Nested loops can grow quickly. Each extra loop multiplies the number of repetitions. Looping through 100 X coordinates and 100 Y coordinates results in 10,000 repetitions!
 
 ```
+
+---
+
+#### Concept Check: The Daily Station Processing
+
+You have a list of 5 weather stations and a list of 365 days. You write a nested loop to calculate the daily average temperature for each station (outer loop: stations, inner loop: days). How many times will the inner temperature calculation run?
+
+A) 365 times
+
+B) 5 times
+
+C) 1825 times
+
+````{admonition} Check your understanding
+:class: dropdown
+
+**Answer: C**
+Nested loops act as a multiplier. The outer loop runs 5 times (once for each station), and for *each* of those stations, the inner loop runs 365 times (once for each day). 5 multiplied by 365 equals 1825 total executions.
+````
 
 ---
 
@@ -584,7 +655,6 @@ Write a loop that prints the numbers 1 to 5. Use `range()` to control the number
 1. Write the loop.
 2. Explain why the stop value is not printed.
 
-
 ````{admonition} Sample solution
 :class: dropdown
 
@@ -613,7 +683,6 @@ countries = ["Ecuador", "Bolivia", "Paraguay"]
 
 1. Use an index-based loop to print each city together with its country.
 2. Why does looping directly over `cities` not work in this case?
-
 
 ````{admonition} Sample solution
 :class: dropdown
@@ -644,8 +713,6 @@ y_coords = [8, 9]
 
 1. Write a nested loop that prints all `(x, y)` coordinate pairs.
 2. How many times does the inner loop run in total?
-
-
 
 ````{admonition} Sample solution
 :class: dropdown
@@ -681,13 +748,12 @@ print(v)
 1. What is printed by the loop?
 2. What is printed by the final `print(v)`?
 
-
 ````{admonition} Sample solution
 :class: dropdown
 
 The loop prints:
 
-```
+```text
 10
 20
 30
@@ -695,16 +761,14 @@ The loop prints:
 
 The final `print(v)` prints:
 
-```
+```text
 30
 ```
 
-**Key idea:**  
-The loop variable still exists after the loop and holds the last value.
+**Key idea:** The loop variable still exists after the loop and holds the last value.
 ````
 
 ---
-
 
 ## 7. Summary
 
@@ -728,7 +792,6 @@ A loop answers the question:
 * The code inside the loop stays the same
 * Only the loop variable changes
 * Indentation defines what is repeated
-
 ```
 
 ---

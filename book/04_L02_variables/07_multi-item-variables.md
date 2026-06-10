@@ -5,9 +5,11 @@ site:
  outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 When one value is not enough
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -21,15 +23,28 @@ Multi-item variables store **collections of related values** in a single contain
 
 ```
 
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for literally any data manipulation in spatial labs)  
+**Project Relevance:** ★★★ (You cannot build a project without structuring your data properly)  
+**Foundation:** ★★★ (Core data structures in Python)  
+
+**Time to Read:** 12 minutes  
+**In a nutshell:** Python provides four main ways to group data—Lists, Tuples, Sets, and Dictionaries—and choosing the right one makes your code faster, cleaner, and less prone to bugs.  
+**Skip this if:** You already understand mutability, can confidently use dictionary keys and list indices, and know the exact difference between copying and referencing in memory.
+
+```
+
 So far, each variable has stored exactly one value. In practice, we constantly work with groups of values that belong together, such as coordinate pairs, lists of cities, or sets of unique IDs.
 
-In this section, you will learn how Python stores multiple values in one variable (often called **collections** or **data structures**) and how to choose the right one for your spatial workflows.
+In this section, you will learn how Python stores multiple values in one variable (often called collections or data structures) and how to choose the right one for your spatial workflows.
 
 ---
 
 ## 1. The Four Built-in Collections
 
-Python provides four built-in collection types that we will use throughout the course:
+Python provides four built-in collection types that we will use throughout the course. We will explore each in detail, but keeping this summary handy will help you navigate them:
 
 | Collection | Brackets | Key property | Example |
 | --- | --- | --- | --- |
@@ -53,1059 +68,352 @@ Choosing the right collection type improves the clarity and correctness of your 
 
 ## 2. Lists: Ordered and Changeable
 
-Lists store **ordered sequences of values**. They are the workhorse data structure in Python, ideal for data where sequence matters or where values grow and change over time.
+**{term}`Lists <List>`** are the workhorse data structure in Python, written using square brackets `[]`. They are designed to store ordered sequences of values, meaning Python will always preserve the exact order in which you added the items. Crucially, lists are **{term}`mutable <Mutable>`**; you can seamlessly add, remove, or alter individual elements long after the list is created, making them ideal for datasets that grow or change over time.
 
-```{code-cell} python
-cities = ["Bari", "Harare", "Manila"]
-```
-
-Lists:
-
-* are written using square brackets `[]`
-* preserve order
-* allow duplicate values
-* are **mutable**, meaning their contents can change
-
----
-
-### A Geoscience Example Dataset
-
-We will work with a simple list of **elevations in meters** measured along a hiking transect.
+For example, imagine we are recording a sequence of elevations (in meters) along a hiking transect:
 
 ```{code-cell} python
 elevations_m = [450, 470, 515, 560, 545, 580]
-```
-
-Each value represents the elevation at a measurement point.
-The order reflects the order along the transect.
-
----
-
-### Accessing List Elements (Indexing)
-
-List items are accessed by their numeric **index position**, always starting at `0`. You can also count backward from the end using negative indexing.
-
-```{code-cell} python
-print(elevations_m[0])   # First item: 450
-print(elevations_m[-1])  # Last item: 545
 
 ```
 
-Indexing allows you to retrieve individual values from a sequence.
+### Accessing and Slicing Lists
 
-### Slicing Lists
-
-Slicing lets you extract a **range of values**.
+You can retrieve individual values using their numeric **{term}`index <Index>`** position, always starting at `0`. You can also extract a segment (or "slice") of the list using a colon `:`. This is highly useful for isolating specific chunks of a spatial profile or time series without modifying the original data.
 
 ```{code-cell} python
-elevations_m[1:4]
+# Indexing retrieves a single item
+print("Start of transect:", elevations_m[0])   # 450
+print("End of transect:", elevations_m[-1])    # 580 (negative index counts backward)
+
+# Slicing retrieves a new list of items
+print("Middle segment:", elevations_m[1:4])    # [470, 515, 560]
+
 ```
 
-This returns a new list containing items at indices `1`, `2`, and `3`.
+### Building Lists Dynamically
 
-Some useful slicing patterns:
+In spatial data science, you rarely type out lists manually. Instead, you often start with an **empty list** and populate it dynamically as you process data (for example, reading coordinates from a file one by one).
 
 ```{code-cell} python
-elevations_m[:3]   # first three values
-elevations_m[3:]   # values from index 3 to the end
+# Create an empty list
+processed_elevations = []
+
+# Dynamically add items to the end
+processed_elevations.append(450)
+processed_elevations.append(470)
+
+print("Dynamically built list:", processed_elevations)
+
 ```
 
-Slicing is useful for working with **segments** of a profile or time series.
+### Modifying and Expanding Lists
 
----
-
-### Changing List Values
-
-Lists are **mutable**, meaning you can change them after they are created.
+Because lists are mutable, you can change their contents in place. You can overwrite existing values using their index, or dynamically add new measurements to the transect using methods like `.append()`, `.insert()`, and `.extend()`. You can even combine two separate lists using the `+` operator.
 
 ```{code-cell} python
-# Replace a specific value
+# Overwrite a specific value
 elevations_m[2] = 520
-```
 
-The value at index `2` is replaced.
-The list keeps its length and order.
-
-You can also replace multiple values at once using slicing.
-
-```{code-cell} python
-elevations_m[3:5] = [565, 550]
-```
-
-This updates a range of values in place.
-
----
-
-```{admonition} Note
-:class: note
-
-Lists are mutable.  
-You change the contents of the same list object, not a copy.
-```
-
----
-
-### Adding Items to a List
-
-Lists can grow dynamically.
-
-To add an item at the end, use `append()`.
-
-```{code-cell} python
+# Add a single new measurement to the very end
 elevations_m.append(600)
-```
 
-To insert an item at a specific position, use `insert()`.
-
-```{code-cell} python
+# Insert a new measurement at a specific position (index 1)
 elevations_m.insert(1, 460)
-```
 
-To add multiple items at once, use `extend()`.
-
-```{code-cell} python
+# Add multiple new measurements at once
 new_measurements = [610, 625]
 elevations_m.extend(new_measurements)
-```
 
-You can also combine two lists using `+`.
-
-```{code-cell} python
+# Combine lists to create a completely new list
 all_elevations = elevations_m + [640, 655]
+
 ```
 
----
+### Removing and Organizing Items
 
-### Removing Items from a List
-
-There are several ways to remove items.
-
-Remove a value by content:
+Python also provides built-in methods to clean and organize your lists. You can remove items by their specific value (`.remove()`), or by their index position (`.pop()` or `del`). Once your data is clean, you can reorganize it using `.sort()` or `.reverse()`. To check how many items remain in your list, use the `len()` function.
 
 ```{code-cell} python
+# Remove the first matching value of '460'
 elevations_m.remove(460)
-```
 
-This removes the **first matching value**.
-
-Remove an item by position:
-
-```{code-cell} python
+# Remove and return an item by its specific position
 elevations_m.pop(2)
-```
 
-If no index is given, `pop()` removes the last item.
-
-```{code-cell} python
+# If no index is given, pop() automatically removes the last item
 elevations_m.pop()
-```
 
-You can also delete items using `del`.
-
-```{code-cell} python
+# Delete an item outright by its position
 del elevations_m[0]
+
+# Check the total number of items remaining
+print("Total measurements:", len(elevations_m))
+
 ```
 
----
-
-### Inspecting Lists
-
-To check how many items a list contains, use `len()`.
+Lists can be sorted in place. You can sort them normally, in reverse, or just flip the current order entirely.
 
 ```{code-cell} python
-len(elevations_m)
-```
-
-This is useful when looping over data or validating inputs.
-
----
-
-### Sorting and Reordering Lists
-
-Lists can be sorted in place.
-
-```{code-cell} python
+# Sort the measurements from lowest to highest elevation
 elevations_m.sort()
-```
 
-To sort in reverse order:
-
-```{code-cell} python
+# Sort in reverse order (highest to lowest)
 elevations_m.sort(reverse=True)
-```
 
-You can also reverse the current order without sorting.
-
-```{code-cell} python
+# Reverse the current order directly without sorting
 elevations_m.reverse()
+
 ```
-
-Sorting is useful for summaries.
-Reversing is useful when order already has meaning.
-
----
-
-### Copying Lists
-
-Assigning a list to a new variable does **not** create a copy.
-
-```{code-cell} python
-a = elevations_m
-```
-
-Both variables now refer to the same list.
-
-To create an independent copy, use `copy()`.
-
-```{code-cell} python
-b = elevations_m.copy()
-```
-
-Now changes to `b` do not affect `elevations_m`.
-
----
-
-```{admonition} Note
-:class: note
-
-Copying lists explicitly avoids subtle bugs.  
-When in doubt, make a copy.
-```
-
----
-
-### Key Takeaway for Lists
-
-Lists are the right choice when:
-
-* order matters
-* values may change
-* data grows or shrinks
-* you work with sequences such as profiles, routes, or time series
-
-They are the workhorse data structure in Python and will appear throughout the course.
 
 ---
 
 ## 3. Tuples: Ordered and Fixed
 
-Tuples look like lists, but with one crucial difference: **their contents cannot be changed after creation.**
+**{term}`Tuples <Tuple>`** look and behave very similarly to lists, but with one absolute difference: they are **{term}`immutable <Immutable>`**. Once a tuple is created using parentheses `()`, its contents can never be changed, added to, or removed.
 
-Tuples are used when values represent a single logical entity that should remain protected. A very common example in geospatial work is a **coordinate pair** or a bounding box.
+You use tuples when values represent a single logical entity that should be permanently protected. The most common geospatial example is a coordinate pair (latitude, longitude) or a bounding box. Modifying half of a coordinate pair accidentally would ruin your spatial analysis, so storing it as a tuple makes your intention strictly clear: *this group of values is fixed*.
 
 ```{code-cell} python
 manila_coords = (14.6007, 120.9746)
+
+# Attempting to change a value will instantly raise a TypeError
+# manila_coords[0] = 14.7  <-- This fails!
+
 ```
 
-Once created, the values inside a tuple stay the same.
+### Combining and Unpacking Tuples
 
----
+While you cannot alter the contents of a tuple, you *can* combine two tuples together using the `+` operator to create a brand new tuple (for example, combining `bbox_min` and `bbox_max` into a single bounding box).
 
-### When Tuples Are the Right Choice
-
-Use tuples when:
-
-* values represent a single logical entity
-* the order matters
-* the values should not change accidentally
-
-Examples include:
-
-* latitude and longitude pairs
-* bounding box corners
-* fixed parameters passed to functions
-
-Tuples make your intention clear:
-**this group of values is not meant to change.**
-
----
-
-### Accessing Tuple Elements
-
-Tuple elements are accessed using **indexing**, just like lists.
+Tuples also offer a highly readable feature called "unpacking." Unpacking allows you to extract the contents of a tuple into distinct variables in a single, elegant line of code.
 
 ```{code-cell} python
-latitude = manila_coords[0]
-```
-
-```{code-cell} python
-longitude = manila_coords[1]
-```
-
-Important points:
-
-* indexing starts at `0`
-* order is preserved
-* negative indexing also works
-
-```{code-cell} python
-manila_coords[-1]
-```
-
-The behaviour is the same as for lists.
-
----
-
-### Immutability in Practice
-
-Because tuples are **immutable**, you cannot change their elements.
-
-```{code-cell} python
-manila_coords[0] = 14.7
-```
-
-This raises a `TypeError`.
-
-Python protects the tuple from being modified.
-
----
-
-```{admonition} Immutable tuples
-:class: note
-
-Tuples are immutable.  
-This is a feature, not a limitation.
-
-It prevents accidental changes to values that should remain constant.
-```
-
----
-
-### Tuple Unpacking
-
-Tuples can be "unpacked" into separate variables in a single, highly readable step:
-
-```{code-cell} python
-lat, lon = manila_coords
-
-```
-
-This assigns:
-
-* `lat` to the first value
-* `lon` to the second value
-
-Tuple unpacking is very common in:
-
-* coordinate handling
-* function return values
-* structured data processing
-
-It improves readability and avoids manual indexing.
-
----
-
-### Combining Tuples
-
-Tuples can be combined using the `+` operator.
-
-```{code-cell} python
+# Combining tuples
 bbox_min = (14.5, 120.9)
 bbox_max = (14.7, 121.1)
-
 bbox = bbox_min + bbox_max
+
+# Tuple unpacking
+lat, lon = manila_coords
+
+print(f"Latitude: {lat}, Longitude: {lon}")
+
 ```
-
-This bounding box example creates a **new tuple**.
-The original tuples remain unchanged.
-
----
-
-### Duplicates and Order
-
-Like lists, tuples:
-
-* preserve order
-* allow duplicate values
-
-```{code-cell} python
-repeated_coords = (0, 0, 1, 1)
-```
-
-The difference is not *what* they store, but **whether they can be changed**.
-
----
 
 ### The List Workaround
 
-Sometimes you start with a tuple but later realise it needs to change.
-The standard workaround is:
-
-1. convert the tuple to a list
-2. modify the list
-3. convert it back to a tuple
+Sometimes you start with a tuple but later realize the data actually *does* need to change. Because you cannot change the tuple directly, the standard workaround is to convert it to a list using `list()`, modify the list, and then convert it back to a tuple using `tuple()`.
 
 ```{code-cell} python
 colors = ("red", "green", "blue")
 
 temp = list(colors)
 temp.append("yellow")
-
 colors = tuple(temp)
+
 ```
 
-This creates a **new tuple** with updated values.
-
----
-
-```{admonition} Converting tuples
-:class: note
-
-If you find yourself converting tuples often,  
-a list may be the better data structure from the start.
-```
-
----
-
-### Key Takeaway for Tuples
-
-Tuples are the right choice when:
-
-* order matters
-* values belong together
-* the data should not change
-* you want to protect important values
-
-In geospatial workflows, tuples are especially common for **coordinates**, **fixed parameters**, and **return values** from functions.
-
-Lists and tuples look similar, but choosing between them communicates **intent** and helps prevent errors later.
+If you find yourself converting tuples to lists often, you likely chose the wrong data structure to begin with. Use a list from the start!
 
 ---
 
 ## 4. Sets: Unique Values Only
 
-Sets store **unique values** and **do not preserve order**. They are designed for one main purpose: answering the question, *"Is this value present or not?"*
+**{term}`Sets <Set>`** are designed for one main purpose: answering the question, *"Is this value present or not?"* Written with curly brackets `{}`, sets automatically discard duplicates and entirely ignore order. They are not sequences; they are purely collections of unique elements.
 
-Sets are written using curly brackets `{}`.
-
-```{code-cell} python
-regions = {"Asia", "Africa", "Asia"}
-```
-
-Even though `"Asia"` appears twice, it is stored only once.
-
----
-
-### What Makes Sets Different
-
-Sets are:
-
-* unordered
-* mutable as a collection
-* free of duplicates
-
-This makes them fundamentally different from lists and tuples.
-
-A set is not a sequence.
-It is a **collection of unique elements**.
-
----
-
-### When Sets Are the Right Choice
-
-Use sets when:
-
-* you care about **uniqueness**
-* duplicates should be ignored automatically
-* order is irrelevant
-* you want fast membership checks
-
-Typical geospatial examples include:
-
-* land cover classes in a raster tile
-* unique region names in a dataset
-* distinct sensor IDs or station codes
-* unique coordinate reference systems used in a project
-
----
-
-### Creating Sets
-
-Sets are written using **curly brackets** `{}`.
+This makes sets the absolute best choice when you need to extract unique categories from messy data, such as identifying the distinct land cover classes in a regional survey.
 
 ```{code-cell} python
-land_covers = {"forest", "water", "urban"}
-```
-
-A set can contain any data type and can also mix types, although this is rarely useful in practice.
-
-```{code-cell} python
-mixed_set = {1, "river", 3.14}
-```
-
----
-
-### Creating a Set from Another Collection
-
-A very common pattern is to create a set from a list or tuple to remove duplicates.
-
-```{code-cell} python
+# A messy list containing duplicates
 messy_list = ["forest", "water", "urban", "water", "forest"]
+
+# Converting to a set instantly strips all duplicates!
 unique_classes = set(messy_list)
+print(unique_classes)
 
 ```
 
----
+### Modifying Sets and Membership Testing
 
-```{admonition} Removing duplicates
-:class: note
+Because sets ignore order, you **cannot** access their items using an index (e.g., `unique_classes[0]` will fail). However, the trade-off is incredible speed. Checking if a specific value exists inside a set using the `in` keyword is significantly faster than checking a list. You can easily add items, update the set with multiple new items, or remove them.
 
-Using `set()` is one of the simplest ways to remove duplicates from a collection.
-```
-
----
-
-### Fast Membership Testing
-
-One of the main strengths of sets is checking if a value exists. This is much faster in a set than in a list.
+When removing items, Python gives you two choices: `.remove()` will throw an error if the item doesn't exist, while `.discard()` will silently ignore the request if the item is missing.
 
 ```{code-cell} python
-"water" in unique_classes # Returns True
+# Check if a category exists (Returns True/False)
+print("water" in unique_classes)
+
+# Add a single new category
+unique_classes.add("agriculture")
+
+# Add multiple new categories from another collection
+unique_classes.update({"shrubland", "bare_rock"})
+
+# Remove safely (fails silently if "urban" is not present)
+unique_classes.discard("urban")
+
+# Remove strictly (throws an error if "Europe" is not present)
+# unique_classes.remove("Europe") 
 
 ```
-
-### No Indexing
-
-Because sets do not preserve order, they **do not support indexing**.
-This attempt will fail:
-
-```{code-cell} python
-regions_set[0]
-```
-
-To access values, you must **iterate**.
-
-```{code-cell} python
-for land_cover in unique_classes:
-    print(land_cover)
-```
-
-The order of printed values may vary.
-
----
-
-```{admonition} No indexing nor order
-:class: note
-
-If you need indexing or order, a set is the wrong data structure.
-```
-
----
-
-### Updating Sets
-
-Although individual items cannot be modified, **items can be added or removed**.
-
-Add a single item:
-
-```{code-cell} python
-regions_set.add("Oceania")
-```
-
-Add multiple items from another collection:
-
-```{code-cell} python
-new_regions = {"Antarctica", "Europe"}
-regions_set.update(new_regions)
-```
-
-The `update()` method works with lists, tuples, or other sets.
-
----
-
-### Removing Items
-
-Items can be removed using either `remove()` or `discard()`.
-
-```{code-cell} python
-regions_set.remove("Europe")
-```
-
-If the item does not exist, `remove()` raises an error.
-
-```{code-cell} python
-regions_set.discard("Mars")
-```
-
-`discard()` does nothing if the value is missing.
-
----
-
-```{admonition} Note
-:class: note
-
-Use `discard()` when you are unsure whether the value exists.
-Use `remove()` when absence should be treated as an error.
-```
-
----
-
-### Key Takeaway for Sets
-
-Sets are the right choice when:
-
-* uniqueness matters
-* order does not
-* you want fast membership tests
-* duplicates should be ignored automatically
-
-In geospatial workflows, sets are ideal for **categories, labels, IDs, and classes**.
-
-If you catch yourself wanting to index a set or care about order, switch to a list or tuple instead.
 
 ---
 
 ## 5. Dictionaries: Named Values
 
-Dictionaries store data as **key-value pairs**. They are ideal when values belong together but should be accessed using meaningful names rather than numeric positions.
+**{term}`Dictionaries <Dictionary>`** store data as **{term}`key-value pairs <Key-value pair>`**. Instead of looking up a value by its numerical position (like in a list), you look it up using a meaningful name (the "key").
 
-```{code-cell} python
-city_info = {
-    "name": "Bari",
-    "population": 315473,
-    "coordinates": (41.1311, 16.8701),
-}
-```
-
-Each key describes what the value represents.
-This makes dictionaries easier to read and less error prone than collections that rely on positions.
-
----
-
-### How to Think About Dictionaries
-
-A dictionary answers the question:
-
-> *Given this name, what is the corresponding value?*
-
-Unlike lists or tuples, dictionaries do **not** store values in a sequence.
-They store **associations**.
-
-This is why dictionaries are sometimes described as **lookup tables** or **hash maps**.
-
----
-
-### Typical Geoscience Use Cases
-
-Dictionaries are common in geospatial work when handling:
-
-* attributes of a city, station, or feature
-* metadata of a dataset
-* configuration settings
-* results returned from an API
-* records from a table where each column has a name
-
-For example, a weather station record:
+Dictionaries are the backbone of attribute data in Python. Whenever you need to represent the properties of a real-world object—such as the metadata of a weather station, the configuration settings of an algorithm, or a GeoJSON feature—a dictionary is the correct choice.
 
 ```{code-cell} python
 station = {
     "id": "CH-BRN",
     "name": "Bern",
     "elevation_m": 540,
-    "temperature_C": 12.4,
+    "temperature_C": 12.4
 }
+
 ```
+
+### Accessing, Modifying, and Safe Lookup
+
+You retrieve values by passing the exact string name of the key inside square brackets `[]`. If you need to update an attribute or add a completely new one, you simply assign a new value to that key.
+
+If you try to access a key that does not exist using square brackets (e.g., `station["precipitation"]`), Python will raise a `KeyError`. When working with real-world datasets that might have missing attributes, it is much safer to use the `.get()` method. It allows you to request a key and provide a default fallback value just in case the key is missing.
+
+```{code-cell} python
+# Update an existing value
+station["elevation_m"] = 542
+
+# Add a completely new key-value pair
+station["active"] = True
+
+# Safely request precipitation. If it's missing, return "No data"
+precip = station.get("precipitation", "No data")
+
+```
+
+### Advanced Dictionary Methods
+
+Dictionaries come with powerful methods to manage their contents and explore their structure. You can update multiple key-value pairs at once using `.update()`. When you want to explore the dictionary without knowing the keys in advance, you can use *views*: `.keys()` shows all the labels, `.values()` shows the raw data, and `.items()` shows both together as tuples.
+
+```{code-cell} python
+# Update multiple values at once
+station.update({"population": 133000, "country": "Switzerland"})
+
+# View the structure of the dictionary
+print("Keys:", station.keys())
+print("Values:", station.values())
+print("Key-Value Pairs:", station.items())
+
+```
+
+```{admonition} Extracting Dictionary Views
+:class: tip
+When you use `.keys()` or `.values()`, Python returns a dynamic *view*. If you need to manipulate these keys like a normal sequence (e.g., accessing the first key by its index position `[0]`), you must convert the view into a true list first: 
+`city_names = list(station.keys())`
+
+```
+
+If you need to remove data, you have multiple options depending on your needs.
+
+```{code-cell} python
+# Remove a specific key and return its value
+station.pop("temperature_C")
+
+# Remove the most recently added item (Python 3.7+)
+station.popitem()
+
+# Wipe the entire dictionary clean
+station.clear()
+
+```
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L02_ch07_02_python_collections_visualizer/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Python Collections Visualizer.</b><br>
+    Select the different tabs to explore Lists, Tuples, Sets, and Dictionaries. Click the action buttons to see how mutability, order, and uniqueness dictate exactly what operations Python will allow—and which operations will trigger an error. For improved visibility of the explorer, follow this <a href="[https://hendrikwulf.github.io/sds210_assets_L02_ch07_02_python_collections_visualizer/]" target="_blank">link</a>.</em>
+</figcaption>
+
+<!-- markdownlint-enable MD033 -->
 
 ---
 
-### Accessing Dictionary Values
+#### Concept Check: The Nested Weather Record
 
-Dictionary values are accessed using their **keys**, written in square brackets.
+You are tracking daily temperature readings for a specific weather station and have organized the data into the following nested structure:
 
-```{code-cell} python
-city_info["name"]
+```python
+weather_record = {
+    "station_name": "Zurich",
+    "temperatures_C": [12.5, 14.1, 13.8, 15.2]
+}
+
 ```
 
-```{code-cell} python
-city_info["population"]
+You want to extract the *last* temperature reading recorded (`15.2`). Which code snippet successfully achieves this?
+
+A) `weather_record[-1]["temperatures_C"]`
+
+B) `weather_record["temperatures_C"][-1]`
+
+C) `weather_record["temperatures_C"]`
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+When navigating nested data, you must evaluate the structure from the outside in. First, you access the dictionary using the named key `"temperatures_C"`. This returns the entire list, allowing you to then apply the numeric index `[-1]` to grab the very last item in that sequence. Option A will crash with a `KeyError` because dictionaries are not accessed by numeric positions, and Option C returns the entire list rather than the single targeted value.
+
 ```
-
-This avoids the need to remember index positions, which is required for lists and tuples.
-
----
-
-### Keys and Values
-
-Important rules for dictionary keys:
-
-* keys must be **unique**
-* keys are usually strings
-* keys cannot be changed once created
-* values can be changed freely
-
-Values can be of any type, including:
-
-* numbers
-* strings
-* tuples
-* lists
-* even other dictionaries
-
-```{code-cell} python
-city_info["districts"] = ["Murattiano", "Japigia", "Libertà"]
-```
-
----
-
-### Safe Access with `get()`
-
-Accessing a missing key using square brackets raises an error.
-
-```{code-cell} python
-city_info["area_km2"]  # KeyError
-```
-
-To avoid this, use `get()`.
-
-```{code-cell} python
-city_info.get("area_km2", "not available")
-```
-
-If the key exists, its value is returned.
-If not, the default value `None` is returned instead.
-
-This pattern is especially useful when working with:
-
-* incomplete datasets
-* optional attributes
-* external data sources
-
----
-
-```{admonition} Using [] and get()
-:class: note
-
-Use `[]` when a missing key should be an error.  
-Use `get()` when missing values are acceptable.
-```
-
----
-
-### Modifying Dictionary Values
-
-You can update values by assigning to an existing key.
-
-```{code-cell} python
-city_info["population"] = 320000
-```
-
-You can also add new key value pairs the same way.
-
-```{code-cell} python
-city_info["area_km2"] = 116
-```
-
----
-
-### Updating Multiple Values with `update()`
-
-The `update()` method allows you to change or add multiple entries at once.
-
-```{code-cell} python
-city_info.update({
-    "population": 321000,
-    "country": "Italy",
-})
-```
-
-Existing keys are updated.
-New keys are added.
-
----
-
-### Removing items
-
-You can remove entries using `pop()`.
-
-```{code-cell} python
-city_info.pop("area_km2")
-```
-
-The value is removed and returned.
-
-To remove the most recently added item (Python 3.7+):
-
-```{code-cell} python
-city_info.popitem()
-```
-
-To remove everything from a dictionary:
-
-```{code-cell} python
-city_info.clear()
-```
-
----
-
-### Inspecting Dictionary Contents
-
-Dictionaries provide useful methods for exploring their structure.
-
-```{code-cell} python
-city_info.keys()    # returns all dictionary keys (e.g. "name", "population")
-```
-
-```{code-cell} python
-city_info.values()  # returns all stored values (e.g. attributes for each city)
-```
-
-```{code-cell} python
-city_info.items()   # returns key–value pairs as tuples (key, value)
-```
-
-These return *views* of the dictionary and are often used when looping.
-You will work with these more in the section on loops.
-
----
-
-### Dictionaries vs Lists
-
-Dictionaries differ fundamentally from lists.
-
-| Lists                           | Dictionaries                  |
-| ------------------------------- | ----------------------------- |
-| Values are accessed by position | Values are accessed by name   |
-| Order matters                   | Order does not define meaning |
-| Inserting shifts indices        | Keys remain stable            |
-| Best for sequences              | Best for structured records   |
-
-This makes dictionaries the natural choice for **attribute data**.
-
----
-
-```{admonition} Note
-:class: note
-
-Python itself stores variables in dictionaries.  
-The variable name is the key, and the value is the stored object.
-
-This is why dictionaries are so central to the language.
-```
-
----
-
-### Key Takeaway for Dictionaries
-
-Use dictionaries when:
-
-* values belong together conceptually
-* each value has a clear meaning
-* access by name is safer than access by position
-* you are modelling real world objects or records
-
-In geospatial programming, dictionaries are the backbone of **feature attributes, metadata, and configuration**.
-
-If you find yourself remembering numbers like `data[3]` or `data[7]`, a dictionary is usually the better choice.
 
 ---
 
 ## 6. Indexing and Referencing
 
-To work with values stored inside collections, Python uses **indexing and referencing**.
+To work with values stored inside collections, Python relies heavily on **indexing and referencing**. While all collections use square brackets `[]` to retrieve data, *what* goes inside the brackets depends on the collection:
 
-All collections use **square brackets**, but what goes inside the brackets depends on the collection type.
+* **Lists and Tuples:** Use numeric positions (`elevations_m[0]`).
+* **Dictionaries:** Use named keys (`station["name"]`).
+* **Sets:** Do not support brackets at all!
 
----
+### Multi-dimensional Collections (Nesting)
 
-### Numeric indexing for lists and tuples
-
-Lists and tuples store values in a fixed order.
-You access elements by their **position**, starting at index `0`.
-
-```{code-cell} python
-cities[0]
-```
+Collections can easily contain other collections. This is called **nesting**, and it is how we build multidimensional matrices (like grids of pixels or lists of coordinates). To access data buried inside nested collections, you simply chain the brackets together. Python evaluates indexing **one level at a time, from the outside in**.
 
 ```{code-cell} python
-cities[-1]
-```
-
-The first example returns the first element.
-The second example returns the last element.
-
-Tuples work exactly the same way.
-
----
-
-### Key based access for dictionaries
-
-Dictionaries do not use numeric positions.
-Instead, values are accessed using **keys**.
-
-```{code-cell} python
-city_info["coordinates"]
-```
-
-The key describes what you want, which makes dictionary access explicit and readable.
-
----
-
-### Sets do not support indexing
-
-Sets do not preserve order.
-Because of this, you **cannot** access set elements by index.
-
-This will not work:
-
-```{code-cell} python
-# regions[0]
-```
-
-Sets are designed for membership testing, not positional access.
-
----
-
-```{admonition} Note
-:class: note
-
-If you need ordered access, use a list or tuple.  
-If you need named access, use a dictionary.  
-If you need fast uniqueness checks, use a set.
-```
-
----
-
-### Multi dimensional collections
-
-Collections can contain **other collections**.
-This is called **nesting**.
-
-A common example is a list of lists.
-
-```{code-cell} python
+# A 2D list representing a 3x3 grid
 grid = [
     [1, 2, 3],
     [7, 8, 9],
-    [6, 5, 4],
+    [6, 5, 4]
 ]
+
+# Step 1: grid[1] selects the second row -> [7, 8, 9]
+# Step 2: [0] selects the first item in that row -> 7
+value = grid[1][0]
+print(value)
+
 ```
 
-This structure has **two levels**:
-
-* the outer list contains rows
-* each inner list contains values
-
----
-
-### Indexing across multiple levels
-
-Indexing works **one level at a time**, from left to right.
-
-```{code-cell} python
-grid[1]
-```
-
-This returns the second inner list:
-
-```text
-[7, 8, 9]
-```
-
-You can then index into that list.
-
-```{code-cell} python
-grid[1][0]
-```
-
-This returns:
-
-```text
-7
-```
-
-The logic is:
-
-1. `grid[1]` selects the second row
-2. `[0]` selects the first value in that row
-
-Each index always starts at `0`, **at every level**.
-
----
-
-### Thinking in dimensions
-
-A collection with:
-
-* one level is one dimensional
-* two levels is two dimensional
-* three levels is three dimensional
-
-For example:
-
-* list of values → one dimensional
-* list of coordinate pairs → two dimensional
-* list of time steps, each with a grid → three dimensional
-
-You do not need special syntax.
-You just apply indexing repeatedly.
-
----
-
-```{admonition} Indexing
-:class: note
-
-Indexing always works **from the outside in**.
-
-Each pair of square brackets selects one level.
-Start with the outer collection, then move inward.
-```
-
----
-
-Understanding how indexing and referencing work is essential when handling spatial data, tables, and collections of coordinates.
-It allows you to retrieve exactly the value you intend to work with.
+You do not need special syntax for higher dimensions; you just keep applying brackets for each level you want to drill into.
 
 ---
 
 ## 7. Copying vs Referencing Collections
 
-How assignment works depends on **what kind of value** you are working with.
+How Python handles assignment (`=`) depends entirely on the type of data you are working with. This subtle difference is one of the most common sources of bugs in data science.
 
-This difference is subtle but very important, and it is a common source of confusion and bugs.
-
----
-
-### Single values are copied
-
-With single item values such as numbers or strings, assignment creates a copy.
-
-```{code-cell} python
-a = 5
-b = a
-```
-
-After this:
-
-* `a` and `b` store the same value
-* changing one does not affect the other
-
-Single values behave independently.
-
-Strings behave the same way.
-
-Even though a string contains multiple characters, it is **immutable**, so assignment behaves like copying.
-
-```{code-cell} python
-s1 = "abc"
-s2 = s1
-```
-
-Changing one string variable does not affect the other.
-
----
-
-### Collections are assigned by reference
-
-With collections, assignment does **not** create a copy.
-Instead, both variables point to the **same object in memory**.
-
-:::{figure} images/10_memory-reference.png
-:alt: *Unlike simple numbers, lists are assigned by reference. Variables act as labels pointing to the same shared object in memory.*
-:width: 500px
-:align: center
-
-*Unlike simple numbers, lists are assigned by reference. Variables act as labels pointing to the same shared object in memory.*
-:::
+When you assign a **single value** (like an integer or string) to a new variable, Python creates an independent copy. However, when you assign a **mutable collection** (like a list, dictionary, or set) to a new variable, Python does **not** create a copy. Instead, it creates a shared reference: both variables now point to the exact same object in computer memory.
 
 ```{code-cell} python
 list_a = [1, 2, 3]
@@ -1119,122 +427,84 @@ print(list_b) # Output: [1, 2, 3, 4]
 
 ```
 
-Both lists show the updated content.
+Because Python wants to save memory and processing time, it assumes you just want two name tags (`list_a` and `list_b`) pointing at the same underlying box of data.
 
-This behaviour applies to:
+### Equality (`==`) vs Identity (`is`)
 
-* lists
-* dictionaries
-* sets
+This distinction is why Python has two different comparison operators. `==` checks if two variables have the same *value* inside them. `is` checks if they are literally the same object in memory. `list_a is list_b` will return `True`, because they are the same underlying object!
 
----
+### Making an Independent Copy
 
-### Why this happens
-
-Collections are **mutable objects**.
-Python avoids copying them automatically to save memory and time.
-
-The consequence is that changes made through one variable are visible through all variables that reference the same object.
-
-This is efficient, but it requires careful thinking.
-
----
-
-### Equality vs identity
-
-Two variables can:
-
-* have the same value
-* refer to the same object
-* or both
-
-The equality operator `==` compares **values**.
-The identity operator `is` checks whether two variables refer to the **same object**.
+If you actually want a separate, safe backup of a collection before you manipulate it, you must explicitly tell Python to clone the memory block using `.copy()` or by wrapping it in the collection constructor (e.g. `list()`).
 
 ```{code-cell} python
-a = [1, 2]
-b = a
+list_a = [1, 2, 3]
 
-a == b
+# Create a true, independent clone
+list_c = list_a.copy()
+
+# Alternatively: list_c = list(list_a)
+
+list_a.append(4)
+print("Original:", list_a)
+print("Independent Clone:", list_c)
+
 ```
 
-```{code-cell} python
-a is b
-```
-
-Now compare this with a copy:
-
-```{code-cell} python
-c = a.copy()
-
-c == a
-```
-
-```{code-cell} python
-c is a
-```
-
-Key idea:
-
-* use `==` to compare values
-* use `is` to check whether two variables point to the same object
-
----
-
-### Making an independent copy
-
-If you want a separate copy of a collection, you must create it explicitly.
-
-```{code-cell} python
-b = a.copy()
-```
-
-You can also use the collection constructor.
-
-```{code-cell} python
-b = list(a)
-```
-
-Both approaches create a **new list** with the same content.
-
-Now changes to one list do not affect the other.
-
-```{code-cell} python
-a.append(4)
-```
-
-```{code-cell} python
-a
-```
-
-```{code-cell} python
-b
-```
-
----
-
-```{admonition} Independent copy
-:class: note
-
-This difference is a common source of bugs.  
-When in doubt, make an explicit copy.
-```
-
----
-
-```{admonition} Copying nested objects
+```{admonition} Copying Nested Objects
 :class: warning
 
-Copying a collection only copies the **outer structure**.
+Using `.copy()` only clones the **outermost structure**. If your list contains *other* lists (like a nested grid), those inner lists will still be shared references! We will revisit this advanced concept later when dealing with nested spatial data.
 
-If a collection contains other collections, those inner objects may still be shared.
-We will revisit this later when working with nested data.
 ```
 
 ---
 
-Understanding copying versus referencing is essential when working with collections of coordinates, attributes, or observations.
-It helps you avoid unintended side effects and keeps your workflows predictable.
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L02_ch07_01_memory_reference_visualizer/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Memory Reference Visualizer.</b><br>
+    Click the Run button to simulate changing a list. Notice how assigning <code>b = a</code> causes <code>b</code> to update instantly because it points to the exact same shared memory block (<code>0x1A</code>) as <code>a</code>. In contrast, <code>c = a.copy()</code> gives <code>c</code> its own completely independent memory block (<code>0x2B</code>). For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L02_ch07_01_memory_reference_visualizer/" target="_blank">link</a>.</em>
+</figcaption>
+
+<!-- markdownlint-enable MD033 -->
+
+---
+
+#### Concept Check: The Shared Memory Trap
+
+You are organizing a list of sample coordinates and want to create a backup before making changes. You write the following code:
+
+```python
+original_samples = [12, 15, 18]
+backup_samples = original_samples
+
+original_samples.append(21)
+
+```
+
+If you print `backup_samples` right now, what will Python output?
+
+A) `[12, 15, 18]`
+
+B) `[12, 15, 18, 21]`
+
+C) `[12, 15, 18], [21]`
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+Because lists are mutable collections, assigning `backup_samples = original_samples` does *not* create a copy. Instead, it creates a second label pointing to the exact same list in memory. When you appended `21` to the original, the underlying shared object changed, meaning `backup_samples` shows the change too! To avoid this, you must use `.copy()`.
+
+```
 
 ---
 
@@ -1270,7 +540,7 @@ raw_attributes = {
 
 1. Use an f-string to print the station name and its latitude (index `0` of the coordinate tuple) from your new dictionary.
 
-``````{admonition} Sample solution (click to expand)
+````{admonition} Sample solution (click to expand)
 :class: dropdown
 
 ```{code-cell} python
@@ -1293,7 +563,7 @@ name = station_record["name"]
 print(f"Station {name} is located at latitude {lat}.")
 ```
 
-``````
+````
 
 ---
 
@@ -1301,11 +571,42 @@ print(f"Station {name} is located at latitude {lat}.")
 
 After completing this section, you should understand that:
 
-* **Lists** (`[]`) are ordered and changeable.
-* **Tuples** (`()`) are ordered and permanently fixed.
-* **Sets** (`{}`) store unique values and ignore duplicates.
-* **Dictionaries** (`{key: value}`) store data using named labels instead of numeric index positions.
-* **Collections are referenced, not copied.** Assigning a list to a new variable just creates a second name tag for the same data in memory.
+* **Lists** (`[]`) are ordered and changeable, serving as the workhorse for sequential data.
+* **Tuples** (`()`) are ordered and permanently fixed, ideal for protecting coordinate pairs.
+* **Sets** (`{}`) store unique values and ignore duplicates, making them perfect for extracting distinct categories.
+* **Dictionaries** (`{key: value}`) store data using named labels instead of numeric index positions, forming the backbone of attribute records.
+* **Collections are referenced, not copied.** Assigning a list to a new variable just creates a second name tag for the same data in memory. To create a true independent clone, you must explicitly call `.copy()`.
+
+This summary table features the most relevant functions and methods introduced in the chapter.
+
+<!-- markdownlint-disable MD060-->
+| Collection Type | Method / Function | Action |
+| --- | --- | --- |
+| **Lists** | `.append()` | Adds a single item dynamically to the end of the list. |
+|  | `.extend()` | Adds multiple new items/measurements at once to the list. |
+|  | `.insert()` | Inserts a new item at a specific index position. |
+|  | `.remove()` | Removes an item by its specific value, targeting the first matching instance. |
+|  | `.pop()` | Removes and returns an item by its specific index position; if no index is given, it automatically removes the last item. |
+|  | `del` | Deletes an item outright based on its index position. |
+|  | `.sort()` | Reorganizes and sorts the list in place (can be reversed using `reverse=True`). |
+|  | `.reverse()` | Reverses the current order of the list directly without sorting. |
+|  | `len()` | Returns the total number of items currently remaining in the list. |
+| **Tuples** | `list()` | Converts a tuple into a list to apply modifications as a workaround. |
+|  | `tuple()` | Converts a list back into an immutable tuple. |
+| **Sets** | `.add()` | Adds a single new unique item to the set. |
+|  | `.update()` | Updates the set by adding multiple new items from another collection. |
+|  | `.discard()` | Removes an item safely, silently ignoring the request if the item is missing. |
+|  | `.remove()` | Removes an item strictly, raising an error if the item does not exist in the set. |
+| **Dictionaries** | `.get()` | Safely requests a key and allows you to provide a default fallback value just in case the key is missing to avoid a `KeyError`. |
+|  | `.update()` | Updates multiple key-value pairs at once. |
+|  | `.keys()` | Returns a dynamic view showing all the labels/keys in the dictionary. |
+|  | `.values()` | Returns a dynamic view showing all the raw data/values in the dictionary. |
+|  | `.items()` | Returns a dynamic view showing both the keys and values together as tuples. |
+|  | `.pop()` | Removes a specific key and returns its value. |
+|  | `.popitem()` | Removes the most recently added item (in Python 3.7+). |
+|  | `.clear()` | Wipes the entire dictionary clean. |
+| **General** | `.copy()` | Explicitly tells Python to clone the memory block, creating a true, independent copy of a mutable collection (only clones the outermost structure). |
+<!-- markdownlint-enable MD060 -->
 
 ### What Comes Next
 
