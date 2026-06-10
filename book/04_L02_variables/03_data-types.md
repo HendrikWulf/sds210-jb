@@ -34,9 +34,9 @@ Understanding data types is essential for {term}`debugging <Debugging>` and for 
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Data types cause 90% of beginner errors; essential for every lab)  
+**Lab Relevance:** ★★★ (Data types cause many beginner errors; essential for every lab)  
 **Project Relevance:** ★★★ (Fundamental to processing, filtering, and mapping any dataset)  
-**Foundation:** ★★★ (A non-negotiable core programming concept)  
+**Foundation:** ★★★ (An important core programming concept)  
 
 **Time to Read:** 7 minutes  
 **In a nutshell:** Data types define how Python interprets the values you store, dictating what mathematical or logical operations are allowed and explaining why certain errors occur.  

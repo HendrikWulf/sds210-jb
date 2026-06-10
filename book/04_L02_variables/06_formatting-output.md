@@ -1,14 +1,15 @@
 ---
-title: Printing & Formatting Output
+title: Printing & Formatting
 
 site:
  outline_maxdepth: 1
 ---
 
-
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Seeing results clearly
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -24,9 +25,23 @@ Clear output supports debugging, communication, and learning.
 
 ```
 
-So far, you have worked with values, expressions, and strings. In many cases, you have seen that Python already shows results automatically when you run a notebook cell.
+So far, you have worked with values, {term}`expressions <Expression>`, and {term}`strings <String>`. In many cases, you have seen that Python already shows results automatically when you run a notebook cell.
 
 In this section, you will learn **when and why to print values explicitly** and how to format output so it is readable, professional, and meaningful.
+
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for passing formatted outputs to users and instructors)  
+**Project Relevance:** ★★★ (Required for building readable final reports and data summaries)  
+**Foundation:** ★★☆ (Crucial for debugging and understanding code execution)  
+
+**Time to Read:** 6 minutes  
+**In a nutshell:** Printing and f-strings let you extract values from memory and display them in clean, human-readable sentences for debugging and reporting.  
+**Skip this if:** You already know how to use `print()` and format numbers to specific decimal places using f-strings (e.g., `f"{val:.2f}"`).
+
+```
 
 ---
 
@@ -36,6 +51,7 @@ In a Jupyter Notebook, the **last expression in a code cell** is displayed autom
 
 ```{code-cell} python
 2 + 3  # This will display 5 below the cell
+
 
 ```
 
@@ -47,10 +63,11 @@ This automatic display is highly convenient when you are exploring values intera
 
 ### Using the `print()` function
 
-The `print()` function sends output to the screen explicitly.
+The `print()` {term}`function <Function>` sends output to the screen explicitly.
 
 ```{code-cell} python
 print(2 + 3)
+
 
 ```
 
@@ -62,6 +79,7 @@ Automatic display is a **notebook feature**.
 `print()` is a **Python feature**.
 
 When clarity matters, or when you need to show multiple things from one cell, rely on `print()`.
+
 
 ```
 
@@ -78,12 +96,14 @@ speed_kmh = 80
 # Quick inspection of multiple variables
 print(distance_km, speed_kmh)
 
+
 ```
 
 Output becomes much clearer when you add text labels. Clear labels turn raw numbers into meaningful information, helping your future self (and others) understand what the numbers represent.
 
 ```{code-cell} python
 print("Distance:", distance_km, "Speed:", speed_kmh)
+
 
 ```
 
@@ -93,12 +113,13 @@ print("Distance:", distance_km, "Speed:", speed_kmh)
 
 While separating items with commas works, modern Python provides a much more powerful tool for readable output: **f-strings**.
 
-F-strings allow you to embed variable values directly into the middle of a text string.
+F-strings allow you to embed {term}`variable <Variable>` values directly into the middle of a text string.
 
 ```{code-cell} python
 travel_time_h = distance_km / speed_kmh
 
 print(f"The travel time is {travel_time_h} hours.")
+
 
 ```
 
@@ -121,6 +142,7 @@ You can even put full mathematical expressions inside the brackets!
 ```{code-cell} python
 print(f"If we double our speed, we will go {speed_kmh * 2} km/h.")
 
+
 ```
 
 ---
@@ -133,12 +155,13 @@ At times, calculations produce long, ugly decimals (e.g., `1.50000000002`). You 
 # Format the variable to show only 2 decimal places
 print(f"Travel time: {travel_time_h:.2f} hours")
 
+
 ```
 
 The part after the colon `:.2f` defines the formatting rule:
 
 * `.2` specifies **two digits after the decimal point**.
-* `f` formats the value as a standard **floating-point number**.
+* `f` formats the value as a standard **{term}`floating-point number`**.
 
 ### Other Common Number Formats
 
@@ -153,14 +176,15 @@ print(f"{value:.2%}")   # percentage
 
 x = 1.2345
 y = 5
+
 ```
 
-| Format | Meaning                              | What it does                             | Example f-string | Displayed result |
-| -----: | ------------------------------------ | ---------------------------------------- | ---------------- | ---------------- |
-|    `f` | fixed-point decimal (floating point) | Displays the number as a decimal value   | `f"{x:.2f}"`     | `1.23`           |
-|    `e` | scientific notation                  | Displays the number in exponential form  | `f"{x:.2e}"`     | `1.23e+00`       |
-|    `%` | percentage                           | Multiplies the value by 100 and adds `%` | `f"{x:.2%}"`     | `123.45%`        |
-|    `d` | integer (whole numbers only)         | Displays a whole number without decimals | `f"{y:d}"`       | `5`              |
+| Format | Meaning | What it does | Example f-string | Displayed result |
+| --- | --- | --- | --- | --- |
+| `f` | fixed-point decimal (floating point) | Displays the number as a decimal value | `f"{x:.2f}"` | `1.23` |
+| `e` | scientific notation | Displays the number in exponential form | `f"{x:.2e}"` | `1.23e+00` |
+| `%` | percentage | Multiplies the value by 100 and adds `%` | `f"{x:.2%}"` | `123.45%` |
+| `d` | integer (whole numbers only) | Displays a whole number without decimals | `f"{y:d}"` | `5` |
 
 This affects **only the output**, not the stored value.
 
@@ -173,9 +197,53 @@ Formatting is about presentation, not calculation.
 
 The value in memory stays the same.  
 Only the displayed text changes.
+
 ```
 
 This distinction is essential when presenting results, debugging, or comparing outputs.
+
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L02_ch06_01_f-string_formatting_studio/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: F-String Formatting Studio.</b><br>
+    Change the numerical value in the input field and select different format specifiers from the dropdown to see how the printed output changes. Notice that while the output screen smoothly rounds decimals, converts to scientific notation, or formats as percentages, the raw number in the Computer Memory remains completely untouched. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L02_ch06_01_f-string_formatting_studio/" target="_blank">link</a>.</em>
+</figcaption>
+
+<!-- markdownlint-enable MD033 -->
+
+#### Concept Check: The Memory Illusion
+
+You are analyzing a temperature sensor dataset and run the following code snippet:
+
+```python
+temperature = 14.856
+print(f"Current Temp: {temperature:.1f} °C")
+
+```
+
+The output successfully prints `"Current Temp: 14.9 °C"`. Immediately in the next line, you run `temperature * 2`. What is the result of that multiplication?
+
+A) `29.8`, because the variable was rounded to 14.9 when it was printed.
+
+B) `29.712`, because formatting only changes the text display, leaving the raw variable in memory untouched at 14.856.
+
+C) `TypeError`, because formatting the number turns it into a string permanently.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+Formatting rules (like `:.1f`) are purely cosmetic; they intercept the value right before it hits the screen and format it for the reader. The underlying variable inside the computer's memory remains exactly `14.856` unless you explicitly overwrite it (e.g., using `temperature = round(temperature, 1)`).
+
+```
 
 ---
 
@@ -191,12 +259,14 @@ Printing intermediate values is one of the simplest and most effective debugging
 print("Distance:", distance_km)
 print("Speed:", speed_kmh)
 print("Time:", travel_time_h)
+
 ```
 
 You can also use an f-string to make the output more readable.
 
 ```{code-cell} python
 print(f"Distance = {distance_km} km, Speed = {speed_kmh} km/h, Time = {travel_time_h:.2f} h")
+
 ```
 
 This allows you to verify that values are correct at each specific step and quickly identify exactly where the math went wrong.
@@ -211,6 +281,7 @@ Assume a migratory bird is flying from Northern Europe to Southern Europe. The e
 
 ```{code-cell} python
 distance_km = 1800
+
 
 ```
 
@@ -231,7 +302,7 @@ Two possible average airspeeds are:
 
 1. Add **one debug print statement** that would help you verify the unit conversion worked correctly.
 
-``````{admonition} Sample solution (click to expand)
+````{admonition} Sample solution (click to expand)
 :class: dropdown
 
 ```{code-cell} python
@@ -258,7 +329,7 @@ print(f"At {speed_ms_fast} m/s, the migration takes {time_h_fast:.2f} hours.")
 print(f"\nDEBUG -> speeds (km/h): Slow={speed_kmh_slow:.1f}, Fast={speed_kmh_fast:.1f}")
 ```
 
-``````
+````
 
 ---
 
