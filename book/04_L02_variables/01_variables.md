@@ -20,12 +20,7 @@ Storing and Reusing Values
 :class: tip
 {term}`Variables <Variable>` allow us to store values, reuse results, and build readable workflows instead of repeating calculations.
 
-
 ```
-
-In this section, you will learn how Python uses variables to keep track of values in memory and how those values can be reused and updated throughout a {term}`program <Program>`. You will also see how variables behave in a {term}`Jupyter Notebook <Notebook>`, why {term}`execution order <Execution order>` matters, and how small changes to one variable affect (or do not affect) others.
-
-These concepts form the foundation for all later {term}`programming <Computer programming>` tasks in this course, from simple calculations to more complex geospatial workflows.
 
 ```{admonition} Chapter Relevance
 :class: dropdown
@@ -38,6 +33,10 @@ These concepts form the foundation for all later {term}`programming <Computer pr
 **In a nutshell:** Variables are how Python stores data in memory, allowing you to cleanly reuse and update values instead of constantly typing out raw numbers.  
 **Skip this if:** You already know how to assign values (`x = 10`), update them, and understand that variables store independent snapshots rather than active mathematical links.
 ```
+
+In this section, you will learn how Python uses variables to keep track of values in memory and how those values can be reused and updated throughout a {term}`program <Program>`. You will also see how variables behave in a {term}`Jupyter Notebook <Notebook>`, why {term}`execution order <Execution order>` matters, and how small changes to one variable affect (or do not affect) others.
+
+These concepts form the foundation for all later {term}`programming <Computer programming>` tasks in this course, from simple calculations to more complex geospatial workflows.
 
 ---
 
@@ -138,7 +137,7 @@ Let’s pause briefly and try this yourself.
 2. Assign it any numeric value you like.
 3. Display its value in the notebook.
 
-*Tip: Use a **meaningful variable name** formatted in**{term}`snake_case <Snake case>`** (words separated by underscores).*
+*Tip: Use a **meaningful variable name** formatted in **{term}`snake_case <Snake case>`** (words separated by underscores).*
 
 ```{code-cell} python
 # Define and display your variable here

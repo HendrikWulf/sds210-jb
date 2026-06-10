@@ -25,11 +25,6 @@ Clear output supports debugging, communication, and learning.
 
 ```
 
-So far, you have worked with values, {term}`expressions <Expression>`, and {term}`strings <String>`. In many cases, you have seen that Python already shows results automatically when you run a notebook cell.
-
-In this section, you will learn **when and why to print values explicitly** and how to format output so it is readable, professional, and meaningful.
-
-
 ```{admonition} Chapter Relevance
 :class: dropdown
 
@@ -42,6 +37,10 @@ In this section, you will learn **when and why to print values explicitly** and 
 **Skip this if:** You already know how to use `print()` and format numbers to specific decimal places using f-strings (e.g., `f"{val:.2f}"`).
 
 ```
+
+So far, you have worked with values, {term}`expressions <Expression>`, and {term}`strings <String>`. In many cases, you have seen that Python already shows results automatically when you run a notebook cell.
+
+In this section, you will learn **when and why to print values explicitly** and how to format output so it is readable, professional, and meaningful.
 
 ---
 
@@ -201,7 +200,6 @@ Only the displayed text changes.
 ```
 
 This distinction is essential when presenting results, debugging, or comparing outputs.
-
 
 <!-- markdownlint-disable MD033-->
 <iframe
