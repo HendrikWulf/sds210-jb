@@ -21,8 +21,11 @@ Doing Things with Values
 **{term}`Operators <Operator>`** allow you to combine values into **{term}`expressions <Expression>`**.  
 Expressions are evaluated when code is executed to produce new values.
 
-
 ```
+
+So far, you have learned how to store values in variables, how to name them clearly, and how Python distinguishes between different data types.
+
+In this section, we focus on **how values interact**. We start with simple calculations, then build up to comparisons, logic, and {term}`module`-based mathematical expressions.
 
 ```{admonition} Chapter Relevance
 :class: dropdown
@@ -36,10 +39,6 @@ Expressions are evaluated when code is executed to produce new values.
 **Skip this if:** You are fully comfortable with arithmetic (`%`, `//`), update operators (`+=`), and boolean logic (`and`, `or`, `not`) in Python.
 
 ```
-
-So far, you have learned how to store values in variables, how to name them clearly, and how Python distinguishes between different data types.
-
-In this section, we focus on **how values interact**. We start with simple calculations, then build up to comparisons, logic, and {term}`module`-based mathematical expressions.
 
 ---
 
