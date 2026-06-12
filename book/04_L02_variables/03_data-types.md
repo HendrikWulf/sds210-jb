@@ -199,9 +199,8 @@ Not all operations are allowed for all data types. When Python encounters an ope
 
 Consider the following expression:
 
-```{code-cell} python
+```python
 temp_celsius + weather_forecast
-
 
 ```
 
@@ -226,7 +225,6 @@ Start by defining two string variables:
 ```{code-cell} python
 a = "Hot"
 b = "Cold"
-
 
 ```
 
