@@ -6,9 +6,11 @@ site:
  
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Choosing what happens
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -21,6 +23,20 @@ Loops repeat actions.
 Conditions decide **what happens** for each value.
 
 Together, they allow code to dynamically react to data.
+
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★☆ (Crucial for filtering and transforming data in any lab)  
+**Project Relevance:** ★★☆ (Required for custom logic, handling missing values, classifying data)  
+**Foundation:** ★★★ (Core programming logic)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Conditions allow your loops to make decisions, transforming static repetition into dynamic, data-driven workflows like filtering and classification.  
+**Skip this if:** You are fully comfortable with `if`, `elif`, `else` statements, logical operators (`and`, `or`, `not`), and using them inside `for` loops to filter and transform lists.
 
 ```
 
@@ -38,7 +54,7 @@ Now we take the next step:
 
 A condition is simply a question that the computer can answer with **yes or no**.
 
-In Python, these answers are represented by the Boolean values:
+In Python, these answers are represented by the **{term}`Boolean values <Boolean>`**:
 
 * `True`
 * `False`
@@ -62,6 +78,7 @@ Each condition controls whether a specific block of code is allowed to execute.
 
 Conditions do not stop loops. They control **what happens during** each repetition.
 
+
 ```
 
 ---
@@ -72,16 +89,20 @@ Conditions do not stop loops. They control **what happens during** each repetiti
 
 Comparison operators are used to compare two values against each other.
 
+<!-- markdownlint-disable MD060-->
 :::{table} Comparison operators in Python
+
 | Operator | Description               | Comparison example     | Result |
-|:--------:|---------------------------|------------------------|:------:|
-| `==`     | Equal to                  | `"apples" == "oranges"`| False  |
-| `!=`     | Not equal to              | `"apples" != "oranges"`| True   |
-| `<`      | Less than                 | `2 < 1`                | False  |
-| `>`      | Greater than              | `2 > 1`                | True   |
-| `<=`     | Less than or equal to     | `2 <= 2`               | True   |
-| `>=`     | Greater than or equal to  | `2 >= 4`               | False  |
+|:--------:|:--------------------------:|:-----------------------:|:------:|
+| `==`     | Equal to                  | `"apples" == "oranges"` | False |
+| `!=`     | Not equal to              | `"apples" != "oranges"` | True |
+| `<`      | Less than                 | `2 < 1`                | False |
+| `>`      | Greater than              | `2 > 1`                | True |
+| `<=`     | Less than or equal to     | `2 <= 2`               | True |
+| `>=`     | Greater than or equal to  | `2 >= 4`               | False |
+
 :::
+<!-- markdownlint-enable MD060-->
 
 Each comparison produces a Boolean result: either `True` or `False`. These operators are the most common way to express mathematical or textual conditions in code.
 
@@ -89,11 +110,12 @@ Each comparison produces a Boolean result: either `True` or `False`. These opera
 
 ### Identity operators
 
-Identity operators check whether two variables refer to the **exact same object in memory**, not just whether they contain the same values.
+Identity operators check whether two **{term}`variables <Variable>`** refer to the **exact same {term}`object <Object>` in memory**, not just whether they contain the same values.
 
-```{code-cell} python
+```python
 a is b
 a is not b
+
 
 ```
 
@@ -104,21 +126,20 @@ a = [1, 2, 3]
 b = a          # b points to the exact same list as a
 c = [1, 2, 3]  # c is a brand new list with identical values
 
+
 ```
 
 Now compare them:
 
 ```{code-cell} python
 print(a is b)
-# Output: True
 
 ```
 
-Both `a` and `b` point to the **same list**.
+Both `a` and `b` point to the **same {term}`list <List>`**.
 
 ```{code-cell} python
 print(a is c)
-# Output: False
 
 ```
 
@@ -130,6 +151,7 @@ Even though `a` and `c` contain the exact same numbers, they are **different obj
 Use `==` to check if two things have the same *value*.  
 Use `is` to check if two names refer to the same *object*.
 
+
 ```
 
 ---
@@ -138,9 +160,10 @@ Use `is` to check if two names refer to the same *object*.
 
 Membership operators test whether a specific value exists inside a collection (like a list or a string).
 
-```{code-cell} python
+```python
 x in y
 x not in y
+
 
 ```
 
@@ -150,18 +173,16 @@ For example:
 cities = ["Lima", "Quito", "Bogotá"]
 
 print("Lima" in cities)
-# Output: True
 
 print("Santiago" in cities)
-# Output: False
+
 
 ```
 
-Membership operators also work seamlessly with strings to check for substrings:
+Membership operators also work seamlessly with **{term}`strings <String>`** to check for substrings:
 
 ```{code-cell} python
 print("a" in "data")
-# Output: True
 
 ```
 
@@ -198,7 +219,6 @@ Consider a numeric value:
 value = 42
 
 print(value > 0 and value < 100)
-# Output: True
 
 ```
 
@@ -211,7 +231,6 @@ cities = ["Lima", "Quito", "Bogotá"]
 capitals = ["Lima", "Buenos Aires"]
 
 print("Quito" in cities or "Quito" in capitals)
-# Output: True
 
 ```
 
@@ -222,9 +241,9 @@ Using `not` simply flips the Boolean result:
 ```{code-cell} python
 value = 0
 print(not value == 0)
-# Output: False
 
 ```
+
 ---
 
 ### Reading logic in words
@@ -238,6 +257,7 @@ It helps to read logical expressions aloud:
 For example:
 
 > “The value is greater than zero **and** less than one hundred.”
+
 ---
 
 ### Parentheses and clarity
@@ -246,6 +266,7 @@ When combining several conditions, it is best practice to use parentheses to mak
 
 ```{code-cell} python
 (a < b and b < c) or (a > b)
+
 
 ```
 
@@ -260,27 +281,28 @@ Parentheses:
 
 If you have to pause and squint to understand a condition, add parentheses or split it into simpler variables.
 
+
 ```
 
 ---
 
-### Concept check
+#### Concept Check: Evaluating Logic
 
-Predict the result without running the code:
+Predict the Boolean result without running the code:
 
-```{code-cell} python
+```python
 x = 5
 result = (x > 3 and x < 10) or x == 0
 
 ```
 
-```{admonition} True or False?
+Is `result` `True` or `False`?
+
+```{admonition} Check your understanding
 :class: dropdown
 
-The result is **`True`**.
-
-The first part `(x > 3 and x < 10)` evaluates to `True` because 5 is between 3 and 10. 
-Because the operator is `or`, the fact that the first half is `True` makes the entire expression `True`, regardless of the `x == 0` part.
+**Answer: True**
+The first part `(x > 3 and x < 10)` evaluates to `True` because 5 is between 3 and 10. Because the logical operator linking the two sides is `or`, the fact that the first half is `True` makes the entire expression `True`, completely regardless of whether the `x == 0` part is true or false.
 
 ```
 
@@ -350,13 +372,6 @@ else:
 
 ```
 
-Output:
-
-```text
--3 degrees is below freezing
-
-```
-
 :::{figure} images/04_if_elif_else_flowchart.png
 :alt: Flowchart illustrating sequential evaluation in an if-elif-else chain, showing Python stopping after the first True condition.
 :width: 500px
@@ -386,11 +401,11 @@ This makes conditional execution predictable and easy to debug.
 
 ---
 
-### Concept check
+#### Concept Check: The Execution Order
 
 Predict the output **before running the code**:
 
-```{code-cell} python
+```python
 yesterday = 14
 today = 10
 tomorrow = 13
@@ -406,20 +421,15 @@ elif today == today:
 
 ```
 
-``````{admonition} Sample solution
+```{admonition} Check your understanding
 :class: dropdown
 
-The output is:
-```text
-B
-```
-
-**Explanation:**
+**Answer: B**
 1. `yesterday <= today` (14 <= 10) → False. Python moves to the next.
 2. `today != tomorrow` (10 != 13) → True. Python prints "B".
-3. Because a `True` condition was found, Python **skips the rest of the block entirely**. It never even looks at "C" or "D", even though `today == today` is technically True.
+3. Because a `True` condition was found, Python **skips the rest of the block entirely**. It never even looks at "C" or "D", even though `yesterday > tomorrow` and `today == today` are both technically True. Only the *first* True block in an `if-elif` chain executes.
 
-``````
+```
 
 ---
 
@@ -442,7 +452,6 @@ The loop still processes **every value** in the list. However, only values that 
 
 * The loop controls *how often* the code runs.
 * The condition controls *what happens* for each specific value.
-
 
 :::{figure} images/05_filtering_vs_transforming.png
 :alt: Conceptual diagram showing an input list being processed on the left via 'filtering' (reducing list size) and on the right via 'transforming' (maintaining list size but changing values).
@@ -477,6 +486,7 @@ for v in values:
     else:
         print(v)
 
+
 ```
 
 Here:
@@ -496,11 +506,26 @@ Unlike filtering, transforming generally produces an output for *every* value, b
 
 ---
 
-### Concept check
+<!-- markdownlint-disable MD033 -->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L03_ch3_01_filtering_vs_transforming/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
 
-Before running the code, predict the output:
+<figcaption>
+    <em><b>Interactive Explorer: Filtering vs. Transforming.</b><br>
+    Click the action buttons to watch the values flow through the loop. Notice how "Filtering" ignores elements that fail the condition resulting in a shorter final list, while "Transforming" evaluates every element and creates an altered list of the exact same length. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L03_ch3_01_filtering_vs_transforming/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
-```{code-cell} python
+#### Concept Check: Identify the Operation
+
+Before running the code below, look at the logic structure:
+
+```python
 values = [5, 15, 8]
 
 for v in values:
@@ -511,21 +536,18 @@ for v in values:
 
 ```
 
-``````{admonition} Sample solution
+Is this an example of filtering or transforming? What will the printed output be?
+
+```{admonition} Check your understanding
 :class: dropdown
 
-```text
-4
-16
-7
+**Answer: Transforming (Output: 4, 16, 7)**
+This is transforming because every single value from the input list produces a modified output value (the list length is maintained). 
+- `5` is not > 10, so it hits `else` and becomes `4`.
+- `15` is > 10, so it hits `if` and becomes `16`.
+- `8` is not > 10, so it hits `else` and becomes `7`.
+
 ```
-
-**Explanation (Transforming):**
-- `5` is not > 10, so it hits `else` and becomes `4`  
-- `15` is > 10, so it hits `if` and becomes `16`  
-- `8` is not > 10, so it hits `else` and becomes `7`  
-
-``````
 
 ---
 
@@ -543,13 +565,13 @@ You are given a list of temperatures:
 
 ```{code-cell} python
 temperatures = [5, 12, 18, 3, 25]
+
 ```
 
 Write a loop that prints **only temperatures above 10**.
 
 1. Write the loop.
 2. Predict which values will be printed before running it.
-
 
 ````{admonition} Sample solution
 :class: dropdown
@@ -582,6 +604,7 @@ You are given a list of distances (in kilometres):
 
 ```{code-cell} python
 distances = [2, 10, 4, 5]
+
 ```
 
 Write a loop that:
@@ -604,7 +627,7 @@ for d in distances:
 
 Output:
 
-```
+```text
 2
 20
 4
@@ -614,6 +637,7 @@ Output:
 **Key idea:**
 Transforming changes values,
 but still processes every item.
+
 
 ````
 
@@ -626,6 +650,7 @@ You are given a list of cities and a list of capitals:
 ```{code-cell} python
 cities = ["Lima", "Quito", "Santiago", "Bogotá"]
 capitals = ["Lima", "Bogotá"]
+
 ```
 
 Write a loop that prints only the cities
@@ -650,6 +675,7 @@ Bogotá
 **Key idea:**
 Membership operators work naturally inside loops.
 
+
 ````
 
 ---
@@ -666,6 +692,7 @@ for v in values:
         print("even")
     else:
         print("odd")
+
 ```
 
 Write down the expected output line by line.
@@ -673,18 +700,16 @@ Write down the expected output line by line.
 ````{admonition} Sample solution
 :class: dropdown
 
-```
-
+```text
 odd
 even
 odd
 odd
 even
-
 ```
 
-**Key idea:**  
-Conditions are evaluated separately for each loop iteration.
+**Key idea:** Conditions are evaluated separately for each loop iteration.
+
 ````
 
 ---

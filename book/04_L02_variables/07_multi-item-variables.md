@@ -262,7 +262,7 @@ unique_classes.discard("urban")
 
 ## 5. Dictionaries: Named Values
 
-**{term}`Dictionaries <Dictionary>`** store data as **{term}`key-value pairs <Key-value pair>`**. Instead of looking up a value by its numerical position (like in a list), you look it up using a meaningful name (the "key").
+**{term}`Dictionaries <Dictionary>`** store data as **key-value pairs**. Instead of looking up a value by its numerical position (like in a list), you look it up using a meaningful name (the "key").
 
 Dictionaries are the backbone of attribute data in Python. Whenever you need to represent the properties of a real-world object—such as the metadata of a weather station, the configuration settings of an algorithm, or a GeoJSON feature—a dictionary is the correct choice.
 
