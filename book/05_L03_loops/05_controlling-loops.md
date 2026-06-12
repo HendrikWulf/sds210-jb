@@ -6,9 +6,11 @@ site:
  
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Stopping early and skipping work
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -24,6 +26,21 @@ Python provides small keywords that let you
 or **leave a placeholder while drafting code**.
 
 ```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★☆☆ (Indispensable for processing noisy data streams, filtering missing data points, and optimizing search operations)  
+**Project Relevance:** ★★☆ (Essential for error-handling blocks, handling missing data entries safely, and halting endless spatial lookups)  
+**Foundation:** ★★☆ (Core architectural logic commands that give you explicit internal management over any running iteration block)  
+
+**Time to Read:** 6 minutes  
+**In a nutshell:** Gain fine-grained control over execution structures by learning to actively alter loop lifespans dynamically from the inside out.  
+**Skip this if:** You can accurately contrast how pass, break, and continue alter the execution stack, and how continue changes behavior inside a while loop versus a for loop.
+
+```
+
+---
 
 So far, loops have followed a strict and predictable pattern: start, repeat, and stop only when the main loop condition is met or the data runs out.
 
@@ -41,9 +58,9 @@ This is incredibly useful for data checking, quality control, and making your pr
 
 Sometimes you want to sketch out the structure of your code before you actually know what the logic should be.
 
-However, Python relies on indentation. If you create a `for` loop or an `if` statement and leave the indented block completely empty, Python will throw an error.
+However, Python relies on {term}`indentation`. If you create a `for` loop or an `if` statement and leave the indented block completely empty, Python will throw an error.
 
-`pass` is a placeholder statement that literally does nothing. It simply tells Python, *"I know a block of code belongs here, just ignore it for now."*
+`pass` is a placeholder {term}`statement` that literally does nothing. It simply tells Python, *"I know a block of code belongs here, just ignore it for now."*
 
 ```{code-cell} python
 for i in range(5):
@@ -74,7 +91,7 @@ Use `pass` when you:
 
 ### Stopping early
 
-The `break` statement is an emergency exit. It ends the loop **immediately**. Execution jumps completely out of the loop and continues with the first line of code *after* the loop block.
+The `break` statement is an emergency exit. It ends the loop **immediately**. {term}`Control flow` jumps completely out of the loop and continues with the first line of code *after* the loop block.
 
 This is useful when your goal has been reached and continuing the loop would just be wasted work.
 
@@ -85,6 +102,7 @@ This is useful when your goal has been reached and continuing the loop would jus
 In this example, we want to print a warning that includes both the temperature **and** the specific day it was recorded. 
 
 Instead of dealing with `range(len())`, Python provides a highly readable tool called `enumerate()`. It automatically counts items as it loops, giving you two variables at once: the count (which we call `day`) and the value (`temp`). By adding `start=1`, we tell Python to start counting at Day 1 instead of 0!
+
 ```
 
 ```{code-cell} python
@@ -121,7 +139,7 @@ This is a common pattern when:
 
 ### Skip the rest of this round
 
-While `break` stops the entire loop, `continue` only stops the **current iteration**. It skips the remaining code in the loop body and immediately jumps back to the top to start the **next iteration**.
+While `break` stops the entire loop, `continue` only stops the **current {term}`iteration`**. It skips the remaining code in the loop body and immediately jumps back to the top to start the **next iteration**.
 
 This is perfect when some values should be **ignored**, but you still want to process the rest of the dataset.
 
@@ -156,13 +174,13 @@ In Python, `None` represents the **absence of a value**. It is commonly used to 
 * unavailable measurements
 * placeholders where no valid value exists
 
-`None` is **not** zero, not an empty string, and not `False`. It is a distinct data type with a special meaning. Because of this, it is usually checked explicitly using the `is` operator.
+`None` is **not** zero, not an empty string, and not `False`. It is a distinct **{term}`data type`** with a special meaning. Because of this, it is usually checked explicitly using the `is` {term}`operator`.
 
 ### A common coding pattern
 
 Often, `continue` is used as a "guard" at the very top of a loop:
 
-```{code-cell} python
+```python
 for value in dataset:
     if value is None:
         continue
@@ -181,11 +199,11 @@ This acts as a filter, keeping the main logic less indented and much easier to r
 
 In a `for` loop, Python automatically fetches the next value from the list when `continue` is called. So, `continue` is very safe to use.
 
-In a `while` loop, **you** are responsible for updating the control variable (like `index += 1`). If `continue` skips the line of code that updates your variable, the loop will evaluate the exact same condition again and again, freezing your program.
+In a `while` loop, **you** are responsible for updating the control variable (like `index += 1`). If `continue` skips the line of code that updates your variable, the loop will evaluate the exact same condition again and again, trapping your program in an **{term}`infinite loop`**.
 
-### Example of the risk (Do not run this!)
+### Example of the risk
 
-```{code-cell} python
+```python
 values = [3, None, 7]
 index = 0
 
@@ -230,6 +248,52 @@ In a `while` loop, always trace your logic to ensure the loop can still make pro
 
 ```
 
+<!-- markdownlint-disable MD033 -->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L03_ch5_01_loop_control_flow/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Loop Control Flow Simulator (Break vs. Continue).</b><br>
+    Click 'Next Step' to visualize the loop's execution frame line-by-line. Observe how triggering a continue statement routes execution paths instantly back to the top of the loop block, while a break statement terminates evaluation cycles immediately. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L03_ch5_01_loop_control_flow/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
+
+#### Concept Check: The Execution Pipeline Shunt
+
+Suppose you are tracking spatial telemetry nodes with a loop designed to skip offline gaps or completely abort on an emergency status code indicator:
+
+```python
+dataset = [12, None, 15, -999, 18]
+
+for val in dataset:
+    if val is None:
+        continue
+    if val == -999:
+        break
+    print(val)
+
+```
+
+What is the exact outcome generated by the execution track of this code?
+
+A) It prints 12, skips None, prints 15, prints -999, and then halts.
+
+B) It prints 12, skips None, prints 15, and stops tracking completely at -999 without evaluating 18.
+
+C) It prints 12, prints 15, prints 18, and filters out both None and -999 quietly.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B** The `continue` statement causes Python to bypass the remaining block layout specifically for the `None` item. When the pointer encounters `-999`, the `break` command shatters the loop completely, skipping line processing for the trailing element `18` entirely.
+
+```
+
 ---
 
 ## 5. Exercises
@@ -264,9 +328,10 @@ for i in range(len(data)):
 
 **Explanation:**
 
-- the loop structure is correct  
-- the body is intentionally empty  
-- logic can be filled in later without breaking the code  
+* the loop structure is correct  
+* the body is intentionally empty  
+* logic can be filled in later without breaking the code  
+
 ````
 
 ---
@@ -278,6 +343,7 @@ Values below −20 °C or above 40 °C are invalid.
 
 ```{code-cell} python
 temperatures = [5, 7, 9, 11, 13, 45, 14, 16]
+
 ```
 
 Write a loop that:
@@ -308,9 +374,10 @@ for i in range(len(temperatures)):
 
 **Explanation:**
 
-- indexing makes the day number explicit  
-- `break` stops the loop as soon as the decision is made  
-- the loop’s intent is  detecting the first error  
+* indexing makes the day number explicit  
+* `break` stops the loop as soon as the decision is made  
+* the loop’s intent is detecting the first error  
+
 ````
 
 ---
@@ -321,6 +388,7 @@ You are processing sensor data where some measurements are missing (`None`).
 
 ```{code-cell} python
 temperatures = [3, None, 6, 7, None, 9]
+
 ```
 
 Write a loop that:
@@ -349,9 +417,10 @@ for i in range(len(temperatures)):
 
 **Explanation:**
 
-- `continue` ignores invalid entries  
-- indexing preserves positional information  
-- output stays readable and informative  
+* `continue` ignores invalid entries  
+* indexing preserves positional information  
+* output stays readable and informative  
+
 ````
 
 ---
@@ -362,6 +431,7 @@ Consider the following dataset:
 
 ```{code-cell} python
 values = [10, 12, None, 15, -999, 18]
+
 ```
 
 Assume:
@@ -401,9 +471,10 @@ for i in range(len(values)):
 
 **Explanation:**
 
-- `continue` skips missing values  
-- `break` stops processing when data is corrupted  
-- different control statements express different intent  
+* `continue` skips missing values  
+* `break` stops processing when data is corrupted  
+* different control statements express different intent  
+
 ````
 
 ---
