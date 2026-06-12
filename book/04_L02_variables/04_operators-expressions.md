@@ -181,8 +181,8 @@ You will encounter these operators later in loops, indexing, and data processing
 | `*` | Multiplication | `4 * 6` | `24` | Scaling coordinates |
 | `/` | Division | `10 / 2` | `5.0` | Calculating average speeds |
 | `**` | Exponentiation | `2 ** 3` | `8` | Squaring values (e.g., $x^2$) |
-| `%` | Modulus (Remainder) | `7 % 3` | `1` | Finding even/odd numbers |
-| `//` | Floor division | `7 // 3` | `2` | Counting whole segments |
+| `%` | Modulus (Remainder) | `7 % 2` | `1` | Finding even/odd numbers |
+| `//` | Floor division | `7 // 2` | `3` | Counting whole segments |
 
 ```{admonition} Operands
 :class: info
@@ -196,6 +196,21 @@ Operands can be:
 The data type of the operands determines whether an operation is allowed.
 
 ```
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L02_ch04_02_modulus_floor_division/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Modulus & Floor Division Visualizer.</b><br>
+    Adjust the total number of items and the group size to visualize how standard division, floor division (<code>//</code>), and the modulus operator (<code>%</code>) split values into full groups and leftover remnants. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L02_ch04_02_modulus_floor_division/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 

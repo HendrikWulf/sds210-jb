@@ -113,7 +113,7 @@ Understanding this execution model is more important than memorising syntax.
 
 The most common loop in Python is the `for` loop. It is used to iterate over collections such as lists.
 
-```{code-cell} python
+```python
 for item in collection:
     do_something(item)
 
@@ -133,7 +133,7 @@ The loop continues until the collection has no values left.
 Consider a simple list of city names:
 
 ```{code-cell} python
-cities = ["Tokyo", "Delhi", "Shanghai", "Jakarta"]
+cities = ["Accra", "Berlin", "Chennai", "Damascus"]
 
 
 ```
@@ -143,18 +143,6 @@ Now run the following loop:
 ```{code-cell} python
 for city in cities:
     print(city)
-
-
-```
-
-**What you will see as output:**
-
-```text
-Tokyo
-Delhi
-Shanghai
-Jakarta
-
 
 ```
 
@@ -176,10 +164,10 @@ The code itself does not change. Only the value of `city` changes.
 
 Internally, Python proceeds step by step:
 
-1. Assigns `"Tokyo"` to `city` and runs the loop body
-2. Assigns `"Delhi"` to `city` and runs the loop body
-3. Assigns `"Shanghai"` to `city` and runs the loop body
-4. Assigns `"Jakarta"` to `city` and runs the loop body
+1. Assigns `"Accra"` to `city` and runs the loop body
+2. Assigns `"Berlin"` to `city` and runs the loop body
+3. Assigns `"Chennai"` to `city` and runs the loop body
+4. Assigns `"Damascus"` to `city` and runs the loop body
 5. Stops because no values remain
 
 At any moment, the loop variable holds **exactly one value**.
@@ -194,7 +182,6 @@ Everything indented below the `for` statement belongs to the loop.
 for city in cities:
     print(city)
     print("---")
-
 
 ```
 
@@ -217,8 +204,6 @@ You can verify this directly:
 
 ```{code-cell} python
 print(city)
-# Output: Jakarta
-
 
 ```
 
@@ -228,7 +213,6 @@ This behaviour can be surprising at first, so it is important to be aware of it.
 :class: note
 
 The loop variable does not disappear when the loop ends!
-
 
 ```
 
@@ -261,19 +245,6 @@ This is what `range()` is for.
 for i in range(5):
     print(i)
 
-
-```
-
-When this code runs, you will see:
-
-```text
-0
-1
-2
-3
-4
-
-
 ```
 
 The loop runs five times. On each repetition, the loop variable takes on the next number in the sequence.
@@ -286,7 +257,6 @@ When `range()` is given a single number, it produces a sequence of integers:
 
 ```{code-cell} python
 range(5) # Conceptually produces: 0, 1, 2, 3, 4
-
 
 ```
 
@@ -304,11 +274,10 @@ This "start at zero, stop before the end" behaviour is the standard in Python.
 
 The `range()` function can take one, two, or three arguments.
 
-```{code-cell} python
+```python
 range(stop)
 range(start, stop)
 range(start, stop, step)
-
 
 ```
 
@@ -317,17 +286,6 @@ For example:
 ```{code-cell} python
 for i in range(2, 9, 3):
     print(i)
-
-
-```
-
-This produces:
-
-```text
-2
-5
-8
-
 
 ```
 
@@ -349,8 +307,26 @@ Using these arguments gives you precise control over how many repetitions occur.
 
 You can learn a bit more about range by typing `help(range)`.
 
-```{code-cell} python
+```python
 help(range)
+
+```
+
+```text
+Help on class range in module builtins:
+
+class range(object)
+ |  range(stop) -> range object
+ |  range(start, stop[, step]) -> range object
+ |
+ |  Return an object that produces a sequence of integers from start (inclusive)
+ |  to stop (exclusive) by step.  range(i, j) produces i, i+1, i+2, ..., j-1.
+ |  start defaults to 0, and stop is omitted!  range(4) produces 0, 1, 2, 3.
+ |  These are exactly the valid indices for a list of 4 elements.
+ |  When step is given, it specifies the increment (or decrement).
+ |
+ |  Methods defined here:
+ ...
 
 ```
 
@@ -375,18 +351,6 @@ cities = ["Buenos Aires", "São Paulo", "Lima", "Bogotá", "Santiago"]
 
 for i in range(len(cities)):
     print(f"{cities[i]} is at index {i}")
-
-
-```
-
-**Output:**
-
-```text
-Buenos Aires is at index 0
-São Paulo is at index 1
-Lima is at index 2
-Bogotá is at index 3
-Santiago is at index 4
 
 ```
 
@@ -428,17 +392,6 @@ Each city corresponds to a country at the same index.
 ```{code-cell} python
 for i in range(len(cities)):
     print(cities[i], "is the capital of", countries[i])
-
-```
-
-**Output:**
-
-```text
-Buenos Aires is the capital of Argentina
-Brasília is the capital of Brazil
-Lima is the capital of Peru
-Bogotá is the capital of Colombia
-Santiago is the capital of Chile
 
 ```
 
@@ -492,7 +445,7 @@ between lists, use indices.
 
 A loop can be placed **inside another loop**. This is called a **nested loop**.
 
-```{code-cell} python
+```python
 for a in first_list:
     for b in second_list:
         print(a, b)
@@ -522,16 +475,6 @@ Now run the nested loop:
 for color in colors:
     for shape in shapes:
         print(color, shape)
-
-```
-
-**Observed output:**
-
-```text
-red circle
-red square
-blue circle
-blue square
 
 ```
 
@@ -737,12 +680,13 @@ The total number of repetitions is
 
 Without running the code, predict the output:
 
-```{code-cell} python
+```python
 values = [10, 20, 30]
 
 for v in values:
     print(v)
 print(v)
+
 ```
 
 1. What is printed by the loop?

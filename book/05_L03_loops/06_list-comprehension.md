@@ -5,9 +5,11 @@ site:
  outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 A compact way to build lists
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -27,6 +29,21 @@ It combines:
 
 ```
 
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★☆☆ (Rather common pattern for processing spatial file paths, coordinate text strings, and table configurations cleanly)  
+**Project Relevance:** ★★☆ (Speeds up environmental feature selection profiles and reduces long multi-line pipeline setups)  
+**Foundation:** ★★☆ (An elegant syntax shorthand optimization tool, though standard loops are logically sufficient)  
+
+**Time to Read:** 6 minutes  
+**In a nutshell:** Compress standard append boilerplate operations into direct single-line extractions without sacrificing code execution velocity.  
+**Skip this if:** You can accurately trace where filtering gates position relative to iteration blocks inside structural bracket list declarations.
+
+```
+
+---
+
 List comprehension does **not** introduce new logic to Python. It simply repackages patterns you already understand into a shorter, and often clearer, form.
 
 ---
@@ -35,7 +52,7 @@ List comprehension does **not** introduce new logic to Python. It simply repacka
 
 ### From boilerplate to patterns
 
-So far, whenever you needed to create a new list based on an old list, you used the standard "append pattern":
+So far, whenever you needed to create a new **{term}`list`** based on an old list, you used the standard "append pattern":
 
 1. Create an empty list
 2. Start a `for` loop
@@ -72,7 +89,7 @@ You should always be able to rewrite a list comprehension as a normal `for` loop
 
 The simplest form of a list comprehension squashes the loop and the append action into a single line wrapped in square brackets `[]`.
 
-```{code-cell} python
+```python
 [new_value for item in collection]
 
 ```
@@ -90,6 +107,7 @@ Example:
 ```{code-cell} python
 values = [2, 4, 6]
 squared = [v ** 2 for v in values]
+squared
 
 ```
 
@@ -106,12 +124,14 @@ The following two blocks do the exact same thing:
 cubed = []
 for v in values:
     cubed.append(v ** 3)
+cubed
 
 ```
 
 ```{code-cell} python
 # List Comprehension
 cubed = [v ** 3 for v in values]
+cubed
 
 ```
 
@@ -123,9 +143,9 @@ The logic is identical. Only the **form** is different.
 
 ### Adding an if clause at the end
 
-List comprehensions can also include a condition to filter out unwanted data. When filtering, the `if` statement goes at the **very end** of the expression.
+List comprehensions can also include a condition to filter out unwanted data. When filtering, the `if` statement goes at the **very end** of the **{term}`expression`**.
 
-```{code-cell} python
+```python
 [new_value for item in collection if condition]
 
 ```
@@ -143,6 +163,7 @@ Example:
 ```{code-cell} python
 values = [1, 2, 3, 4, 5]
 even_values = [v for v in values if v % 2 == 0]
+even_values
 
 ```
 
@@ -153,6 +174,7 @@ Only values that satisfy the condition (`v % 2 == 0`) are allowed into the new l
 ```{code-cell} python
 temperatures = [3, -5, 7, 42, 9]
 valid = [t for t in temperatures if -20 <= t <= 40]
+valid
 
 ```
 
@@ -176,6 +198,7 @@ The "expression" part at the front of the list comprehension doesn't just have t
 ```{code-cell} python
 values = [1, 2, 3]
 doubled = [v * 2 for v in values]
+doubled
 
 ```
 
@@ -184,6 +207,7 @@ doubled = [v * 2 for v in values]
 ```{code-cell} python
 temperatures_c = [0, 5, 10, 15]
 temperatures_k = [t + 273.15 for t in temperatures_c]
+temperatures_k
 
 ```
 
@@ -199,7 +223,7 @@ Sometimes you don't want to drop a value completely (filtering), but rather chan
 
 If you need an `if-else` decision, the syntax changes. The entire `if-else` block must move to the **beginning** of the comprehension, before the `for` loop.
 
-```{code-cell} python
+```python
 [value_if_true if condition else value_if_false for item in collection]
 
 ```
@@ -217,7 +241,7 @@ Example:
 ```{code-cell} python
 values = [3, -1, 5, -2]
 labels = ["valid" if v >= 0 else "invalid" for v in values]
-# Output: ['valid', 'invalid', 'valid', 'invalid']
+labels
 
 ```
 
@@ -225,14 +249,54 @@ Read this as:
 
 > "Put 'valid' if `v` is >= 0, else put 'invalid'... do this for every `v` in `values`."
 
+<!-- markdownlint-disable MD033 -->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L03_ch6_01_list_comprehension_syntax/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: List Comprehension Syntax Mapper.</b><br>
+    Toggle between the data filtering and conditional mapping tabs to observe how Python translates multi-line boilerplate loops into a single-line list comprehension. Run the pipeline animation to trace how raw spatial inputs are processed, highlighting which values are accepted, rejected, or conditionally transformed. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L03_ch6_01_list_comprehension_syntax/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
+
 ### Readability rule
 
 The syntax for `if-else` inside a list comprehension can get visually messy very quickly.
 
-```{admonition} Understanding matters
-:class: attention
-
 Shorter code is **not** better if it is harder to understand. If a list comprehension becomes too long or complex, rewrite it as a standard `for` loop!
+
+#### Concept Check: The Syntax Shift Barrier
+
+Suppose you are refactoring a loop that cleans up an environmental logger list by applying the following rule: Keep positive readings unchanged, but clip negative entries straight to `0`.
+
+```python
+# Raw loop template
+clipped = []
+for val in tracking:
+    if val >= 0:
+        clipped.append(val)
+    else:
+        clipped.append(0)
+
+```
+
+Which syntax layout maps this conditional transformation logic accurately into a single-line list comprehension framework?
+
+A) `clipped = [val if val >= 0 else 0 for val in tracking]`
+
+B) `clipped = [val for val in tracking if val >= 0 else 0]`
+
+C) `clipped = [val for val in tracking if val >= 0]`
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: A** Because this operation relies on an `if-else` choice to modify elements rather than dropping them, the entire conditional sequence must sit at the *beginning* of the collection expression wrapper as a transformed block output selector. Option A represents invalid syntax, while Option C drops values entirely instead of substituting them with 0.
 
 ```
 
@@ -282,6 +346,7 @@ non_zero = []
 for r in rainfall:
     if r > 0:
         non_zero.append(r)
+
 ```
 
 Rewrite this using **one list comprehension**.
@@ -296,9 +361,10 @@ non_zero = [r for r in rainfall if r > 0]
 
 **Explanation:**
 
-- the loop iterates over values  
-- the condition filters values  
-- the result is a new list  
+* the loop iterates over values  
+* the condition filters values  
+* the result is a new list  
+
 ````
 
 ---
@@ -309,12 +375,11 @@ You are working with elevation values in meters:
 
 ```{code-cell} python
 elevation_m = [450, 1200, 50, 3200]
+
 ```
 
-Create a new list that converts these values to kilometres and rounds them to one decimal place. 
+Create a new list that converts these values to kilometres and rounds them to one decimal place.
 You can use Python's built-in `round()` function for this, which takes the number to round and the desired number of decimal places (e.g., `round(value, 1)`).
-
-
 
 ````{admonition} Sample solution
 :class: dropdown
@@ -326,9 +391,10 @@ elevation_km = [round(e / 1000, 1) for e in elevation_m]
 
 **Explanation:**
 
-- the expression transforms each value  
-- the loop structure is implicit  
-- the result is clean and readable  
+* the expression transforms each value  
+* the loop structure is implicit  
+* the result is clean and readable  
+
 ````
 
 ---
@@ -339,6 +405,7 @@ Given temperature measurements:
 
 ```{code-cell} python
 temperatures = [-5, 3, 18, -12, 25]
+
 ```
 
 Create a list of labels:
@@ -347,8 +414,6 @@ Create a list of labels:
 * `"warm"` for values `0` or above
 
 Use **one list comprehension with if–else**.
-
-
 
 ````{admonition} Sample solution
 :class: dropdown
@@ -360,8 +425,9 @@ labels = ["cold" if t < 0 else "warm" for t in temperatures]
 
 **Explanation:**
 
-- the condition decides the output value  
-- every input value produces exactly one label  
+* the condition decides the output value  
+* every input value produces exactly one label  
+
 ````
 
 ---
@@ -371,6 +437,7 @@ labels = ["cold" if t < 0 else "warm" for t in temperatures]
 
 If you struggle to read a list comprehension,
 rewrite it as a normal `for` loop first.
+
 ```
 
 ---
@@ -383,7 +450,7 @@ rewrite it as a normal `for` loop first.
 * It combines looping, filtering, and transformation into one line.
 * The `if` goes at the **end** when filtering data.
 * The `if-else` goes at the **beginning** when transforming data conditionally.
-* It improves clarity **only when used carefully**. If it is hard to read, use a standard loop.
+* It improves clarity **only when used carefully**. If it is hard to read, use a standard {term}`loop`.
 
 ---
 
