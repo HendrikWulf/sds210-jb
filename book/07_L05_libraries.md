@@ -13,6 +13,13 @@ Connecting Python to the wider world
 
 ---
 
+:::{figure} images/L05_library.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 In the previous lesson, you learned how to package your code into reusable **functions**.
 
 That was an essential step for building your own tools, but it raises an important realization:

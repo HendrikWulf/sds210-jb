@@ -13,6 +13,13 @@ Using tabular data and time series analysis
 
 ---
 
+:::{figure} images/L06_data_frames.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 In the previous lesson, you learned how to **read and write files**, parse local text, and manage data outside of your code.
 
 That was an essential step for handling real-world information, but it raises a new challenge:

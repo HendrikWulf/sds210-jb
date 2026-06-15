@@ -11,6 +11,13 @@ The programming project in SDS210
 
 ---
 
+:::{figure} images/L13_projects.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 ## 1. Why this project matters
 
 The programming project is the capstone assessment of this course. Up to this point, you have worked through focused exercises and guided practicals designed to build your foundational skills. This project asks you to take the training wheels off. Instead of following a predefined path, you will define your own workflow, make independent design decisions, and implement a complete solution from scratch.
