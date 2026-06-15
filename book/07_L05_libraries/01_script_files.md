@@ -131,7 +131,7 @@ Now that your notebook and your script are in the same folder, you can access yo
 
 :::{figure} images/03_import_directory_structure.png
 :alt: A diagram showing a notebook and a python script sitting in the same folder, with an import arrow connecting them.
-:width: 500px
+:width: 400px
 :align: center
 
 *Python looks for the imported script file in the same working directory as your active notebook.*

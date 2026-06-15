@@ -13,6 +13,13 @@ From repeating code to reusing logic
 
 ---
 
+:::{figure} images/L04_functions.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 In the previous lesson, you learned how to **control program flow** using loops and conditional statements.
 
 That was an essential step to automate repetitive tasks, but it raises a new challenge:

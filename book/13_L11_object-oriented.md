@@ -12,6 +12,13 @@ Moving beyond sequential scripts to build scalable spatial tools
 
 ---
 
+:::{figure} images/L11_oop.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 Up to this point, you have been writing Python scripts that execute line by line, defining variables and passing them into functions. You have learned how to use powerful libraries to handle multidimensional data cubes and map complex spatial trends. However, as your scripts grow from 50 lines to 500 lines, you will likely hit a structural limit. How do you keep track of dozens of variables? What happens when multiple functions need to modify the exact same geographic dataset?
 
 This lesson introduces **Object-Oriented Programming (OOP)**, a paradigm shift in how you design your code. Object-Oriented Programming empowers developers to build modular, maintainable and scalable applications. We will transition from simply writing functions that *do things to data*, to creating self-contained objects that *own their data and know what to do with it*.

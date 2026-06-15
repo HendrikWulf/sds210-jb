@@ -12,6 +12,13 @@ Welcome to the matrix
 
 ---
 
+:::{figure} images/L09_raster_data.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 In the previous lessons, you learned how to wield **GeoPandas** to analyze discrete spatial shapes and how to use cartographic design to visualize them beautifully on interactive maps.
 
 That was an essential step for mapping clear-cut features like roads, buildings, and political borders, but it raises a fundamental challenge:

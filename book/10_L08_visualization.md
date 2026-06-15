@@ -13,6 +13,13 @@ Cartographic design and interactive web maps
 
 ---
 
+:::{figure} images/L08_visualisation.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 In the previous lesson, you learned how to wield **GeoPandas** to manipulate geographic shapes, perform topological queries, and merge datasets based on their physical location.
 
 That was an essential step for performing spatial analysis, but it raises an obvious next question:

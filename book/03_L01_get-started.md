@@ -13,6 +13,13 @@ From motivation to first notebook run
 
 ---
 
+:::{figure} images/L01_getting_started.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 In this first lesson, you set up the foundation for everything that follows in SDS210.
 
 Before we dive into variables, loops, or functions, you need two things:

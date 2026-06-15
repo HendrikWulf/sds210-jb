@@ -1,4 +1,25 @@
-# About
+---
+title: About
+
+site:
+ outline_maxdepth: 1
+
+---
+
+<!-- markdownlint-disable MD033-->
+<div class="page-subtitle">
+Introduction to SDS210
+</div>
+<!-- markdownlint-enable MD033 -->
+
+---
+
+:::{figure} images/L_1_welcome.png
+:alt: ...
+:width: 700px
+:::
+
+---
 
 This section provides the **big-picture context** for *Programming with Spatial Data (SDS210)*.
 

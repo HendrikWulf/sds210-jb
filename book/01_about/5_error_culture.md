@@ -24,7 +24,11 @@ Progress in programming often comes in small steps, through testing, adjusting, 
 
 If something does not work or does not make sense, you are encouraged to ask questions during labs or via Teams. Discussing errors openly helps everyone learn and reduces the impression that others “got it right” on the first try.
 
-Errors are part of the shared learning experience and discussing them is both expected and valued.
+:::{figure} images/06_error_culture.png
+:alt: Error culture
+:width: 400px
+*Errors are part of the shared learning experience and discussing them is both expected and valued*
+:::
 
 ---
 

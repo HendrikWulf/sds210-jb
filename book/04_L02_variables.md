@@ -11,6 +11,13 @@ How Python represents data
 
 ---
 
+:::{figure} images/L02_variables.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 In the first lesson, you focused on **getting started**: running Python code, working in notebooks, and understanding how code cells behave.
 
 In this lesson, the focus shifts from *how Python runs* to *how Python stores information*.
