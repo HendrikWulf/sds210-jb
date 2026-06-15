@@ -25,6 +25,13 @@ Overview of Software Tools
 
 ---
 
+:::{figure} images/L_2_setup.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 ## 1. Introduction
 
 Knowing Python is important, but it’s only part of the story.
@@ -369,5 +376,5 @@ These tools reflect how geospatial programming is done in research and industry.
 
 ```{admonition} Big picture
 :class: tip
-This toolkit is not about complexity. It is about confidence, clarity, and control over your work. It is recommended to familiarize yourself with these tools as we move towards middle of the semester and start with the individual projects. This course gives you the chance to practise and refining your toolkit skills.
+This toolkit is not about complexity. It is about gaining confidence and control over your work. We recommend familiarising yourself with these tools at the start of the semester. VS Code will be particularly valuable when you start working on your individual projects. This course gives you the chance to practise and refine your toolkit skills.
 ```

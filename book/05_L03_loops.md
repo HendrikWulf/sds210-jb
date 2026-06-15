@@ -11,6 +11,13 @@ Controlling program flow
 
 ---
 
+:::{figure} images/L03_loops.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 In the previous lesson, you learned how to **store and organise data** using variables, lists, and dictionaries.
 
 That was an essential step, but it raises an obvious next question:

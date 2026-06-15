@@ -12,6 +12,13 @@ Integrating geographic shapes in spatial analysis
 
 ---
 
+:::{figure} images/L07_vector_data.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 In the previous lesson, you learned how to wield **Pandas** to sanitize, filter, and mathematically manipulate large tabular datasets and time series.
 
 That was an essential step for taming real-world information, but it raises an obvious next question:

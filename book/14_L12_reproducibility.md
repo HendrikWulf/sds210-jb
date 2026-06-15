@@ -13,6 +13,13 @@ Writing spatial workflows that others can understand, rerun, and trust
 
 ---
 
+:::{figure} images/L12_reproducibility.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 By this point, you have learned Python fundamentals, geospatial data structures, data cubes, object-oriented programming, and practical workflows. You have the tools to analyze the environment as both discrete geometries and continuous surfaces. The last step is to connect all of that to professional habits.
 
 In the computational sciences, a script that merely executes is not enough. Good code is not just code that works once. Good code is readable, maintainable, and easier to trust. As your spatial workflows grow in complexity, the way you structure, document, and share your projects becomes just as important as the analytical methods you apply.

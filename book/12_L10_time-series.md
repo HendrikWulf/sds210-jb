@@ -12,6 +12,13 @@ Discovering multidimensional data cubes and temporal dynamics
 
 ---
 
+:::{figure} images/L10_data_cube.png
+:alt: ...
+:width: 700px
+:::
+
+---
+
 ```{admonition} Environment Setup
 :class: important
 
