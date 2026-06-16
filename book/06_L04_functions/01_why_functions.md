@@ -34,9 +34,9 @@ Without functions, your code becomes repetitive, rigid, and hard to manage.
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for keeping your spatial analysis scripts organized and readable)  
-**Project Relevance:** ★★★ (Required for building scalable, maintainable tools for your final projects)  
-**Foundation:** ★★★ (A non-negotiable core programming concept)  
+**Lab Relevance:** ★☆☆ (Helpful for keeping your spatial analysis scripts organized and readable)  
+**Project Relevance:** ★★☆ (Needed for building scalable, maintainable tools for your final projects)  
+**Foundation:** ★★★ (An important core programming concept)  
 
 **Time to Read:** 5 minutes  
 **In a nutshell:** Learn why packaging your code into functions saves you from the nightmare of copying, pasting, and manually fixing the same formulas over and over.  
@@ -44,7 +44,7 @@ Without functions, your code becomes repetitive, rigid, and hard to manage.
 
 ```
 
-So far, you have built a strong foundation in **{term}`Python`**.
+So far, you have built a strong foundation in **Python**.
 You know how to **store** information in **{term}`variables <Variable>`** and **{term}`lists <List>`**.
 You know how to **repeat** tasks using **{term}`loops <Loop>`**.
 You know how to let your program **decide** what to do using `if` statements.
@@ -74,7 +74,7 @@ $$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$
 
 In Python, you might write this calculation manually:
 
-```{code-cell} python
+```python
 # Calculating distance between Point A and Point B
 distance = ((x2 - x1)**2 + (y2 - y1)**2)**0.5
 
