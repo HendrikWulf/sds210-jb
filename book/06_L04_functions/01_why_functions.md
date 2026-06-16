@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 From repeating code to reusing logic
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -29,15 +31,28 @@ Without functions, your code becomes repetitive, rigid, and hard to manage.
 
 ```
 
-So far, you have built a strong foundation in Python.
-You know how to **store** information in variables and lists.
-You know how to **repeat** tasks using loops.
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for keeping your spatial analysis scripts organized and readable)  
+**Project Relevance:** ★★★ (Required for building scalable, maintainable tools for your final projects)  
+**Foundation:** ★★★ (A non-negotiable core programming concept)  
+
+**Time to Read:** 5 minutes  
+**In a nutshell:** Learn why packaging your code into functions saves you from the nightmare of copying, pasting, and manually fixing the same formulas over and over.  
+**Skip this if:** You already understand the D.R.Y. principle and the conceptual difference between hardcoded logic and reusable functions.
+
+```
+
+So far, you have built a strong foundation in **{term}`Python`**.
+You know how to **store** information in **{term}`variables <Variable>`** and **{term}`lists <List>`**.
+You know how to **repeat** tasks using **{term}`loops <Loop>`**.
 You know how to let your program **decide** what to do using `if` statements.
 
 However, writing larger, more complex spatial programs requires a new tool.
 It requires **packaging your logic so it can be reused**.
 
-This section explains **why** functions are necessary before you learn **how** to write them.
+This section explains **why** **{term}`functions <Function>`** are necessary before you learn **how** to write them.
 
 ---
 
@@ -101,7 +116,7 @@ but rather:
 
 > "Here is a reliable tool for calculating distance. Give it any four coordinates, and it will give you the answer."
 
-This idea is called **reusing logic**, and it is done using a **function**.
+This idea is called **reusing logic**, and it is done using a function.
 
 Instead of repeating the math, you package it into a self-contained block:
 
@@ -133,20 +148,33 @@ Functions allow you to hide the complicated details and focus on the big picture
 Whether you calculate distance once or ten thousand times, the logic lives in exactly one place. If you need to fix or upgrade the formula, you only change it once inside the function definition.
 
 :::{figure} images/10_messy-vs-clean-code.png
-:alt: Visual *why* functions are structurally superior to copy-pasting code.
+:alt: Visual why functions are structurally superior to copy-pasting code.
 :width: 700px
 :align: center
 
-Visual *why* functions are structurally superior to copy-pasting code.
+Visual why functions are structurally superior to copy-pasting code.
 :::
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L04_ch1_01_DRY_principle_visualizer/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: The D.R.Y. Principle Visualizer.</b><br>
+    Click through the simulation to experience the difference between copying and pasting code versus calling a function. Notice how fixing a math error requires tedious manual labor in the copy-paste scenario, but fixes itself instantly everywhere when using a function. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L04_ch1_01_DRY_principle_visualizer/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
 ## 3. Concept Check
 
 Before diving into the syntax of `def`, `return`, and arguments, pause and reflect on the concept.
-
----
 
 ### Task
 
@@ -191,4 +219,3 @@ Next, we will:
 * Discover how to get data back out of functions using `return`.
 
 Once you understand how to build functions, you will have mastered the final foundational tool needed to write professional, scalable Python programs.
-
