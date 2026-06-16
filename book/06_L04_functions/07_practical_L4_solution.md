@@ -7,9 +7,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 From repetitive scripts to reusable spatial tools
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -110,7 +112,7 @@ Write a function `euclidean(coords1, coords2)` that expects two lists of `[x, y]
 
 The Haversine math is complex. Wrap the provided logic inside a function definition called `haversine(coords1, coords2)` and `return` the `distance`. Note that it expects `[lat, lon]`.
 
-```{code-cell} python
+```python
 # Wrap this inside a function definition:
 lat1, lon1 = coords1[0], coords1[1]
 lat2, lon2 = coords2[0], coords2[1]

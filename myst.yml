@@ -69,7 +69,7 @@ project:
         # - file: book/04_L02_variables/01_variables.md
         - file: book/04_L02_variables/02_naming-variables.ipynb
         # - file: book/04_L02_variables/02_naming-variables.md
-        - file: book/04_L02_variables/03_data-types.ipynb
+        - file: book/04_L02_variables/03_data-types.ipynb 
         # - file: book/04_L02_variables/03_data-types.md
         - file: book/04_L02_variables/04_operators-expressions.ipynb
         # - file: book/04_L02_variables/04_operators-expressions.md

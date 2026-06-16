@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Managing scope, defaults, and side effects
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -24,13 +26,26 @@ Writing a function is not just about making the code run; it is about making the
 
 ```
 
-In the previous section, we built our first functions. Now, we will look at how functions actually behave in your computer's memory. This section covers critical design concepts that may save you hours of debugging when building more complex spatial data pipelines.
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★☆☆ (Debugging scope and mutable defaults can be helpful some lab assignments)  
+**Project Relevance:** ★★☆ (Relevant for writing reliable, bug-free spatial pipelines)  
+**Foundation:** ★★★ (Advanced foundational knowledge that separates beginners from professionals)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Learn how to manage variable scope, set optional parameters correctly, and avoid the notorious mutable default trap to write safe, bug-free functions.  
+**Skip this if:** You already deeply understand local vs. global scope and know exactly why you should never use `[]` or `{}` as a default parameter in Python.
+
+```
+
+In the previous section, we built our first **{term}`functions <Function>`**. Now, we will look at how functions actually behave in your computer's memory. This section covers critical design concepts that may save you hours of debugging when building more complex spatial data pipelines.
 
 ---
 
 ## 1. Scope and Namespaces
 
-A common point of confusion for new programmers is understanding how variable names inside functions relate to those defined elsewhere in their notebooks.
+A common point of confusion for new programmers is understanding how **{term}`variables <Variable>`** defined inside functions relate to those defined elsewhere in their notebooks.
 
 Think of your main Python script as a giant "White Room." When you define a function, you are building a smaller, soundproof room inside it.
 
@@ -44,9 +59,9 @@ A visual analogy of scope: a function creates a "soundproof" local scope inside 
 
 ### Local Variables Stay Local
 
-When you create a variable *inside* a function, it is a **local variable**. It only exists within that specific function's room. Once the function finishes running, the room is demolished, and the variable disappears.
+When you create a variable *inside* a function, it is a **local variable**. It only exists within that specific function's **{term}`scope <Scope>`**. Once the function finishes running, the room is demolished, and the variable disappears.
 
-```{code-cell} python
+```python
 def calculate_area():
     # This variable only exists inside this function
     area = 1500
@@ -58,14 +73,12 @@ calculate_area()
 # Guess the output if we try to print the variable from the main script...
 print(area)
 
-
 ```
 
 **Output:**
 
 ```text
 NameError: name 'area' is not defined
-
 
 ```
 
@@ -85,8 +98,7 @@ def calculate_relative_elevation(elevation):
     # BAD: This function uses a global variable instead of a parameter!
     return elevation - base_elevation
 
-print(calculate_relative_elevation(2000))  # Outputs: 500
-
+print(calculate_relative_elevation(2000))
 
 ```
 
@@ -97,6 +109,37 @@ This code *works*, but it is poor software design. The function `calculate_relat
 
 **Don't rely on global variables inside a function.** If a function needs data to do its job, you should pass that data in explicitly as a parameter.
 
+```
+
+---
+
+#### Concept Check: The Locked Room
+
+You define a function to process some wind speed data:
+
+```python
+def process_wind_data():
+    max_speed = 120
+    return max_speed * 1.5
+
+process_wind_data()
+print(max_speed)
+
+```
+
+What will happen when you run this code?
+
+A) It prints `180`.
+
+B) It prints `120`.
+
+C) It crashes with a `NameError`.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: C**
+Because `max_speed` was defined *inside* the function, it is a local variable. It ceases to exist the moment the function finishes running. The global script cannot see inside the function's "soundproof room," so attempting to print `max_speed` directly results in a `NameError`.
 
 ```
 
@@ -120,7 +163,6 @@ def check_accuracy(point_accuracy, threshold=5):
     else:
         return False
 
-
 ```
 
 Now, the user has a choice:
@@ -132,22 +174,63 @@ check_accuracy(3)
 # Option 2: Override the default by providing a second argument.
 check_accuracy(3, threshold=2)
 
-
 ```
 
 ### The Ordering Rule
 
 There is a strict grammatical rule in Python regarding defaults: **Required parameters must always come before optional parameters in the function definition**.
 
-```{code-cell} python
+```python
 # GOOD: Required comes first
 def create_buffer(geometry, buffer_size=50): 
 
 # ERROR: Required comes after an optional default
 def create_buffer(buffer_size=50, geometry): 
 
+```
+
+---
+
+#### Concept Check: Identifying Syntax Errors
+
+You are building a spatial modeling tool and attempt to write the following function definition:
+
+```python
+def model_habitat(elevation, precipitation=1000, land_cover):
+    pass
 
 ```
+
+What will happen when you try to run this cell?
+
+A) Python successfully creates the function.
+
+B) Python assigns `1000` to both `precipitation` and `land_cover`.
+
+C) Python throws a `SyntaxError: non-default argument follows default argument`.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: C**
+Because `precipitation` is an optional parameter (it has a default value), every parameter listed *after* it must also be optional. Since `land_cover` is a required parameter placed at the end, it breaks the strict ordering rule, and Python will refuse to define the function.
+
+```
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L04_ch03_02_parameter_ordering/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Parameter Ordering Visualizer.</b><br>
+    Click the available parameters to build a function signature. Click "Check Syntax" to see if your order is valid. Try placing a blue "Required" parameter after a green "Optional" parameter to visually trigger the exact <code>SyntaxError</code> Python throws when the ordering rule is broken. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L04_ch03_02_parameter_ordering/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -155,7 +238,7 @@ def create_buffer(buffer_size=50, geometry):
 
 This is a high-value moment. Understanding this concept separates beginners from professional data scientists.
 
-We just learned that we can set default values (like `threshold=5`). But what happens if we set a default value to a **mutable** object, like an empty list (`[]`)?
+We just learned that we can set default values (like `threshold=5`). But what happens if we set a default value to a **{term}`mutable <Mutable>`** object, like an empty **{term}`list <List>`** (`[]`)?
 
 Let's write a function that takes a new GPS waypoint and adds it to a route list. If no route list is provided, it should default to an empty list.
 
@@ -164,7 +247,6 @@ Let's write a function that takes a new GPS waypoint and adds it to a route list
 def add_waypoint(waypoint, route=[]):
     route.append(waypoint)
     return route
-
 
 ```
 
@@ -176,16 +258,6 @@ print(f"Bear Track: {track_bear}")
 
 track_wolf = add_waypoint("Point X")
 print(f"Wolf Track: {track_wolf}")
-
-
-```
-
-**Output:**
-
-```text
-Bear Track: ['Point A']
-Wolf Track: ['Point A', 'Point X']
-
 
 ```
 
@@ -206,14 +278,12 @@ def add_waypoint(waypoint, route=None):
     route.append(waypoint)
     return route
 
-
 ```
 
 ```{admonition} The Mutable Default Rule
 :class: danger
 
-**Never use `[]` or `{}` as default parameter values.** Always use `None`, and initialize the empty list or dictionary inside the function body. Understanding how state and side effects operate in memory is crucial for reproducible spatial data science.
-
+**Never use `[]` or `{}` as default parameter values.** Always use `None`, and initialize the empty list or **{term}`dictionary <Dictionary>`** inside the function body. Understanding how state and side effects operate in memory is crucial for reproducible spatial data science.
 
 ```
 
@@ -233,8 +303,6 @@ def add_waypoint(waypoint, route=[]):
 
 It says: *"Okay, I'm creating a new function. The default value for `route` is an empty list. I will create a single, empty list in my memory **right now**, and attach it to this function permanently."*
 
-
-
 Let's use a "Shared Backpack" analogy:
 
 1. When the function is defined, Python creates a single backpack (the default list `[]`) and leaves it at the door of the function.
@@ -247,7 +315,7 @@ Because lists are **mutable** (they can be changed in place), any changes made t
 
 You might wonder why we don't have this problem when we set defaults to numbers, like `buffer=5`.
 
-Numbers, strings, and booleans (`True`/`False`) are **immutable** in Python. You cannot alter them in place. If you change a number, Python actually throws the old number away and creates a brand-new number in memory. Therefore, they cannot accumulate "state" or carry over contamination from previous function calls.
+Numbers, strings, and **{term}`booleans <Boolean>`** (`True`/`False`) are **{term}`immutable <Immutable>`** in Python. You cannot alter them in place. If you change a number, Python actually throws the old number away and creates a brand-new number in memory. Therefore, they cannot accumulate "state" or carry over contamination from previous function calls.
 
 Because lists (`[]`) and dictionaries (`{}`) are **mutable**, they can be modified without losing their original identity in memory.
 
@@ -273,7 +341,7 @@ Let's look at how memory handles this:
 2. **The Bear's turn:** You call `add_waypoint("Bear Point")`. The `route` is `None`. The `if` statement triggers: `route = []`. **Because this line is inside the function body, it runs during the execution phase.** Python creates a brand new list in memory, adds the bear's point, and returns it. Once the function finishes, that specific `[]` creation step is over.
 3. **The Wolf's turn:** You call `add_waypoint("Wolf Point")`. The `route` defaults back to `None`. The `if` statement triggers again: `route = []`. Python creates a *second, entirely separate* new list in memory. It adds the wolf's point and returns it.
 
-:::{figure} images/07_mutable-default-trap.png 
+:::{figure} images/07_mutable-default-trap.png
 :alt: Diagram comparing shared memory vs. independent memory allocation for default arguments.
 :width: 700px
 :align: center
@@ -281,11 +349,25 @@ Let's look at how memory handles this:
 Visualizing the "Mutable Default Trap." Using `[]` as a default argument creates a single, shared list object in memory (top), leading to unintended data leakage between function calls. Using `None` and creating a new list inside the function ensures independent lists are created for each call (bottom).
 :::
 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L04_ch03_01_mutable_default/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: The Mutable Default Trap.</b><br>
+    Click the buttons to simulate calling the function twice in a row. Notice how the dangerous approach (left) binds a single, permanent list object to the function definition, causing the Wolf's data to mix with the Bear's. The safe approach (right) uses <code>None</code> to delay list creation until execution, ensuring clean, independent memory allocation for each call. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L04_ch03_01_mutable_default" target="_blank">link</a>.</em>
+</figcaption>
+
+<!-- markdownlint-enable MD033 -->
 
 ### Summary
 
 By using `None` as the default argument, you are delaying the creation of the list. Instead of creating the list when the function is **defined** (which creates a single shared object), you create the list when the function is **executed** (which creates a fresh, independent object every time).
-
 
 ``````
 
@@ -301,14 +383,13 @@ A junior analyst wrote the following code to convert a list of elevations from f
 
 **Your Task:** Without running the code, explain why the error occurs, and fix the code so it properly prints the result.
 
-```{code-cell} python
+```python
 def feet_to_meters(elevation_ft):
     converted = elevation_ft * 0.3048
     return converted
 
 feet_to_meters(5000)
 print(converted)
-
 
 ```
 
@@ -329,7 +410,6 @@ def feet_to_meters(elevation_ft):
 final_elevation = feet_to_meters(5000)
 print(final_elevation)
 ```
-
 
 ``````
 
@@ -386,7 +466,6 @@ large_box = create_bbox(34.0, -118.0, buffer=5.0)
 print(f"Large box: {large_box}")
 ```
 
-
 ``````
 
 ---
@@ -395,9 +474,7 @@ print(f"Large box: {large_box}")
 
 You are writing a code pipeline to track pollution sampling sites along different rivers. Look at the code below.
 
-**Your Tasks:** 
-
-1. Run the code in your head. What will the output look like?
+**Your Tasks:** 1. Run the code in your head. What will the output look like?
 2. Why is this happening?
 3. Rewrite the function using best practices so that the Isar and the Inn get their own independent lists of samples.
 
@@ -469,4 +546,4 @@ In this section, we moved from writing functional code to writing **safe** code:
 
 ### What comes next?
 
-You now know how to build perfectly constrained, safe tools. But Python functions have one more superpower. Next, we will learn how to use `*args` and `**kwargs` to handle an infinite, unpredictable amount of spatial data inputs!
+You now know how to build perfectly constrained, safe tools. But Python functions have one more superpower. Next, we will learn how to use `*args` and `kwargs` to handle an infinite, unpredictable amount of spatial data inputs!

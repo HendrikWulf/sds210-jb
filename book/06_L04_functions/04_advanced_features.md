@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Handling arbitrary inputs and metadata
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -21,9 +23,23 @@ Handling arbitrary inputs and metadata
 
 Real-world spatial data can be messy and unpredictable. You might not know how many waypoints are in a GPS track, or exactly what metadata fields a geographic feature will contain. Python's variable argument features (`*args` and `**kwargs`) allow you to build flexible functions that adapt to whatever data you throw at them.
 
+
 ```
 
-Up to now, our functions have had a rigid structure: a fixed number of inputs, each with a predefined name. But what if you need to write a function that can accept *any* number of coordinates? Or a function that processes spatial features with a completely unpredictable set of attributes?
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Frequently used in advanced data parsing and cleaning tasks)  
+**Project Relevance:** ★★☆ (Useful for building robust custom tools, though not strictly necessary for simple scripts)  
+**Foundation:** ★★☆ (Core Pythonic idioms common in intermediate spatial code)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Learn how to use `*args`, `**kwargs`, and lambda functions to create adaptable tools that handle unpredictable spatial data inputs.  
+**Skip this if:** You already know how to pack and unpack arguments using the `*` and `**` operators, and are comfortable writing and passing anonymous `lambda` functions.
+
+```
+
+Up to now, our **{term}`functions <Function>`** have had a rigid structure: a fixed number of inputs, each with a predefined name. But what if you need to write a function that can accept *any* number of coordinates? Or a function that processes spatial features with a completely unpredictable set of attributes?
 
 In this section, we will unlock the power of flexible function interfaces and anonymous functions.
 
@@ -33,9 +49,9 @@ In this section, we will unlock the power of flexible function interfaces and an
 
 Imagine you want to write a function that calculates the average elevation from a set of GPS points. You don't know in advance if the user will provide 3 points, 10 points, or 100 points.
 
-You *could* force the user to put all the points into a single list before passing them to the function. But Python offers a cleaner way: the unpacking operator (`*`).
+You *could* force the user to put all the points into a single **{term}`list <List>`** before passing them to the function. But Python offers a cleaner way: the unpacking operator (`*`).
 
-When you place an asterisk before a parameter name in a function definition, Python collects an arbitrary number of positional arguments into a **tuple**. By convention, we name this parameter `*args`.
+When you place an asterisk before a parameter name in a function definition, Python collects an arbitrary number of **{term}`positional arguments <Positional argument>`** into a **{term}`tuple <Tuple>`**. By convention, we name this parameter `*args`.
 
 :::{figure} images/11_args.png
 :alt: Diagram showing multiple individual values being packed into a single tuple using the `*args` syntax.
@@ -74,20 +90,20 @@ There is nothing special about the word "args". You could write `*elevations` or
 
 ---
 
-## 2. Collecting Keyword Arguments with `**kwargs`
+## 2. Collecting Keyword Arguments with `kwargs`
 
-Just as `*args` collects unknown positional arguments, `**kwargs` collects an arbitrary number of **keyword** arguments.
+Just as `*args` collects unknown positional arguments, `kwargs` collects an arbitrary number of **{term}`keyword arguments <Keyword argument>`**.
 
-This is incredibly useful in spatial data science when dealing with metadata. A geographic point must have a latitude and longitude, but it might *also* have an elevation, a Coordinate Reference System (CRS), a name, or a category.
+This is incredibly useful in spatial data science when dealing with **{term}`metadata <Metadata>`**. A geographic point must have a latitude and longitude, but it might *also* have an elevation, a **{term}`Coordinate Reference System`** (CRS), a name, or a category.
 
-When you place a double asterisk before a parameter name (conventionally `**kwargs`), Python collects any remaining keyword-value pairs into a **dictionary**.
+When you place a double asterisk before a parameter name (conventionally `kwargs`), Python collects any remaining keyword-value pairs into a **{term}`dictionary <Dictionary>`**.
 
 :::{figure} images/12_kwargs.png
-:alt: Diagram showing multiple keyword-value pairs being packed into a single dictionary using the `**kwargs` syntax.
+:alt: Diagram showing multiple keyword-value pairs being packed into a single dictionary using the `kwargs` syntax.
 :width: 600px
 :align: center
 
-Visualizing `**kwargs`: Multiple keyword-value pairs are collected and packed into a single dictionary.
+Visualizing `kwargs`: Multiple keyword-value pairs are collected and packed into a single dictionary.
 :::
 
 ```{code-cell} python
@@ -115,12 +131,14 @@ describe_point(
     country="Switzerland"
 )
 
+
 ```
 
 ```{admonition} Key Concept
 :class: important
 
 Just like with `*args`, there is nothing special about the word "kwargs". You could write `**metadata` or `**properties`, and it would work exactly the same. It is the double asterisk `**` that gives the parameter its superpower, automatically packing the extra key-value pairs into a dictionary.
+
 
 ```
 
@@ -130,9 +148,10 @@ Just like with `*args`, there is nothing special about the word "kwargs". You co
 
 The asterisk operators can also be used *outside* of function definitions to do the opposite: **unpacking** a collection into separate variables.
 
-Consider a bounding box stored as a list of four coordinates:  
-`[min_x, min_y, max_x, max_y]`. 
-If you have a function that expects four separate arguments, you can use the `*` operator to unpack the list directly into the function call.
+Consider a bounding box stored as a list of four coordinates:
+
+`[min_x, min_y, max_x, max_y]`.
+If you have a function that expects four separate **{term}`arguments <Argument>`**, you can use the `*` operator to unpack the list directly into the function call.
 
 ```{code-cell} python
 def calculate_area(min_x, min_y, max_x, max_y):
@@ -153,20 +172,21 @@ area = calculate_area(bbox[0], bbox[1], bbox[2], bbox[3])
 area = calculate_area(*bbox)
 
 print(f"The area of the bounding box is {area} square meters")
-````
+
+```
 
 ```{admonition} Spatial note
 :class: note
 
-This calculation assumes that the coordinates are in a **projected coordinate reference system (CRS)** where units are measured in meters (for example Swiss LV95 / EPSG:2056 or UTM).
+This calculation assumes that the coordinates are in a projected coordinate reference system (CRS) where units are measured in meters (for example Swiss LV95 / EPSG:2056 or UTM).
 
 If the coordinates were geographic longitude and latitude (e.g. EPSG:4326), this simple formula would **not produce a correct area**, because degrees are not linear distance units and Earth’s curvature must be considered.
+
 ```
 
+### Unpacking Dictionaries with ``
 
-### Unpacking Dictionaries with `**`
-
-You can use the double asterisk (`**`) to unpack a dictionary directly into a function's keyword arguments. For this to work, the keys in your dictionary must match the parameter names in the function exactly.
+You can use the double asterisk (``) to unpack a dictionary directly into a function's keyword arguments. For this to work, the keys in your dictionary must match the parameter names in the function exactly.
 
 Imagine you have a function to style and plot a map marker, and your styling data is stored in a dictionary:
 
@@ -221,12 +241,36 @@ print(f"End: {last}")
 
 ---
 
+#### Concept Check: The Unpacking Explosion
+
+You have a mapping function `plot_station(name, lat, lon, elevation)` and a dictionary containing your metadata:
+
+`station_data = {"name": "Zugspitze", "lat": 45.93, "lon": 7.86, "elevation": 4600}`
+
+How do you pass this dictionary to the function so that each key automatically maps to the correct parameter?
+
+A) `plot_station(*station_data)`
+
+B) `plot_station(station_data)`
+
+C) `plot_station(station_data)`
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+Using the double asterisk (`**`) unpacks the dictionary, taking its key-value pairs and passing them as explicit keyword arguments (e.g., `name="Zugspitze"`, `lat=45.93`, etc.). Option A would only unpack the *keys* (the strings), leaving the values behind. Option C would pass the entire dictionary as a single argument (assigned to `name`), which would likely crash the function.
+
+```
+
+---
+
 ### The Dual Nature of Asterisks
 
-The hardest part about `*` and `**` is that they do the **exact opposite** depending on where you use them.
+The hardest part about `*` and `` is that they do the **exact opposite** depending on where you use them.
 
 1. **When DEFINING a function (Packing):**
-If you put an asterisk in the `def` statement (e.g., `def my_func(*args)`), it acts like a vacuum. It sucks up many loose arguments and packs them tightly into a single tuple (or dictionary for `**`).
+If you put an asterisk in the `def` statement (e.g., `def my_func(*args)`), it acts like a vacuum. It sucks up many loose arguments and packs them tightly into a single tuple (or dictionary for ``).
 2. **When CALLING a function (Unpacking):**
 If you put an asterisk in the function call (e.g., `my_func(*my_list)`), it acts like an explosion. It takes a packed collection (like a list or dictionary) and blows it apart into many separate, loose arguments.
 
@@ -238,7 +282,21 @@ If you put an asterisk in the function call (e.g., `my_func(*my_list)`), it acts
 The dual nature of asterisks: They **pack** arguments when defining a function and **unpack** collections when calling a function.
 :::
 
----
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L04_ch04_01_asterix_dual_nature/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Asterisk Packing vs. Unpacking.</b><br>
+    Click "Simulate Asterisk (*)" to visually experience the dual nature of this operator. Notice how placing it in a function definition (<code>def</code>) acts like a vacuum, packing loose data into a single tuple. Conversely, placing it in a function call acts like an explosion, shattering a packed list (like the 4-coordinate bounding box) into individual arguments. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L04_ch04_01_asterix_dual_nature/" target="_blank">link</a>.</em>
+</figcaption>
+
+<!-- markdownlint-enable MD033 -->
 
 ## 4. The Lambda Function
 
@@ -273,7 +331,6 @@ stations.sort(key=lambda station: station["elevation"])
 
 print(stations)
 
-
 ```
 
 ``````{admonition} Click here for a more detailed breakdown of this lambda example.
@@ -287,9 +344,10 @@ If you have a simple list of numbers, Python knows exactly how to sort them:
 numbers = [1200, 400, 850]
 numbers.sort() 
 # Result: [400, 850, 1200]
+
 ```
 
-But in our spatial example, `stations` is not a list of numbers. It is a list of **dictionaries**:
+But in our spatial example, `stations` is not a list of numbers. It is a list of dictionaries:
 
 ```{code-cell} python
 stations = [
@@ -297,6 +355,7 @@ stations = [
     {"name": "Station B", "elevation": 400},
     {"name": "Station C", "elevation": 850}
 ]
+
 ```
 
 If you just type `stations.sort()`, Python will crash. It will say: *"I don't know how to compare two dictionaries! Should I sort them alphabetically by their names? Or numerically by their elevations?"*
@@ -305,7 +364,7 @@ If you just type `stations.sort()`, Python will crash. It will say: *"I don't kn
 
 To fix this, the `.sort()` method has a special optional parameter called `key`.
 
-Think of the `key` parameter as a referee. You must hand the referee a **function**. The referee will then apply that function to every single item in the list to extract a simple value (like a number or string) that it *can* sort.
+Think of the `key` parameter as a referee. You must hand the referee a function. The referee will then apply that function to every single item in the list to extract a simple value (like a number or string) that it *can* sort.
 
 If we didn't use `lambda`, we would have to write a full, named function to act as our extractor:
 
@@ -357,6 +416,22 @@ When Python executes that line, it does a multi-step process in a fraction of a 
 ]
 ```
 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L04_ch04_02_lambda_sorting/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Python Lambda Key Extractor.</b><br>
+    Change the "Sort Key" and click "Run Key Extraction" to visualize the sorting process. Notice how Python iterates through the dictionaries sequentially, applying the nameless lambda function (λ) to extract just the specific value (e.g., 'Genève', 201800, etc.). These extracted values populate the "Internal Referee" panel. Finally, Python reorders the original dictionaries to match the sorted order of these extracted values. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L04_ch04_02_lambda_sorting/" target="_blank">link</a>.</em>
+</figcaption>
+
+<!-- markdownlint-enable MD033 -->
+
 
 ``````
 
@@ -372,7 +447,6 @@ Write a function called `total_trail_distance()` that accepts any number of trai
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution
@@ -389,16 +463,14 @@ print(total_trail_distance(5.2, 3.1, 4.0, 1.5))
 
 ``````
 
-
 ### Exercise 2: Building GeoJSON Properties (Stretch)
 
 In web mapping, spatial features use a format called GeoJSON, which stores data in a `"properties"` dictionary.
-Write a function `create_feature(name, **kwargs)` that takes a required `name` and any number of keyword arguments. It should return a dictionary formatted like this:
+Write a function `create_feature(name, kwargs)` that takes a required `name` and any number of keyword arguments. It should return a dictionary formatted like this:
 `{"name": name, "properties": {all_the_kwargs}}`
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution
@@ -420,7 +492,6 @@ print(site)
 
 ``````
 
-
 ### Exercise 3: Lambda Sorting (Challenge)
 
 You have a list of coordinate pairs: `coords = [[8.54, 47.37], [6.14, 46.20], [7.44, 46.94]]`.
@@ -428,7 +499,6 @@ Using the `.sort()` method and a `lambda` function, sort this list based *only* 
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution
@@ -454,7 +524,7 @@ print(coords)
 In this section, you learned how to break free from rigid function definitions:
 
 * **`*args`**: Collects an arbitrary number of positional arguments into a tuple.
-* **`**kwargs`**: Collects an arbitrary number of keyword arguments into a dictionary, perfect for flexible metadata.
+* **`kwargs`**: Collects an arbitrary number of keyword arguments into a dictionary, perfect for flexible metadata.
 * **Unpacking (`*`)**: Extracts items from lists or dictionaries directly into function arguments or separate variables.
 * **Lambda functions**: Provide a concise, one-line syntax for simple operations, often used as arguments inside other functions.
 
