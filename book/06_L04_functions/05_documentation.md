@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Documentation, introspection, and avoiding common pitfalls
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -21,6 +23,20 @@ Documentation, introspection, and avoiding common pitfalls
 
 In data science, code is read far more often than it is written. Writing a function that merely *works* is not enough; a professional function must be self-explanatory, reproducible, and safe. Proper documentation ensures that you (and your colleagues) can understand and reuse your tools months after you wrote them.
 
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★☆☆ (Relevant for properly documenting your custom tools and passing assignments)  
+**Project Relevance:** ★★☆ (Important for collaborative group projects and reproducible research)  
+**Foundation:** ★★☆ (A basic professional standard in software engineering and data science)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Master the art of writing self-explanatory, professional functions using NumPy-style docstrings, and learn how to avoid the most common bugs that break Python pipelines.  
+**Skip this if:** You already strictly use NumPy-style docstrings to document your code and are completely familiar with common function pitfalls like mutable defaults and missing return statements.
+
 ```
 
 By this point, you know how to build powerful, flexible spatial tools. But as your scripts grow into larger pipelines, relying solely on memory to remember what each function does becomes impossible. In this final section, we will learn how to formally document our code and review the most common mistakes that break pipelines.
@@ -29,9 +45,9 @@ By this point, you know how to build powerful, flexible spatial tools. But as yo
 
 ## 1. Docstrings: The Standard of Reproducibility
 
-When you write functions, it is best practice to include built-in documentation that explains what the function does, what inputs it expects, and what output it returns.
+When you write **{term}`functions <Function>`**, it is best practice to include built-in documentation that explains what the function does, what inputs it expects, and what output it returns.
 
-In Python, this is done using a **docstring** (documentation string). A {term}`docstring` is a multi-line string enclosed in triple double quotes (`""" """`) placed immediately below the `def` statement.
+In Python, this is done using a **{term}`docstring <Docstring>`** (documentation string). A docstring is a multi-line string enclosed in triple double quotes (`""" """`) placed immediately below the `def` statement.
 
 While there are several formatting styles for docstrings, the **NumPy style** is the gold standard in the data science community. It uses clear, readable sections.
 
@@ -72,12 +88,13 @@ def haversine(lat1, lon1, lat2, lon2):
     # (Math implementation goes here...)
     pass
 
+
 ```
 
 A professional docstring typically contains:
 
 1. **A Brief Summary:** One or two sentences explaining the tool's purpose.
-2. **Parameters:** A list of the expected arguments, including their data types (e.g., `float`, `list`, `str`) and any default values.
+2. **Parameters:** A list of the expected **{term}`arguments <Argument>`**, including their data types (e.g., `float`, `list`, `str`) and any default values.
 3. **Returns:** An explanation of the data that the function hands back to the program.
 4. **Examples (Optional):** Quick usage examples demonstrating how to call the function.
 
@@ -117,7 +134,27 @@ haversine(lat1, lon1, lat2, lon2)
 
 ```
 
-Furthermore, modern Integrated Development Environments (IDEs) like VS Code or PyCharm automatically read these docstrings. When you start typing `haversine(` in your editor, a tooltip will pop up displaying your documentation, helping you remember the correct order of the latitudes and longitudes!
+Furthermore, modern **{term}`Integrated Development Environments <Integrated Development Environment>`** (IDEs) like **{abbr}`VS Code (Visual Studio Code)`** or **PyCharm** automatically read these docstrings. When you start typing `haversine(` in your editor, a tooltip will pop up displaying your documentation, helping you remember the correct order of the latitudes and longitudes!
+
+---
+
+#### Concept Check: The Instant Manual
+
+You are reviewing a colleague's script and see a custom function called `calculate_terrain_ruggedness()`. You need to know what parameters it expects. What is the fastest, most Pythonic way to find this information without opening their original source code file?
+
+A) Print the function directly: `print(calculate_terrain_ruggedness)`
+
+B) Call the function with empty parentheses to read the error message.
+
+C) Use introspection: `help(calculate_terrain_ruggedness)`
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: C**
+Passing the function name (without parentheses) into Python's built-in `help()` function will instantly display its docstring, including the summary, parameters, and returns. This process, known as introspection, is exactly why writing professional docstrings is so valuable to your future self and your collaborators.
+
+```
 
 ---
 
@@ -128,17 +165,18 @@ Before you move on to the exercises, review this checklist. These are the most f
 ```{admonition} Common Function Pitfalls
 :class: error
 
-1. **Printing instead of Returning:** If your function uses `print(result)` instead of `return result`, the data is displayed to the human but lost to the computer. If you try to save the output to a variable, it will be `None`.
+1. **Printing instead of Returning:** If your function uses `print(result)` instead of `return result`, the data is displayed to the human but lost to the computer. If you try to save the output to a **{term}`variable <Variable>`**, it will be `None`.
    
 2. **Forgetting the `return` statement entirely:** Functions that reach the end of their indented block without a `return` keyword automatically return `None`, crashing downstream calculations.
 
-3. **Using Global Variables Accidentally:** If your function relies on a variable defined outside of its local scope (the "White Room"), it is no longer a self-contained, reproducible tool. Always pass required data in as a parameter.
+3. **Using Global Variables Accidentally:** If your function relies on a variable defined outside of its **{term}`local scope <Local scope>`** (the "White Room"), it is no longer a self-contained, reproducible tool. Always pass required data in as a parameter.
 
-4. **The Mutable Default Trap:** Never use `[]` or `{}` as a default parameter (e.g., `def add_point(pt, route=[])`). It creates a single shared object in memory that accumulates data across every function call. Always use `None` and initialize the list inside the function.
+4. **The Mutable Default Trap:** Never use `[]` or `{}` as a default parameter (e.g., `def add_point(pt, route=[])`). It creates a single shared object in memory that accumulates data across every function call. Always use `None` and initialize the **{term}`list <List>`** inside the function.
 
-5. **Mixing Positional and Keyword Arguments Incorrectly:** When calling a function, positional arguments (e.g., `47.3`) must *always* come before keyword arguments (e.g., `lon=8.5`). If you mix them up, Python raises a `SyntaxError`.
+5. **Mixing Positional and Keyword Arguments Incorrectly:** When calling a function, **{term}`positional arguments <Positional argument>`** (e.g., `47.3`) must *always* come before **{term}`keyword arguments <Keyword argument>`** (e.g., `lon=8.5`). If you mix them up, Python raises a `SyntaxError`.
 
-6. **Wrong Indentation:** Everything inside the function must be indented. If you accidentally un-indent your `return` statement, or leave code hanging outside the block, your function will terminate early or fail to compile.
+6. **Wrong** **{term}`Indentation <Indentation>`**: Everything inside the function must be indented. If you accidentally un-indent your `return` statement, or leave code hanging outside the block, your function will terminate early or fail to compile.
+
 
 ```
 
@@ -200,7 +238,7 @@ The following script contains three different spatial functions that try to calc
 1. Read the code and identify which specific mistake each function makes.
 2. Fix all three functions so they work correctly and safely.
 
-```{code-cell} python
+```python
 # Function A
 def get_area_a(L):
     area = L * L
@@ -308,7 +346,6 @@ print(f"Final safe track: {wolf_track}")
 
 ---
 
-
 ## 5. Summary
 
 Congratulations! You have mastered the core mechanics of functional programming.
@@ -317,7 +354,7 @@ You now know how to:
 
 * Package repeatable spatial math into modular `def` blocks.
 * Safely manage variable scope and memory.
-* Handle unpredictable data streams using `*args` and `**kwargs`.
+* Handle unpredictable data streams using `*args` and `kwargs`.
 * Document your tools using professional, reproducible NumPy-style docstrings.
 
 ### What comes next?
@@ -325,5 +362,5 @@ You now know how to:
 In the upcoming practical exercises, you will:
 
 * build reusable spatial tools by turning mathematical logic into well-structured functions
-* compare geometric models programmatically using nested loops and formatted output 
-* design flexible, professional tools using `*args`, `**kwargs`, and NumPy-style docstrings
+* compare geometric models programmatically using nested loops and formatted output
+* design flexible, professional tools using `*args`, `kwargs`, and NumPy-style docstrings

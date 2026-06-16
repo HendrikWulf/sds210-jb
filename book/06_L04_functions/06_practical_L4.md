@@ -7,9 +7,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 From repetitive scripts to reusable spatial tools
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -110,8 +112,8 @@ Write a function `euclidean(coords1, coords2)` that expects two lists of `[x, y]
 
 The Haversine math is complex. Wrap the provided logic inside a function definition called `haversine(coords1, coords2)` and `return` the `distance`. Note that it expects `[lat, lon]`.
 
-```{code-cell} python
-# Wrap this inside a function definition:
+```python
+# Wrap this math inside a function definition:
 lat1, lon1 = coords1[0], coords1[1]
 lat2, lon2 = coords2[0], coords2[1]
 
@@ -126,6 +128,11 @@ a = math.sin(delta_phi / 2.0)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(de
 c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
 distance = R * c
+
+```
+
+```{code-cell} python
+# Write your code here
 
 ```
 
@@ -191,17 +198,6 @@ for row_item in items:
 
 ```
 
-This is what the **output** of our example table will look like:
-
-```text
-               A       B       C
---------------------------------
-       A|       -    3.14    3.14
-       B|    3.14       -    3.14
-       C|    3.14    3.14       -
-
-```
-
 You can start implementing Part 4 here:
 
 ```{code-cell} python
@@ -229,7 +225,7 @@ Write a function called `route_length` that:
 
 ---
 
-```{code-cell} python
+```python
 # Define your route_length function here
 # ...
 
@@ -241,6 +237,11 @@ c_sion = swiss_cities["Sion"]["latlon"]
 # Test a trip from Basel -> Bern -> Sion
 trip_distance = route_length(c_basel, c_bern, c_sion)
 print(f"Total trip length (Basel-Bern-Sion): {trip_distance:.2f} km")
+```
+
+```{code-cell} python
+# Write your code here
+
 ```
 
 ---
@@ -259,7 +260,7 @@ Write a function called `create_spatial_feature` that:
 
 ---
 
-```{code-cell} python
+```python
 # Define your create_spatial_feature function here
 # ...
 
@@ -273,6 +274,11 @@ geneva_feature = create_spatial_feature(
 )
 
 print(geneva_feature)
+```
+
+```{code-cell} python
+# Write your code here
+
 ```
 
 ---
@@ -292,7 +298,7 @@ def euclidean(coords1, coords2):
     """
     ...
     """
-   pass
+    pass
 
 # Check if Python understood your documentation!
 help(euclidean)
@@ -312,6 +318,7 @@ Answer briefly in comments or markdown:
 # Write your code here
 
 ```
+
 ---
 
 Congratulations! You now have a solid foundation in core Python programming. You know how to store data (Variables), iterate over it (Loops), make decisions (If-statements), and package logic into reproducible tools (Functions).

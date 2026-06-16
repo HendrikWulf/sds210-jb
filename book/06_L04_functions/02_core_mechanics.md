@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Building reusable tools
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -19,7 +21,21 @@ Building reusable tools
 ```{admonition} Big Idea
 :class: tip
 
-To transition from writing basic scripts to building robust spatial analysis tools, you need to master the core mechanics of functions. By properly defining the **inputs** (parameters), the **action** (the code block), and the **output** (the return value), you create modular, testable, and reusable blocks of code.
+To transition from writing basic scripts to building robust spatial analysis tools, you need to master the core mechanics of **{term}`functions <Function>`**. By properly defining the **inputs** (parameters), the **action** (the code block), and the **output** (the return value), you create modular, testable, and reusable blocks of code.
+
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for literally any spatial data lab building custom tools)  
+**Project Relevance:** ★★★ (You need custom functions to execute coherent analysis pipelines)  
+**Foundation:** ★★★ (A fundamental core Python building block)  
+
+**Time to Read:** 12 minutes  
+**In a nutshell:** Learn how to build custom Python tools by mastering function definitions, argument passing, and the crucial difference between printing and returning data.  
+**Skip this if:** You are completely comfortable defining functions, safely passing keyword arguments, and using `return` statements to capture data for downstream use.
 
 ```
 
@@ -44,8 +60,8 @@ Let's break down the components:
 
 * **`def`**: Short for "define." This keyword tells Python you are creating a new function.
 * **Name**: A good function name is **verb-based** because functions *do* things (e.g., `calculate_distance`, `clean_data`).
-* **Parameters**: The variable names inside the parentheses. You can pass data as parameters into a function that are used as arguments. Think of these as empty, labeled mailboxes waiting for a data delivery (inputs).
-* **`return`**: The keyword that sends the final output back to the main program so it can be saved, modified, or used later.
+* **{term}`Parameters <Parameter>`**: The variable names inside the parentheses. You can pass data as parameters into a function that are used as arguments. Think of these as empty, labeled mailboxes waiting for a data delivery (inputs).
+* **Return**: The keyword that sends the final output back to the main program so it can be saved, modified, or used later.
 
 ---
 
@@ -53,7 +69,7 @@ Let's break down the components:
 
 Let's translate a formal mathematical formula into a Python function. In spatial analysis, you may want to calculate the area of a circular "buffer" around a specific coordinate (for example, a 50-meter protection zone around a nesting site).
 
-The formula for the area of a circle is: $A = \pi r^2$.
+The formula for the area of a circle is: $A=\pi r^2$.
 
 :::{figure} images/03_area-buffer.png
 :alt: Diagram of a circular buffer zone showing the radius and area formula.
@@ -79,7 +95,7 @@ def calculate_buffer_area(radius):
 This is an example function, annotated to highlight its important elements.
 :::
 
-To use it, we simply **call** the function by its name and pass it a number. We can then store the result in a variable or embed it directly into a `print()` statement:
+To use it, we simply **call** the function by its name and pass it a number. We can then store the result in a **{term}`variable <Variable>`** or embed it directly into a `print()` statement:
 
 ```{code-cell} python
 # Calling the function and storing the result
@@ -96,8 +112,8 @@ print(f"A 100 m buffer covers {calculate_buffer_area(100)} square meters.")
 
 > *Wait, aren't parameters and arguments the exact same thing?* This is a very common stumbling block! They are closely related, but they play distinct roles depending on whether you are *building* the tool or *using* the tool:
 
-* **Parameter**: The placeholder name used when **defining** the function (e.g., `radius`). Think of it as an empty, labeled mailbox waiting for a delivery.
-* **Argument**: The actual data value passed into the function when you **call** it (e.g., `50`). This is the actual package you drop into that mailbox.
+* **{term}`Parameter <Parameter>`**: The placeholder name used when **defining** the function (e.g., `radius`). Think of it as an empty, labeled mailbox waiting for a delivery.
+* **{term}`Argument <Argument>`**: The actual data value passed into the function when you **call** it (e.g., `50`). This is the actual package you drop into that mailbox.
 
 When you pass data into a function, Python needs a set of rules to figure out which argument belongs to which parameter. There are two main ways to do this:
 
@@ -166,6 +182,7 @@ For example, let's calculate the distance between Beirut (33.8869° N, 35.5131°
 # BAD: All these numbers look similar (31-35). Did I pass Lat/Lon or Lon/Lat?
 dist = haversine(33.8869, 35.5131, 31.7683, 35.2137)
 
+
 ```
 
 This is incredibly dangerous in spatial analysis. If you accidentally provide the longitude first (`35.5131, 33.8869`), Python won't throw an error. It will just quietly place your data point 200 kilometers away, floating in the middle of the Mediterranean Sea!
@@ -190,6 +207,21 @@ You can mix positional and keyword arguments in the same function call, but **po
 If you try to write `haversine(lat1=33.8869, 35.5131, lat2=31.7683, 35.2137)`, Python will raise a `SyntaxError: positional argument follows keyword argument`. Once you use a keyword, every argument after it must also use a keyword.
 
 ```
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L04_ch02_02_argument_mapper/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Python Argument Mapper.</b><br>
+    Click "1. Positional" and run the calculation to see data packet order determine parameter mapping. Use the "Trigger Spatial Trap" button to deliberately swap Lon/Lat in the positional call, witnessing how swapping arguments causes the point to float in the Mediterranean Sea (illustrating a common spatial error). Switch to "2. Keyword" to see how explicitly labeling packets guarantees they land in the correct parameter mailbox regardless of their order in the call. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L04_ch02_02_argument_mapper/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -223,14 +255,6 @@ print("The stored output is:", output)
 
 ```
 
-**Output:**
-
-```text
-500.0
-The stored output is: None
-
-```
-
 ---
 
 ### The `None` Trap
@@ -254,19 +278,50 @@ print("The stored output is:", output)
 
 ```
 
-**Output:**
-
-```text
-The stored output is: 500.0
-
-```
-
 ```{admonition} Rule of Thumb
 :class: tip
 
 Use `print()` when you are debugging or want to show a message to the user. Use `return` when you are building tools and processing data that your script needs to hold onto.
 
 ```
+
+#### Concept Check: The Silent Crash
+
+You write a custom function called `get_elevation(x, y)` that does some complex topography math and finishes with the statement `print(elevation)`.
+
+Later in your script, you try to calculate the height difference between two peaks using your new tool:
+`diff = get_elevation(x1, y1) - get_elevation(x2, y2)`
+
+What happens when you run this code?
+
+A) The computer calculates the difference correctly and prints it to the screen.
+
+B) The computer flashes the two individual elevations on the screen, then crashes with a `TypeError` because you are trying to subtract `None` from `None`.
+
+C) The computer silently calculates the difference, but you won't see it until you `print(diff)`.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+Because your function used `print()` instead of `return`, it never actually handed the elevation data back to the main script. The computer displays the numbers for human eyes, but the script itself only received `None`. Trying to do math with `None` will crash your pipeline immediately!
+
+```
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L04_ch02_01_print_vs_return/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Print vs Return Visualizer.</b><br>
+    Click "Run Code" to observe the crucial difference between displaying data to a human user via <code>print()</code> and safely handing data back to the computer's memory using <code>return</code>. Notice how attempting downstream math operations with a "print-only" function leads to an immediate program crash. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L04_ch02_01_print_vs_return/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -316,9 +371,48 @@ Why is this approach so powerful for spatial data science?
 
 Imagine you are processing messy GPS coordinates. You might build one function to clean the text (`clean_coordinates`), another to convert the format (`dms_to_decimal`), and a third to calculate the distance (`haversine`).
 
-By keeping these functions separate and letting them call each other, your code becomes **modular**. If you realize you made a mistake in your text-cleaning logic, you only have to fix the `clean_coordinates` function. Because your other tools just call that function, fixing it in one place automatically fixes your entire pipeline.
+By keeping these functions separate and letting them call each other, your code becomes **{term}`modular <Module>`**. If you realize you made a mistake in your text-cleaning logic, you only have to fix the `clean_coordinates` function. Because your other tools just call that function, fixing it in one place automatically fixes your entire pipeline.
 
 This is the essence of good software design: solve a small problem once, and reuse that solution everywhere.
+
+---
+
+#### Concept Check: The Modular Fix
+
+You are building a spatial processing pipeline. Your main script calls a function `calculate_distance()`. Inside `calculate_distance()`, the code calls another function you built called `dms_to_decimal()` to clean the coordinates before running the math.
+
+You suddenly discover a bug in how degrees are converted to decimals. Because your code is modular, what is the most efficient way to fix the bug?
+
+A) You must rewrite the entire script from top to bottom.
+
+B) You only need to update the math inside the `dms_to_decimal()` function.
+
+C) You must update the `calculate_distance()` function to bypass the broken tool.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+Because you separated the logic into discrete building blocks (modularity), you only need to fix the specific block that is broken. You simply update the `dms_to_decimal()` function. Because `calculate_distance()` automatically calls it, the fix will cascade through the rest of your pipeline instantly without requiring any other changes.
+
+```
+
+---
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L04_ch02_03_function_composition/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Function Composition Visualizer.</b><br>
+    Click "Run Pipeline" to watch how data flows between modular functions. Notice how the wrapper function acts as a manager: it passes the initial radius to the area tool, catches the returned output, and immediately feeds it into the density tool to calculate the final result. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L04_ch02_03_function_composition/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -369,7 +463,7 @@ Before we can calculate flight paths, we must clean our data. GPS devices often 
 To calculate decimal degrees, we can use the formula below:
 
 * If degrees are positive: $DD = degrees + (minutes / 60) + (seconds / 3600)$
-* If degrees are negative: $DD = degrees − (minutes / 60) − (seconds / 3600)$
+* If degrees are negative: $DD = degrees - (minutes / 60) - (seconds / 3600)$
 
 **Your Task:** Write a function called `dms_string_to_decimal(dms_string)` that takes a single coordinate string formatted with spaces.
 
@@ -541,6 +635,6 @@ In this section, you learned the viable mechanics needed to build and use a func
 
 ### What comes next?
 
-You now understand the basic mechanics of building predictable, modular functions.  You know how to pass data in, and how to safely `return` data back out. 
+You now understand the basic mechanics of building predictable, modular functions.  You know how to pass data in, and how to safely `return` data back out.
 
 But as you start designing more complex spatial tools, you need to understand how Python manages memory behind the scenes. In the next section, **Function Design Concepts**, we will look at where your variables actually "live" (scope), how to make your tools more flexible using optional parameters, and how to avoid the dangerous memory traps that catch many beginner data scientists.
