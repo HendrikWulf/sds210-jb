@@ -1,14 +1,15 @@
 ---
-
 title: Using Web APIs
+
 site:
   outline_maxdepth: 1
-
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Connecting Python to the live web
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -22,6 +23,20 @@ Connecting Python to the live web
 You do not need to download every dataset you want to analyze.
 
 **APIs** allow your code to ask web servers for exactly the data you need, right when you need it.
+
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for querying spatial data directly into your notebooks without downloading heavy files)  
+**Project Relevance:** ★★★ (Crucial for accessing real-time weather, routing, or satellite imagery in projects)  
+**Foundation:** ★★☆ (A core skill in modern software engineering, bridging local code with web services)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Learn how to programmatically request live data from external web servers, parse the JSON responses, and safely navigate API rate limits.  
+**Skip this if:** You are already completely comfortable using the `requests` library, navigating REST APIs, parsing JSON hierarchies, and using `time.sleep()` to prevent 429 errors.
 
 ```
 
@@ -41,7 +56,7 @@ In this section, you will learn how to write Python code that fetches live infor
 
 ## 1. Introduction to Web APIs
 
-An API (Application Programming Interface) is essentially a set of rules that allows one program to talk to another program. Many modern websites, scientific institutions, and government agencies provide an API so that developers can query their databases in an automated way.
+An **{term}`API`** (Application Programming Interface) is essentially a set of rules that allows one program to talk to another program. Many modern websites, scientific institutions, and government agencies provide an API so that developers can query their databases in an automated way.
 
 For spatial analysis, Web APIs are critical. They allow you to access massive computing resources without running heavy operations on your own machine. Common spatial use cases include:
 
@@ -50,7 +65,7 @@ For spatial analysis, Web APIs are critical. They allow you to access massive co
 * Getting driving directions and routing between places.
 * Downloading specific slices of massive satellite datasets.
 
-Most spatial {term}`API`s use a standard called {abbr}`REST (Representational State Transfer)`, meaning you interact with them over standard web protocols ([HTTP](https://en.wikipedia.org/wiki/HTTP)), exactly like your web browser does when loading a page.
+Most spatial APIs use a standard called **{term}`REST`** (Representational State Transfer), meaning you interact with them over standard web protocols ([HTTP](https://en.wikipedia.org/wiki/HTTP)), exactly like your web browser does when loading a page.
 
 :::{figure} images/12_browser_vs_python.png
 :alt: Analogy comparing how a browser gets HTML with how Python gets JSON.
@@ -64,9 +79,9 @@ Most spatial {term}`API`s use a standard called {abbr}`REST (Representational St
 
 ## 2. The requests module
 
-To query a server, your code needs to send a request over the internet and wait for a response. The community-built `requests` module is the absolute standard for doing this in Python.
+To query a server, your code needs to send a request over the internet and wait for a response. The community-built `requests` **{term}`module <Module>`** is the absolute standard for doing this in Python.
 
-When you send a request, the server sends back a response containing both the data and a **status code**. The status code tells you if your request was successful (Code 200 means "OK").
+When you send a request, the server sends back a response containing both the data and a **{term}`status code <Status code>`**. The status code tells you if your request was successful (Code 200 means "OK").
 
 ```{code-cell} python
 import requests
@@ -77,21 +92,26 @@ response = requests.get('https://objectiveunclear.com/airloom.html?airport=ZRH')
 # Check if the request was successful
 print(response.status_code)
 
+
 ```
-#### Concept check
+
+#### Concept Check: The Missing Data
 
 Imagine you write a script to download a dataset from a government API, but you accidentally misspell the URL: `requests.get('https://api.weather.gov/spelled_wrong')`.
 
 Will Python crash on this line? What will the `status_code` likely be?
 
-```{admonition} Will it crash?
+A) Python will crash immediately with a `ConnectionError`.
+
+B) Python will not crash, but the `status_code` will be `404` (Not Found).
+
+C) Python will not crash, and the `status_code` will be `200` (OK), but the data will be empty.
+
+```{admonition} Check your understanding
 :class: dropdown
 
-**Python will not crash, but the status code will be 404 (Not Found).**
-
-The `requests` module successfully did its job: it sent a message to the server, and the server successfully replied with "I can't find that page." 
-
-Because Python itself doesn't crash when a URL is wrong, it is entirely up to you as the programmer to write an `if response.status_code == 200:` check before trying to extract data. If you try to run `.json()` on a 404 error page, *then* your code will crash!
+**Answer: B**
+The `requests` module successfully did its job: it sent a message to the server, and the server successfully replied with "I can't find that page." Because Python itself doesn't crash when a URL is wrong, it is entirely up to you as the programmer to write an `if response.status_code == 200:` check before trying to extract data. If you try to run `.json()` on a 404 error page, *then* your code will crash!
 
 ```
 
@@ -99,7 +119,7 @@ Because Python itself doesn't crash when a URL is wrong, it is entirely up to yo
 
 ## 3. Understanding JSON
 
-When an API sends data back to you, it almost always uses a format called **JSON** (JavaScript Object Notation). [JSON](https://en.wikipedia.org/wiki/JSON) is the universal language for data exchange on the web. Conveniently, it looks and behaves almost exactly like nested Python dictionaries and lists.
+When an API sends data back to you, it almost always uses a format called **{term}`JSON`** (JavaScript Object Notation). JSON is the universal language for data exchange on the web. Conveniently, it looks and behaves almost exactly like nested Python **{term}`dictionaries <Dictionary>`** and **{term}`lists <List>`**.
 
 :::{figure} images/13_json_structure.png
 :alt: A comparison diagram showing raw JSON text on the left, an arrow labeled ".json()", and a visualized Python dictionary hierarchy on the right.
@@ -109,11 +129,11 @@ When an API sends data back to you, it almost always uses a format called **JSON
 *Visual representation of JSON data: The text format on the left is automatically parsed into a structured, hierarchical Python dictionary/list on the right, allowing easy data access using keys.*
 :::
 
-*(Note: When dealing with vector shapes like polygons, APIs use a spatial flavor of this format called GeoJSON. We will explore GeoJSON later in the course.)*
+*Note: When dealing with vector shapes like polygons, APIs use a spatial flavor of this format called GeoJSON. We will explore GeoJSON later in the course.*
 
 The `requests` module has a built-in `.json()` method that automatically converts the raw text response from the server directly into a Python dictionary that you can navigate.
 
-```{code-cell} python
+```python
 # Assuming 'response' is a successful request holding JSON data
 data = response.json()
 
@@ -167,7 +187,7 @@ By changing the latitude and longitude in the `parameters` dictionary, you can i
 
 > *If you are curious, inspect the `data["current_weather"]` dictionary to see which other weather parameters are included, like `windspeed` and `winddirection`.*
 
-#### Concept check
+#### Concept Check: Dictionary Drill-Down
 
 Assume you successfully pinged the Open-Meteo API and converted the response into a Python dictionary called `data`. The raw JSON structure looks like this:
 
@@ -187,13 +207,17 @@ Assume you successfully pinged the Open-Meteo API and converted the response int
 
 How would you extract the `winddirection` value (270) and save it to a variable?
 
-```{admonition} Drill down the dictionary!
+A) `direction = data["winddirection"]`
+
+B) `direction = data["current_weather", "winddirection"]`
+
+C) `direction = data["current_weather"]["winddirection"]`
+
+```{admonition} Check your understanding
 :class: dropdown
 
-`direction = data["current_weather"]["winddirection"]`
-
-**Why?**
-You cannot just ask for `data["winddirection"]` because that key is hidden inside a nested dictionary. You must step through the hierarchy sequentially: first opening the `"current_weather"` dictionary, and *then* selecting the `"winddirection"` key inside it.
+**Answer: C**
+You cannot just ask for `data["winddirection"]` because that key is hidden inside a nested dictionary. You must step through the hierarchy sequentially using chained bracket notation: first opening the `"current_weather"` dictionary, and *then* selecting the `"winddirection"` key inside it.
 
 ```
 
@@ -201,7 +225,7 @@ You cannot just ask for `data["winddirection"]` because that key is hidden insid
 
 ## 5. Fetching historical climate data (CSV)
 
-In the previous example, the Open-Meteo API returned data in JSON format. However, many government portals and scientific institutions provide their open data directly as text files, such as CSVs (Comma-Separated Values).
+In the previous example, the Open-Meteo API returned data in JSON format. However, many government portals and scientific institutions provide their open data directly as text files, such as CSVs (**{term}`Comma-separated values`**).
 
 The `requests` module does not care what type of file it is downloading; it simply fetches the raw text from the server.
 
@@ -249,6 +273,7 @@ if response.status_code == 200:
 else:
     print(f"Failed to fetch data. Status code: {response.status_code}")
 
+
 ```
 
 If you run this code, you will see exactly 12 lines of data (one for each month of 1953).
@@ -267,7 +292,7 @@ While we *can* use basic string tools like `.splitlines()` and `.split(";")` to 
 
 ## 6. API rate limiting
 
-Computers are fast. It is very easy to write a loop that sends thousands of queries per second to check the weather in every city globally. Servers cannot handle that much traffic from a single user, so API providers enforce **rate limiting**.
+Computers are fast. It is very easy to write a loop that sends thousands of queries per second to check the weather in every city globally. Servers cannot handle that much traffic from a single user, so API providers enforce **{term}`rate limiting <Rate limiting>`**.
 
 If you send too many requests too fast, the server will reject them and return an error code (often HTTP 429 "Too Many Requests").
 
@@ -291,9 +316,45 @@ for x in range(3):
     # Pause for 1 second to respect rate limits
     time.sleep(1)
 
+
 ```
 
 By adding `time.sleep()` inside your data-fetching loops, you ensure your program plays nicely with the API provider's rules.
+
+#### Concept Check: The Sudden Stop
+
+You wrote a loop to fetch the elevation of 50,000 coordinate points using a free spatial API. Your code runs perfectly for the first 50 points, but then it suddenly crashes, with the server returning a `429` status code.
+
+What is the most likely cause, and how do you fix it?
+
+A) Your internet connection dropped; you should use a `while` loop to try the request again.
+
+B) You hit a rate limit; you should add `time.sleep()` inside the loop to slow down your requests.
+
+C) The server ran out of elevation data; you must switch to a different API provider entirely.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+A `429` status code specifically means "Too Many Requests." Free APIs often limit users to a certain number of queries per minute (e.g., 50 requests/min). Adding a small pause using `time.sleep(1)` inside your loop paces your code, keeping you under the server's threshold and allowing your massive extraction to complete safely.
+
+```
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L05_ch04_01_api_rate_limiting/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: API Rate Limiting.</b><br>
+    Simulate sending requests to a server with limited capacity. Try running a standard <code>for</code> loop without delays to see how the server turns red and rejects packets with a <code>429</code> error. Then, run the paced loop using <code>time.sleep()</code> to safely extract all the data. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L05_ch04_01_api_rate_limiting/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -316,7 +377,6 @@ Since we are sending 10 requests in a row, we must respect the server's rate lim
 5. Send the `requests.get()` command and parse the JSON response.
 6. Extract the `windspeed` value from the `current_weather` dictionary and print it alongside the city name.
 7. Add `time.sleep(0.5)` at the very end of your loop to pause for half a second before the next city is processed.
-
 
 ```{code-cell} python
 import requests

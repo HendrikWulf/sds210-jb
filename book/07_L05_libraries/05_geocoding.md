@@ -4,9 +4,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Translating addresses into coordinates
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -19,7 +21,21 @@ Translating addresses into coordinates
 
 We understand the world through names and addresses. Computers understand the world through geometry and coordinates.
 
-**Geocoding** is the bridge that translates human places into machine locations.
+**{term}`Geocoding`** is the bridge that translates human places into machine locations.
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Required for turning real-world address data into mappable coordinates in assignments)  
+**Project Relevance:** ★☆☆ (Some spatial projects start with point-of-interest address lists that must be geocoded)  
+**Foundation:** ★★☆ (A valuable spatial data processing step, relying on external API services)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Learn how to automatically translate physical addresses into mappable coordinates, and convert coordinates back into human-readable locations using the `geopy` library.  
+**Skip this if:** You already know how to use the `geopy` library to forward and reverse geocode data using Nominatim and handle missing data (`None`) safely.
+
 ```
 
 :::{figure} images/16_geocoding_concept.png
@@ -40,7 +56,7 @@ In this section, you will learn how to convert place names into geographic coord
 
 Geocoding is the process of transforming a text description of a location (like "42 Rue du Languedoc, 31000 Toulouse, France") into a spatial representation (like `latitude: 43.5983, longitude: 1.4457`).
 
-Under the hood, geocoding relies heavily on the Web APIs we just learned about. When you ask a program to geocode an address, it sends a request to a massive database of geographic data (like Google Maps or OpenStreetMap). The server searches its database, finds the matching coordinates, and sends the geometry back to you.
+Under the hood, geocoding relies heavily on the **{term}`Web APIs <API>`** we just learned about. When you ask a program to geocode an address, it sends a request to a massive database of geographic data (like Google Maps or OpenStreetMap). The server searches its database, finds the matching coordinates, and sends the geometry back to you.
 
 ---
 
@@ -62,6 +78,7 @@ To get started, we import the `Nominatim` tool from `geopy.geocoders`.
 
 ```{code-cell} python
 from geopy.geocoders import Nominatim
+
 ```
 
 To use Nominatim, we first need to initialize our geocoder. OpenStreetMap requires us to provide a `user_agent`, which is simply a custom name identifying our application so they know who is making the requests.
@@ -72,18 +89,20 @@ To use Nominatim, we first need to initialize our geocoder. OpenStreetMap requir
 Because Nominatim is a free public service, they use the `user_agent` to monitor traffic and prevent abuse. If every student in this course uses the exact same app name, the server might think one person is spamming them and block our access. 
 
 Please change the string below to something unique, such as a random number, your name or whatever you deem suitable.
+
 ```
 
 ```{code-cell} python
 # Initialize the geocoder with a *unique* custom app name
 geolocator = Nominatim(user_agent="sds_course_YOUR_UNIQUE_ID_HERE")
+
 ```
 
 ---
 
 ## 3. Forward geocoding
 
-Forward geocoding is the standard process of going from text to coordinates. We can pass an address or landmark directly to the `.geocode()` method.
+**{term}`Forward geocoding`** is the standard process of going from text to coordinates. We can pass an address or landmark directly to the `.geocode()` method.
 
 ```{code-cell} python
 # Ask Nominatim to find the Eiffel Tower
@@ -99,25 +118,29 @@ if location:
     print(f"Longitude: {location.longitude}")
 else:
     print("Location not found.")
+
 ```
 
 Notice that Nominatim returns the full, officially formatted address alongside the exact latitude and longitude.
 
-#### Concept check
+#### Concept Check: The Missing City
 
 Imagine you try to geocode a fictional or highly misspelled place:
 `location = geolocator.geocode("City of Atlantis")`
 
-If you try to run `print(location.latitude)` on the very next line, what will happen?
+If you try to run `print(location.latitude)` on the very next line without using an `if location:` check, what will happen?
 
-```{admonition} Will it print, skip, or crash?
+A) Python prints `0.0`.
+
+B) Python crashes with an `AttributeError`.
+
+C) Python prints `None`.
+
+```{admonition} Check your understanding
 :class: dropdown
 
-**It will crash with an `AttributeError`.**
-
-When Nominatim cannot find a matching location, it does not crash on the `.geocode()` line. Instead, it quietly returns a special Python value called `None` (meaning "nothing"). 
-
-If you try to extract a latitude from `None`, Python throws an error because "nothing" doesn't have a latitude! This is why you must **always** use an `if location:` check before trying to extract the coordinates, just like in the example code above.
+**Answer: B**
+When Nominatim cannot find a matching location, it does not crash on the `.geocode()` line. Instead, it quietly returns a special Python value called `None` (meaning "nothing"). If you try to extract a latitude from `None`, Python throws an `AttributeError` because "nothing" doesn't have a latitude! This is why you must **always** use an `if location:` check before trying to extract coordinates.
 
 ```
 
@@ -125,7 +148,7 @@ If you try to extract a latitude from `None`, Python throws an error because "no
 
 ## 4. Reverse geocoding
 
-Sometimes you have a GPS coordinate and you need to know what physical address it corresponds to. This is called **reverse geocoding**.
+Sometimes you have a GPS coordinate and you need to know what physical address it corresponds to. This is called **{term}`reverse geocoding <Reverse geocoding>`**.
 
 Using the exact same `geolocator` we initialized above, we can use the `.reverse()` method. We pass the coordinates as a single string formatted as `"latitude, longitude"`.
 
@@ -138,22 +161,24 @@ location = geolocator.reverse(mystery_coordinate)
 
 print("What is located at this coordinate?")
 print(location.address)
+
 ```
 
-#### Concept check
+#### Concept Check: Choosing the Right Tool
 
-Which `geolocator` method (`.geocode()` or `.reverse()`) would you use for the following scenarios?
+You have a CSV file exported from your smartwatch tracking your morning run as a series of GPS points. If you want to automatically determine the names of the streets you ran on, which method should you use?
 
-1. You have a CSV file containing a column of customer zip codes and city names.
-2. You have a GPX file exported from your smartwatch tracking your morning run.
-3. You have a database of Mastodon posts containing geotags (latitude/longitude metadata).
+A) `.geocode()` (Forward Geocoding)
 
-```{admonition} Choose your method!
+B) `.reverse()` (Reverse Geocoding)
+
+C) Neither, you must manually calculate distances using the `math` module.
+
+```{admonition} Check your understanding
 :class: dropdown
 
-1. **`.geocode()` (Forward)**: You have text (zip codes/cities) and need to find where they are on a map.
-2. **`.reverse()` (Reverse)**: A smartwatch GPX track is pure coordinate data. If you want to know which streets you ran on, you must reverse-geocode the points.
-3. **`.reverse()` (Reverse)**: The geotags are already spatial coordinates. To group the posts by neighborhood or city name, you must reverse-geocode them.
+**Answer: B**
+A smartwatch GPX track is pure coordinate data. If you want to know which streets you ran on, you must reverse-geocode the points to translate the abstract spatial coordinates back into human-readable text.
 
 ```
 
@@ -167,11 +192,24 @@ Which `geolocator` method (`.geocode()` or `.reverse()`) would you use for the f
 
 Just like that, `geopy` asks OpenStreetMap what exists at those exact coordinates, revealing a great pizza restaurant called "[Casa Manco](https://casamanco.it/)"!
 
----
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L05_ch05_01_geocoding/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Geocoding Visualizer.</b><br>
+    Toggle between Forward and Reverse geocoding to see how data flows between your Python code and the Nominatim API server. Try running "The Bad Address" simulation to visualize why forgetting to check if the server returned a valid location results in a sudden Python crash. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L05_ch05_01_geocoding/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ## 5. API etiquette and rate limiting
 
-Because `geopy` is using Web APIs in the background, all the rules regarding rate limiting from the previous section still apply.
+Because `geopy` is using Web APIs in the background, all the rules regarding **{term}`rate limiting <Rate limiting>`** from the previous section still apply.
 
 Nominatim is a free service, but it has very strict usage policies. They limit users to **1 request per second**. If you try to geocode a list of 100 addresses instantly using a loop, OpenStreetMap will permanently block your access.
 
@@ -192,6 +230,7 @@ for place in tqdm(places):
     
     # Crucial: sleep for 1 second to respect Nominatim's strict rules
     time.sleep(1)
+
 ```
 
 ---
@@ -233,6 +272,7 @@ else:
 
 **Key idea:**
 If your search returns an error or `None`, try making your text string more specific by adding the city or country name.
+
 ``````
 
 ### Exercise 2: Geocoding accident hotspots
@@ -268,6 +308,7 @@ accident_coords = [
 ]
 
 # Your loop goes here
+
 ```
 
 ``````{admonition} Sample solution
@@ -306,6 +347,7 @@ for coordinate in accident_coords:
 
 **Key idea:**
 Reverse geocoding is incredibly useful for enriching raw spatial data (like GPS tracks or accident reports) with human-readable context (like street names and intersections), turning abstract numbers into actionable information for city planners or emergency responders.
+
 ``````
 
 ---

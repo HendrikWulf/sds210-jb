@@ -7,9 +7,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Extending Python with community tools
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -27,9 +29,22 @@ The global Python community has already built and shared code for almost any tas
 
 ```
 
-In the previous sections, you learned how to write your own custom modules and how to unlock the tools bundled in the Python Standard Library. This gave you a solid foundation. However, Python truly shines because of its massive open source ecosystem.
+```{admonition} Chapter Relevance
+:class: dropdown
 
-When you want to perform specialized tasks like processing geospatial polygons, creating interactive maps, or visually tracking your code's progress, the Standard Library is not quite enough. This is where **third party modules** come in.
+**Lab Relevance:** ★★★ (Essential for passing labs; you must install spatial libraries like `geopandas` to succeed)  
+**Project Relevance:** ★★★ (All advanced data science projects rely heavily on community packages)  
+**Foundation:** ★★★ (Core to navigating the modern Python ecosystem)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Learn how to tap into Python's vast open-source ecosystem by using package managers to download and import powerful community-built tools.  
+**Skip this if:** You already know how to use `pip` or `conda` to install external packages into a virtual environment, and clearly understand namespace logic when importing functions.
+
+```
+
+In the previous sections, you learned how to write your own custom **{term}`modules <Module>`** and how to unlock the tools bundled in the Python Standard Library. This gave you a solid foundation. However, Python truly shines because of its massive open source ecosystem.
+
+When you want to perform specialized tasks like processing geospatial polygons, creating interactive maps, or visually tracking your code's progress, the Standard Library is not quite enough. This is where **{term}`third-party modules <Third-party package>`** come in.
 
 ## 1. The open source ecosystem
 
@@ -41,12 +56,12 @@ Because they are created by the community and not the core Python team, they do 
 
 ## 2. Package managers
 
-To get these external tools onto your computer, we use **package managers**. You can think of a package manager as an app store for code. It finds the software you request, downloads it, and figures out if it needs any other supporting software (dependencies) to run properly.
+To get these external tools onto your computer, we use **{term}`package managers <Package manager>`**. You can think of a package manager as an app store for code. It finds the software you request, downloads it, and figures out if it needs any other supporting software (**{term}`dependencies <Dependency>`**) to run properly.
 
 As discussed in the environment setup chapter, there are two main package managers you will encounter:
 
-* **pip**: The default Python package installer. It downloads packages from the Python Package Index (PyPI).
-* **conda**: A powerful manager that handles Python packages as well as complex system software (like C++ libraries). This makes it the preferred choice for geospatial data science, where tools often rely on heavy external libraries.
+* **{term}`pip`**: The default Python package installer. It downloads packages from the Python Package Index (PyPI).
+* **{term}`conda <Conda>`**: A powerful manager that handles Python packages as well as complex system software (like C++ libraries). This makes it the preferred choice for geospatial data science, where tools often rely on heavy external libraries.
 
 :::{figure} images/09_package_manager_flow.png
 :alt: Flowchart showing package managers pulling packages from the cloud into a local environment.
@@ -60,9 +75,9 @@ As discussed in the environment setup chapter, there are two main package manage
 
 ## 3. Installing external packages
 
-You cannot install a package from inside a standard Python script. Installation happens in your command line interface (like Anaconda Prompt or your system Terminal).
+You cannot install a package from inside a standard Python script. Installation happens in your command line interface (like Anaconda Prompt or your system **{term}`Terminal`**).
 
-To keep your projects stable, you should always ensure your project specific virtual environment is active before installing new tools.
+To keep your projects stable, you should always ensure your project specific **{term}`virtual environment <Virtual environment>`** is active before installing new tools.
 
 If you wanted to install a package for progress bars and a package for geospatial calculations, you would run commands like this in your terminal (using the `conda-forge` community channel):
 
@@ -87,9 +102,25 @@ Once a third party package is installed, bringing it into your notebook is exact
 from tqdm import tqdm
 import geopy
 
+
 ```
 
-Because third party libraries can be massive, the `dir()` and `help()` functions you learned about earlier might output an overwhelming amount of information. For community packages, your best approach is to read the official online documentation. Most popular packages host comprehensive guides and tutorials on websites like *Read the Docs*.
+Because third party libraries can be massive, the `dir()` and `help()` **{term}`functions <Function>`** you learned about earlier might output an overwhelming amount of information. For community packages, your best approach is to read the official online documentation. Most popular packages host comprehensive guides and tutorials on websites like *Read the Docs*.
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L05_ch03_01_package_manager/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Package Manager Workflow.</b><br>
+    Click "1. conda install geopy" to download the external package from the cloud into your local virtual environment. Then, click "Run Notebook" to see how your <code>import</code> statement connects to that installed code. Try running the notebook before installing to see the classic <code>ModuleNotFoundError</code>. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L05_ch03_01_package_manager/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -122,7 +153,7 @@ By simply wrapping our sequence in `tqdm()`, we get a visual progress bar, a per
 
 ```
 
-#### Concept check
+#### Concept Check: Import Statements and Namespaces
 
 Look closely at our import statement:
 `from tqdm import tqdm`
@@ -132,16 +163,17 @@ If we changed our code to instead read:
 
 How would you have to rewrite the loop initialization line (`for i in tqdm(range(5)):`) to make it work without crashing?
 
-```{admonition} Test your namespace knowledge!
+A) `for i in tqdm(range(5)):` (No change needed)
+
+B) `for i in tqdm.tqdm(range(5)):`
+
+C) `for i in tqdm.bar(range(5)):`
+
+```{admonition} Check your understanding
 :class: dropdown
 
-You would have to write:
-`for i in tqdm.tqdm(range(5)):`
-
-**Why?**
-When you write `import tqdm`, you are importing the entire *module* (the folder of code) named `tqdm`. To use the specific progress-bar *function* (which is also named `tqdm`) inside that folder, you must use dot notation: `module.function()`, which results in `tqdm.tqdm()`.
-
-Using `from tqdm import tqdm` skips the folder name and pulls the specific function directly into your main workspace, allowing you to just write `tqdm()`.
+**Answer: B**
+When you write `import tqdm`, you are importing the entire module (the folder of code) named `tqdm` into your **{term}`namespace <Namespace>`**. To use the specific progress-bar function (which is also named `tqdm`) inside that folder, you must use dot notation: `module.function()`, which results in `tqdm.tqdm()`. Using `from tqdm import tqdm` skips the folder name and pulls the specific function directly into your main workspace, allowing you to just write `tqdm()`.
 
 ```
 
@@ -153,7 +185,7 @@ In the previous sections, you wrote your own function for Euclidean distance and
 
 Writing complex math formulas yourself is prone to typos. Instead, we can trust the `geopy` package, which has been rigorously tested by thousands of developers.
 
-This [function](https://geopy.readthedocs.io/en/stable/#module-geopy.distance) calculates the shortest geodesic distance between two points on the surface of the Earth. Instead of treating the Earth as a perfect sphere, `geopy` uses a highly accurate ellipsoidal model (WGS-84) by default. It accepts coordinates in `(latitude, longitude)` order, and can output the distance in kilometers, meters, or miles.
+This [function](https://geopy.readthedocs.io/en/stable/#module-geopy.distance) calculates the shortest **{term}`geodesic distance <Geodesic distance>`** between two points on the surface of the Earth. Instead of treating the Earth as a perfect sphere, `geopy` uses a highly accurate ellipsoidal model (WGS-84) by default. It accepts coordinates in `(latitude, longitude)` order, and can output the distance in kilometers, meters, or miles.
 
 ```{code-cell} python
 from geopy import distance
@@ -202,7 +234,6 @@ We have provided a list of cities in geographical order from north to south, alo
 5. Calculate the geodesic distance between them in kilometers and add it to `total_distance`.
 6. Use `time.sleep(1)` to pause for one second so you can watch the progress bar update.
 7. Print the final cumulative distance after the loop finishes.
-
 
 ```{code-cell} python
 # Copy this list into your script
@@ -255,9 +286,7 @@ print(f"\nTotal tour distance: {total_distance:.1f} km")
 **Key idea:**
 Third-party modules abstract away the hard parts. `tqdm` handles all the complex time calculations and visual formatting behind the scenes, while `geopy` handles the intense spatial math, leaving you free to focus on the logic of planning your trip!
 
-
 ``````
-
 
 ---
 
@@ -278,6 +307,7 @@ Before you write the code, take a guess: How much longer is the circumference of
 Write a script below to find the real answer!
 
 ```
+
 :::{figure} images/10_oblate_spheroid_bulge.png
 :alt: Diagram of the Earth showing an exaggerated equatorial bulge to illustrate an oblate spheroid.
 :width: 700px
@@ -330,7 +360,6 @@ print(f"The equator is {difference:.1f} km longer!")
 
 **Key idea:**
 If you guessed **B (~67 km)**, you were right! You can trust established community packages to handle complex geometries like the WGS-84 ellipsoid under the hood. Writing the complex math to calculate distances on an oblate spheroid by hand would be incredibly tedious, but `geopy` handles it in a single line.
-
 
 ``````
 
