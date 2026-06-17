@@ -7,9 +7,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Connecting Python to the real world
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -310,7 +312,6 @@ You need to query the ORS API for the driving distance and travel time, and the 
 *Logic flow for an automated logistics pipeline: Chaining two distinct API requests (Routing and Weather) inside a loop, utilizing rate limiting to avoid server overload.*
 :::
 
-
 ### Code
 
 ```{code-cell} python
@@ -438,5 +439,3 @@ Take a moment to review what you have built. Answer briefly in comments or markd
 
 
 ``````
-
----

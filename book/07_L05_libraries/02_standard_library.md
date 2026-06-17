@@ -1,15 +1,15 @@
 ---
-
 title: The Python Standard Library
 
-site: 
-    outline_maxdepth: 1
-
+site:
+  outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Using batteries included with Python
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -22,14 +22,27 @@ Using batteries included with Python
 
 Python comes with "batteries included."
 
-Before you spend hours writing complex code to solve a common problem (like advanced math, statistics, or file management), check the **Standard Library**. Python likely already has a built-in tool designed to do exactly what you need—you just have to import it.
+Before you spend hours writing complex code to solve a common problem (like advanced math, statistics, or file management), check the Standard Library. Python likely already has a built-in tool designed to do exactly what you need—you just have to import it.
 
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Standard library modules like `os`, `pathlib`, and `math` are essential for almost every spatial lab)  
+**Project Relevance:** ★★☆ (Required for handling Web APIs and building robust file structures in projects)  
+**Foundation:** ★★★ (Core Python knowledge that prevents you from reinventing the wheel)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Learn how to leverage Python's built-in modules for advanced math, robust file system navigation, and JSON parsing without downloading external tools.  
+**Skip this if:** You are already comfortable importing standard modules, using `pathlib` for file paths, and unpacking nested responses using the `json` module.
 
 ```
 
 In the previous section, you learned how to write and import your own custom scripts. While building your own tools is a vital skill, you rarely need to invent everything from scratch.
 
-When you install Python, it automatically comes pre-packaged with the **Python Standard Library**. This is a substantial collection of highly optimized, ready-to-use modules. Whether you need to run complex statistical math, generate random coordinate samples, or navigate your computer's file system, the tools are already sitting on your machine. You do not need to download or install anything extra.
+When you install Python, it automatically comes pre-packaged with the **{term}`Python Standard Library <Standard library>`**. This is a substantial collection of highly optimized, ready-to-use **{term}`modules <Module>`**. Whether you need to run complex statistical math, generate random coordinate samples, or navigate your computer's file system, the tools are already sitting on your machine. You do not need to download or install anything extra.
 
 You just have to unlock them using the `import` command.
 
@@ -37,7 +50,7 @@ You just have to unlock them using the `import` command.
 
 ## 1. Importing modules
 
-To use a module from the Standard Library, you must import it at the top of your script or notebook. Once imported, you can access all the functions inside it by typing the module name, a dot, and the function name.
+To use a module from the Standard Library, you must import it at the top of your script or notebook. Once imported, you can access all the **{term}`functions <Function>`** inside it by typing the module name, a dot, and the function name.
 
 ```{code-cell} python
 import math
@@ -61,7 +74,7 @@ print(f"The value of pi is approximately {pi:.44f}")
 
 ## 2. Advanced math and statistics
 
-The `math` module provides access to advanced mathematical functions and constants. A great spatial data science example is calculating the exact distance between two coordinates on the spherical Earth using the Haversine formula.
+The `math` module provides access to advanced mathematical functions and constants. A great spatial data science example is calculating the exact distance between two coordinates on the spherical Earth using the **{term}`Haversine formula`**.
 
 :::{figure} images/05_haversine_spherical_distance.png
 :alt: Diagram comparing great-circle distance on a sphere's surface to a straight line cutting through it.
@@ -74,29 +87,35 @@ The `math` module provides access to advanced mathematical functions and constan
 ```{code-cell} python
 import math
 
-san_francisco = (37.77, -122.41) 
+san_francisco = (37.77, -122.41)
 new_york = (40.66, -73.94)
 
 def haversine_distance(origin, destination):
     """Calculates spherical distance between two coordinates in meters."""
     lat1, lon1 = origin
     lat2, lon2 = destination
-    radius = 6371000 # Earth radius in meters
-    
+    radius = 6371000  # Earth radius in meters
+
     dlat = math.radians(lat2 - lat1)
     dlon = math.radians(lon2 - lon1)
-    
-    a = math.sin(dlat/2)**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon/2)**2
+
+    a = (
+        math.sin(dlat / 2) ** 2
+        + math.cos(math.radians(lat1))
+        * math.cos(math.radians(lat2))
+        * math.sin(dlon / 2) ** 2
+    )
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    
+
     return radius * c
+
 
 dist = haversine_distance(san_francisco, new_york)
 print(f"Distance: {dist / 1000:.1f} km")
 
 ```
 
-``````{admonition} Useful tools in the math module
+```{admonition} Useful tools in the math module
 :class: dropdown
 
 While the `math` module contains dozens of functions, you will likely rely on this core set for most spatial and data science workflows:
@@ -125,7 +144,8 @@ While the `math` module contains dozens of functions, you will likely rely on th
 
 *Tip: You can view the complete list of mathematical functions anytime by visiting the [official Python documentation](https://docs.python.org/3/library/math.html).*
 
-``````
+
+```
 
 If you need to analyze lists of numbers, the `statistics` module is incredibly useful. It provides functions for calculating the mean, median, and mode of your data without writing loops yourself.
 
@@ -139,7 +159,7 @@ print(f"Median: {statistics.median(elevations)} m")
 
 ```
 
-``````{admonition} Useful tools in the statistics module
+```{admonition} Useful tools in the statistics module
 :class: dropdown
 
 The `statistics` module provides robust functions for calculating mathematical statistics of numeric data. Here are the most common functions you will use when analyzing datasets:
@@ -158,31 +178,33 @@ The `statistics` module provides robust functions for calculating mathematical s
 
 *Tip: You can view the complete list of statistical functions anytime by visiting the [official Python documentation](https://docs.python.org/3/library/statistics.html).*
 
-``````
 
-#### Concept check
+```
 
-Predict the result of these two common rounding operations. Remember to think about what "up" and "down" mean on a number line.
+#### Concept Check: Up or Down?
 
-```{code-cell} python
-import math
+Predict the result of the two common rounding operations below. Remember to think about what "up" and "down" mean on a number line.
 
-# Predict both results
+```python
 up_round = math.ceil(-5.2)
 down_round = math.floor(-5.2)
 
 ```
 
-```{admonition} Up or Down?
+A) `-5` and `-6`
+
+B) `-6` and `-5`
+
+C) `-5` and `-5`
+
+D) `-6` and `-6`
+
+```{admonition} Check your understanding
 :class: dropdown
 
-* `math.ceil(-5.2)` result is **`-5`**.
-* `math.floor(-5.2)` result is **`-6`**.
-
-Think of a number line:
-`math.ceil` always rounds towards **positive infinity**. The nearest integer "greater than" -5.2 is -5.
-`math.floor` always rounds towards **negative infinity**. The nearest integer "less than" -5.2 is -6.
-
+**Answer: A**
+`math.ceil` always rounds towards **positive infinity** ("up"). The nearest integer greater than -5.2 is `-5`. 
+`math.floor` always rounds towards **negative infinity** ("down"). The nearest integer less than -5.2 is `-6`.
 
 ```
 
@@ -206,7 +228,7 @@ print(f"Randomly selected city: {random_city}")
 
 ```
 
-``````{admonition} Useful tools in the random module
+```{admonition} Useful tools in the random module
 :class: dropdown
 
 The `random` module offers many ways to generate random numbers and make random selections. Here are the most common functions for spatial analysis and data science:
@@ -227,13 +249,14 @@ The `random` module offers many ways to generate random numbers and make random 
 
 *Tip: You can view the complete list of random functions anytime by visiting the [official Python documentation](https://docs.python.org/3/library/random.html).*
 
-``````
 
-#### Concept check
+```
 
-We need to pick two test sites. Predict which method guarantees you will select two **unique** cities.
+#### Concept Check: Unique Selections
 
-```{code-cell} python
+We need to pick two test sites from a list. Predict which method guarantees you will select two **unique** cities.
+
+```python
 import random
 cities = ["Zurich", "Geneva", "Basel", "Bern"]
 
@@ -246,15 +269,17 @@ sites_group = random.sample(cities, k=2)
 
 ```
 
-```{admonition} Unique results?
+A) Method A
+
+B) Method B
+
+C) Both methods guarantee unique cities.
+
+```{admonition} Check your understanding
 :class: dropdown
 
-**Method B** guarantees you will get two unique, different cities.
-
-The `random.sample()` function performs sampling **without replacement**. Once a city is picked, it cannot be picked again in that same call.
-
-**Method A** uses `random.choice()` twice. This is sampling **with replacement**. There is a 1-in-4 chance that `site_2` will randomly pick the exact same city as `site_1`.
-
+**Answer: B**
+**Method B** guarantees two unique cities because `random.sample()` performs sampling **without replacement**. Once a city is picked, it cannot be picked again in that same call. **Method A** uses `random.choice()` twice, representing sampling **with replacement**. There is a 1-in-4 chance that `site_2` will randomly pick the exact same city as `site_1`.
 
 ```
 
@@ -290,10 +315,9 @@ print(f"Pathlib Object: {current_folder_pathlib}")
 data_file = current_folder_pathlib / "data" / "elevations.csv"
 print(f"Looking for data at: {data_file}")
 
-
 ```
 
-``````{admonition} Useful tools in the os module
+```{admonition} Useful tools in the os module
 :class: dropdown
 
 The `os` module and its submodule `os.path` provide essential tools for navigating folders and managing files. Here are the most common functions you will use when organizing your spatial data projects:
@@ -318,9 +342,9 @@ The `os` module and its submodule `os.path` provide essential tools for navigati
 *Tip: You can view the complete list of OS functions anytime by visiting the [official Python documentation](https://docs.python.org/3/library/os.html).*
 
 
-``````
+```
 
-``````{admonition} Useful tools in the pathlib module
+```{admonition} Useful tools in the pathlib module
 :class: dropdown
 
 The `pathlib` module provides an object-oriented approach to file systems. Instead of passing messy text strings around, you work with `Path` objects. Here are the most common properties and methods:
@@ -348,32 +372,31 @@ The `pathlib` module provides an object-oriented approach to file systems. Inste
 *Tip: You can view the complete list of object-oriented path operations anytime by visiting the [official Python documentation](https://docs.python.org/3/library/pathlib.html).*
 
 
-``````
+```
 
-#### Concept check
+#### Concept Check: Smart object or flat string?
 
-Examine how the `/` operator works. Predict the type and content of the `final_path` variable.
+Examine how the `/` operator works in `pathlib`. Assume our **{term}`working directory <Working directory>`** is `C:/project/data/`. Predict the output type of the `final_path` variable.
 
-```{code-cell} python
+```python
 from pathlib import Path
-
-# Assume our current folder is: C:/project/data/
 my_folder = Path.cwd()
 
-# The division operator works on smart objects!
 final_path = my_folder.parent / "output" / "map.tif"
 
 ```
 
-```{admonition} Smart object or flat string?
+A) A simple string: `"C:/project/data/../output/map.tif"`
+
+B) A `<Path>` object pointing to `C:/project/output/map.tif`
+
+C) Python throws a `TypeError` for trying to divide a path by a string.
+
+```{admonition} Check your understanding
 :class: dropdown
 
-The variable `final_path` is a **`<Path>` object** containing the path **`C:/project/output/map.tif`**.
-
-The `/` operator on a Path object is extremely useful:
-1. It cleverly joins path segments while intelligently handling parental navigation (the `.parent` property moved the path one folder "up" before joining).
-2. The result is **still a Path object**, not just a simple string. You could immediately continue to call methods like `final_path.exists()` on it.
-
+**Answer: B**
+The variable `final_path` is a `<Path>` object containing the resolved path `C:/project/output/map.tif`. The `/` operator intelligently handles parent navigation (the `.parent` property moved the path one folder "up" to `C:/project/` before joining). Because the result is still a smart object, you can immediately chain methods like `final_path.exists()`.
 
 ```
 
@@ -381,7 +404,7 @@ The `/` operator on a Path object is extremely useful:
 
 ## 5. Formatting data with JSON
 
-JSON (JavaScript Object Notation) is a lightweight text format used to store and transport data. It looks almost exactly like Python dictionaries and lists. The `json` module allows you to convert text data into usable Python objects.
+**{term}`JSON`** (JavaScript Object Notation) is a lightweight text format used to store and transport data. It looks almost exactly like Python **{term}`dictionaries <Dictionary>`** and **{term}`lists <List>`**. The `json` module allows you to convert text data into usable Python objects.
 
 This is a critical skill for working with Web APIs, which almost always return data in JSON format.
 
@@ -397,8 +420,9 @@ This is a critical skill for working with Web APIs, which almost always return d
 import json
 
 # A string of text formatted as JSON
-api_response_text = '{"city": "Zurich", "coordinates": [8.54, 47.37], "population": 415000}'
-# Coordinates are stored as [longitude, latitude], like in GeoJSON
+api_response_text = (
+    '{"city": "Zurich", "coordinates": [47.37, 8.54], "population": 415000}'
+)
 
 # Convert the text string into a real Python dictionary
 data = json.loads(api_response_text)
@@ -421,7 +445,7 @@ In contrast, GeoJSON-style coordinate arrays usually store coordinates as **[lon
 Always check the expected order before using coordinates in calculations.
 ```
 
-``````{admonition} Useful tools in the json module
+```{admonition} Useful tools in the json module
 :class: dropdown
 
 The `json` module provides straightforward functions for reading and writing JSON data. Here are the core functions you will use when interacting with APIs or saving your data:
@@ -438,13 +462,12 @@ The `json` module provides straightforward functions for reading and writing JSO
 | `indent=4` | Used inside `dumps()` or `dump()` to "pretty-print" the JSON with 4 spaces of indentation, making it much easier for humans to read. |
 
 *Tip: You can view the complete documentation anytime by visiting the [official Python documentation](https://docs.python.org/3/library/json.html).*
-``````
 
-#### Concept check
+```
 
-You have successfully used `json.loads()` to convert an API response into a Python dictionary named `data`.
+#### Concept Check: JSON Drill Down
 
-Examine the raw JSON structure. Here, the `coordinates` list follows **GeoJSON convention**, so the order is **[longitude, latitude]**. Predict the nested key access required to extract the **longitude** (the first value in the list).
+You have successfully used `json.loads()` to convert an API response into a Python dictionary named `data`. Examine the raw JSON structure below. Which code snippet correctly extracts the **longitude** (the first value in the `coordinates` list)?
 
 ```json
 {
@@ -454,16 +477,22 @@ Examine the raw JSON structure. Here, the `coordinates` list follows **GeoJSON c
       "city": "Paris",
       "coordinates": [2.29, 48.85]
     }
-    ...
   }
 }
 
 ```
 
-```{code-cell} python
-# Predict the correct indexing path here. Fill in the blanks:
-# Hint: You will need multiple sets of []
-longitude_val = data[...][...][...][...]
+A) `data["properties"]["location"]["coordinates"][0]`
+
+B) `data["properties", "location", "coordinates", 0]`
+
+C) `data.properties.location.coordinates[0]`
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: A**
+To drill down into a nested dictionary, you must chain bracket notation for every level. `data["properties"]` accesses the main dictionary, `["location"]` accesses the nested dictionary, and `["coordinates"]` returns the list `[2.29, 48.85]`. Finally, `[0]` extracts the first item in that list (`2.29`). Option C is dot notation, which is used for objects, not dictionaries.
 
 ```
 
@@ -480,6 +509,21 @@ The correct path is:
 4. **`data["properties"]["location"]["coordinates"][0]`**: Extracts index 0, the very first item in that list, which is the longitude `2.29`.
 
 ```
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L05_ch02_01_json_drilldown/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: JSON Drill-Down.</b><br>
+    Click the highlighted keys in the Raw API Response to visualize how bracket notation builds a path into nested data. Try making a mistake to see what happens when you access a level out of order! For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L05_ch02_01_json_drilldown/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ```{admonition} Python Easter Eggs
 :class: tip
@@ -514,7 +558,7 @@ for i in range(3):
     # Use random.uniform to generate floating-point numbers
     lat = random.uniform(45.0, 47.0)
     lon = random.uniform(6.0, 9.0)
-    
+
     # Note: latitude display is rounded (.4f) while longitude is not,
     # to highlight the difference between rounded and full-precision coordinates
     # You can adjust it, as you like.
@@ -522,14 +566,15 @@ for i in range(3):
 ```
 
 **Key idea:**
-While `randint` generates whole numbers, `uniform` generates floating-point numbers, which is perfect for creating realistic, randomized geographic coordinates.
+While `randint` generates whole numbers, `uniform` generates **{term}`floating-point numbers <Floating-point number>`**, which is perfect for creating realistic, randomized geographic coordinates.
 
-`````
+
+``````
 
 ```{admonition} Atomic coordinates!
 :class: info
 
-Python represents floating-point numbers with about 15–17 significant digits. (e.g., `45.123456789012345`). 
+Python represents floating-point numbers with about 15–17 significant digits (e.g., `45.123456789012345`). 
 
 Why so many? Python stores decimal numbers using a hardware standard called **double-precision (64-bit) floats**. This allocates a massive amount of computer memory just to track the tiny fractions of a number, ensuring extreme accuracy for complex scientific and astronomical calculations.
 
@@ -540,6 +585,7 @@ But in the context of geographic coordinates (where 1 degree is roughly 111 km),
 * **15 decimal places** (`.123456789012345`): ~0.1 nanometers. This is literally **the width of a single atom**!
 
 When you don't round your coordinates, your Python script is specifying a location on Earth down to the atomic level. Unless you are doing sub-atomic geospatial tracking, rounding to 4 or 5 decimal places is usually plenty!
+
 ```
 
 :::{figure} images/08_coordinate_precision_scale.png
@@ -550,7 +596,6 @@ When you don't round your coordinates, your Python script is specifying a locati
 *The relationship between the number of decimal places in a geographic coordinate and the physical distance it represents on the ground.*
 :::
 
-
 ---
 
 ### Exercise 2: Parsing JSON
@@ -559,6 +604,7 @@ You downloaded a small JSON string representing a feature collection. Use the `j
 
 ```{code-cell} python
 geojson_string = '{"type": "Feature", "properties": {"name": "Matterhorn"}, "geometry": {"type": "Point", "coordinates": [7.65, 45.97]}}'
+
 
 ```
 
@@ -580,6 +626,7 @@ print(mountain_name)
 
 **Key idea:**
 `json.loads()` converts a raw text string into a standard Python dictionary. Once converted, you can chain brackets `[][]` to access nested information.
+
 
 ``````
 

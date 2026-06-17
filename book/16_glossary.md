@@ -15,8 +15,8 @@ Accessor
 [Alias](https://en.wikipedia.org/wiki/Aliasing_(computing))
 : A technique used during import statements to give a module or function a shorter or alternative name in the local namespace. In Python, this is typically done using the `as` keyword, such as `import pandas as pd`.
 
-Anomaly (Climate anomaly)
-: A departure or deviation from a reference baseline of what is considered "normal" (a climatology). It is typically calculated by subtracting the baseline average from the observed data.
+Anomaly
+: A departure or deviation from a reference baseline of what is considered "normal" (a climatology). It is typically calculated by subtracting the baseline average from the observed data. Also known as `Climate anomaly`.
 
 [API](https://en.wikipedia.org/wiki/API)
 : See {term}`Application Programming Interface`.
@@ -107,8 +107,8 @@ Code cell
 [Colormap](https://en.wikipedia.org/wiki/Color_mapping)
 : A palette used to map data values to distinct colors in a visualization. Types include Sequential (for continuous data progressing from low to high), Diverging (for highlighting deviations from a critical midpoint), and Qualitative (for distinct, unordered categories).
 
-[Comma-separated values](https://en.wikipedia.org/wiki/Comma-separated_values) (CSV)
-: A text file format where values are separated by commas or semicolons. It is commonly used by government portals and scientific institutions to provide open data directly as text files.
+[Comma-separated values](https://en.wikipedia.org/wiki/Comma-separated_values) 
+: A text file format where values are separated by commas or semicolons. It is commonly used by government portals and scientific institutions to provide open data directly as text files. Abbreviation: `CSV`
 
 [Comment](https://en.wikipedia.org/wiki/Comment_(computer_programming))
 : A line or part of a line in code that is ignored by the interpreter and used to explain the code to humans.  
@@ -130,8 +130,8 @@ Commit message
 [Conda](https://en.wikipedia.org/wiki/Conda_(package_manager))
 : An open-source package and environment management system. It is heavily used in spatial data science because it reliably handles complex, non-Python dependencies (like C++ libraries) required by geospatial tools.
 
-[Container](https://en.wikipedia.org/wiki/OS-level_virtualization) (Docker container)
-: A lightweight, self-contained virtual environment that packages an operating system, Python, and all required libraries together. This ensures that the environment behaves exactly the same on any computer, preventing issues caused by system differences.
+[Container](https://en.wikipedia.org/wiki/OS-level_virtualization)
+: A lightweight, self-contained virtual environment that packages an operating system, Python, and all required libraries together. This ensures that the environment behaves exactly the same on any computer, preventing issues caused by system differences. Also reffered to as `Docker container`
 
 Contextily
 : A lightweight Python package designed to retrieve map tiles from the internet and seamlessly add them to Matplotlib figures as static background images.
@@ -207,8 +207,8 @@ Detour factor
 : A built-in Python data structure that stores key–value pairs.  
   Keys are used to access associated values, and dictionaries are enclosed in curly braces (`{}`).
 
-[Digital elevation model](https://en.wikipedia.org/wiki/Digital_elevation_model) (DEM)
-: A single-band raster representing a continuous surface of topographic elevation measurements.
+[Digital elevation model](https://en.wikipedia.org/wiki/Digital_elevation_model) 
+: A single-band raster representing a continuous surface of topographic elevation measurements. Abbreviation: `DEM`
 
 [Diurnal cycle](https://en.wikipedia.org/wiki/Diurnal_cycle)
 : The natural fluctuation of an environmental variable, such as temperature, between day and night.
@@ -239,8 +239,8 @@ Element-wise operation
 [Encapsulation](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming))
 : One of the core pillars of object-oriented programming. It refers to the practice of bundling internal state (attributes) and logic (methods) together into a single, secure entity (an object) to protect and isolate the data.
 
-[Enhanced Vegetation Index](https://en.wikipedia.org/wiki/Enhanced_vegetation_index) (EVI)
-: A derived environmental index used to monitor biomass and canopy structure. It mathematically combines Near Infrared, Red, and Blue light bands to correct for atmospheric conditions and canopy background noise.
+[Enhanced Vegetation Index](https://en.wikipedia.org/wiki/Enhanced_vegetation_index) 
+: A derived environmental index used to monitor biomass and canopy structure. It mathematically combines Near Infrared, Red, and Blue light bands to correct for atmospheric conditions and canopy background noise. Abbreviation: `EVI`
 
 [EPSG code](https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset)
 : An EPSG code is a numeric identifier that uniquely defines a {term}`Coordinate Reference System` (CRS) or a spatial data transformation.  
@@ -291,8 +291,8 @@ f-string
 : A reusable block of instructions that performs a specific task.  
   Functions may exist independently or as a {term}`method` associated with a {term}`Class`.
 
-[GDAL](https://en.wikipedia.org/wiki/GDAL) (Geospatial Data Abstraction Library)
-: The industry-standard open-source C++ engine that handles reading, writing, and transforming complex geospatial data formats. Python libraries like `rasterio` act as practical wrappers around GDAL.
+[GDAL](https://en.wikipedia.org/wiki/GDAL) 
+: The industry-standard open-source C++ engine that handles reading, writing, and transforming complex geospatial data formats. Python libraries like `rasterio` act as practical wrappers around GDAL. Short for: `Geospatial Data Abstraction Library`
 
 [Geocoding](https://en.wikipedia.org/wiki/Geocoding)
 : The process of converting addresses into geographic coordinates, or coordinates back into addresses (reverse geocoding).  
@@ -435,8 +435,8 @@ Inner join
 [Iterative design](https://en.wikipedia.org/wiki/Iterative_design) (Iterative development)
 : A methodology where a project takes shape through repeated cycles of prototyping, testing, analyzing, and refining. In programming, this means making a simple baseline work first, and then improving and refining it step by step rather than trying to write perfect code immediately.
 
-[JSON](https://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation)
-: A lightweight, universal text format used to store and transport data on the web. It is heavily used by Web APIs and behaves almost exactly like nested Python dictionaries and lists.
+[JSON](https://en.wikipedia.org/wiki/JSON)
+: Short for JavaScript Object Notation. A lightweight, universal text format used to store and transport data on the web. It is heavily used by Web APIs and behaves almost exactly like nested Python dictionaries and lists.
 
 Jupyter server
 : A backend process that executes code from a Jupyter notebook and communicates results to the browser interface.  
@@ -452,8 +452,8 @@ Kernel
 Keyword argument
 : An argument passed to a function that explicitly names the parameter it is intended for, such as `func(base=5)`. This allows arguments to be passed out of order and improves code readability.
 
-[Large language model](https://en.wikipedia.org/wiki/Large_language_model) (LLM)
-: An artificial intelligence system trained on massive amounts of text data. In the context of programming, LLMs (like Copilot, ChatGPT, or Claude) can be used responsibly as learning aids to clarify syntax, explain error messages, or explore alternative implementations.
+[Large language model](https://en.wikipedia.org/wiki/Large_language_model)
+: An artificial intelligence system trained on massive amounts of text data. In the context of programming, LLMs (like Copilot, ChatGPT, or Claude) can be used responsibly as learning aids to clarify syntax, explain error messages, or explore alternative implementations. Abbreviation: `LLM`
 
 [Leaflet](https://en.wikipedia.org/wiki/Leaflet_(software))
 : The gold standard JavaScript library for creating interactive web maps.
@@ -541,8 +541,8 @@ Mutable
 : A data type whose value can be changed after it is created.  
   Examples include lists and dictionaries. Opposite of {term}`Immutable`.
 
-[NaN](https://en.wikipedia.org/wiki/NaN) (Not a Number)
-: A marker used by Pandas to represent missing data. Any mathematical operation involving a `NaN` usually results in a `NaN`.
+[NaN](https://en.wikipedia.org/wiki/NaN) 
+: A marker used by Pandas to represent missing data. Any mathematical operation involving a `NaN` usually results in a `NaN`. Short for `Not a Number`.
 
 [Namespace](https://en.wikipedia.org/wiki/Namespace)
 : A scope that defines where Python looks for identifiers.  
@@ -552,11 +552,11 @@ Mutable
 [Nested loop](https://en.wikipedia.org/wiki/Inner_loop)
 : A loop placed inside the body of another loop. The inner loop executes completely for each iteration of the outer loop.
 
-[NetCDF](https://en.wikipedia.org/wiki/NetCDF) (Network Common Data Form)
-: A widely used hierarchical data format for persistently storing massive, native multidimensional datasets on disk.
+[NetCDF](https://en.wikipedia.org/wiki/NetCDF)
+: A widely used hierarchical data format for persistently storing massive, native multidimensional datasets on disk. Short for `Network Common Data Form`
 
-[Normalized Difference Snow Index](https://en.wikipedia.org/wiki/Normalized_Difference_Snow_Index) (NDSI)
-: A spectral index used to map snow and ice coverage by comparing reflectance in the Green and Shortwave Infrared (SWIR) bands.
+[Normalized Difference Snow Index](https://en.wikipedia.org/wiki/Normalized_Difference_Snow_Index)
+: A spectral index used to map snow and ice coverage by comparing reflectance in the Green and Shortwave Infrared (SWIR) bands. Abbreviation: `NDSI`
 
 [Notebook](https://en.wikipedia.org/wiki/Project_Jupyter#Jupyter_Notebook)
 : A web-based interactive document that combines formatted text with executable code cells.  
@@ -663,8 +663,8 @@ Resampling
 [Reserved word](https://en.wikipedia.org/wiki/Reserved_word)
 : Also known as a keyword. A word that is reserved by Python's core logic (such as `for`, `if`, `True`) and cannot be used as a variable name.
 
-[REST](https://en.wikipedia.org/wiki/REST) (Representational State Transfer)
-: A standard used by most spatial APIs that allows programs to interact with servers over standard web protocols (HTTP), operating in the exact same way a web browser does when loading a page.
+[REST](https://en.wikipedia.org/wiki/REST)
+: A standard used by most spatial APIs that allows programs to interact with servers over standard web protocols (HTTP), operating in the exact same way a web browser does when loading a page. Short for `Representational State Transfer`.
 
 Return statement
 : The instruction inside a function that specifies what value (or values) should be passed back to the caller. When a `return` statement is executed, the function immediately terminates.
@@ -721,8 +721,8 @@ Snake case
 [Source code](https://en.wikipedia.org/wiki/Source_code)
 : The human-readable instructions written in a {term}`Programming language` that define what a {term}`Program` does.
 
-[Spatial data science](https://en.wikipedia.org/wiki/Spatial_data_science) (SDS)
-: An interdisciplinary field that extracts insights from geographic data by combining traditional GIS concepts with advanced programming, computational thinking, and reproducible data workflows.
+[Spatial data science](https://en.wikipedia.org/wiki/Spatial_data_science)
+: An interdisciplinary field that extracts insights from geographic data by combining traditional GIS concepts with advanced programming, computational thinking, and reproducible data workflows. Abbreviation: SDS
 
 Spatial extent
 : In geographic data, spatial extent refers to the geographic area covered by a dataset or map.  
@@ -751,8 +751,8 @@ Split-Apply-Combine
 [Standard library](https://en.wikipedia.org/wiki/Standard_library)
 : A substantial collection of built-in, highly optimized, ready-to-use modules that come pre-installed with Python. It provides standardized tools for common programming tasks (such as advanced math, statistics, date/time manipulation, and file system navigation) without requiring external downloads.
 
-[Standard score](https://en.wikipedia.org/wiki/Standard_score) (Z-score)
-: A statistical measure that indicates exactly how many standard deviations an observation is above or below the mean. It is used to normalize anomalies relative to the baseline variability of a specific dataset or landscape.
+[Standard score](https://en.wikipedia.org/wiki/Standard_score)
+: A statistical measure that indicates exactly how many standard deviations an observation is above or below the mean. It is used to normalize anomalies relative to the baseline variability of a specific dataset or landscape. Also known as `Z-score`.
 
 [Statement](https://en.wikipedia.org/wiki/Statement_(computer_science))
 : A single instruction in a programming language that performs an action.  
@@ -782,8 +782,8 @@ super() function
 : A command-line interface used to interact with a computer by typing text commands.  
   Terminals are commonly used to run Python scripts, manage environments, and start tools such as {term}`JupyterLab`.
 
-Third-party package (or module)
-: A library or module created by the broader Python community that is not included in the standard Python installation. These collections of code are made available for public use and must be actively downloaded via a package manager (like `conda` or `pip`) before they can be utilized in your scripts.
+Third-party package
+: A library or module created by the broader Python community that is not included in the standard Python installation. These collections of code are made available for public use and must be actively downloaded via a package manager (like `conda` or `pip`) before they can be utilized in your scripts. Also known as {term}`Module`.
 
 [Time series](https://en.wikipedia.org/wiki/Time_series)
 : A sequence of data points indexed in time order. In Pandas, data with a `DatetimeIndex` is fundamentally "time-aware," allowing for advanced operations like temporal slicing and resampling.
@@ -817,8 +817,8 @@ Unsigned integer
 : An integer data type that represents only non-negative values.  
   Unlike {term}`Signed integer`, unsigned integers do not include negative numbers.
 
-[Unix time](https://en.wikipedia.org/wiki/Unix_time) (Unix epoch)
-: The mathematical starting point ($x=0$) for `xarray` datetime regressions, which corresponds to January 1, 1970. Consequently, the intercept in these models always represents the modeled baseline value on this specific date.
+[Unix time](https://en.wikipedia.org/wiki/Unix_time) 
+: The mathematical starting point ($x=0$) for `xarray` datetime regressions, which corresponds to January 1, 1970. Consequently, the intercept in these models always represents the modeled baseline value on this specific date. Also known as `Unix epoch`.
 
 uv
 : A very fast tool used for managing Python packages.
@@ -853,11 +853,11 @@ Virtual environment
 : An isolated Python environment with its own interpreter and installed libraries.  
   Virtual environments prevent conflicts between dependencies used by different projects.
 
-[Visual Studio Code](https://en.wikipedia.org/wiki/Visual_Studio_Code) (VS Code)
-: A lightweight, extensible code editor that serves as a central digital workspace. It integrates code editing, terminals, Jupyter notebooks, and version control into a single environment, making it highly suited for geospatial programming.
+[Visual Studio Code](https://en.wikipedia.org/wiki/Visual_Studio_Code)
+: A lightweight, extensible code editor that serves as a central digital workspace. It integrates code editing, terminals, Jupyter notebooks, and version control into a single environment, making it highly suited for geospatial programming. Also known as `VS Code`.
 
-[Web Map Tile Service](https://en.wikipedia.org/wiki/Web_Map_Tile_Service) (WMTS)
-: A standard protocol for serving pre-rendered, georeferenced map tiles over the internet. Instead of downloading massive geographic datasets, WMTS delivers small, seamless square image tiles based on the user's specific zoom level and map extent.
+[Web Map Tile Service](https://en.wikipedia.org/wiki/Web_Map_Tile_Service) 
+: A standard protocol for serving pre-rendered, georeferenced map tiles over the internet. Instead of downloading massive geographic datasets, WMTS delivers small, seamless square image tiles based on the user's specific zoom level and map extent. Also known as `WMTS`
 
 [Web Mercator](https://en.wikipedia.org/wiki/Web_Mercator_projection)
 : A specific coordinate reference system (`EPSG:3857`) that perfectly preserves local angles and shapes, making it the de facto standard for almost all major online map providers.
