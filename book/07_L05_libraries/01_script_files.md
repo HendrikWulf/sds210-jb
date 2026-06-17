@@ -2,12 +2,14 @@
 title: Writing script files
 
 site:
- outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Moving code out of the notebook
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -25,17 +27,30 @@ By moving your custom functions into a dedicated Python script file (`.py`), you
 
 ```
 
-Up to this point, you have been keeping your Python code and Markdown comments in a single Jupyter notebook document. This is great for exploration and learning. However, there are cases where you want to have Python code in a separate document. When you have long Python code blocks or a set of functions used across many different notebooks, moving them out makes your notebook much easier to read and use.
+```{admonition} Chapter Relevance
+:class: dropdown
 
-An alternative to typing all your commands directly into cells is to list them in a Python script file. A Python script file is simply a plain text file containing a list of the commands you want to run, formatted exactly as if you were to type them into a cell. Python script files traditionally use the `.py` file extension.
+**Lab Relevance:** ★☆☆(Good for organizing complex code but rarely needed for our lab sessions)  
+**Project Relevance:** ★★☆ (Relevant for maintaining manageable, modular codebases in final projects)  
+**Foundation:** ★★☆ (A vital structural concept, stepping beyond basic scripting)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Learn how to move custom functions out of messy notebooks and into structured `.py` files that act as reusable toolkits.  
+**Skip this if:** You already know how to create `.py` scripts, import them locally into Jupyter, and fully understand why updating a file requires an IPython kernel restart.
+
+```
+
+Up to this point, you have been keeping your Python code and Markdown comments in a single Jupyter notebook document. This is great for exploration and learning. However, there are cases where you want to have Python code in a separate document. When you have long Python code blocks or a set of **{term}`functions <Function>`** used across many different notebooks, moving them out makes your notebook much easier to read and use.
+
+An alternative to typing all your commands directly into cells is to list them in a Python **{term}`script <Script>`** file. A Python script file is simply a plain text file containing a list of the commands you want to run, formatted exactly as if you were to type them into a cell. Python script files traditionally use the `.py` file extension.
 
 ---
 
 ## 1. Creating a script file
 
-Because a Python script file is simply a list of commands, we can easily create a basic one and test things out right inside JupyterLab.
+Because a Python script file is simply a list of commands, we can easily create a basic one and test things out right inside **{term}`JupyterLab`**.
 
-First, create a new text file by clicking on **File > New > Python File** in the JupyterLab menu bar. You can do the same in VS Code (File > New File > Python File) or Colab (File > Download > Download .py).
+First, create a new text file by clicking on **File > New > Python File** in the JupyterLab menu bar. You can do the same in **{term}`VS Code <Visual Studio Code>`** (File > New File > Python File) or **{term}`Colab <Google Colab>`** (File > Download > Download .py).
 
 :::{figure} images/01_python-file.png
 :alt: Creating a new Python file in JupyterLab.
@@ -55,7 +70,7 @@ This creates a new tab in your window with a blank slate. By default, new Python
 *Renaming the new file in JupyterLab.*
 :::
 
-Start by copying and pasting the text below into your new editor panel. This is a function that calculates the straight line Euclidean distance between two projected coordinates using the basic math operators you learned in Lesson 2:
+Start by copying and pasting the text below into your new editor panel. This is a function that calculates the straight line **{term}`Euclidean distance`** between two projected coordinates using the basic math operators you learned in Lesson 2:
 
 ```{code-cell} python
 def euclidean_distance(x1, y1, x2, y2):
@@ -73,13 +88,13 @@ def euclidean_distance(x1, y1, x2, y2):
 
 ```
 
-Be sure to save your `spatial_tools.py` file after making your changes. You have just created your first custom Python module!
+Be sure to save your `spatial_tools.py` file after making your changes. You have just created your first custom Python **{term}`module <Module>`**!
 
 ---
 
 ## 2. The working directory
 
-To use the function you just saved, your new Jupyter notebook needs to know where to find the script file. Python looks for imported files in your current **working directory**.
+To use the function you just saved, your new Jupyter notebook needs to know where to find the script file. Python looks for imported files in your current **{term}`working directory <Working directory>`**.
 
 Hopefully you saved your `spatial_tools.py` file in the exact same folder as the new notebook you are currently working in. We can verify this running an [IPython](https://en.wikipedia.org/wiki/IPython) magic command called `%ls` in a code cell. The `%` symbol is a special built-in shortcut used to perform helpful tasks that are outside of standard Python code.
 
@@ -98,7 +113,7 @@ If you do not see your script file in the list, you have two options:
 
 ```
 
-#### Concept check
+#### Concept Check: The Hidden Directory
 
 Imagine your file browser looks like this:
 
@@ -110,16 +125,19 @@ project_folder/
 
 ```
 
-If you run `%ls` in `analysis.ipynb`, will you see `my_code.py`? Will a standard `import my_code` work?
+If you run `%ls` in `analysis.ipynb`, will you see `my_code.py` in the output list, and will a standard `import my_code` work?
+
+A) Yes, Python scans all subfolders automatically.
+
+B) No, `%ls` only shows the current directory, and Python cannot automatically see inside the `scripts` subfolder.
+
+C) Yes, but only if you use `import scripts.my_code`.
 
 ```{admonition} Check your understanding
 :class: dropdown
 
-**No** and **No**.
-
-1. `%ls` lists files in the *current* directory (`project_folder`). It will show the `scripts` folder, but not the contents *inside* it.
-2. Therefore, a standard `import my_code` will fail because Python cannot see the file sitting in the subfolder. To fix this, you would need to move `my_code.py` up into `project_folder`.
-
+**Answer: B**
+The `%ls` command lists files in the *current* directory (`project_folder`). It will show the `scripts/` folder, but not the contents *inside* it. Because Python cannot automatically see the `.py` file sitting inside the subfolder, a standard `import my_code` will fail. You would need to move `my_code.py` up into `project_folder`.
 
 ```
 
@@ -131,7 +149,7 @@ Now that your notebook and your script are in the same folder, you can access yo
 
 :::{figure} images/03_import_directory_structure.png
 :alt: A diagram showing a notebook and a python script sitting in the same folder, with an import arrow connecting them.
-:width: 400px
+:width: 500px
 :align: center
 
 *Python looks for the imported script file in the same working directory as your active notebook.*
@@ -166,34 +184,37 @@ dist_meters = st.euclidean_distance(2683000, 1248000, 2600000, 1200000)
 
 ```
 
-#### Concept check
+#### Concept Check: Dot Notation Mystery
 
-Look at these two different ways to import the same function. Predict how you would call the function in the cell immediately following the import.
+Look at these two different ways to import the same function:
 
 **Scenario A:**
 
-```{code-cell} python
+```python
 from spatial_tools import euclidean_distance
-# How do I call it here?
 
 ```
 
 **Scenario B:**
 
-```{code-cell} python
+```python
 import spatial_tools as st
-# How do I call it here?
 
 ```
 
-```{admonition} Scenario A or B?
+If you are using **Scenario B**, how must you correctly call the function in your notebook?
+
+A) `euclidean_distance(...)`
+
+B) `st.euclidean_distance(...)`
+
+C) `spatial_tools.euclidean_distance(...)`
+
+```{admonition} Check your understanding
 :class: dropdown
 
-**Scenario A:** You brought the function directly into your notebook's namespace. You call it simply by its name:
-`euclidean_distance(...)`
-
-**Scenario B:** You imported the whole module as an object named `st`. You must use "dot notation" to access the function inside that object:
-`st.euclidean_distance(...)`
+**Answer: B**
+In Scenario B, you imported the *entire module* as an object named `st`. Therefore, you must use "dot notation" to dive into that object and access the function inside it (`st.euclidean_distance(...)`). Scenario A brings the function directly into your notebook's **{term}`namespace <Namespace>`**, allowing you to use it without a prefix.
 
 ```
 
@@ -209,7 +230,7 @@ Go back to your `spatial_tools.py` tab, leave two blank lines below your first f
 def calculate_distance(pt1, pt2, method="euclidean"):
     """
     Wrapper function to calculate distance between two points.
- 
+
     Parameters
     ----------
     pt1: <list>
@@ -218,7 +239,7 @@ def calculate_distance(pt1, pt2, method="euclidean"):
         A list containing [x, y] coordinates
     method: <str>
         The calculation method. Supported values: 'euclidean'
- 
+
     Returns
     -------
     <float>
@@ -230,7 +251,7 @@ def calculate_distance(pt1, pt2, method="euclidean"):
     else:
         print("Method not supported yet.")
         dist = None
-        
+
     return dist
 
 ```
@@ -243,7 +264,7 @@ Save the file once more. Your custom module now contains two functions.
 
 Now that we have updated our script, we want to test the new `calculate_distance` function in our notebook. However, when working in a Jupyter Notebook, reloading updated modules can be tricky.
 
-To save memory, Python only imports a script **once** per session. If you change a script file and save it, simply running the `import` cell again will not load your new changes. Python thinks it already has the file and ignores the command.
+To save memory, Python only imports a script **once** per session. If you change a script file and save it, simply running the `import` cell again will not load your new changes. Python thinks it already has the file and ignores the command entirely!
 
 :::{figure} images/04_kernel_memory_trap.png
 :alt: A diagram showing the disconnect between a saved file on a hard drive and the cached version in the Jupyter Kernel memory.
@@ -253,15 +274,13 @@ To save memory, Python only imports a script **once** per session. If you change
 *When a script is first imported, it is loaded into the Kernel's active memory. Updating the text file on your hard drive does not update the memory until the Kernel is explicitly restarted.*
 :::
 
-The easiest way to force Python to see your updates is to restart the IPython kernel.
-
 1. Go to **Kernel > Restart kernel...** in the menu bar.
 2. Wait a moment for the memory to clear.
 3. Re-run your import cell.
 
 ```{admonition} Watch your memory
 :class: warning
-Restarting the kernel deletes all variables currently stored in memory. You will need to re-run any cells that defined your data before you can continue analyzing it.
+Restarting the kernel deletes all **{term}`variables <Variable>`** currently stored in memory. You will need to re-run any cells that defined your data before you can continue analyzing it.
 
 ```
 
@@ -278,6 +297,21 @@ print(f"Distance: {distance_m / 1000:.1f} km")
 
 ```
 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L05_ch01_01_kernel_memory/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: The Kernel Memory Trap.</b><br>
+    Follow the sequence of buttons to observe how the Jupyter Kernel (active RAM) interacts with your Hard Drive. Notice how updating a file on your disk does not automatically push it into memory, and why restarting the kernel is the only way to load your changes. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L05_ch01_01_kernel_memory/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
+
 ---
 
 ## 6. Exercises
@@ -291,7 +325,7 @@ Focus on **understanding the workflow** between your script and your notebook.
 
 Open your `spatial_tools.py` file in the text editor.
 
-1. Write a new function called `manhattan_distance(x1, y1, x2, y2)` that calculates the grid-based distance between two coordinates.
+1. Write a new function called `manhattan_distance(x1, y1, x2, y2)` that calculates the grid-based **{term}`Manhattan distance`** between two coordinates.
 2. Remember from Lesson 2 that you can get the absolute (positive) difference by squaring it and taking the square root: `((x2 - x1)**2)**0.5`.
 3. Save the file.
 
@@ -413,5 +447,4 @@ By writing modular tools in separate scripts, you keep your main notebooks clean
 
 ### What comes next?
 
-You have now built and imported your own custom module. But you do not have to write every tool from scratch! In the next section, we will explore the **Python Standard Library** and discover how to use the exact same `import` syntax to unlock powerful tools that are already built into Python.
-
+You have now built and imported your own custom module. But you do not have to write every tool from scratch! In the next section, we will explore the **{term}`Python Standard Library <Standard library>`** and discover how to use the exact same `import` syntax to unlock powerful tools that are already built into Python.

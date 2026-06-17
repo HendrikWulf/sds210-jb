@@ -7,9 +7,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Connecting Python to the real world
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -189,7 +191,6 @@ You need to query the ORS API for the driving distance and travel time, and the 
 *Logic flow for an automated logistics pipeline: Chaining two distinct API requests (Routing and Weather) inside a loop, utilizing rate limiting to avoid server overload.*
 :::
 
-
 ### Code
 
 ```{code-cell} python
@@ -222,7 +223,6 @@ start_string = f"{origin_lon},{origin_lat}"
 7. Print a summary line for the city that includes the driving distance, the estimated travel time, and the current weather.
 8. **Crucial step**: Add `time.sleep(2)` at the end of the loop to ensure you stay well within the ORS limit of 40 requests per minute.
 
-
 ---
 
 ## Reflection
@@ -237,5 +237,3 @@ Take a moment to review what you have built. Answer briefly in comments or markd
 # Write your reflections here.
 
 ```
-
----
