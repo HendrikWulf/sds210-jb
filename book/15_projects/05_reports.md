@@ -81,6 +81,24 @@ Your final submission must be uploaded as a **single PDF document** via the MS T
 
 This combined format allows the assessors to read your high-level summary and immediately scroll down to verify the documented code and visual outputs that support it.
 
+### Report File Name
+
+Please name your final PDF file in a clear and consistent way. The file name must include the course name, the project number, and your full name using your first name and surname.
+
+Use the following structure:
+
+```text
+SDS210_project[number]_[first_name]_[surname].pdf
+```
+
+For example:
+
+```text
+SDS210_project3_noah_clue.pdf
+```
+
+Use lowercase letters for your name and separate the parts of the file name with underscores. This helps us identify, organise, and archive submissions consistently.
+
 ### Repository Expectations
 
 Your written report must include a clickable link to your **public GitHub or GitLab repository**. This repository is where your reproducibility is tested. It must include clear setup instructions in the `README.md`, rely entirely on relative file paths, and contain a notebook that executes cleanly from top to bottom.
@@ -93,11 +111,12 @@ Your exported Jupyter Notebook is not just a script; it is part of your document
 :class: important
 
 Before submitting to MS Teams, verify that you have:
-1. A written report (maximum 2 pages).
+1. A written report (about 6000 characters with spaces).
 2. A PDF export of your fully executed notebook attached to the end of the report.
-3. A working link to your public GitHub/GitLab repository included in the text.
-4. A clear `README.md` with setup instructions inside your repository.
-5. Confirmed that your notebook runs from top to bottom without crashing.
+3. A single combined PDF file named according to the required format, e.g. `SDS210_project3_noah_clue.pdf`.
+4. A working link to your public GitHub/GitLab repository included in the text.
+5. A clear `README.md` with setup instructions inside your repository.
+6. Confirmed that your notebook runs from top to bottom without crashing.
 ```
 
 ---

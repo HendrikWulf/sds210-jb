@@ -5,9 +5,11 @@ site:
  outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Shifting from procedural Python to Object Oriented data structures
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -21,9 +23,22 @@ When working with pure Python, you pass your data into functions. In Pandas, you
 
 ```
 
-Before diving into any spatial analysis, we need to adjust how we think about data in Python. Up until now, you have been using procedural programming: storing data in basic lists or dictionaries, and then passing that data into separate functions.
+```{admonition} Chapter Relevance
+:class: dropdown
 
-Pandas introduces an Object Oriented Programming approach. In Pandas, data structures are not just passive containers; they are powerful objects that contain both your data and the tools needed to manipulate it.
+**Lab Relevance:** ★★★ (Essential baseline for all subsequent spatial data manipulation labs)  
+**Project Relevance:** ★★★ (DataFrames will be the primary data container for projects 1 and 2)  
+**Foundation:** ★★★ (The shift to OOP and Pandas logic is a critical learning threshold in Python)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Master the mental shift from standard Python functions to Pandas' object-oriented data structures, enabling powerful tabular data manipulation.  
+**Skip this if:** You are already highly proficient with Pandas DataFrames, Series, Indexes, and object-oriented dot notation.
+
+```
+
+Before diving into any spatial analysis, we need to adjust how we think about data in Python. Up until now, you have been using **{term}`procedural programming <Procedural programming>`**: storing data in basic **{term}`lists <List>`** or **{term}`dictionaries <Dictionary>`**, and then passing that data into separate functions.
+
+Pandas introduces an **{term}`Object Oriented Programming <Object-oriented programming>`** approach. In Pandas, data structures are not just passive containers; they are powerful objects that contain both your data and the tools needed to manipulate it.
 
 ---
 
@@ -31,15 +46,15 @@ Pandas introduces an Object Oriented Programming approach. In Pandas, data struc
 
 To understand Pandas, you only need to understand two new data structures, which have direct equivalents to the basic Python you already know.
 
-* **Series**: You can think of a Pandas Series as a clever, super charged Python list. It holds a one dimensional sequence of values.
-* **DataFrame**: A DataFrame is a two dimensional structure for storing tabular data with rows and columns. You can think of a DataFrame as a programmable spreadsheet. Under the hood, a DataFrame is essentially a dictionary of Series, where each column is a single Series sharing the same index.
+* **{term}`Series`**: You can think of a Pandas Series as a clever, super charged Python list. It holds a one dimensional sequence of values.
+* **{term}`DataFrame`**: A DataFrame is a two dimensional structure for storing tabular data with rows and columns. You can think of a DataFrame as a programmable spreadsheet. Under the hood, a DataFrame is essentially a dictionary of Series, where each column is a single Series sharing the same index.
 
 :::{figure} images/01_pandas-structures-annotated.webp
 :alt: Illustration of the pandas DataFrame and Series data structures.
 :width: 700px
 :align: center
 
-*Illustration of the Pandas `DataFrame` and `Series` data structures. A `DataFrame` is a two dimensional data structure used for storing and manipulating table like data. A `Series` is a one dimensional data structure used for storing a sequence of values. Source: [Geopython](https://python-gis-book.readthedocs.io/en/latest/part1/chapter-03/nb/00-pandas-basics.html#pandas-data-structures)*
+*Illustration of the Pandas `DataFrame` and `Series` data structures. A `DataFrame` is a two dimensional data structure used for storing and manipulating table like data. A `Series` is a one dimensional data structure used for storing a sequence of values. Source: [Geopython*](https://python-gis-book.readthedocs.io/en/latest/part1/chapter-03/nb/00-pandas-basics.html#pandas-data-structures)
 :::
 
 ```{code-cell} python
@@ -58,19 +73,6 @@ print(data)
 
 ```
 
-:::{table} Standard output of printing a DataFrame
-:label: df-output-table
-:align: center
-
-|  | City | Population |
-| --- | --- | --- |
-| 0 | Zurich | 415000 |
-| 1 | Geneva | 201000 |
-| 2 | Bern | 133000 |
-| 3 | Basel | 177000 |
-
-:::
-
 ---
 
 ## 2. Objects and Methods
@@ -80,7 +82,7 @@ Because Pandas is Object Oriented, you will notice a major syntax shift in how y
 In standard Python, if you want to know how many items are in a list, you pass the list into an external function:
 `len(my_list)`
 
-In Pandas, the DataFrame object owns its tools. These built in tools are called **methods**. Instead of passing the DataFrame into a function, you ask the DataFrame to perform an action on itself using dot notation. 
+In Pandas, the DataFrame object owns its tools. These built in tools are called **{term}`methods <Method>`**. Instead of passing the DataFrame into a function, you ask the DataFrame to perform an action on itself using **{term}`dot notation <Dot notation>`**.
 
 :::{figure} images/02_procedural_vs_oop.png
 :alt: Diagram comparing procedural programming syntax with object oriented dot notation.
@@ -98,7 +100,7 @@ data.info()
 
 ```
 
-:::{table} Output of data.info() {term}`method`
+:::{table} Output of data.info() method
 :label: df-info-table
 :align: center
 
@@ -109,13 +111,28 @@ data.info()
 
 :::
 
-You are effectively telling Python: *"Hey `data` object, run your own internal `info()` tool."* This mental shift—typing `df.info()` instead of `info(df)`—is the core to mastering Pandas.
+You are effectively telling Python: *"Hey `data` object, run your own internal `info()` tool."* This mental shift, typing `df.info()` instead of `info(df)`, is the core to mastering Pandas.
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L06_ch01_01_procedural_vs_oop/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Procedural vs Object-Oriented Syntax.</b><br>
+    Compare how data is processed in standard Python versus Pandas. In procedural Python (left), you throw data into an external function machine. In Pandas OOP (right), you use dot notation to tell the DataFrame object to trigger its own internal tools. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L06_ch01_01_procedural_vs_oop/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
 ## 3. The Pandas Index
 
-If you look at the printed DataFrame from the first section, you will notice a column of numbers on the far left (0, 1, 2, 3) that we did not create. This is the **Index**.
+If you look at the printed DataFrame from the first section, you will notice a column of numbers on the far left (0, 1, 2, 3) that we did not create. This is the **{term}`Index`**.
 
 In standard Python lists, positions are strictly sequential integers (0, 1, 2). While a Pandas DataFrame also defaults to a numbered index, its index is actually a set of row labels.
 
@@ -162,7 +179,7 @@ By labeling rows, Pandas allows you to instantly extract data based on meaningfu
 
 ## 4. Data Types (dtypes)
 
-When working with basic Python, you are used to data types like integers (`int`), decimal numbers (`float`), and text strings (`str`).
+When working with basic Python, you are used to **{term}`data types <Data type>`** like **{term}`integers <Integer>`** (`int`), decimal numbers (**{term}`float <Floating-point number>`**), and text **{term}`strings <String>`** (`str`).
 
 Pandas uses slightly different terminology for its data types, referred to as **dtypes**. Because Pandas is built on top of a high performance math library called NumPy, its dtypes reflect precise computer memory allocations. As you saw in the `.info()` output table above, Pandas assigned specific dtypes to our columns:
 
@@ -173,20 +190,25 @@ Pandas uses slightly different terminology for its data types, referred to as **
 
 Whenever you load a new dataset, checking the dtypes is usually your very first step to ensure numbers were not accidentally imported as text.
 
-#### Concept check
+---
 
-Imagine you load a CSV file where a "Population" column accidentally contains a missing value typed out as the word `"Unknown"`, while the rest of the rows are normal numbers (e.g., `415000`).
+#### Concept Check: The Contaminated Column
 
-If you check the dtypes of this DataFrame, what dtype will Pandas assign to the "Population" column?
+Imagine you load a CSV file where a "Population" column accidentally contains a missing value typed out as the word `"Unknown"`, while the rest of the rows are normal numbers (e.g., `415000`). If you check the dtypes of this DataFrame, what dtype will Pandas assign to the "Population" column?
 
-```{admonition} Will it be int64 or object?
+A) `int64`
+
+B) `float64`
+
+C) `object`
+
+D) `datetime64`
+
+```{admonition} Check your understanding
 :class: dropdown
 
-**It will be `object`.**
-
-A single Pandas Series (column) can only have **one** overarching data type. If Pandas sees even a single text string (like "Unknown") mixed in with thousands of numbers, it must downgrade the entire column to the `object` dtype to accommodate the text. 
-
-This is why checking your dtypes is so important. If a numeric column shows up as an `object`, you immediately know your data requires cleaning!
+**Answer: C**
+A single Pandas Series (column) can only have **one** overarching data type. If Pandas sees even a single text string (like "Unknown") mixed in with thousands of numbers, it must downgrade the entire column to the `object` dtype to accommodate the text. This is why checking your dtypes is so important; if a numeric column shows up as an `object`, your data requires cleaning!
 
 ```
 
@@ -196,7 +218,7 @@ This is why checking your dtypes is so important. If a numeric column shows up a
 
 Let us test your new mental model. Look at the code snippet below and identify the structural components.
 
-```{code-cell} python
+```python
 import pandas as pd
 
 weather_data = pd.read_csv("data.csv")
@@ -222,7 +244,7 @@ Answer the following questions:
 1. `weather_data` is a **DataFrame**. It is a two dimensional table loaded from the CSV file.
 2. `weather_data["temperature"]` is a **Series**. Extracting a single column from a DataFrame always returns a one dimensional Series.
 3. **The column names.** Just like `my_dictionary["key"]` extracts a value, `weather_data["temperature"]` uses the column name as a key to extract the entire Series.
-4. `.mean()` is a **Pandas {term}`method`**. Notice the dot notation: we are asking the Series object to calculate its own average.
+4. `.mean()` is a **Pandas method**. Notice the dot notation: we are asking the Series object to calculate its own average.
 
 
 ```

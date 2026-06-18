@@ -3,12 +3,21 @@ project:
   title: Programming with Spatial Data 
   # copyright: '2026'
   github: HendrikWulf/sds210-jb
+  # authors:
+  #  - name: Hendrik Wulf
+  #    affiliation: University of Zurich
 
   exports:
     - id: book-pdf
-      format: pdf
-      template: plain_typst_book # Typst-based (if you use Typst templates)
+      format: typst # pdf
+      template: https://github.com/myst-templates/plain_typst_book.git # https://github.com/myst-templates/book-theme.git # 
+      articles: 
+      - book/02_setup.md
+      - book/02_setup/1_conda.md
+      - book/02_setup/2_vs_code.md
+      # toc: _toc.yml
       output: exports/sds210-book.pdf
+      # show_ToC: false
 
   binder: https://mybinder.org
 
@@ -73,7 +82,7 @@ project:
         # - file: book/04_L02_variables/03_data-types.md
         - file: book/04_L02_variables/04_operators-expressions.ipynb
         # - file: book/04_L02_variables/04_operators-expressions.md
-        - file: book/04_L02_variables/05_string-operations.ipynb
+        # - file: book/04_L02_variables/05_string-operations.ipynb
         # - file: book/04_L02_variables/05_string-operations.md
         - file: book/04_L02_variables/06_formatting-output.ipynb
         # - file: book/04_L02_variables/06_formatting-output.md
