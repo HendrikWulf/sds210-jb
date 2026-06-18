@@ -4,16 +4,17 @@ title: Setup
 site:
  outline_maxdepth: 1
 
-#exports:
-#  - id: setup-pdf
-#    format: pdf
-#    template: plain_latex_book
-#    output: exports/02_setup.pdf
-#downloads:
-#  - file: 02_setup.md
-#    title: Jupyter Notebook
-#  - id: setup-pdf
-#    title: Download PDF
+exports:
+  - id: setup-pdf
+    format: typst
+    template: https://github.com/myst-templates/plain_typst_book.git
+    output: exports/02_setup/02_setup_00.pdf
+
+downloads:
+  - file: 02_setup.md
+    title: Markdown File  # Jupyter Notebook
+  - id: setup-pdf
+    title: Download PDF
 
 ---
 
