@@ -3,6 +3,23 @@ title: Conda
 
 site:
  outline_maxdepth: 1
+
+#exports:
+#  - id: setup-conda-pdf
+#    format: typst
+#    template: https://github.com/myst-templates/plain_typst_book.git
+#    articles:
+#      - book/02_setup/1_conda.md
+#      - book/16_glossary.md
+#    output: ../../exports/02_setup/02_setup_01_conda.pdf
+#    show_ToC: true
+
+#downloads:
+#  - file: 02_setup/1_conda.md
+#    title: Markdown File  # Jupyter Notebook
+#  - id: setup-conda-pdf
+#    title: Download PDF
+
 ---
 
 <div class="page-subtitle">
@@ -325,7 +342,7 @@ If something goes wrong, you can delete the environment and recreate it without 
 
 ### What is a package?
 
-A package (aka. {term}`library`) is a **ready to use piece of software** that adds functionality to your environment.
+A package (aka. {term}`library <Library>`) is a **ready to use piece of software** that adds functionality to your environment.
 
 Packages allow you to reuse work done by others instead of writing everything from scratch. They include:
 
