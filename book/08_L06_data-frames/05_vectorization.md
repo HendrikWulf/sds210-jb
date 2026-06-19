@@ -7,9 +7,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Math Without Loops
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -17,10 +19,24 @@ Math Without Loops
 
 ---
 
-```{admonition} Big idea
+```{admonition} Big Idea
 :class: tip
 
-The core superpower of Pandas is **Vectorization**. You no longer need to write tedious `for` loops to modify or calculate data. Pandas allows you to apply mathematical operations across entire datasets instantly, saving you time and massively speeding up your code.
+The core superpower of Pandas is **{term}`Vectorization`**. You no longer need to write tedious `for` loops to modify or calculate data. Pandas allows you to apply mathematical operations across entire datasets instantly, saving you time and massively speeding up your code.
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Vectorized operations and `.apply()` are required in all spatial data workflows)  
+**Project Relevance:** ★★★ (Essential for calculating derived indicators across large datasets efficiently)  
+**Foundation:** ★★★ (A fundamental shift from Python loops to array-based mathematical programming)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Master the art of replacing slow Python loops with lightning-fast vectorized math, and learn how to apply custom logic across entire datasets.  
+**Skip this if:** You already intuitively use vectorized operators for Pandas columns and know when to use `.apply(axis=1)` for custom row-by-row logic.
+
 ```
 
 Before we explore this superpower, we need some fresh data. For this section, we will use an extended dataset from the Kloten weather station (`kloten_summer_2022_extended.txt`). This file contains additional environmental variables like relative humidity, wind speed, and solar radiation.
@@ -28,6 +44,7 @@ Before we explore this superpower, we need some fresh data. For this section, we
 ```{admonition} Download the Dataset
 :class: note
 Please download the extended dataset from [this GitLab link](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt) and save it to your local working directory.
+
 ```
 
 We can actually perform some data cleaning right at the moment we read the file! By using advanced parameters in the `read_csv()` function, we can handle varying spaces, skip specific rows of dashes, and convert missing data markers all in one step.
@@ -36,7 +53,7 @@ We can actually perform some data cleaning right at the moment we read the file!
 import pandas as pd
 
 # Define relative path to the file
-fp = "kloten_summer_2022_extended.txt"
+fp = "data/kloten_summer_2022_extended.txt"
 
 # Read data using advanced cleaning parameters
 data = pd.read_csv(
@@ -49,20 +66,10 @@ data = pd.read_csv(
 
 # Inspect the first few rows
 display(data.head(3))
+
 ```
 
-:::{table} Extended Kloten Dataset
-:align: center
-
-|   | DATE     | tmin | tmax | tmean | rh   | wind_speed | radiation |
-|---|----------|------|------|-------|------|------------|-----------|
-| 0 | 20220601 | 11.1 | 19.6 | 14.8  | 83.1 | 1.8        | 126.7     |
-| 1 | 20220602 | 12.3 | 21.8 | 17.0  | 81.4 | 2.3        | 231.3     |
-| 2 | 20220603 | 12.7 | 24.8 | NaN   | 82.2 | 2.4        | 198.1     |
-
-:::
-
-Notice that our `tmean` column has a missing value (NaN) on the third day. We will use this to our advantage later.
+Notice that our `tmean` column has a missing value (**{term}`NaN`**) on the third day. We will use this to our advantage later.
 
 ---
 
@@ -71,17 +78,19 @@ Notice that our `tmean` column has a missing value (NaN) on the third day. We wi
 If you were asked to calculate the temperature range (maximum minus minimum) for every single day in pure Python, you would have to write a `for` loop. You would instruct the computer to look at row 0, subtract the numbers, save the result, move to row 1, subtract the numbers, and so on.
 
 Here is what that clunky code looks like:
+
 ```{code-cell} python
 # The slow, pure Python way (DO NOT DO THIS)
 temp_ranges = []
 for i in range(len(data)):
     diff = data.loc[i, "tmax"] - data.loc[i, "tmin"]
     temp_ranges.append(diff)
+
 ```
 
 For a dataset with millions of records, this row-by-row looping is rather slow and requires more typing.
 
-Pandas uses a concept called **Vectorization**. Under the hood, Pandas pushes your data into highly optimized C-language arrays. When you ask Pandas to perform a calculation, it does not loop in Python; instead, it aligns the entire columns and pushes the math operation through the optimized C backend almost simultaneously. 
+Pandas uses a concept called **Vectorization**. Under the hood, Pandas pushes your data into highly optimized C-language arrays. When you ask Pandas to perform a calculation, it does not loop in Python; instead, it aligns the entire columns and pushes the math operation through the optimized C backend almost simultaneously.
 
 :::{figure} images/09_vectorization_concept.png
 :alt: Diagram comparing a slow row-by-row for-loop execution to a lightning-fast simultaneous vectorized column operation.
@@ -91,22 +100,17 @@ Pandas uses a concept called **Vectorization**. Under the hood, Pandas pushes yo
 *A `for` loop (left) must process every single row sequentially, which takes time. Vectorization (right) aligns the data arrays in memory and calculates the entire column in a single, simultaneous operation.*
 :::
 
-Look at how much cleaner the vectorized version is:
-```{code-cell} python
-# The fast, vectorized Pandas way
-temp_ranges = data["tmax"] - data["tmin"]
-```
-
 ```{admonition} The Golden Rule of Pandas
 :class: warning
-If you ever find yourself writing a `for` loop to modify or calculate data in a DataFrame, **stop**. There is almost certainly a vectorized Pandas method that can do it in a single line of code, many times faster.
+If you ever find yourself writing a `for` loop to modify or calculate data in a **{term}`DataFrame`**, **stop**. There is almost certainly a vectorized Pandas **{term}`method <Method>`** that can do it in a single line of code, many times faster.
+
 ```
 
 ---
 
 ## 2. Column-wise Math
 
-Vectorized math in Pandas is as simple as writing basic algebra. You just use the standard mathematical operators (`+`, `-`, `*`, `/`) directly on the Series objects.
+Vectorized math in Pandas is as simple as writing basic algebra. You just use the standard mathematical operators (`+`, `-`, `*`, `/`) directly on the **{term}`Series`** objects.
 
 When you do this, Pandas performs an **element-wise** operation. It looks at the index, matches row 0 of the first column with row 0 of the second column, performs the math, and instantly moves down the line.
 
@@ -117,19 +121,25 @@ Let us calculate the temperature range (the difference between the maximum and m
 temp_difference = data["tmax"] - data["tmin"]
 
 display(temp_difference.head(4))
-```
 
-**Output:**
-
-```text
-0     8.5
-1     9.5
-2    12.1
-3    14.6
-dtype: float64
 ```
 
 In just one line of code, Pandas matched the indices and calculated the precise difference for every single row in the dataset!
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L06_ch05_01_vectorization_vs_loop/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Vectorization vs. For-Loop.</b><br>
+    Click the buttons to simulate exactly how Python processes data row-by-row versus how Pandas executes math simultaneously across entire arrays. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L06_ch05_01_vectorization_vs_loop/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -143,27 +153,18 @@ data["temp_range"] = data["tmax"] - data["tmin"]
 
 # Check the DataFrame to see the new column attached at the end
 display(data[["DATE", "tmax", "tmin", "temp_range"]].head(3))
+
 ```
 
-:::{table} Output of new column creation
-:align: center
-
-|   | DATE     | tmax | tmin | temp_range |
-|---|----------|------|------|------------|
-| 0 | 20220601 | 19.6 | 11.1 | 8.5        |
-| 1 | 20220602 | 21.8 | 12.3 | 9.5        |
-| 2 | 20220603 | 24.8 | 12.7 | 12.1       |
-
-:::
-
-```{admonition} The Overwrite Trap
+```{admonition} The Overwrite Pitfall
 :class: warning
 If you assign data to a column name that *already exists* in your DataFrame, Pandas will silently overwrite the old data without warning you (because updating and creating use the exact same syntax!). Always double-check your spelling when creating new columns!
+
 ```
 
 ### Static Default Values
 
-You do not always need a mathematical calculation to create a new column. You can also initialize a new column with a static default value. 
+You do not always need a mathematical calculation to create a new column. You can also initialize a new column with a static default value.
 
 For example, if you wanted to create a blank column to store future quality-control notes, you could simply assign a single string. Pandas will automatically copy that single value down to fill every single row:
 
@@ -172,25 +173,26 @@ For example, if you wanted to create a blank column to store future quality-cont
 data["qc_notes"] = "Not checked"
 
 display(data[["DATE", "qc_notes"]].head(3))
+
 ```
 
 ---
 
 ## 4. Plotting the Math
 
-Staring at a table of numbers is a terrible way to spot trends. Humans are visual creatures—we process shapes and colors much faster than raw text. 
+Staring at a table of numbers is a terrible way to spot trends. Humans are visual creatures—we process shapes and colors much faster than raw text.
 
 Now that we have successfully calculated our new `temp_range` column, let us visualize it alongside our daily extremes. Pandas makes this incredibly easy with the built-in `.plot()` method, which acts as a wrapper around Python's powerful Matplotlib library (which we will get to know later).
 
 ### A Note on Dates
 
-You might have noticed that our `DATE` column looks like a number (`20220601`). Because we have not explicitly told Pandas that this is a calendar date yet (we will cover that in a future session!), plotting it on the x-axis right now would look very strange. 
+You might have noticed that our `DATE` column looks like a number (`20220601`). Because we have not explicitly told Pandas that this is a calendar date yet (we will cover that in a future session!), plotting it on the x-axis right now would look very strange.
 
 Luckily, since our data starts exactly on June 1st and records one row per day, the standard Pandas row index (`0, 1, 2...`) perfectly represents **"Days after June 1st"**. We can just let Pandas use the default index for the bottom axis!
 
 ### Stage 1: The Quick Plot
 
-Let us plot our maximum temperature (red), minimum temperature (blue), and our new temperature range (green). 
+Let us plot our maximum temperature (red), minimum temperature (blue), and our new temperature range (green).
 
 ```{code-cell} python
 # 1. Define exactly which columns we want to draw
@@ -198,18 +200,16 @@ columns_to_plot = ["tmax", "tmin", "temp_range"]
 
 # 2. Create a basic plot with custom colors
 data[columns_to_plot].plot(color=["red", "blue", "green"]);
+
 ```
 
-:::{figure} images/07_quick_plot.png
-:alt: Basic unstyled pandas line plot showing three lines in red, blue, and green.
-:width: 500px
-:align: center
-
-A basic Pandas plot is fast to generate, but it lacks essential context like axis labels, legends, and a readable canvas size.
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>A basic Pandas plot is fast to generate, but it lacks essential context like axis labels, legends, and a readable canvas size.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 This quick plot is helpful for a fast visual check, but it is not something you would want to put in a scientific report. It is small, there are no axis labels, and all the lines look identical.
-
 
 ### Stage 2: The Professional Plot
 
@@ -230,19 +230,19 @@ data[columns_to_plot].plot(
     grid=True,                       # Add a faint grid for readability
     # subplots=True                    # each column in its own subplot
 );
+
 ```
 
-:::{figure} images/08_pro_plot.png
-:alt: Professional pandas line plot with red and blue solid lines, a green line with star markers, a faint grid, a chart title, and clear axis labels.
-:width: 700px
-:align: center
-
-A styled plot effectively communicates the data story by using clear labels, descriptive line styles, and an expanded canvas size.
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>A styled plot effectively communicates the data story by using clear labels, descriptive line styles, and an expanded canvas size.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### The Elements of Good Style
 
 Notice how much easier the second chart is to read. Here is what we changed:
+
 * **`figsize=(10, 5)`:** Expanding the figure size ensures the data isn't crammed together, making daily spikes much easier to see.
 * **`style=["-", "-", "*"]`:** We used standard solid lines (`"-"`) for the physical temperature measurements, but a star marker (`"*"`) for our calculated range. This visual distinction helps the reader immediately separate raw data from derived math!
 * **`ylabel` and `xlabel`:** A chart without context is just a drawing. Always include a title and clearly label the units on your axes.
@@ -267,7 +267,7 @@ The best way to learn plotting is to break it and fix it. Try changing the param
 
 Sometimes simple algebra is not enough. You might have a complex spatial formula, a block of `if/else` statements, or a custom Python function that requires logic beyond basic addition and subtraction. For these situations, Pandas provides the `.apply()` method.
 
-The `.apply()` method takes a custom function and runs it efficiently across your data. 
+The `.apply()` method takes a custom function and runs it efficiently across your data.
 
 To learn the syntax, let us start by defining a standard Python function that converts temperatures from Celsius to Kelvin, and then apply it to our `tmax` column. *(Note: While we could easily do this with simple vectorized math like `data["tmax"] + 273.15`, using a simple formula helps us focus purely on how `.apply()` works!)*
 
@@ -281,31 +281,22 @@ def celsius_to_kelvin(temp_celsius):
 data["tmax_kelvin"] = data["tmax"].apply(celsius_to_kelvin)
 
 display(data[["tmax", "tmax_kelvin"]].head(3))
+
 ```
-
-:::{table} Output of applied function
-:align: center
-
-|   | tmax | tmax_kelvin |
-|---|------|-------------|
-| 0 | 19.6 | 292.75      |
-| 1 | 21.8 | 294.95      |
-| 2 | 24.8 | 297.95      |
-
-:::
 
 ```{admonition} No Parentheses!
 :class: warning
 Notice that when we used `.apply(celsius_to_kelvin)`, we did **not** put parentheses `()` after the function name. If you include parentheses, Python tries to run the function immediately before passing it to Pandas, which will cause an error. You are just handing the *name* of the function to Pandas so it can use it later.
+
 ```
 
 ### Applying Across Multiple Columns (axis=1)
 
 The example above applied a function to a *single column* (`data["tmax"]`). But what if your custom function needs to look at *multiple* columns at the same time to make a decision?
 
-To do this, we apply our function to the entire DataFrame (`data.apply(...)`) instead of just one column. When we do this, we must include the **`axis=1`** parameter. 
+To do this, we apply our function to the entire DataFrame (`data.apply(...)`) instead of just one column. When we do this, we must include the **`axis=1`** parameter.
 
-In Pandas, `axis=0` (the default) means moving vertically down columns. `axis=1` tells Pandas to pass the data into your function **horizontally, row by row**. 
+In Pandas, `axis=0` (the default) means moving vertically down columns. `axis=1` tells Pandas to pass the data into your function **horizontally, row by row**.
 
 Let us write a function that uses an `if/else` block to check both the `tmax` and `rh` (humidity) columns to categorize if a day was "Muggy" (hot and humid):
 
@@ -325,18 +316,30 @@ data["is_muggy"] = data.apply(check_muggy, axis=1)
 # 3. View the results
 columns_to_show = ["DATE", "tmax", "rh", "is_muggy"]
 display(data[columns_to_show].head(3))
+
 ```
 
-:::{table} Output of multi-column apply
-:align: center
+#### Concept Check: The Axis of Action
 
-|   | DATE     | tmax | rh   | is_muggy |
-|---|----------|------|------|----------|
-| 0 | 20220601 | 19.6 | 83.1 | No       |
-| 1 | 20220602 | 21.8 | 81.4 | No       |
-| 2 | 20220603 | 24.8 | 82.2 | Yes      |
+You wrote a custom function `calculate_risk(row)` that needs to read both the `elevation` and `slope` columns in your dataset to assign a flood risk category to each location. You attempt to apply it by writing the following code:
 
-:::
+`data["risk"] = data.apply(calculate_risk)`
+
+What happens when you run this?
+
+A) It crashes because you forgot `axis=1`. Pandas tries to pass entire columns into the function instead of row-by-row data.
+
+B) It works perfectly and calculates the risk for each row.
+
+C) It crashes because you forgot the parentheses on the function: `calculate_risk()`.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: A**
+By default, `.apply()` uses `axis=0`, which attempts to pass the entire vertical column into your function at once. Because your function was designed to read multiple data points horizontally across a single row, you must explicitly use `axis=1` to tell Pandas to feed the data through row by row. (And regarding C, omitting the parentheses on the function name inside `.apply()` is actually the correct syntax!).
+
+```
 
 ---
 
@@ -346,20 +349,20 @@ Let us put your new vectorized math and plotting skills to the test. We will use
 
 ### Task 1: Approximating the Daily Mean
 
-The `tmean` column in our dataset is highly accurate because the modern Kloten sensor calculates it by averaging 24 separate hourly measurements. However, many historical weather stations only recorded the daily maximum (`tmax`) and minimum (`tmin`). 
+The `tmean` column in our dataset is highly accurate because the modern Kloten sensor calculates it by averaging 24 separate hourly measurements. However, many historical weather stations only recorded the daily maximum (`tmax`) and minimum (`tmin`).
 
 Can we accurately guess the true daily mean by just averaging the min and max? Let's find out!
 
-1.  Calculate a new column called `tmean_approx` by averaging `tmax` and `tmin`. *(Hint: Add them together first, then divide by 2. Do not forget your algebraic parentheses!)*
-2.  Calculate a new column called `tmean_error` by subtracting your `tmean_approx` from the true `tmean`.
-3.  **Plot the results:** Create a line plot of your `tmean_error` column. Does this simple min/max method usually overestimate or underestimate the true daily temperature?
+1. Calculate a new column called `tmean_approx` by averaging `tmax` and `tmin`. *(Hint: Add them together first, then divide by 2. Do not forget your algebraic parentheses!)*
+2. Calculate a new column called `tmean_error` by subtracting your `tmean_approx` from the true `tmean`.
+3. **Plot the results:** Create a line plot of your `tmean_error` column. Does this simple min/max method usually overestimate or underestimate the true daily temperature?
 
 ```{code-cell} python
 # Write your code here
 
 ```
 
-````{admonition} Sample solution
+``````{admonition} Sample solution
 :class: dropdown
 
 ```{code-cell} python
@@ -378,25 +381,26 @@ data["tmean_error"].plot(
 );
 ```
 *Observation: If the plot mostly dips below 0, it means the (max+min)/2 method consistently overestimates the true 24-hour average!*
-````
 
-### Task 2: "Feels like" Proxy 
+``````
+
+### Task 2: "Feels like" Proxy
 
 Temperature alone does not dictate human comfort. High humidity makes the air feel warmer, while wind makes it feel cooler. Let us combine multiple variables to build a derived indicator.
 
 While we *could* do this with basic vectorized math, let us practice using `.apply()` for situations where formulas are too complex for simple operators. When a function needs data from multiple columns at once, we use `.apply(..., axis=1)` to pass the data row-by-row.
 
-1.  **Write the function:** Define a Python function called `calc_feels_like(row)` that calculates and returns the index using this formula: 
-    `row["tmean"] + (0.1 * row["rh"]) - (0.7 * row["wind_speed"])`
-2.  **Apply the function:** Create a new column called `feels_like_index` by applying your function to the `data` DataFrame. *(Crucial: You must include `axis=1` inside the apply parentheses so Pandas knows to send rows, not columns!)*
-3.  **Plot the results:** Plot both the original `tmean` and your new `feels_like_index` on the same graph to visually compare how the wind and humidity altered the baseline temperature across the summer.
+1. **Write the function:** Define a Python function called `calc_feels_like(row)` that calculates and returns the index using this formula:
+`row["tmean"] + (0.1 * row["rh"]) - (0.7 * row["wind_speed"])`
+2. **Apply the function:** Create a new column called `feels_like_index` by applying your function to the `data` DataFrame. *(Crucial: You must include `axis=1` inside the apply parentheses so Pandas knows to send rows, not columns!)*
+3. **Plot the results:** Plot both the original `tmean` and your new `feels_like_index` on the same graph to visually compare how the wind and humidity altered the baseline temperature across the summer.
 
 ```{code-cell} python
 # Write your code here
 
 ```
 
-````{admonition} Sample solution
+``````{admonition} Sample solution
 :class: dropdown
 
 ```{code-cell} python
@@ -420,7 +424,8 @@ data[columns_to_plot].plot(
     figsize=(10, 4)
 );
 ```
-````
+
+``````
 
 ---
 
@@ -438,9 +443,8 @@ Vectorization is the core engine that makes data science in Python viable. By tr
 
 ### What comes next?
 
-You now know how to clean your data, compute new variables, and plot the daily values. But what if you want to zoom out and look at the big picture? 
+You now know how to clean your data, compute new variables, and plot the daily values. But what if you want to zoom out and look at the big picture?
 
-How do we find the absolute highest temperature of the entire summer? What is the average rainfall for the month of June specifically? How would we combine this Kloten dataset with sensor data from Geneva? 
+How do we find the absolute highest temperature of the entire summer? What is the average rainfall for the month of June specifically? How would we combine this Kloten dataset with sensor data from Geneva?
 
 In the next section, **Summarizing, Aggregating, and Joining**, we will learn how to extract high-level statistical insights from thousands of rows of raw data, group our information into manageable categories, and merge separate tables together.
-

@@ -1,13 +1,17 @@
 ---
+
 title: Aggregating and Joining
 
 site:
  outline_maxdepth: 1
+
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Extracting Insights from Relational Data
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -19,6 +23,20 @@ Extracting Insights from Relational Data
 :class: tip
 
 Raw data is just a collection of numbers. To create actual knowledge, you need to zoom out. In this section, you will learn how to extract high level insights using summary statistics, combine multiple datasets using shared keys, and group data into meaningful categories.
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Grouping and joining are core operations needed for almost every spatial data science lab)  
+**Project Relevance:** ★★★ (Essential for enriching local datasets with external API data or joining shapefiles)  
+**Foundation:** ★★★ (The fundamentals of relational data manipulation)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Learn how to generate summary statistics, group data into meaningful categories, and join multiple datasets together using shared keys.  
+**Skip this if:** You already know how to use `.value_counts()`, `.describe()`, `.groupby()`, and `pd.merge()` to aggregate and join DataFrames.
+
 ```
 
 Before we begin, make sure you have downloaded the necessary datasets for this section. We will be using our familiar Kloten datasets, plus a new extended dataset from Lugano.
@@ -29,15 +47,16 @@ Please download these files to your local working directory:
 * [kloten_summer_2022_rain_sun.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_rain_sun.csv)
 * [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
 * [Lugano_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/Lugano_summer_2022_extended.txt)
+
 ```
 
-Let us load our primary extended Kloten dataset. We will also extract the month from the date string right away, as we will need it for grouping later.
+Let us load our primary extended Kloten dataset. We will also extract the month from the date **{term}`string <String>`** right away, as we will need it for grouping later.
 
 ```{code-cell} python
 import pandas as pd
 
 # Load the extended Kloten dataset
-fp = "kloten_summer_2022_extended.txt"
+fp = "data/kloten_summer_2022_extended.txt"
 data = pd.read_csv(
     fp,
     sep=r"\s+",
@@ -49,24 +68,14 @@ data = pd.read_csv(
 data["month"] = data["DATE"].astype(str).str.slice(4, 6)
 
 display(data.head(3))
+
 ```
-
-:::{table} Extended Kloten Dataset (with month)
-:align: center
-
-|   | DATE     | tmin | tmax | tmean | rh   | wind_speed | radiation | month |
-|---|----------|------|------|-------|------|------------|-----------|-------|
-| 0 | 20220601 | 11.1 | 19.6 | 14.8  | 83.1 | 1.8        | 126.7     | 06    |
-| 1 | 20220602 | 12.3 | 21.8 | 17.0  | 81.4 | 2.3        | 231.3     | 06    |
-| 2 | 20220603 | 12.7 | 24.8 | NaN   | 82.2 | 2.4        | 198.1     | 06    |
-
-:::
 
 ---
 
 ## 1. Unique Values and Counts
 
-Sometimes you want to know exactly what distinct categories exist within a specific column. Pandas provides two simple methods for this: `.unique()` to list the distinct values, and `.nunique()` to count them.
+Sometimes you want to know exactly what distinct categories exist within a specific column. Pandas provides two simple **{term}`methods <Method>`** for this: `.unique()` to list the distinct values, and `.nunique()` to count them.
 
 For example, let us confirm exactly which months are represented in our dataset.
 
@@ -76,61 +85,52 @@ print("Unique months:", data["month"].unique())
 
 # Count the number of unique values
 print("Number of unique months:", data["month"].nunique())
+
 ```
 
-``````{admonition} Expected Output
-:class: note
-```text
-Unique months: ['06' '07' '08']
-Number of unique months: 3
-```
-*(Note: Notice the lack of commas in the `Unique months` list? That is because `.unique()` returns a highly optimized NumPy array, not a standard Python list!)*
-``````
+*Do you notice the lack of commas in the `Unique months` list? That is because `.unique()` returns a highly optimized **{term}`NumPy`** **{term}`array <Array>`**, not a standard Python list!*
 
 ### Counting Category Frequencies
 
-Knowing the unique categories is helpful, but usually, we also want to know how many rows belong to each category. 
+Knowing the unique categories is helpful, but usually, we also want to know how many rows belong to each category.
 
 To answer "how many of each?", Pandas provides the incredibly useful `.value_counts()` method. It instantly calculates the frequency of every unique value in a column and sorts them from most to least common.
 
 ```{code-cell} python
 # Count how many days of data we have for each specific month
 display(data["month"].value_counts())
-```
 
-``````{admonition} Expected Output
-:class: note
-```text
-07    31
-08    31
-06    30
-Name: month, dtype: int64
 ```
-``````
 
 These three methods (`unique`, `nunique`, and `value_counts`) form your standard toolkit for exploring categorical data. This is incredibly useful for tasks like checking how many unique weather stations are present in a massive global dataset, or finding out which station recorded the most data points!
 
+---
+
 #### Concept Check: Which counting tool?
 
-Imagine you are analyzing a dataset of 10,000 recorded bird sightings. You want to know exactly how many *different species* of birds were observed in total (e.g., the answer should be a single number, like 45). 
+Imagine you are analyzing a dataset of 10,000 recorded bird sightings. You want to know exactly how many *different species* of birds were observed in total (e.g., the answer should be a single number, like 45).
 
 Which method should you use on the `species` column?
+
+A) `.unique()`
+
+B) `.value_counts()`
+
+C) `.nunique()`
 
 ```{admonition} Check your understanding
 :class: dropdown
 
-**You should use `.nunique()`.**
+**Answer: C**
+`.nunique()` strictly returns the integer **45** (the number of unique elements), which is exactly what you need! `.unique()` would return a massive array listing all 45 names, and `.value_counts()` would return a table showing how many times each of the 45 birds was spotted.
 
-* `.unique()` would return a massive array listing all 45 names.
-* `.value_counts()` would return a table showing how many times each of the 45 birds was spotted.
-* `.nunique()` strictly returns the integer **45** (the number of unique elements), which is exactly what you need!
 ```
 
 ---
 
 ## 2. Basic Statistics
 
-The DataFrame and Series objects contain built-in methods for generating rapid summary statistics. Rather than writing complex math, you can simply call `.mean()`, `.median()`, `.min()`, `.max()`, and `.std()` (standard deviation).
+The **{term}`DataFrames <DataFrame>`** and **{term}`Series`** objects contain built-in methods for generating rapid summary statistics. Rather than writing complex math, you can simply call `.mean()`, `.median()`, `.min()`, `.max()`, and `.std()` (standard deviation).
 
 If you call these on a single column, you get a single number:
 
@@ -138,42 +138,22 @@ If you call these on a single column, you get a single number:
 # Find the absolute maximum temperature of the entire summer
 hottest_temp = data["tmax"].max()
 print(f"The highest temperature was {hottest_temp}°C")
+
 ```
 
-``````{admonition} Expected Output
-:class: note
-```text
-The highest temperature was 36.0°C
-```
-``````
-
-If you want a comprehensive overview of your entire dataset, the `.describe()` method is your best friend. It generates a statistical summary for all numeric columns at once, automatically ignoring missing NaN values.
+If you want a comprehensive overview of your entire dataset, the `.describe()` method is your best friend. It generates a statistical summary for all numeric columns at once, automatically ignoring missing **{term}`NaN`** values.
 
 ```{code-cell} python
 # Generate summary statistics for specific columns
 columns_to_check = ["tmax", "tmin", "wind_speed"]
 display(data[columns_to_check].describe().round(2))
+
 ```
-
-:::{table} Output of describe()
-:align: center
-
-|       | tmax  | tmin  | wind_speed |
-|-------|-------|-------|------------|
-| count | 92.00 | 92.00 | 92.00      |
-| mean  | 27.07 | 13.95 | 2.53       |
-| std   | 4.01  | 2.37  | 0.68       |
-| min   | 18.60 | 7.30  | 1.10       |
-| 25%   | 24.33 | 12.70 | 2.10       |
-| 50%   | 27.25 | 13.60 | 2.40       |
-| 75%   | 29.50 | 15.38 | 3.00       |
-| max   | 36.00 | 19.40 | 4.20       |
-
-:::
 
 ```{admonition} Where is the median?
 :class: tip
-If you are looking for the median value in the `.describe()` table, look at the **50%** row! The 50th percentile means exactly half the data is above this number and half is below—which is the exact definition of a median.
+If you are looking for the **{term}`median <Median>`** value in the `.describe()` table, look at the **50%** row! The 50th percentile means exactly half the data is above this number and half is below—which is the exact definition of a median.
+
 ```
 
 ---
@@ -184,9 +164,9 @@ Calculating the average temperature for the entire summer is interesting, but wh
 
 Pandas uses a powerful concept called **Split-Apply-Combine**, accessible via the `.groupby()` method. This allows us to:
 
-1.  **Split** the dataset into groups based on a category (like our `month` column).
-2.  **Apply** a mathematical function (like mean or sum) to each group independently.
-3.  **Combine** the results back into a neat summary table.
+1. **Split** the dataset into groups based on a category (like our `month` column).
+2. **Apply** a mathematical function (like mean or sum) to each group independently.
+3. **Combine** the results back into a neat summary table.
 
 Let us group our data by month and calculate the average temperatures and wind speed. To understand the mechanics, we will write it out step-by-step first:
 
@@ -201,25 +181,14 @@ columns_to_aggregate = ["tmax", "tmin", "wind_speed"]
 monthly_averages = grouped_data[columns_to_aggregate].mean()
 
 display(monthly_averages.round(1))
+
 ```
 
-:::{table} Output without reset_index()
-:align: center
-
-|       | tmax      | tmin      | wind_speed |
-|-------|-----------|-----------|------------|
-| **month** |           |           |            |
-| 06    | 25.9 | 13.1 | 2.4   |
-| 07    | 28.2 | 14.6 | 2.6   |
-| 08    | 27.1 | 14.1 | 2.6   |
-
-:::
-
-Notice how `month` is sitting lower than the other column headers? That is because `.groupby()` automatically turns your grouping category into the DataFrame's Index!
+Notice how `month` is sitting lower than the other column headers? That is because `.groupby()` automatically turns your grouping category into the DataFrame's **{term}`Index`**!
 
 ### The Chained Approach
 
-Once you understand the Split-Apply-Combine logic, you do not need to write three separate lines of code. Pandas is designed to "chain" these commands together. 
+Once you understand the Split-Apply-Combine logic, you do not need to write three separate lines of code. Pandas is designed to "chain" these commands together.
 
 We can also add one crucial extra command at the end: `.reset_index()`. By default, `.groupby()` turns your grouping category (`month`) into the index. Resetting the index turns `month` back into a normal, usable column!
 
@@ -229,18 +198,8 @@ monthly_averages = data.groupby("month")[["tmax", "tmin", "wind_speed"]].mean().
 
 # Round the results to 2 decimal places for readability
 display(monthly_averages.round(2))
+
 ```
-
-:::{table} Output of groupby and mean
-:align: center
-
-|   | month | tmax  | tmin  | wind_speed |
-|---|-------|-------|-------|------------|
-| 0 | 06    | 25.87 | 13.10 | 2.40       |
-| 1 | 07    | 28.21 | 14.60 | 2.62       |
-| 2 | 08    | 27.09 | 14.14 | 2.55       |
-
-:::
 
 With a single line of chained code, we extracted a high-level insight: July (`07`) was noticeably hotter and slightly windier on average than June or August!
 
@@ -257,7 +216,7 @@ Let us load a new supplementary dataset (`kloten_summer_2022_rain_sun.csv`) that
 ```{code-cell} python
 # Load the supplementary dataset 
 # (Since it is a standard CSV, we don't need sep or skiprows!)
-supp_fp = "kloten_summer_2022_rain_sun.csv"
+supp_fp = "data/kloten_summer_2022_rain_sun.csv"
 supp_data = pd.read_csv(supp_fp)
 
 # Merge the two DataFrames.
@@ -279,17 +238,6 @@ display(combined_data[columns_to_show].head(3))
 
 ```
 
-:::{table} Output of merged DataFrames
-:align: center
-
-|   | DATE     | tmax | rh   | precipitation | sunshine_duration |
-|---|----------|------|------|---------------|-------------------|
-| 0 | 20220601 | 19.6 | 83.1 | 2.2           | 74                |
-| 1 | 20220602 | 21.8 | 81.4 | 0.0           | 281               |
-| 2 | 20220603 | 24.8 | 82.2 | 0.3           | 333               |
-
-:::
-
 Because both tables shared the exact same dates, Pandas neatly attached the rain and sun columns from the new table right next to the corresponding temperatures in our main table!
 
 ```{admonition} Duplicate Keys
@@ -298,12 +246,24 @@ Notice that we added `.drop(columns=["YEARMODA"])` to our code above. When you u
 
 ```
 
-```{admonition} The "Inner" Join Default
-:class: warning
-By default, `pd.merge()` performs an **inner join**. This means if the Kloten table has a date that is *missing* from the supplementary table, that entire day will be deleted from your final `combined_data`! 
+If you want to keep all the original days regardless of whether supplementary data exists, you must specify a left join (**{term}`left join <Left outer join>`**) by adding the parameter `how="left"` to your merge function.
 
-If you want to keep all the original days regardless of whether supplementary data exists, you must specify a left join by adding the parameter `how="left"` to your merge function.
-```
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L06_ch06_01_pandas_merge/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Pandas Merge Visualizer.</b><br>
+    Click the buttons to see how changing the `how` parameter alters the join behavior. Notice how the Inner Join completely drops rows without matches, while the Left Join and Right Join preserve the primary table and create `NaN` values where data is missing. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L06_ch06_01_pandas_merge/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
+
+---
 
 #### Concept Check: The Shared Key
 
@@ -311,11 +271,14 @@ You have Table A (containing `city_name` and `population`) and Table B (containi
 
 If you want to merge these tables so you can see the population and the mayor side-by-side, what column name should you pass to the `on=` parameter in `pd.merge()`?
 
+A) `on="population"`  
+B) `on="city_name"`  
+C) `on="mayor_name"`  
+
 ``````{admonition} Check your understanding
 :class: dropdown
 
-**`on="city_name"`**
-
+**Answer: B**
 To successfully stitch two tables together horizontally, you must identify the "key"—the column that exists in *both* datasets containing identical matching values. In this case, `city_name` is the only overlapping variable that links the population to the mayor!
 
 Here is what the full code would look like. Because the key column has the exact same name in both tables, we can use the convenient `on=` parameter instead of typing out `left_on` and `right_on`:
@@ -324,6 +287,7 @@ Here is what the full code would look like. Because the key column has the exact
 combined_table = pd.merge(table_a, table_b, on="city_name")
 
 ```
+
 ``````
 
 ---
@@ -352,7 +316,7 @@ It is time to put your relational data skills to the test. You have been asked t
 ```{code-cell} python
 # 1. Load Lugano data
 lugano_data = pd.read_csv(
-    "Lugano_summer_2022_extended.txt", 
+    "data/Lugano_summer_2022_extended.txt", 
     sep=r"\s+", 
     skiprows=[1], 
     na_values=["-9999"]
@@ -394,6 +358,7 @@ display(monthly_comparison.round(1))
 :::
 
 *Observation: Lugano's average temperature in July was significantly higher than Kloten's (25.4°C vs 21.6°C), highlighting the climatic differences between northern and southern Switzerland! Interestingly, Lugano also saw higher average daily precipitation during these months.*
+
 ``````
 
 ---
@@ -413,6 +378,6 @@ You have officially transitioned from just manipulating rows of data to generati
 
 Throughout this chapter, we relied on a bit of a hack: we used string slicing (`.str.slice()`) to chop up text and extract the month from our dates. But what if we wanted to calculate the exact number of days between two measurements? Or what if our dates were formatted messily like "Jan 1st, 2022" instead of "20220101"?
 
-Dates are not just strings of text; they are measurable, plottable dimensions. 
+Dates are not just strings of text; they are measurable, plottable dimensions.
 
 In the next section, **Working with Temporal Data**, we will learn how to convert clunky text into intelligent Pandas `datetime` objects. You will learn how to effortlessly extract years, months, and days using the special `.dt` accessor, and how to automatically resample time-series data (like converting hourly sensor readings into daily averages) without writing complex code.
