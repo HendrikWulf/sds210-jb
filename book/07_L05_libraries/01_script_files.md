@@ -2,7 +2,7 @@
 title: Writing script files
 
 site:
-  outline_maxdepth: 1
+   outline_maxdepth: 1
 ---
 
 <!-- markdownlint-disable MD033-->
