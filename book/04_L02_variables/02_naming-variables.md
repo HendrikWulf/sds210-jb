@@ -4,6 +4,7 @@ title: Naming Variables
 site:
  outline_maxdepth: 1
 
+
 ---
 
 <!-- markdownlint-disable MD033-->
@@ -82,7 +83,6 @@ num_points = 120
 _point_count = 120
 station_id2 = "101533"
 
-
 ```
 
 **Examples of invalid names:**
@@ -91,7 +91,6 @@ station_id2 = "101533"
 # 2points = 120      # ERROR: starts with a number
 # station-id = 42    # ERROR: contains a special character (hyphen acts as minus)
 # total$sum = 10     # ERROR: contains a special character
-
 
 ```
 
@@ -108,7 +107,6 @@ You can inspect the full list of reserved keywords:
 ```{code-cell} python
 import keyword
 print(keyword.kwlist)
-
 
 ```
 
@@ -133,7 +131,6 @@ s = "101533"
 finnishmeteorologicalinstituteobservationstationidentificationnumber = "101533"
 fmi_station_id = "101533"
 
-
 ```
 
 The first is too vague. The second is technically descriptive but exhausting to read. The third strikes a perfect balance.
@@ -143,7 +140,6 @@ The first is too vague. The second is technically descriptive but exhausting to 
 
 A good variable name should answer one question clearly:  
 *What does this value represent?*
-
 
 ```
 
@@ -161,7 +157,6 @@ Snake case uses entirely lowercase letters, with words separated by underscores 
 temp_celsius = 20.0
 fmi_station_id = "101533"
 coordinate_system = "WGS 84"
-
 
 ```
 
@@ -210,7 +205,6 @@ elevation_meters = 14.0
 city_name = "Copenhagen"
 population = 809314
 
-
 ```
 
 These names are clear, descriptive, and leave no room for confusion.
@@ -222,7 +216,6 @@ x = 55.6761          # too generic, what is x?
 data = "Copenhagen"  # too vague, everything is data
 temp = 25.6          # ambiguous (temperature? temporary?)
 l = [55.68, 12.57]   # DANGEROUS: the lowercase letter 'l' looks exactly like the number '1' or capital 'I' in many fonts!
-
 
 ```
 
@@ -259,7 +252,6 @@ b = 7.447
 c = "urban"
 d = "EPSG:2056"
 e = 542
-
 
 ```
 
