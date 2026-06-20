@@ -29,7 +29,7 @@ The core superpower of Pandas is **{term}`Vectorization`**. You no longer need t
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Vectorized operations and `.apply()` are required in all spatial data workflows)  
+**Lab Relevance:** ★★☆ (Vectorized operations and `.apply()` are required in many spatial data workflows)  
 **Project Relevance:** ★★★ (Essential for calculating derived indicators across large datasets efficiently)  
 **Foundation:** ★★★ (A fundamental shift from Python loops to array-based mathematical programming)  
 

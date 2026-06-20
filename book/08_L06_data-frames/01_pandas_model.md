@@ -26,8 +26,8 @@ When working with pure Python, you pass your data into functions. In Pandas, you
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential baseline for all subsequent spatial data manipulation labs)  
-**Project Relevance:** ★★★ (DataFrames will be the primary data container for projects 1 and 2)  
+**Lab Relevance:** ★★☆ (Essential baseline for all subsequent spatial data manipulation labs)  
+**Project Relevance:** ★★☆ (DataFrames will be the primary data container for projects 1 and 2)  
 **Foundation:** ★★★ (The shift to OOP and Pandas logic is a critical learning threshold in Python)  
 
 **Time to Read:** 10 minutes  
