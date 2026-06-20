@@ -421,7 +421,6 @@ Because this specific CSV happens to be quite clean already, we are going to int
 ```{code-cell} python
 # Write your code here
 
-
 ```
 
 ``````{admonition} Sample solution

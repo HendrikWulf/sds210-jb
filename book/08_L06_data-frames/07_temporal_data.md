@@ -734,12 +734,12 @@ ax.grid(True, linestyle="--", alpha=0.6)
 Using your newly resampled `monthly_saentis` data, can you find the exact month that had the absolute highest average temperature?
 *(Hint: The `.idxmax()` method will return the index label—in this case, the date—of the highest value!)*
 
-``````{code-cell} python
+```{code-cell} python
 # Write your code here:
 
 ```
 
-```{admonition} Sample Solution
+``````{admonition} Sample Solution
 :class: dropdown, tip
 
 ```{code-cell} python
