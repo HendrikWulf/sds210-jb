@@ -110,7 +110,7 @@ The GitLab repository below contains all exercises, practicals, and solutions in
 Throughout the semester, new notebooks will be added weekly.  
 Make sure you update your local copy regularly.
 
-1. Download the [SDS210 repository](https://gitlab.com/HendrikWulf/sds210/-/archive/main/sds210-main.zip) and extract it to a suitable location on your computer.
+1. Download the [SDS210 repository](https://gitlab.com/HendrikWulf/sds210/-/archive/main/sds210-main.zip) (~500 MB) and extract it to a suitable location on your computer where you store your SDS210 course files.
 
 2. If you have not yet installed Conda, download and install **[Miniconda](https://www.anaconda.com/docs/getting-started/miniconda/install)**
    Follow the default installation settings described in the Setup section on [Conda](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/).

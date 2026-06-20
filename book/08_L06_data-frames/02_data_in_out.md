@@ -188,8 +188,14 @@ If you are working with other software, you can easily adapt this using methods 
 One critical parameter to remember when saving is `index=False`. If you omit this, Pandas will write the row labels (the 0, 1, 2 sequence) into the file as a brand new column.  If you load that file again later, you will end up with an redundant column named `Unnamed: 0`.
 
 ```{code-cell} python
-# Define the output file name
-output_file = "output/kloten_cleaned_summer_2022.csv"
+from pathlib import Path
+
+# Define the output folder and file name
+output_folder = Path("output")
+output_file = output_folder / "kloten_cleaned_summer_2022.csv"
+
+# Create the output folder if it does not already exist
+output_folder.mkdir(parents=True, exist_ok=True)
 
 # Save DataFrame to a new CSV file
 # We use index=False to prevent saving the sequential row numbers

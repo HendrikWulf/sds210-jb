@@ -410,7 +410,6 @@ Imagine you are doing an analysis focused solely on major urban centers in Japan
 ```{code-cell} python
 # Write your code here
 
-
 ```
 
 ``````{admonition} Sample solution
