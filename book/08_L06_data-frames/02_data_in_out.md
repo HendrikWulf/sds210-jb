@@ -28,7 +28,7 @@ Pandas provides highly optimized single-line commands to load and save almost an
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Fundamental for loading spatial and tabular data in all course labs)  
+**Lab Relevance:** ★★★ (Fundamental for loading spatial and tabular data)  
 **Project Relevance:** ★★★ (Required for reading raw data and saving your final processed results)  
 **Foundation:** ★★★ (Core Pandas I/O operations are the starting point of any data science pipeline)  
 
@@ -224,7 +224,7 @@ print("File successfully saved!")
 
 To consolidate these steps, practice the standard intake workflow using a new dataset.
 
-You can download a zip-file called `simplemaps_worldcities_basicv1.901.zip` using this link: [https://simplemaps.com/static/data/world-cities/basic/simplemaps_worldcities_basicv1.901.zip](https://simplemaps.com/static/data/world-cities/basic/simplemaps_worldcities_basicv1.901.zip). It contains a file called `worldcities.csv`, which you should extract and add to your working directory.
+You can download a zip-file called `simplemaps_worldcities_basicv1.901.zip` using [this link](https://simplemaps.com/static/data/world-cities/basic/simplemaps_worldcities_basicv1.901.zip). It contains a file called `worldcities.csv`, which you should extract and add to your working directory.
 
 **Tasks:**
 
