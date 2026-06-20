@@ -28,7 +28,7 @@ Now that your data is loaded into a two dimensional grid, you need to know how t
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Slicing, filtering, and sorting are the absolute bread and butter of all Pandas lab assignments)  
+**Lab Relevance:** ★★★ (Slicing, filtering, and sorting are the absolute bread and butter of Pandas lab assignments)  
 **Project Relevance:** ★★★ (Required for isolating relevant subsets of data in any analytical pipeline)  
 **Foundation:** ★★★ (Core Pandas mechanics that replace standard Python loops and `if` statements)  
 
