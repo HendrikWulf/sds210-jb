@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Asking Spatial Questions
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -20,11 +22,25 @@ Asking Spatial Questions
 :class: tip
 
 Now that you can measure and modify individual geographic shapes, it is time to compare them. Topological queries allow you to ask the computer spatial questions: Is this building *inside* the flood zone? Does this road *intersect* the river? Which hospital is *closest* to the accident? Using geography to connect different datasets is the true power of GIS.
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Spatial predicates are required for almost every spatial data science assignment)  
+**Project Relevance:** ★★★ (Essential for filtering and cross-referencing multiple diverse datasets in your final projects)  
+**Foundation:** ★★★ (Topological relationships form the core mathematical basis of all GIS operations)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Learn how to query and filter spatial data based on geographic relationships like intersections, containment, and proximity without relying on shared text attributes.  
+**Skip this if:** You are already completely fluent in applying Shapely/GeoPandas spatial predicates (e.g., `.intersects()`, `.within()`, `.contains()`) as Boolean masks, and understand how to use `.sjoin_nearest()` for proximity searches.
+
 ```
 
 In the previous sections, we learned how to load shapes, project them onto a metric grid, and calculate their areas and buffers. However, we only manipulated one dataset at a time.
 
-In this section, we transition to answering complex spatial questions by comparing two entirely different datasets. You will learn how to evaluate the physical relationships between geometries and use those relationships to filter data and find nearest neighbors.
+In this section, we transition to answering complex **{term}`spatial questions <Spatial queries>`** by comparing two entirely different datasets. You will learn how to evaluate the physical relationships between geometries and use those relationships to filter data and find nearest neighbors.
 
 ```{admonition} Download the Datasets
 :class: note
@@ -37,26 +53,26 @@ Please download these files to your local working directory for this lesson:
 * [swiss_parks.shp.zip](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swiss_parks.shp.zip)
 * [wohnungsinventar.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/wohnungsinventar.gpkg)
 * [wolf_tracks_switzerland.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/wolf_tracks_switzerland.gpkg)
+
 ```
 
 ---
-
 
 ## 1. Asking Spatial Questions
 
 When we look at a map, our brains instantly recognize spatial relationships. We can easily see if a dot is inside a square or if two lines cross each other. Computers, however, only see lists of coordinates.
 
-To teach the computer how to recognize these visual relationships, spatial data science uses **Topological Spatial Relations**. These are mathematical rules that describe how the interior, boundary, and exterior of two geometric shapes interact.
+To teach the computer how to recognize these visual relationships, spatial data science uses **{term}`Topological spatial relations`**. These are mathematical rules that describe how the interior, boundary, and exterior of two geometric shapes interact.
 
 :::{figure} images/19_spatial-relations.png
 :alt: A diagram showing eight different topological relationships between two circular polygons, A and B. The relationships shown are: disjoint (fully separated), contains (B is completely inside A), within (A is completely inside B), equals (A and B are identical), touches (they touch only at the border), overlaps (they partially intersect), covers (A completely covers B, sharing a boundary), and covered by (A is completely covered by B, sharing a boundary).
 :width: 800px
 :align: center
 
-*Common topological relationships. Notice how the mathematical definitions rely strictly on how the interiors and borders of the two shapes interact. Modified after Egenhofer et al. (1992). Source: [Geopython](https://pythongis.org/part2/chapter-06/nb/05-spatial-queries.html#topological-spatial-relations)*
+*Common topological relationships. Notice how the mathematical definitions rely strictly on how the interiors and borders of the two shapes interact. Modified after Egenhofer et al. (1992). Source: [Geopython*](https://pythongis.org/part2/chapter-06/nb/05-spatial-queries.html#topological-spatial-relations)
 :::
 
-When you ask GeoPandas a spatial question (e.g., "Are these two shapes touching?"), it evaluates these mathematical rules under the hood and returns a simple **Boolean** answer: `True` or `False`. We refer to these evaluation methods as **spatial predicates**.
+When you ask GeoPandas a spatial question (e.g., "Are these two shapes touching?"), it evaluates these mathematical rules under the hood and returns a simple **{term}`Boolean`** answer: `True` or `False`. We refer to these evaluation methods as **spatial predicates**.
 
 While there are many possible mathematical combinations, GeoPandas provides 10 core methods to test these relationships.
 
@@ -64,23 +80,35 @@ While there are many possible mathematical combinations, GeoPandas provides 10 c
 
 You will use these three spatial predicates for the vast majority of your spatial queries:
 
-  * **`.intersects()`:** Returns `True` if the geometries share *at least one point* in common. This is the broadest and most commonly used query. (If a shape touches, crosses, or is within another shape, it also intersects it).
-  * **`.within()`:** Returns `True` if geometry A is completely inside the boundary of geometry B.
-  * **`.contains()`:** Returns `True` if geometry A completely encloses geometry B. (This is the exact inverse of `.within()`).
+* **`.intersects()`:** Returns `True` if the geometries share *at least one point* in common. This is the broadest and most commonly used query. (If a shape touches, crosses, or is within another shape, it also intersects it).
+* **`.within()`:** Returns `True` if geometry A is completely inside the boundary of geometry B.
+* **`.contains()`:** Returns `True` if geometry A completely encloses geometry B. (This is the exact inverse of `.within()`).
 
 ### Other Useful Predicates
 
 Depending on the specific rules of your analysis, you might need more precise constraints:
 
-  * **`.disjoint()`:** Returns `True` if the geometries are completely separated. (The exact opposite of `.intersects()`).
-  * **`.touches()`:** Returns `True` if the geometries share a border/edge, but their interiors do not overlap at all.
-  * **`.overlaps()`:** Returns `True` if the geometries' interiors intersect partially, but neither is completely inside the other.
-  * **`.equals()`:** Returns `True` if both geometries are topologically perfectly identical.
-  * **`.crosses()`:** Returns `True` if the geometries intersect, but their intersection creates a shape of a lower dimension (e.g., a line crossing a polygon creates a line, not a polygon).
-  * **`.covers()` / `.covered_by()`:** Very similar to contains and within, but slightly more lenient because they allow the shapes to share exact boundaries.
+* **`.disjoint()`:** Returns `True` if the geometries are completely separated. (The exact opposite of `.intersects()`).
+* **`.touches()`:** Returns `True` if the geometries share a border/edge, but their interiors do not overlap at all.
+* **`.overlaps()`:** Returns `True` if the geometries' interiors intersect partially, but neither is completely inside the other.
+* **`.equals()`:** Returns `True` if both geometries are topologically perfectly identical.
+* **`.crosses()`:** Returns `True` if the geometries intersect, but their intersection creates a shape of a lower dimension (e.g., a line crossing a polygon creates a line, not a polygon).
+* **`.covers()` / `.covered_by()`:** Very similar to contains and within, but slightly more lenient because they allow the shapes to share exact boundaries.
 
----
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L07_ch05_01_spatial_predicates/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
 
+<figcaption>
+    <em><b>Interactive Explorer: Spatial Predicates Visualizer.</b><br>
+    Click the buttons below the map to trigger different topological relationships between Shape A (blue circle) and Shape B (green square). Watch the Boolean results on the right dynamically evaluate to True or False based on the strict mathematical interactions of their borders and interiors. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L07_ch05_01_spatial_predicates/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ## 2. Intersects, Contains, and Within
 
@@ -94,13 +122,13 @@ import pandas as pd
 import numpy as np
 
 # 1. Load the Cantons Polygons
-cantons_gdf = gpd.read_file("swissBoundaries3D_cantons.gpkg")
+cantons_gdf = gpd.read_file("data/swissBoundaries3D_cantons.gpkg")
 
 # Extract just the geometry for the canton of Zurich
 canton_zh = cantons_gdf[cantons_gdf["name"] == "Zürich"].geometry.iloc[0]
 
 # 2. Load the Pollen Stations Points (CSV -> GeoDataFrame)
-pollen_df = pd.read_csv("meteoswiss_pollen_network.csv")
+pollen_df = pd.read_csv("data/meteoswiss_pollen_network.csv")
 pollen_gdf = gpd.GeoDataFrame(
     pollen_df, 
     geometry=gpd.points_from_xy(pollen_df.X, pollen_df.Y),
@@ -109,6 +137,7 @@ pollen_gdf = gpd.GeoDataFrame(
 
 # Extract just the geometry for the specific station located in Zurich
 station_zh = pollen_gdf[pollen_gdf["station_name"] == "Zürich"].geometry.iloc[0]
+
 ```
 
 ### The Geometry Methods
@@ -129,34 +158,27 @@ print("Canton within station:", canton_zh.within(station_zh))
 # 3. Testing 'Intersects' (Do the two shapes share ANY space at all?)
 print("\nStation intersects canton:", station_zh.intersects(canton_zh))
 print("Canton intersects station:", canton_zh.intersects(station_zh))
-```
 
-**Output:**
-
-```text
-Canton contains station: True
-Station contains canton: False
-
-Station within canton: True
-Canton within station: False
-
-Station intersects canton: True
-Canton intersects station: True
 ```
 
 This output reveals a critical rule of spatial querying: **Order matters immensely for most predicates!** * **Asymmetric Methods:** `.contains()` and `.within()` are directional. A massive polygon can contain a tiny coordinate point, but a point can never contain a polygon. Notice, however, that they are perfect inverse methods of each other. Use whichever makes your code read more naturally.
+
 * **Symmetric Methods:** `.intersects()` is bi-directional. If shape A touches shape B, then shape B *must* be touching shape A. The order does not matter.
 
+---
 
 #### Concept Check: The Rhine River
 
-You have a `LineString` geometry representing the entire Rhine River (flowing from the Swiss Alps all the way to the Netherlands) and a `Polygon` geometry representing the country of Switzerland (`swiss_poly`). 
+You have a `LineString` geometry representing the entire Rhine River (flowing from the Swiss Alps all the way to the Netherlands) and a `Polygon` geometry representing the country of Switzerland (`swiss_poly`).
 
 Based on the mathematical rules of spatial predicates, which of the following queries will return `True`?
 
-A) `rhine_line.within(swiss_poly)`  
-B) `swiss_poly.within(rhine_line)`  
-C) `swiss_poly.contains(rhine_line)`  
+A) `rhine_line.within(swiss_poly)`
+
+B) `swiss_poly.within(rhine_line)`
+
+C) `swiss_poly.contains(rhine_line)`
+
 D) `rhine_line.intersects(swiss_poly)`
 
 ```{admonition} Check your understanding
@@ -164,15 +186,18 @@ D) `rhine_line.intersects(swiss_poly)`
 
 **Answer: D**
 Because the Rhine River extends geographically beyond Switzerland's borders into Germany and the Netherlands, it is not completely `.within()` the country (A is False), nor does Switzerland completely `.contains()` it (C is False). Furthermore, a massive 2D country polygon can never be `.within()` a 1D river line (B is False). The only topologically true statement is that they share geographic space along the way, meaning they `.intersects()` (D is True).
+
 ```
+
+---
 
 ### Scaling Up: The Spatial Loop
 
-Checking one station against one canton is easy. But what if we want to calculate a brand new regional metric for our dataset? 
+Checking one station against one canton is easy. But what if we want to calculate a brand new regional metric for our dataset?
 
 For this example, we will calculate the **average altitude of the pollen stations** inside each individual canton. *(You can imagine `altitude` here as a tangible substitute for any real-world scientific measurement you might want to aggregate, such as daily pollen concentrations, temperature, or rainfall!)*
 
-To do this, we can loop through every single canton and ask the computer to find which stations fall `.within()` its borders. If it finds any, we will calculate their average altitude and save it directly into the `cantons_gdf` attribute table.
+To do this, we can **{term}`loop <Loop>`** through every single canton and ask the computer to find which stations fall `.within()` its borders. If it finds any, we will calculate their average altitude and save it directly into the `cantons_gdf` attribute table.
 
 ```{code-cell} python
 import numpy as np
@@ -219,21 +244,20 @@ ax = cantons_gdf.plot(
 ax.set_title("Average Altitude of Pollen Stations per Canton")
 ax.axis("off")
 plt.show()
+
 ```
 
-:::{figure} images/20_spatial_loop_altitude.png
-:alt: A choropleth map of Swiss cantons. Cantons with pollen stations are colored according to the viridis colormap (dark purple for lower altitudes to bright yellow for higher altitudes) based on the average altitude of the stations within them. Several cantons without any pollen stations are colored light grey.
-:width: 800px
-:align: center
-
-*Visualizing our engineered metric. By combining a simple Python loop with a spatial predicate (`.within()`), we successfully generated a brand new geographical layer. Notice how the light grey cantons were automatically skipped by our `if not stations_inside.empty:` logic!*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Visualizing our engineered metric. By combining a simple Python loop with a spatial predicate (`.within()`), we successfully generated a brand new geographical layer. Notice how the light grey cantons were automatically skipped by our `if not stations_inside.empty:` logic!</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
 ## 3. Filtering by Location
 
-In the previous section, we used a `for` loop to test geometries one by one. While loops are useful, they are very slow for large datasets. The true power of GeoPandas shines when we apply spatial predicates to **entire DataFrames at once**.
+In the previous section, we used a `for` loop to test geometries one by one. While loops are useful, they are very slow for large datasets. The true power of GeoPandas shines when we apply spatial predicates to **entire {term}`DataFrames <DataFrame>` at once**.
 
 In early chapters, you learned how to filter Pandas DataFrames using logical conditions (e.g., `data[data["population"] > 1000]`). In GeoPandas, you can use geography itself as the logical condition!
 
@@ -243,10 +267,10 @@ We will load the Swiss housing inventory (which contains communal polygons and h
 
 ```{code-cell} python
 # 1. Load the Housing Inventory (Communal polygons)
-housing_gdf = gpd.read_file("wohnungsinventar.gpkg")
+housing_gdf = gpd.read_file("data/wohnungsinventar.gpkg")
 
 # 2. Load the Nuclear Power Plants and isolate Beznau
-npp_df = pd.read_csv("NuclearPowerPlant.csv")
+npp_df = pd.read_csv("data/NuclearPowerPlant.csv")
 npp_gdf = gpd.GeoDataFrame(
     npp_df, 
     geometry=gpd.points_from_xy(npp_df.X, npp_df.Y),
@@ -256,6 +280,7 @@ beznau = npp_gdf[npp_gdf["Name"] == "Kernkraftwerk Beznau"].geometry.iloc[0]
 
 # 3. Create the 16km (16,000m) Evacuation Buffer around Beznau
 evac_zone = beznau.buffer(16000)
+
 ```
 
 Now, instead of writing a loop, we will ask the entire `housing_gdf` dataset which communal polygons intersect with our evacuation zone. This generates a **Boolean mask**—a simple list of `True` and `False` values—which we can use to instantly filter the rows!
@@ -275,9 +300,10 @@ impacted_communes = housing_gdf[in_danger_mask]
 total_impacted_homes = impacted_communes["ZWG_3010"].sum()
 
 print(f"\nTotal primary homes impacted: {total_impacted_homes:,}")
+
 ```
 
-With just two lines of spatial filtering logic, we instantly calculated demographic vulnerability based purely on geographic location! 
+With just two lines of spatial filtering logic, we instantly calculated demographic vulnerability based purely on geographic location!
 
 To prove that our spatial filter worked perfectly, let us visualize the results. We will plot all the communes in light grey, overlay our filtered `impacted_communes` in red, and draw the 16km `evac_zone` boundary on top.
 
@@ -302,18 +328,16 @@ ax.set_ylim(1250000, 1290000)
 ax.set_title("Swiss Communes Impacted by Beznau 16km Evacuation Zone")
 ax.axis("off")
 plt.show()
+
 ```
 
-:::{figure} images/21_beznau_evac_filter.png
-:alt: A map of Swiss communes. The Beznau nuclear power plant is marked with a black star in the center, surrounded by a dashed black circle representing a 16km radius. Every commune polygon that touches or falls inside this dashed circle is highlighted in red, while the communes entirely outside the circle remain light grey.
-:width: 800px
-:align: center
-
-*Visual proof of our spatial filter. Notice that if even a tiny sliver of a commune's border crossed into the dashed 16km evacuation zone, the entire commune polygon was correctly flagged as `True` by the `.intersects()` predicate and highlighted in red.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Visual proof of our spatial filter. Notice that if even a tiny sliver of a commune's border crossed into the dashed 16km evacuation zone, the entire commune polygon was correctly flagged as `True` by the `.intersects()` predicate and highlighted in red.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
-
 
 ## 4. Nearest Neighbor
 
@@ -329,8 +353,8 @@ import geopandas as gpd
 # 1. Load both datasets
 # (Both files are already in the Swiss metric grid, but adding .to_crs() 
 # right when you load data is a fantastic safety habit to prevent degree-errors!)
-huts_gdf = gpd.read_file("alpine_huts.gpkg").to_crs(epsg=2056)
-hospitals_gdf = gpd.read_file("hospital_landing_sites.geojson").to_crs(epsg=2056)
+huts_gdf = gpd.read_file("data/alpine_huts.gpkg").to_crs(epsg=2056)
+hospitals_gdf = gpd.read_file("data/hospital_landing_sites.geojson").to_crs(epsg=2056)
 
 # 2. Find the nearest hospital for every hut
 # - how="left": Keep all the huts in our results, even if something goes wrong.
@@ -343,26 +367,19 @@ emergency_plan = huts_gdf.sjoin_nearest(
 
 # 3. View the results (Showing the Hut Name, the Closest Hospital, and the Distance)
 display(emergency_plan[["name_left", "name_right", "distance_m"]].head(3).round(1))
+
 ```
 
-````{admonition} Why 'name_left' and 'name_right'?
+```{admonition} Why 'name_left' and 'name_right'?
 :class: note
 
 When you run `.sjoin_nearest()`, GeoPandas permanently merges the columns of the two datasets together. Because both our `huts_gdf` and our `hospitals_gdf` had a column simply called `name`, GeoPandas automatically renamed them to `name_left` (the huts, our starting dataset) and `name_right` (the hospitals, the dataset we joined) to prevent errors!
-````
 
-**Output:**
-
-| | name_left | name_right | distance_m |
-|---|---|---|---|
-| **0** | Mischabelhütte | Visp Spital | 19826.8 |
-| **1** | Rifugio Sant'Anna | Locarno Clinica Santa Chiara | 6983.1 |
-| **2** | Capanna Piandios | Acquarossa Ospedale | 5338.4 |
+```
 
 This operation requires a massive amount of background math, but thanks to advanced spatial indexing (KD Trees) working under the hood, GeoPandas can cross-reference and match thousands of points in milliseconds.
 
-
-````{admonition} Visualizing the Connections
+``````{admonition} Visualizing the Connections
 :class: dropdown 
 
 To truly understand what the computer just did, we can draw a map that explicitly connects every mountain hut to its newly assigned hospital. 
@@ -417,7 +434,7 @@ plt.show()
 *Visual proof of our `.sjoin_nearest()` calculation. The dashed lines represent the shortest possible flight path from each mountain hut to its assigned medical facility.*
 :::
 
-````
+``````
 
 ### Advanced Tip: Search Limits
 
@@ -432,7 +449,9 @@ emergency_plan = huts_gdf.sjoin_nearest(
     distance_col="distance_m",
     max_distance=15000 
 )
+
 ```
+
 *(Note: If you ran this code, the Mischabelhütte would simply be dropped from the final results, as it has no hospitals within that 15km search radius!)*
 
 ---
@@ -445,27 +464,29 @@ Your task is to use a spatial predicate as a Boolean mask to filter the GPS trac
 
 **Tasks:**
 
-1.  **Load Data:** Load the two datasets and ensure both are in `EPSG:2056`. 
-    * *Real-World Tip:* Both of these files actually contain multiple spatial layers! To suppress GeoPandas' warnings, you must specify exactly which layer to open. Use `layer="Schneeschuhwanderwege"` for the wolf tracks (apparently our wolves like to follow the snowshoe trails!), and `layer="N2026_Revision_Park_20250430"` for the parks.
-2.  **Merge Parks:** The parks dataset contains dozens of individual polygons. To make our query faster, merge them into a single massive "protected zone" geometry using `all_parks = parks_gdf.geometry.union_all()`.
-3.  **Filter by Location:** Create a Boolean mask by checking which geometries in your wolf tracks dataset are `.within()` the `all_parks` geometry.
-4.  **Apply Mask:** Filter the wolf GeoDataFrame using your mask to create a new variable called `protected_wolves`.
-5.  **Count:** Use `len()` to see how many GPS tracks fell entirely inside the park boundaries compared to the original dataset.
+1. **Load Data:** Load the two datasets and ensure both are in `EPSG:2056`.
+
+* *Real-World Tip:* Both of these files actually contain multiple spatial layers! To suppress GeoPandas' warnings, you must specify exactly which layer to open. Use `layer="Schneeschuhwanderwege"` for the wolf tracks (apparently our wolves like to follow the snowshoe trails!), and `layer="N2026_Revision_Park_20250430"` for the parks.
+
+2. **Merge Parks:** The parks dataset contains dozens of individual polygons. To make our query faster, merge them into a single massive "protected zone" geometry using `all_parks = parks_gdf.geometry.union_all()`.
+3. **Filter by Location:** Create a Boolean mask by checking which geometries in your wolf tracks dataset are `.within()` the `all_parks` geometry.
+4. **Apply Mask:** Filter the wolf GeoDataFrame using your mask to create a new variable called `protected_wolves`.
+5. **Count:** Use `len()` to see how many GPS tracks fell entirely inside the park boundaries compared to the original dataset.
 
 ```{code-cell} python
 # Write your code here
 
 ```
 
-````{admonition} Sample solution
+``````{admonition} Sample solution
 :class: dropdown
 
 ```{code-cell} python
 import geopandas as gpd
 
 # 1. Load Data (Specifying the exact layer prevents warnings!)
-wolves_gdf = gpd.read_file("wolf_tracks_switzerland.gpkg", layer="Schneeschuhwanderwege").to_crs(epsg=2056)
-parks_gdf = gpd.read_file("swiss_parks.shp.zip", layer="N2026_Revision_Park_20250430").to_crs(epsg=2056)
+wolves_gdf = gpd.read_file("data/wolf_tracks_switzerland.gpkg", layer="Schneeschuhwanderwege").to_crs(epsg=2056)
+parks_gdf = gpd.read_file("data/swiss_parks.shp.zip", layer="N2026_Revision_Park_20250430").to_crs(epsg=2056)
 
 # 2. Merge Parks into a single massive geometry
 all_parks = parks_gdf.geometry.union_all()
@@ -495,7 +516,8 @@ ax.axis("off")
 
 *Applying a Point-in-Polygon (or Line-in-Polygon) spatial query. Because we used `.within()`, only the tracks that are completely inside the protected park boundaries are selected and highlighted in red.*
 :::
-````
+
+``````
 
 ---
 
@@ -507,11 +529,11 @@ In this section, you unlocked the ability to link disparate datasets together pu
 
 * **Topological Rules:** Spatial predicates are mathematical evaluations that return `True` or `False` depending on how shapes physically interact (or don't).
 * **The Core Three:** Memorize `.intersects()`, `.contains()`, and `.within()`. They are your primary tools for querying space. Always remember that order matters when using asymmetric predicates like *contains* and *within*!
-* **Geographic Filtering:** Just like filtering text or numbers in standard Pandas, you can use a spatial predicate to generate a Boolean mask and filter an entire GeoDataFrame at once—no slow `for` loops required.
+* **Geographic Filtering:** Just like filtering text or numbers in standard Pandas, you can use a spatial predicate to generate a **{term}`Boolean`** mask and filter an entire **{term}`GeoDataFrame`** at once—no slow **{term}`loops <Loop>`** required.
 * **Nearest Neighbor:** When items do not touch, use `.sjoin_nearest()` to rapidly calculate the closest feature between two datasets and merge their attributes. Remember to use `max_distance` to set logical real-world limits (like maximum flight ranges) and speed up your code.
 
 ### What comes next?
 
-We have successfully used spatial relationships to *filter* data (e.g., keeping only the wolves inside the park). But what if we want to permanently *merge* the columns of two overlapping datasets together? 
+We have successfully used spatial relationships to *filter* data (e.g., keeping only the wolves inside the park). But what if we want to permanently *merge* the columns of two overlapping datasets together?
 
 In the final section of this chapter, **Spatial Joins**, we will explore how to fuse datasets based on their spatial relationships to create entirely new, multi-dimensional analytical tables!

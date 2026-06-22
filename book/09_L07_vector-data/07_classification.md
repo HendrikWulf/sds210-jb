@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Categorizing Spatial Data
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -20,9 +22,23 @@ Categorizing Spatial Data
 :class: tip
 
 Raw numerical data is powerful for computation, but sub-optimal for human communication. To create maps that people can actually understand at a glance, we should bridge the gap between raw data and visual design by grouping continuous numbers into logical, discrete categories (bins).
+
 ```
 
-In the previous sections, we learned how to generate new spatial datasets, engineer new columns, and combine geometries. You now have a GeoDataFrame packed with precise, raw numbers.
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for producing accurate, readable maps in all assignments)  
+**Project Relevance:** ★★★ (Critical for presenting final spatial analysis results properly)  
+**Foundation:** ★★☆ (Key cartographic principles complementing the programmatic tools)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Learn to normalize raw counts to eliminate area bias, and use Python's statistical algorithms to group continuous data into readable map categories.  
+**Skip this if:** You completely understand spatially intensive vs. extensive variables and are comfortable applying `mapclassify` schemes like Quantiles and Natural Breaks in GeoPandas.
+
+```
+
+In the previous sections, we learned how to generate new spatial datasets, engineer new columns, and combine geometries. You now have a **{term}`GeoDataFrame`** packed with precise, raw numbers.
 
 However, if you try to plot these raw numbers directly, the resulting map can be confusing. This section marks the transition from spatial *analysis* to spatial *communication*. You will learn why we must normalize our data and how to use Python rules and statistical algorithms to categorize (classify) your data into readable groups.
 
@@ -30,23 +46,24 @@ However, if you try to plot these raw numbers directly, the resulting map can be
 :class: note
 Please download this file to your local working directory for this lesson:
 * [swissBoundaries3D_municipalities.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_municipalities.gpkg)
+
 ```
 
 ---
 
 ## 1. Why Classify Data?
 
-When visualizing data within geographic boundaries (like cantons or municipalities), we create what is called a **Choropleth Map** or a thematic map.
+When visualizing data within geographic boundaries (like cantons or municipalities), we create what is called a **{term}`Choropleth Map <Choropleth map>`** or a thematic map.
 
 Before we assign colors to our polygons, we must overcome two fundamental problems: **The Area Bias** and **The Continuous Brain Limit**.
 
 ### The Area Bias (Why we need Ratios)
 
-When creating a choropleth map (where entire polygons are filled with color), you must be very careful about mapping raw counts, such as the total population or the total number of crimes. 
+When creating a choropleth map (where entire polygons are filled with color), you must be very careful about mapping raw counts, such as the total population or the total number of crimes.
 
 Raw counts are **spatially extensive** variables, meaning their values are directly correlated with the physical size of the observational unit. Everything else being equal, a larger municipality will naturally have more houses, more people, and more total crimes simply because it has more space. If you map total population, the largest polygons will almost always appear the darkest, misleading the viewer into thinking they are the most crowded or dangerous areas.
 
-To fix this area bias, we must convert our counts into **spatially intensive** variables by creating a ratio or density. By dividing the raw count by a measure of size (like total area or total population at risk), we reveal the *intrinsic* variation of the data, regardless of how large or small the municipal borders happen to be. 
+To fix this area bias, we must convert our counts into **spatially intensive** variables by creating a ratio or density. By dividing the raw count by a measure of size (like total area or total population at risk), we reveal the *intrinsic* variation of the data, regardless of how large or small the municipal borders happen to be.
 
 Let us load the Swiss municipalities and prove this visually by comparing the extensive total population to the intensive population density.
 
@@ -55,7 +72,7 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 
 # Load municipalities and ensure metric CRS
-muni_gdf = gpd.read_file("swissBoundaries3D_municipalities.gpkg").to_crs(epsg=2056)
+muni_gdf = gpd.read_file("data/swissBoundaries3D_municipalities.gpkg").to_crs(epsg=2056)
 
 # Calculate Population Density (People per hectare)
 # gem_flaeche is the municipal area in hectares
@@ -100,6 +117,7 @@ ax3.axis("off")
 
 plt.tight_layout()
 plt.show()
+
 ```
 
 Click through the tabs below to see how plotting a spatially extensive variable creates a visual illusion, and how a spatially intensive ratio fixes it.
@@ -144,16 +162,19 @@ Population Density is a spatially intensive variable. By dividing the population
 
 If your goal is to show which country's citizens have the least sustainable lifestyle, which column should you map, and why?
 
-A) `total_co2_emissions`, because it is a spatially intensive variable.  
-B) `total_co2_emissions`, because it is a spatially extensive variable.  
-C) `co2_per_capita`, because it is a spatially intensive variable.  
+A) `total_co2_emissions`, because it is a spatially intensive variable.
 
-````{admonition} Check your understanding
+B) `total_co2_emissions`, because it is a spatially extensive variable.
+
+C) `co2_per_capita`, because it is a spatially intensive variable.
+
+```{admonition} Check your understanding
 :class: dropdown
 
 **Answer: C**
 `total_co2_emissions` is a spatially extensive raw count. If you map it, a massive country with a huge population like Germany will naturally look like the worst offender simply because it is larger and has more people. By mapping `co2_per_capita` (a ratio), you create a spatially intensive variable that reveals the true *intrinsic* lifestyle footprint of the average citizen, regardless of the country's total size.
-````
+
+```
 
 ### The Continuous Brain Limit (Why we need Bins)
 
@@ -171,7 +192,7 @@ We can write a simple Python function to evaluate each row and assign a text lab
 
 Once the data is classified into text labels (categories), there is a common trap beginners fall into: if you just plot the text strings, Python will automatically sort your legend alphabetically (*High, Low, Medium, Very High, Very Low*), which completely breaks the visual logic of a color ramp!
 
-To fix this, we can quickly convert the new column into a Pandas `Categorical` data type to enforce a strict, logical order before plotting. 
+To fix this, we can quickly convert the new column into a Pandas `Categorical` data type to enforce a strict, logical order before plotting.
 
 ```{code-cell} python
 import pandas as pd
@@ -221,6 +242,7 @@ plt.show()
 
 # Let's peek at the actual data table too!
 display(muni_gdf[["name", "pop_density", "density_class"]].head(3))
+
 ```
 
 :::{figure} images/33_rule_based_density_map.png
@@ -241,10 +263,10 @@ Spatial data science relies on statistical grouping algorithms to automatically 
 
 Here are the four most common statistical classification schemes:
 
-1.  **Equal Intervals (`equal_interval`):** Divides the data range into equal-sized sub-ranges (e.g., 0-25, 25-50, 50-75). *Warning:* Highly sensitive to extreme outliers; most of your data might end up stuffed into a single bin.
-2.  **Quantiles (`quantiles`):** Divides the data so that every class contains the exact same number of polygons (e.g., the top 20% of municipalities, the next 20%, etc.). Excellent for showing relative rankings, but visually distorts the true numerical gaps between values.
-3.  **Natural Breaks / Fisher-Jenks (`natural_breaks`):** A smart algorithm that looks for "valleys" in the data distribution histogram. It minimizes variance within classes and maximizes variance between classes. This is often the best default choice for geographic data.
-4.  **Pretty Breaks (`prettybreaks`):** Attempts to round the class break values to numbers that look "nice" to humans (like 10, 20, 30 instead of 11.4, 19.8, 32.1).
+1. **Equal Intervals (`equal_interval`):** Divides the data range into equal-sized sub-ranges (e.g., 0-25, 25-50, 50-75). *Warning:* Highly sensitive to extreme outliers; most of your data might end up stuffed into a single bin.
+2. **Quantiles (`quantiles`):** Divides the data so that every class contains the exact same number of polygons (e.g., the top 20% of municipalities, the next 20%, etc.). Excellent for showing relative rankings, but visually distorts the true numerical gaps between values.
+3. **Natural Breaks / Fisher-Jenks (`natural_breaks`):** A smart algorithm that looks for "valleys" in the data distribution **{term}`histogram <Histogram>`**. It minimizes variance within classes and maximizes variance between classes. This is often the best default choice for geographic data.
+4. **Pretty Breaks (`prettybreaks`):** Attempts to round the class break values to numbers that look "nice" to humans (like 10, 20, 30 instead of 11.4, 19.8, 32.1).
 
 You do not even need to write the complex mathematical code for these. GeoPandas allows you to pass the `scheme` directly into the `.plot()` command, along with `k` to define the number of bins!
 
@@ -269,6 +291,7 @@ muni_gdf.plot(
 ax.set_title("Statistical Classification of Population Density")
 ax.axis("off")
 plt.show()
+
 ```
 
 Let us compare how these four different algorithms slice the exact same `pop_density` data into 5 classes. Click through the tabs below and pay close attention to the numbers in the legends!
@@ -319,7 +342,7 @@ Let us compare how these four different algorithms slice the exact same `pop_den
 
 ### Visualizing the Class Breaks
 
-To truly understand what the computer just did, examination of the data distribution is highly beneficial to see exactly where the mathematical rules chopped the numbers. 
+To truly understand what the computer just did, examination of the data distribution is highly beneficial to see exactly where the mathematical rules chopped the numbers.
 
 In the tabs below, we've plotted a simplified histogram of our population density values, with vertical dashed lines indicating the new class break points.
 
@@ -351,7 +374,7 @@ In the tabs below, we've plotted a simplified histogram of our population densit
 :width: 700px
 :align: center
 
-*The smart algorithm intelligently places class break lines in the "valleys" of the data distribution histogram. Notice how it mathematicaly identifies that most rural areas are similar, grouping them together, while using distinct categories for mid-density towns and extreme urban outliers.*
+*The smart algorithm intelligently places class break lines in the "valleys" of the data distribution histogram. Notice how it mathematically identifies that most rural areas are similar, grouping them together, while using distinct categories for mid-density towns and extreme urban outliers.*
 :::
 :::::
 
@@ -367,22 +390,38 @@ In the tabs below, we've plotted a simplified histogram of our population densit
 
 ::::::
 
-#### Concept Check: The Top 20%
-
-**Scenario:** A real estate company asks you to create a map of municipal housing prices. They want the legend to specifically highlight the "Top 20% most expensive municipalities" in dark red, the next 20% in medium red, and so on. 
+**Scenario:** A real estate company asks you to create a map of municipal housing prices. They want the legend to specifically highlight the "Top 20% most expensive municipalities" in dark red, the next 20% in medium red, and so on.
 
 Which classification scheme must you use to guarantee that exactly 20% of the map's polygons fall into each category?
 
-A) Natural Breaks (`natural_breaks`)  
-B) Quantiles (`quantiles`)  
-C) Equal Intervals (`equal_interval`)  
+A) Natural Breaks (`natural_breaks`)
 
-````{admonition} Check your understanding
+B) Quantiles (`quantiles`)
+
+C) Equal Intervals (`equal_interval`)
+
+```{admonition} Check your understanding
 :class: dropdown
 
 **Answer: B**
 Quantiles are specifically designed to distribute an equal number of observations (polygons) into each class. If you set `k=5`, the algorithm will perfectly sort the data and assign exactly 20% of the municipalities into each of the 5 bins, perfectly matching the real estate company's request.
-````
+
+```
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L07_ch07_01_data_classification/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Data Classification Visualizer.</b><br>
+    Click the buttons to trigger different statistical classification algorithms. Notice how Equal Intervals ignores data clusters completely, Quantiles forces an even number of points into each bin, and Natural Breaks strategically slices the number line to isolate extreme outliers. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L07_ch07_01_data_classification/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -394,18 +433,17 @@ However, geography is messy. Some municipalities have lakes but zero residents. 
 
 **Tasks:**
 
-1.  **Load Data:** If you have not already, load `swissBoundaries3D_municipalities.gpkg` and ensure it is in the metric `EPSG:2056` projection.
-2.  **Handle the Zeros:** If a municipality has 0 lake area (`see_flaeche == 0`), dividing by it will cause a mathematical error (Infinity). Replace all `0` values in the `see_flaeche` column with `np.nan` (Not a Number) to safely ignore them.
-3.  **Calculate the Ratio:** Create a new column called `water_ratio` by dividing the population (`einwohnerzahl`) by the newly cleaned lake area (`see_flaeche`).
-4.  **Plot and Classify:** Plot the `water_ratio` column. Use the `quantiles` scheme with `k=5` classes. Use the `missing_kwds` argument to color all the municipalities that had no lakes in `lightgrey`.
-
+1. **Load Data:** If you have not already, load `swissBoundaries3D_municipalities.gpkg` and ensure it is in the metric `EPSG:2056` projection.
+2. **Handle the Zeros:** If a municipality has 0 lake area (`see_flaeche == 0`), dividing by it will cause a mathematical error (Infinity). Replace all `0` values in the `see_flaeche` column with `np.nan` (**{term}`NaN`**) to safely ignore them.
+3. **Calculate the Ratio:** Create a new column called `water_ratio` by dividing the population (`einwohnerzahl`) by the newly cleaned lake area (`see_flaeche`).
+4. **Plot and Classify:** Plot the `water_ratio` column. Use the `quantiles` scheme with `k=5` classes. Use the `missing_kwds` argument to color all the municipalities that had no lakes in `lightgrey`.
 
 ```{code-cell} python
 # Write your code here
 
 ```
 
-````{admonition} Sample solution
+``````{admonition} Sample solution
 :class: dropdown
 
 ```{code-cell} python
@@ -449,7 +487,8 @@ plt.show()
 
 *Visualizing the classified ratio. By explicitly replacing zeros with missing data (`np.nan`) and utilizing `missing_kwds`, we successfully separated the municipalities without lakes (light grey) from those we actually wanted to analyze and classify (blue).*
 :::
-````
+
+``````
 
 ---
 
@@ -459,15 +498,15 @@ In this section, you bridged the critical gap between raw spatial analysis and h
 
 ### Key takeaways
 
-  * **Always Normalize:** Never map raw counts (like total population) on polygon maps, as it introduces severe area bias. Always convert counts into a ratio or density first.
-  * **The Necessity of Bins:** Human eyes cannot interpret continuous color ramps accurately. Grouping data into distinct classes makes patterns immediately readable.
-  * **Rule-Based:** Use custom Python logic (like `if/elif` statements combined with `.apply()`) when you have specific, meaningful thresholds you want to highlight.
-  * **Statistical Schemes:** Use `mapclassify` built directly into GeoPandas plotting (e.g., `scheme="natural_breaks"`) to let algorithms find the best way to slice your data. Choose Quantiles for even color distribution, and Natural Breaks for mathematically accurate clustering.
+* **Always Normalize:** Never map raw counts (like total population) on polygon maps, as it introduces severe area bias. Always convert counts into a ratio or density first.
+* **The Necessity of Bins:** Human eyes cannot interpret continuous color ramps accurately. Grouping data into distinct classes makes patterns immediately readable.
+* **Rule-Based:** Use custom Python logic (like `if/elif` statements combined with `.apply()`) when you have specific, meaningful thresholds you want to highlight.
+* **Statistical Schemes:** Use `mapclassify` built directly into GeoPandas plotting (e.g., `scheme="natural_breaks"`) to let algorithms find the best way to slice your data. Choose Quantiles for even color distribution, and Natural Breaks for mathematically accurate clustering.
 
 ### What comes next?
 
 You now know how to manage CRSs, manipulate geometries, join distinct layers together, and classify the resulting data into logical bins.
 
-You have all the ingredients required to build professional maps. In the next lesson on **Data Visualization**, we will formally introduce the visualization libraries that will allow you to add titles, basemaps, scale bars, and interactive legends to turn your Python code into presentation-ready cartography! 
+You have all the ingredients required to build professional maps. In the next lesson on **Data Visualization**, we will formally introduce the visualization libraries that will allow you to add titles, basemaps, scale bars, and interactive legends to turn your Python code into presentation-ready cartography!
 
 But first, it is time to put the new concepts of this lesson to the test in the practical session.
