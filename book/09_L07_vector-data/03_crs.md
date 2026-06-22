@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 The "Where" of Spatial Data
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -19,7 +21,21 @@ The "Where" of Spatial Data
 ```{admonition} Big idea
 :class: tip
 
-A coordinate like `(8.5, 47.4)` is completely meaningless to a computer unless it knows what grid system those numbers belong to. Coordinate Reference Systems (CRS) define how data maps to the real Earth. Understanding how to check and transform your CRS is a very important skill for preventing errors in spatial data science.
+A coordinate like `(8.5, 47.4)` is completely meaningless to a computer unless it knows what grid system those numbers belong to. **{term}`Coordinate Reference Systems <Coordinate Reference System>`** (CRS) define how data maps to the real Earth. Understanding how to check and transform your CRS is a very important skill for preventing errors in spatial data science.
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Incorrect CRS alignment is the number one cause of failed spatial joins and distance calculations in labs)  
+**Project Relevance:** ★★★ (Essential for combining different datasets from different sources accurately)  
+**Foundation:** ★★★ (A critical conceptual pillar of all Geographic Information Systems)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Master Coordinate Reference Systems (CRS) to accurately map the 3D Earth onto a 2D grid and avoid the most common spatial data errors using GeoPandas.  
+**Skip this if:** You already understand the difference between geographic (degrees) and projected (meters) CRS, know core EPSG codes (4326, 3857, 2056), and confidently understand the mathematical difference between `.set_crs()` and `.to_crs()`.
+
 ```
 
 In the previous section, we successfully loaded and plotted geographic shapes. However, we ignored a critical question: how does the computer know exactly *where* on the planet those shapes belong?
@@ -32,6 +48,7 @@ Before we begin, please download the global administrative boundaries dataset pr
 :class: note
 Please download this file to your local working directory:
 * [ne_50m_admin_0_countries.zip](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/ne_50m_admin_0_countries.zip)
+
 ```
 
 ---
@@ -45,11 +62,11 @@ There is a fundamental problem in spatial science: **The Earth is a 3D curved su
 To understand this, think of the classic **"Orange Peel Analogy."** Imagine trying to peel an orange and flatten the skin completely perfectly onto a table. You cannot do it without tearing, stretching, or squashing the peel.
 
 :::{figure} images/09_orange_peel_analogy.png
-:alt: A side-by-side photo. On the left is a whole orange with continents drawn on it in black marker. On the right, the peel has been removed and flattened, causing it to tear and split into distinct lobes in order to lie flat. 
+:alt: A side-by-side photo. On the left is a whole orange with continents drawn on it in black marker. On the right, the peel has been removed and flattened, causing it to tear and split into distinct lobes in order to lie flat.
 :width: 700px
 :align: center
 
-*The Orange Peel Analogy. Flattening a 3D sphere inevitably results in tearing, stretching, or distortion. Map projections are mathematical attempts to control exactly where and how this distortion occurs. Source: [Geopython](https://pythongis.org/part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html#map-projection-representing-curved-surface-in-two-dimensions)*
+*The Orange Peel Analogy. Flattening a 3D sphere inevitably results in tearing, stretching, or distortion. Map projections are mathematical attempts to control exactly where and how this distortion occurs. Source: [Geopython*](https://pythongis.org/part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html#map-projection-representing-curved-surface-in-two-dimensions)
 :::
 
 Because of this, there are two distinct families of Coordinate Reference Systems:
@@ -58,31 +75,31 @@ Because of this, there are two distinct families of Coordinate Reference Systems
 
 A geographic CRS treats the Earth as a 3D sphere (or more accurately, an ellipsoid). Locations are measured using angles from the center of the Earth.
 
-  * **Units:** Degrees (Latitude and Longitude).
-  * **Pros:** Exact global positioning. Excellent for storing raw GPS data.
-  * **Cons:** You cannot easily calculate accurate physical distances (like meters) or areas. Because the Earth is a sphere, the physical distance between lines of longitude actively shrinks as you move from the equator toward the poles.
+* **Units:** Degrees (Latitude and Longitude).
+* **Pros:** Exact global positioning. Excellent for storing raw GPS data.
+* **Cons:** You cannot easily calculate accurate physical distances (like meters) or areas. Because the Earth is a sphere, the physical distance between lines of longitude actively shrinks as you move from the equator toward the poles.
 
 ### Projected Coordinate Systems (The 2D Map)
 
-A projected CRS applies a mathematical formula (a "map projection") to flatten the 3D globe onto a 2D Cartesian plane (an X and Y grid).
+A projected CRS applies a mathematical formula (a "**{term}`map projection <Map projection>`**") to flatten the 3D globe onto a 2D Cartesian plane (an X and Y grid).
 
-  * **Units:** Metric measurements (typically Meters).
-  * **Pros:** Perfect for accurately calculating real-world areas, lengths, and distances.
-  * **Cons:** Because flattening the orange peel always causes distortion, every projection must sacrifice some accuracy. Depending on the math used, a projection might preserve *Shapes* (Conformal), *Areas* (Equal Area), or *Distances* (Equidistant), but **never all three at once**.
+* **Units:** Metric measurements (typically Meters).
+* **Pros:** Perfect for accurately calculating real-world areas, lengths, and distances.
+* **Cons:** Because flattening the orange peel always causes distortion, every projection must sacrifice some accuracy. Depending on the math used, a projection might preserve *Shapes* (Conformal), *Areas* (Equal Area), or *Distances* (Equidistant), but **never all three at once**.
 
 :::{figure} images/10_curved_surface_to_flat_plane.png
 :alt: A diagram showing a section of a 3D globe with latitude/longitude degrees mapped via an arrow labeled "Map Projection" to a 2D Cartesian plane labeled with X and Y metric axes. The diagram highlights how the curved lines of the globe are flattened onto the grid.
 :width: 700px
 :align: center
 
-*The conceptual transition from a 3D Geographic Coordinate System (measured in angular degrees) to a 2D Projected Coordinate System (measured in metric distances on a Cartesian grid). Source: [Geopython](https://pythongis.org/part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html#map-projection-representing-curved-surface-in-two-dimensions)*
+*The conceptual transition from a 3D Geographic Coordinate System (measured in angular degrees) to a 2D Projected Coordinate System (measured in metric distances on a Cartesian grid). Source: [Geopython*](https://pythongis.org/part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html#map-projection-representing-curved-surface-in-two-dimensions)
 :::
 
 ---
 
 ## 2. Checking and Parsing the CRS (.crs)
 
-Whenever you load a new spatial dataset, the very first thing you should do after looking at `.head()` is check its Coordinate Reference System. 
+Whenever you load a new spatial dataset, the very first thing you should do after looking at `.head()` is check its Coordinate Reference System.
 
 Let us load our global countries dataset and inspect its spatial reference using the `.crs` attribute.
 
@@ -90,18 +107,14 @@ Let us load our global countries dataset and inspect its spatial reference using
 import geopandas as gpd
 
 # Load the global countries dataset directly from the zip archive
-world_gdf = gpd.read_file("ne_50m_admin_0_countries.zip")
+world_gdf = gpd.read_file("data/ne_50m_admin_0_countries.zip")
 
 # Inspect the Coordinate Reference System
 print(world_gdf.crs)
+
 ```
 
-**Output:**
-```text
-EPSG:4326
-```
-
-That short `EPSG:4326` output is incredibly important! It tells GeoPandas exactly what mathematical grid our geometries are drawn on. 
+That short `EPSG:4326` output is incredibly important! It tells GeoPandas exactly what mathematical grid our geometries are drawn on.
 
 But GeoPandas is actually hiding a lot of powerful information here. Under the hood, `.crs` returns a rich spatial object powered by a library called `pyproj`. We can actually ask this object for specific, human-readable details about our grid:
 
@@ -110,20 +123,14 @@ But GeoPandas is actually hiding a lot of powerful information here. Under the h
 print("Name of the CRS:", world_gdf.crs.name)
 print("Is it geographic (degrees)?", world_gdf.crs.is_geographic)
 print("Is it projected (meters)?", world_gdf.crs.is_projected)
-```
 
-**Output:**
-```text
-Name of the CRS: WGS 84
-Is it geographic (degrees)? True
-Is it projected (meters)? False
 ```
 
 ### Defining a Missing CRS (.set_crs)
 
-Sometimes, you will load a file and `print(gdf.crs)` will output `None`. This means the creator of the data was sloppy and forgot to include the spatial metadata! 
+Sometimes, you will load a file and `print(gdf.crs)` will output `None`. This means the creator of the data was sloppy and forgot to include the spatial metadata!
 
-When this happens, GeoPandas will still load the geographic shapes, but it will refuse to do any spatial math or map projections because it doesn't know what grid the numbers belong to. 
+When this happens, GeoPandas will still load the geographic shapes, but it will refuse to do any spatial math or map projections because it doesn't know what grid the numbers belong to.
 
 To fix this, you must manually assign the correct CRS using the **`.set_crs()`** method. Because our coordinates are clearly in degrees (longitude/latitude), we know the missing grid is WGS84 (EPSG 4326):
 
@@ -131,6 +138,7 @@ To fix this, you must manually assign the correct CRS using the **`.set_crs()`**
 # How to manually define a CRS if your dataset is missing one
 # (Note: This does not change the math/coordinates, it just adds the missing label!)
 world_gdf = world_gdf.set_crs(epsg=4326)
+
 ```
 
 ```{admonition} The Golden Rule of Projections
@@ -138,6 +146,42 @@ world_gdf = world_gdf.set_crs(epsg=4326)
 It is critical to understand the difference between these two methods:
 * **`.set_crs()`** is like slapping a nametag on a box. It **does not** change the coordinate numbers inside the geometry column. You only use this if the CRS is `None` (missing).
 * **`.to_crs()`** (which we will learn below) is a mathematical translator. It **actively recalculates and changes** the coordinates in your geometry column to move them to a completely new grid.
+
+```
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L07_ch03_01_GeoPandas_crs/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: set_crs() vs to_crs().</b><br>
+    Click the buttons to see the difference between assigning missing metadata and actively recalculating geometry. Notice how <code>.set_crs()</code> leaves the raw coordinate numbers completely untouched, while <code>.to_crs()</code> physically alters the data to fit a new mathematical grid. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L07_ch03_01_GeoPandas_crs/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
+
+#### Concept Check: The Missing Label
+
+You load a shapefile into a **{term}`GeoDataFrame`** and immediately type `print(gdf.crs)`. The output says `None`. You read the documentation from the data provider, and it states the coordinates were recorded in WGS84 (EPSG:4326).
+
+Which method must you use to fix your GeoDataFrame so GeoPandas knows the correct grid?
+
+A) `gdf.to_crs(epsg=4326)`
+
+B) `gdf.set_crs(epsg=4326)`
+
+C) `gdf.crs = 4326`
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+You must use `gdf.set_crs(epsg=4326)`. Because the CRS is currently missing (`None`), you only need to "slap a nametag" on the existing data to tell GeoPandas what grid the numbers belong to. If you tried to use `.to_crs()`, GeoPandas would crash because it cannot mathematically translate coordinates if it doesn't know where they are starting from!
+
 ```
 
 ---
@@ -146,7 +190,7 @@ It is critical to understand the difference between these two methods:
 
 Spatial metadata can be long and complex (sometimes requiring dozens of lines of text to describe the exact mathematical formulas of the ellipsoid). To make life easier, the spatial data community uses the **EPSG Registry** (originally created by the *European Petroleum Survey Group*).
 
-EPSG codes are simple 4- to 5-digit numbers that act as a universal shorthand for specific coordinate systems. Instead of memorizing complex mathematical parameters, you only need to know a few key codes.
+**{term}`EPSG codes <EPSG code>`** are simple 4- to 5-digit numbers that act as a universal shorthand for specific coordinate systems. Instead of memorizing complex mathematical parameters, you only need to know a few key codes.
 
 Here is your essential cheat sheet for the most important EPSG codes in European and global spatial data:
 
@@ -154,7 +198,7 @@ Here is your essential cheat sheet for the most important EPSG codes in European
 :align: center
 
 | EPSG Code | Type | Name | Best Used For |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **4326** | Geographic (Degrees) | WGS 84 | The global standard for GPS coordinates and raw latitude/longitude data. |
 | **3857** | Projected (Meters) | Web Mercator | The standard for Google Maps and interactive web maps. (Distorts area heavily towards the poles!) |
 | **8857** | Projected (Meters) | Equal Earth | Global maps where preserving accurate surface area sizes is important. |
@@ -167,45 +211,50 @@ Here is your essential cheat sheet for the most important EPSG codes in European
 ```{admonition} How do I find other codes?
 :class: tip
 If you ever encounter a dataset with an unknown EPSG code, or if you need to find the specific local projection for another country, head to **[epsg.io](https://epsg.io/)**. It is a free search engine for coordinate reference systems used by GIS professionals.
+
 ```
 
 Looking back at our `.crs` output, we see our `world_gdf` is using **EPSG:4326**. This means our dataset is currently unprojected, utilizing degrees of longitude and latitude. If we want to accurately calculate the physical area of these countries in square kilometers, we are going to have to change that!
 
 #### Concept Check: Choosing the Right EPSG
 
-You are tasked with calculating the exact area (in square kilometers) of all the national parks in Switzerland to see if they meet environmental protection quotas. 
+You are tasked with calculating the exact area (in square kilometers) of all the national parks in Switzerland to see if they meet environmental protection quotas.
 
 Based on the cheat sheet above, which EPSG code should you transform your data into before doing the math?
 
-A) EPSG 4326 (WGS 84)  
-B) EPSG 3857 (Web Mercator)  
-C) EPSG 2056 (CH1903+ / LV95)  
+A) EPSG 4326 (WGS 84)
+
+B) EPSG 3857 (Web Mercator)
+
+C) EPSG 2056 (CH1903+ / LV95)
 
 ```{admonition} Check your understanding
 :class: dropdown
 
 **Answer: C**
 You need a *Projected* (Metric) CRS to calculate area, which immediately eliminates A. While B is projected, Web Mercator heavily distorts area. **C (EPSG 2056)** is the official, highly accurate local metric projection for Switzerland and will give you the most exact square kilometer calculations.
+
 ```
 
 ---
 
 ## 4. Reprojecting Data (`.to_crs`)
 
-If your data is in degrees (EPSG:4326), but you want to calculate the area of a country in square meters, you will get complete garbage numbers (you would essentially be calculating "square degrees"). You must flatten the data first. 
+If your data is in degrees (EPSG:4326), but you want to calculate the area of a country in square meters, you will get complete garbage numbers (you would essentially be calculating "square degrees"). You must flatten the data first.
 
 In fact, if you try to calculate area on an unprojected dataset, GeoPandas will actively try to stop you with a massive red warning!
 
 ```{admonition} The GeoPandas Warning
 :class: warning
 `UserWarning: Geometry is in a geographic CRS. Results from 'area' are likely incorrect. Use 'GeoSeries.to_crs()' to reproject geometries to a projected CRS before this operation.`
+
 ```
 
-Transforming data from one coordinate system to another to fix this is called **reprojecting**. In GeoPandas, this is done using the `.to_crs()` method. It is arguably one of the most important methods in the entire library.
+Transforming data from one coordinate system to another to fix this is called **{term}`reprojecting <Map reprojection>`**. In GeoPandas, this is done using the `.to_crs()` method. It is arguably one of the most important methods in the entire library.
 
-Behind the scenes, `.to_crs()` runs the complex trigonometry required to move every single vertex in your dataset onto the new grid. All you have to do is provide the target EPSG code. 
+Behind the scenes, `.to_crs()` runs the complex trigonometry required to move every single vertex in your dataset onto the new grid. All you have to do is provide the target EPSG code.
 
-Let us reproject our world map from geographic degrees into the Web Mercator projection (the metric grid Google Maps uses). To prove that the math is actually happening, we will peek at the coordinates of the very first country before and after the transformation.
+Let us reproject our world map from geographic degrees into the **{term}`Web Mercator`** projection (the metric grid Google Maps uses). To prove that the math is actually happening, we will peek at the coordinates of the very first country before and after the transformation.
 
 ```{code-cell} python
 # 1. Look at the coordinates BEFORE (Notice the small degree numbers like 18.0)
@@ -218,18 +267,7 @@ world_mercator = world_gdf.to_crs(epsg=3857)
 # 3. Look at the coordinates AFTER (Notice the massive metric numbers!)
 print("\nAfter (Meters):")
 print(world_mercator.geometry.head(1))
-```
 
-**Output:**
-
-```text
-Before (Degrees):
-0    POLYGON ((31.28789 -22.40205, 31.19727 -22.344...
-Name: geometry, dtype: geometry
-
-After (Meters):
-0    POLYGON ((3482952.052 -2559865.185, 3472863.72...
-Name: geometry, dtype: geometry
 ```
 
 It is that simple! Your data has been perfectly translated onto a flat, metric grid. Those numbers in the "After" output are no longer degrees on a sphere; they are physical meters on a Cartesian plane.
@@ -239,7 +277,7 @@ It is that simple! Your data has been perfectly translated onto a flat, metric g
 :width: 700px
 :align: center
 
-*Because flattening the Earth requires compromise, cartographers have invented hundreds of different projections. Each one is designed for a specific purpose, prioritizing the preservation of shape, area, or distance. Source: [Geopython](https://pythongis.org/part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html#map-projection-representing-curved-surface-in-two-dimensions)*
+*Because flattening the Earth requires compromise, cartographers have invented hundreds of different projections. Each one is designed for a specific purpose, prioritizing the preservation of shape, area, or distance. Source: [Geopython*](https://pythongis.org/part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html#map-projection-representing-curved-surface-in-two-dimensions)
 :::
 
 ---
@@ -252,17 +290,17 @@ Your task is to reproject the world dataset into a flat, area-preserving project
 
 **Tasks:**
 
-1.  **Reproject:** Create a new variable called `world_equal_area`. Use `.to_crs()` on your original `world_gdf` to project it into the Equal Earth projection (**EPSG:8857**).
-2.  **Plot Original:** Plot the original geographic dataset (`world_gdf`) giving it a light grey color.
-3.  **Plot Projected:** Plot your new `world_equal_area` dataset right below it using a green color.
-4.  **Compare:** Look closely at the visual difference between the two stacked maps, particularly the size of Greenland and Antarctica! Notice how the axis numbers have changed from degrees (e.g., -180 to 180) to millions of meters!
+1. **Reproject:** Create a new variable called `world_equal_area`. Use `.to_crs()` on your original `world_gdf` to project it into the Equal Earth projection (**EPSG:8857**).
+2. **Plot Original:** Plot the original geographic dataset (`world_gdf`) giving it a light grey color.
+3. **Plot Projected:** Plot your new `world_equal_area` dataset right below it using a green color.
+4. **Compare:** Look closely at the visual difference between the two stacked maps, particularly the size of Greenland and Antarctica! Notice how the axis numbers have changed from degrees (e.g., -180 to 180) to millions of meters!
 
 ```{code-cell} python
 # Write your code here
 
 ```
 
-````{admonition} Sample solution
+``````{admonition} Sample solution
 :class: dropdown
 
 ```{code-cell} python
@@ -292,7 +330,8 @@ world_equal_area.plot(
 Stacked visual inspection of unprojected degrees (top) versus projected meters (bottom).
 :::
 
-````
+
+``````
 
 ---
 
@@ -309,6 +348,6 @@ In this section, you learned how to navigate the complexities of mapping a 3D Ea
 
 ### What comes next?
 
-Now that you know how to safely flatten the Earth onto a measurable metric grid, it is time to actually start measuring it. 
+Now that you know how to safely flatten the Earth onto a measurable metric grid, it is time to actually start measuring it.
 
 Up to this point, we have only been loading and visualizing existing shapes. In the next section, **Measuring and Modifying Geometries**, we will move from simply holding spatial data to generating brand new geospatial metrics. You will learn how to calculate precise surface areas, find the exact center of a country, and draw proximity buffers around train stations to see exactly what falls inside their zone of influence!
