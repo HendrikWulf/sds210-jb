@@ -5,9 +5,11 @@ site:
  outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Loading, visualizing, and saving geographic files
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -19,11 +21,25 @@ Loading, visualizing, and saving geographic files
 :class: tip
 
 Reading and writing complex spatial formats like GeoPackages or Shapefiles can be tedious in traditional desktop GIS software. GeoPandas simplifies this entirely. You can load, inspect, visualize, and export almost any geographic file format using just a few lines of Python code.
+
 ```
 
-In the previous section, we learned how to manually construct a GeoDataFrame from a raw CSV file. While that is a great skill to have, it is not how you will usually start a project.
+```{admonition} Chapter Relevance
+:class: dropdown
 
-In the real world, spatial data comes neatly packaged in professional GIS formats designed to store coordinates, attributes, and coordinate reference systems all in one place. This section covers the spatial intake workflow: how to get these files into your notebook, verify them visually, and save them back to your computer.
+**Lab Relevance:** ★★★ (Essential for loading assignments and exporting your final lab results)  
+**Project Relevance:** ★★★ (Crucial for handling diverse spatial datasets in your final projects)  
+**Foundation:** ★★★ (Establishes the standard data ingestion and plotting workflow for vector data)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Learn the essential workflow for reading, verifying with quick plots, and exporting professional GIS formats like GeoPackages and GeoJSON using GeoPandas.  
+**Skip this if:** You are already highly proficient with `geopandas.read_file()`, categorical vs continuous `.plot()` usage, and `to_file()`/`to_parquet()`.
+
+```
+
+In the previous section, we learned how to manually construct a **{term}`GeoDataFrame`** from a raw **{term}`CSV <Comma-separated values>`** file. While that is a great skill to have, it is not how you will usually start a project.
+
+In the real world, spatial data comes neatly packaged in professional GIS formats designed to store coordinates, **{term}`attributes <Attribute>`**, and **{term}`coordinate reference systems <Coordinate Reference System>`** all in one place. This section covers the spatial intake workflow: how to get these files into your notebook, verify them visually, and save them back to your computer.
 
 Before we begin, make sure you have downloaded the necessary datasets for this section. We will be using the national boundaries of Switzerland provided in three different industry standard formats.
 
@@ -34,6 +50,7 @@ Please download these files to your local working directory:
 * [swissBoundaries3D_switzerland.geojson](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.geojson)
 * [swissBoundaries3D_switzerland.zip](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.zip) (Contains the Shapefile)
 * [country_in_europe.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/country_in_europe.gpkg) (For the exercise at the end!)
+
 ```
 
 ---
@@ -42,7 +59,7 @@ Please download these files to your local working directory:
 
 When using the standard Pandas library, you had to remember different commands for different file types (`read_csv`, `read_excel`, `read_json`).
 
-GeoPandas makes life much easier. It provides a single, universal function called `.read_file()`. Under the hood, GeoPandas uses powerful spatial engines (like GDAL and PyOGRIO) that can automatically detect and read over 80 different vector data formats straight out of the box.
+GeoPandas makes life much easier. It provides a single, universal function called `.read_file()`. Under the hood, GeoPandas uses powerful spatial engines (like **{term}`GDAL`** and PyOGRIO) that can automatically detect and read over 80 different vector data formats straight out of the box.
 
 Let us load the borders of Switzerland. We have provided the exact same boundary data in three common formats. Notice how the Python code is completely identical regardless of the format!
 
@@ -50,16 +67,17 @@ Let us load the borders of Switzerland. We have provided the exact same boundary
 import geopandas as gpd
 
 # 1. Loading a GeoPackage (The modern, highly recommended standard)
-ch_gpkg = gpd.read_file("swissBoundaries3D_switzerland.gpkg")
+ch_gpkg = gpd.read_file("data/swissBoundaries3D_switzerland.gpkg")
 
 # 2. Loading a GeoJSON (The standard for web mapping and APIs)
-ch_geojson = gpd.read_file("swissBoundaries3D_switzerland.geojson")
+ch_geojson = gpd.read_file("data/swissBoundaries3D_switzerland.geojson")
 
 # 3. Loading a Shapefile directly from a zipped archive
 # (Shapefiles are the old legacy standard, consisting of multiple mandatory files)
-ch_shp = gpd.read_file("swissBoundaries3D_switzerland.zip")
+ch_shp = gpd.read_file("data/swissBoundaries3D_switzerland.zip")
 
 print("All three formats loaded successfully!")
+
 ```
 
 :::{figure} images/05_pandas_vs_geopandas.png
@@ -73,12 +91,15 @@ print("All three formats loaded successfully!")
 ```{admonition} Reading from ZIP files
 :class: tip
 A Shapefile is never just one file; it is a mandatory collection of `.shp`, `.shx`, `.dbf`, and `.prj` files. Usually, you have to extract them all to a folder before loading them. GeoPandas is smart enough to read the Shapefile *directly* from inside the compressed `.zip` archive without you having to unzip it first!
+
 ```
 
 ```{admonition} Reading Specific Layers
 :class: tip
 Unlike a simple CSV, formats like GeoPackages (`.gpkg`) act as miniature databases and can contain multiple different tables (layers) inside a single file. If your file contains multiple datasets, you can specify exactly which one to load using the `layer` parameter: `gpd.read_file("data.gpkg", layer="roads")`.
+
 ```
+
 ---
 
 ## 2. Exploring Metadata
@@ -90,23 +111,15 @@ Let us take a look at the first few rows of our newly loaded GeoPackage using `.
 ```{code-cell} python
 # Inspect the first two rows
 display(ch_gpkg.head(2))
+
 ```
-
-:::{table} Output of ch_gpkg.head(2)
-:align: center
-
-|   | id | uuid | datum_aenderung | ... | landesflaeche | name | icc | einwohnerzahl | geometry |
-|---|---|---|---|---|---|---|---|---|---|
-| **0** | 1 | {CB779724-7723-4... | 2025-11-19 | ... | 16048.0   | Liechtenstein | LI  | 40886   | MULTIPOLYGON Z (((2758297.125 1237629... |
-| **1** | 2 | {B347A0FB-1DB1-4... | 2025-11-19 | ... | 4129069.0 | Schweiz       | CH  | 9051029 | MULTIPOLYGON Z (((2495160.372 1143227... |
-
-:::
 
 Just like before, we have standard attribute columns (`name`, `landesflaeche`) alongside our active `geometry` column containing a complex `MultiPolygon` representing the national border.
 
 ```{admonition} What does the "Z" mean?
 :class: tip
 Did you notice the letter **Z** inside the geometry column (`MULTIPOLYGON Z`)? Our standard primitives from the previous section (X, Y) were 2-dimensional. The addition of "Z" means this specific dataset also contains a third dimension: elevation! GeoPandas handles 3D geometries effortlessly.
+
 ```
 
 Next, we run `.info()` to get the technical summary of our columns and missing data. *(Note: We have truncated the middle rows of the output below for readability).*
@@ -114,68 +127,45 @@ Next, we run `.info()` to get the technical summary of our columns and missing d
 ```{code-cell} python
 # Check the technical metadata and data types
 ch_gpkg.info()
+
 ```
 
-**Output:**
+This dense text block instantly verifies two big data cleaning wins:
 
-```text
-<class 'geopandas.geodataframe.GeoDataFrame'>
-RangeIndex: 4 entries, 0 to 3
-Data columns (total 20 columns):
- #   Column              Non-Null Count  Dtype         
----  ------              --------------  -----         
- 0   id                  4 non-null      int64         
- 1   uuid                4 non-null      object        
- 2   datum_aenderung     4 non-null      datetime64[ms]
- 3   datum_erstellung    4 non-null      datetime64[ms]
-...      
- 14  see_flaeche         4 non-null      float64       
- 15  landesflaeche       4 non-null      float64       
- 16  name                4 non-null      object        
- 17  icc                 4 non-null      object        
- 18  einwohnerzahl       4 non-null      int32         
- 19  geometry            4 non-null      geometry      
-dtypes: datetime64[ms](2), float64(2), geometry(1), int32(7), int64(1), object(7)
-memory usage: 660.0+ bytes
-```
-
-This dense text block instantly verifies two massive data cleaning wins:
 1. **Automatic Dates:** Look at columns 2 and 3. Because GeoPackages are heavily structured databases, GeoPandas automatically recognized and parsed the dates into `datetime64` objects for us! We did not have to write custom parsing code.
-2. **The Spatial Signature:** Notice the crucial detail at the very bottom of the column list. The `geometry` column officially has its very own data type called **`geometry`**. This confirms that GeoPandas successfully recognized the mathematical shapes and is ready to perform spatial operations.
+2. **The Spatial Signature:** Notice the crucial detail at the very bottom of the column list. The `geometry` column officially has its very own **{term}`data type <Data type>`** called **`geometry`**. This confirms that GeoPandas successfully recognized the mathematical shapes and is ready to perform spatial operations.
 
 ---
+
 ## 3. A Quick Peek (.plot)
 
 Reading raw coordinate text and checking data types is important, but nothing compares to actually seeing your geographic data.
 
-One of the greatest morale boosters in spatial data science is the ability to instantly verify your data visually. GeoPandas makes this effortless with the built in `.plot()` method.
+One of the best morale boosters in spatial data science is the ability to instantly verify your data visually. GeoPandas makes this effortless with the built-in `.plot()` method.
 
 You do not need to set up complex mapping software or configure coordinate grids. Just call the method, and GeoPandas will automatically draw the shapes stored in your active geometry column.
 
 ```{code-cell} python
 # Instantly visualize the geometric shapes
 ch_gpkg.plot(figsize=(8, 5), color="dodgerblue", edgecolor="black");
+
 ```
 
-:::{figure} images/06_swiss_borders_basic.png
-:alt: A blue map showing the outline of Switzerland on a simple Cartesian coordinate system with visible axis tick marks showing coordinates.
-:width: 600px
-:align: center
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    Visual output of ch_gpkg.plot(). GeoPandas automatically interprets the geometries and draws them. The X and Y axes are based on the coordinates stored in the data.
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
-*Visual output of ch_gpkg.plot(). GeoPandas automatically interprets the geometries and draws them. The X and Y axes are based on the coordinates stored in the data.*
-:::
-
-*(When you run this code in your notebook, you will see the unmistakable outline of Switzerland rendered instantly on your screen!)*
-
-### The Ultimate Sanity Check
+## The Ultimate Sanity Check
 
 This quick visual peek is the ultimate sanity check. If you expected a map of Switzerland but see a map of France, or if the shape looks completely distorted and squashed, you immediately know something is wrong with your input file or coordinate system before you waste time doing complex math.
 
 ### Connecting Attributes to Space
 
-Furthermore, `.plot()` allows you to immediately begin exploring attribute data visually. While standard Pandas colors cells in a spreadsheet based on values, GeoPandas can use those values to color the actual physical geography. 
+Furthermore, `.plot()` allows you to immediately begin exploring attribute data visually. While standard Pandas colors cells in a spreadsheet based on values, GeoPandas can use those values to color the actual physical geography.
 
-To demonstrate, we will create a map using the full `ch_gpkg` dataset. Looking at the attributes (displayed below), we can see that this dataset contains four distinct land entities: the main landmass of Switzerland, the nation of Liechtenstein, and two small *enclaves* (foreign land completely surrounded by Switzerland) belonging to Germany and Italy. We also have a numerical columns, `landesflaeche` and `einwohnerzahl`, representing the land area and population of each territory.
+To demonstrate, we will create a map using the full `ch_gpkg` dataset. Looking at the attributes (displayed below), we can see that this dataset contains four distinct land entities: the main landmass of Switzerland, the nation of Liechtenstein, and two small *enclaves* (foreign land completely surrounded by Switzerland) belonging to Germany and Italy. We also have numerical columns, `landesflaeche` and `einwohnerzahl`, representing the land area and population of each territory.
 
 **The Input Data (`ch_gpkg.head()`):**
 
@@ -183,7 +173,7 @@ To demonstrate, we will create a map using the full `ch_gpkg` dataset. Looking a
 :align: center
 
 | | id | name | landesflaeche | einwohnerzahl | geometry |
-|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- |
 | **0** | 1 | Liechtenstein | 16048.0 | 40886 | MULTIPOLYGON Z (...) |
 | **1** | 2 | Schweiz | 4129069.0 | 9051029 | MULTIPOLYGON Z (...) |
 | **2** | 3 | Deutschland | 763.0 | 1621 | MULTIPOLYGON Z (...) |
@@ -204,21 +194,20 @@ ch_gpkg.plot(
     legend_kwds={'title': "Inhabitants", 'loc': "upper left"},
     edgecolor="grey"
 );
+
 ```
 
-:::{figure} images/07_swiss_population_categorical.png
-:alt: A large scale map of Switzerland. The main landmass is a bright green/yellow, representing the highest population value in the legend. Three tiny areas on the periphery (Liechtenstein and enclaves) are colored differently based on their specific low population numbers. A legend at the top left shows these unique numeric counts.
-:width: 800px
-:align: center
-
-*A categorical map based on population counts. Because Switzerland's population is vastly higher than its internal enclaves, treating the unique values as categories allows us to instantly visualize the location and distinct nature of all four entities.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    A categorical map based on population counts. Because Switzerland's population is vastly higher than its internal enclaves, treating the unique values as categories allows us to instantly visualize the location and distinct nature of all four entities.
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 *(Note: Because the German and Italian enclaves are so tiny compared to the main landmass of Switzerland, you may need to zoom into the actual plot in your notebook to see them clearly!)*
 
 ### Normalizing Data
 
-What if we want to map the population (`einwohnerzahl`) instead of just categorizing the names? 
+What if we want to map the population (`einwohnerzahl`) instead of just categorizing the names?
 
 Fortunately, because our GeoDataFrame is built directly on top of Pandas, we can easily calculate the population density (inhabitants divided by area) across all rows instantly, save it to a brand new column, and plot *that* ratio instead!
 
@@ -237,19 +226,31 @@ ch_gpkg.plot(
     legend_kwds={'label': "Population Density (Inhabitants / Area)"},
     edgecolor="grey"
 );
+
 ```
 
-:::{figure} images/08_swiss_population_density.png
-:alt: A density map of Switzerland and its enclaves using the YlOrRd colormap. The enclaves and Liechtenstein might show up in brighter/lighter hues if their density is higher than the vast, mountainous main landmass of Switzerland.
-:width: 800px
-:align: center
-
-*Mapping normalized data. By dividing the population by the land area, we reveal the actual demographic intensity of the regions without the visual bias of their physical size.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    Mapping normalized data. By dividing the population by the land area, we reveal the actual demographic intensity of the regions without the visual bias of their physical size.
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 Ta-da! You just created a professional spatial visualization. In this single workflow, you successfully engineered a new attribute (Pandas knowledge), used it to style the active geometry column (Shapely knowledge), and placed the results into the correct geographic coordinate space!
 
----
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L07_ch02_01_GeoPandas_plotting/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Plotting Categorical vs. Continuous Data.</b><br>
+    Toggle between categorical and continuous modes to see why normalizing data is vital for spatial analysis. Notice how plotting raw numbers categorically assigns unrelated colors to the enclaves, completely hiding the demographic reality. Plotting the normalized density on a continuous gradient instantly highlights the tiny Italian enclave as the most crowded region. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L07_ch02_01_GeoPandas_plotting/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ## 4. Exporting Spatial Data
 
@@ -263,16 +264,17 @@ Let us export our Swiss boundaries dataset into three different formats to prepa
 
 ```{code-cell} python
 # 1. Export as a GeoPackage (For sharing with QGIS/ArcGIS users)
-ch_gpkg.to_file("switzerland_processed.gpkg")
+ch_gpkg.to_file("data/switzerland_processed.gpkg")
 
 # 2. Export as a GeoJSON (For uploading to a web map or API)
-ch_gpkg.to_file("switzerland_processed.geojson")
+ch_gpkg.to_file("data/switzerland_processed.geojson")
 
 # 3. Export as a GeoParquet (For big data applications)
 # Note: Parquet uses its own dedicated method!
-ch_gpkg.to_parquet("switzerland_processed.parquet")
+ch_gpkg.to_parquet("data/switzerland_processed.parquet")
 
 print("Spatial data successfully exported in multiple formats!")
+
 ```
 
 ```{admonition} Which format should I choose?
@@ -285,6 +287,27 @@ The spatial data ecosystem is vast, but you generally only need to rely on these
 * **GeoJSON (`.geojson`): The Web Standard.** Use this strictly if you are passing data to a web developer or displaying it on an interactive website. It is text-based and human-readable, but files become massive and slow to load if you have complex geometries.
 
 **What about Shapefiles (`.shp`)?** The industry is actively moving away from the legacy Shapefile. It splits your data across multiple messy files, strictly limits your column names to 10 characters, and has a 2GB size limit. Leave it in the past!
+
+```
+
+---
+
+#### Concept Check: Choosing the Right Export Format
+
+You have just finished cleaning a massive spatial dataset containing 5 million building footprints across Europe. You need to share this file with a colleague who strictly uses Python and GeoPandas for data analysis. They need the file to load as quickly as possible. Which export format is the best choice?
+
+A) `.shp` (Shapefile)
+
+B) `.geojson` (GeoJSON)
+
+C) `.parquet` (GeoParquet)
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: C**
+GeoParquet (`.parquet`) is the modern standard for massive data science workflows. It is highly compressed and reads phenomenally fast in Python. `.shp` is a legacy format with severe limitations (like a 2GB size cap, which a 5-million polygon dataset would likely exceed). `.geojson` is text-based and uncompressed, meaning a dataset this large would be incredibly slow to load and consume vast amounts of memory.
+
 ```
 
 ---
@@ -295,24 +318,24 @@ It is time to test your new spatial I/O skills. We have provided you with a myst
 
 **Tasks:**
 
-1.  **Load:** Use the magic read function to load `country_in_europe.gpkg` into a variable called `mystery_gdf`.
-2.  **Visualize (The Quiz):** Call the `.plot()` method on your GeoDataFrame. Give it a `figsize=(8, 8)` and a nice color. Look at the plot output—based on the geographic outline of the borders, what European country is this?
-3.  **Verify:** Display the first row using `.head()` to peek at the attribute table and confirm if your guess was correct!
-4.  **Export:** Now that the mystery is solved, save your `mystery_gdf` back to your hard drive as a GeoJSON file named `revealed_country.geojson`.
+1. **Load:** Use the magic read function to load `country_in_europe.gpkg` into a variable called `mystery_gdf`.
+2. **Visualize (The Quiz):** Call the `.plot()` method on your GeoDataFrame. Give it a `figsize=(8, 8)` and a nice color. Look at the plot output—based on the geographic outline of the borders, what European country is this?
+3. **Verify:** Display the first row using `.head()` to peek at the attribute table and confirm if your guess was correct!
+4. **Export:** Now that the mystery is solved, save your `mystery_gdf` back to your hard drive as a **{term}`JSON <JSON>`** (GeoJSON) file named `revealed_country.geojson`.
 
 ```{code-cell} python
 # Write your code here
 
 ```
 
-````{admonition} Sample solution and Quiz Answer
+``````{admonition} Sample solution and Quiz Answer
 :class: dropdown
 
 ```{code-cell} python
 import geopandas as gpd
 
 # 1. Load the mystery file
-mystery_gdf = gpd.read_file("country_in_europe.gpkg")
+mystery_gdf = gpd.read_file("data/country_in_europe.gpkg")
 
 # 2. Visualize the borders to guess the country!
 mystery_gdf.plot(figsize=(8, 8), color="mediumseagreen", edgecolor="black");
@@ -321,12 +344,13 @@ mystery_gdf.plot(figsize=(8, 8), color="mediumseagreen", edgecolor="black");
 display(mystery_gdf.head())
 
 # 4. Export to a web-friendly GeoJSON
-mystery_gdf.to_file("revealed_country.geojson")
+mystery_gdf.to_file("data/revealed_country.geojson")
 ```
 
 **Quiz Answer:**
 Based on the distinctive eastern coastline touching the Black Sea and the northern border tracing the Danube River, this country is **Bulgaria**!
-````
+
+``````
 
 ---
 
@@ -344,8 +368,8 @@ In this section, you learned how to seamlessly move spatial data between your ha
 
 ### What comes next?
 
-Up to this point, we have successfully loaded and plotted geographic shapes. However, there is a hidden trap we haven't discussed yet. 
+Up to this point, we have successfully loaded and plotted geographic shapes. However, there is a hidden trap we haven't discussed yet.
 
-If you look closely at the X and Y axes of our Switzerland plots, the numbers are massive (e.g., 2,600,000). But if you load the Bulgaria dataset, the numbers are tiny (e.g., 25, 43). Why? Because our planet is a 3D sphere, and drawing it on a flat 2D screen requires complex mathematical translation. 
+If you look closely at the X and Y axes of our Switzerland plots, the numbers are massive (e.g., 2,600,000). But if you load the Bulgaria dataset, the numbers are tiny (e.g., 25, 43). Why? Because our planet is a 3D sphere, and drawing it on a flat 2D screen requires complex mathematical translation.
 
 In the next section, **Coordinate Reference Systems (CRS) - The "Where"**, we will tackle the single most common source of GIS errors. You will learn how to identify your coordinate system, translate data from degrees into measurable metric units (meters), and safely flatten the Earth!

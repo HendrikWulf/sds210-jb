@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Generating New Geospatial Metrics and Shapes
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -20,9 +22,23 @@ Generating New Geospatial Metrics and Shapes
 :class: tip
 
 Now that you know how to safely project the Earth onto a flat metric grid, you can start analyzing it! GeoPandas allows you to move beyond simply viewing data to actively creating new geospatial metrics (like surface area and border length) and engineering entirely new geometric shapes (like proximity buffers and bounding boxes).
+
 ```
 
-In the previous sections, we learned how to load spatial files and navigate the complexities of Coordinate Reference Systems (CRS). Up until now, we have only been visualizing existing shapes.
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Measuring areas and generating proximity buffers are mandatory skills for lab assignments)  
+**Project Relevance:** ★★★ (Provides the analytical toolset needed to answer real-world spatial queries)  
+**Foundation:** ★★★ (Teaches the core topological and geometric operations that make spatial data science unique)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Learn to actively analyze spatial data by calculating areas and perimeters, finding centroids, drawing proximity buffers, and simplifying complex geometries.  
+**Skip this if:** You are already highly proficient with Shapely geometry operations within GeoPandas (`.area`, `.length`, `.centroid`, `.buffer()`, `.simplify()`, `.envelope`, `.convex_hull`).
+
+```
+
+In the previous sections, we learned how to load spatial files and navigate the complexities of **{term}`Coordinate Reference Systems <Coordinate Reference System>`** (CRS). Up until now, we have only been visualizing existing shapes.
 
 This section marks your transition into active spatial analysis. You will learn how to interrogate your geometries to generate numeric measurements and manipulate them to create brand new derived shapes.
 
@@ -33,6 +49,7 @@ Please download these files to your local working directory for this lesson:
 * [swissBoundaries3D_cantons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_cantons.gpkg)
 * [swissBoundaries3D_grisons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_grisons.gpkg)
 * [NuclearPowerPlant.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/NuclearPowerPlant.csv)
+
 ```
 
 ```{admonition} Advanced Plotting
@@ -41,6 +58,7 @@ Please download these files to your local working directory for this lesson:
 In the upcoming examples, you will see some new mapping techniques, such as drawing multiple layers on top of each other (`ax=ax`) or creating side-by-side maps using `plt.subplots`. 
 
 **Do not worry about memorizing this plotting syntax right now!** We will formally introduce all of these visualization tools in the next session. For now, treat these maps as a "sneak preview" of what is possible, and keep your focus entirely on the new spatial concepts being presented (like calculating areas, drawing buffers, and modifying shapes).
+
 ```
 
 ---
@@ -49,19 +67,19 @@ In the upcoming examples, you will see some new mapping techniques, such as draw
 
 Before we calculate a single number, it is important to establish a key rule in spatial analysis.
 
-**Never calculate area or length on data that is still in degrees (EPSG:4326) or in the Web Mercator projection (EPSG:3857)!**
+**Never calculate area or length on data that is still in degrees (EPSG:4326) or in the **{term}`Web Mercator`** projection (EPSG:3857)!**
 
 If you try to calculate the area of a forest using degrees (4326), your result will be in "square degrees," which is a physically meaningless unit. Fortunately, GeoPandas will usually throw a red warning if you attempt this.
 
-However, **Web Mercator (3857) is a silent killer.** Because it is technically a metric projection, GeoPandas will not warn you; it will happily calculate the area in square meters. But because Web Mercator famously stretches the map the further you move from the equator, your measurements will be massively inflated. For example, at 60° latitude (e.g., Oslo, Norway), the linear scale is doubled, meaning the calculated **area** is actually **4× too large!**
+However, Web Mercator (3857) is a silent killer. Because it is technically a metric projection, GeoPandas will not warn you; it will happily calculate the area in square meters. But because Web Mercator famously stretches the map the further you move from the equator, your measurements will be massively inflated. For example, at 60° latitude (e.g., Oslo, Norway), the linear scale is doubled, meaning the calculated **area** is actually **4× too large!**
 
 ### The Solution
 
 Always use an **Equal Area** projection or a highly accurate **Local Metric** projection before doing spatial math:
 
-  * **Global Level:** Use Equal Earth (EPSG:8857).
-  * **European Level:** Use ETRS89 / LAEA (EPSG:3035).
-  * **Switzerland Level:** Use the official Swiss grid CH1903+ / LV95 (EPSG:2056).
+* **Global Level:** Use Equal Earth (EPSG:8857).
+* **European Level:** Use ETRS89 / LAEA (EPSG:3035).
+* **Switzerland Level:** Use the official Swiss grid CH1903+ / LV95 (EPSG:2056).
 
 For the rest of this lesson, we will make sure our data is projected into the highly accurate Swiss EPSG:2056 metric grid.
 
@@ -79,7 +97,7 @@ Let us load our Swiss Cantons dataset, verify it is in our metric projection (EP
 import geopandas as gpd
 
 # Load the cantons dataset
-cantons_gdf = gpd.read_file("swissBoundaries3D_cantons.gpkg")
+cantons_gdf = gpd.read_file("data/swissBoundaries3D_cantons.gpkg")
 
 # 1. Calculate Area (Returns square meters, so we divide by 1,000,000 for sq km)
 cantons_gdf["area_sqkm"] = cantons_gdf.geometry.area / 10**6
@@ -94,11 +112,12 @@ display(cantons_gdf[["name", "area_sqkm"]].sort_values(by="area_sqkm", ascending
 # Top 3 Cantons by Border Length
 print("\nLongest Borders (Perimeter):")
 display(cantons_gdf[["name", "border_km"]].sort_values(by="border_km", ascending=False).head(3).round(1))
+
 ```
 
 **Before you look at the results:** Run the code above and compare the two lists. Are the exact same cantons in the top 3, and is their order exactly the same?
 
-````{admonition} Output and Observation
+```{admonition} Output and Observation
 :class: dropdown
 
 **Largest Cantons (Area):**
@@ -117,11 +136,12 @@ display(cantons_gdf[["name", "border_km"]].sort_values(by="border_km", ascending
 | **14** | Graubünden | 758.0 |
 | **15** | Vaud | 622.0 |
 
-````
 
-Notice that the rankings do not perfectly match! While Graubünden has the largest surface area, Bern actually has a longer continuous border. Furthermore, Valais drops out of the top three entirely for perimeter, replaced by Vaud. 
+```
 
-This highlights a fundamental concept in spatial data: **shape complexity**. A territory with a highly irregular, jagged boundary, complex shorelines, or multiple separated enclaves will yield a much longer perimeter than a relatively compact territory of similar size. 
+Notice that the rankings do not perfectly match! While Graubünden has the largest surface area, Bern actually has a longer continuous border. Furthermore, Valais drops out of the top three entirely for perimeter, replaced by Vaud.
+
+This highlights a fundamental concept in spatial data: **shape complexity**. A territory with a highly irregular, jagged boundary, complex shorelines, or multiple separated enclaves will yield a much longer perimeter than a relatively compact territory of similar size.
 
 We can easily prove this visually by plotting our new `border_km` column:
 
@@ -135,15 +155,14 @@ cantons_gdf.plot(
     legend_kwds={'label': "Border Length (km)"},
     edgecolor="white"
 );
+
 ```
 
-:::{figure} images/13_cantons_perimeter.png
-:alt: A choropleth map of Switzerland's cantons colored by border length using the viridis (purple to yellow) colormap. The canton of Bern is the brightest yellow, indicating the longest perimeter. Vaud and Graubünden are also highlighted in lighter green/yellow hues, showcasing their highly irregular, sprawling boundaries and disjointed enclaves compared to the compact, dark purple cantons in central Switzerland.
-:width: 800px
-:align: center
-
-*Mapping our derived metrics. If you look closely at Bern (the brightest yellow) and Vaud (light green in the west), you can see how their heavily fragmented borders and complex lake shorelines drive up their perimeter length compared to the more "blocky" Graubünden in the east.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    Mapping our derived metrics. If you look closely at Bern (the brightest yellow) and Vaud (light green in the west), you can see how their heavily fragmented borders and complex lake shorelines drive up their perimeter length compared to the more "blocky" Graubünden in the east.
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -155,15 +174,16 @@ Let us load the national boundary dataset and extract the exact geographic cente
 
 ```{code-cell} python
 # Load the national boundaries
-ch_gdf = gpd.read_file("swissBoundaries3D_switzerland.gpkg")
+ch_gdf = gpd.read_file("data/swissBoundaries3D_switzerland.gpkg")
 
 # Extract the centroid (This generates a new GeoSeries containing Point geometries)
 ch_centroid = ch_gdf.geometry.centroid
+
 ```
 
 ### How to Layer Maps (Overlays)
 
-Up to this point, we have only plotted one dataset at a time. To see which canton the center point falls inside, we need to draw the point *on top* of the cantons map. 
+Up to this point, we have only plotted one dataset at a time. To see which canton the center point falls inside, we need to draw the point *on top* of the cantons map.
 
 In GeoPandas, layering maps is done by saving the first plot as a variable (usually called `ax`, short for "axis" or canvas). When we generate the second plot, we pass `ax=ax` as an argument, which tells GeoPandas: *"Do not create a new plot; draw this on top of the existing canvas!"*
 
@@ -175,17 +195,16 @@ ax = cantons_gdf.plot(figsize=(10, 6), color="whitesmoke", edgecolor="lightgrey"
 ch_centroid.plot(ax=ax, color="red", marker="x", markersize=100);
 
 ax.set_title("The Geographic Center(s) of Switzerland")
+
 ```
 
-:::{figure} images/14_swiss_centroid.png
-:alt: A map of Swiss cantons in light grey, with a prominent red X marking the geographic center of the main landmass inside the canton of Obwalden. There are also three other red X's visible: one in the east and two ones near the borders.
-:width: 700px
-:align: center
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    Using `.centroid` to find the geometric center of mass. The true geographic center of the Swiss mainland is famous and is located at Älggi-Alp in the canton of Obwalden.
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
-*Using `.centroid` to find the geometric center of mass. The true geographic center of the Swiss mainland is famous and is located at Älggi-Alp in the canton of Obwalden.*
-:::
-
-````{admonition} What do you expect to find at the center of Switzerland?
+```{admonition} What do you expect to find at the center of Switzerland?
 :class: dropdown
 
 :::{figure} images/15_Geographical_centre_of_Switzerland.png
@@ -195,21 +214,22 @@ ax.set_title("The Geographic Center(s) of Switzerland")
 
 *It’s actually a BBQ place!* Since the precise spot is difficult to access, the people of Obwalden built a public fire pit at the true center of mass. The stone walls you see from space are built to perfectly trace the jagged shape of Switzerland's actual border, with the center marker right at the heart of the pit.
 :::
-````
+
+```
 
 ### Wait, why are there *four* red crosses?
 
 If you look closely at your map, there isn't just one center point! There is one in the middle of Switzerland, one to the east, and two more near the borders. Why did this happen?
 
-Remember from the previous section that our `ch_gdf` dataset actually contains **4 distinct rows** (The main landmass of Switzerland, the nation of Liechtenstein, and two small enclaves belonging to Germany and Italy). 
+Remember from the previous section that our `ch_gdf` dataset actually contains **4 distinct rows** (The main landmass of Switzerland, the nation of Liechtenstein, and two small enclaves belonging to Germany and Italy).
 
 Because GeoPandas applies geometric operations *row-by-row* to the entire dataset, it perfectly calculated the center of mass for all four independent territories at the exact same time!
 
 ### Isolating a Single Geometry
 
-So, how do we get *just* the true center of Switzerland without those extra three points? 
+So, how do we get *just* the true center of Switzerland without those extra three points?
 
-Because GeoPandas is built directly on top of Pandas, **all your standard Pandas filtering skills still work perfectly!** If we want to isolate the geometry for Switzerland, we simply filter the DataFrame using the `name` column before we calculate the centroid:
+Because GeoPandas is built directly on top of Pandas, **all your standard Pandas filtering skills still work perfectly!** If we want to isolate the geometry for Switzerland, we simply filter the **{term}`DataFrame`** using the `name` column before we calculate the centroid:
 
 ```{code-cell} python
 # 1. Filter the dataset to only keep the row named "Schweiz"
@@ -220,23 +240,27 @@ true_center = ch_mainland.geometry.centroid
 
 print("Success! We isolated the single center point:")
 print(true_center)
+
 ```
 
 ```{admonition} Centroids outside the shape!
 :class: warning
 For highly irregular, "C-shaped", or crescent polygons, the mathematical center of mass might actually fall *outside* the polygon itself! If you need a point that is guaranteed to be inside the shape (like for dropping a map pin), use `.representative_point()` instead of `.centroid`.
+
 ```
+
 ---
 
 ## 4. Creating Buffers
 
 A **buffer** is a geometric operation that draws a zone of influence around a shape. It expands the original geometry outward in all directions by a specified distance. This is the cornerstone of proximity analysis (e.g., "How many houses are within 500 meters of this train station?").
 
-To demonstrate this, we will load a CSV of Swiss nuclear power plants. According to safety protocols, there are two critical radii around a plant:
+To demonstrate this, we will load a **{term}`CSV <Comma-separated values>`** of Swiss nuclear power plants. According to safety protocols, there are two critical radii around a plant:
+
 * **Zone 1 (16 km):** Plume Exposure (Requires immediate action, evacuation, or sheltering).
 * **Zone 2 (80 km):** Ingestion Pathway (Requires monitoring of water and agriculture).
 
-Let us convert our CSV to a GeoDataFrame and draw these exact zones. 
+Let us convert our CSV to a **{term}`GeoDataFrame`** and draw these exact zones.
 
 *Note: If you look closely at the raw CSV data, the coordinates are not longitude/latitude degrees; they are massive numbers stored in columns named `X` and `Y`. This tells us the provider already projected the data into the Swiss metric grid for us! We just need to make sure we assign the correct CRS when we build the GeoDataFrame.*
 
@@ -244,7 +268,7 @@ Let us convert our CSV to a GeoDataFrame and draw these exact zones.
 import pandas as pd
 
 # 1. Load the CSV
-npp_df = pd.read_csv("NuclearPowerPlant.csv")
+npp_df = pd.read_csv("data/NuclearPowerPlant.csv")
 
 # 2. Convert to a spatial GeoDataFrame
 # Because the data is already metric, we set the CRS directly to EPSG:2056
@@ -267,21 +291,40 @@ zone_1_evac.plot(ax=ax, color="red", alpha=0.5, label="16km Evacuation");
 npp_gdf.plot(ax=ax, color="black", marker="*", markersize=50);
 
 ax.set_title("Nuclear Safety Zones in Switzerland")
+
 ```
 
-:::{figure} images/16_nuclear_buffers.png
-:alt: A map showing the outline of Switzerland. Inside, black stars denote nuclear power plants. Surrounding each star is a small, dark red circle (16km radius) and a much larger, semi-transparent orange circle (80km radius) that overlaps with neighboring plants and spills across the national borders.
-:width: 700px
-:align: center
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    Drawing zones of influence using `.buffer()`. Because our data was safely inside the EPSG:2056 grid, providing the buffer distances in meters generates perfectly accurate proximity zones around the plants.
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
-*Drawing zones of influence using `.buffer()`. Because our data was safely inside the EPSG:2056 grid, providing the buffer distances in meters generates perfectly accurate proximity zones around the plants.*
-:::
+---
+
+#### Concept Check: The Massive Buffer
+
+You load a GeoDataFrame of city centers and apply a 500-meter proximity zone using `.buffer(500)`. When you plot the result, your "500-meter" circles completely engulf the entire continent of Europe. What is the most likely cause of this error?
+
+A) You used Web Mercator (EPSG:3857), which distorted the area.
+
+B) Your GeoDataFrame is still in a geographic CRS (like EPSG:4326), so you accidentally buffered by 500 *degrees*, not meters.
+
+C) The `.buffer()` function only accepts distances in kilometers, so it calculated 500 kilometers.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+Because `.buffer()` uses the underlying units of the active coordinate system, buffering a geographic CRS (measured in degrees) by "500" creates a massive shape that is 500 degrees wide! Always project your data into a metric CRS (like EPSG:2056) before using distance-based geometry operations.
+
+```
 
 ---
 
 ## 5. Simplifying and Bounding
 
-Sometimes your geometric data is too complex. A highly detailed national border might contain tens of thousands of vertices. This makes the file massive and slow to render on web maps. 
+Sometimes your geometric data is too complex. A highly detailed national border might contain tens of thousands of vertices. This makes the file massive and slow to render on web maps.
 
 GeoPandas provides several tools to simplify geometries or create bounding boxes around them. We will use the highly detailed canton of Grisons (`grisons_gdf`) to demonstrate three common simplification methods.
 
@@ -293,7 +336,7 @@ GeoPandas provides several tools to simplify geometries or create bounding boxes
 
 ### Side-by-Side Plotting (Subplots)
 
-To see the difference between these three tools clearly, it is best to put the maps next to each other. To do this, we borrow a feature from Python's core plotting library (`matplotlib`) called **subplots**. 
+To see the difference between these three tools clearly, it is best to put the maps next to each other. To do this, we borrow a feature from Python's core plotting library (**{term}`matplotlib <Matplotlib>`**) called **{term}`subplots <Subplots>`**.
 
 Think of `plt.subplots(1, 3)` as building a single large picture frame (`fig`) that contains a grid of 1 row and 3 columns. Inside that frame are three blank canvases (`ax1`, `ax2`, and `ax3`). We can then tell GeoPandas exactly which canvas to draw on!
 
@@ -302,7 +345,7 @@ import matplotlib.pyplot as plt
 import geopandas as gpd
 
 # Load the canton of Grisons
-grisons_gdf = gpd.read_file("swissBoundaries3D_grisons.gpkg")
+grisons_gdf = gpd.read_file("data/swissBoundaries3D_grisons.gpkg")
 
 # 1. Simplify (Allow the shape to deviate by up to 5000 meters)
 grisons_simple = grisons_gdf.geometry.simplify(tolerance=5000)
@@ -338,23 +381,36 @@ ax3.axis("off")
 
 # Display the final frame
 plt.show()
+
 ```
 
-:::{figure} images/17_geometry_simplification.png
-:alt: Three side by side plots of the Graubünden (Grisons) canton outline in light grey. The left plot has a blocky blue outline demonstrating simplification. The middle has a red rectangular bounding box around it. The right has a green convex polygon that wraps tightly around the outermost extremities like a rubber band.
-:width: 800px
-:align: center
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    Three methods for reducing geometric complexity. These derived shapes are often used to speed up complex spatial intersection algorithms before doing the heavy mathematical lifting on the full geometry.
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
-*Three methods for reducing geometric complexity. These derived shapes are often used to speed up complex spatial intersection algorithms before doing the heavy mathematical lifting on the full geometry.*
-:::
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L07_ch04_01_geometry_modifiers/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
 
-#### Concept Check: Envelope vs. Convex Hull
+<figcaption>
+    <em><b>Interactive Explorer: Geometry Modifiers.</b><br>
+    Click the buttons to toggle different geometric modifier operations. Observe how GeoPandas can derive entirely new shapes (like proximity buffers, simplifications, bounding boxes, and convex hulls) directly from an original complex geometry. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L07_ch04_01_geometry_modifiers/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
-You have a dataset of hundreds of GPS points tracking a wolf pack over a year. You want to draw a single polygon around all these points to represent the wolf pack's absolute "territory". 
+You have a dataset of hundreds of GPS points tracking a wolf pack over a year. You want to draw a single polygon around all these points to represent the wolf pack's absolute "territory".
 
 Which bounding method would give you a more scientifically accurate, tighter representation of the territory?
 
-A) `.envelope`  
+A) `.envelope`
+
 B) `.convex_hull`
 
 ```{admonition} Check your understanding
@@ -362,31 +418,32 @@ B) `.convex_hull`
 
 **Answer: B**
 While both would contain all the points, an `.envelope` creates a strict rectangle aligned to the North/South and East/West axes (Bounding Box). This usually captures huge amounts of empty space in the corners where the wolves never actually went. A `.convex_hull` (the "rubber band" method) wraps tightly to the outermost GPS points, providing a much closer and more realistic approximation of the true territory.
+
 ```
 
 ---
 
 ## 6. Exercise: The Shape Shifter
 
-It is time to combine everything you have learned. In this exercise, you will manipulate the geometry of Switzerland, create derived shapes, and calculate the distance between them. 
+It is time to combine everything you have learned. In this exercise, you will manipulate the geometry of Switzerland, create derived shapes, and calculate the distance between them.
 
 *(Before you code, make a mental guess: If we draw a convex hull around a 10 km buffered outline of Switzerland, how far away will the centroid of that new shape be from the original center of Switzerland? 0 kilometers? 1 kilometer? 10 kilometers?)*
 
 **Tasks:**
 
-1.  **Isolate and Extract:** First, filter `ch_gdf` to only keep the row where the name is "Schweiz" (to remove the enclaves). Then, extract its outer borderline using `ch_boundary = ch_mainland.geometry.boundary`.
-2.  **Buffer the Boundary:** Create a 10 km (10,000 meter) buffer around that new boundary line. 
-3.  **Measure:** Calculate the surface area of this new buffered border ring in square kilometers.
-4.  **Hull:** Create a `convex_hull` around your new buffered shape.
-5.  **Centroids:** Calculate the centroid of your new convex hull, and the centroid of the original filtered Switzerland polygon.
-6.  **Distance:** Use the `.distance()` method to find the exact distance in meters between the two centroids. *(Hint: Because centroids are stored in a GeoSeries, you should extract the raw point geometry first using `.values[0]` to do the math: e.g., `point_a.values[0].distance(point_b.values[0])`)*. Was your guess close?
+1. **Isolate and Extract:** First, filter `ch_gdf` to only keep the row where the name is "Schweiz" (to remove the enclaves). Then, extract its outer borderline using `ch_boundary = ch_mainland.geometry.boundary`.
+2. **Buffer the Boundary:** Create a 10 km (10,000 meter) buffer around that new boundary line.
+3. **Measure:** Calculate the surface area of this new buffered border ring in square kilometers.
+4. **Hull:** Create a `convex_hull` around your new buffered shape.
+5. **Centroids:** Calculate the centroid of your new convex hull, and the centroid of the original filtered Switzerland polygon.
+6. **Distance:** Use the `.distance()` method to find the exact distance in meters between the two centroids. *(Hint: Because centroids are stored in a **{term}`GeoSeries**`, you should extract the raw point geometry first using `.values[0]` to do the math: e.g., `point_a.values[0].distance(point_b.values[0])`)*. Was your guess close?
 
 ```{code-cell} python
 # Write your code here
 
 ```
 
-````{admonition} Sample solution
+``````{admonition} Sample solution
 :class: dropdown
 
 ```{code-cell} python
@@ -427,7 +484,8 @@ ax.set_title("Switzerland: Boundary Buffer & Convex Hull")
 
 *Visual output of the Shape Shifter exercise. The distance between the true center of Switzerland and the center of its 10-km-buffered convex hull is about 9 kilometers!*
 :::
-````
+
+``````
 
 ---
 
