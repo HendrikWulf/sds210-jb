@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Combining and Aggregating Spatial Data
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -16,11 +18,22 @@ Combining and Aggregating Spatial Data
 
 ---
 
-
-```{admonition} Big idea
+```{admonition} Big Idea
 :class: tip
 
 The ultimate power of a Geographic Information System lies in fusing disparate datasets together. In this section, you will learn how to transfer attributes between layers based on their physical location, merge adjacent shapes into larger territories, and literally cut geometries into pieces using spatial overlays. 
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Spatial joins and overlays are central requirements for advanced labs)  
+**Project Relevance:** ★★★ (Essential for linking multi-source data where no common ID exists)  
+**Foundation:** ★★★ (The pinnacle of vector geoprocessing)  
+
+**Time to Read:** 20 minutes  
+**In a nutshell:** Combine completely disparate datasets together by using geographic location as the joining key, and physically cut geometries into new analytical shapes using overlays.  
+**Skip this if:** You are fully proficient with GeoPandas `.sjoin()` (understanding the difference between its `how` and `predicate` parameters), `.dissolve()`, and `.overlay()` algorithms.
 ```
 
 In the previous section, we learned how to ask spatial questions to filter our data (e.g., finding all primary homes inside an evacuation zone).
@@ -53,7 +66,7 @@ To solve this, we must use geography itself as the joining key!
 
 ## 2. Spatial Joins (sjoin)
 
-A **Spatial Join** (`.sjoin()`) transfers the attributes of one layer to another based on their spatial relationship.
+A **{term}`Spatial join`** (`.sjoin()`) transfers the **{term}`attributes <Attribute>`** of one layer to another based on their spatial relationship.
 
 If a point falls inside a polygon, GeoPandas will grab the attributes of that polygon and permanently attach them to the point's row in the attribute table.
 
@@ -71,8 +84,8 @@ Let us answer the question: **Which Swiss canton has the highest number of Alpin
 import geopandas as gpd
 
 # 1. Load the data and ensure matching metric CRS
-cantons_gdf = gpd.read_file("swissBoundaries3D_cantons.gpkg").to_crs(epsg=2056)
-huts_gdf = gpd.read_file("alpine_huts.gpkg").to_crs(epsg=2056)
+cantons_gdf = gpd.read_file("data/swissBoundaries3D_cantons.gpkg").to_crs(epsg=2056)
+huts_gdf = gpd.read_file("data/alpine_huts.gpkg").to_crs(epsg=2056)
 
 # 2. Perform the Spatial Join
 # We keep the Huts geometry (left) and attach Canton attributes (right)
@@ -87,17 +100,6 @@ huts_with_cantons = gpd.sjoin(
 # 3. View the fused attribute table
 display(huts_with_cantons[["name_left", "name_right"]].head(3))
 ```
-
-:::{table} Fused Attribute Table (Head)
-:align: center
-
-| | name_left | name_right |
-|---|---|---|
-| **0** | Mischabelhütte | Valais |
-| **1** | Rifugio Sant'Anna | Ticino |
-| **2** | Capanna Piandios | Ticino |
-
-:::
 
 ```{admonition} Why did the column names change?
 :class: note
@@ -120,13 +122,15 @@ Let us use the diagrams below to understand exactly how these parameters work.
 
 **1. The Spatial Predicate (`predicate`)**
 The predicate defines the strict geometric rule for the join. It is crucial to pick a rule that makes logical sense (e.g., checking if points are *within* a polygon makes sense, but checking if points *contain* a polygon does not).
+
 * **`within` (See Result Table *i*):** This requires the point to be *strictly* inside the boundary. Look at **Point 6**: because it sits exactly on the border of Polygon C, it is not considered "inside", so it is entirely dropped from the results in table *i*.
 * **`intersects` (See Result Table *ii*):** This is more forgiving. If geometries share even a single pixel of space, it is a match. Because **Point 6** touches the border of Polygon C, it successfully joins and appears in table *ii*.
 
 **2. The Join Type (`how`)**
 The join type determines what happens to geometries that completely fail the spatial predicate rule (like **Point 3**, which is floating out in the middle of nowhere).
-* **Inner Join (`how="inner"`):** The default, strict option. As seen in tables *i* and *ii*, **Point 3** is completely deleted from the final dataset because it could not find a matching polygon. If an Alpine hut is located just across the border in Italy, it is dropped.
-* **Left Outer Join (`how="left"`):** The safe option. Look at result table *iii*. The "Left" dataset (Layer 1: Points) is prioritized. Every single point is kept. **Point 3** survives, but because it has no overlapping polygon, its new columns simply say `No data` (or `NaN` in Pandas).
+
+* **{term}`Inner join`** (`how="inner"`): The default, strict option. As seen in tables *i* and *ii*, **Point 3** is completely deleted from the final dataset because it could not find a matching polygon. If an Alpine hut is located just across the border in Italy, it is dropped.
+* **{term}`Left outer join`** (`how="left"`): The safe option. Look at result table *iii*. The "Left" dataset (Layer 1: Points) is prioritized. Every single point is kept. **Point 3** survives, but because it has no overlapping polygon, its new columns simply say `No data` (or **{term}`NaN`** in Pandas).
 * **Right Outer Join (`how="right"`):** Look at result table *iv*. The "Right" dataset (Layer 2: Polygons) is prioritized. Every single polygon is kept. **Polygon D** has zero points inside it, but it is kept in the final table with `No data` in the point columns.
 
 :::{figure} images/27_spatial_join_anatomy.png
@@ -137,22 +141,37 @@ The join type determines what happens to geometries that completely fail the spa
 *The Anatomy of a Spatial Join. The `predicate` argument defines the strictness of the geographic rule, while the `how` argument determines what happens to the data points that fail that rule.*
 :::
 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L07_ch06_02_spatial_join/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Spatial Joins.</b><br>
+    Toggle the predicate and join type controls to see how `.sjoin()` actively filters geometries. Notice how selecting an `inner` join deletes unmatched points entirely, while a `left` join safely keeps them with missing data (`NaN`). For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L07_ch06_02_spatial_join/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
+
 #### Concept Check: The Disappearing Data
 
-**Scenario:** You have a Point dataset of all 300 hospitals in Switzerland and a Polygon dataset of high-risk avalanche zones. You want to create a safety report that lists *every single hospital in the country*, with an extra column indicating if it is in an avalanche zone or not. 
+**Scenario:** You have a Point dataset of all 300 hospitals in Switzerland and a Polygon dataset of high-risk avalanche zones. You want to create a safety report that lists *every single hospital in the country*, with an extra column indicating if it is in an avalanche zone or not.
 
 Which join type must you use to ensure hospitals in safe zones are not deleted from your final table?
 
-A) `how="inner"`  
-B) `how="left"`  
+A) `how="left"`
+B) `how="inner"`
 C) `how="right"`  
 
-````{admonition} Check your understanding
+```{admonition} Check your understanding
 :class: dropdown
 
-**Answer: B**
+**Answer: A**
 A Left Outer Join (`how="left"`) prioritizes your primary left dataset (the hospitals). It will keep every single hospital in the table. If a hospital is not inside an avalanche polygon, GeoPandas will safely fill the avalanche attribute columns with `NaN` (Not a Number). If you used `how="inner"`, any hospital outside an avalanche zone would be permanently deleted from your results!
-````
+```
 
 ### Aggregating the Fused Data
 
@@ -165,19 +184,6 @@ hut_counts = huts_with_cantons.groupby("name_right").size()
 print("Top 5 Cantons by number of Alpine Huts:")
 display(hut_counts.sort_values(ascending=False).head(5))
 ```
-
-:::{table} Top 5 Cantons by number of Alpine Huts
-:align: center
-
-| name_right | count |
-|---|---|
-| **Valais** | 67 |
-| **Ticino** | 52 |
-| **Bern** | 38 |
-| **Graubünden** | 28 |
-| **Glarus** | 19 |
-
-:::
 
 By fusing the attributes based on location, we seamlessly transition from spatial data back into standard statistical analysis.
 
@@ -195,7 +201,7 @@ Let us test this. We will load the Swiss Municipalities dataset. First, we will 
 import geopandas as gpd
 
 # 1. Load municipalities and ensure metric CRS
-muni_gdf = gpd.read_file("swissBoundaries3D_municipalities.gpkg").to_crs(epsg=2056)
+muni_gdf = gpd.read_file("data/swissBoundaries3D_municipalities.gpkg").to_crs(epsg=2056)
 
 # 2. Assign Canton names to Municipalities via a Spatial Join
 muni_with_cantons = gpd.sjoin(muni_gdf, cantons_gdf[["name", "geometry"]], predicate="within")
@@ -216,19 +222,6 @@ cantons_rebuilt = muni_with_cantons.dissolve(
 display(cantons_rebuilt[["einwohnerzahl", "gem_flaeche", "see_flaeche"]].round(0).astype(int).sort_values("see_flaeche", ascending=False).head(5))
 ```
 
-:::{table} Aggregated Data (Rebuilt Cantons)
-:align: center
-
-| name_right | einwohnerzahl | gem_flaeche | see_flaeche |
-|---|---|---|---|
-| **Vaud** | 855106 | 321202 | 38937 |
-| **Thurgau** | 299509 | 99433 | 13119 |
-| **Bern** | 1063960 | 593889 | 11854 |
-| **Neuchâtel** | 179518 | 80216 | 8511 |
-| **Fribourg** | 346674 | 167243 | 7712 |
-
-:::
-
 Because we just engineered entirely new polygons and summed up their data from scratch, it is good practice to verify our math. Let us compare our `cantons_rebuilt` data against the official statistics stored in the original `cantons_gdf`:
 
 ```{code-cell} python
@@ -243,20 +236,7 @@ display(cantons_gdf
         )
 ```
 
-:::{table} Official Data (Original Cantons)
-:align: center
-
-| name | einwohnerzahl | kantonsflaeche | see_flaeche |
-|---|---|---|---|
-| **Vaud** | 855106 | 321202 | 38937 |
-| **Thurgau** | 299509 | 99433 | 13119 |
-| **Bern** | 1063960 | 593889 | 11854 |
-| **Neuchâtel** | 179518 | 80216 | 8511 |
-| **Fribourg** | 346674 | 167243 | 7712 |
-
-:::
-
-The numbers match perfectly! Best quality made by SwissTopo. By dissolving the municipalities, we successfully recreated the cantonal dataset from the ground up. 
+The numbers match perfectly! Best quality made by SwissTopo. By dissolving the municipalities, we successfully recreated the cantonal dataset from the ground up.
 
 We can visually prove that this operation physically melted the geometries together by plotting our original municipalities next to our newly dissolved `cantons_rebuilt` layer:
 
@@ -279,13 +259,26 @@ ax2.axis("off")
 plt.show()
 ```
 
-:::{figure} images/25_dissolve_comparison.png
-:alt: Two side-by-side maps of Switzerland. The left map shows thousands of tiny, fragmented polygons representing individual municipalities. The right map shows large, solid blocks representing the cantons. The internal municipal borders have completely vanished.
-:width: 700px
-:align: center
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Visualizing the `.dissolve()` method. Notice how the fine, spiderweb-like internal borders of the municipalities on the left have been completely melted away, leaving only the cantonal outlines on the right.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
-*Visualizing the `.dissolve()` method. Notice how the fine, spiderweb-like internal borders of the municipalities on the left have been completely melted away, leaving only the cantonal outlines on the right.*
-:::
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L07_ch06_03_dissolving_geometries/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Dissolving Geometries.</b><br>
+    Click the <code>.dissolve()</code> button to observe the spatial groupby process in action. Notice how GeoPandas simultaneously physically melts the internal borders of the matching geometries in the Map View, while mathematically aggregating (summing) their corresponding population data in the Attribute Table. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L07_ch06_03_dissolving_geometries/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -293,7 +286,7 @@ plt.show()
 
 Spatial Joins (`sjoin`) only transfer attributes; they never alter the actual shapes of your geometries. But what if you need to physically cut a geometry into smaller pieces?
 
-A **Spatial Overlay** (`.overlay()`) mathematically intersects two layers, physically slicing the geometries exactly where they cross boundaries to create entirely new shapes. 
+A **Spatial Overlay** (`.overlay()`) mathematically intersects two layers, physically slicing the geometries exactly where they cross boundaries to create entirely new shapes.
 
 :::{figure} images/30_vector_overlay_processes.png
 :alt: Four diagrams illustrating vector overlay operations (Intersection, Union, Difference, and Symmetric difference) between a circle and two adjoining rectangles. The resulting geometries for each operation are shaded in green, demonstrating how the layers are physically cut and combined.
@@ -305,7 +298,7 @@ A **Spatial Overlay** (`.overlay()`) mathematically intersects two layers, physi
 
 When performing an overlay, you use the `how` parameter to control exactly which parts of the sliced geometries are kept in the final dataset. The five main operations are:
 
-* **`intersection`**: Keeps only the areas where the two layers overlap. 
+* **`intersection`**: Keeps only the areas where the two layers overlap.
 * **`union`**: Keeps all geometries from both layers, splitting them into new distinct pieces wherever their borders cross.
 * **`difference`**: Keeps only the areas of the first layer that *do not* overlap with the second layer.
 * **`symmetric_difference`**: Keeps the areas from both layers that *do not* overlap (the exact opposite of intersection).
@@ -365,13 +358,28 @@ When performing an overlay, you use the `how` parameter to control exactly which
 
 ::::::
 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L07_ch06_01_spatial_overlay/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Spatial Overlay Visualizer.</b><br>
+    Click the buttons to toggle different geometric overlay operations. Observe how GeoPandas physically cuts and combines the overlapping Base Layers (a blue circle and red square) depending on the mathematical rule chosen. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L07_ch06_01_spatial_overlay/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
+
 ### Applying an Intersection Overlay
 
 To demonstrate why this is vital, let us calculate the total length of highways in each canton. A highway is typically a single, continuous line that spans across multiple cantons. If we just did a spatial join, the entire length of the highway would be assigned to just one canton. We must use `.overlay()` to physically cut the highway lines at the cantonal borders first!
 
 ```{code-cell} python
 # 1. Load the Highways
-highways_gdf = gpd.read_file("swissHighways.gpkg").set_crs(epsg=2056, allow_override=True)
+highways_gdf = gpd.read_file("data/swissHighways.gpkg").set_crs(epsg=2056, allow_override=True)
 
 # 2. Perform the Overlay (Cut the lines at the polygon boundaries)
 highways_cut = gpd.overlay(highways_gdf, cantons_gdf, how="intersection")
@@ -397,30 +405,17 @@ ax.set_title("Highways Cut and Colored by Cantonal Borders")
 ax.set_axis_off()
 ```
 
-:::{table} Cantons with the most Highway Kilometers
-:align: center
-
-| name | length_km |
-|---|---|
-| **Bern** | 635.3 |
-| **Vaud** | 518.7 |
-| **Zürich** | 504.8 |
-
-:::
-
-:::{figure} images/28_highways_overlay.png
-:alt: A map of Switzerland showing the highway network. The highways change color exactly as they cross the light grey cantonal borders, proving that the continuous lines were physically cut into smaller segments by the overlay operation.
-:width: 800px
-:align: center
-
-*Visualizing the `.overlay()` method. By coloring the cut highway lines by their new canton name, we can visually prove that the continuous roads were physically chopped exactly at the borders.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>isualizing the `.overlay()` method. By coloring the cut highway lines by their new canton name, we can visually prove that the continuous roads were physically chopped exactly at the borders.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 Because `.overlay()` computationally slices thousands of vertices, it is one of the heaviest operations in GeoPandas. However, it is absolutely essential when dealing with long networks like rivers, roads, or animal migration paths that cross administrative boundaries.
 
-#### Concept Check: The Overlay Trap
+#### Concept Check: The Attribute Trap
 
-**Scenario:** You have a Polygon representing a large farm. In its attribute table, the `area_sqkm` column says **10**. You use `.overlay(how="intersection")` to physically cut the farm exactly in half using a municipal border. 
+**Scenario:** You have a Polygon representing a large farm. In its attribute table, the `area_sqkm` column says **10**. You use `.overlay(how="intersection")` to physically cut the farm exactly in half using a municipal border.
 
 If you immediately look at the attribute table of your two newly cut farm pieces, what will their `area_sqkm` columns say?
 
@@ -428,12 +423,12 @@ A) 5
 B) 10  
 C) NaN (No data)  
 
-````{admonition} Check your understanding
+```{admonition} Check your understanding
 :class: dropdown
 
 **Answer: B (10)**
-When you use `.overlay()`, GeoPandas physically cuts the geometries, but it **does not** automatically recalculate the numbers in your old attribute columns! Both new halves will simply inherit the original "10" from the parent shape. Whenever you use `.overlay()` to cut lines or polygons, you must immediately recalculate your length and area columns using `.geometry.length` or `.geometry.area` to avoid catastrophic math errors later.
-````
+When you use `.overlay()`, GeoPandas physically cuts the geometries, but it **does not** automatically recalculate the numbers in your old attribute columns! Both new halves will simply inherit the original "10" from the parent shape. Whenever you use `.overlay()` to cut lines or polygons, you should recalculate your length and area columns using `.geometry.length` or `.geometry.area` to avoid unintended maths errors later.
+```
 
 ---
 
@@ -445,11 +440,10 @@ You will need to use a Spatial Join to combine the points and polygons, and then
 
 **Tasks:**
 
-1.  **Load Data:** Load `hospital_landing_sites.geojson` and `swissBoundaries3D_cantons.gpkg`. Ensure both are in the metric `EPSG:2056` projection.
-2.  **Spatial Join:** Perform an `sjoin` keeping the landing sites as the primary (left) geometry, and joining the canton attributes based on the `within` predicate.
-3.  **Aggregate:** Use `.groupby()` on the newly attached canton name column and count the number of landing sites per canton.
-4.  **Identify:** Sort the results in descending order and print the top 5 cantons.
-
+1. **Load Data:** Load `hospital_landing_sites.geojson` and `swissBoundaries3D_cantons.gpkg`. Ensure both are in the metric `EPSG:2056` projection.
+2. **Spatial Join:** Perform an `sjoin` keeping the landing sites as the primary (left) geometry, and joining the canton attributes based on the `within` predicate.
+3. **Aggregate:** Use `.groupby()` on the newly attached canton name column and count the number of landing sites per canton.
+4. **Identify:** Sort the results in descending order and print the top 5 cantons.
 
 ```{code-cell} python
 # Write your code here
@@ -463,8 +457,8 @@ You will need to use a Spatial Join to combine the points and polygons, and then
 import geopandas as gpd
 
 # 1. Load the data and project to metric grid
-hospitals_gdf = gpd.read_file("hospital_landing_sites.geojson").to_crs(epsg=2056)
-cantons_gdf = gpd.read_file("swissBoundaries3D_cantons.gpkg").to_crs(epsg=2056)
+hospitals_gdf = gpd.read_file("data/hospital_landing_sites.geojson").to_crs(epsg=2056)
+cantons_gdf = gpd.read_file("data/swissBoundaries3D_cantons.gpkg").to_crs(epsg=2056)
 
 # 2. Perform the spatial join (Points within Polygons)
 hospitals_with_cantons = gpd.sjoin(
@@ -535,6 +529,7 @@ ax.set_axis_off()
 
 *Visualizing Aggregated Data. By merging our counts back onto the cantonal geometries, we create a count map that instantly highlights the regions with the highest emergency infrastructure density, while the overlaid points confirm their exact locations.*
 :::
+
 ````
 
 ---
@@ -552,8 +547,8 @@ Congratulations! You have mastered the core toolkit of vector spatial analysis. 
 
 ### What comes next?
 
-You have successfully engineered new spatial datasets and aggregated complex statistics across regions. But how do we effectively communicate these numbers to an audience? 
+You have successfully engineered new spatial datasets and aggregated complex statistics across regions. But how do we effectively communicate these numbers to an audience?
 
-If you look back at the hospital map we just created, we used a continuous color gradient. While it looks nice, the human brain actually struggles to interpret the exact difference between two similar shades of blue. 
+If you look back at the hospital map we just created, we used a continuous color gradient. While it looks nice, the human brain actually struggles to interpret the exact difference between two similar shades of blue.
 
 To make our maps truly readable, we need to group our raw numbers into logical "bins" (e.g., "Low", "Medium", and "High" density). In the next section, **Data Classification**, you will learn how to bridge the gap between raw data and clear visual communication using rule-based logic and statistical grouping methods!
