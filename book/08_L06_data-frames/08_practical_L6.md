@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Mastering Environmental Data with Pandas
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -39,7 +41,7 @@ Unfortunately, the historic sensor data is messy. The column names are cryptic, 
 
 ## Part 1 – The Intake Workflow
 
-Before we can analyze anything, we need to load the data, understand its shape, and set up our temporal index. 
+Before we can analyze anything, we need to load the data, understand its shape, and set up our temporal index.
 
 ```{admonition} Download the Dataset
 :class: note
@@ -91,8 +93,8 @@ The data is finally clean. Now, the resort management wants to know about "Extre
 
 ### Tasks
 
-1. **Vectorize:** Create a new column called `temp_swing` by subtracting `temp_min` from `temp_max`. 
-2. **Filter (Boolean Indexing):** Create a new DataFrame called `extreme_days` that only contains rows where the `temp_swing` was greater than **18.0** °C AND the `precip` was exactly **0.0** (dry days). 
+1. **Vectorize:** Create a new column called `temp_swing` by subtracting `temp_min` from `temp_max`.
+2. **Filter (Boolean Indexing):** Create a new DataFrame called `extreme_days` that only contains rows where the `temp_swing` was greater than **18.0** °C AND the `precip` was exactly **0.0** (dry days).
     * *Crucial constraint:* Remember to wrap your conditions in parentheses `()` and append `.copy()` to avoid the `SettingWithCopyWarning`!
 3. **Sort and Peek:** [Sort](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html) your `extreme_days` DataFrame by `temp_swing` in descending order (highest swing at the top). Display the top 5 rows using `.head()`.
 
@@ -111,7 +113,7 @@ Management doesn't just want to see extreme individual days; they want to see th
 
 1. **[Resample](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.resample.html#pandas.DataFrame.resample):** Create a new DataFrame called `monthly_climate` by resampling the original `climate_data` into monthly averages (`"MS"`). Calculate the `.mean()` for these monthly buckets.
 2. **[Rolling](https://pandas.pydata.org/docs/reference/api/pandas.Series.rolling.html#pandas.Series.rolling) Window:** Create a new column inside `monthly_climate` called `10_year_trend`. Calculate this using a `.rolling(120)` window (120 months = 10 years) on the `temp_max` column, taking the `.mean()`. This will smooth out the yearly seasons and expose the true climate shift!
-3. **[Plot](https://pandas.pydata.org/docs/reference/api/pandas.Series.plot.html#pandas.Series.plot):** Generate a professional visualization from your `monthly_climate` DataFrame. 
+3. **[Plot](https://pandas.pydata.org/docs/reference/api/pandas.Series.plot.html#pandas.Series.plot):** Generate a professional visualization from your `monthly_climate` DataFrame.
     * Plot both the raw monthly `temp_max` and your smoothed `10_year_trend`.
     * Use `figsize=(12, 6)`.
     * Apply distinct colors (e.g., light gray for the monthly data, a thick crimson line for the trend).

@@ -160,7 +160,7 @@ cantons_gdf.plot(
 
 <!-- markdownlint-disable MD033-->
 <figcaption>
-    Mapping our derived metrics. If you look closely at Bern (the brightest yellow) and Vaud (light green in the west), you can see how their heavily fragmented borders and complex lake shorelines drive up their perimeter length compared to the more "blocky" Graubünden in the east.
+    <em>Mapping our derived metrics. If you look closely at Bern (the brightest yellow) and Vaud (light green in the west), you can see how their heavily fragmented borders and complex lake shorelines drive up their perimeter length compared to the more "blocky" Graubünden in the east.</em>
 </figcaption>
 <!-- markdownlint-enable MD033 -->
 
@@ -200,7 +200,7 @@ ax.set_title("The Geographic Center(s) of Switzerland")
 
 <!-- markdownlint-disable MD033-->
 <figcaption>
-    Using `.centroid` to find the geometric center of mass. The true geographic center of the Swiss mainland is famous and is located at Älggi-Alp in the canton of Obwalden.
+    <em>Using `.centroid` to find the geometric center of mass. The true geographic center of the Swiss mainland is famous and is located at Älggi-Alp in the canton of Obwalden.</em>
 </figcaption>
 <!-- markdownlint-enable MD033 -->
 
@@ -296,7 +296,7 @@ ax.set_title("Nuclear Safety Zones in Switzerland")
 
 <!-- markdownlint-disable MD033-->
 <figcaption>
-    Drawing zones of influence using `.buffer()`. Because our data was safely inside the EPSG:2056 grid, providing the buffer distances in meters generates perfectly accurate proximity zones around the plants.
+    <em>Drawing zones of influence using `.buffer()`. Because our data was safely inside the EPSG:2056 grid, providing the buffer distances in meters generates perfectly accurate proximity zones around the plants.</em>
 </figcaption>
 <!-- markdownlint-enable MD033 -->
 
@@ -386,7 +386,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <figcaption>
-    Three methods for reducing geometric complexity. These derived shapes are often used to speed up complex spatial intersection algorithms before doing the heavy mathematical lifting on the full geometry.
+    <em>Three methods for reducing geometric complexity. These derived shapes are often used to speed up complex spatial intersection algorithms before doing the heavy mathematical lifting on the full geometry.</em>
 </figcaption>
 <!-- markdownlint-enable MD033 -->
 

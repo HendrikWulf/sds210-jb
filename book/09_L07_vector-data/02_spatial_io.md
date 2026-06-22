@@ -153,7 +153,7 @@ ch_gpkg.plot(figsize=(8, 5), color="dodgerblue", edgecolor="black");
 
 <!-- markdownlint-disable MD033-->
 <figcaption>
-    Visual output of ch_gpkg.plot(). GeoPandas automatically interprets the geometries and draws them. The X and Y axes are based on the coordinates stored in the data.
+    <em>Visual output of ch_gpkg.plot(). GeoPandas automatically interprets the geometries and draws them. The X and Y axes are based on the coordinates stored in the data.</em>
 </figcaption>
 <!-- markdownlint-enable MD033 -->
 
@@ -199,7 +199,7 @@ ch_gpkg.plot(
 
 <!-- markdownlint-disable MD033-->
 <figcaption>
-    A categorical map based on population counts. Because Switzerland's population is vastly higher than its internal enclaves, treating the unique values as categories allows us to instantly visualize the location and distinct nature of all four entities.
+    <em>A categorical map based on population counts. Because Switzerland's population is vastly higher than its internal enclaves, treating the unique values as categories allows us to instantly visualize the location and distinct nature of all four entities.</em>
 </figcaption>
 <!-- markdownlint-enable MD033 -->
 
@@ -231,7 +231,7 @@ ch_gpkg.plot(
 
 <!-- markdownlint-disable MD033-->
 <figcaption>
-    Mapping normalized data. By dividing the population by the land area, we reveal the actual demographic intensity of the regions without the visual bias of their physical size.
+    <em>Mapping normalized data. By dividing the population by the land area, we reveal the actual demographic intensity of the regions without the visual bias of their physical size.</em>
 </figcaption>
 <!-- markdownlint-enable MD033 -->
 
