@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Data Driven Thematic Maps
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -20,6 +22,20 @@ Data Driven Thematic Maps
 :class: tip
 
 Plotting spatial geometries is only the first step. Creating a map that accurately, beautifully, and ethically communicates information is an entirely different skill. In this chapter, we transition from simply drawing shapes to creating data driven thematic maps. You will learn how cartographic principles like color theory and proper legends can completely change the story your data tells.
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for ethically styling and scaling all lab outputs)  
+**Project Relevance:** ★★★ (Crucial for final visualization and communication of your results)  
+**Foundation:** ★★☆ (Key cartographic theory that bridges data science and design)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Transform plain geometries into readable, data-driven thematic maps by applying correct colormaps, data scaling, and handling missing data.  
+**Skip this if:** You are already fully comfortable applying perceptually uniform colormaps (sequential vs. diverging), controlling scale bounds with `vmin`/`vmax`, and managing missing `NaN` values with `missing_kwds`.
+
 ```
 
 ### Preparing the Data
@@ -30,13 +46,14 @@ To follow along with this chapter and complete the exercises, please download th
 :class: note
 
 * [Eurostat NUTS Regions (nuts_rg_03m_2024_3035_pop_wm_eu.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/nuts_rg_03m_2024_3035_pop_wm_eu.gpkg)
+
 ```
 
 ---
 
 ## 1. What is a Choropleth?
 
-A **choropleth** is a specific type of thematic map where areas (polygons) are shaded or patterned in proportion to a statistical variable. Instead of assigning a single static color to an entire layer, you can assign a color to each polygon based on the value in a specific data column.
+A **{term}`choropleth <Choropleth map>`** is a specific type of thematic map where areas (polygons) are shaded or patterned in proportion to a statistical variable. Instead of assigning a single static color to an entire layer, you can assign a color to each polygon based on the value in a specific data column.
 
 This technique allows readers to instantly visualize spatial patterns, clusters, and inequalities across geographic regions.
 
@@ -59,35 +76,34 @@ ax.set_title("Proportion of Population Age 0 to 14")
 ax.axis("off")
 
 plt.show()
+
 ```
 
-:::{figure} images/10_choropleth_step1.png
-:alt: A basic choropleth map of Europe showing different regions colored automatically based on their youth population percentage.
-:width: 600px
-:align: center
-
-*Output: A basic choropleth. GeoPandas analyzes the numeric values in the specified column and assigns colors accordingly. Notice it defaults to the blue-to-yellow "viridis" palette.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output: A basic choropleth. GeoPandas analyzes the numeric values in the specified column and assigns colors accordingly. Notice it defaults to the blue-to-yellow "viridis" palette.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
 ## 2. Choosing Colormaps
 
-The accurate representation of data is essential in science communication. While the default colors in GeoPandas technically work, cartographic design requires intent. The colors you choose profoundly impact how the reader interprets the data. In Matplotlib and GeoPandas, you control this using the `cmap` (colormap) parameter.
+The accurate representation of data is essential in science communication. While the default colors in GeoPandas technically work, cartographic design requires intent. The colors you choose profoundly impact how the reader interprets the data. In Matplotlib and GeoPandas, you control this using the `cmap` (**{term}`colormap <Colormap>`**) parameter.
 
 ### The Danger of uneven Colormaps
 
-Historically, many software programs defaulted to "rainbow" or "jet" colormaps. However, these palettes visually distort data through uneven color gradients and are completely unreadable to those with color vision deficiencies. 
+Historically, many software programs defaulted to "rainbow" or "jet" colormaps. However, these palettes visually distort data through uneven color gradients and are completely unreadable to those with color vision deficiencies.
 
 In a rainbow colormap, yellow is the brightest color and attracts the eye the most, yet it sits arbitrarily in the middle of the scale. This uneven gradient unfairly highlights certain sections of the data while obscuring others, leading to false visual interpretations. Image comparing jet rainbow colormap with perceptually uniform batlow colormap.
 
-To prevent this, spatial data scientists use **perceptually uniform** colormaps. A perceptually uniform colormap weights the same data variation equally all across the dataspace, ensuring that the true data variation is accurately represented without unnecessary visual error. 
+To prevent this, spatial data scientists use **{term}`perceptually uniform colormaps <Perceptually uniform colormap>`**. A perceptually uniform colormap weights the same data variation equally all across the dataspace, ensuring that the true data variation is accurately represented without unnecessary visual error.
 
 ### Classes of Colormaps
 
 When selecting a perceptually uniform colormap, you must match the palette to the nature of your data:
 
-* **Sequential:** Colors change in lightness and often saturation incrementally, typically using a single hue. Best used for representing continuous information that has a clear ordering from low to high (e.g., population density, total rainfall). 
+* **Sequential:** Colors change in lightness and often saturation incrementally, typically using a single hue. Best used for representing continuous information that has a clear ordering from low to high (e.g., population density, total rainfall).
 * **Diverging:** Uses two different colors that meet in the middle at an unsaturated neutral tone. Best used when the information being plotted has a critical middle value, highlighting extremes that deviate around zero (e.g., temperature anomalies, population growth vs decline).
 * **Cyclic:** Changes in lightness of two different colors that meet in the middle, and wrap around at the beginning and end at an unsaturated color. Best used for values that wrap around at the endpoints, such as phase angle, wind direction, or time of day.
 * **Qualitative (Categorical):** Uses distinct, miscellaneous colors. Best used to represent categorical information which does not have ordering or relationships, meaning no value is inherently "greater" than another (e.g., primary language spoken, soil type, zoning districts).
@@ -95,6 +111,7 @@ When selecting a perceptually uniform colormap, you must match the palette to th
 
 Use the Interactive Explorer below to see how selecting different colormap types drastically alters the visual narrative of the exact same abstract dataset.
 
+<!-- markdownlint-disable MD033-->
 <iframe 
     src="https://hendrikwulf.github.io/sds210_assets_L08_ch03_colormap_explorer/"
     width="100%"
@@ -104,7 +121,11 @@ Use the Interactive Explorer below to see how selecting different colormap types
     allowfullscreen>
 </iframe>
 
-*For improved visibility of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_L08_ch03_colormap_explorer/).*
+<figcaption>
+    <em><b>Interactive Explorer: Colormap Classes.</b><br>
+    Use the dropdown to select different colormap types (Sequential, Diverging, Cyclic, and Qualitative). Observe how the exact same numerical data is recolored based on the chosen palette, and discover why matching the colormap class to the underlying nature of your data is critical for accurate cartography. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L08_ch03_colormap_explorer/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
 
 ### Importing Scientific Colormaps
 
@@ -158,15 +179,14 @@ for ax in axs:
 
 plt.tight_layout()
 plt.show()
+
 ```
 
-:::{figure} images/10_colormaps_step2.png
-:alt: Three horizontal color gradients demonstrating sequential (batlow), diverging (roma), and qualitative (batlowS) scientific colormaps.
-:width: 700px
-:align: center
-
-*Output: Visualizing the three core colormap classes using the cmcrameri library. Notice how the lightness transitions smoothly in the sequential map, and balances outward from the center in the diverging map.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output: Visualizing the three core colormap classes using the cmcrameri library. Notice how the lightness transitions smoothly in the sequential map, and balances outward from the center in the diverging map.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 Because our youth population data is continuous and progresses from low to high, a **Sequential** colormap is the most appropriate choice. Moving forward, we will utilize the `cmc.batlow` colormap to ensure our cartography is perfectly scientifically accurate.
 
@@ -193,24 +213,28 @@ This is useful when you want to invert the visual meaning (e.g. dark = low inste
 *Reversed `batlow` color gradient ranging from bright to dark.*
 :::
 
+
 ```
 
 #### Concept Check: The Right Palette
 
-**Scenario:** You are creating a map showing the change in forest cover across Europe over the last 10 years. Some regions gained forest (positive values), while others lost forest (negative values). 
+**Scenario:** You are creating a map showing the change in forest cover across Europe over the last 10 years. Some regions gained forest (positive values), while others lost forest (negative values).
 
 Which class of colormap MUST you use to ethically and accurately display this data?
 
-A) A Sequential colormap, because the data progresses from the lowest loss to the highest gain.  
-B) A Diverging colormap, because the data has a critical meaningful midpoint (zero change).  
-C) A Qualitative colormap, because "loss" and "gain" are two distinct categories.  
+A) A Sequential colormap, because the data progresses from the lowest loss to the highest gain.
 
-````{admonition} Check your understanding
+B) A Diverging colormap, because the data has a critical meaningful midpoint (zero change).
+
+C) A Qualitative colormap, because "loss" and "gain" are two distinct categories.
+
+```{admonition} Check your understanding
 :class: dropdown
 
 **Answer: B**
 Because the data has a critical meaningful midpoint (zero change), a **Diverging** palette will naturally highlight regions with extreme loss in one color (e.g., brown) and regions with extreme gain in an opposing color (e.g., green). Regions with little to no change will remain a neutral tone, making the map instantly intuitive.
-````
+
+```
 
 ---
 
@@ -220,11 +244,11 @@ A thematic map without a legend is incomplete. While a reader might recognize sp
 
 ### Data Distribution and Scaling
 
-When generating a choropleth, the default behavior of Matplotlib is to stretch the colormap from the absolute minimum to the absolute maximum data value. However, real world demographic data is rarely perfectly uniform. 
+When generating a choropleth, the default behavior of Matplotlib is to stretch the colormap from the absolute minimum to the absolute maximum data value. However, real world demographic data is rarely perfectly uniform.
 
 Often, data is positively or negatively skewed. If our youth population data is positively skewed (featuring a long tail of a few regions with exceptionally high percentages), the majority of the "average" regions will be compressed into a narrow, indistinguishable band of colors at the lower end of the scale. This washes out the subtle regional differences we aim to visualize.
 
-A standard practice in spatial data science is to inspect the value distribution—such as by plotting a basic histogram—before mapping. If the data is heavily skewed, we can manually restrict the bounds of our colormap using the `vmin` and `vmax` parameters. 
+A standard practice in spatial data science is to inspect the value distribution, such as by plotting a basic **{term}`histogram <Histogram>`**, before mapping. If the data is heavily skewed, we can manually restrict the bounds of our colormap using the `vmin` and `vmax` parameters.
 
 A mathematically robust approach is to use the Pandas `.quantile()` method to establish thresholds, such as the 2% and 98% quantiles. This focuses the rich `batlow` color gradient exclusively on the bulk of the distribution, improving the visual contrast of the map.
 
@@ -272,15 +296,14 @@ ax.axis("off")
 
 # Display the final rendered map to the screen
 plt.show()
+
 ```
 
-:::{figure} images/10_choropleth_step3.png
-:alt: A choropleth map of Europe using the dark-to-light batlow sequential colormap. A horizontal legend at the bottom indicates percentages. The color scale is visually balanced, revealing subtle regional differences.
-:width: 700px
-:align: center
-
-*Output: By applying the perceptually uniform `batlow` colormap, adding a descriptive horizontal legend, and scaling the data to the 2nd and 98th percentiles, we accommodate the data distribution and create a highly readable, balanced thematic map.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output: By applying the perceptually uniform `batlow` colormap, adding a descriptive horizontal legend, and scaling the data to the 2nd and 98th percentiles, we accommodate the data distribution and create a highly readable, balanced thematic map.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 #### Concept Check: The Outlier Effect
 
@@ -288,22 +311,25 @@ plt.show()
 
 What will your resulting map look like?
 
-A) The vast majority of the map will be painted in the lowest colors of the palette, washing out subtle regional differences.  
-B) GeoPandas will automatically trim the top and bottom 2% of the data to create a balanced map.  
-C) The extremely wealthy regions will be dropped and appear as missing data (`NaN`).  
+A) The vast majority of the map will be painted in the lowest colors of the palette, washing out subtle regional differences.
 
-````{admonition} Check your understanding
+B) GeoPandas will automatically trim the top and bottom 2% of the data to create a balanced map.
+
+C) The extremely wealthy regions will be dropped and appear as missing data (`NaN`).
+
+```{admonition} Check your understanding
 :class: dropdown
 
 **Answer: A**
 By default, Matplotlib stretches the colormap from the absolute minimum to the absolute maximum data value. Because the colormap is stretched to accommodate a few extremely high outlier values, the subtle differences between the bulk of the "average" regions get compressed into a very narrow, indistinguishable color band at the bottom of the scale. 
-````
+
+```
 
 ---
 
 ## 4. Handling Missing Data
 
-Real-world data is rarely perfect. Occasionally, geographic regions will be missing data values (represented in Python as `NaN`, or Not a Number). 
+Real-world data is rarely perfect. Occasionally, geographic regions will be missing data values (represented in Python as `NaN` (**{term}`NaN`**), or Not a Number).
 
 Fortunately, our Eurostat dataset is beautifully complete. However, to learn how to properly handle incomplete data, we must first intentionally break ours! In the code below, we will use NumPy to simulate missing data by forcing the youth population values for a few specific regions (in Turkey, Spain, and Norway) to `NaN`.
 
@@ -321,13 +347,14 @@ nuts_nan.loc[nuts_nan['NUTS_ID'].isin(target_ids), 'pop0_14_percentage'] = np.na
 nan_output_path = 'data/nuts_rg_03m_2024_3035_pop_wm_eu_nan.gpkg'
 nuts_nan.to_file(nan_output_path, driver='GPKG')
 print(f'Saved modified dataset to {nan_output_path}')
+
 ```
 
 ### The `missing_kwds` Parameter
 
-By default, GeoPandas will simply skip rendering any polygons that contain `NaN` values. This leaves literal empty holes in your map, which looks like a rendering error and severely distorts the coastline and structural integrity of the geography. 
+By default, GeoPandas will simply skip rendering any polygons that contain `NaN` values. This leaves literal empty holes in your map, which looks like a rendering error and severely distorts the coastline and structural integrity of the geography.
 
-To fix this, we use the `missing_kwds` parameter to assign a specific styling to areas without data. Common cartographic practice is to color missing data with a neutral light grey or a distinct pattern (like a diagonal hatch) so the reader immediately understands the data is unavailable, not just invisible.
+To fix this, we use the `missing_kwds` **{term}`parameter <Parameter>`** to assign a specific styling to areas without data. Common cartographic practice is to color missing data with a neutral light grey or a distinct pattern (like a diagonal hatch) so the reader immediately understands the data is unavailable, not just invisible.
 
 Let us plot our simulated dataset and handle the missing gaps gracefully.
 
@@ -387,20 +414,19 @@ ax.legend(
     frameon=False             # Removes the border box around the legend to keep the map looking clean
 )
 
-ax.set_title("Youth Population in Europe (With Missing Data Handled)", fontsize=16)
+ax.set_title("Youth Population in Europe with Simulated Missing Data", fontsize=16)
 ax.axis("off")
 
 # Display the map
 plt.show()
+
 ```
 
-:::{figure} images/10_choropleth_step4.png
-:alt: A choropleth map of Europe where three specific regions missing data are visibly shaded in light grey with diagonal hash marks.
-:width: 700px
-:align: center
-
-*Output: Proper handling of missing data via `missing_kwds` ensures the map remains structurally intact while clearly and honestly communicating exactly where data is unavailable.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>OOutput: Proper handling of missing data via `missing_kwds` ensures the map remains structurally intact while clearly and honestly communicating exactly where data is unavailable.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -408,25 +434,25 @@ plt.show()
 
 It is time to test your cartographic design skills. Your dataset contains another column: `women_per100men`. This variable measures the gender ratio in each region. A value of exactly 100 means perfect parity. Values below 100 indicate more men, and values above 100 indicate more women.
 
-Because this data has a critical meaningful center point (100), a **Diverging** colormap is required to correctly visualize it. Furthermore, to ensure the neutral middle tone of the colormap aligns perfectly with 100, you must mathematically center your color scale. 
+Because this data has a critical meaningful center point (100), a **Diverging** colormap is required to correctly visualize it. Furthermore, to ensure the neutral middle tone of the colormap aligns perfectly with 100, you must mathematically center your color scale.
 
 **Your Tasks:**
 
-1.  **Symmetrical Scaling:** Find the 1st and 99th percentiles of the `women_per100men` column. Calculate the maximum absolute distance from the center point (100) to these percentiles. Use this maximum distance to define a perfectly symmetrical `vmin` and `vmax` around 100.
-2.  Create a single Figure and Axes setup with a `figsize` of `(12, 10)`.
-3.  Plot the `nuts` dataset using the `women_per100men` column, applying your calculated `vmin` and `vmax`.
-4.  Apply a scientific diverging colormap from the `cmcrameri` package (e.g., `cmc.vik`).
-5.  Activate the legend and use `legend_kwds` to make it vertical, shrink it to `0.7`, and label it "Ratio: Women per 100 Men".
-6.  Handle missing data by shading `NaN` regions with the hex color `"#EEEEEE"` and labeling it "No Data" in the legend.
-7.  Set the polygon borders (`edgecolor`) to `"black"` with a very thin `linewidth` (`0.1`) so the regions are defined but not cluttered.
-8.  Turn the axis boundary off and title the Figure "Gender Ratio Across European Regions".
+1. **Symmetrical Scaling:** Find the 1st and 99th percentiles of the `women_per100men` column. Calculate the maximum absolute distance from the center point (100) to these percentiles. Use this maximum distance to define a perfectly symmetrical `vmin` and `vmax` around 100.
+2. Create a single Figure and Axes setup with a `figsize` of `(12, 10)`.
+3. Plot the `nuts` dataset using the `women_per100men` column, applying your calculated `vmin` and `vmax`.
+4. Apply a scientific diverging colormap from the `cmcrameri` package (e.g., `cmc.vik`).
+5. Activate the legend and use `legend_kwds` to make it vertical, shrink it to `0.7`, and label it "Ratio: Women per 100 Men".
+6. Handle missing data by shading `NaN` regions with the hex color `"#EEEEEE"` and labeling it "No Data" in the legend.
+7. Set the polygon borders (`edgecolor`) to `"black"` with a very thin `linewidth` (`0.1`) so the regions are defined but not cluttered.
+8. Turn the axis boundary off and title the Figure "Gender Ratio Across European Regions".
 
 ```{code-cell} python
 # Write your code here
 
 ```
 
-````{admonition} Sample Solution
+``````{admonition} Sample Solution
 :class: dropdown
 
 ```{code-cell} python
@@ -491,7 +517,8 @@ plt.show()
 
 *Exercise Result: A data driven map utilizing a symmetrically scaled diverging colormap to highlight deviations from demographic parity.*
 :::
-````
+
+``````
 
 ---
 
@@ -499,7 +526,7 @@ plt.show()
 
 Plotting polygons is mechanics; cartography is design.
 
-In this chapter, you learned the principles of **Data Driven Styling**. By assigning a specific DataFrame column to your map, GeoPandas automatically generates a choropleth visualization. However, the responsibility falls on you, the spatial data scientist, to ensure the visualization is accurate and ethical:
+In this chapter, you learned the principles of **Data Driven Styling**. By assigning a specific **{term}`DataFrame`** column to your map, GeoPandas automatically generates a choropleth visualization. However, the responsibility falls on you, the spatial data scientist, to ensure the visualization is accurate and ethical:
 
 * **Select the correct Colormap (`cmap`):** Always match your palette to your data's nature by choosing the appropriate class (Sequential, Diverging, Multi-sequential, Cyclic, or Qualitative) from a perceptually uniform library like `cmcrameri`.
 * **Scale your Data (`vmin` and `vmax`):** Protect your map from extreme outliers by evaluating the data distribution and clipping the color bounds appropriately (such as symmetrically centering diverging data).
@@ -510,8 +537,8 @@ In this chapter, you learned the principles of **Data Driven Styling**. By assig
 
 ### What comes next
 
-A beautifully styled choropleth is excellent, but sometimes polygons floating in a blank white space lack real-world grounding. 
+A beautifully styled choropleth is excellent, but sometimes polygons floating in a blank white space lack real-world grounding.
 
-In the next chapter, **Context is King (Adding Basemaps)**, you will learn how to add geographical context behind your data using the `contextily` library. We will explore how to fetch standard web map tiles (like satellite imagery or OpenStreetMap base layers) and place them seamlessly beneath your Matplotlib plots. 
+In the next chapter, **Context is King (Adding Basemaps)**, you will learn how to add geographical context behind your data using the `contextily` library. We will explore how to fetch standard web map tiles (like satellite imagery or OpenStreetMap base layers) and place them seamlessly beneath your Matplotlib plots.
 
 Crucially, we will also discuss the "Web Mercator Trap"—explaining exactly why reprojecting your spatial data to `EPSG:3857` is an absolute necessity when working with internet map tiles, and how to polish your final figures by removing mathematical coordinate borders.
