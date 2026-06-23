@@ -242,6 +242,10 @@ Element-wise operation
 [Enhanced Vegetation Index](https://en.wikipedia.org/wiki/Enhanced_vegetation_index) 
 : A derived environmental index used to monitor biomass and canopy structure. It mathematically combines Near Infrared, Red, and Blue light bands to correct for atmospheric conditions and canopy background noise. Abbreviation: `EVI`
 
+[Equal Earth](https://en.wikipedia.org/wiki/Equal_Earth_projection)
+: An equal-area map projection designed for global maps.  
+  It preserves the relative size of areas, making it useful for comparing spatial patterns across continents and countries, while still providing a visually balanced representation of the world.
+
 [EPSG code](https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset)
 : An EPSG code is a numeric identifier that uniquely defines a {term}`Coordinate Reference System` (CRS) or a spatial data transformation.  
   Examples include EPSG:4326 for WGS84 and EPSG:3857 for Web Mercator, which simplify referencing CRSs in geographic data processing.
@@ -869,6 +873,10 @@ Well-known binary
 [Well-known text](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry)
 : A text-based format for representing vector geometry objects.  
   The binary equivalent of WKT is {term}`Well-known binary`.
+
+[WGS84](https://en.wikipedia.org/wiki/World_Geodetic_System)
+: A global geographic coordinate reference system (`EPSG:4326`) that describes positions on Earth using latitude and longitude.  
+  It is widely used by GPS devices, online datasets, and web mapping services as a common reference system for storing and exchanging location data.
 
 [Working directory](https://en.wikipedia.org/wiki/Working_directory)
 : The specific folder on your computer where Python is currently running and actively looking for imported script files or data.

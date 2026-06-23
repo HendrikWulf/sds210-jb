@@ -436,7 +436,7 @@ It is time to combine everything you have learned. In this exercise, you will ma
 3. **Measure:** Calculate the surface area of this new buffered border ring in square kilometers.
 4. **Hull:** Create a `convex_hull` around your new buffered shape.
 5. **Centroids:** Calculate the centroid of your new convex hull, and the centroid of the original filtered Switzerland polygon.
-6. **Distance:** Use the `.distance()` method to find the exact distance in meters between the two centroids. *(Hint: Because centroids are stored in a **{term}`GeoSeries**`, you should extract the raw point geometry first using `.values[0]` to do the math: e.g., `point_a.values[0].distance(point_b.values[0])`)*. Was your guess close?
+6. **Distance:** Use the `.distance()` method to find the exact distance in meters between the two centroids. *(Hint: Because centroids are stored in a **{term}`GeoSeries`**, you should extract the raw point geometry first using `.values[0]` to do the math: e.g., `point_a.values[0].distance(point_b.values[0])`)*. Was your guess close?
 
 ```{code-cell} python
 # Write your code here

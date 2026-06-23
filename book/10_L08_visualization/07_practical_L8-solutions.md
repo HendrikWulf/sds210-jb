@@ -6,16 +6,17 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Interactive Exploration and Data-Driven Cartography
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/10_L08_data-visualisation/07_practical_L8-solutions.ipynb)
 
 ---
-
 
 ```{admonition} A Note on Visualisation
 :class: important
@@ -38,13 +39,13 @@ After completing this practical, you will be able to:
 
 You have been hired as a geospatial visualization specialist for a major international water conservation NGO. They are preparing a flagship annual digital report on global freshwater ecosystems.
 
-Your task is twofold. First, you must build an interactive "Basin Explorer" web app that allows the research team to view HydroSHEDS basins at varying levels of detail (Levels 1 to 3). Second, once the team uses your web app to select a specific basin of interest, you will run an automated cartography pipeline to generate a stunning, high-resolution "dark mode" atlas of that basin's river network, where the physical width of the rivers dynamically scales based on their upstream catchment area.
+Your task is twofold. First, you must build an interactive "Basin Explorer" web app that allows the research team to view HydroSHEDS basins at varying levels of detail (Levels 1 and 2). Second, once the team uses your web app to select a specific basin of interest, you will run an automated cartography pipeline to generate a stunning, high-resolution "dark mode" atlas of that basin's river network, where the physical width of the rivers dynamically scales based on their upstream catchment area.
 
 ---
 
 ## Part 0 – The Data Intake Helper
 
-For this practical, we are using the **HydroRIVERS** dataset (filtered) [831 MB] and the **HydroSHEDS** basin boundaries (Levels 1 [27 MB], 2 [36 MB], and 3 [47 MB]). As these datasets are larger than usual, they have been stored outside GitLab. For convenience, they are hosted on Google Drive, where we can use the `gdown` library to download them directly into our local environment. Alternatively, you can download the datasets manually using this [link](https://drive.google.com/drive/folders/1FiMjQdKq4xt31cYXSCHPhi5-0jriD3If?usp=sharing). The data can also be found on the university course server under the `course/sds210/data/L08/`.
+For this practical, we are using the **HydroRIVERS** dataset (filtered) [831 MB] and the **HydroSHEDS** basin boundaries (Levels 1 [27 MB] and 2 [36 MB]). As these datasets are larger than usual, they have been stored outside GitLab. For convenience, they are hosted on Google Drive, where we can use the `gdown` library to download them directly into our local environment. Alternatively, you can download the datasets manually using this [link](https://drive.google.com/drive/folders/1FiMjQdKq4xt31cYXSCHPhi5-0jriD3If?usp=sharing). The data can also be found on the university course server under the `course/sds210/data/L08/`.
 
 ### Tasks
 
@@ -71,8 +72,7 @@ os.makedirs(data_folder, exist_ok=True)
 datasets = {
     'hydrorivers_100.gpkg': '1fbJewilJnHkEQjNxEbhid0EGVH1X2Evi',
     'hydrosheds_basins_level_01.gpkg': '1wReA_w83eO8sR-4Ma_j-JvtjoSeCU5Z0',
-    'hydrosheds_basins_level_02.gpkg': '1uA4qvCIv0egR7698WkI8oUIidjmPLt_n',
-    'hydrosheds_basins_level_03.gpkg': '1mJcFlzCEt-K60DoVX8BE1gmEFhfTDux3'
+    'hydrosheds_basins_level_02.gpkg': '1uA4qvCIv0egR7698WkI8oUIidjmPLt_n'
 }
 
 for filename, file_id in datasets.items():
@@ -87,7 +87,7 @@ for filename, file_id in datasets.items():
 rivers_fp = os.path.join(data_folder, 'hydrorivers_100.gpkg')
 basins_l1_fp = os.path.join(data_folder, 'hydrosheds_basins_level_01.gpkg')
 basins_l2_fp = os.path.join(data_folder, 'hydrosheds_basins_level_02.gpkg')
-basins_l3_fp = os.path.join(data_folder, 'hydrosheds_basins_level_03.gpkg')
+
 ```
 
 ---
@@ -98,14 +98,14 @@ Before we load the massive river dataset, we need to decide which basin to map. 
 
 ### Tasks
 
-1.  **Load the Basins:** Read the Level 1, 2, and 3 basin GeoPackages into GeoDataFrames (`l1`, `l2`, `l3`). Ensure they are all in `EPSG:4326`.
+1.  **Load the Basins:** Read the Level 1 and 2 basin GeoPackages into GeoDataFrames (`l1`, `l2`). Ensure they are all in `EPSG:4326`.
 2.  **Format the Tooltip:** The `UP_AREA` column contains the upstream area in square kilometers. Create a new column in each GeoDataFrame called `Tooltip_Area` that formats this number for human readability (e.g., `Area: 4'256'308 km²`).
 3.  **Initialize the Web App:** Create a `folium.Map` centered globally (e.g., `location=[20, 0]`) with a `zoom_start` of 3. Use a dark basemap like `"CartoDB DarkMatter"`.
 4.  **Add the Layers:** Use the [`.explore()`](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.explore.html#geopandas.GeoDataFrame.explore) method on each GeoDataFrame to add them to your map.
       * Color the polygons based on `UP_AREA`. Choose suitable colormaps from [matplotlib](https://matplotlib.org/stable/users/explain/colors/colormaps.html) and [crameri](https://www.fabiocrameri.ch/colourmaps/).
       * Set the fill transparency high enough to see the basemap (e.g. `alpha=0.4`).
       * Set the tooltips to show the `HYBAS_ID` and your newly formatted `Tooltip_Area`.
-      * Turn `show=False` for Levels 2 and 3 so the map isn't cluttered on load.
+      * Turn `show=False` for Levels 2 so the map isn't cluttered on load.
 5.  **Layer Control:** Add a `folium.LayerControl()` and display your app. Explore the map and pick a basin you find interesting! Write down its `HYBAS_ID`.
 
 <!-- end list -->
@@ -122,7 +122,6 @@ Before we load the massive river dataset, we need to decide which basin to map. 
 # 1. Load the basins and ensure standard projection
 l1 = gpd.read_file(basins_l1_fp).to_crs(epsg=4326)
 l2 = gpd.read_file(basins_l2_fp).to_crs(epsg=4326)
-l3 = gpd.read_file(basins_l3_fp).to_crs(epsg=4326)
 
 # 2. Format the tooltip strings using a function
 def format_area(x):
@@ -130,7 +129,6 @@ def format_area(x):
 
 l1["Tooltip_Area"] = l1["UP_AREA"].apply(format_area)
 l2["Tooltip_Area"] = l2["UP_AREA"].apply(format_area)
-l3["Tooltip_Area"] = l3["UP_AREA"].apply(format_area)
 
 # 3. Initialize the Web App
 basin_app = folium.Map(location=[20, 0], zoom_start=3, tiles="CartoDB DarkMatter")
@@ -157,16 +155,6 @@ l2.explore(
     show=False # Hidden by default
 )
 
-l3.explore(
-    m=basin_app, 
-    column='UP_AREA', 
-    name='Level 3 Basins',
-    tooltip=['HYBAS_ID', 'Tooltip_Area'], 
-    cmap='viridis',
-    style_kwds={'fillOpacity': 0.4, 'color': 'white', 'weight': 0.2},
-    show=False # Hidden by default
-)
-
 # 5. Add Layer Control and display
 folium.LayerControl().add_to(basin_app)
 basin_app
@@ -182,7 +170,7 @@ Now that you have explored the basins, it is time to load the actual river data.
 ### Tasks
 
 1.  **Define Your Basin:** Create a variable `target_basin_id` and assign it the `HYBAS_ID` of the basin you selected in Part 1 (e.g., the Amazon basin in South America, or the Congo basin in Africa).
-2.  **Filter the Boundary:** Filter the appropriate basin GeoDataFrame (L1, L2, or L3 depending on where you got your ID) to keep only the row matching your `target_basin_id`. Save this as `selected_basin`.
+2.  **Filter the Boundary:** Filter the appropriate basin GeoDataFrame (L1 or L2 depending on where you got your ID) to keep only the row matching your `target_basin_id`. Save this as `selected_basin`.
 3.  **Mask and Load:** Use [`gpd.read_file()`](https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html#geopandas.read_file) to load the `rivers_fp`. Pass your `selected_basin` GeoDataFrame to the `mask` parameter. Save the result as `river_gdf`.
 
 <!-- end list -->

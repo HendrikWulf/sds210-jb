@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Figure vs. Axes
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -22,6 +24,19 @@ Figure vs. Axes
 Data visualization is an essential part of understanding and interpreting data. To truly control how your data looks, whether it is a standard bar chart or a complex geographic map, you must understand the engine powering it. Matplotlib is the foundation of Python data visualization, and mastering its Object-Oriented "Figure vs. Axes" mental model is the key to creating professional, customized plots.
 ```
 
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for plotting any results or maps in the assignments)  
+**Project Relevance:** ★★★ (Crucial for generating presentation-ready figures for the final report)  
+**Foundation:** ★★★ (Provides the fundamental mechanics for all Python data visualization)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Master the Object-Oriented "Figure vs. Axes" methodology to take absolute control over your Python visualizations.  
+**Skip this if:** You are already fully comfortable building, styling, and exporting Matplotlib subplots using the `fig, ax = plt.subplots()` object-oriented approach.
+
+```
+
 When you first start plotting data in Python, you will inevitably encounter **[Matplotlib](https://matplotlib.org/stable/)**. Often considered the "grandmother" of Python plotting, it is the oldest, most powerful, and most widely used data visualization library in the ecosystem. However, as it is so comprehensive, it is helpful to clarify some key concepts first.
 
 One of these is how Matplotlib actually draws things. In this lesson, we will establish the correct mental model so you can confidently take control of your cartography and charts.
@@ -30,7 +45,7 @@ One of these is how Matplotlib actually draws things. In this lesson, we will es
 
 ## 1. The Visualization Landscape
 
-Python has a massive, diverse landscape of libraries available for visualizing different types of data. Before we dive into the code, it helps to understand where Matplotlib sits within this broader ecosystem.
+Python has a massive, diverse landscape of **{term}`libraries <Library>`** available for visualizing different types of data. Before we dive into the code, it helps to understand where Matplotlib sits within this broader ecosystem.
 
 :::{figure} images/01_python-plotting.png
 :alt: A complex web diagram showing the relationships between various Python plotting libraries.
@@ -42,9 +57,9 @@ Python has a massive, diverse landscape of libraries available for visualizing d
 
 Looking at the vast array of options above, we can categorize the tools you will use most often in spatial data science:
 
-  * **Matplotlib:** The foundation. It is a low-level, highly customizable library that allows you to build almost any static 2D plot from scratch.
-  * **Pandas & GeoPandas:** These are high-level "wrappers" built directly on top of Matplotlib. When you call `.plot()` on a Pandas DataFrame or a GeoPandas spatial dataset, it is actually just using Matplotlib under the hood to do the drawing.
-  * **Folium / Leaflet:** Used specifically for *interactive* web maps (allowing you to pan and zoom), which operate outside the standard static Matplotlib ecosystem.
+* **Matplotlib:** The foundation. It is a low-level, highly customizable library that allows you to build almost any static 2D plot from scratch.
+* **Pandas & GeoPandas:** These are high-level "wrappers" built directly on top of Matplotlib. When you call `.plot()` on a Pandas **{term}`DataFrame`** or a GeoPandas spatial dataset, it is actually just using Matplotlib under the hood to do the drawing.
+* **Folium / Leaflet:** Used specifically for *interactive* web maps (allowing you to pan and zoom), which operate outside the standard static Matplotlib ecosystem.
 
 By learning Matplotlib, you are not just learning one isolated library; you are learning the underlying language that controls Pandas, GeoPandas, and many other modern data science tools.
 
@@ -55,7 +70,7 @@ By learning Matplotlib, you are not just learning one isolated library; you are 
 A common source of confusion for beginners when referencing code examples online is that Matplotlib actually offers **two distinct ways to write code** (referred to as interfaces). Understanding the difference between them is essential for writing predictable and maintainable plotting scripts:
 
 1. **The `pyplot` (State-Based) Interface:** Originally designed to mimic the behavior of MATLAB, this approach relies on calling global functions like `plt.plot()` or `plt.title()`. When using this interface, Matplotlib automatically keeps track of the "current" figure and axes in the background and applies your commands to whichever plot is currently active. While this method is very convenient for quick, exploratory visualizations, it can become difficult to manage when building more complex layouts with multiple charts, as it requires you to mentally track the active state.
-2. **The Object-Oriented (OO) Interface:** This approach is widely recommended for comprehensive data visualization. Instead of relying on a hidden active state, you explicitly create specific objects—namely, the Figure and the Axes—and call methods directly on them (e.g., `ax.plot()` or `ax.set_title()`). This provides explicit, precise control over your visualizations and is highly suited for complex figures that contain multiple subplots.
+2. **The Object-Oriented (OO) Interface:** This approach is widely recommended for comprehensive data visualization. Instead of relying on a hidden active state, you explicitly create specific **{term}`objects <Object>`** — namely, the **{term}`Figure <Figure (Matplotlib)>`** and the **{term}`Axes <Axes (Matplotlib)>`** — and call methods directly on them (e.g., `ax.plot()` or `ax.set_title()`). This provides explicit, precise control over your visualizations and is highly suited for complex figures that contain multiple subplots.
 
 **Our Approach:** In this course, we will primarily use the Object-Oriented interface. Adopting this method early encourages cleaner code architecture, reduces unintended errors when working with multiple spatial plots, and provides the scalability necessary for scientific data visualization.
 
@@ -63,15 +78,15 @@ A common source of confusion for beginners when referencing code examples online
 
 ## 3. Figure & Axes: The Core Components
 
-To use the Object-Oriented interface, you must master the hierarchy of Matplotlib's two most fundamental objects: the **Figure** and the **Axes**. 
+To use the Object-Oriented interface, you must master the hierarchy of Matplotlib's two most fundamental objects: the **Figure** and the **Axes**.
 
 * **The Figure (`fig`):** The `Figure` is the top-level container in this hierarchy. Think of it as the blank window, the physical page, or the picture frame. By itself, a Figure does not display any data; it simply acts as the backdrop that holds all other elements. A single Figure can contain just one plot, or it can be subdivided to hold multiple plots.
-* **The Axes (`ax`):** The `Axes` is the actual individual plotting box, the painting inside the frame. This is the object you will interact with the most. The `Axes` contains the visual representation of your data (lines, polygons, markers), the X and Y `Axis` objects, ticks, labels, legends, and the grid. 
-    * *Crucial Distinction:* Do not confuse **Axes** (the entire rectangular plot area) with **Axis** (the individual X or Y number lines that dictate the scale of the data). An `Axes` contains two or more `Axis` objects.
+* **The Axes (`ax`):** The `Axes` is the actual individual plotting box, the painting inside the frame. This is the object you will interact with the most. The `Axes` contains the visual representation of your data (lines, polygons, markers), the X and Y `Axis` objects, ticks, labels, legends, and the grid.
+  * *Crucial Distinction:* Do not confuse **Axes** (the entire rectangular plot area) with **Axis** (the individual X or Y number lines that dictate the scale of the data). An `Axes` contains two or more `Axis` objects.
 
 In Python, we summon both of these objects simultaneously using the `plt.subplots()` function. This is the starting point for almost every professional visualization:
 
-```{code-cell} python
+```python
 import matplotlib.pyplot as plt
 
 # Create the blank canvas (fig) and the plotting box (ax)
@@ -91,11 +106,12 @@ To fully grasp this hierarchy, review the anatomy diagram below. Notice how the 
 *The anatomy of a Matplotlib plot. The **Figure** is the outermost container, holding the **Axes** (the plot itself), which in turn contains the individual **Axis** (number lines), labels, and data.*
 :::
 
-A single `Figure` can contain just one `Axes`, or it can be subdivided into a grid to hold many `Axes` (commonly called subplots). 
+A single `Figure` can contain just one `Axes`, or it can be subdivided into a grid to hold many `Axes` (commonly called subplots).
 
 To help visualize this structural relationship before we write the code, explore the interactive layout generator below. Notice how changing the rows and columns changes the number of `Axes` inside the single `Figure` container, and observe how the underlying Python code updates accordingly to manage the array of plots.
 
-<iframe 
+<!-- markdownlint-disable MD033-->
+<iframe
     src="https://hendrikwulf.github.io/sds210_assets_matplotlib_explorer/"
     width="100%"
     title="Matplotlib Figure Anatomy"
@@ -104,17 +120,21 @@ To help visualize this structural relationship before we write the code, explore
     allowfullscreen>
 </iframe>
 
-*For improved visibility of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_matplotlib_explorer/).* 
+<figcaption>
+    <em><b>Interactive Explorer: Matplotlib Anatomy.</b><br>
+    Hover over or tap the different parts of the image to explore the anatomy of a standard Matplotlib plot. Understanding the distinct roles of the Figure, Axes, and Axis is crucial for mastering the Object-Oriented interface. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_matplotlib_explorer/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
 
 ---
 
 ## 4. The Standard Setup: Building a Plot
 
-Because we are using the Object-Oriented (OO) approach, we must explicitly create our `Figure` and `Axes` objects before we can plot anything. 
+Because we are using the Object-Oriented (OO) approach, we must explicitly create our `Figure` and `Axes` objects before we can plot anything.
 
 The "golden rule" of professional Python plotting is that almost every visualization script should start with this exact line of code:
 
-```{code-cell} python
+```python
 import matplotlib.pyplot as plt
 
 # The Golden Rule Setup
@@ -122,6 +142,7 @@ fig, ax = plt.subplots()
 ```
 
 When you run `plt.subplots()` without any arguments, Matplotlib does two things:
+
 1. It creates a new blank canvas (`fig`).
 2. It creates a single plot box inside that canvas (`ax`).
 
@@ -151,13 +172,11 @@ fig, ax = plt.subplots()
 plt.show()
 ```
 
-:::{figure} images/03_matplotlib_step1.png
-:alt: A completely blank set of axes with X and Y scales ranging from 0.0 to 1.0.
-:width: 600px
-:align: center
-
-*Output of Step 1: A blank Figure and Axes ready for data.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output of Step 1: A blank Figure and Axes ready for data.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 2: Injecting the Data
 
@@ -171,20 +190,17 @@ ax.plot(days, temperature_week1)
 
 plt.show()
 ```
-
-:::{figure} images/03_matplotlib_step2.png
-:alt: A simple blue line plot showing temperature data over 7 days.
-:width: 600px
-:align: center
-
-*Output of Step 2: Matplotlib automatically scales the axes to fit the injected data.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output of Step 2: Matplotlib automatically scales the axes to fit the injected data.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 Notice how Matplotlib automatically adjusted the Y-axis scale to fit our temperature range (from roughly 3 to 18) and applied the days of the week to the X-axis.
 
 ### Step 3: Styling the Line (Colors and Markers)
 
-A plain blue line is fine, but data visualization requires specific styling. We can pass a "format string" as the third argument to `ax.plot()` to quickly change the color, marker, and line style. 
+A plain blue line is fine, but data visualization requires specific styling. We can pass a "format string" as the third argument to `ax.plot()` to quickly change the color, marker, and line style.
 
 Let's use `"o-r"`, which tells Matplotlib to use circle markers (`o`), a solid line (`-`), and the color red (`r`).
 
@@ -197,13 +213,11 @@ ax.plot(days, temperature_week1, "o-r")
 plt.show()
 ```
 
-:::{figure} images/03_matplotlib_step3.png
-:alt: A red line plot with circular markers.
-:width: 600px
-:align: center
-
-*Output of Step 3: The data mapped with specific color and marker styling.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output of Step 3: The data mapped with specific color and marker styling.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 4: Adding Context (Labels and Titles)
 
@@ -222,13 +236,11 @@ ax.set_ylabel("Temperature (°C)")
 plt.show()
 ```
 
-:::{figure} images/03_matplotlib_step4.png
-:alt: A red line plot with circular markers, including a title and x/y axis labels.
-:width: 600px
-:align: center
-
-*Output of Step 4: Context applied to the Axes via set_ methods.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output of Step 4: Context applied to the Axes via set_ methods.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 5: Adding Layers, Legends, and Grids
 
@@ -254,19 +266,18 @@ ax.legend(["Week 1", "Week 2"])
 ax.grid(True)
 
 plt.show()
+
 ```
 
-:::{figure} images/03_matplotlib_step5.png
-:alt: Two line plots (red circles and blue dashed triangles) with a legend and background grid.
-:width: 600px
-:align: center
-
-*Output of Step 5: Adding multiple data layers, a legend, and an active background grid.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output of Step 5: Adding multiple data layers, a legend, and an active background grid.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 6: Fine-Tuning the Details (Keyword Arguments)
 
-The shorthand format strings (like `"o-r"`) are fantastic for quick plots, but the true strength of the Object-Oriented interface is precision. Almost every method you call on the `ax` object accepts optional **keyword arguments** (`kwargs`) that allow you to explicitly control every visual detail.
+The shorthand format strings (like `"o-r"`) are fantastic for quick plots, but the true strength of the Object-Oriented interface is precision. Almost every method you call on the `ax` object accepts optional **{term}`keyword arguments <Keyword argument>`** (`kwargs`) that allow you to explicitly control every visual detail.
 
 Instead of bundling color, marker, and line style into a single string, you can define them separately. This gives you access to a much wider range of options. You can also adjust properties such as `linewidth` (thickness of the line), `markersize` (size of the data points), and `alpha` (transparency, where 0.0 is invisible and 1.0 is fully opaque).
 
@@ -290,33 +301,32 @@ ax.set_ylabel("Temperature (°C)", fontsize=12, fontfamily="sans-serif")
 ax.tick_params(axis="both", which="major", labelsize=12)
 
 # 6d. Fine-tune the legend and grid
-ax.legend(["Week 1", "Week 2"], loc="upper left", fontsize=12)
+ax.legend(["Week 1", "Week 2"], loc="upper center", fontsize=12)
 ax.grid(True, linestyle=":", alpha=0.6)
 
 plt.show()
 ```
 
-:::{figure} images/03_matplotlib_step6.png
-:alt: A highly customized temperature plot showing two weeks of daily values with explicit colors, markers, typography, legend, and grid styling.
-:width: 600px
-:align: center
-
-*Output of Step 6: A polished visualization with explicit control over aesthetics and typography.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output of Step 6: A polished visualization with explicit control over aesthetics and typography.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 7: Saving the Plot
 
-After building your visualization, you will likely want to save it as an image file to use in a presentation, report, or website. You can export high-quality images directly using the `fig.savefig()` method. 
+After building your visualization, you will likely want to save it as an image file to use in a presentation, report, or website. You can export high-quality images directly using the `fig.savefig()` method.
 
-This command must be placed *before* `plt.show()`, as displaying the plot can sometimes clear the canvas from memory. You are required to provide a file name, and Matplotlib will automatically determine the output format based on the extension you type (such as `.png`, `.svg`, or `.eps`). 
+This command must be placed *before* `plt.show()`, as displaying the plot can sometimes clear the canvas from memory. You are required to provide a file name, and Matplotlib will automatically determine the output format based on the extension you type (such as `.png`, `.svg`, or `.eps`).
 
 By default, the file is saved in the current working directory alongside your notebook or script. However, you can also provide an absolute path to save the image to a specific location on your hard drive (e.g., `"/Users/username/Desktop/my_plot.png"` or `"C:/Documents/my_plot.png"`).
 
 There are two highly recommended parameters to use when saving your plots:
+
 1. **`dpi` (Dots Per Inch):** Increases the resolution of raster images (like PNGs) to make them crisp for print or professional publication.
 2. **`bbox_inches="tight"`:** Automatically trims the excess whitespace around the edges of your figure, ensuring your exported image perfectly hugs the borders of your plot.
 
-```{code-cell} python
+```python
 # ... previous plot formatting code ...
 
 ax.legend(["Week 1", "Week 2"], loc="upper center", fontsize=12)
@@ -342,25 +352,27 @@ Running this cell will cause the new image files to immediately appear in your f
 
 When working with Matplotlib, you will frequently use specific string codes to define your basic styling. Keep this reference table handy when building your initial plots:
 
-| Type | Codes |
+|Type|Codes|
 |------|------|
-| **Colors** | `'b'` (blue), `'g'` (green), `'r'` (red), `'c'` (cyan), `'m'` (magenta), `'y'` (yellow), `'k'` (black), `'w'` (white) |
-| **Markers** | `'o'` (circle), `'s'` (square), `'^'` (triangle up), `'v'` (triangle down), `'D'` (diamond), `'*'` (star), `'.'` (point) |
-| **Line styles** | `'-'` (solid), `'--'` (dashed), `':'` (dotted), `'-.'` (dash-dot) |
+|**Colors**|`'b'` (blue), `'g'` (green), `'r'` (red), `'c'` (cyan), `'m'` (magenta), `'y'` (yellow), `'k'` (black), `'w'` (white)|
+|**Markers**|`'o'` (circle), `'s'` (square), `'^'` (triangle up), `'v'` (triangle down), `'D'` (diamond), `'*'` (star), `'.'` (point)|
+|**Line styles**|`'-'` (solid), `'--'` (dashed), `':'` (dotted), `'-.'` (dash-dot)|
 
 ---
 
 By building the plot layer-by-layer, the mechanics of the Object-Oriented interface become clear. You are not shouting global commands into the void; you are holding a specific plotting box (`ax`) and sequentially applying methods to it:
+
 1. `ax.plot()` to add data geometry and style the lines.
 2. `ax.set_title()` and axis labels to add contextual text and scale the fonts.
 3. `ax.grid()` and `ax.legend()` to refine the visual hierarchy.
 4. `fig.savefig()` to export the final result.
 
-This methodical, layered approach is the exact same logic you will use when building complex geographic maps in the upcoming chapters. 
+This methodical, layered approach is the exact same logic you will use when building complex geographic maps in the upcoming chapters.
 
 To see exactly how these keyword arguments interact and affect the final plot, use the **Aesthetics Explorer** below. Adjust the parameters (including fonts, colors, markers, and line styles) to see how the chart changes in real-time, and watch how the underlying Python code automatically updates to match your choices!
 
-<iframe 
+<!-- markdownlint-disable MD033-->
+<iframe
     src="https://hendrikwulf.github.io/sds210_assets_matplotlib_aesthetics/"
     width="100%"
     title="Matplotlib Figure Anatomy"
@@ -369,7 +381,11 @@ To see exactly how these keyword arguments interact and affect the final plot, u
     allowfullscreen>
 </iframe>
 
-*For improved visibility of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_matplotlib_aesthetics/).* 
+<figcaption>
+    <em><b>Interactive Explorer: Matplotlib Aesthetics.</b><br>
+    Use the control panel to tweak colors, markers, line styles, and typography. Observe how the plot dynamically updates and notice how the underlying Matplotlib Python code changes to match your explicit keyword arguments. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_matplotlib_aesthetics/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -379,9 +395,10 @@ Before we move on to building complex grids and subplots, we need to zoom out an
 
 ### The Matplotlib Plotting Arsenal
 
-Matplotlib is incredibly versatile. While we will not cover the deep mathematical details of every statistical plot in this book, you should know that your `Axes` object (`ax`) has a specific method for almost every standard chart type. 
+Matplotlib is incredibly versatile. While we will not cover the deep mathematical details of every statistical plot in this book, you should know that your `Axes` object (`ax`) has a specific method for almost every standard chart type.
 
 Here are the most common [plot types](https://matplotlib.org/stable/plot_types/index.html) you will encounter:
+
 * **[Line Chart](https://en.wikipedia.org/wiki/Line_chart) (`ax.plot`):** Best for showing trends over time or continuous data.
 * **[Bar Chart](https://en.wikipedia.org/wiki/Bar_chart) (`ax.bar` / `ax.barh`):** Best for comparing discrete categories or groups.
 * **[Scatter Plot](https://en.wikipedia.org/wiki/Scatter_plot) (`ax.scatter`):** Best for showing the relationship or correlation between two different variables.
@@ -399,7 +416,8 @@ Unlike standard line plots, `scatter` allows you to assign lists of data to cont
 
 Explore the interactive **Plot Type Gallery** below. Switch between the different chart types to see how the visual representation changes, and take note of the specific Object-Oriented Matplotlib method required to generate each one.
 
-<iframe 
+<!-- markdownlint-disable MD033-->
+<iframe
     src="https://hendrikwulf.github.io/sds210_assets_matplotlib_plottypes/"
     width="100%"
     title="Matplotlib Figure Anatomy"
@@ -408,12 +426,16 @@ Explore the interactive **Plot Type Gallery** below. Switch between the differen
     allowfullscreen>
 </iframe>
 
-*For improved visibility of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_matplotlib_plottypes/).* 
+<figcaption>
+    <em><b>Interactive Explorer: Matplotlib Plot Types.</b><br>
+    Click through the different chart types to see how the visual representation changes, and note the specific Matplotlib method required to generate each one. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_matplotlib_plottypes/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
 
 ```{admonition} Plot Versatility
 :class: note
 
-Matplotlib also supports highly specialized plots like [Dendrograms](https://en.wikipedia.org/wiki/Dendrogram) , [Treemaps](https://en.wikipedia.org/wiki/Treemap), and [Network Charts](https://en.wikipedia.org/wiki/Network_chart), though these can require additional libraries like `seaborn` or `networkx` to generate easily).
+Matplotlib also supports highly specialized plots like [Dendrograms](https://en.wikipedia.org/wiki/Dendrogram) , [Treemaps](https://en.wikipedia.org/wiki/Treemap), and [Network Charts](https://en.wikipedia.org/wiki/Network_chart), though these can require additional libraries like `seaborn` or `networkx` to generate easily.
 
 ```
 
@@ -421,7 +443,7 @@ Matplotlib also supports highly specialized plots like [Dendrograms](https://en.
 
 ### The Universal Language of Plotting (Terminology)
 
-Regardless of whether you are building a bar chart, a scatter plot, or a complex 3D surface model, almost all plots share a common structural DNA. 
+Regardless of whether you are building a bar chart, a scatter plot, or a complex 3D surface model, almost all plots share a common structural DNA.
 
 When you encounter a problem or want to customize a specific part of your visual, you need to know the correct terminology to search for in the Matplotlib documentation. We have already manipulated many of these elements using keyword arguments (`kwargs`) in the previous section.
 
@@ -459,7 +481,7 @@ Understanding these terms allows you to precisely target and modify any element 
 
 ## 6. Creating Subplots
 
-Plotting multiple lines on a single set of axes is useful, but as you add more data, the plot can quickly become cluttered and unreadable. One solution is to use **subplots**, which divide your single Figure canvas into a grid of multiple, independent plotting boxes (Axes).
+Plotting multiple lines on a single set of axes is useful, but as you add more data, the plot can quickly become cluttered and unreadable. One solution is to use **{term}`subplots <Subplots>`**, which divide your single Figure canvas into a grid of multiple, independent plotting boxes (Axes).
 
 We will use the same temperature data to demonstrate how to build a 1x2 grid (one row, two columns) so we can compare Week 1 and Week 2 side-by-side.
 
@@ -467,7 +489,7 @@ We will use the same temperature data to demonstrate how to build a 1x2 grid (on
 
 ### Step 1: The Multi-Plot Grid
 
-When we used `plt.subplots()` previously, we left the parentheses empty, which defaults to a 1x1 plot. To create a grid, we provide two positional arguments: `nrows` and `ncols`. 
+When we used `plt.subplots()` previously, we left the parentheses empty, which defaults to a 1x1 plot. To create a grid, we provide two positional arguments: `nrows` and `ncols`.
 
 Because a grid can result in a cramped layout, it is also highly recommended to use the `figsize` parameter (width, height in inches) to widen our canvas.
 
@@ -480,17 +502,15 @@ fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 5))
 plt.show()
 ```
 
-:::{figure} images/04_matplotlib_subplot_step1.png
-:alt: A wide figure containing two empty, side-by-side plotting axes.
-:width: 700px
-:align: center
-
-*Output of Step 1: `plt.subplots(1, 2)` generates a single Figure containing an array of two empty Axes.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output of Step 1: `plt.subplots(1, 2)` generates a single Figure containing an array of two empty Axes.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 2: Unpacking the Axes Array
 
-Because we asked for multiple plots, Matplotlib does not return a single `ax` object anymore. Instead, the `axs` variable now holds a NumPy array containing multiple Axes objects. 
+Because we asked for multiple plots, Matplotlib does not return a single `ax` object anymore. Instead, the `axs` variable now holds a NumPy array containing multiple Axes objects.
 
 To plot our data, we must select which specific box we want to draw in using standard list indexing: `axs[0]` for the left box, and `axs[1]` for the right box.
 
@@ -506,17 +526,15 @@ axs[1].plot(days, temperature_week2, color="blue", marker="s", linestyle="--")
 plt.show()
 ```
 
-:::{figure} images/04_matplotlib_subplot_step2.png
-:alt: Two side-by-side line plots. The left plot shows Week 1 data, the right plot shows Week 2 data.
-:width: 700px
-:align: center
-
-*Output of Step 2: Data successfully routed to specific axes using array indexing (`axs[0]` and `axs[1]`).*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output of Step 2: Data successfully routed to specific axes using array indexing (`axs[0]` and `axs[1]`).</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 3: The Autoscale Trap (Standardizing Bounds)
 
-Look closely at the Y-axis of the previous output. Week 1 ranges from roughly 3°C to 17°C, while Week 2 ranges from 8°C to 15°C. Matplotlib automatically scaled each Y-axis independently to fit its specific data. 
+Look closely at the Y-axis of the previous output. Week 1 ranges from roughly 3°C to 17°C, while Week 2 ranges from 8°C to 15°C. Matplotlib automatically scaled each Y-axis independently to fit its specific data.
 
 **This is a dangerous visualization trap.** A viewer quickly glancing at the charts might assume the peaks are identical because the lines reach the top of the box. To make visual comparisons accurate, we must force both subplots to share the exact same Y-axis limits using the `set_ylim()` method.
 
@@ -533,17 +551,15 @@ axs[1].set_ylim(0, 20)
 plt.show()
 ```
 
-:::{figure} images/04_matplotlib_subplot_step3.png
-:alt: Two side-by-side line plots where both Y-axes strictly range from 0 to 20.
-:width: 700px
-:align: center
-
-*Output of Step 3: Standardizing the Y-limits reveals the true scale difference between the two weeks.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output of Step 3: Standardizing the Y-limits reveals the true scale difference between the two weeks.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 4: Figure-Level vs. Axes-Level Formatting
 
-When working with subplots, we must differentiate between elements that belong to a single plot and elements that belong to the entire canvas. 
+When working with subplots, we must differentiate between elements that belong to a single plot and elements that belong to the entire canvas.
 
 Each subplot gets its own `ax.set_title()`, `ax.set_xlabel()`, and `ax.grid()`. However, if we want an overarching main title for the entire graphic, we apply it to the `Figure` object itself using `fig.suptitle()` (Super Title).
 
@@ -573,19 +589,18 @@ fig.suptitle("Spring Temperature Variations: Week 1 vs Week 2", fontsize=16, fon
 plt.show()
 ```
 
-:::{figure} images/04_matplotlib_subplot_step4.png
-:alt: A fully formatted side-by-side plot with a large Super Title at the top, individual titles for each box, and standardized grids.
-:width: 700px
-:align: center
-
-*Output of Step 4: The final subplots graphic, properly balancing Figure-level and Axes-level styling.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output of Step 4: The final subplots graphic, properly balancing Figure-level and Axes-level styling.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
 To see exactly why the "Autoscale Trap" is so important to catch, use the interactive simulator below. Toggle the synchronized Y-axis bounds on and off to see how drastically autoscaling changes the perceived shape and relationship of the data between the two subplots.
 
-<iframe 
+<!-- markdownlint-disable MD033-->
+<iframe
     src="https://hendrikwulf.github.io/sds210_assets_matplotlib_autoscale/"
     width="100%"
     title="Matplotlib Figure Anatomy"
@@ -594,15 +609,37 @@ To see exactly why the "Autoscale Trap" is so important to catch, use the intera
     allowfullscreen>
 </iframe>
 
-*For improved visibility of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_matplotlib_autoscale/).* 
+<figcaption>
+    <em><b>Interactive Explorer: The Autoscale Issue.</b><br>
+    Toggle the switch to see how relying on Matplotlib's default autoscaling can severely misrepresent the comparative shape of the data. Synchronizing the Y-axis limits ensures that both plots share the exact same mathematical scale, revealing the true visual relationship between Week 1 and Week 2. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_matplotlib_autoscale/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-disable MD033-->
+
+#### Concept Check: The Canvas and the Box
+
+You want to change the overall title of your entire visualization (which contains 4 separate charts) to "Global Analysis", and you want to add a grid to the top-right chart. Which objects do you call the methods on?
+
+A) `ax.set_title()` for the title, `fig.grid()` for the grid.
+
+B) `plt.title()` for the title, `ax.grid()` for the grid.
+
+C) `fig.suptitle()` for the title, `axs[1].grid()` for the grid.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: C**
+`fig.suptitle()` applies to the overarching **Figure** (the canvas), while `axs[1].grid()` targets the specific **Axes** object (the plotting box) located at index 1 in the array.
+
+```
 
 ---
 
 ## 7. Dealing with Dates and Time Series
 
-In the real world, data is rarely tracked by generic labels like "Mon" or "Tue". Environmental data, financial records, and scientific observations are almost always bound to specific timestamps. 
+In the real world, data is rarely tracked by generic labels like "Mon" or "Tue". Environmental data, financial records, and scientific observations are almost always bound to specific timestamps.
 
-When plotting time series data, it is crucial that Matplotlib understands the X-axis represents chronological time, not just random categories. If Matplotlib thinks your dates are just text strings, it will space them evenly regardless of whether the gap between them is one day or one decade. 
+When plotting time series data, it is crucial that Matplotlib understands the X-axis represents chronological time, not just random categories. If Matplotlib thinks your dates are just text strings, it will space them evenly regardless of whether the gap between them is one day or one decade.
 
 To fix this, we must convert our string dates into **datetime objects** using the `pandas` library. Let's imagine we are analyzing a simulated two-week temperature forecast for the future: April 2048.
 
@@ -653,17 +690,15 @@ ax.grid(True, linestyle=":", alpha=0.6)
 plt.show()
 ```
 
-:::{figure} images/07_matplotlib_step7a.png
-:alt: A line plot showing a 14-day temperature trend for April 2048. The x-axis automatically formats the dates.
-:width: 700px
-:align: center
-
-*Output of Step 2: Because we used datetime objects, Matplotlib natively understands the chronological X-axis.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output of Step 2: Because we used datetime objects, Matplotlib natively understands the chronological X-axis.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 3: Formatting Dates and Setting Time Limits
 
-Often, the default date format Matplotlib chooses takes up too much space, or you may want to represent time differently for scientific purposes. We can transform how the dates are displayed without changing the underlying data using `mdates.DateFormatter`. 
+Often, the default date format Matplotlib chooses takes up too much space, or you may want to represent time differently for scientific purposes. We can transform how the dates are displayed without changing the underlying data using `mdates.DateFormatter`.
 
 For example, let's change our dates from standard calendar days to a `YYYY-DOY` (Year and Day of the Year) format. We use standard string format codes: `%Y` for a 4-digit year, and `%j` for the day of the year (001 to 366).
 
@@ -702,13 +737,11 @@ ax.text(peak_time, 17.4, "<- Peak Temperature", color="red", fontweight="bold")
 plt.show()
 ```
 
-:::{figure} images/07_matplotlib_step7b.png
-:alt: A line plot zoomed in on April 5 to April 11, 2048. The x-axis labels read "2048 - Day 096", etc., and are cleanly rotated. An annotation points to the peak temperature.
-:width: 700px
-:align: center
-
-*Output of Step 3: The customized time series. The X-axis displays the Day of the Year, the viewport is restricted to a 6-day window, and `fig.autofmt_xdate()` keeps the labels neatly organized.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output of Step 3: The customized time series. The X-axis displays the Day of the Year, the viewport is restricted to a 6-day window, and `fig.autofmt_xdate()` keeps the labels neatly organized.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 *(Note: Because `fig.autofmt_xdate()` automatically adjusts the figure margins to accommodate the angled text, it usually removes the need to call `fig.tight_layout()` at the end, streamlining the students' code even further!)*
 
@@ -716,13 +749,14 @@ plt.show()
 
 ## 8. Exercises
 
-Now that you have learned the fundamentals of the Matplotlib Object-Oriented interface, it is time to put those skills into practice. Open a new Jupyter Notebook and try to complete the following exercises. 
+Now that you have learned the fundamentals of the Matplotlib Object-Oriented interface, it is time to put those skills into practice. Open a new Jupyter Notebook and try to complete the following exercises.
 
 ### Exercise 1: Seasonal Snow Cover
 
 You have been given the monthly average NDSI (Normalized Difference Snow Index) data for an alpine basin. Your goal is to create a polished, presentation-ready line chart to visualize the annual snow accumulation and melt cycle.
 
 **The Data:**
+
 ```{code-cell} python
 months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 # Realistic NDSI values (values > 0.4 typically indicate snow)
@@ -730,6 +764,7 @@ ndsi_values = [0.75, 0.82, 0.70, 0.45, 0.20, -0.15, -0.40, -0.35, -0.10, 0.15, 0
 ```
 
 **Your Tasks:**
+
 1. Create a Figure and Axes object using the standard OO setup (`fig, ax = plt.subplots()`).
 2. Plot the NDSI data. Style the line so it is **blue**, **dashed**, has a **linewidth of 2**, and uses **diamond markers** (`D`).
 3. Set the title to "Annual Snow Cover Cycle" with a font size of 16.
@@ -782,11 +817,12 @@ plt.show()
 
 ---
 
-### Exercise 2: The Autoscale Trap 
+### Exercise 2: The Autoscale Trap
 
 You are comparing two different species of trees planted in a city park over six years to see which grows faster. You need to present this data side-by-side to the city council.
 
 **The Data:**
+
 ```{code-cell} python
 years = [2018, 2019, 2020, 2021, 2022, 2023]
 oak_height_meters = [1.2, 1.5, 1.9, 2.4, 3.0, 3.8]
@@ -794,6 +830,7 @@ pine_height_meters = [1.5, 2.2, 3.1, 4.5, 6.2, 8.5]
 ```
 
 **Your Tasks:**
+
 1. Create a 1x2 subplot grid (1 row, 2 columns) with a figure size of `(12, 5)`.
 2. Plot the Oak data on the left axis (`axs[0]`) using a solid brown line.
 3. Plot the Pine data on the right axis (`axs[1]`) using a solid green line.
@@ -853,6 +890,7 @@ plt.show()
 You have 10 days of streamflow data (measured in cubic meters per second) for a local river, recorded as strings. You need to convert these to datetime objects so Matplotlib can plot them chronologically, and then zoom in to analyze a specific flood event.
 
 **The Data:**
+
 ```{code-cell} python
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -866,6 +904,7 @@ df = pd.DataFrame({"Date": dates, "Discharge": discharge_m3s})
 ```
 
 **Your Tasks:**
+
 1. Convert the "Date" column in the DataFrame from text strings to pandas datetime objects using `pd.to_datetime()`. (Hint: The format is `"%Y-%m-%d"`).
 2. Create your Figure and Axes, and plot the time series data.
 3. Use `mdates.DateFormatter` to change the X-axis tick labels to show just the abbreviated month and day (e.g., "May 04"). The format code for this is `"%b %d"`.
@@ -937,6 +976,7 @@ plt.show()
 In this chapter, we unpacked the engine that drives most of Python's data visualization ecosystem: **Matplotlib**. Rather than relying on quick, state-based commands, you learned how to take absolute control of your visualizations by adopting the professional **Object-Oriented (OO) Interface**.
 
 By establishing the "Figure vs. Axes" mental model, you learned how to treat data visualization as a structural, layer-by-layer process. You now know how to:
+
 * **Construct the Blueprint:** Initialize a blank overarching canvas (`fig`) and specific plotting boxes (`ax`).
 * **Style with Precision:** Inject data and explicitly control aesthetics using keyword arguments (colors, markers, linestyles, typography).
 * **Speak the Language:** Manipulate the anatomy of a plot using correct terminology like ticks, labels, legends, and grids.
