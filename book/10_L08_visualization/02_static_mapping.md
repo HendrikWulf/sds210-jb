@@ -144,8 +144,6 @@ If you paint the narrow rivers first and then paint the massive land polygons se
 
 While you can fix this by carefully ordering your Python lines, it is much safer to explicitly declare the visual stacking order using the **`zorder`** parameter. Items with a lower `zorder` are pushed to the background, while items with a higher `zorder` are pulled to the foreground.
 
-As we add more datasets to our map—such as glaciers and lakes—we also need them to visually stand out from one another. GeoPandas makes styling intuitive by allowing you to assign standard color names as strings (like `'white'`, `'blue'`, or `'darkblue'`) directly into the `.plot()` method. 
-
 Let us combine our new layers and establish a strict visual hierarchy:
 * `zorder=1` (Background: Oceans)
 * `zorder=2` (Lower Midground: Land masses)
