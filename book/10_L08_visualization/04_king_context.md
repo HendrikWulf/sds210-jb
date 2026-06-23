@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Adding Basemaps
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -19,7 +21,21 @@ Adding Basemaps
 ```{admonition} Big idea
 :class: tip
 
-A beautifully styled thematic map is excellent, but polygons floating in a blank white space often lack real world grounding. In this chapter, you will learn how to add geographical context behind your data using the contextily library. We will explore how to fetch standard web map tiles like satellite imagery or street maps and place them seamlessly beneath your Matplotlib plots.
+A beautifully styled thematic map is excellent, but polygons floating in a blank white space often lack real world grounding. In this chapter, you will learn how to add geographical context behind your data using the **{term}`contextily <Contextily>`** library. We will explore how to fetch standard web map tiles like satellite imagery or street maps and place them seamlessly beneath your **{term}`Matplotlib`** plots.
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Adding a basemap is usually a strict requirement for spatial plots)  
+**Project Relevance:** ★★★ (Required for contextualizing any real-world maps in your reports)  
+**Foundation:** ★★☆ (Crucial workflow step to avoid the infamous coordinate clash)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Learn how to dynamically fetch and overlay internet map tiles behind your plots using `contextily`, and avoid the infamous Web Mercator coordinate clash.  
+**Skip this if:** You are completely comfortable reprojecting spatial data to `EPSG:3857` and using `ctx.add_basemap(ax)` to add tiled backgrounds.
+
 ```
 
 **Preparing the Data**
@@ -32,45 +48,63 @@ To follow along with this chapter and complete the exercises, please download th
 * [Total Solar Eclipse 2081 - core shadow (total_solar_eclipse_03-09-2081_core_shadow.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/total_solar_eclipse_03-09-2081_core_shadow.gpkg)
 * [Total Solar Eclipse 2081 - center line (total_solar_eclipse_03-09-2081_center_line.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/total_solar_eclipse_03-09-2081_center_line.gpkg)
 * [World Cities (worldcities.csv)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/worldcities.csv)
+
 ```
 
 ---
 
 ## 1. What is Contextily?
 
-By now you familiar with the power of GeoPandas and Matplotlib to draw shapes and choropleths. However, creating geospatial visualizations often requires overlaying your data on a background map so the reader understands exactly where in the world the data is located. Until recently, adding these basemaps directly within a Python environment was not a simple task.
+By now you familiar with the power of GeoPandas and Matplotlib to draw shapes and choropleths. However, creating geospatial visualizations often requires overlaying your data on a background map so the reader understands exactly where in the world the data is located. Until recently, adding these **{term}`basemaps <Basemap>`** directly within a Python environment was not a simple task.
 
 **[Contextily](https://contextily.readthedocs.io/en/latest/index.html)** is a lightweight Python package designed specifically to solve this problem. It retrieves map tiles from the internet and adds them to your Matplotlib figures as static background images.
 
-By acting as a bridge between your local Python environment and online map providers, contextily allows you to dynamically fetch exactly the right image tiles for the specific bounding box of your plot. The library integrates seamlessly with the `xyzservices` package, granting you access to popular tile providers like OpenStreetMap, Stamen Design, and CartoDB. Because contextily operates directly on Matplotlib axes objects (`ax`), it effortlessly integrates with your existing GeoPandas workflow.
+By acting as a bridge between your local Python environment and online map providers, contextily allows you to dynamically fetch exactly the right image tiles for the specific bounding box of your plot. The library integrates seamlessly with the `xyzservices` package, granting you access to popular tile providers like OpenStreetMap, Stamen Design, and CartoDB. Because contextily operates directly on Matplotlib **{term}`axes <Axes (Matplotlib)>`** objects (`ax`), it effortlessly integrates with your existing GeoPandas workflow.
 
 ---
 
 ## 2. The Web Mercator Default
 
-Before we can pull tiles from the internet, we must address a crucial spatial requirement. Almost all major online map providers, including Google Maps, OpenStreetMap, and Mapbox, serve their image tiles in a specific coordinate reference system called **[Web Mercator](https://en.wikipedia.org/wiki/Web_Mercator_projection)**.
+Before we can pull tiles from the internet, we must address a crucial spatial requirement. Almost all major online map providers, including Google Maps, OpenStreetMap, and Mapbox, serve their image tiles in a specific **{term}`Coordinate Reference System`** called **{term}`Web Mercator`**.
 
-In the EPSG registry, the official identifier for Web Mercator is **[EPSG:3857](https://epsg.io/3857)**.
+In the EPSG registry, the official identifier for Web Mercator is **{term}`EPSG:3857 <EPSG code>`**.
 
 ### Why Web Mercator?
-You might wonder why the entire internet relies on a projection infamous for drastically inflating the size of polar regions (famously making Greenland look as large as Africa). The answer comes down to local navigation and computational speed. 
+
+You might wonder why the entire internet relies on a projection infamous for drastically inflating the size of polar regions (famously making Greenland look as large as Africa). The answer comes down to local navigation and computational speed.
 
 Web Mercator preserves local angles and shapes perfectly. This means a 90-degree right turn on the map is a true 90-degree turn in reality, and North is always perfectly up—exactly what you need for a street-level navigation app. Furthermore, the spherical math required to render these tiles on the fly is much simpler and faster for servers to compute than highly accurate ellipsoidal models. Because of these traits, Google Maps adopted it in 2005, and the rest of the web simply followed suit.
 
 ### The Coordinate Clash
+
 Because it is the de facto standard for web mapping, `contextily` expects to pull and place tiles using this exact projection. However, most raw spatial data (like GPS tracks) is recorded in standard WGS84 latitude and longitude (`EPSG:4326`).
 
-If your spatial data uses a different projection than the basemap, `contextily` will not know how to align the internet tiles with your polygons. Plotting unprojected data over Web Mercator tiles will result in alignment errors, distortion, or a blank map. 
+If your spatial data uses a different projection than the basemap, `contextily` will not know how to align the internet tiles with your polygons. Plotting unprojected data over Web Mercator tiles will result in alignment errors, distortion, or a blank map.
 
 To solve this coordinate clash, spatial data scientists have two options depending on the size of their dataset:
 
 * **Option A: Reproject the Data (The Standard Approach)**
-  For most datasets, the easiest and fastest solution is to reproject your GeoDataFrame to match the web tiles before plotting. You can do this effortlessly by appending `.to_crs(epsg=3857)` to your data.
+For most datasets, the easiest and fastest solution is to reproject your **{term}`GeoDataFrame`** to match the web tiles before plotting. You can do this effortlessly by appending `.to_crs(epsg=3857)` to your data.
 * **Option B: Warp the Tiles (The Advanced Approach)**
-  If you are working with a massive, highly detailed dataset (e.g., millions of high-resolution polygons), reprojecting the vector data can be rather slow and computationally expensive. In these cases, it is actually more efficient to leave your data in its native CRS and let `contextily` mathematically "warp" the incoming image tiles to match your data instead. 
+If you are working with a massive, highly detailed dataset (e.g., millions of high-resolution polygons), reprojecting the vector data can be rather slow and computationally expensive. In these cases, it is actually more efficient to leave your data in its native CRS and let `contextily` mathematically "warp" the incoming image tiles to match your data instead.
 
 For the purposes of this chapter and most standard workflows, we will rely on **Option A** and reproject our GeoDataFrames to Web Mercator prior to mapping.
 
+You have a dataset of bicycle tracks in Paris recorded by standard GPS (WGS84, `EPSG:4326`). You create a plot and use `ctx.add_basemap(ax)` to add a street map background. What will your resulting map look like?
+
+[Option 1] The bike tracks will perfectly align with the streets of Paris.
+
+[Option 2] Contextily will crash because the projections are different.
+
+[Option 3] The basemap will render, but the bike tracks will appear as a microscopic dot in the ocean off the coast of West Africa.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: Option 3**
+Web Mercator uses meters (where Paris is millions of meters away from the origin). WGS84 uses degrees (Paris is roughly 48 Latitude, 2 Longitude). Plotting the number "48" on an axis scaled to millions places the point practically at (0,0), known affectionately as Null Island. You must use `.to_crs(epsg=3857)` before plotting!
+
+```
 
 ---
 
@@ -98,7 +132,7 @@ import matplotlib.pyplot as plt
 import contextily as ctx
 
 # Load the umbral path polygon and instantly reproject to Web Mercator (EPSG:3857)
-eclipse_path = gpd.read_file("total_solar_eclipse_03-09-2081_core_shadow.gpkg").to_crs(epsg=3857)
+eclipse_path = gpd.read_file("data/total_solar_eclipse_03-09-2081_core_shadow.gpkg").to_crs(epsg=3857)
 
 # Set up the Figure and Axes
 fig, ax = plt.subplots(figsize=(12, 8))
@@ -117,15 +151,14 @@ ctx.add_basemap(ax)
 ax.set_title("Path of Totality: Solar Eclipse Sept 3rd, 2081", fontsize=16)
 
 plt.show()
+
 ```
 
-:::{figure} images/11_basemap_step1.png
-:alt: A map showing the dark transparent path of the 2081 solar eclipse sweeping across Europe, overlaid on a standard OpenStreetMap background.
-:width: 700px
-:align: center
-
-*Output: By ensuring our data is in EPSG:3857, contextily successfully fetches the matching background tiles to provide real-world location context. It looks like Zurich is right in the path of totality!*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output: By ensuring our data is in EPSG:3857, contextily successfully fetches the matching background tiles to provide real-world location context. It looks like Zurich is right in the path of totality!</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -134,7 +167,8 @@ plt.show()
 Adding a default background map is a great start, but true cartographic design requires making intentional choices about the style, resolution, and framing of your map. `contextily` offers incredible flexibility to customize all of these aspects.
 
 ### The Map Provider Library
-There is no single "best" basemap. Sometimes you need detailed satellite imagery; other times, a minimalist grey street map is better to make your colorful data pop. `contextily` includes over 200 basemap styles from various online providers. 
+
+There is no single "best" basemap. Sometimes you need detailed satellite imagery; other times, a minimalist grey street map is better to make your colorful data pop. `contextily` includes over 200 basemap styles from various online providers.
 
 You can view the main providers by printing the `ctx.providers` dictionary. On top, you can filter for open-access providers only:
 
@@ -143,10 +177,6 @@ import contextily as ctx
 
 print(list(ctx.providers.filter(requires_token=False)))
 
-```
-
-```text
-['OpenStreetMap', 'OpenSeaMap', 'OPNVKarte', 'OpenTopoMap', 'OpenRailwayMap', 'OpenFireMap', 'SafeCast', 'Stadia', 'BaseMapDE', 'CyclOSM', 'Esri', 'FreeMapSK', 'MtbMap', 'CartoDB', 'HikeBike', 'BasemapAT', 'nlmaps', 'NASAGIBS', 'JusticeMap', 'GeoportailFrance', 'OneMapSG', 'USGS', 'WaymarkedTrails', 'OpenAIP', 'OpenSnowMap', 'SwissFederalGeoportal', 'TopPlusOpen', 'Gaode', 'Strava', 'UN']
 ```
 
 :::{figure} images/11_basemaps_tiles.webp
@@ -162,13 +192,11 @@ Furthermore, each provider offers multiple unique styles. For example, we can in
 ```{code-cell} python
 # Print the names of different basemap styles
 print(ctx.providers.OpenStreetMap.keys())
-```
 
-```text
-dict_keys(['Mapnik', 'DE', 'CH', 'France', 'HOT', 'BZH', 'CAT'])
 ```
 
 Test different providers and styles by changing the source flag and adding different providers and styles-
+
 ```{code-cell} python
 # Set up the Figure and Axes
 fig, ax = plt.subplots(figsize=(12, 8))
@@ -186,18 +214,18 @@ ctx.add_basemap(ax, source=ctx.providers.OpenTopoMap.url)
 
 ax.set_title("Path of Totality: Solar Eclipse Sept 3rd, 2081", fontsize=16)
 plt.show()
+
 ```
 
-:::{figure} images/11_basemap_step2.png
-:alt: A map showing the dark transparent path of the 2081 solar eclipse sweeping across Europe, overlaid on a standard OpenTopoMap background.
-:width: 700px
-:align: center
-
-*The map is now showing the dark transparent path of the 2081 solar eclipse sweeping across Europe, overlaid on the new OpenTopoMap basemap.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>The map is now showing the dark transparent path of the 2081 solar eclipse sweeping across Europe, overlaid on the new OpenTopoMap basemap.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Controlling Zoom and Resolution
-Web map tiles are structured in a [pyramid](https://docs.maptiler.com/google-maps-coordinates-tile-bounds-projection/). At [zoom level](https://docs.maptiler.com/guides/how-maps-work/map-resolution/#zoom-levels-explained) 0, the entire world is rendered in a single image tile. As you zoom in (levels 1, 2, 3... up to 19), the map is divided into exponentially more tiles, revealing greater detail but requiring more data to download.
+
+Web map tiles are structured in a pyramid. At **{term}`zoom level <Zoom level>`** 0, the entire world is rendered in a single image tile. As you zoom in (levels 1, 2, 3... up to 19), the map is divided into exponentially more tiles, revealing greater detail but requiring more data to download.
 
 :::{figure} images/12_web_map_tile_pyramid.png
 :alt: A 3D pyramid of web map tiles showing how one tile at zoom level 0 expands into multiple tiles at higher zoom levels, with the same geographic area becoming more detailed at each level.
@@ -207,7 +235,7 @@ Web map tiles are structured in a [pyramid](https://docs.maptiler.com/google-map
 *Web map tile pyramid. Each zoom level subdivides the same geographic area into more tiles, increasing spatial resolution. The base shows many high-resolution tiles, while the top represents a single low-resolution global tile.*
 :::
 
-When you call `ctx.add_basemap()`, contextily automatically calculates a reasonable zoom level based on the current bounding box of your plot. However, you can manually request higher or lower resolution tiles using the `zoom` parameter. 
+When you call `ctx.add_basemap()`, contextily automatically calculates a reasonable zoom level based on the current bounding box of your plot. However, you can manually request higher or lower resolution tiles using the `zoom` parameter.
 
 If you aren't sure what zoom level to use, contextily provides handy utility functions to calculate it based on your data's spatial bounds:
 
@@ -219,12 +247,14 @@ print(f"Optimal auto-zoom level: {zoom_level}")
 # Check how many tiles a specific zoom level would download
 tile_count = ctx.howmany(*eclipse_path.total_bounds, zoom=4, ll=False)
 print(f"Tiles required at zoom level 4: {tile_count}")
+
 ```
 
 ### Polishing the Map: Axes, Extents, and Attribution
-Let us put all of this together to create a polished, localized map. 
 
-Since we want to know if Zurich will experience totality, we don't need to look at the entire continent. We can "zoom in" spatially by limiting our axes' view area using `ax.set_xlim()` and `ax.set_ylim()`. 
+Let us put all of this together to create a polished, localized map.
+
+Since we want to know if Zurich will experience totality, we don't need to look at the entire continent. We can "zoom in" spatially by limiting our axes' view area using `ax.set_xlim()` and `ax.set_ylim()`.
 
 Finally, we must clean up the visual clutter. The Web Mercator coordinate numbers on the X and Y axes are mathematically accurate (representing meters), but they are entirely useless to a human reader. We will remove them using `ax.set_axis_off()`. Because we are publishing this, we will also use the `attribution` parameter to properly credit both our data source and the map provider.
 
@@ -262,26 +292,27 @@ ax.set_axis_off()
 ax.set_title("Will Zurich see the 2081 Solar Eclipse?", fontsize=16)
 
 plt.show()
+
 ```
 
-:::{figure} images/11_basemap_step3.png
-:alt: A clean, zoomed-in map of Switzerland and the Alps showing the eclipse path over a light grey CartoDB basemap, with custom attribution text and no mathematical coordinate borders.
-:width: 700px
-:align: center
-
-*Output: By explicitly controlling the map provider, the zoom level, the spatial extents, and turning off the axes, we have transformed a basic plot into a polished cartographic layout.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output: By explicitly controlling the map provider, the zoom level, the spatial extents, and turning off the axes, we have transformed a basic plot into a polished cartographic layout.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
 ## 5. Exercises: Contextualize the Data
 
-Now it is your turn to practice adding real-world context to spatial data and answering geographical questions. 
+Now it is your turn to practice adding real-world context to spatial data and answering geographical questions.
 
 ### Exercise 5.1: The Center Line and Istanbul
-We already established that Zurich will be in the path of totality. But what about other major cities? 
+
+We already established that Zurich will be in the path of totality. But what about other major cities?
 
 **Your Tasks:**
+
 1. Load the `core_shadow` and `center_line` layers, and immediately reproject both to Web Mercator (`epsg=3857`).
 2. Create a Figure and Axes setup.
 3. Plot the core shadow (e.g., in black with `alpha=0.4`) and the center line (e.g., in orange or red so it stands out).
@@ -294,7 +325,7 @@ We already established that Zurich will be in the path of totality. But what abo
 
 ```
 
-````{admonition} Sample Solution 5.1
+``````{admonition} Sample Solution 5.1
 :class: dropdown
 
 ```{code-cell} python
@@ -337,14 +368,17 @@ plt.show()
 
 *Exercise 5.1 Result: A beautifully mapped eclipse path using a new basemap. Istanbul sits comfortably inside the core shadow.*
 :::
-````
+
+``````
 
 ### Exercise 5.2: Calculating Potential Viewers
-How many people actually live directly in the path of the eclipse? 
+
+How many people actually live directly in the path of the eclipse?
 
 To find out, we need to perform a spatial filter (a point-in-polygon overlay). We will use the `worldcities.csv` dataset, convert it into spatial points, and figure out how many people reside in the cities that fall exactly inside the core shadow.
 
 **Your Tasks:**
+
 1. Load the core shadow and reproject it to `epsg=3857`.
 2. Load the `worldcities.csv` dataset using pandas.
 3. Use the provided starter code below to convert the CSV into a GeoDataFrame, but be sure to fix the projection to `epsg=3857` so it matches the shadow.
@@ -352,6 +386,7 @@ To find out, we need to perform a spatial filter (a point-in-polygon overlay). W
 5. Sum the `population` column of the filtered cities and print the result. *(Optional: plot the filtered cities on top of the shadow!)*
 
 **Starter Code:**
+
 ```python
 import pandas as pd
 
@@ -364,6 +399,7 @@ cities = gpd.GeoDataFrame(
     geometry=gpd.points_from_xy(df.lng, df.lat), 
     crs="EPSG:4326"
 ).to_crs(epsg=3857) # Replaced 4326 with 3857 to match our basemap projection!
+
 ```
 
 ```{code-cell} python
@@ -371,7 +407,7 @@ cities = gpd.GeoDataFrame(
 
 ```
 
-````{admonition} Sample Solution 5.2
+``````{admonition} Sample Solution 5.2
 :class: dropdown
 
 ```{code-cell} python
@@ -419,20 +455,21 @@ plt.show()
 
 *Exercise 5.2 Result: A spatial join perfectly integrates our point data with our polygons, revealing that tens of millions of city-dwellers lie in the path of the 2081 eclipse.*
 :::
-````
+
+``````
 
 ---
 
 ## 6. Summary: Web Tiles in Static Plots
 
-Adding a basemap is one of the most effective ways to instantly elevate the quality and readability of your spatial visualizations. 
+Adding a basemap is one of the most effective ways to instantly elevate the quality and readability of your spatial visualizations.
 
 In this chapter, you learned how to use the **contextily** library to fetch standard web map tiles directly from the internet and render them behind your Matplotlib plots. This process relies on a very strict workflow:
 
 * **Reproject:** You must always reproject your GeoDataFrames to the Web Mercator projection (`EPSG:3857`) before plotting. Failing to do so triggers the coordinate clash, resulting in severe misalignment.
 * **Customize:** Do not just settle for the default! Explore `ctx.providers` to select a basemap style (like `OpenTopoMap`, `CartoDB.Positron`, or `Esri.WorldImagery`) that perfectly complements your data.
 * **Fetch and Frame:** Use `ctx.add_basemap(ax)` to automatically download the correct background tiles. Use `ax.set_xlim()` and `ax.set_ylim()` to focus the reader's attention on specific geographic extents, and manage resolution with the `zoom` parameter.
-* **Polish:** Always call `ax.set_axis_off()` to hide the meaningless mathematical coordinate ticks, and use the `attribution` parameter to properly credit your data sources. 
+* **Polish:** Always call `ax.set_axis_off()` to hide the meaningless mathematical coordinate ticks, and use the `attribution` parameter to properly credit your data sources.
 
 ---
 
@@ -440,7 +477,7 @@ In this chapter, you learned how to use the **contextily** library to fetch stan
 
 A beautifully designed static map is powerful, but an interactive one is even better. In the next chapter, we will transition to modern web maps that users can pan, zoom, and click. You will learn how to:
 
-* **Bridge Python and JavaScript:** Use **Folium** to tap into the Leaflet web mapping engine.
+* **Bridge Python and JavaScript:** Use **{term}`Folium`** to tap into the **{term}`Leaflet`** web mapping engine.
 * **Unlock `.explore()`:** Generate interactive GeoPandas choropleths with a single line of code.
 * **Add Popups and Tooltips:** Reveal underlying data when a user hovers over or clicks on spatial features.
 * **Manage Visual Clutter:** Use `MarkerCluster` to intelligently group thousands of data points for clean, readable dashboards.

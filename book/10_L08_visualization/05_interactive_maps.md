@@ -1,5 +1,4 @@
 ---
-
 title: Going Interactive
 
 site: 
@@ -7,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Web Maps with Folium and GeoPandas
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -21,6 +22,20 @@ Web Maps with Folium and GeoPandas
 :class: tip
 
 A beautifully designed static map is a powerful communication tool for reports and publications. However, a map that your audience can actively explore is even better. In this chapter, we transition from Matplotlib's static coordinates to modern, interactive web maps. You will learn how to create maps that users can pan, zoom, and click to reveal underlying data.
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Interactive maps are an excellent way to debug and present spatial data in labs)  
+**Project Relevance:** ★★★ (Highly requested for interactive final project dashboards and outputs)  
+**Foundation:** ★★☆ (Builds on static mapping foundations, specifically geared towards web presentation)  
+
+**Time to Read:** 20 minutes  
+**In a nutshell:** Transform static spatial geometries into dynamic, interactive web maps with popups, hover tooltips, and scalable marker clusters.  
+**Skip this if:** You already know how to initialize Folium maps, add GeoJSON/Choropleth layers with Tooltips, and use the `.explore()` method in GeoPandas.
+
 ```
 
 **Preparing the Data**
@@ -33,6 +48,8 @@ To follow along with this chapter, we are heading to Zurich, Switzerland. Please
 * [Zurich Quarters (Zurich_quarters.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/Zurich_quarters.gpkg)
 * [EV Charging Stations (EV_charging_stations.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/EV_charging_stations.gpkg)
 * [Bike Parking (Zurich_bike_parking.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/Zurich_bike_parking.gpkg)
+* [Bike Lanes (Zurich_bike_lanes_masterplan.gpkg")](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/Zurich_bike_lanes_masterplan.gpkg)
+
 ```
 
 ---
@@ -43,9 +60,9 @@ Interactive maps allow users to engage with spatial content directly. Instead of
 
 The gold standard for interactive web mapping is a JavaScript library called **[Leaflet.js](https://leafletjs.com/)**. However, learning JavaScript just to make a map can be a daunting detour for a data scientist.
 
-This is where **[Folium](https://python-visualization.github.io/folium/latest/)** comes in. Folium is a fantastic Python library that acts as a bridge to Leaflet. It allows you to write standard Python code, which Folium then seamlessly translates into the HTML and JavaScript required to render a fully interactive Leaflet map in your browser or Jupyter Notebook.
+This is where **[Folium](https://python-visualization.github.io/folium/latest/)** comes in. **{term}`Folium`** is a fantastic Python library that acts as a bridge to **{term}`Leaflet`**. It allows you to write standard Python code, which Folium then seamlessly translates into the HTML and JavaScript required to render a fully interactive Leaflet map in your browser or Jupyter Notebook.
 
-Because the output is standard HTML, you can easily save these maps as standalone files to share with colleagues or embed in websites. Even better, modern versions of GeoPandas have built-in support for Folium, allowing you to generate these interactive web maps directly from your GeoDataFrames!
+Because the output is standard HTML, you can easily save these maps as standalone files to share with colleagues or embed in websites. Even better, modern versions of GeoPandas have built-in support for Folium, allowing you to generate these interactive web maps directly from your **{term}`GeoDataFrames <GeoDataFrame>`**!
 
 ---
 
@@ -61,9 +78,10 @@ import folium
 m = folium.Map()
 # Display the map object. This will render the map.
 m
+
 ```
 
-You can customise it by providing a starting `location` (passed as a list containing `[latitude, longitude]`) and an initial zoom level via the `zoom_start` parameter. Higher numbers zoom in closer to the street level, while lower numbers zoom out toward a global view. You can also define a basemap using `tiles` to change the `OpenStreetMap` default.
+You can customise it by providing a starting `location` (passed as a list containing `[latitude, longitude]`) and an initial **{term}`zoom level <Zoom level>`** via the `zoom_start` **{term}`parameter <Parameter>`**. Higher numbers zoom in closer to the street level, while lower numbers zoom out toward a global view. You can also define a basemap using `tiles` to change the `OpenStreetMap` default.
 
 ```{code-cell} python
 # Install folium if you haven't already:
@@ -81,18 +99,14 @@ zurich_map = folium.Map(
 
 # Display the map in the notebook
 zurich_map
+
 ```
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L08_ch05_01_zurich_map/"
-    width="100%"
-    title="An interactive web map centered on Zurich using a light grey basemap."
-    frameborder="0"
-    style="border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
-    allowfullscreen>
-</iframe>
-
-*A fully interactive canvas. You can click and drag to pan around, and use your scroll wheel to zoom in and out of the city. For improved visibility of the map, follow this [link](https://hendrikwulf.github.io/sds210_assets_L08_ch05_01_zurich_map/).* 
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>A fully interactive canvas. You can click and drag to pan around, and use your scroll wheel to zoom in and out of the city.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Changing the Basemap
 
@@ -100,16 +114,18 @@ The background style of your map is controlled via the `tiles` argument. Folium 
 
 There is a vast ecosystem of tile providers available online. You can explore the various styles using the interactive Leaflet Providers Preview below:
 
+<!-- markdownlint-disable MD033-->
 <iframe
-src="https://leaflet-extras.github.io/leaflet-providers/preview/"
-width="100%"
-title="Leaflet Providers Preview"
-frameborder="0"
-style="border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 10px;"
-allowfullscreen>
+    src="https://leaflet-extras.github.io/leaflet-providers/preview/"
+    width="100%"
+    title="Leaflet Providers Preview"
+    frameborder="0"
+    style="border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 10px;"
+    allowfullscreen>
 </iframe>
+<!-- markdownlint-enable MD033-->
 
-*Explore different map styles by selecting providers on the right. For improved visibility of the explorer, follow this [link](https://leaflet-extras.github.io/leaflet-providers/preview/).* 
+*Explore different map styles by selecting providers on the right. For improved visibility of the explorer, follow this [link](https://leaflet-extras.github.io/leaflet-providers/preview/).*
 
 If you find a style you like that is not built into Folium, you can use it by passing a custom URL directly to the `tiles` argument. **Important:** When using a custom URL, Folium cannot automatically guess the attribution. You must explicitly provide the copyright and map credits using the `attr` parameter.
 
@@ -130,20 +146,18 @@ clean_map = folium.Map(
     location=[47.3769, 8.5417],
     zoom_start=13,
     tiles=custom_tile_url,
-    attr=custom_attribution
+    attr=custom_attribution,
 )
 
 clean_map
+
 ```
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L08_ch05_02_clean_map/"
-    width="100%"
-    title="An interactive web map centered on Zurich using a light grey basemap and custom attribution."
-    allowfullscreen>
-</iframe>
-
-*Example of a clean map with custom attribution. For improved visibility of the map, follow this [link](https://hendrikwulf.github.io/sds210_assets_L08_ch05_02_clean_map/).*
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Example of a clean map with custom attribution.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -153,11 +167,29 @@ Now that we have a blank interactive canvas, it is time to add our spatial data.
 
 In this walkthrough, we will take the dataset of bicycle parking spots in Zurich (`Zurich_bike_parking.gpkg`) and incrementally transform it from a basic plot into an interactive, data-driven web-map.
 
-**A Quick Note on Projections:**  Web map tiles are served in Web Mercator (`EPSG:3857`), but libraries like Folium expect input coordinates in geographic latitude and longitude (`EPSG:4326`). If your data is stored in a projected coordinate system (e.g., `EPSG:2056` or `EPSG:3857`), you must convert it to `EPSG:4326` before passing it to Folium. Internally, Leaflet will then reproject these coordinates to align with the Web Mercator tile grid.
+**A Quick Note on Projections:** Web map tiles are served in **{term}`Web Mercator`** (`EPSG:3857`), but libraries like Folium expect input coordinates in geographic latitude and longitude (`EPSG:4326`). If your data is stored in a projected coordinate system (e.g., `EPSG:2056` or `EPSG:3857`), you must convert it to `EPSG:4326` before passing it to Folium. Internally, Leaflet will then reproject these coordinates to align with the Web Mercator tile grid.
 
+#### Concept Check: The Coordinate Trap
+
+**Scenario:** You successfully loaded a shapefile of Zurich's bike paths, which natively uses the highly accurate Swiss metric grid (`EPSG:2056`). You immediately pass it into `folium.GeoJson(bike_paths)`. However, when you render the map in your notebook, the screen is completely blank and the bike paths are nowhere to be found. What is the most likely cause?
+
+A) Folium cannot read shapefiles directly; you must convert it to a CSV first.
+
+B) The base map tiles failed to load from the internet.
+
+C) You forgot to project the data to EPSG:4326.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: C**
+Folium and Leaflet absolutely require your raw input data to be in WGS84 geographic degrees (`EPSG:4326`) before they can draw them over the web tiles. Because `EPSG:2056` uses meters (resulting in massive X and Y coordinates), Leaflet completely misinterprets the locations, often placing them far off the edge of the known map. Always apply `.to_crs(epsg=4326)` before passing your GeoDataFrame to Folium!
+
+```
 
 ### Step 1: Adding a Basic Layer
-The simplest way to add a GeoDataFrame to a Folium map is by passing it to the `folium.GeoJson()` class. 
+
+The simplest way to add a GeoDataFrame to a Folium map is by passing it to the `folium.GeoJson()` class.
 
 ```{code-cell} python
 import folium
@@ -178,18 +210,17 @@ folium.GeoJson(bike_parking).add_to(m1)                         # <- THIS IS NEW
 
 # 4. Display the map
 m1
+
 ```
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L08_ch05_03_m1/"
-    width="100%"
-    title="A basic Folium map showing default blue markers for every bike parking location in Zurich."
-    allowfullscreen>
-</iframe>
-
-*Output Step 1: The raw data is added to the map. By default, Folium renders point geometries as standard blue clickable markers. For improved visibility of the map, follow this [link](https://hendrikwulf.github.io/sds210_assets_L08_ch05_03_m1/).*
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output Step 1: The raw data is added to the map. By default, Folium renders point geometries as standard blue clickable markers.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 2: Giving the User Control
+
 If you plan to add multiple datasets (like bike lanes and pumping stations) to a single map, the user needs a way to toggle them on and off. We can achieve this by giving our layer a explicit `name` and appending a `LayerControl` object to the map.
 
 ```{code-cell} python
@@ -206,18 +237,17 @@ folium.GeoJson(
 folium.LayerControl().add_to(m2)                                # <- THIS IS NEW
 
 m2
+
 ```
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L08_ch05_03_m2/"
-    width="100%"
-    title="The same map as before, but now with a layer control box in the top right corner allowing the user to toggle 'Bike Parking' on and off."
-    allowfullscreen>
-</iframe>
-
-*Output Step 2: The LayerControl widget appears in the top right, allowing users to interactively filter which datasets are currently visible. For improved visibility of the map, follow this [link](https://hendrikwulf.github.io/sds210_assets_L08_ch05_03_m2/).*
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output Step 2: The LayerControl widget appears in the top right, allowing users to interactively filter which datasets are currently visible.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 3: Adding Tooltips
+
 Right now, our markers are blind. To make the map informative, we need to reveal the underlying data. Our dataset contains a column named `anzahl_pp`, which represents the number of parking spaces at each location. We can attach a `GeoJsonTooltip` to display this information on hover.
 
 ```{code-cell} python
@@ -239,18 +269,17 @@ folium.GeoJson(
 folium.LayerControl().add_to(m3)
 
 m3
+
 ```
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L08_ch05_03_m3/"
-    width="100%"
-    title="The map now shows a small white tooltip box reading 'Spaces: 12' hovering next to the mouse cursor over a marker."
-    allowfullscreen>
-</iframe>
-
-*Output Step 3: Hovering over any marker now instantly queries the GeoDataFrame and displays the exact number of parking spaces available. For improved visibility of the map, follow this [link](https://hendrikwulf.github.io/sds210_assets_L08_ch05_03_m3/).*
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output Step 3: Hovering over any marker now instantly queries the GeoDataFrame and displays the exact number of parking spaces available.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 4: Custom Icons
+
 Standard blue teardrop markers are generic. We can customize the aesthetics by passing a `folium.Marker` object equipped with a specific icon. Folium supports the [FontAwesome](https://fontawesome.com/v4/icons/) (`fa`) icon library, giving us access to hundreds of intuitive symbols.
 
 ```{code-cell} python
@@ -271,23 +300,20 @@ folium.GeoJson(
 # Add the interactive layer control menu
 folium.LayerControl().add_to(m4)
 m4
+
 ```
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L08_ch05_03_m4/"
-    width="100%"
-    title="The generic markers have been replaced by blue markers containing a white bicycle icon."
-    allowfullscreen>
-</iframe>
-
-*Output Step 4: Thematic icons drastically improve the immediate readability of the map, instantly communicating that these points relate to bicycles. For improved visibility of the map, follow this [link](https://hendrikwulf.github.io/sds210_assets_L08_ch05_03_m4/).*
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output Step 4: Thematic icons drastically improve the immediate readability of the map, instantly communicating that these points relate to bicycles.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 5: Managing Clutter with Marker Clusters
-We have a problem: Zurich has thousands of bike parking locations. Drawing them all at once creates a messy, overlapping visualization that is difficult to read and slow to load in the browser. 
 
-We can solve this using the `MarkerCluster` plugin. 
+We have a problem: Zurich has thousands of bike parking locations. Drawing them all at once creates a messy, overlapping visualization that is difficult to read and slow to load in the browser.
 
-*A critical warning:* When you wrap a `folium.GeoJson` object directly inside a `MarkerCluster`, the complex clustering logic often intercepts "mouse over" events, causing your carefully crafted tooltips to break. The most reliable, production-ready way to cluster interactive data is to iterate through your GeoDataFrame row by row, creating individual markers and assigning them directly to the cluster.
+We can solve this using the `MarkerCluster` plugin.
 
 ```{code-cell} python
 from folium.plugins import MarkerCluster
@@ -318,19 +344,18 @@ for idx, row in bike_parking.iterrows():                          # <- THIS IS D
 folium.LayerControl().add_to(m5)
 
 m5
+
 ```
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L08_ch05_03_m5/"
-    width="100%"
-    title="The map now shows clustered circles with numbers indicating how many parking spots are in a given area. Clicking them expands into the bicycle icons."
-    allowfullscreen>
-</iframe>
-
-*Output Step 5: By iterating through the data, we create a clean, performant clustered map where the interactive tooltips remain fully functional upon zooming in. The map now shows clustered circles with numbers indicating how many parking spots are in a given area. Clicking them expands into the bicycle icons. For improved visibility of the map, follow this [link](https://hendrikwulf.github.io/sds210_assets_L08_ch05_03_m5/).*
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output Step 5: By iterating through the data, we create a clean, performant clustered map where the interactive tooltips remain fully functional upon zooming in. The map now shows clustered circles with numbers indicating how many parking spots are in a given area. Clicking them expands into the bicycle icons.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 6: Scaling Symbols (advanced)
-Our map is looking highly professional, but we can push it one step further. Right now, a parking rack with 2 spaces looks identical to a massive parking garage with 500 spaces. 
+
+Our map is looking highly professional, but we can push it one step further. Right now, a parking rack with 2 spaces looks identical to a massive parking garage with 500 spaces.
 
 Instead of using a generic icon, we can dynamically scale the size of our custom icon based on the actual `anzahl_pp` data value. To do this, we use `folium.DivIcon` to inject raw HTML and CSS styling directly into the map marker, calculating the size on the fly using a square-root mathematical scaling (which correctly scales the visual *area* of the circle).
 
@@ -382,24 +407,22 @@ for idx, row in bike_parking.iterrows():
 folium.LayerControl().add_to(m6)
 
 m6
+
 ```
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L08_ch05_03_m6/"
-    width="100%"
-    title="The map shows clustered data, but when expanded, individual bicycle icons vary wildly in size, clearly indicating major parking hubs versus small racks."
-    allowfullscreen>
-</iframe>
-
-*Output Step 6: Data-driven visual scaling. By injecting custom HTML/CSS and scaling by the square root of the capacity, the map now instantly communicates both the location and the magnitude of the bicycle infrastructure. For improved visibility of the map, follow this [link](https://hendrikwulf.github.io/sds210_assets_L08_ch05_03_m6/).*
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output Step 6: Data-driven visual scaling. By injecting custom HTML/CSS and scaling by the square root of the capacity, the map now instantly communicates both the location and the magnitude of the bicycle infrastructure.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
 ## 4. Interactive Thematic Maps
 
-In previous chapters, you learned how to create static choropleth maps using GeoPandas and Matplotlib. Now, we will bring those thematic maps to life using Folium. 
+In previous chapters, you learned how to create static choropleth maps using GeoPandas and **{term}`Matplotlib`**. Now, we will bring those thematic maps to life using Folium.
 
-Folium provides a dedicated `Choropleth` class that binds your tabular data (like Pandas DataFrames or Series) to your spatial geometries. Just like the `GeoJson` class, you can pass a GeoDataFrame directly to it to generate a thematic map.
+Folium provides a dedicated `Choropleth` class that binds your tabular data (like Pandas **{term}`DataFrames <DataFrame>`** or Series) to your spatial geometries. Just like the `GeoJson` class, you can pass a GeoDataFrame directly to it to generate a thematic map.
 
 ### Step 1: The Basic Choropleth
 
@@ -437,22 +460,20 @@ folium.Choropleth(
 folium.LayerControl().add_to(m)
 
 m
+
 ```
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L08_ch05_04_map1/"
-    width="100%"
-    title="A map of Zurich divided into quarters, colored from dark purple to bright yellow based on their geographic area, with a legend in the top right."
-    allowfullscreen>
-</iframe>
-
-*Output Step 1: A basic interactive choropleth. Folium automatically generates and places a color scale legend in the top right corner. For improved visibility of the map, follow this [link](https://hendrikwulf.github.io/sds210_assets_L08_ch05_04_map1/).*
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output Step 1: A basic interactive choropleth. Folium automatically generates and places a color scale legend in the top right corner.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### Step 2: Spatial Joins and Density
 
 Visualizing raw area is a good start, but spatial data science is about uncovering hidden patterns. A much more interesting question is: **Which Zurich quarter has the highest density of bicycle parking?**
 
-To answer this, we must first perform a spatial join to count how many parking spots fall within each quarter, and then divide that count by the quarter's area. 
+To answer this, we must first perform a spatial join to count how many parking spots fall within each quarter, and then divide that count by the quarter's area.
 
 Because area calculations and spatial joins require location accuracy, we should perform these mathematical operations in the accurate Swiss projected coordinate system (`EPSG:2056`). Once the math is done, we will project the final results back to standard latitude and longitude (`EPSG:4326`) so Folium can render it on the web map.
 
@@ -465,7 +486,7 @@ if quarters.crs is None:
 if bike_parking.crs is None:
     bike_parking.set_crs(epsg=2056, inplace=True)
 
-quarters['area_km²'] = (quarters.geometry.area / 1000000).round(3)
+quarters['area_km2'] = (quarters.geometry.area / 1000000).round(3)
 
 # 2. Spatial Join: Count parking locations within each quarter
 joined = gpd.sjoin(bike_parking, quarters, how="inner", predicate="within")
@@ -485,11 +506,12 @@ quarters['parking_density'] = (quarters['anzahl_pp'] / quarters['area_km2']).rou
 
 # 3. Reproject back to Web standard for Folium
 quarters_4326 = quarters.to_crs(epsg=4326)
+
 ```
 
 ### Step 3: Multi-Layer Choropleths with Tooltips
 
-Now we will map our new density data. We will actually add *two* choropleth layers to our map: one for Area, and one for Density. 
+Now we will map our new density data. We will actually add *two* choropleth layers to our map: one for Area, and one for Density.
 
 To prevent the map from looking messy when it first loads, we can disable the Area layer from showing on the initial load by passing the `show=False` parameter directly to the Choropleth object. Users can still turn it on via the LayerControl menu.
 
@@ -543,16 +565,14 @@ folium.GeoJson(
 folium.LayerControl().add_to(m2)
 
 m2
+
 ```
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L08_ch05_04_map2/"
-    width="100%"
-    title="A multi-layer interactive map of Zurich. The visible choropleth shows parking density, with a tooltip revealing the exact density value when hovering over a specific quarter. The layer control menu shows three toggleable layers."
-    allowfullscreen>
-</iframe>
-
-*Output Step 3: A multi-layered thematic map. The invisible GeoJson layer captures mouse movements to display tooltip data, while `show=False` ensures the initial view is not cluttered with overlapping colors. For improved visibility of the map, follow this [link](https://hendrikwulf.github.io/sds210_assets_L08_ch05_04_map2/).*
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output Step 3: A multi-layered thematic map. The invisible GeoJson layer captures mouse movements to display tooltip data, while `show=False` ensures the initial view is not cluttered with overlapping colors.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -560,7 +580,7 @@ m2
 
 In the previous section, we built a multi-layered choropleth map from scratch. While building maps layer by layer provides more control over every single element, you probably noticed that it requires a substantial amount of code. Creating an invisible GeoJSON layer just to get tooltips working can feel like a tedious workaround.
 
-For rapid spatial data exploration, we need a faster way to visualize data interactively. 
+For rapid spatial data exploration, we need a faster way to visualize data interactively.
 
 Enter the magic of `.explore()`. Just as GeoPandas uses `.plot()` to instantly generate static Matplotlib figures, it provides the `.explore()` method to instantly generate fully interactive Folium web maps. GeoPandas handles all the complex JavaScript translation, GeoJSON conversion, and tooltip linking behind the scenes.
 
@@ -580,33 +600,33 @@ interactive_map = quarters_4326.explore(
 
 # Display the map
 interactive_map
+
 ```
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L08_ch05_05_explore/"
-    width="100%"
-    title="An interactive choropleth map of Zurich showing parking density. A large tooltip box is visible, automatically listing every single data column for the hovered quarter."
-    allowfullscreen>
-</iframe>
-
-*An interactive thematic map generated in one line of code. Notice that by default, the tooltip automatically displays every single attribute column available in the GeoDataFrame. For improved visibility of the map, follow this [link](https://hendrikwulf.github.io/sds210_assets_L08_ch05_05_explore/).*
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>An interactive thematic map generated in one line of code. Notice that by default, the tooltip automatically displays every single attribute column available in the GeoDataFrame.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ### `.explore()`, Pure Folium, and the Hybrid Approach
 
-If `.explore()` is so much faster, why would we ever write pure Folium code? The answer comes down to the classic programming tradeoff: **Convenience vs. Control**. 
+If `.explore()` is so much faster, why would we ever write pure Folium code? The answer comes down to the classic programming tradeoff: **Convenience vs. Control**.
 
 However, as you will see, these two tools are not mutually exclusive. Here is a quick guide on how to approach interactive mapping depending on your needs:
 
 **1. Standalone GeoPandas `.explore()`:**
+
 * **Exploratory Data Analysis (EDA):** Best when you are actively analyzing data and need to quickly check if a spatial join worked, spot outliers, or view the distribution of a single dataset.
 * **Speed:** When you need a functional, interactive map with an automatic legend and comprehensive tooltips in exactly one line of code.
 
 **2. Pure Folium (`folium.Map`, `folium.GeoJson`, `folium.Choropleth`):**
+
 * **Pixel-Perfect Control:** When you are building a final product for a client and need absolute control over the aesthetics, missing values (`NaN`), and legend placement.
 * **Custom Interactivity:** When you need to utilize advanced Leaflet plugins (like our dynamically scaled `MarkerCluster` icons), inject custom CSS/HTML into popups, or use specialized clustering logic that `.explore()` cannot natively handle.
 
 **3. The Hybrid Approach (The Best of Both Worlds):**
-You do not have to choose just one! You can actually combine the speed of `.explore()` with the structural control of Folium. By initializing a blank `folium.Map()` first, you can pass it to the `m` parameter inside `.explore()`. 
+You do not have to choose just one! You can actually combine the speed of `.explore()` with the structural control of Folium. By initializing a blank `folium.Map()` first, you can pass it to the `m` parameter inside `.explore()`.
 
 This is the perfect approach for building **Multi-Layer Dashboards**. It allows you to rapidly add multiple GeoDataFrames to the exact same canvas and easily append a `LayerControl` menu:
 
@@ -614,45 +634,50 @@ This is the perfect approach for building **Multi-Layer Dashboards**. It allows 
 import folium
 
 # 1. Initialize the Folium map (The Control)
-my_map = folium.Map(location=[47.37, 8.54], zoom_start=12)
+my_map = folium.Map(location=[47.37, 8.54], zoom_start=12, tiles="CartoDB Positron No Labels")
 
-# 2. Add multiple datasets using GeoPandas (The Convenience)
+# 2. Prepare the data
+bike_lanes = gpd.read_file("data/Zurich_bike_lanes_masterplan.gpkg")
+
+# 3. Add multiple datasets using GeoPandas (The Convenience)
 bike_lanes.explore(m=my_map, color="blue", name="Bike Lanes")
-parks.explore(m=my_map, color="green", name="Parks")
 
-# 3. Add Folium plugins back on top
+# 4. Add Folium plugins back on top
 folium.LayerControl().add_to(my_map)
 
 my_map
+
 ```
 
 ---
 
 ## 6. Exercise: The EV Charging Web Map
 
-It is time to bring all these interactive concepts together. For this exercise, you will step out of Zurich and map infrastructure for the entire country. As a spatial data scientist, you have been tasked with visualizing Switzerland's electric vehicle (EV) charging network. 
+It is time to bring all these interactive concepts together. For this exercise, you will step out of Zurich and map infrastructure for the entire country. As a spatial data scientist, you have been tasked with visualizing Switzerland's electric vehicle (EV) charging network.
 
 Because charging stations are numerous, you must use clustering to prevent visual clutter. Furthermore, to make the map visually striking, you will use a dark-themed basemap and specialized icons.
 
 **Your Tasks:**
 
-1.  Load the `EV_charging_stations.gpkg` dataset. Remember to project it to the standard web coordinate system (`EPSG:4326`) before passing it to Folium.
-2.  Initialize a Folium map centered on Switzerland (roughly `[46.8, 8.2]`) with a `zoom_start` of 8. To make the markers stand out, use the `"CartoDB DarkMatter"` tileset.
-3.  Initialize a `MarkerCluster` object, give it a logical name, and add it to your map.
-4.  Iterate over the rows in your GeoDataFrame. For each row:
-    * Extract the latitude (`geometry.y`) and longitude (`geometry.x`).
-    * Create a `folium.Marker`.
-    * Set the `tooltip` to show a string containing the station's power output (e.g., `"Power: 50 kW"` using the `"power"` column).
-    * Customize the marker using `folium.Icon`. Set the color to `"green"` and use an appropriate FontAwesome icon (e.g., `icon="bolt"` or `icon="plug"`, with `prefix="fa"`).
-    * Add this marker directly to your `MarkerCluster`.
-5.  Add a `LayerControl` to the map and display your final interactive map.
+1. Load the `EV_charging_stations.gpkg` dataset. Remember to project it to the standard web coordinate system (`EPSG:4326`) before passing it to Folium.
+2. Initialize a Folium map centered on Switzerland (roughly `[46.8, 8.2]`) with a `zoom_start` of 8. To make the markers stand out, use the `"CartoDB DarkMatter"` tileset.
+3. Initialize a `MarkerCluster` object, give it a logical name, and add it to your map.
+4. Iterate over the rows in your GeoDataFrame. For each row:
+
+* Extract the latitude (`geometry.y`) and longitude (`geometry.x`).
+* Create a `folium.Marker`.
+* Set the `tooltip` to show a string containing the station's power output (e.g., `"Power: 50 kW"` using the `"power"` column).
+* Customize the marker using `folium.Icon`. Set the color to `"green"` and use an appropriate FontAwesome icon (e.g., `icon="bolt"` or `icon="plug"`, with `prefix="fa"`).
+* Add this marker directly to your `MarkerCluster`.
+
+1. Add a `LayerControl` to the map and display your final interactive map.
 
 ```{code-cell} python
 # Write your code here
 
 ```
 
-````{admonition} Sample Solution
+``````{admonition} Sample Solution
 :class: dropdown
 
 ```{code-cell} python
@@ -694,7 +719,7 @@ map
 ```
 
 <iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L08_ch05_06_exercise/"
+    src="[https://hendrikwulf.github.io/sds210_assets_L08_ch05_06_exercise/](https://hendrikwulf.github.io/sds210_assets_L08_ch05_06_exercise/)"
     width="100%"
     title="A dark-themed interactive map of Switzerland showing clustered circles. When expanded, individual green markers with lightning bolt icons appear, showing tooltips like 'Power: 50 kW'."
     allowfullscreen>
@@ -702,7 +727,7 @@ map
 
 *A stylized, interactive web map. The dark basemap provides contrast for the bright green lightning bolt markers, and clustering ensures smooth performance across the entire country. For improved visibility of the map, follow this [link](https://hendrikwulf.github.io/sds210_assets_L08_ch05_06_exercise/).*
 
-````
+``````
 
 ---
 

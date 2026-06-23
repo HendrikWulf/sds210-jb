@@ -1,5 +1,4 @@
 ---
-
 title: Mapping with GeoPandas
 
 site:
@@ -7,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Composing Maps Layer by Layer
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -17,11 +18,24 @@ Composing Maps Layer by Layer
 
 ---
 
-
 ```{admonition} Big idea
 :class: tip
 
-You have mastered the mechanics of the Matplotlib Figure and Axes. Now, we will apply that exact same mental model to spatial data. GeoPandas simplifies the complexity of cartography by wrapping Matplotlib commands into a single `.plot()` method. By sharing the same plotting canvas across multiple geographic datasets, you can easily stack polygons, lines, and points to compose rich, multilayered maps.
+You have mastered the mechanics of the **{term}`Matplotlib`** **{term}`Figure <Figure (Matplotlib)>`** and **{term}`Axes <Axes (Matplotlib)>`**. Now, we will apply that exact same mental model to spatial data. GeoPandas simplifies the complexity of cartography by wrapping Matplotlib commands into a single `.plot()` method. By sharing the same plotting canvas across multiple geographic datasets, you can easily stack polygons, lines, and points to compose rich, multilayered maps.
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Mapping and stacking layers is 100% required for assignments)  
+**Project Relevance:** ★★★ (Essential for producing final spatial maps in the project)  
+**Foundation:** ★★★ (Core concept for spatial visualization)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Learn how to stack multiple geographic datasets onto a single map using GeoPandas and the Matplotlib `ax` object.  
+**Skip this if:** You already know how to pass the `ax` parameter in GeoPandas `.plot()` and use `zorder` to manage layer hierarchy.
+
 ```
 
 ### Preparing the Data
@@ -37,6 +51,7 @@ To follow along with this chapter and complete the exercises, please download th
 * [Glaciated Areas (ne_10m_glaciated_areas.zip)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/ne_10m_glaciated_areas.zip)
 * [Lakes (ne_10m_lakes.zip)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/ne_10m_lakes.zip)
 * [World Cities (worldcities.csv)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/worldcities.csv)
+
 ```
 
 ---
@@ -45,9 +60,9 @@ To follow along with this chapter and complete the exercises, please download th
 
 In the previous chapter, you learned that building a plot requires extracting lists of X and Y coordinates and passing them into an `ax.plot()` command. Geographic shapes, especially highly detailed country borders or winding rivers, contain thousands of coordinate pairs. Extracting all these coordinates manually would be exhausting.
 
-This is where **GeoPandas** shines. GeoPandas provides a powerful wrapper around Matplotlib. Every GeoDataFrame has a `.plot()` method that automatically locates the active `geometry` column, extracts the complex shapes, and feeds them directly into Matplotlib for you.
+This is where **GeoPandas** shines. GeoPandas provides a powerful wrapper around Matplotlib. Every **{term}`GeoDataFrame`** has a `.plot()` method that automatically locates the active `geometry` column, extracts the complex shapes, and feeds them directly into Matplotlib for you.
 
-Let us load a shapefile of global land masses and plot it using our standard Object Oriented setup:
+Let us load a shapefile of global land masses and plot it using our standard **{term}`Object-oriented programming`** setup:
 
 ```{code-cell} python
 import geopandas as gpd
@@ -63,15 +78,14 @@ fig, ax = plt.subplots(figsize=(10, 5))
 land.plot(ax=ax)
 
 plt.show()
+
 ```
 
-:::{figure} images/09_geopandas_step1.png
-:alt: A basic blue projection of global land masses on a standard Matplotlib axis.
-:width: 700px
-:align: center
-
-*Output: GeoPandas automatically interprets the polygon geometries and draws them on the provided `ax` object.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output: GeoPandas automatically interprets the polygon geometries and draws them on the provided `ax` object.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ```{admonition} The Magic Parameter
 :class: important
@@ -79,24 +93,28 @@ plt.show()
 Notice the `ax=ax` parameter inside the `land.plot()` command. This is the crucial bridge between GeoPandas and Matplotlib.
 
 By passing our specific plotting box (`ax`) into the GeoPandas method, we tell GeoPandas exactly where it should draw the shapes. If you forget this parameter, GeoPandas will ignore your carefully sized Figure and spawn its own separate, unformatted plotting window.
+
 ```
 
 #### Concept Check: The Missing Link
 
-**Scenario:** You want to plot a layer of capital cities on top of a base map of a country. You set up your canvas with `fig, ax = plt.subplots()`, plot the base map using `country.plot(ax=ax)`, and finally plot the cities using `cities.plot(color="red")`. 
+**Scenario:** You want to plot a layer of capital cities on top of a base map of a country. You set up your canvas with `fig, ax = plt.subplots()`, plot the base map using `country.plot(ax=ax)`, and finally plot the cities using `cities.plot(color="red")`.
 
 What will happen when you run `plt.show()`?
 
-A) GeoPandas will automatically detect the active canvas and plot the red cities on top of the country.  
-B) Matplotlib will generate two separate figures: one showing the country, and a new, separate window showing just the red cities.  
-C) GeoPandas will throw an error because the city layer is missing the `zorder` parameter.  
+A) Matplotlib will generate two separate figures: one showing the country, and a new, separate window showing just the red cities.
 
-````{admonition} Check your understanding
+B) GeoPandas will automatically detect the active canvas and plot the red cities on top of the country.
+
+C) GeoPandas will throw an error because the city layer is missing the `zorder` parameter.
+
+```{admonition} Check your understanding
 :class: dropdown
 
-**Answer: B**
+**Answer: A**
 If you forget to pass the `ax=ax` parameter to a `.plot()` call, GeoPandas does not know where to draw the data. Instead of layering it on your existing map, it will default to spawning a brand new, unformatted Figure. To link them, both layers must explicitly share the same `ax`.
-````
+
+```
 
 ---
 
@@ -123,18 +141,16 @@ ax.set_xlabel("Longitude")
 ax.set_ylabel("Latitude")
 
 plt.show()
+
 ```
 
-:::{figure} images/09_geopandas_step2.png
-:alt: A map showing both land and oceans plotted together.
-:width: 700px
-:align: center
-
-*Output: By sharing the `ax` object, both the ocean and land datasets are rendered onto the same plotting canvas.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output: By sharing the `ax` object, both the ocean and land datasets are rendered onto the same plotting canvas.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
-
 
 ## 3. Layer Order
 
@@ -144,7 +160,10 @@ If you paint the narrow rivers first and then paint the massive land polygons se
 
 While you can fix this by carefully ordering your Python lines, it is much safer to explicitly declare the visual stacking order using the **`zorder`** parameter. Items with a lower `zorder` are pushed to the background, while items with a higher `zorder` are pulled to the foreground.
 
+As we add more datasets to our map—such as glaciers and lakes—we also need them to visually stand out from one another. GeoPandas makes styling intuitive by allowing you to assign standard color names as strings (like `'white'`, `'blue'`, or `'darkblue'`) directly into the `.plot()` method.
+
 Let us combine our new layers and establish a strict visual hierarchy:
+
 * `zorder=1` (Background: Oceans)
 * `zorder=2` (Lower Midground: Land masses)
 * `zorder=3` (Upper Midground: Glaciated areas)
@@ -180,15 +199,52 @@ ax.set_xlabel("Longitude")
 ax.set_ylabel("Latitude")
 
 plt.show()
+
 ```
 
-:::{figure} images/09_geopandas_step3.png
-:alt: A detailed global map displaying light blue oceans, light grey land masses, white glaciated areas, blue rivers, and dark blue lakes.
-:width: 700px
-:align: center
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output: A complete geographic composition using `zorder` to ensure all five layers stack correctly, styled intuitively with named colors.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
-*Output: A complete geographic composition using `zorder` to ensure all five layers stack correctly, styled intuitively with named colors.*
-:::
+---
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L08_ch02_01_z-order/"
+    width="100%"
+    title="Matplotlib Figure Anatomy"
+    frameborder="0"
+    style="border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+    allowfullscreen>
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Z-Order Layer Cake.</b><br>
+    Adjust the `zorder` values using the number inputs to see how Matplotlib visually stacks overlapping shapes in both the 3D stack and the flattened 2D map. Notice how failing to prioritize smaller foreground details (like cities) over massive backgrounds (like oceans) causes the data to disappear entirely! For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L08_ch02_01_z-order/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
+
+#### Concept Check: The Missing Trails
+
+**Scenario:** You are mapping a national park. You plot the massive park polygon first using `park.plot(ax=ax, color="green")`. Then you plot a highly detailed network of hiking trails using `trails.plot(ax=ax, color="brown")`. You do not set the `zorder` for either layer.
+
+When you run `plt.show()`, what will you see?
+
+A) Only the green park polygon, because polygons naturally cover lines unless forced to the background.
+
+B) Both the green park polygon and the brown trails on top of it, because Matplotlib draws elements in the order they appear in the code.
+
+C) Only the brown trails, because lines always take priority over polygons.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+If you do not explicitly use `zorder`, Matplotlib relies entirely on the order of your code (the painter's algorithm). Since you wrote the `park.plot()` command first, it painted the green background. Then, since you wrote `trails.plot()` second, it painted the brown lines safely on top. However, relying on code order can be risky in complex scripts, which is why explicitly defining `zorder` is considered best practice!
+
+```
 
 ---
 
@@ -197,22 +253,26 @@ plt.show()
 Right now, our map has the correct structural layers, but the default layer settings and the colors could be improved. GeoPandas passes any styling keyword arguments you provide directly down to Matplotlib. This means the exact same vocabulary you learned for charts applies perfectly to geographic polygons and lines.
 
 When styling maps, the most important parameters are:
+
 * `color`: The interior fill color of a polygon or the color of a line.
 * `edgecolor`: The color of the border surrounding a polygon.
 * `linewidth` (or `lw`): The thickness of lines or borders.
 * `alpha`: The transparency level (0.0 to 1.0).
 
 ### Defining Colors
+
 Matplotlib is highly flexible with how you define colors. In the code below, notice how we use several different formats to style our map:
+
 * **Named colors:** Standard intuitive strings like `"lightgrey"`.
 * **Hex codes:** Precise web colors like `"#add8e6"` (a specific shade of light blue for the ocean).
 * **Shorthand:** Single letters like `"w"` for white.
 * **Color cycle:** Matplotlib's default categorical color palette accessed via `"C0"`, `"C1"`, `"C9"`, etc.
 
 ### Projections and Formatting
-Before we plot, we also need to fix the shape of the world. Currently, our data relies on the standard WGS84 coordinate reference system (EPSG:4326) of latitude and longitude, which makes regions near the poles look heavily stretched and distorted. 
 
-To fix this, we will append `.to_crs(epsg=8857)` when loading our datasets. This converts the spatial data into the **Equal Earth** projection, a modern standard for visually more accurate global maps. Because a projected map distorts the standard X and Y grid lines, the coordinate numbers are no longer useful to the reader. We will remove the bounding box entirely using `ax.axis("off")` and finally save our masterpiece.
+Before we plot, we also need to fix the shape of the world. Currently, our data relies on the standard **{term}`WGS84`** **{term}`coordinate reference system <Coordinate Reference System>`** (EPSG:4326) of latitude and longitude, which makes regions near the poles look heavily stretched and distorted.
+
+To fix this, we will append `.to_crs(epsg=8857)` when loading our datasets. This converts the spatial data into the **{term}`Equal Earth`** projection, a modern standard for visually more accurate global maps. Because a projected map distorts the standard X and Y grid lines, the coordinate numbers are no longer useful to the reader. We will remove the bounding box entirely using `ax.axis("off")` and finally save our masterpiece.
 
 Let us combine everything into one complete, professional map script:
 
@@ -249,47 +309,46 @@ ax.set_title("Global Landmasses, Rivers, Glaciers, and Lakes", fontsize=18)
 ax.axis("off")
 
 # Save the final polished map
-fig.savefig("global_map.png", dpi=200, bbox_inches="tight")
+fig.savefig("data/global_map.png", dpi=200, bbox_inches="tight")
 
 plt.show()
+
 ```
 
-:::{figure} images/09_geopandas_step4.png
-:alt: A highly detailed, professionally styled map of the world in the Equal Earth projection. Oceans are light blue, land is semi transparent grey, glaciers are white, and rivers and lakes are deep blue. There are no axis borders or coordinate numbers.
-:width: 800px
-:align: center
-
-*Output: A professional map utilizing the Equal Earth projection, diverse color definitions, strict `zorder` stacking, and a clean, axis free layout.*
-:::
+<!-- markdownlint-disable MD033-->
+<figcaption>
+    <em>Output: A more professional-looking map featuring the Equal Earth projection, intuitive color definitions, logical `zorder` stacking, and an axis-free layout.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
 ## 5. Exercise: Layer Cake
 
-It is time to practice composing a map from scratch. You will load polygon layers (land and ocean) and a point layer (which you must construct from a CSV file), project them to a global standard, and plot them all on a single Figure with logical styling.
+It is time to practice composing a map from scratch. You will load polygon layers (land and ocean) and a point layer (which you must construct from a **{term}`CSV <Comma-separated values>`** file), project them to a global standard, and plot them all on a single Figure with logical styling.
 
 **Your Tasks:**
 
-1.  Load the `ne_10m_land.zip` and `ne_10m_ocean.zip` shapefiles and immediately reproject both of them to the Equal Earth projection (`.to_crs(epsg=8857)`).
-2.  Load the `worldcities.csv` file using standard Pandas (`pd.read_csv()`).
-3.  Convert the Pandas DataFrame into a GeoDataFrame. You will need to use `gpd.points_from_xy(df.lng, df.lat)`, set the initial coordinate reference system to `crs="EPSG:4326"`, and then chain `.to_crs(epsg=8857)` to match your polygons.
-4.  Split your new cities GeoDataFrame into two separate subsets:
+1. Load the `ne_10m_land.zip` and `ne_10m_ocean.zip` shapefiles and immediately reproject both of them to the Equal Earth projection (`.to_crs(epsg=8857)`).
+2. Load the `worldcities.csv` file using standard Pandas (`pd.read_csv()`).
+3. Convert the Pandas DataFrame into a GeoDataFrame. You will need to use `gpd.points_from_xy(df.lng, df.lat)`, set the initial coordinate reference system to `crs="EPSG:4326"`, and then chain `.to_crs(epsg=8857)` to match your polygons.
+4. Split your new cities GeoDataFrame into two separate subsets:
       * **Capitals:** Where the column `capital` equals `'primary'`.
       * **Normal Cities:** All other rows.
-5.  Create a single `fig, ax` setup with a `figsize` of (14, 7).
-6.  Plot the layers with the following rules:
+5. Create a single `fig, ax` setup with a `figsize` of (14, 7).
+6. Plot the layers with the following rules:
       * **Ocean:** Color is `#add8e6`, `zorder=1`.
       * **Land:** Color is `lightgrey`, `zorder=2`.
       * **Normal Cities:** Color is `darkgrey`, marker is `o` (dot), `markersize=1`, `zorder=3`.
       * **Capitals:** Color is `red`, marker is `*` (star), `markersize=50`, `zorder=4`.
-7.  Add the title "Global Cities and Capitals", turn the axis boundaries off (`ax.axis("off")`), and save your output as `cities_and_capitals.png`.
+7. Add the title "Global Cities and Capitals", turn the axis boundaries off (`ax.axis("off")`), and save your output as `cities_and_capitals.png`.
 
 ```{code-cell} python
 # Write your code here
 
 ```
 
-````{admonition} Sample Solution
+``````{admonition} Sample Solution
 :class: dropdown
 
 ```{code-cell} python
@@ -339,7 +398,8 @@ plt.show()
 
 *Exercise Result: A complete, multilayered geographic map in the Equal Earth projection.*
 :::
-````
+
+``````
 
 ---
 
@@ -358,6 +418,7 @@ To ensure your map is legible, remember to consciously manage your **Layer Order
 Plotting spatial geometries is only the first step; creating a map that accurately and ethically communicates information is an entirely different skill.
 
 In the next chapter, **Cartographic Design and Choropleths**, we will transition from simply drawing shapes to creating thematic, data driven maps. You will learn how to color polygons based on specific data attributes (such as population density) and explore essential cartographic principles, including:
+
 * **Colormaps (`cmap`):** Understanding the critical differences between Sequential (low to high), Diverging (extremes vs middle), and Qualitative (categorical) color palettes.
 * **Legends:** Activating and customizing the map key to give your data context.
 * **Missing Data:** Using `missing_kwds` to gracefully handle geometries with missing values (NaN) so they are shaded appropriately rather than vanishing from the canvas entirely.
