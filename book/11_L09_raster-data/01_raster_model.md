@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Continuous surfaces and the matrix
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -20,12 +22,26 @@ In the previous chapters, you mastered the art of vector data. You learned how t
 
 But what happens when the phenomenon you want to study does not have a clear boundary?
 
-How do you draw a polygon around "temperature"? Where exactly does a mountain end and a valley begin? For these inherently fluid environmental variables, the discrete vector model breaks down. To analyze the environment as a whole, we must shift our mental model from isolated shapes to continuous surfaces.
+How do you draw a polygon around "temperature"? Where exactly does a mountain end and a valley begin? For these inherently fluid environmental variables, the discrete vector model breaks down. To analyze the environment as a whole, we must shift our mental model from isolated shapes to **{term}`continuous fields <Continuous field>`**.
 
 ```{admonition} Big idea
 :class: tip
 
 The raster data model abandons the idea of empty space. Instead of placing shapes on a blank background, a raster divides the entire world into a continuous grid of cells, assigning a numerical value to every single location.
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Fundamental for all raster-based labs)  
+**Project Relevance:** ★★☆ (Crucial if your project incorporates environmental or satellite data)  
+**Foundation:** ★★★ (The absolute foundation for raster processing)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Learn how the raster data model represents continuous spatial phenomena using large numerical matrices, and why NumPy is required to process them.  
+**Skip this if:** You already deeply understand the difference between vector and raster data, and how geographic surfaces are stored as NumPy arrays.
+
 ```
 
 ---
@@ -42,9 +58,9 @@ The raster model relies on the continuous field view. It assumes that for any gi
 
 ## 2. The Matrix
 
-To represent these continuous fields digitally, the raster model divides space into an array of rectangular cells, commonly known as pixels.
+To represent these continuous fields digitally, the raster model divides space into an **{term}`array <Array>`** of rectangular cells, commonly known as **{term}`pixels <Pixel>`**.
 
-You can visualize a raster layer as a massive two-dimensional spreadsheet or matrix. The physical size of each pixel on the ground determines the spatial resolution of the data. For example, in a 10-meter resolution satellite image, every single pixel represents a 10-by-10-meter square of the Earth's surface.
+You can visualize a raster layer as a massive two-dimensional spreadsheet or matrix. The physical size of each pixel on the ground determines the **{term}`spatial resolution <Spatial resolution>`** of the data. For example, in a 10-meter resolution satellite image, every single pixel represents a 10-by-10-meter square of the Earth's surface.
 
 Because the grid is perfectly uniform, a raster file does not need to store the exact latitude and longitude of every single pixel. It only needs to store the coordinates of the top left corner, the pixel size, and the massive grid of numbers. The computer can easily calculate the location of any other pixel based on its row and column position.
 
@@ -62,27 +78,45 @@ To perform spatial data science on continuous surfaces, we need a different engi
 
 ## 4. Enter NumPy
 
-The foundation of high-speed raster processing in Python is `numpy` (Numerical Python). It is the core library for numerical computing and is used for representing and working with multidimensional arrays.
+The foundation of high-speed raster processing in Python is **{term}`NumPy`** (`numpy` / Numerical Python). It is the core library for numerical computing and is used for representing and working with multidimensional arrays.
 
-Instead of storing data in fragmented memory locations like standard lists, NumPy stores arrays in contiguous blocks of memory. More importantly, it utilizes a concept called vectorization. When you ask NumPy to multiply a raster grid by a constant, it does not loop through the pixels one by one. It pushes the operation down to highly optimized C code, performing the math on the entire matrix almost simultaneously.
+Instead of storing data in fragmented memory locations like standard lists, NumPy stores arrays in contiguous blocks of memory. More importantly, it utilizes a concept called **{term}`vectorization <Vectorization>`**. When you ask NumPy to multiply a raster grid by a constant, it does not loop through the pixels one by one. It pushes the operation down to highly optimized C code, performing the math on the entire matrix almost simultaneously.
 
 This array architecture has a massive influence on how all modern raster libraries function. Whether you are using advanced tools like `xarray` or `rasterio` later in this course, under the hood, you are always manipulating a NumPy array.
+
+#### Concept Check: The Loop Bottleneck
+
+Scenario: You have a high-resolution satellite image with 10 million pixels representing land surface temperature. You want to convert the temperature from Kelvin to Celsius. Why shouldn't you use a standard Python `for` loop to iterate through every pixel?
+
+Option 1: `for` loops cannot access pixel values; you must use a spatial join.
+
+Option 2: Standard Python lists and loops are not optimized for massive matrices and will hit a severe performance wall.
+
+Option 3: The data is continuous, so you can only calculate the area, not the temperature.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: Option 2**
+Raster data relies on massive matrices. Standard Python loops iterate one by one, which takes far too long for millions of cells. NumPy solves this using 'vectorization', pushing operations down to optimized C code to compute the whole matrix almost instantly.
+
+```
 
 ---
 
 ## 5. The Python Raster Ecosystem
 
-While NumPy provides the raw mathematical power for representing and working with multidimensional arrays, writing raw matrix calculations to open a satellite image from scratch would be exhausting. 
+While NumPy provides the raw mathematical power for representing and working with multidimensional arrays, writing raw matrix calculations to open a satellite image from scratch would be exhausting.
 
 Because NumPy has a big influence on how other raster libraries function, the spatial data science community has built an entire ecosystem of specialized tools directly on top of it. There are a number of libraries widely used when working with raster data in Python.
 
 Here are the core libraries you will encounter:
 
-  * **`rasterio`**: This is the core library for working with GIS raster data. It acts as the fundamental bridge between Python and physical raster files on your hard drive.
-  * **`xarray`**: This library provides a user-friendly and intuitive way to work with multidimensional raster data that includes coordinates and attributes. You can think of it as the raster equivalent to GeoPandas, which is used for vector data processing.
-  * **`rioxarray`**: This is a powerful extension of the `rasterio` library that brings those same core functionalities directly on top of the `xarray` library. It provides methods to conduct GIS-related operations with raster data, such as reading, writing, reprojecting, clipping, and resampling.
-  * **`xarray-spatial`**: Once your data is loaded and structured, this library provides methods for analyzing raster data. It includes advanced tools for focal and zonal operations, surface analysis, and pathfinding.
-  * **`geocube`**: This library provides methods for doing data conversions between raster and vector formats. It is the essential tool when you need to bridge the two mental models by rasterizing vector polygons or vectorizing raster pixels.
+* **`rasterio`**: This is the core library for working with GIS raster data. It acts as the fundamental bridge between Python and physical raster files on your hard drive.
+* **`xarray`**: This library provides a user-friendly and intuitive way to work with multidimensional raster data that includes coordinates and attributes. You can think of it as the raster equivalent to GeoPandas, which is used for vector data processing.
+* **`rioxarray`**: This is a powerful extension of the `rasterio` library that brings those same core functionalities directly on top of the `xarray` library. It provides methods to conduct GIS-related operations with raster data, such as reading, writing, reprojecting, clipping, and resampling.
+* **`xarray-spatial`**: Once your data is loaded and structured, this library provides methods for analyzing raster data. It includes advanced tools for focal and zonal operations, surface analysis, and pathfinding.
+* **`geocube`**: This library provides methods for doing data conversions between raster and vector formats. It is the essential tool when you need to bridge the two mental models by rasterizing vector polygons or vectorizing raster pixels.
 
 In addition to these foundational tools, there are a number of other libraries that are specialized to specific types of analyses or data. We will learn about a few of them later in the book. But for now, remember that whether you are calculating a vegetation index or reprojecting a digital elevation model, these libraries are all seamlessly passing NumPy matrices back and forth behind the scenes.
 
@@ -107,14 +141,7 @@ import matplotlib.pyplot as plt
 # Create a 5x5 array filled with zeros
 raster_layer = np.zeros((5, 5))
 print(raster_layer)
-```
 
-```text
-[[0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0.]]
 ```
 
 ### Step 2: Sculpting the Terrain
@@ -133,14 +160,7 @@ raster_layer[1:4, 1:4] = 5
 raster_layer[2, 2] = 10
 
 print(raster_layer)
-```
 
-```text
-[[ 0.  0.  0.  0.  0.]
- [ 0.  5.  5.  5.  0.]
- [ 0.  5. 10.  5.  0.]
- [ 0.  5.  5.  5.  0.]
- [ 0.  0.  0.  0.  0.]]
 ```
 
 ### Step 3: Visualizing the Matrix
@@ -155,15 +175,14 @@ plt.imshow(raster_layer, cmap='terrain')
 plt.colorbar(label='Elevation')
 plt.title('Simple Raster Layer representing a Hill')
 plt.show()
+
 ```
 
-:::{figure} images/01_toy_terrain.png
-:alt: A 5x5 pixelated grid displaying a terrain colormap. The outer edge is dark blue (0), the inner ring is green (5), and the exact center pixel is a white/brown peak (10). A colorbar on the right is labeled 'Elevation'.
-:width: 500px
-:align: center
-
-*Output: A simple 5x5 raster layer visualized with Matplotlib. The numerical values of the matrix are mapped directly to the 'terrain' colormap, creating a top-down view of a pixelated hill.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: A simple 5x5 raster layer visualized with Matplotlib. The numerical values of the matrix are mapped directly to the 'terrain' colormap, creating a top-down view of a pixelated hill.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 The colormap of the visualization was determined using the parameter `cmap`, while the `plt.colorbar()` function was used to add a legend to the right side of the image, and the `plt.title()` was used to add a simple title.
 
@@ -175,7 +194,8 @@ However, there are various aspects related to working with GIS raster data that 
 
 Before we move on to real spatial data containing those missing elements, take a moment to explore the connection between raw numbers and topography. Below, you can interact with a numerical matrix to see exactly how changing the raw values of a grid instantly alters the physical topography and visual rendering of a continuous spatial field.
 
-<iframe 
+<!-- markdownlint-disable MD033-->
+<iframe
     src="https://hendrikwulf.github.io/sds210_assets_L09_ch01_01_terrain_matrix/"
     width="100%"
     title="Interactive Terrain Matrix Editor"
@@ -184,12 +204,14 @@ Before we move on to real spatial data containing those missing elements, take a
     allowfullscreen>
 </iframe>
 
-*Interactive Terrain Matrix Editor. For improved visibility of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_L09_ch01_01_terrain_matrix/).* 
-
----
+<figcaption>
+    <em><b>Interactive Explorer: Terrain Matrix Editor.</b><br>
+    Change the numerical values inside the 5x5 matrix grid and watch how the rendered 3D terrain surface updates instantly. This demonstrates exactly how continuous geographic surfaces like elevation are stored and interpreted by the computer as a simple grid of numbers. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L09_ch01_01_terrain_matrix/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
 
 ## 7. Summary
 
 The transition from vector to raster requires a shift in how you write code.
 
-You are no longer extracting geometries and querying intersections. Instead, you are manipulating massive matrices of numbers. By leveraging the speed of multidimensional arrays, you can perform map algebra, overlay multiple spectral bands, and analyze continuous environmental phenomena across millions of pixels in milliseconds.
+You are no longer extracting geometries and querying intersections. Instead, you are manipulating massive matrices of numbers. By leveraging the speed of multidimensional arrays, you can perform **{term}`map algebra <Map algebra>`**, overlay multiple spectral bands, and analyze continuous environmental phenomena across millions of pixels in milliseconds.

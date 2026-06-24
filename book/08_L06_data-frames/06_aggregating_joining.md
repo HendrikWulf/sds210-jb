@@ -41,9 +41,11 @@ Raw data is just a collection of numbers. To create actual knowledge, you need t
 
 Before we begin, make sure you have downloaded the necessary datasets for this section. We will be using our familiar Kloten datasets, plus a new extended dataset from Lugano.
 
-```{admonition} Download the Datasets
-:class: note
-Please download these files to your local working directory:
+```{admonition} Data Preparation
+:class: dropdown
+
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
+
 * [kloten_summer_2022_rain_sun.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_rain_sun.csv)
 * [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
 * [Lugano_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/Lugano_summer_2022_extended.txt)

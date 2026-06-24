@@ -42,9 +42,11 @@ In the previous sections, we learned how to load shapes, project them onto a met
 
 In this section, we transition to answering complex **{term}`spatial questions <Spatial queries>`** by comparing two entirely different datasets. You will learn how to evaluate the physical relationships between geometries and use those relationships to filter data and find nearest neighbors.
 
-```{admonition} Download the Datasets
-:class: note
-Please download these files to your local working directory for this lesson:
+```{admonition} Data Preparation
+:class: dropdown
+
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
+
 * [meteoswiss_pollen_network.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/meteoswiss_pollen_network.csv)
 * [NuclearPowerPlant.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/NuclearPowerPlant.csv)
 * [swissBoundaries3D_cantons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_cantons.gpkg)
@@ -248,9 +250,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Visualizing our engineered metric. By combining a simple Python loop with a spatial predicate (`.within()`), we successfully generated a brand new geographical layer. Notice how the light grey cantons were automatically skipped by our `if not stations_inside.empty:` logic!</em>
-</figcaption>
+<div class="figure-caption-like">
+    Visualizing our engineered metric. By combining a simple Python loop with a spatial predicate (`.within()`), we successfully generated a brand new geographical layer. Notice how the light grey cantons were automatically skipped by our `if not stations_inside.empty:` logic!
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---
@@ -332,9 +334,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Visual proof of our spatial filter. Notice that if even a tiny sliver of a commune's border crossed into the dashed 16km evacuation zone, the entire commune polygon was correctly flagged as `True` by the `.intersects()` predicate and highlighted in red.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Visual proof of our spatial filter. Notice that if even a tiny sliver of a commune's border crossed into the dashed 16km evacuation zone, the entire commune polygon was correctly flagged as `True` by the `.intersects()` predicate and highlighted in red.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---

@@ -38,12 +38,10 @@ You have mastered the mechanics of the **{term}`Matplotlib`** **{term}`Figure <F
 
 ```
 
-### Preparing the Data
+```{admonition} Data Preparation
+:class: dropdown
 
-To follow along with this chapter and complete the exercises, please download the following datasets and place them in a `data` folder next to your notebook.
-
-```{admonition} Data Downloads
-:class: note
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
 
 * [Land Polygons (ne_10m_land.zip)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/ne_10m_land.zip)
 * [Ocean Polygons (ne_10m_ocean.zip)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/ne_10m_ocean.zip)
@@ -82,9 +80,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output: GeoPandas automatically interprets the polygon geometries and draws them on the provided `ax` object.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output: GeoPandas automatically interprets the polygon geometries and draws them on the provided `ax` object.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ```{admonition} The Magic Parameter
@@ -145,9 +143,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output: By sharing the `ax` object, both the ocean and land datasets are rendered onto the same plotting canvas.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output: By sharing the `ax` object, both the ocean and land datasets are rendered onto the same plotting canvas.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---
@@ -203,9 +201,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output: A complete geographic composition using `zorder` to ensure all five layers stack correctly, styled intuitively with named colors.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output: A complete geographic composition using `zorder` to ensure all five layers stack correctly, styled intuitively with named colors.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---
@@ -316,9 +314,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output: A more professional-looking map featuring the Equal Earth projection, intuitive color definitions, logical `zorder` stacking, and an axis-free layout.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output: A more professional-looking map featuring the Equal Earth projection, intuitive color definitions, logical `zorder` stacking, and an axis-free layout.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---

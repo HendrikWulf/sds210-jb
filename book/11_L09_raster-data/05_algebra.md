@@ -5,9 +5,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Environmental analysis with raster mathematics
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -19,20 +21,33 @@ Environmental analysis with raster mathematics
 :class: tip
 
 Raster bands are essentially numerical matrices. By performing mathematical operations across multiple aligned bands, we can extract entirely new environmental insights that are invisible in raw imagery.
+
 ```
 
-**Preparing the Data**
+```{admonition} Chapter Relevance
+:class: dropdown
 
-To follow along with this chapter, please download the following datasets and place them in a `data` folder next to your notebook. This package contains the Landsat imagery required to calculate indices and detect environmental changes over time.
+**Lab Relevance:** ★★★ (Essential for calculating indices and performing change detection in assignments)  
+**Project Relevance:** ★★★ (Crucial for deriving custom analytical masks for environmental research)  
+**Foundation:** ★★★ (The practical application of array math to spatial challenges)  
 
-```{admonition} Data Downloads
-:class: note
+**Time to Read:** 15 minutes  
+**In a nutshell:** Master pixel-by-pixel mathematics to calculate environmental indices, detect temporal changes, and extract hidden insights from raster arrays.  
+**Skip this if:** You are completely comfortable doing element-wise array math, handling `NaN` warning states with `np.errstate`, and calculating spectral indices like NDSI or EVI across multispectral rasters.
+
+```
+
+```{admonition} Data Preparation
+:class: dropdown
+
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook: 
 
 * [Landsat 9 Multispectral Subset NZ (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
 * [Landsat 8 Indonesia 2023 (LC08_121061_20230814_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC08_121061_20230814_subset.tif)
 * [Landsat 8 Indonesia 2019 (LC08_121061_20190904_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC08_121061_20190904_subset.tif)
 * [GERD Before Flood (GERD_before_composite_SWIR1_NIR_Green.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/GERD_before_composite_SWIR1_NIR_Green.tif)
 * [GERD After Flood (GERD_after_composite_SWIR1_NIR_Green.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/GERD_after_composite_SWIR1_NIR_Green.tif)
+
 ```
 
 ---
@@ -41,7 +56,7 @@ To follow along with this chapter, please download the following datasets and pl
 
 In the previous chapters, you learned how to read spatial grids into memory and visualize them using cartographic techniques. Now, we transition from visualization to calculation.
 
-Map algebra is the process of performing mathematical operations pixel by pixel across one or multiple raster grids. Because Rasterio seamlessly converts geographic bands into standard NumPy arrays, performing map algebra in Python is identical to performing matrix mathematics. If you have two perfectly aligned arrays representing different parts of the light spectrum, you can add, subtract, multiply, or divide their values to generate a brand new surface. This is how you can calculate derived environmental indices, track deforestation, and map flood boundaries.
+**{term}`Map algebra`** is the process of performing mathematical operations pixel by pixel across one or multiple raster grids. Because Rasterio seamlessly converts geographic bands into standard **{term}`NumPy`** **{term}`arrays <Array>`**, performing map algebra in Python is identical to performing matrix mathematics. If you have two perfectly aligned arrays representing different parts of the light spectrum, you can add, subtract, multiply, or divide their values to generate a brand new surface. This is how you can calculate derived environmental indices, track deforestation, and map flood boundaries.
 
 ---
 
@@ -51,7 +66,7 @@ Raw satellite data records the amount of light reflected by the Earth. By mathem
 
 ### The Normalized Difference Snow Index
 
-To map snow and ice coverage, scientists use the Normalized Difference Snow Index (NDSI). Snow reflects visible light very strongly (which is why it looks bright white to our eyes) but absorbs Shortwave Infrared (SWIR) light. By comparing the Green band and the SWIR band, we can easily isolate snow from clouds and bare rock.
+To map snow and ice coverage, scientists use the **{term}`Normalized Difference Snow Index`** (NDSI). Snow reflects visible light very strongly (which is why it looks bright white to our eyes) but absorbs Shortwave Infrared (SWIR) light. By comparing the Green band and the SWIR band, we can easily isolate snow from clouds and bare rock.
 
 The mathematical formula for NDSI is:
 
@@ -75,11 +90,12 @@ with rasterio.open(filepath) as src:
     green = src.read(2).astype(float)
     nir = src.read(4).astype(float)
     swir2 = src.read(6).astype(float)
+
 ```
 
 ### Suppressing Division Warnings
 
-When performing division across millions of pixels, you will inevitably encounter "divide by zero" or "invalid value" warnings. This occurs because the background areas outside the satellite image footprint contain zeros (NoData values). Dividing zero by zero produces a warning and returns `NaN` (Not a Number).
+When performing division across millions of pixels, you will inevitably encounter "divide by zero" or "invalid value" warnings. This occurs because the background areas outside the satellite image footprint contain zeros (NoData values). Dividing zero by zero produces a warning and returns `NaN` (**{term}`NaN`**).
 
 We can handle this cleanly using a NumPy context manager, which temporarily suppresses these expected warnings during the calculation.
 
@@ -98,17 +114,34 @@ plt.imshow(snow, cmap=cmc.batlowW, vmin=0, vmax=1)
 plt.title("Snow & Ice Map (NDSI > 0.6)")
 plt.axis('off')
 plt.show()
+
 ```
 
-:::{figure} images/19_snow.png
-:alt: A binary map showing isolated patches of snow and ice in bright white against a dark background of snow-free terrain.
-:width: 600px
-:align: center
-
-*Output: A binary snow mask. By chaining NumPy operations, we excluded water and isolated snow pixels from all other land surfaces.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: A binary snow mask. By chaining NumPy operations, we excluded water and isolated snow pixels from all other land surfaces.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 While the raw NDSI calculation yields a continuous array ranging from -1 to 1 (where values closer to 1 represent confident snow cover), our conditional filters converted this into a binary mask. The final `snow` map contains only values of `0` (no snow/ice) and `1` (snow/ice), which makes it incredibly easy to quantify the total snow-covered area in subsequent analyses.
+
+#### Concept Check: The Division Dilemma
+
+**Scenario:** When calculating a spectral index like the NDSI across millions of pixels, you wrap your mathematical formula inside `with np.errstate(divide='ignore', invalid='ignore'):`. What is the primary purpose of this context manager?
+
+A) To automatically delete any pixels that contain clouds or shadows from the dataset.
+
+B) To prevent Python from filling the console with warnings or crashing when the formula inevitably attempts to divide by zero in the empty (NoData) background areas of the raster.
+
+C) To mathematically force all negative index values to become positive numbers.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+Satellite images are rectangular arrays, but the Earth data inside them is often irregularly shaped, leaving borders filled with `0` or NoData. Since index formulas use division, dividing by these zero-filled background areas throws errors. Suppressing these specific warnings keeps your console clean without altering the valid math happening in the rest of the array.
+
+```
 
 ---
 
@@ -118,13 +151,11 @@ Map algebra is not limited to combining bands from a single image. If you have t
 
 Let us look at an example of deforestation in Indonesia using Landsat 8 data from 2019 and 2023.
 
-### Difference in EVI
-
-The Enhanced Vegetation Index (EVI) is heavily used to monitor biomass and canopy structure. The formula is slightly more complex than simple normalized differences:
+The **{term}`Enhanced Vegetation Index`** (EVI) is heavily used to monitor biomass and canopy structure. The formula is slightly more complex than simple normalized differences:
 
 $$EVI = 2.5 \times \frac{NIR - Red}{NIR + 6 \times Red - 7.5 \times Blue + 1}$$
 
-To detect deforestation, we calculate the EVI for the older image, calculate the EVI for the newer image, and subtract the two. To verify that our math aligns with reality, it is highly useful to visualize this calculated EVI change alongside False Color Composites (FCCs) of the original dates.
+To detect deforestation, we calculate the EVI for the older image, calculate the EVI for the newer image, and subtract the two. To verify that our math aligns with reality, it is highly useful to visualize this calculated EVI change alongside **{term}`False Color Composites <False color composite>`** (FCCs) of the original dates.
 
 Assuming we have already loaded our arrays and calculated the `evi_change`, we can build a three-panel comparison plot.
 
@@ -201,21 +232,38 @@ cbar.ax.tick_params(labelsize=16)
 
 plt.tight_layout()
 plt.show()
+
 ```
 
-:::{figure} images/20_evi_change.png
-:alt: A three-panel image comparing a forest in 2019 and 2023 using False Color Composites, alongside a third map highlighting the EVI change.
-:width: 800px
-:align: center
-
-*Output: By comparing the 2019 and 2023 False Color Composites, we can visually spot the expansion of bare land. The EVI change map quantifies this exactly, using the diverging `bam` colormap to highlight regions of severe vegetation loss in dark red.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: By comparing the 2019 and 2023 False Color Composites, we can visually spot the expansion of bare land. The EVI change map quantifies this exactly, using the diverging `bam` colormap to highlight regions of severe vegetation loss in dark red.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 Deep red areas in this output clearly identify zones where active deforestation has removed the vegetation canopy over the four-year period.
 
+---
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L09_ch05_01_change_detetion/"
+    width="100%"
+    title="Interactive Affine Transform Visualizer"
+    frameborder="0"
+    style="height: 700px; min-height: 700px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+    allowfullscreen>
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Map Algebra Change Detection.</b><br>
+    Click any cell in the "Time 1" or "Time 2" grids to manually toggle between high values (e.g., forest) and low values (e.g., deforested). Observe how element-wise array subtraction instantly generates a "Change" mask, converting complex visual differences into quantifiable negative values (loss, highlighted in red) or positive values (gain, highlighted in blue). For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L09_ch05_01_change_detetion/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
+
 ### Calculating Spectral Distance
 
-While examining a specific index like EVI is highly useful for targeting vegetation, sometimes you want to know the total overall change across the entire spectrum. To do this, we calculate the Euclidean spectral distance between the two dates across all available bands.
+While examining a specific index like EVI is highly useful for targeting vegetation, sometimes you want to know the total overall change across the entire spectrum. To do this, we calculate the **{term}`Euclidean distance`** between the spectral signatures of the two dates across all available bands.
 
 $$Distance = \sqrt{(Blue_{new} - Blue_{old})^2 + (Green_{new} - Green_{old})^2 + \dots}$$
 
@@ -262,15 +310,14 @@ plt.title("Total Spectral Distance")
 plt.colorbar(label="Magnitude of Change")
 plt.axis('off')
 plt.show()
+
 ```
 
-:::{figure} images/21_spectral_distance.png
-:alt: A heatmap of total spectral distance showing the magnitude of change between 2019 and 2023, with bright colors highlighting areas of significant land cover alteration.
-:width: 600px
-:align: center
-
-*Output: Total Spectral Distance using the sequential `lajolla` colormap. Bright areas represent pixels that have drastically shifted their reflectance signature, serving as a universal mask for land surface change.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: Total Spectral Distance using the sequential `lajolla` colormap. Bright areas represent pixels that have drastically shifted their reflectance signature, serving as a universal mask for land surface change.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 Spectral distance serves as a powerful general change mask, highlighting any pixel that looks fundamentally different today than it did in the past, regardless of whether that change was driven by deforestation, urbanization, or flooding.
 
@@ -286,7 +333,9 @@ You are provided with two 3 band composite images: `GERD_before_composite_SWIR1_
 
 1. Open both datasets and read the Green and NIR bands as float arrays.
 2. Calculate the Normalized Difference Water Index (NDWI) for both the "before" and "after" periods. The formula is:
-   $$NDWI = \frac{Green - NIR}{Green + NIR}$$
+
+$$NDWI = \frac{Green - NIR}{Green + NIR}$$
+
 3. Calculate the NDWI difference by subtracting the "before" array from the "after" array.
 4. Create a binary flood mask. A pixel represents new water (a flood) if the NDWI difference is greater than `0.2`.
 5. To visually verify your math, generate False Color Composites (using the SWIR1, NIR, and Green bands) for both time periods. Plot these alongside your binary flood mask in a three panel side by side comparison.
@@ -296,7 +345,7 @@ You are provided with two 3 band composite images: `GERD_before_composite_SWIR1_
 
 ```
 
-````{admonition} Sample Solution
+``````{admonition} Sample Solution
 :class: dropdown
 
 ```{code-cell} python
@@ -370,7 +419,8 @@ plt.show()
 
 *Output: By viewing the False Color Composites alongside the derived flood mask, we can confirm that our map algebra successfully isolated the newly inundated areas. In the FCCs, the dark blue/black regions represent water, which expands significantly in the "After" image.*
 :::
-````
+
+``````
 
 ---
 
