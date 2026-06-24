@@ -5,9 +5,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 From GeoTIFF files on disk to spatial arrays in memory
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -19,26 +21,39 @@ From GeoTIFF files on disk to spatial arrays in memory
 :class: tip
 
 A raster file stores two things at once: a grid of values and the spatial information that tells the computer where that grid belongs on Earth. Rasterio lets you access both.
+
 ```
 
-**Preparing the Data**
+```{admonition} Chapter Relevance
+:class: dropdown
 
-To follow along with this chapter and complete the exercises, please download the following datasets and place them in a `data` folder next to your notebook.
+**Lab Relevance:** ★★★ (Crucial for importing and accessing raster data in labs)  
+**Project Relevance:** ★★★ (Essential if your project relies on raster environmental grids)  
+**Foundation:** ★★★ (Core concept establishing the link between arrays and geographic space)  
 
-```{admonition} Data Downloads
-:class: note
+**Time to Read:** 15 minutes  
+**In a nutshell:** Learn how to use the Rasterio library to safely open GeoTIFF files, extract their numerical data into NumPy arrays, and access their critical spatial metadata.  
+**Skip this if:** You are fully comfortable opening rasters using the `with rasterio.open()` context manager, extracting bands with `.read()`, and retrieving metadata like `.crs` and `.transform`.
+
+```
+
+```{admonition} Data Preparation
+:class: dropdown
+
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook: 
 
 * [Copernicus DEM New Zealand (Copernicus_DEM_NZ_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/Copernicus_DEM_NZ_subset.tif)
 * [Landsat 9 Multispectral Subset (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
+
 ```
 
 ---
 
 ## 1. What is Rasterio?
 
-You have seen how NumPy powers the numerical calculations required for processing continuous grids. However, NumPy alone does not know how to open a GeoTIFF file, nor does it understand geographic coordinate systems.
+You have seen how **{term}`NumPy`** powers the numerical calculations required for processing continuous grids. However, NumPy alone does not know how to open a **{term}`GeoTIFF`** file, nor does it understand geographic **{term}`coordinate reference systems <Coordinate Reference System>`**.
 
-To work with real spatial data, we need a translator. `rasterio` is a core Python library for reading and writing geospatial raster data. Built on top of the robust C++ geospatial library GDAL, Rasterio acts as the practical bridge between the physical raster files saved on your hard drive and the fast NumPy arrays you use for analysis in your computer's memory.
+To work with real spatial data, we need a translator. `rasterio` is a core Python library for reading and writing geospatial raster data. Built on top of the robust C++ geospatial library GDAL, Rasterio acts as the practical bridge between the physical raster files saved on your hard drive and the fast NumPy **{term}`arrays <Array>`** you use for analysis in your computer's memory.
 
 ---
 
@@ -57,11 +72,7 @@ filepath = "data/Copernicus_DEM_NZ_subset.tif"
 with rasterio.open(filepath) as src:
     print(src.name)
     print(src.mode)
-```
 
-```text
-data/Copernicus_DEM_NZ_subset.tif
-r
 ```
 
 Using the `with` statement is a strict best practice. It creates a temporary context for the `src` object (the "source" dataset). The moment your code finishes executing the indented block, Rasterio automatically closes the file and releases the memory, even if an error occurs during processing.
@@ -88,13 +99,7 @@ print(f"Type: {type(elevation)}")
 print(f"Dimensions: {elevation.ndim}")
 print(f"Shape: {elevation.shape}")
 print(f"Data type: {elevation.dtype}")
-```
 
-```text
-Type: <class 'numpy.ndarray'>
-Dimensions: 2
-Shape: (2038, 2170)
-Data type: float32
 ```
 
 Notice the critical transition here: `src` was a Rasterio dataset object, but `elevation` is purely a standard `numpy.ndarray`. You have successfully crossed the bridge into the familiar territory of NumPy matrix math.
@@ -103,6 +108,24 @@ This physical structure connects directly to your array dimensions:
 
 * Reading a single specific band using `.read(1)` creates a two dimensional NumPy array of rows and columns.
 * If you read the entire multiband dataset at once using `.read()`, Rasterio creates a three dimensional NumPy array stacked by bands, rows, and columns.
+
+#### Concept Check: Properties of the Array vs. Dataset
+
+**Scenario:** You successfully open a GeoTIFF file and read the first band into a NumPy array using `data = src.read(1)`. To verify the geographic projection of your new array, you type `print(data.crs)`. What happens?
+
+A) Python prints the EPSG code of the map projection (e.g., "EPSG:4326").
+
+B) Python throws an AttributeError.
+
+C) Python returns the mathematical transform matrix.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+Python will throw an AttributeError because `data` is a pure NumPy array, which only understands rows, columns, and numbers. It has no `.crs` attribute. The spatial projection, coordinate system, and all other geographical properties are securely stored within the original Rasterio dataset object (`src`), *not* the extracted array!
+
+```
 
 ---
 
@@ -116,6 +139,7 @@ from rasterio.plot import show
 with rasterio.open(filepath) as src:
     # Display the raster directly from the source object
     show(src, title="New Zealand Elevation DEM", cmap="terrain")
+
 ```
 
 :::{figure} images/04_elevation_nz.png
@@ -134,11 +158,11 @@ This `show()` function allows you to quickly spot missing data values or confirm
 
 We have reached a critical conceptual pivot point.
 
-Once you extract a raster band using `.read(1)`, your data becomes a standard NumPy grid of numbers. If you only look at the extracted `elevation` array, the top-left pixel is simply located at row `0`, column `0`.
+If you only look at the extracted `elevation` array, the top-left pixel is simply located at row `0`, column `0`.
 
 How does the computer know where this specific array actually sits on the Earth? How does it know whether the grid cells represent 10-meter squares in New Zealand or 30-meter squares in Switzerland?
 
-The NumPy array itself does not know. To answer these questions, we need **metadata**.
+The NumPy array itself does not know. To answer these questions, we need **{term}`metadata <Metadata>`**.
 
 ### The Geo in the Grid
 
@@ -151,11 +175,7 @@ with rasterio.open(filepath) as src:
     metadata = src.meta
     
 print(metadata)
-```
 
-```text
-{'driver': 'GTiff', 'dtype': 'float32', 'nodata': None, 'width': 2170, 'height': 2038, 'count': 1, 'crs': CRS.from_wkt('PROJCS["WGS 84 / UTM zone 59S",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",171],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",10000000],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32759"]]'), 'transform': Affine(30.0, 0.0, 399660.0,
-       0.0, -30.0, 5208780.0)}
 ```
 
 This metadata dictionary is vital. When you finish crunching numbers in NumPy and want to save your results as a new GeoTIFF, you must pass this metadata back to Rasterio so the new file retains its correct geographic positioning.
@@ -170,11 +190,7 @@ Just like GeoPandas vector layers, every spatial raster has a Coordinate Referen
 with rasterio.open(filepath) as src:
     print(f"CRS: {src.crs}")
     print(f"Bounds: {src.bounds}")
-```
 
-```text
-CRS: EPSG:32759
-Bounds: BoundingBox(left=399660.0, bottom=5147640.0, right=464760.0, top=5208780.0)
 ```
 
 ### The Affine Transform
@@ -187,16 +203,21 @@ Keep the concept practical: the NumPy array provides the row and column position
 
 To understand how this mathematical mapping works without writing complex formulas, explore the interactive transform visualizer below.
 
+<!-- markdownlint-disable MD033-->
 <iframe
-src="https://hendrikwulf.github.io/sds210_assets_L09_ch03_affine_transform_visualizer/"
-width="100%"
-title="Interactive Affine Transform Visualizer"
-frameborder="0"
-style="height: 700px; min-height: 700px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
-allowfullscreen>
+    src="https://hendrikwulf.github.io/sds210_assets_L09_ch03_02_affine_transform_visualizer/"
+    width="100%"
+    title="Interactive Affine Transform Visualizer"
+    frameborder="0"
+    style="height: 700px; min-height: 700px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+    allowfullscreen>
 </iframe>
 
-*For an alternative standalone version of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_L09_ch03_affine_transform_visualizer/).*
+<figcaption>
+    <em><b>Interactive Explorer: Affine Transform Visualizer.</b><br>
+    Click different pixels within the Raster Matrix to observe how the Affine Transform acts as a mathematical bridge. It instantly converts the row and column indices of a "dumb" array into precise real-world geographic coordinates using the origin point and pixel size. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L09_ch03_02_affine_transform_visualizer/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -219,7 +240,7 @@ You are given a multispectral satellite image subset: `data/LC09_L1TP_075090_202
 
 ```
 
-````{admonition} Sample Solution
+``````{admonition} Sample Solution
 :class: dropdown
 
 ```{code-cell} python
@@ -272,7 +293,8 @@ Transform:
 
 *Output: Visualizing the Near Infrared band. Because we loaded the data into a standard NumPy array, we can easily apply Matplotlib colormaps like `gray` to enhance contrast.*
 :::
-````
+
+``````
 
 ---
 

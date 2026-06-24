@@ -38,12 +38,10 @@ A beautifully designed static map is a powerful communication tool for reports a
 
 ```
 
-**Preparing the Data**
+```{admonition} Data Preparation
+:class: dropdown
 
-To follow along with this chapter, we are heading to Zurich, Switzerland. Please download the following datasets and place them in your `data` folder. They contain geographic information about the city's bicycle infrastructure and administrative boundaries.
-
-```{admonition} Data Downloads
-:class: note
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
 
 * [Zurich Quarters (Zurich_quarters.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/Zurich_quarters.gpkg)
 * [EV Charging Stations (EV_charging_stations.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/EV_charging_stations.gpkg)
@@ -103,9 +101,9 @@ zurich_map
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>A fully interactive canvas. You can click and drag to pan around, and use your scroll wheel to zoom in and out of the city.</em>
-</figcaption>
+<div class="figure-caption-like">
+    A fully interactive canvas. You can click and drag to pan around, and use your scroll wheel to zoom in and out of the city.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Changing the Basemap
@@ -154,9 +152,9 @@ clean_map
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Example of a clean map with custom attribution.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Example of a clean map with custom attribution.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---
@@ -214,9 +212,9 @@ m1
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output Step 1: The raw data is added to the map. By default, Folium renders point geometries as standard blue clickable markers.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output Step 1: The raw data is added to the map. By default, Folium renders point geometries as standard blue clickable markers.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 2: Giving the User Control
@@ -241,9 +239,9 @@ m2
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output Step 2: The LayerControl widget appears in the top right, allowing users to interactively filter which datasets are currently visible.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output Step 2: The LayerControl widget appears in the top right, allowing users to interactively filter which datasets are currently visible.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 3: Adding Tooltips
@@ -273,9 +271,9 @@ m3
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output Step 3: Hovering over any marker now instantly queries the GeoDataFrame and displays the exact number of parking spaces available.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output Step 3: Hovering over any marker now instantly queries the GeoDataFrame and displays the exact number of parking spaces available.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 4: Custom Icons
@@ -304,9 +302,9 @@ m4
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output Step 4: Thematic icons drastically improve the immediate readability of the map, instantly communicating that these points relate to bicycles.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output Step 4: Thematic icons drastically improve the immediate readability of the map, instantly communicating that these points relate to bicycles.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 5: Managing Clutter with Marker Clusters
@@ -348,9 +346,9 @@ m5
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output Step 5: By iterating through the data, we create a clean, performant clustered map where the interactive tooltips remain fully functional upon zooming in. The map now shows clustered circles with numbers indicating how many parking spots are in a given area. Clicking them expands into the bicycle icons.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output Step 5: By iterating through the data, we create a clean, performant clustered map where the interactive tooltips remain fully functional upon zooming in. The map now shows clustered circles with numbers indicating how many parking spots are in a given area. Clicking them expands into the bicycle icons.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 6: Scaling Symbols (advanced)
@@ -411,9 +409,9 @@ m6
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output Step 6: Data-driven visual scaling. By injecting custom HTML/CSS and scaling by the square root of the capacity, the map now instantly communicates both the location and the magnitude of the bicycle infrastructure.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output Step 6: Data-driven visual scaling. By injecting custom HTML/CSS and scaling by the square root of the capacity, the map now instantly communicates both the location and the magnitude of the bicycle infrastructure.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---
@@ -464,9 +462,9 @@ m
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output Step 1: A basic interactive choropleth. Folium automatically generates and places a color scale legend in the top right corner.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output Step 1: A basic interactive choropleth. Folium automatically generates and places a color scale legend in the top right corner.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 2: Spatial Joins and Density
@@ -569,9 +567,9 @@ m2
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output Step 3: A multi-layered thematic map. The invisible GeoJson layer captures mouse movements to display tooltip data, while `show=False` ensures the initial view is not cluttered with overlapping colors.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output Step 3: A multi-layered thematic map. The invisible GeoJson layer captures mouse movements to display tooltip data, while `show=False` ensures the initial view is not cluttered with overlapping colors.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---
@@ -604,9 +602,9 @@ interactive_map
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>An interactive thematic map generated in one line of code. Notice that by default, the tooltip automatically displays every single attribute column available in the GeoDataFrame.</em>
-</figcaption>
+<div class="figure-caption-like">
+    An interactive thematic map generated in one line of code. Notice that by default, the tooltip automatically displays every single attribute column available in the GeoDataFrame.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### `.explore()`, Pure Folium, and the Hybrid Approach

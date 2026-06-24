@@ -5,9 +5,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 From quick previews to meaningful raster maps
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -19,23 +21,36 @@ From quick previews to meaningful raster maps
 :class: tip
 
 Raster visualization is never just about showing pixels. Every plot is a choice about how numerical values are translated into visual meaning.
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for validating and presenting raster analysis results)  
+**Project Relevance:** ★★★ (Crucial for generating professional, publication-ready maps)  
+**Foundation:** ★★★ (Connects raw data matrices to visual, geographic interpretation)  
+
+**Time to Read:** 20 minutes  
+**In a nutshell:** Transform raw numerical arrays into meaningful geographic maps using scientific colormaps, histograms, RGB composites, and 3D hillshades.  
+**Skip this if:** You are fully proficient in plotting raster arrays with geographic `extent`, generating scaled RGB composites, and blending 3D hillshades in Matplotlib.
+
 ```
 
 In the previous chapter, you used `rasterio.plot.show()` for quick visual feedback after opening a raster. That was an important first step. But a quick preview is not yet the same as a good visualization.
 
 In this chapter, you will learn how to visualize raster data more deliberately. You will work with single band rasters such as elevation models, multi band rasters such as satellite imagery, and derived visualizations such as RGB composites and hillshades. Along the way, you will see that the same raster can reveal very different patterns depending on how you choose to display it.
 
-**Preparing the Data**
+```{admonition} Data Preparation
+:class: dropdown
 
-To follow along with this chapter and complete the exercises, please download the following datasets and place them in a `data` folder next to your notebook. This package contains the raster and vector files needed for our visualization workflows, including a digital elevation model of New Zealand, multispectral satellite imagery, glacier boundaries, and a topography/bathymetry grid.
-
-```{admonition} Data Downloads
-:class: note
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook: 
 
 * [Copernicus DEM New Zealand (Copernicus_DEM_NZ_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/Copernicus_DEM_NZ_subset.tif)
 * [Landsat 9 Multispectral Subset (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
 * [GLIMS Glaciers New Zealand (GLIMS_glaciers_NZ_subset.zip)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/GLIMS_glaciers_NZ_subset.zip)
 * [ETOPO1 Topography & Bathymetry (ETOPO1_bedrock_subset_2000m_3857.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/ETOPO1_bedrock_subset_2000m_3857.tif)
+
 ```
 
 ---
@@ -58,42 +73,42 @@ filepath = "data/Copernicus_DEM_NZ_subset.tif"
 
 with rasterio.open(filepath) as src:
     show(src, title="New Zealand Elevation DEM", cmap="terrain")
+
 ```
 
-:::{figure} images/04_elevation_nz.png
-:alt: A top-down digital elevation model (DEM) map of New Zealand rendered in a terrain colormap.
-:width: 600px
-:align: center
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: The `show()` function provides immediate visual feedback, rendering the array correctly in geographic space using the dataset's attached metadata.
+</div>
+<!-- markdownlint-enable MD033 -->
 
-*Output: The `show()` function provides immediate visual feedback, rendering the array correctly in geographic space using the dataset's attached metadata.*
-:::
-
-This kind of preview is extremely useful. But once you move beyond a simple data check, new analytical questions appear:
+This kind of preview is very useful. But once you move beyond a simple data check, new analytical questions appear:
 
 * Which colormap makes the most scientific sense for this specific variable?
 * Should I display one band, or combine several into a composite?
 * Do I want to emphasize absolute elevation, vegetation health, or surface texture?
 * Would plotting a histogram first help me understand the distribution of values?
 
-From this point onward, visualization ceases to be just a preview—it becomes an integral part of the analysis itself.
+From this point onward, visualization ceases to be just a preview, it becomes an integral part of the analysis itself.
 
 ```{admonition} A useful habit
 :class: note
 
 Start with a quick preview to verify your data. Then, slow down and deliberately construct a visualization that matches the exact scientific question you want to answer.
+
 ```
 
 ---
 
 ## 2. Visualizing Single Band Rasters
 
-Many rasters contain only one band. A Digital Elevation Model (DEM) is a prime example. In a single band raster, each grid cell stores exactly one value representing one continuous variable.
+Many rasters contain only one band. A **{term}`Digital elevation model`** (DEM) is a prime example. In a single band raster, each grid cell stores exactly one value representing one continuous variable.
 
 ### One band, one surface
 
 A single band raster is best understood as a continuous surface of measurements. Depending on the dataset, that surface might represent elevation, temperature, precipitation, spectral indices (like NDVI), or slope.
 
-The simplest way to visualize such a raster is to read the band into a standard NumPy array and display it using Matplotlib.
+The simplest way to visualize such a raster is to read the band into a standard **{term}`NumPy`** **{term}`array <Array>`** and display it using **{term}`Matplotlib`**.
 
 ```{code-cell} python
 import matplotlib.pyplot as plt
@@ -106,25 +121,24 @@ plt.imshow(dem, cmap="viridis")
 plt.title("DEM as a NumPy array (Viridis)")
 plt.colorbar(label="Elevation (m)")
 plt.show()
+
 ```
 
-:::{figure} images/06_DEM_numpy.png
-:alt: A digital elevation model displayed using the viridis colormap, with row and column indices on the axes instead of coordinates.
-:width: 600px
-:align: center
-
-*Output: Visualizing the raw array using `plt.imshow()`. Notice that the axes display row and column indices rather than real-world coordinates.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: Visualizing the raw array using `plt.imshow()`. Notice that the axes display row and column indices rather than real-world coordinates.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 This works for looking at the data grid, but notice the critical difference from `show()`: `plt.imshow()` treats the array purely as an image, placing raw row and column indices on the axes. To create a true cartographic map, we must reintroduce the raster's spatial metadata manually.
 
 ### Visualization with spatial context
 
-As we discussed in the [previous lesson on cartographic design](https://hendrikwulf.github.io/sds210-jb/book/l08-visualization/cartographic-design/#id-2-choosing-colormaps), your choice of colormap drastically affects how data is interpreted. Because elevation is a continuous variable progressing from low to high, a **sequential**, perceptually uniform colormap is essential to prevent visual distortion. Instead of standard defaults like `viridis`, we will use the `batlowW` colormap from the `cmcrameri` package for scientific accuracy.
+As we discussed in the previous lesson on cartographic design, your choice of **{term}`colormap <Colormap>`** drastically affects how data is interpreted. Because elevation is a continuous variable progressing from low to high, a sequential, **{term}`perceptually uniform <Perceptually uniform colormap>`** colormap is essential to prevent visual distortion. Instead of standard defaults like `viridis`, we will use the `batlowW` colormap from the `cmcrameri` package for scientific accuracy.
 
 To upgrade our visualization from a raw grid to a more professional map, we must also manually apply the spatial metadata and refine the cartography. This involves projecting the boundaries, anchoring our color scale, and cleaning up the axes:
 
-* **Projecting boundaries (`transform_bounds`, `extent`):** To display real-world coordinates instead of array indices, we extract the dataset's bounding box (`src.bounds`) and transform it into our desired Coordinate Reference System (here, `EPSG:2193` for the New Zealand Transverse Mercator). We then pass these coordinates to `imshow` via the `extent` argument.
+* **Projecting boundaries (`transform_bounds`, `extent`):** To display real-world coordinates instead of array indices, we extract the dataset's bounding box (`src.bounds`) and transform it into our desired **{term}`Coordinate Reference System`** (here, `EPSG:2193` for the New Zealand Transverse Mercator). We then pass these coordinates to `imshow` via the `extent` argument.
 * **Anchoring the colormap (`vmin`, `vmax`):** We explicitly set `vmin=0` and `vmax=3000`. This ensures the color scale remains fixed and comparable across different maps, rather than arbitrarily stretching to the local minimum and maximum of this specific subset.
 * **Formatting aesthetics (`MaxNLocator`):** We apply proper "Northing" and "Easting" labels, adjust global font sizes for readability, and use `MaxNLocator` to strictly limit the number of axis ticks, reducing visual clutter.
 
@@ -168,15 +182,14 @@ cbar = fig.colorbar(img, label="Elevation (m)")
 cbar.ax.tick_params(labelsize=14)
 
 plt.show()
+
 ```
 
-:::{figure} images/07_DEM_spatial.png
-:alt: A professionally formatted digital elevation map of New Zealand using the batlowW scientific colormap, featuring Easting and Northing coordinate axes.
-:width: 650px
-:align: center
-
-*Output: A deliberate, publication-ready visualization. The spatial extent is mapped to real-world coordinates, the axes are clean and labeled, and the perceptually uniform colormap honestly represents the terrain's continuous elevation.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: A deliberate, publication-ready visualization. The spatial extent is mapped to real-world coordinates, the axes are clean and labeled, and the perceptually uniform colormap honestly represents the terrain's continuous elevation.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -195,10 +208,7 @@ filepath = "data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
 
 with rasterio.open(filepath) as src:
     print("Band count:", src.count)
-```
 
-```text
-Band count: 7
 ```
 
 ### Looking at bands separately
@@ -221,21 +231,20 @@ with rasterio.open(filepath) as src:
     ax3.set_title("Band 6 (SWIR2)")
 
 plt.show()
+
 ```
 
-:::{figure} images/08_landsat_bands.png
-:alt: Three side-by-side plots of the Red, NIR, and SWIR2 bands of a satellite image, rendered with the `viridis` color palette.
-:width: 800px
-:align: center
-
-*Output: Visualizing selected sprectral bands separately. Different environmental surfaces (like water, forests, and snow) reflect light differently across the spectrum, which is why the patterns vary between the Red, NIR, and SWIR2 bands.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: Visualizing selected sprectral bands separately. Different environmental surfaces (like water, forests, and snow) reflect light differently across the spectrum, which is why the patterns vary between the Red, NIR, and SWIR2 bands.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 ### Histograms of raster values
 
-Before building more complex visualizations, it is highly useful to inspect the distribution of your data to understand the underlying values. 
+Before building more complex visualizations, it is highly useful to inspect the distribution of your data to understand the underlying values.
 
-For instance, Band 7 in our Landsat dataset represents Thermal Infrared (TIR), which measures surface temperature. By plotting a histogram, we can observe the temperature distribution in Kelvin.
+For instance, Band 7 in our Landsat dataset represents Thermal Infrared (TIR), which measures surface temperature. By plotting a **{term}`histogram <Histogram>`**, we can observe the temperature distribution in Kelvin.
 
 ```{code-cell} python
 from rasterio.plot import show_hist
@@ -263,19 +272,18 @@ with rasterio.open(filepath) as src:
     ax.legend()  # Display the legend with the custom label
 
 plt.show()
+
 ```
 
-:::{figure} images/09_histogram_TIR1.png
-:alt: A histogram showing the frequency distribution of pixel values for the Thermal Infrared band, ranging from roughly 270 to 295 Kelvin.
-:width: 600px
-:align: center
-
-*Output: The histogram reveals the distribution of surface temperatures across the image. Most of the values are clustered between 270 K and 295 K.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: The histogram reveals the distribution of surface temperatures across the image. Most of the values are clustered between 270 K and 295 K.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 Histograms help answer critical analytical questions: Are the values tightly clustered or widely spread? Do some bands have very different ranges? Would adjusting the minimum and maximum values (`vmin` and `vmax`) help us stretch the contrast before displaying the image?
 
-````{admonition} Visualizing and Scaling Multiple Bands
+``````{admonition} Visualizing and Scaling Multiple Bands
 :class: dropdown
 
 When working with data beyond the visible spectrum, comparing spatial patterns alongside their statistical distributions is incredibly helpful. In the code below, we create a 2x3 grid to analyze three non-visible bands: Near Infrared (B4), Shortwave Infrared (B6), and Thermal Infrared (B7).
@@ -340,7 +348,8 @@ with rasterio.open(filepath) as src:
 
 *Output: A comprehensive analytical view. The histograms in the bottom row dictate the color scaling (vmin/vmax) used in the spatial plots in the top row, maximizing the visual contrast of features.*
 :::
-````
+
+``````
 
 ---
 
@@ -348,9 +357,7 @@ with rasterio.open(filepath) as src:
 
 A multiband raster does not automatically appear as a natural color photograph. To create that kind of view, you must combine selected bands into an RGB (Red, Green, Blue) composite.
 
-### True color RGB composites
-
-A true color image mimics human vision by combining:
+A **{term}`True color`** composite mimics human vision by combining:
 
 * Red into the red channel
 * Green into the green channel
@@ -389,21 +396,20 @@ plt.imshow(rgb)
 plt.title("RGB true color composite (Scaled 0-0.4)")
 plt.axis('off')
 plt.show()
+
 ```
 
-:::{figure} images/11_RGB.png
-:alt: A natural color satellite image showing the landscape in true visible colors, resembling a standard photograph.
-:width: 600px
-:align: center
-
-*Output: An RGB true color composite. By applying a contrast stretch (clipping the values at 0.4), the landscape features are brightened and clearly visible.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: An RGB true color composite. By applying a contrast stretch (clipping the values at 0.4), the landscape features are brightened and clearly visible.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 This image looks much more like a photograph because the visible light bands have been explicitly assigned to their matching visual color channels, and the data has been stretched for optimal viewing.
 
 ### False color composites
 
-Sometimes, realism is not the goal. A false color composite highlights environmental features that are otherwise hard to distinguish.
+Sometimes, realism is not the goal. A **{term}`False color`** composite highlights environmental features that are otherwise hard to distinguish.
 
 A common analytical composite maps Shortwave Infrared (SWIR2) to the red channel, Near Infrared (NIR) to the green channel, and Red to the blue channel. Because healthy vegetation reflects heavily in the NIR spectrum, forested areas stand out vividly in bright green, while variations in bare earth are highlighted by the SWIR band.
 
@@ -425,20 +431,20 @@ plt.imshow(fcc)
 plt.title("False color composite (SWIR2, NIR, Red)")
 plt.axis('off')
 plt.show()
+
 ```
 
-:::{figure} images/12_FCC.png
-:alt: A false color satellite image where vegetation appears in vibrant green, water in dark blue or black, and bare earth or urban areas in purple or pink tones.
-:width: 600px
-:align: center
-
-*Output: A SWIR2-NIR-Red false color composite. Vegetation reflects highly in Near Infrared (mapped to Green), making it stand out vividly against soil and water.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: A SWIR2-NIR-Red false color composite. Vegetation reflects highly in Near Infrared (mapped to Green), making it stand out vividly against soil and water.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 ```{admonition} A key point
 :class: note
 
 A raster visualisation does not necessarily imitate human vision. Often, the aim is to increase the separability between different land cover types. Contrast stretching plays an important role in this process by increasing contrast and enhancing image detail.
+
 ```
 
 ---
@@ -449,13 +455,14 @@ Elevation rasters are often much more readable when we step beyond a simple colo
 
 ### Hillshade
 
-A hillshade simulates how light from the sun would fall across a terrain surface, casting highlights and shadows. It does not change the actual elevation values; rather, it creates a brand new raster representing hypothetical illumination based on the slope and aspect of the terrain.
+A **{term}`Hillshade`** simulates how light from the sun would fall across a terrain surface, casting highlights and shadows. It does not change the actual elevation values; rather, it creates a brand new raster representing hypothetical illumination based on the slope and aspect of the terrain.
 
-You can calculate a simple hillshade directly from a NumPy array by defining the sun's azimuth (compass direction) and angle of altitude (height in the sky). Adjusting these parameters drastically alters how the topography is perceived. 
+You can calculate a simple hillshade directly from a NumPy array by defining the sun's azimuth (compass direction) and angle of altitude (height in the sky). Adjusting these parameters drastically alters how the topography is perceived.
 
 To help visualize flat landscapes, we can also introduce a **Z-factor** (vertical exaggeration). This artificially multiplies the elevation differences, making subtle topographic features much more prominent.
 
-<iframe 
+<!-- markdownlint-disable MD033-->
+<iframe
     src="https://hendrikwulf.github.io/sds210_assets_L09_ch04_hillshade_visualizer/"
     width="100%"
     title="Interactive Hillshade Simulator"
@@ -464,9 +471,13 @@ To help visualize flat landscapes, we can also introduce a **Z-factor** (vertica
     allowfullscreen>
 </iframe>
 
-*For an alternative standalone version of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_L09_ch04_hillshade_visualizer/).*
+<figcaption>
+    <em><b>Interactive Explorer: Hillshade Simulator.</b><br>
+    Use the sliders to adjust the Sun's position and the terrain's vertical exaggeration. Notice how lower altitudes stretch the shadows, and how increasing the Z-Factor makes subtle features pop out dramatically. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L09_ch04_hillshade_visualizer/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
 
-Here is how you can calculate this hillshade programmatically in Python. 
+Here is how you can calculate this hillshade programmatically in Python.
 
 ```{code-cell} python
 import numpy as np
@@ -490,6 +501,7 @@ def hillshade(array, azimuth, angle_altitude, z_factor=1):
     )
 
     return 255 * (shaded + 1) / 2
+
 ```
 
 Notice that when we plot the result, we use `np.percentile` to dynamically set our `vmin` and `vmax`. This stretches the contrast by ignoring the extreme 2% of outliers, resulting in a much crisper image.
@@ -508,15 +520,14 @@ plt.title("Hillshade (Z-factor=2)")
 plt.colorbar(label="Illumination")
 plt.axis('off')
 plt.show()
+
 ```
 
-:::{figure} images/13_hillshade.png
-:alt: A grayscale hillshade map of mountainous terrain, with shadows casting to the southeast.
-:width: 600px
-:align: center
-
-*Output: A simulated hillshade. The Z-factor of 2 artificially steepens the slopes, making the ridges and valleys stand out sharply in the grayscale colormap.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: A simulated hillshade. The Z-factor of 2 artificially steepens the slopes, making the ridges and valleys stand out sharply in the grayscale colormap.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 ### Multidirectional Hillshade
 
@@ -544,19 +555,18 @@ plt.imshow(multi_hs, cmap="gray", alpha=0.5, vmin=np.percentile(multi_hs, 2), vm
 plt.title("Multidirectional Hillshade")
 plt.axis('off')
 plt.show()
+
 ```
 
-:::{figure} images/14_multidirectional_hillshade.png
-:alt: A soft, evenly lit grayscale hillshade map of mountainous terrain.
-:width: 600px
-:align: center
-
-*Output: A multidirectional hillshade. By averaging light from multiple angles, deep shadows are filled in, revealing the underlying topography across the entire landscape.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: A multidirectional hillshade. By averaging light from multiple angles, deep shadows are filled in, revealing the underlying topography across the entire landscape.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 ### Hillshade overlay
 
-While a hillshade reveals surface texture brilliantly, it strips away the absolute elevation data. A common and highly effective cartographic technique is to place a semi-transparent hillshade directly over a colored DEM. 
+While a hillshade reveals surface texture brilliantly, it strips away the absolute elevation data. A common and highly effective cartographic technique is to place a semi-transparent hillshade directly over a colored DEM.
 
 By utilizing the `alpha` parameter, we can control the transparency of the hillshade layer, allowing the underlying elevation colors to shine through the shadows.
 
@@ -576,19 +586,18 @@ ax.imshow(hs, cmap="Greys", alpha=0.35)
 ax.set_title("DEM with hillshade overlay")
 ax.axis('off')
 plt.show()
+
 ```
 
-:::{figure} images/15_DEM_hillshade_overlay.png
-:alt: A topographic map combining the batlowW color palette for elevation with shaded relief for 3D texture.
-:width: 600px
-:align: center
-
-*Output: An alpha overlay. The sequential colormap carries the absolute elevation values, while the semi-transparent hillshade provides intuitive 3D structure.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: An alpha overlay. The sequential colormap carries the absolute elevation values, while the semi-transparent hillshade provides intuitive 3D structure.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 ### Hillshade blending
 
-Instead of manually calculating the hillshade and overlaying it with transparency, Matplotlib provides a built-in `LightSource` class that handles both the shading and the blending natively. 
+Instead of manually calculating the hillshade and overlaying it with transparency, Matplotlib provides a built-in `LightSource` class that handles both the shading and the blending natively.
 
 Different blending modes (`hsv`, `overlay`, or `soft`) combine the hillshade and the colormap using different mathematical algorithms. This native blending often produces a more vibrant and integrated map than a simple alpha overlay.
 
@@ -616,16 +625,14 @@ for i, mode in enumerate(blend_modes):
 
 plt.tight_layout()
 plt.show()
+
 ```
 
-:::{figure} images/16_dem_blending_modes.png
-:alt: Three side-by-side topographic maps demonstrating the 'hsv', 'overlay', and 'soft' blending modes applied to the same DEM data.
-:width: 800px
-:align: center
-
-*Output: Exploring `LightSource` blending modes. Notice how the 'hsv' mode affects the color saturation, while 'overlay' and 'soft' provide different balances of shadows and underlying hue.*
-:::
-
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: Exploring `LightSource` blending modes. Notice how the 'hsv' mode affects the color saturation, while 'overlay' and 'soft' provide different balances of shadows and underlying hue.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -638,7 +645,7 @@ When combining these two data types using Matplotlib and GeoPandas, you must add
 1. **The Alignment Problem (`extent`):** By default, `plt.imshow()` plots a NumPy array using row and column indices (e.g., 0 to 1000). GeoPandas, however, plots geometries using real-world spatial coordinates. If you plot them together without adjustment, they will completely miss each other. To fix this, you must explicitly pass the raster's bounding box to `imshow` using the `extent` argument.
 2. **The CRS Rule (`to_crs`):** As always, both layers must share the exact same Coordinate Reference System (CRS). We can dynamically project the vector layer to match the raster's CRS before plotting.
 
-In the example below, we will use the multidirectional hillshade from the previous section as our base map and overlay a GeoPandas dataframe containing glacier boundaries.
+In the example below, we will use the multidirectional hillshade from the previous section as our base map and overlay a **{term}`GeoDataFrame`** containing glacier boundaries.
 
 ```{code-cell} python
 import geopandas as gpd
@@ -683,30 +690,56 @@ ax.set_xlabel("Easting", fontsize=14)
 ax.set_ylabel("Northing", fontsize=14)
 
 plt.show()
+
 ```
 
-:::{figure} images/17_glacier_overlay_hillshade.png
-:alt: A topographic map showing light blue glacier polygons overlaid onto a gray, multidirectional hillshade of mountainous terrain.
-:width: 650px
-:align: center
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: Combining raster and vector data. By projecting the vector layer to the raster's CRS and passing the geographic extent to `imshow`, the cyan glacier polygons align perfectly with the valleys of the underlying hillshade.
+</div>
+<!-- markdownlint-enable MD033 -->
 
-*Output: Combining raster and vector data. By projecting the vector layer to the raster's CRS and passing the geographic extent to `imshow`, the cyan glacier polygons align perfectly with the valleys of the underlying hillshade.*
-:::
+#### Concept Check: The Floating Polygons
+
+**Scenario:** You have a raster of rainfall (`rain_array`) and a GeoDataFrame of city boundaries (`cities_gdf`). Both share the exact same Coordinate Reference System (EPSG:3857). You plot them together using:
+
+```python
+ax.imshow(rain_array)
+cities_gdf.plot(ax=ax)
+
+```
+
+When the map renders, the rain raster is tiny and stuck in the bottom left corner, while the city polygons are floating millions of units away. What went wrong?
+
+A) `imshow()` plotted the raster using raw row/column pixel indices (e.g., 0 to 1000) instead of real-world coordinates because the `extent` argument was missing.
+
+B) The city polygons need to be converted into a NumPy array before plotting.
+
+C) The raster array needs to be mathematically transposed using `np.transpose()` to align with the vector data.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: A**
+Unlike `GeoDataFrame.plot()`, which natively understands spatial coordinates, Matplotlib's `imshow()` treats NumPy arrays as simple images and plots them using their raw index numbers. To bridge this gap, you must explicitly pass the raster's physical bounding box to `imshow` using the `extent` argument!
+
+```
 
 ---
 
 ## 7. Exercise: Visualizing Bathymetry
 
-In this final exercise, you will apply your knowledge of scientific colormaps and hillshade blending to a global dataset. 
+In this final exercise, you will apply your knowledge of scientific colormaps and hillshade blending to a global dataset.
 
 You are given a subset of the ETOPO1 dataset (`data/ETOPO1_bedrock_subset_2000m_3857.tif`), which contains continuous elevation data for the entire globe. Positive values represent land topography, while negative values represent ocean bathymetry.
 
 **Tasks:**
+
 1. Open the raster and read the elevation band into a NumPy array.
 2. Use Matplotlib's `LightSource` to create a blended visualization.
 3. Apply the `cmc.oleron` colormap. This is a multi-sequential colormap specifically designed for elevation data that crosses the sea-level boundary.
 4. Set `vmin` and `vmax` so that `0` (sea level) aligns with the colormap's natural transition point.
-5. Pass the pixel resolution (`dx=2000`, `dy=2000`) into the `shade()` function so the algorithm accurately calculates the real-world slopes for the shadows. 
+5. Pass the pixel resolution (`dx=2000`, `dy=2000`) into the `shade()` function so the algorithm accurately calculates the real-world slopes for the shadows.
 
 ```{code-cell} python
 import rasterio
@@ -718,9 +751,10 @@ filepath = "data/ETOPO1_bedrock_subset_2000m_3857.tif"
 
 # Write your code here
 
+
 ```
 
-````{admonition} Sample Solution
+``````{admonition} Sample Solution
 :class: dropdown
 
 Notice that we use `blend_mode="overlay"` to balance the vivid colors of the `oleron` colormap with the structural shadows. We also apply a vertical exaggeration (`vert_exag=10`) because global-scale features often appear entirely flat without it.
@@ -765,7 +799,8 @@ plt.show()
 
 *Output: A professional, publication-ready global elevation map. The `oleron` colormap beautifully distinguishes the ocean floor from the continents, while the `LightSource` blending adds intuitive 3D texture to the mountain ranges and oceanic trenches.*
 :::
-````
+
+``````
 
 ---
 
@@ -779,5 +814,4 @@ Raster values do not speak for themselves. Visualization is the deliberate proce
 * **Reveal topography:** Calculate hillshades and blend them with elevation data to create intuitive 3D terrain models.
 * **Unify raster and vector data:** Combine continuous grids with discrete vector boundaries using a shared Coordinate Reference System (CRS).
 
-Now that you can safely read and professionally visualize these arrays, it is time to start crunching the numbers. In the next chapter, we introduce **map algebra**, where you will learn to mathematically manipulate these grids to extract new environmental insights.
-
+Now that you can safely read and professionally visualize these arrays, it is time to start crunching the numbers. In the next chapter, we introduce **{term}`map algebra <Map algebra>`**, where you will learn to mathematically manipulate these grids to extract new environmental insights.

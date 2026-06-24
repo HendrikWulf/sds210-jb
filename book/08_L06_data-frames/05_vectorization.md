@@ -41,9 +41,12 @@ The core superpower of Pandas is **{term}`Vectorization`**. You no longer need t
 
 Before we explore this superpower, we need some fresh data. For this section, we will use an extended dataset from the Kloten weather station (`kloten_summer_2022_extended.txt`). This file contains additional environmental variables like relative humidity, wind speed, and solar radiation.
 
-```{admonition} Download the Dataset
-:class: note
-Please download the extended dataset from [this GitLab link](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt) and save it to your local working directory.
+```{admonition} Data Preparation
+:class: dropdown
+
+To follow along with this chapter, place the following dataset in a `data` folder next to your notebook:
+
+* [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
 
 ```
 
@@ -204,9 +207,9 @@ data[columns_to_plot].plot(color=["red", "blue", "green"]);
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>A basic Pandas plot is fast to generate, but it lacks essential context like axis labels, legends, and a readable canvas size.</em>
-</figcaption>
+<div class="figure-caption-like">
+    A basic Pandas plot is fast to generate, but it lacks essential context like axis labels, legends, and a readable canvas size.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 This quick plot is helpful for a fast visual check, but it is not something you would want to put in a scientific report. It is small, there are no axis labels, and all the lines look identical.
@@ -234,9 +237,9 @@ data[columns_to_plot].plot(
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>A styled plot effectively communicates the data story by using clear labels, descriptive line styles, and an expanded canvas size.</em>
-</figcaption>
+<div class="figure-caption-like">
+    A styled plot effectively communicates the data story by using clear labels, descriptive line styles, and an expanded canvas size.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### The Elements of Good Style

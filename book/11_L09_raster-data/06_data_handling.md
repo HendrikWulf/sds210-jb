@@ -5,9 +5,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Managing, clipping, and projecting spatial arrays
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -19,29 +21,42 @@ Managing, clipping, and projecting spatial arrays
 :class: tip
 
 Spatial analysis is only useful if you can save your results and integrate them with other data. Mastering raster input and output operations ensures your derived datasets remain geographically accurate and manageable in size.
+
 ```
 
-**Preparing the Data**
+```{admonition} Chapter Relevance
+:class: dropdown
 
-To follow along with this chapter, please download the following datasets and place them in a `data` folder next to your notebook.
+**Lab Relevance:** ★★★ (Essential for exporting data to be used in GIS or other scripts)  
+**Project Relevance:** ★★★ (Required for saving outputs and managing data size in projects)  
+**Foundation:** ★★★ (Core spatial data management skills)  
 
-```{admonition} Data Downloads
-:class: note
+**Time to Read:** 15 minutes  
+**In a nutshell:** Master the mechanics of writing arrays back to disk with spatial metadata, handling massive files safely, and clipping data to areas of interest.  
+**Skip this if:** You are completely comfortable updating Rasterio profiles to write GeoTIFFs, using `Window` to read array subsets, and clipping arrays with vector geometries using `rasterio.mask`.
+
+```
+
+```{admonition} Data Preparation
+:class: dropdown
+
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook: 
 
 * [Landsat 9 Multispectral Subset NZ (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
 * [Lake Mapourika Boundaries (JRC_lake_mapourika.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/JRC_lake_mapourika.gpkg)
 * [Haupapa/Tasman Glacier Boundaries (GLIMS_haupapa_tasman.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/GLIMS_haupapa_tasman.gpkg)
+
 ```
 
 ---
 
 ## 1. Writing Rasters
 
-In the previous chapter, we used map algebra to calculate a binary snow mask from satellite imagery. However, that result currently exists only as a temporary NumPy array in your computer's memory. To use this snow mask in geographic information systems (GIS) software or share it with colleagues, we must write it back to the hard drive as a spatial GeoTIFF.
+In the previous chapter, we used map algebra to calculate a binary snow mask from satellite imagery. However, that result currently exists only as a temporary **{term}`NumPy`** **{term}`array <Array>`** in your computer's memory. To use this snow mask in geographic information systems (GIS) software or share it with colleagues, we must write it back to the hard drive as a spatial **{term}`GeoTIFF`**.
 
-Writing a standard image is simple, but a GeoTIFF requires strict spatial metadata. If we just save the NumPy array, it loses all geographic context and the output file will not know where it belongs on Earth. The golden rule of raster export is to always copy the `.profile` (the complete metadata dictionary) from your original input raster. This guarantees that your new output raster will perfectly align in space with the original dataset.
+Writing a standard image is simple, but a GeoTIFF requires strict spatial **{term}`metadata <Metadata>`**. If we just save the NumPy array, it loses all geographic context and the output file will not know where it belongs on Earth. The golden rule of raster export is to always copy the `.profile` (the complete metadata dictionary) from your original input raster. This guarantees that your new output raster will perfectly align in space with the original dataset.
 
-When you perform map algebra, you often change the fundamental structure of the data. For example, our input was a 7 band image of 16 bit integers, but our newly calculated snow mask is a single band of binary values (True or False). Exporting a simple binary mask as a 32 bit float is bad practice and wastes massive amounts of disk space. Instead, we should convert the boolean mask to an 8 bit unsigned integer (`uint8`) so it only stores zeros and ones. 
+When you perform map algebra, you often change the fundamental structure of the data. For example, our input was a 7 band image of 16 bit integers, but our newly calculated snow mask is a single band of binary values (True or False). Exporting a simple binary mask as a 32 bit float is bad practice and wastes massive amounts of disk space. Instead, we should convert the boolean mask to an 8 bit unsigned integer (`uint8`) so it only stores zeros and ones.
 
 ```{admonition} Understanding Data Types (dtypes)
 :class: note
@@ -52,6 +67,25 @@ Choosing the right data type when exporting prevents bloated file sizes and save
 * **int16 (16 bit integer):** Stores whole numbers from -32,768 to 32,767. Standard for raw satellite optical bands or digital elevation models.
 * **float32 (32 bit floating point):** Stores continuous decimal numbers. Essential for calculated indices (like NDSI or NDVI) and precise environmental measurements (like temperature). 
 * **float64 (64 bit floating point):** Double precision decimals. While NumPy often defaults to this during heavy mathematical calculations, it is rarely needed for storing final environmental rasters and wastes massive amounts of disk space. Always try to downgrade to `float32` before exporting.
+
+```
+
+#### Concept Check: The Bloated Export
+
+**Scenario:** You have calculated a binary flood mask (values 0 and 1) from a 32-bit continuous elevation raster. You copy the original profile dictionary and instantly write the mask to disk using `dst.write(mask, 1)`. Why might your output file be unnecessarily massive in size?
+
+A) Binary masks inherently take up more disk space than continuous data because they cannot be compressed.
+
+B) You did not convert the mask to a GeoDataFrame before exporting.
+
+C) You forgot to update the profile's `dtype` to `uint8`, meaning the file is allocating 32 bits of memory for every single 0 and 1.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: C**
+Because you copied the profile directly from a 32-bit elevation raster without updating it, Rasterio will write your simple 0 and 1 values as heavy 32-bit floats. By manually updating the profile with `profile.update(dtype=rasterio.uint8)`, you ensure the file takes up the absolute minimum amount of hard drive space.
+
 ```
 
 Before writing the file, we must update the copied profile dictionary to reflect these new data types. Additionally, to keep our project workspace organized, it is best practice to save all generated files into a dedicated folder rather than cluttering the main directory. We can use Python's built-in `os` module to automatically create an `outputs` directory if it does not already exist.
@@ -98,7 +132,9 @@ with rasterio.open(output_path, "w", **profile) as dst:
     dst.write(snow_mask, 1)
 
 print(f"Successfully saved {output_path}")
+
 ```
+
 ---
 
 ## 2. Handling Large Datasets
@@ -110,8 +146,6 @@ Satellite imagery can be massive. A single full scene might be several gigabytes
 * **Read one window:** You can load a small, specific bounding box of pixels into memory without touching the rest of the file using Rasterio's `Window` class.
 * **Process chunk by chunk:** The most robust way to handle massive files is to loop through the raster in blocks. You open the file, read a small chunk into memory, process it, write that chunk directly to the new output file, and then move on to the next block.
 
-Let us look at a practical example of reading a specific window. Instead of loading the whole image, we define an 800x800 pixel block starting from the top-left corner (column 0, row 0).
-
 ```{code-cell} python
 from rasterio.windows import Window
 
@@ -121,13 +155,10 @@ with rasterio.open(input_path) as src:
     chunk = src.read(1, window=small_window)
     
     print(f"Loaded chunk shape: {chunk.shape}")
+
 ```
 
-```text
-Loaded chunk shape: (800, 800)
-```
-
-Once this subset is securely in memory, it behaves exactly like any other NumPy array. Before applying complex algorithms or map algebra to large datasets, it is highly recommended to visualize the extracted chunk to verify you grabbed the correct geographic area. 
+Once this subset is securely in memory, it behaves exactly like any other NumPy array. Before applying complex algorithms or map algebra to large datasets, it is highly recommended to visualize the extracted chunk to verify you grabbed the correct geographic area.
 
 ```{code-cell} python
 import matplotlib.pyplot as plt
@@ -139,17 +170,16 @@ plt.title('Visualization of the 800x800 chunk', fontsize=15)
 plt.colorbar(label='Pixel Value', fraction=0.046, pad=0.04)
 plt.axis('off')
 plt.show()
+
 ```
 
-:::{figure} images/23_subset.png
-:alt: A grayscale visualization of an 800 by 800 pixel chunk extracted from the top-left corner of a satellite image.
-:width: 600px
-:align: center
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: Visualizing the extracted window. By reading only this specific 800x800 block, we saved massive amounts of memory while still being able to verify and analyze the local terrain.
+</div>
+<!-- markdownlint-enable MD033 -->
 
-*Output: Visualizing the extracted window. By reading only this specific 800x800 block, we saved massive amounts of memory while still being able to verify and analyze the local terrain.*
-:::
-
-While manually defining a single window is perfect for targeted extraction, applying map algebra to an entire multi-gigabyte scene requires automation. You can bridge this gap and process a massive file sequentially using Rasterio's built-in `block_windows()` iterator. 
+While manually defining a single window is perfect for targeted extraction, applying map algebra to an entire multi-gigabyte scene requires automation. You can bridge this gap and process a massive file sequentially using Rasterio's built-in `block_windows()` iterator.
 
 ```{code-cell} python
 # Example: Looping through a massive dataset efficiently
@@ -165,13 +195,14 @@ with rasterio.open(input_path) as src:
         
         # In a full workflow, you would write 'result' to a destination 
         # file using the exact same 'window' to maintain spatial alignment.
+
 ```
 
 ---
 
 ## 3. Clipping
 
-Often, your study area is much smaller than the satellite scene you downloaded. Clipping restricts your analysis to a specific region, vastly reducing processing time and memory usage. 
+Often, your study area is much smaller than the satellite scene you downloaded. Clipping restricts your analysis to a specific region, vastly reducing processing time and memory usage.
 
 ### Slice the Array
 
@@ -193,15 +224,32 @@ plt.imshow(array_subset, cmap="gray")
 plt.title("Clipping via Array Slicing", fontsize=15)
 plt.axis("off")
 plt.show()
+
 ```
 
-:::{figure} images/24_clipped_subset.png
-:alt: A grayscale image showing a rectangular cropped section of a satellite raster representing Near Infrared reflectance.
-:width: 500px
-:align: center
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: A fast subset created by directly slicing the NumPy array indices. While quick, this method lacks geographic precision.
+</div>
+<!-- markdownlint-enable MD033 -->
 
-*Output: A fast subset created by directly slicing the NumPy array indices. While quick, this method lacks geographic precision.*
-:::
+---
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L09_ch06_01_raster_window/"
+    width="100%"
+    title="Interactive Terrain Matrix Editor"
+    frameborder="0"
+    style="height: 700px; min-height: 700px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+    allowfullscreen>
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Raster Window Extractor.</b><br>
+    Adjust the sliders to define a custom reading window within a standard Sentinel-2 image. Notice how extracting a specific spatial subset drastically reduces the required RAM, preventing memory crashes when dealing with massive satellite scenes. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L09_ch06_01_raster_window" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
 
 ### Use Geographic Bounds
 
@@ -225,15 +273,14 @@ plt.imshow(geo_subset, cmap="gray")
 plt.title("Clipping via Geographic Bounds", fontsize=15)
 plt.axis("off")
 plt.show()
+
 ```
 
-:::{figure} images/25_clipped_bbox.png
-:alt: A grayscale image showing a geographically bounded crop of a satellite raster.
-:width: 500px
-:align: center
-
-*Output: A geographically precise subset. By passing real-world coordinates through the transform matrix, we extract exactly the spatial area we need.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: A geographically precise subset. By passing real-world coordinates through the transform matrix, we extract exactly the spatial area we need.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 ### Clip with a Shapefile
 
@@ -271,21 +318,20 @@ plt.imshow(nir_clean, cmap="viridis")
 plt.title("Clipped to Glacier Geometry", fontsize=16)
 plt.axis("off")
 plt.show()
+
 ```
 
-:::{figure} images/26_clipped_geometry.png
-:alt: A satellite raster cropped tightly to the irregular, branching shape of a glacier. The area outside the glacier polygon is masked out (empty).
-:width: 300px
-:align: center
-
-*Output: Clipping with a vector mask. The `mask` function sets all pixels outside the polygon to zero (or NoData) and trims the array to the tightest possible bounding box around the feature.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: Clipping with a vector mask. The `mask` function sets all pixels outside the polygon to zero (or NoData) and trims the array to the tightest possible bounding box around the feature.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
 ## 4. Reprojection
 
-Different regions and datasets use different Coordinate Reference Systems (CRS) to minimize geographic distortion. For example, spatial data in Switzerland is commonly projected in local coordinates (LV95, EPSG:2056) or global zones (UTM32N, EPSG:32632).
+Different regions and datasets use different **{term}`Coordinate Reference Systems <Coordinate Reference System>`** (CRS) to minimize geographic distortion. For example, spatial data in Switzerland is commonly projected in local coordinates (LV95, EPSG:2056) or global zones (UTM32N, EPSG:32632).
 
 Our current New Zealand dataset is in UTM Zone 59S (EPSG:32759). However, local environmental agencies primarily use the New Zealand Transverse Mercator (NZTM, EPSG:2193). To combine our snow mask with local government vector data, we must reproject our raster.
 
@@ -331,6 +377,7 @@ with rasterio.open(input_raster) as src:
         )
 
 print("Reprojection complete.")
+
 ```
 
 ---
@@ -342,20 +389,21 @@ Instead of reprojecting massive raster files, a standard spatial optimization is
 Imagine a colleague needs a standalone GeoTIFF of the Near Infrared data (Band 4), restricted exactly to the boundaries of Lake Mapourika.
 
 **Tasks:**
+
 1. Open the Landsat subset (`LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif`) and load the Lake Mapourika vector (`JRC_lake_mapourika.gpkg`).
 2. Reproject the *vector* dataframe to match the raster's CRS.
 3. Use `rasterio.mask.mask` to clip the raster using the lake's geometry.
 4. Extract just the NIR band from the clipped multiband output.
 5. Update the original spatial profile with the new `height`, `width`, and `transform` returned by the mask function. Remember to set `count=1` since we are only saving the NIR band.
 6. Write the result to a new file named `outputs/lake_mapourika_nir.tif`.
-7. Plot the `nir_clipped` array to verify your extraction. *Hint: The `mask` function sets pixels outside the polygon to `0`. Use `np.where()` to convert these zeros to `NaN` (Not a Number) so the background renders cleanly.*
+7. Plot the `nir_clipped` array to verify your extraction. *Hint: The `mask` function sets pixels outside the polygon to `0`. Use `np.where()` to convert these zeros to `NaN` (**{term}`NaN`**, Not a Number) so the background renders cleanly.*
 
 ```{code-cell} python
 # Write your code here
 
 ```
 
-````{admonition} Sample Solution
+``````{admonition} Sample Solution
 :class: dropdown
 
 Notice how much faster and cleaner this script is compared to reprojecting the entire raster grid. We let GeoPandas handle the reprojection in a single line, use Rasterio to mask the data, and immediately write the small subset to disk. We also use the optimized `lake_gdf.geometry.tolist()` method to extract our shapes.
@@ -422,7 +470,8 @@ plt.show()
 
 *Output: Visual proof of the extraction. By converting the masked zeros to `NaN`, the area outside our vector boundary becomes completely transparent, leaving only the precise shape of the lake.*
 :::
-````
+
+``````
 
 ---
 
@@ -430,7 +479,7 @@ plt.show()
 
 Effectively managing how data moves in and out of your computer's memory is crucial for functional spatial programming.
 
-  * **Writing requires metadata:** Arrays lack spatial context. Always copy the `.profile` from the source image, update the data types if your math altered them, and pass those parameters into the write function.
-  * **Respect memory limits:** Satellite files are massive. Protect your system by reading only the specific bands you need, reducing data precision, or utilizing windowed reading.
-  * **Clip to save time:** Subsetting arrays using array indices, geographic coordinates, or exact vector polygons (masks) restricts processing strictly to your area of interest.
-  * **Reproject to align:** Use `rasterio.warp` to resample and transform pixel grids to match local Coordinate Reference Systems (like moving from UTM to local standard projections).
+* **Writing requires metadata:** Arrays lack spatial context. Always copy the `.profile` from the source image, update the data types if your math altered them, and pass those parameters into the write function.
+* **Respect memory limits:** Satellite files are massive. Protect your system by reading only the specific bands you need, reducing data precision, or utilizing windowed reading.
+* **Clip to save time:** Subsetting arrays using array indices, geographic coordinates, or exact vector polygons (masks) restricts processing strictly to your area of interest.
+* **Reproject to align:** Use `rasterio.warp` to resample and transform pixel grids to match local Coordinate Reference Systems (like moving from UTM to local standard projections).

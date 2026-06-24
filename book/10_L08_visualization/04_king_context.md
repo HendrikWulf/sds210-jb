@@ -38,12 +38,10 @@ A beautifully styled thematic map is excellent, but polygons floating in a blank
 
 ```
 
-**Preparing the Data**
+```{admonition} Data Preparation
+:class: dropdown
 
-To follow along with this chapter and complete the exercises, please download the following dataset and place it in a `data` folder next to your notebook. This package contains the predicted spatial data for the total solar eclipse occurring over Europe on September 3 2081.
-
-```{admonition} Data Downloads
-:class: note
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
 
 * [Total Solar Eclipse 2081 - core shadow (total_solar_eclipse_03-09-2081_core_shadow.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/total_solar_eclipse_03-09-2081_core_shadow.gpkg)
 * [Total Solar Eclipse 2081 - center line (total_solar_eclipse_03-09-2081_center_line.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/total_solar_eclipse_03-09-2081_center_line.gpkg)
@@ -155,9 +153,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output: By ensuring our data is in EPSG:3857, contextily successfully fetches the matching background tiles to provide real-world location context. It looks like Zurich is right in the path of totality!</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output: By ensuring our data is in EPSG:3857, contextily successfully fetches the matching background tiles to provide real-world location context. It looks like Zurich is right in the path of totality!
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---
@@ -218,9 +216,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>The map is now showing the dark transparent path of the 2081 solar eclipse sweeping across Europe, overlaid on the new OpenTopoMap basemap.</em>
-</figcaption>
+<div class="figure-caption-like">
+    The map is now showing the dark transparent path of the 2081 solar eclipse sweeping across Europe, overlaid on the new OpenTopoMap basemap.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Controlling Zoom and Resolution
@@ -296,9 +294,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output: By explicitly controlling the map provider, the zoom level, the spatial extents, and turning off the axes, we have transformed a basic plot into a polished cartographic layout.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output: By explicitly controlling the map provider, the zoom level, the spatial extents, and turning off the axes, we have transformed a basic plot into a polished cartographic layout.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---

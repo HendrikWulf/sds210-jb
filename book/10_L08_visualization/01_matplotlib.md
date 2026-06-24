@@ -173,9 +173,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output of Step 1: A blank Figure and Axes ready for data.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output of Step 1: A blank Figure and Axes ready for data.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 2: Injecting the Data
@@ -190,10 +190,11 @@ ax.plot(days, temperature_week1)
 
 plt.show()
 ```
+
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output of Step 2: Matplotlib automatically scales the axes to fit the injected data.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output of Step 2: Matplotlib automatically scales the axes to fit the injected data.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 Notice how Matplotlib automatically adjusted the Y-axis scale to fit our temperature range (from roughly 3 to 18) and applied the days of the week to the X-axis.
@@ -214,10 +215,11 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output of Step 3: The data mapped with specific color and marker styling.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output of Step 3: The data mapped with specific color and marker styling.
+</div>
 <!-- markdownlint-enable MD033 -->
+
 
 ### Step 4: Adding Context (Labels and Titles)
 
@@ -237,9 +239,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output of Step 4: Context applied to the Axes via set_ methods.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output of Step 4: Context applied to the Axes via set_ methods.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 5: Adding Layers, Legends, and Grids
@@ -270,9 +272,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output of Step 5: Adding multiple data layers, a legend, and an active background grid.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output of Step 5: Adding multiple data layers, a legend, and an active background grid.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 6: Fine-Tuning the Details (Keyword Arguments)
@@ -308,9 +310,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output of Step 6: A polished visualization with explicit control over aesthetics and typography.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output of Step 6: A polished visualization with explicit control over aesthetics and typography.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 7: Saving the Plot
@@ -503,9 +505,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output of Step 1: `plt.subplots(1, 2)` generates a single Figure containing an array of two empty Axes.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output of Step 1: `plt.subplots(1, 2)` generates a single Figure containing an array of two empty Axes.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 2: Unpacking the Axes Array
@@ -527,9 +529,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output of Step 2: Data successfully routed to specific axes using array indexing (`axs[0]` and `axs[1]`).</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output of Step 2: Data successfully routed to specific axes using array indexing (`axs[0]` and `axs[1]`).
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 3: The Autoscale Trap (Standardizing Bounds)
@@ -552,9 +554,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output of Step 3: Standardizing the Y-limits reveals the true scale difference between the two weeks.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output of Step 3: Standardizing the Y-limits reveals the true scale difference between the two weeks.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 4: Figure-Level vs. Axes-Level Formatting
@@ -590,9 +592,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output of Step 4: The final subplots graphic, properly balancing Figure-level and Axes-level styling.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output of Step 4: The final subplots graphic, properly balancing Figure-level and Axes-level styling.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---
@@ -691,9 +693,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output of Step 2: Because we used datetime objects, Matplotlib natively understands the chronological X-axis.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output of Step 2: Because we used datetime objects, Matplotlib natively understands the chronological X-axis.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ### Step 3: Formatting Dates and Setting Time Limits
@@ -738,9 +740,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output of Step 3: The customized time series. The X-axis displays the Day of the Year, the viewport is restricted to a 6-day window, and `fig.autofmt_xdate()` keeps the labels neatly organized.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output of Step 3: The customized time series. The X-axis displays the Day of the Year, the viewport is restricted to a 6-day window, and `fig.autofmt_xdate()` keeps the labels neatly organized.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 *(Note: Because `fig.autofmt_xdate()` automatically adjusts the figure margins to accommodate the angled text, it usually removes the need to call `fig.tight_layout()` at the end, streamlining the students' code even further!)*

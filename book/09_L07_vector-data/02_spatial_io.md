@@ -43,9 +43,11 @@ In the real world, spatial data comes neatly packaged in professional GIS format
 
 Before we begin, make sure you have downloaded the necessary datasets for this section. We will be using the national boundaries of Switzerland provided in three different industry standard formats.
 
-```{admonition} Download the Datasets
-:class: note
-Please download these files to your local working directory:
+```{admonition} Data Preparation
+:class: dropdown
+
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
+
 * [swissBoundaries3D_switzerland.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.gpkg)
 * [swissBoundaries3D_switzerland.geojson](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.geojson)
 * [swissBoundaries3D_switzerland.zip](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.zip) (Contains the Shapefile)
@@ -152,9 +154,9 @@ ch_gpkg.plot(figsize=(8, 5), color="dodgerblue", edgecolor="black");
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Visual output of ch_gpkg.plot(). GeoPandas automatically interprets the geometries and draws them. The X and Y axes are based on the coordinates stored in the data.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Visual output of ch_gpkg.plot(). GeoPandas automatically interprets the geometries and draws them. The X and Y axes are based on the coordinates stored in the data.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ## The Ultimate Sanity Check
@@ -198,9 +200,9 @@ ch_gpkg.plot(
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>A categorical map based on population counts. Because Switzerland's population is vastly higher than its internal enclaves, treating the unique values as categories allows us to instantly visualize the location and distinct nature of all four entities.</em>
-</figcaption>
+<div class="figure-caption-like">
+    A categorical map based on population counts. Because Switzerland's population is vastly higher than its internal enclaves, treating the unique values as categories allows us to instantly visualize the location and distinct nature of all four entities.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 *(Note: Because the German and Italian enclaves are so tiny compared to the main landmass of Switzerland, you may need to zoom into the actual plot in your notebook to see them clearly!)*
@@ -230,9 +232,9 @@ ch_gpkg.plot(
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Mapping normalized data. By dividing the population by the land area, we reveal the actual demographic intensity of the regions without the visual bias of their physical size.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Mapping normalized data. By dividing the population by the land area, we reveal the actual demographic intensity of the regions without the visual bias of their physical size.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 Ta-da! You just created a professional spatial visualization. In this single workflow, you successfully engineered a new attribute (Pandas knowledge), used it to style the active geometry column (Shapely knowledge), and placed the results into the correct geographic coordinate space!

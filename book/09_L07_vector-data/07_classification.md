@@ -42,9 +42,11 @@ In the previous sections, we learned how to generate new spatial datasets, engin
 
 However, if you try to plot these raw numbers directly, the resulting map can be confusing. This section marks the transition from spatial *analysis* to spatial *communication*. You will learn why we must normalize our data and how to use Python rules and statistical algorithms to categorize (classify) your data into readable groups.
 
-```{admonition} Download the Datasets
-:class: note
-Please download this file to your local working directory for this lesson:
+```{admonition} Data Preparation
+:class: dropdown
+
+To follow along with this chapter, place the following dataset in a `data` folder next to your notebook:
+
 * [swissBoundaries3D_municipalities.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_municipalities.gpkg)
 
 ```
