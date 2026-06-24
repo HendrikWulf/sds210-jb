@@ -40,9 +40,11 @@ In the previous section, we learned how to ask spatial questions to filter our d
 
 Now, we will take the final step in vector analysis: **Data Fusion**. You will learn how to permanently combine the geometries and attributes of entirely different datasets to engineer new, multi-dimensional analytical tables.
 
-```{admonition} Download the Datasets
-:class: note
-Please download these files to your local working directory for this lesson:
+```{admonition} Data Preparation
+:class: dropdown
+
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
+
 * [swissBoundaries3D_cantons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_cantons.gpkg)
 * [swissBoundaries3D_municipalities.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_municipalities.gpkg)
 * [swissHighways.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissHighways.gpkg)

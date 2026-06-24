@@ -43,6 +43,15 @@ Real-world data is rarely ready for immediate analysis. Files from environmental
 
 In this section, we will learn standard techniques to programmatically clean a dataset using Pandas. We will return to our [kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt) dataset, applying the skipping logic learned in previous sections to load a fresh **{term}`DataFrame`**.
 
+```{admonition} Data Preparation
+:class: dropdown
+
+To follow along with this chapter, place the following dataset in a `data` folder next to your notebook:
+
+* [kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt)
+
+```
+
 ```{code-cell} python
 import pandas as pd
 

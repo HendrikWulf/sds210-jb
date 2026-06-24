@@ -31,7 +31,8 @@ html {
   font-style: italic;
   text-align: center;
   color: var(--pst-color-text-muted);
-  margin-top: 0.25rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 /* Ensure full-width elements don't exceed 100% of the screen width 

@@ -43,9 +43,11 @@ However, when working with geoscience data, knowing *what* happened is only half
 
 Before we begin, make sure you have downloaded the necessary datasets for this section. We will be using the Swiss pollen monitoring station network and nuclear power plant location data.
 
-```{admonition} Download the Datasets
-:class: note
-Please download these files to your local working directory:
+```{admonition} Data Preparation
+:class: dropdown
+
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
+
 * [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
 * [NuclearPowerPlant.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/NuclearPowerPlant.csv)
 * [meteoswiss_pollen_network.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/meteoswiss_pollen_network.csv)

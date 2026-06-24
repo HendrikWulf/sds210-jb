@@ -5,9 +5,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Meeting the mathematical engine behind raster data
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -19,19 +21,33 @@ Meeting the mathematical engine behind raster data
 :class: tip
 
 A raster band is, at its core, just a grid of numbers. NumPy gives you the tools to inspect, slice, transform, and analyse that grid quickly and efficiently.
+
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Fundamental for all raster-based labs)  
+**Project Relevance:** ★★☆ (Crucial if your project incorporates environmental or satellite data)  
+**Foundation:** ★★★ (The absolute foundation for Python numerical computing)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Learn the core mechanics of NumPy arrays, including creation, slicing, broadcasting, and aggregation, to understand the mathematical engine behind raster data.  
+**Skip this if:** You are highly proficient with NumPy arrays, slicing, boolean masking, and vectorized array mathematics.
+
 ```
 
 ---
 
 ## 1. From Lists to Arrays
 
-To work with raster data in Python, you first need to understand the data structure that powers it. NumPy, short for Numerical Python, is the core library for numerical computing in Python. Its central object is the **array**, a fast and efficient structure for storing and manipulating large grids of numbers.
+To work with raster data in Python, you first need to understand the data structure that powers it. **{term}`NumPy`**, short for Numerical Python, is the core library for numerical computing in Python. Its central object is the **{term}`array <Array>`**, a fast and efficient structure for storing and manipulating large grids of numbers.
 
 This matters because a raster band is, at its core, just a two dimensional array of values. Each cell stores a measurement for one location, such as elevation, temperature, or reflectance. If you want to work with raster data effectively, you need to be comfortable working with arrays.
 
 You could store pixel values in ordinary Python lists, but lists are not designed for large scale numerical work. NumPy arrays are. They make calculations faster, cleaner, and easier to express.
 
-The most important shift in thinking is this: operations on NumPy arrays are usually applied **element by element**. If you multiply an array by `2`, NumPy multiplies every value in the grid by `2`. This lets you transform entire surfaces at once without writing repetitive loops.
+The most important shift in thinking is this: operations on NumPy arrays are usually applied element by element. If you multiply an array by `2`, NumPy multiplies every value in the grid by `2`. This lets you transform entire surfaces at once without writing repetitive loops.
 
 ---
 
@@ -41,7 +57,8 @@ By convention, NumPy is usually imported with the alias `np`.
 
 ```{code-cell} python
 import numpy as np
-````
+
+```
 
 ### Understanding dimensions
 
@@ -57,11 +74,12 @@ NumPy generalizes this idea to any number of dimensions. That is why its core ar
 :class: note
 
 You may hear a 0-D array called a **scalar**, a 1-D array a **vector**, a 2-D array a **matrix**, and an N-D array a **tensor**. While this shorthand is common, it is usually clearer to say **array** and state the number of dimensions explicitly. This avoids confusion, since these mathematical terms can behave differently from NumPy arrays and are also used differently in other libraries such as PyTorch.
+
 ```
 
 Most NumPy arrays follow a few important rules:
 
-* all elements have the same data type
+* all elements have the same **{term}`data type <Data type>`**
 * the overall size does not change after creation
 * the shape is regular, not jagged
 
@@ -80,6 +98,7 @@ print(arr_1d)
 
 print("\n2D array:")
 print(arr_2d)
+
 ```
 
 When working with raster like data, you often want to begin with a blank grid. NumPy provides simple ways to generate these starting structures:
@@ -96,6 +115,7 @@ sequence = np.arange(0, 10, 2)
 print("Zeros:\n", zeros)
 print("\nOnes:\n", ones)
 print("\nSequence:\n", sequence)
+
 ```
 
 ### `arange()` vs. `linspace()`
@@ -110,10 +130,7 @@ Here is a simple example with `linspace()`:
 ```{code-cell} python
 values = np.linspace(0, 10, num=5)
 print(values)
-```
 
-```text
-[ 0.   2.5  5.   7.5 10. ]
 ```
 
 This creates five evenly spaced values between `0` and `10`, including both endpoints.
@@ -126,6 +143,7 @@ This creates five evenly spaced values between `0` and `10`, including both endp
 
 `np.linspace(0, 10, num=5)` asks:
 **Start at 0, end at 10, and create exactly 5 evenly spaced values.**
+
 
 ```
 
@@ -140,7 +158,7 @@ This is especially useful when flat data need to be turned into a matrix.
 :width: 700px
 :align: center
 
-*Visualizing array restructuring: A one dimensional sequence of 6 elements can be instantly reshaped into a grid of 2 rows and 3 columns, or 3 rows and 2 columns. Source: [Numpy](https://numpy.org/devdocs/user/absolute_beginners.html#transposing-and-reshaping-a-matrix)*
+*Visualizing array restructuring: A one dimensional sequence of 6 elements can be instantly reshaped into a grid of 2 rows and 3 columns, or 3 rows and 2 columns. Source: [Numpy*](https://numpy.org/devdocs/user/absolute_beginners.html#transposing-and-reshaping-a-matrix)
 :::
 
 ```{code-cell} python
@@ -154,17 +172,7 @@ print("2x3 grid:\n", grid_2x3)
 # Reshape the same data sequence into a 3x2 grid
 grid_3x2 = data.reshape((3, 2))
 print("\n3x2 grid:\n", grid_3x2)
-```
 
-```text
-2x3 grid:
- [[1 2 3]
-  [4 5 6]]
-
-3x2 grid:
- [[1 2]
-  [3 4]
-  [5 6]]
 ```
 
 A result like this is already starting to look like a tiny raster band: a regular grid of values arranged by rows and columns. At this stage, however, it is still just a numerical array. The spatial meaning comes later, when coordinates, resolution, and other raster metadata are added.
@@ -175,7 +183,7 @@ A result like this is already starting to look like a tiny raster band: a regula
 
 Whenever you create or load a new array, it is good practice to inspect its basic structure first. This helps you confirm exactly what kind of object you are working with and how the data is organized.
 
-You can use the built in Python `type()` function to confirm that the object is indeed a NumPy array. After that, four key attributes will tell you everything you need to know about the array's geometry:
+You can use the built-in Python `type()` **{term}`function <Function>`** to confirm that the **{term}`object <Object>`** is indeed a NumPy array. After that, four key attributes will tell you everything you need to know about the array's geometry:
 
 * **`.ndim`**: Tells you the number of dimensions the array has. For example, a flat sequence is 1D, while a spatial grid is 2D.
 * **`.shape`**: Returns a tuple specifying the number of elements along each dimension. For a 2D array, this represents the number of rows and columns (for example, `(3, 4)`).
@@ -190,14 +198,7 @@ print(f"Dimensions: {grid_3x2.ndim}")
 print(f"Shape: {grid_3x2.shape}")
 print(f"Size: {grid_3x2.size}")
 print(f"Data type: {grid_3x2.dtype}")
-```
 
-```text
-Type: <class 'numpy.ndarray'>
-Dimensions: 2
-Shape: (3, 2)
-Size: 6
-Data type: int64
 ```
 
 ---
@@ -206,12 +207,13 @@ Data type: int64
 
 One of NumPy’s greatest strengths is that it makes it easy to access, extract, and modify selected parts of an array. This is essential for raster work, where you often want to inspect a single cell, extract an analysis window, or update a group of pixels.
 
-NumPy arrays are **zero indexed**, so the first row and first column both start at index `0`.
+NumPy arrays are **{term}`zero-indexed <Index>`**, so the first row and first column both start at index `0`.
 
 ```{admonition} Indexing & Slicing
 :class: tip
 
-Indexing selects one position. Slicing selects a range of positions. In raster terms, indexing gives you a single cell, while slicing gives you an entire row, column, or spatial window.
+Indexing selects one position. **{term}`Slicing`** selects a range of positions. In raster terms, indexing gives you a single cell, while slicing gives you an entire row, column, or spatial window.
+
 ```
 
 ### Indexing in one dimension
@@ -226,14 +228,7 @@ print(data[1])    # second value
 print(data[0:2])  # first two values
 print(data[3:])   # everything from index 3 onward
 print(data[-2:])  # last two values
-```
 
-```text
-1
-2
-[1 2]
-[4 5 6]
-[5 6]
 ```
 
 :::{figure} images/03_np_indexing.png
@@ -241,7 +236,7 @@ print(data[-2:])  # last two values
 :width: 700px
 :align: center
 
-*Visualizing array slicing: You can use start and end indices to extract specific sections of an array. Source: [Numpy](https://numpy.org/devdocs/user/absolute_beginners.html#indexing-and-slicing)*
+*Visualizing array slicing: You can use start and end indices to extract specific sections of an array. Source: [Numpy*](https://numpy.org/devdocs/user/absolute_beginners.html#indexing-and-slicing)
 :::
 
 An important rule in Python slicing is that the **stop value is excluded**. So `data[0:2]` includes indices `0` and `1`, but never `2`.
@@ -260,16 +255,14 @@ grid = np.array([
 # Access the element in the first row and second column
 value = grid[0, 1]
 print(value)
-```
 
-```text
-2
 ```
 
 ```{admonition} Row & Column
 :class: note
 
 For two dimensional arrays, the index order is always `[row, column]`. This order matches how raster grids are accessed in spatial algorithms. Therefore, `grid[0, 1]` means row `0` and column `1`.
+
 ```
 
 ### Slicing rows, columns, and windows
@@ -293,27 +286,28 @@ print("Top rows:\n", top_rows)
 print("\nBottom left window:\n", bottom_left_window)
 print("\n2x2 window:\n", window)
 print("\nRectangular inner window:\n", inner_window)
-```
 
-```text
-Top rows:
- [[1 2 3]
-  [4 5 6]]
-
-Bottom left window:
- [[4 5]
-  [7 8]]
-
-2x2 window:
- [[1 2]
-  [4 5]]
-
-Rectangular inner window:
- [[5 6]
-  [8 9]]
 ```
 
 This is the foundational pattern for extracting analysis windows or cropping regions of interest from large raster files.
+
+#### Concept Check: The Missing Pixel
+
+**Scenario:** You have a 1D array of 5 pixel values: `data = np.array([10, 20, 30, 40, 50])`. You want to extract the second and third pixels (the values `20` and `30`). Which slice must you use?
+
+A) `data[1:2]`
+
+B) `data[2:3]`
+
+C) `data[1:3]`
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: C**
+In Python, arrays are **zero-indexed**, meaning the second pixel is at index `1`. Furthermore, slicing is **exclusive** of the stop value. Therefore, `data[1:3]` extracts indices `1` and `2`, safely stopping before it hits index `3`.
+
+```
 
 ### Updating values
 
@@ -327,17 +321,12 @@ grid[2, 2] = 10
 grid[0:2, 0:2] = 5
 
 print(grid)
-```
 
-```text
-[[ 5  5  3]
- [ 5  5  6]
- [ 7  8 10]]
 ```
 
 ### Boolean indexing
 
-NumPy also allows you to select values based on specific mathematical conditions. This is called **boolean indexing**.
+NumPy also allows you to select values based on specific mathematical conditions. This is called **{term}`boolean indexing <Boolean indexing>`**.
 
 ```{code-cell} python
 a = np.array([
@@ -348,11 +337,7 @@ a = np.array([
 
 print(a[a < 5])
 print(a[a >= 5])
-```
 
-```text
-[1 2 3 4]
-[ 5  6  7  8  9 10 11 12]
 ```
 
 A condition such as `a < 5` actually creates a temporary boolean array of the exact same shape, filled entirely with `True` and `False` values. NumPy then applies that mask over your original array to return only the matching values.
@@ -363,27 +348,26 @@ You can also combine multiple conditions using `&` (and) or `|` (or):
 ```{code-cell} python
 selected = a[(a > 2) & (a < 11)]
 print(selected)
-```
 
-```text
-[ 3  4  5  6  7  8  9 10]
 ```
 
 This kind of targeted updating is useful when simulating terrain, applying masks, or changing selected raster cells.
 
+<!-- markdownlint-disable MD033-->
 <iframe
-src="https://hendrikwulf.github.io/sds210_assets_L09_ch02_array_visualizer/"
-width="100%"
-title="Interactive Array Slicing and Masking Visualizer"
-frameborder="0"
-style="height: 700px; min-height: 700px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
-allowfullscreen>
+    src="https://hendrikwulf.github.io/sds210_assets_L09_ch02_array_visualizer/"
+    width="100%"
+    title="Interactive Array Slicing and Masking Visualizer"
+    frameborder="0"
+    style="height: 700px; min-height: 700px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+    allowfullscreen>
 </iframe>
 
-*Interactive Array Slicing and Masking Visualizer. For improved visibility of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_L09_ch02_array_visualizer/).* 
-
-
----
+<figcaption>
+    <em><b>Interactive Explorer: Array Slicing and Masking.</b><br>
+    Toggle between modes to explore how array slicing and boolean masking extract specific data from a 2D grid. Adjust the row and column boundaries or the boolean threshold, and watch the visual selection instantly update alongside the corresponding NumPy syntax. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L09_ch02_array_visualizer/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
 
 ## 5. Array Math & Summaries
 
@@ -391,7 +375,7 @@ NumPy is powerful because it lets you apply mathematical operations to entire ar
 
 ### Scalar and element-wise math
 
-If you combine an array with a single number (a scalar), NumPy automatically applies that operation to every cell in the array. This concept is called **broadcasting**. 
+If you combine an array with a single number (a scalar), NumPy automatically applies that operation to every cell in the array. This concept is called **{term}`broadcasting <Broadcasting>`**.
 
 ```{code-cell} python
 grid = np.array([
@@ -408,34 +392,17 @@ offset_grid = grid + 10
 
 print("Doubled Grid:\n", doubled_grid)
 print("\nOffset Grid:\n", offset_grid)
+
 ```
 
-```text
-Doubled Grid:
- [[ 2  4  6]
-  [ 8 10 12]
-  [14 16 18]]
-
-Offset Grid:
- [[11 12 13]
-  [14 15 16]
-  [17 18 19]]
-```
-
-You can also perform element-wise math between two arrays, provided they have compatible dimensions (e.g., the same shape). This is useful for operations like calculating the difference between two raster layers (e.g., finding elevation change over time).
+You can also perform **{term}`element-wise <Element-wise operation>`** math between two arrays, provided they have compatible dimensions (e.g., the same shape). This is useful for operations like calculating the difference between two raster layers (e.g., finding elevation change over time).
 
 ```{code-cell} python
 # Element-wise addition
 combined_grid = grid + offset_grid
 
 print("Combined Grid:\n", combined_grid)
-```
 
-```text
-Combined Grid:
- [[12 14 16]
-  [18 20 22]
-  [24 26 28]]
 ```
 
 ### Mathematical functions
@@ -451,13 +418,14 @@ sqrt_grid = np.sqrt(grid)
 
 # Or perform trigonometry (e.g., when calculating terrain slope/aspect)
 sin_grid = np.sin(grid)
-````
+
+```
 
 This is especially useful in spatial data science, where raster processing often involves transforming values before analysis or visualization.
 
 ### Summary statistics (Aggregation)
 
-Once you have a grid of values, you often want quick summaries. NumPy provides aggregation functions like `min`, `max`, `sum`, `mean`, and `std` (standard deviation). 
+Once you have a grid of values, you often want quick summaries. NumPy provides aggregation functions like `min`, `max`, `sum`, `mean`, and `std` (standard deviation).
 
 By default, these functions evaluate the entire array.
 
@@ -468,28 +436,22 @@ print(f"Sum of elevation: {grid.sum()}")
 print(f"Mean elevation: {grid.mean()}")
 print(f"Median elevation: {np.median(grid)}")
 print(f"Standard deviation: {np.std(grid).round(2)}")
-```
 
-```text
-Min elevation: 1
-Max elevation: 9
-Sum of elevation: 45
-Mean elevation: 5.0
-Median elevation: 5.0
-Standard deviation: 2.58
 ```
 
 ```{admonition} Median
 :class: note
 
-You might notice a slight difference in the syntax above. Statistics like `.min()`, `.max()`, and `.mean()` are built directly into the array object as *methods*, meaning you can call them directly on the array itself (e.g., `grid.mean()`). 
+You might notice a slight difference in the syntax above. Statistics like `.min()`, `.max()`, and `.mean()` are built directly into the array object as **{term}`methods <Method>`**, meaning you can call them directly on the array itself (e.g., `grid.mean()`). 
 
 However, **`median`** is not an array method. To calculate it, you must use the top-level NumPy library function and pass your array inside the parentheses: `np.median(grid)`. *(Note: Many other functions, like standard deviation, can actually be written either way: `grid.std()` or `np.std(grid)`).*
+
 ```
 
 #### Aggregating along an axis
 
 You can also calculate statistics for specific dimensions by specifying an `axis`. For a 2D array:
+
 * `axis=0` aggregates down the columns (vertically).
 * `axis=1` aggregates across the rows (horizontally).
 
@@ -502,14 +464,28 @@ mean_per_row = grid.mean(axis=1)
 
 print("Max value per column:", max_per_col)
 print("Mean value per row:", mean_per_row)
-```
 
-```text
-Max value per column: [7 8 9]
-Mean value per row: [2. 5. 8.]
 ```
 
 These kinds of targeted summaries are very common in raster analysis, for example, when creating zonal statistics or analyzing temporal data where one axis represents time.
+
+#### Concept Check: The Loop Bottleneck
+
+**Scenario:** You have a high-resolution satellite image with 10 million pixels representing temperature. You need to convert the temperature from Celsius to Fahrenheit. Why shouldn't you use a standard Python `for` loop to iterate through every pixel?
+
+A) `for` loops cannot access pixel values; you must use a spatial join.
+
+B) Standard Python lists and loops are not optimized for massive matrices and will hit a severe performance wall.
+
+C) The data is continuous, so you can only calculate the area, not the temperature.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+Raster data relies on massive matrices. Standard Python loops iterate one by one, which takes far too long for millions of cells. NumPy solves this using '**{term}`vectorization <Vectorization>`**', pushing operations down to optimized C code to compute the whole matrix almost instantly.
+
+```
 
 ---
 
@@ -527,14 +503,14 @@ You are given a tiny elevation raster for a mountain valley. Your task is to bui
 6. Raise the terrain by `2` meters everywhere.
 7. Calculate the minimum, maximum, and mean elevation.
 8. Create a Boolean mask for all cells with elevation greater than `4`.
-9. Assign `np.nan` to one corner cell to represent missing data.
+9. Assign `np.nan` (**{term}`NaN`**) to one corner cell to represent missing data.
 
 ```{code-cell} python
 # Write your code here
 
 ```
 
-````{admonition} Sample Solution
+``````{admonition} Sample Solution
 :class: dropdown
 
 ```{code-cell} python
@@ -571,7 +547,8 @@ print("\nMask (Elevation > 4):\n", mask)
 grid[0, 0] = np.nan
 print("\nTerrain with missing data (NaN):\n", grid)
 ```
-````
+
+``````
 
 ---
 

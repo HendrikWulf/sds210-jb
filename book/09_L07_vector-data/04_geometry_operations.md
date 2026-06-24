@@ -42,9 +42,11 @@ In the previous sections, we learned how to load spatial files and navigate the 
 
 This section marks your transition into active spatial analysis. You will learn how to interrogate your geometries to generate numeric measurements and manipulate them to create brand new derived shapes.
 
-```{admonition} Download the Datasets
-:class: note
-Please download these files to your local working directory for this lesson:
+```{admonition} Data Preparation
+:class: dropdown
+
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
+
 * [swissBoundaries3D_switzerland.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.gpkg)
 * [swissBoundaries3D_cantons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_cantons.gpkg)
 * [swissBoundaries3D_grisons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_grisons.gpkg)
@@ -159,9 +161,9 @@ cantons_gdf.plot(
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Mapping our derived metrics. If you look closely at Bern (the brightest yellow) and Vaud (light green in the west), you can see how their heavily fragmented borders and complex lake shorelines drive up their perimeter length compared to the more "blocky" Graubünden in the east.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Mapping our derived metrics. If you look closely at Bern (the brightest yellow) and Vaud (light green in the west), you can see how their heavily fragmented borders and complex lake shorelines drive up their perimeter length compared to the more "blocky" Graubünden in the east.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---
@@ -199,9 +201,9 @@ ax.set_title("The Geographic Center(s) of Switzerland")
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Using `.centroid` to find the geometric center of mass. The true geographic center of the Swiss mainland is famous and is located at Älggi-Alp in the canton of Obwalden.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Using `.centroid` to find the geometric center of mass. The true geographic center of the Swiss mainland is famous and is located at Älggi-Alp in the canton of Obwalden.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ```{admonition} What do you expect to find at the center of Switzerland?
@@ -295,9 +297,9 @@ ax.set_title("Nuclear Safety Zones in Switzerland")
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Drawing zones of influence using `.buffer()`. Because our data was safely inside the EPSG:2056 grid, providing the buffer distances in meters generates perfectly accurate proximity zones around the plants.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Drawing zones of influence using `.buffer()`. Because our data was safely inside the EPSG:2056 grid, providing the buffer distances in meters generates perfectly accurate proximity zones around the plants.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---
@@ -385,9 +387,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Three methods for reducing geometric complexity. These derived shapes are often used to speed up complex spatial intersection algorithms before doing the heavy mathematical lifting on the full geometry.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Three methods for reducing geometric complexity. These derived shapes are often used to speed up complex spatial intersection algorithms before doing the heavy mathematical lifting on the full geometry.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 <!-- markdownlint-disable MD033-->

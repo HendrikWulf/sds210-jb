@@ -39,9 +39,11 @@ Time is the most fundamental way we organize environmental data. In this section
 
 Before we begin, make sure you have downloaded the necessary datasets for this section. We will be using one familiar and two new Kloten datasets, plus a new dataset from Säntis.
 
-```{admonition} Download the Datasets
-:class: note
-Please download these files to your local working directory:
+```{admonition} Data Preparation
+:class: dropdown
+
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
+
 * [kloten_daily_19800101_20260101.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_daily_19800101_20260101.csv)
 * [kloten_spring_2024_hourly.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_spring_2024_hourly.csv)
 * [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
@@ -340,9 +342,9 @@ ax.set_xticks(range(0, 24, 2));
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>The average diurnal temperature cycle calculated by grouping hourly data. A beautiful, smooth bell curve where temperatures drop to their lowest right before sunrise (04:00 - 05:00) and peak in the afternoon (14:00 - 15:00).</em>
-</figcaption>
+<div class="figure-caption-like">
+    The average diurnal temperature cycle calculated by grouping hourly data. A beautiful, smooth bell curve where temperatures drop to their lowest right before sunrise (04:00 - 05:00) and peak in the afternoon (14:00 - 15:00).
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---

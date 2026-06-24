@@ -42,11 +42,11 @@ In the previous section, we successfully loaded and plotted geographic shapes. H
 
 This section addresses the most common source of frustration in Geographic Information Systems (GIS): **Projections**. You will learn why mapping the Earth is mathematically complicated, how to identify your current coordinate system, and how to safely manipulate it using GeoPandas.
 
-Before we begin, please download the global administrative boundaries dataset provided by Natural Earth.
+```{admonition} Data Preparation
+:class: dropdown
 
-```{admonition} Download the Datasets
-:class: note
-Please download this file to your local working directory:
+To follow along with this chapter, place the following dataset in a `data` folder next to your notebook:
+
 * [ne_50m_admin_0_countries.zip](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/ne_50m_admin_0_countries.zip)
 
 ```

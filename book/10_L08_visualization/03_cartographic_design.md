@@ -38,12 +38,10 @@ Plotting spatial geometries is only the first step. Creating a map that accurate
 
 ```
 
-### Preparing the Data
+```{admonition} Data Preparation
+:class: dropdown
 
-To follow along with this chapter and complete the exercises, please download the following dataset and place it in a `data` folder next to your notebook. This package contains detailed demographic data for European {abbr}`NUTS (Nomenclature of territorial units for statistics)` [level 3 regions](https://ec.europa.eu/eurostat/web/nuts).
-
-```{admonition} Data Downloads
-:class: note
+To follow along with this chapter, place the following dataset in a `data` folder next to your notebook. This package contains detailed demographic data for European {abbr}`NUTS (Nomenclature of territorial units for statistics)` [level 3 regions](https://ec.europa.eu/eurostat/web/nuts).
 
 * [Eurostat NUTS Regions (nuts_rg_03m_2024_3035_pop_wm_eu.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/nuts_rg_03m_2024_3035_pop_wm_eu.gpkg)
 
@@ -80,9 +78,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output: A basic choropleth. GeoPandas analyzes the numeric values in the specified column and assigns colors accordingly. Notice it defaults to the blue-to-yellow "viridis" palette.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output: A basic choropleth. GeoPandas analyzes the numeric values in the specified column and assigns colors accordingly. Notice it defaults to the blue-to-yellow "viridis" palette.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---
@@ -183,9 +181,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output: Visualizing the three core colormap classes using the cmcrameri library. Notice how the lightness transitions smoothly in the sequential map, and balances outward from the center in the diverging map.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output: Visualizing the three core colormap classes using the cmcrameri library. Notice how the lightness transitions smoothly in the sequential map, and balances outward from the center in the diverging map.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 Because our youth population data is continuous and progresses from low to high, a **Sequential** colormap is the most appropriate choice. Moving forward, we will utilize the `cmc.batlow` colormap to ensure our cartography is perfectly scientifically accurate.
@@ -300,9 +298,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Output: By applying the perceptually uniform `batlow` colormap, adding a descriptive horizontal legend, and scaling the data to the 2nd and 98th percentiles, we accommodate the data distribution and create a highly readable, balanced thematic map.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output: By applying the perceptually uniform `batlow` colormap, adding a descriptive horizontal legend, and scaling the data to the 2nd and 98th percentiles, we accommodate the data distribution and create a highly readable, balanced thematic map.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 #### Concept Check: The Outlier Effect
@@ -423,9 +421,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>OOutput: Proper handling of missing data via `missing_kwds` ensures the map remains structurally intact while clearly and honestly communicating exactly where data is unavailable.</em>
-</figcaption>
+<div class="figure-caption-like">
+    Output: Proper handling of missing data via `missing_kwds` ensures the map remains structurally intact while clearly and honestly communicating exactly where data is unavailable.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 ---
