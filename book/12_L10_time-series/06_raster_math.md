@@ -5,9 +5,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
-Extracting Environmental Relationships
+    Extracting Environmental Relationships
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -21,19 +23,31 @@ Extracting Environmental Relationships
 Once spatial datasets are aligned, mathematical operations allow you to extract environmental relationships, like identifying ecological boundaries across elevations.
 ```
 
-In previous chapters, you learned how to inspect and visualize multidimensional data cubes. Now we move from inspection to analysis. `xarray` makes raster math incredibly robust because it automatically preserves spatial dimensions and coordinates during computation. This means you no longer have to worry about tracking arbitrary NumPy arrays. 
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for calculating indices and applying conditional masks, which are staple lab tasks.)  
+**Project Relevance:** ★★★ (Core to almost any spatial analysis project involving raster data and environmental monitoring.)  
+**Foundation:** ★★★ (Fundamental skills for moving from raw pixel data to derived statistical insights.)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Learn to perform pixel-by-pixel mathematical operations and spatial aggregations to extract meaningful environmental boundaries from raw satellite imagery.  
+**Skip this if:** Do not skip.
+
+```
+
+In previous chapters, you learned how to inspect and visualize multidimensional **{term}`data cubes <Data cube>`**. Now we move from inspection to analysis. **{term}`xarray`** makes raster math incredibly robust because it automatically preserves spatial dimensions and coordinates during computation. This means you no longer have to worry about tracking arbitrary **{term}`NumPy`** arrays.
 
 **Applied Scenario**
-To demonstrate this, we will combine a Landsat 9 optical image (7 bands) and a Copernicus Digital Elevation Model (DEM) over a mountainous region in New Zealand. Our goal is to derive two major ecological boundaries:
+To demonstrate this, we will combine a Landsat 9 optical image (7 bands) and a Copernicus **{term}`Digital elevation model`** (DEM) over a mountainous region in New Zealand. Our goal is to derive two ecological boundaries:
+
 1. **The Treeline:** The elevation where vegetation sharply decreases.
 2. **The Snowline:** The elevation where snow cover sharply increases.
 
-**Preparing the Data**
+```{admonition} Data Preparation
+:class: dropdown
 
-To follow along with this chapter and complete the exercises, please download the following datasets and place them in a `data` folder next to your notebook.
-
-```{admonition} Data Downloads
-:class: note
+To follow along with this chapter, place the following datasets in a `data` folder next to your notebook: 
 
 * [Copernicus DEM New Zealand (Copernicus_DEM_NZ_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L10/data/Copernicus_DEM_NZ_subset.tif)
 * [Landsat 9 Multispectral Subset (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L10/data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
@@ -43,7 +57,7 @@ To follow along with this chapter and complete the exercises, please download th
 
 ## 1. Preparing the Data Cube
 
-Before doing any math, we need readable, perfectly aligned variables. Satellite data often loads with arbitrary indices (like `Band 1` or `Band 2`). We want to extract exactly what we need, name the variables by their physical wavelength regions, and merge the optical and elevation data into a single master `Dataset`. 
+Before doing any math, we need readable, perfectly aligned variables. Satellite data often loads with arbitrary indices (like `Band 1` or `Band 2`). We want to extract exactly what we need, name the variables by their physical wavelength regions, and merge the optical and elevation data into a single master **{term}`Dataset <Dataset (xarray)>`**.
 
 ```{code-cell} python
 # !pip install rioxarray
@@ -72,13 +86,13 @@ ds = ds.drop_vars("band", errors="ignore")
 print(ds)
 ```
 
-Because both GeoTIFFs share the exact same spatial grid and Coordinate Reference System, `xarray` effortlessly binds them together. You now have a clean, multidimensional workspace.
+Because both GeoTIFFs share the exact same spatial grid and **{term}`Coordinate Reference System`**, `xarray` effortlessly binds them together. You now have a clean, multidimensional workspace.
 
 ### Visualizing the inputs
 
-As we learned in the previous chapter, you should always verify your data visually before analyzing it. We will plot a **False Color Composite** combining the SWIR1, NIR, and Red bands. This specific band combination is excellent for environmental analysis because it cuts through atmospheric haze, highlights healthy vegetation in vivid green, and makes snow and ice pop in bright cyan.
+As we learned in the previous chapter, you should always verify your data visually before analyzing it. We will plot a **{term}`False color composite`** combining the SWIR1, NIR, and Red bands. This specific band combination is excellent for environmental analysis because it cuts through atmospheric haze, highlights healthy vegetation in vivid green, and makes snow and ice pop in bright cyan.
 
-Alongside it, we will use matplotlib's `LightSource` tool to generate a shaded relief map (hillshade) from our elevation data to understand the rugged topography.
+Alongside it, we will use matplotlib's `LightSource` tool to generate a shaded relief map (**{term}`Hillshade`**) from our elevation data to understand the rugged topography.
 
 ```{code-cell} python
 import numpy as np
@@ -118,17 +132,19 @@ plt.tight_layout()
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A side by side comparison of our input variables. The False Color Composite clearly highlights vegetation and snow gradients, while the hillshade verifies the corresponding mountain topography.
+    A side by side comparison of our input variables. The False Color Composite clearly highlights vegetation and snow gradients, while the hillshade verifies the corresponding mountain topography.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
 ## 2. Arithmetic
 
-With our variables properly named, deriving new spatial layers reads exactly like standard mathematical formulas. `xarray` will automatically broadcast the calculation across all pixels simultaneously. It also gracefully handles common raster math issues—such as division by zero over dark water bodies—by silently inserting `NaN` (Not a Number) values without crashing your script.
+With our variables properly named, deriving new spatial layers reads exactly like standard mathematical formulas. `xarray` will automatically broadcast the calculation across all **{term}`pixels <Pixel>`** simultaneously. It also gracefully handles common raster math issues—such as division by zero over dark water bodies—by silently inserting **{term}`NaN`** (Not a Number) values without crashing your script.
 
-Let us calculate the Normalized Difference Vegetation Index (NDVI) to quantify tree cover across the landscape. 
+Let us calculate the Normalized Difference Vegetation Index (NDVI) to quantify tree cover across the landscape.
 
 ```{code-cell} python
 # Calculate NDVI: (NIR - Red) / (NIR + Red)
@@ -150,17 +166,19 @@ plt.axis("off")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-The computed NDVI layer. Because we assigned the calculation directly back to our Dataset container (ds["NDVI"]), the new derived variable is instantly available and perfectly aligned alongside our elevation data.
+    The computed NDVI layer. Because we assigned the calculation directly back to our Dataset container (ds["NDVI"]), the new derived variable is instantly available and perfectly aligned alongside our elevation data.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
 ## 3. Conditional Masking
 
-Environmental data is naturally messy. Vegetation indices can be heavily skewed by water bodies, dark topographic shadows, or barren rock. To find an accurate treeline, we only want to analyze pixels that definitively contain healthy vegetation. 
+Environmental data is naturally messy. Vegetation indices can be heavily skewed by water bodies, dark topographic shadows, or barren rock. To find an accurate treeline, we only want to analyze pixels that definitively contain healthy vegetation.
 
-We can use the `.where()` method to filter our dataset based on a logical condition. Any pixel that fails the condition is replaced with `NaN` (Not a Number), ensuring it will be safely ignored in all future calculations. 
+We can use the `.where()` **{term}`method`** to filter our dataset based on a logical condition. Any pixel that fails the condition is replaced with `NaN` (Not a Number), ensuring it will be safely ignored in all future calculations.
 
 ```{code-cell} python
 # Mask out non-vegetated pixels (0.3 is a standard threshold for healthy canopy)
@@ -180,9 +198,11 @@ plt.axis("off")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-The masked NDVI layer. The white areas represent pixels that failed our condition (NDVI > 0.3) and have been safely converted to NaN.
+    The masked NDVI layer. The white areas represent pixels that failed our condition (NDVI > 0.3) and have been safely converted to NaN.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -215,7 +235,7 @@ This operation is incredibly powerful. We have just collapsed our massive 2D ras
 
 ### Extracting bin centers
 
-By default, `.groupby_bins()` labels the new coordinate using Pandas interval objects (e.g., `(100, 150]`). While technically accurate, interval objects cannot be easily plotted on a graph, nor can we calculate their mathematical derivatives. 
+By default, `.groupby_bins()` labels the new coordinate using Pandas interval objects (e.g., `(100, 150]`). While technically accurate, interval objects cannot be easily plotted on a graph, nor can we calculate their mathematical derivatives.
 
 To fix this, we need to extract the exact midpoint of each bin using the underlying Pandas index. We will use a defensive programming approach to do this safely.
 
@@ -241,7 +261,7 @@ In an interactive Jupyter environment, it is common to run the same cell multipl
 
 ## 5. Finding the Treeline
 
-Before we extract our final ecological boundary, we must address a common pitfall in spatial statistics: **sample size**. 
+Before we extract our final ecological boundary, we must address a common pitfall in spatial statistics: **sample size**.
 
 Elevation bins near the very peak of a mountain might only contain a handful of pixels. Calculating an average NDVI from just five pixels produces noisy, unreliable data that can easily trick our algorithms. To fix this, we filter out any elevation bins that do not have a statistically significant number of pixels.
 
@@ -287,18 +307,21 @@ ax1.grid(True, alpha=0.3)
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A dual-axis plot revealing the relationship between the vegetation gradient (green line) and the underlying terrain distribution (gray bars). By filtering out the low-pixel-count bins at the highest elevations, we prevent noisy data from skewing our objective treeline detection.
+    A dual-axis plot revealing the relationship between the vegetation gradient (green line) and the underlying terrain distribution (gray bars). By filtering out the low-pixel-count bins at the highest elevations, we prevent noisy data from skewing our objective treeline detection.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
 ## 6. Exercise: Calculating the Snowline
 
-Now it is your turn to apply this raster math and filtering workflow. Using the exact same dataset, your task is to identify the **snowline**. 
+Now it is your turn to apply this raster math and filtering workflow. Using the exact same dataset, your task is to identify the **snowline**.
 
 **Your task:**
-1. **Calculate and Mask NDSI:** Create a new variable for the Normalized Difference Snow Index using the formula `(Green - SWIR1) / (Green + SWIR1)`. Mask out invalid pixels by keeping only areas where NDSI > 0.4 and NIR > 0.1 (this secondary NIR condition helps remove water and deep shadows).
+
+1. **Calculate and Mask NDSI:** Create a new variable for the **{term}`Normalized Difference Snow Index`** using the formula `(Green - SWIR1) / (Green + SWIR1)`. Mask out invalid pixels by keeping only areas where NDSI > 0.4 and NIR > 0.1 (this secondary NIR condition helps remove water and deep shadows).
 2. **Bin and Merge:** Group your masked NDSI layer by the elevation bins. This time, calculate both the `.mean()` and the `.count()`, and merge them into a single profile dataset. Remember to extract the numeric bin centers.
 3. **Filter by Pixel Density:** To avoid noisy data at the edges of the snowpack, calculate a dynamic threshold: 50% of the maximum pixel count across all bins. Filter your profile to keep only the bins that meet or exceed this threshold.
 4. **Find the Snowline:** Define the snowline as the elevation with the minimum average NDSI within your filtered, valid data. Print this calculated elevation.
@@ -394,7 +417,7 @@ plt.show()
 
 ## 7. Summary
 
-By aligning variables inside an `xarray` dataset, raster math transitions from tedious band management into robust, intuitive analysis. 
+By aligning variables inside an `xarray` dataset, raster math transitions from tedious band management into robust, intuitive analysis.
 
 * **Direct Arithmetic:** Raster math in `xarray` behaves exactly like basic arithmetic, automatically broadcasting operations across millions of pixels while keeping coordinate labels intact.
 * **Cleaning Data:** Functions like `.where()` are critical for applying logical thresholds and masking out invalid pixels before deriving environmental statistics.

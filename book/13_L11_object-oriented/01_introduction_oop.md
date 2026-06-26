@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Moving beyond sequential scripts
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -18,13 +20,25 @@ Moving beyond sequential scripts
 Before writing advanced, modular Python code, you should understand the conceptual shift from organizing your code around *actions* to organizing your code around *objects*.
 ```
 
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Project Relevance:** ★★★ (Essential if you want to architect robust, reusable code for your independent projects.)  
+**Foundation:** ★★★ (Represents a fundamental paradigm shift required for advanced Python development.)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Discover how Object-Oriented Programming bundles disconnected variables and functions into smart, self-managing entities.  
+**Skip this if:** You are already confident with concepts like classes, instances, attributes, and methods in Python.
+
+```
+
 ---
 
 ## 1. From variables and functions to objects
 
-Let us elevate the working definition of programming you have practiced so far. At its core, programming consists of two fundamental tasks: **managing state** (storing data) and **executing logic** (doing things with that data). 
+Let us elevate the working definition of programming you have practiced so far. At its core, programming consists of two fundamental tasks: **managing state** (storing data) and **executing logic** (doing things with that data).
 
-In **Procedural Programming** (the paradigm you have primarily used until now), these two concepts are kept strictly isolated. You store state in discrete variables - like strings, dictionaries, or NumPy arrays - and you pass those variables through a pipeline of standalone functions.
+In **{term}`Procedural programming`** (the paradigm you have primarily used until now), these two concepts are kept strictly isolated. You store state in discrete {term}`variables <Variable>` - like {term}`strings <String>`, {term}`dictionaries <Dictionary>`, or {term}`NumPy` {term}`arrays <Array>` - and you pass those variables through a pipeline of standalone {term}`functions <Function>`.
 
 ```python
 # The Procedural Approach
@@ -32,9 +46,9 @@ my_raster = rioxarray.open_rasterio("dem.tif")  # The State
 slope = calculate_slope(my_raster)              # The Logic
 ```
 
-**Object-Oriented Programming (OOP)** forcibly merges these two concepts. Instead of floating independently, state and logic are bundled together into a single, cohesive software entity known as an **object**. 
+**{term}`Object-oriented programming` (OOP)** forcibly merges these two concepts. Instead of floating independently, state and logic are bundled together into a single, cohesive software entity known as an **{term}`object <Object>`**.
 
-The data variables stored inside the object are called **attributes**, and the functions that belong exclusively to the object are called **methods**. Instead of passing raw data into an external function, you ask the object to perform an action on itself using dot notation.
+The data variables stored inside the object are called **{term}`attributes <Attribute>`**, and the functions that belong exclusively to the object are called **{term}`methods <Method>`**. Instead of passing raw data into an external function, you ask the object to perform an action on itself using {term}`dot notation <Dot notation>`.
 
 ```python
 # The Object-Oriented Approach
@@ -48,9 +62,10 @@ While this might initially look like a mere syntactic shortcut (moving the varia
 
 ## 2. When procedural code starts to break
 
-To understand why this architectural shift is necessary, consider how procedural code scales. Imagine you are writing a script to track live data from weather stations across Switzerland. 
+To understand why this architectural shift is necessary, consider how procedural code scales. Imagine you are writing a script to track live data from weather stations across Switzerland.
 
 In a purely procedural style, you might attempt to manage the state of these stations using multiple parallel lists:
+
 ```python
 # A procedural approach using parallel lists
 station_names = ["Zurich", "Geneva", "Lugano"]
@@ -80,7 +95,7 @@ new_temp = calibrate_temp(temperatures[idx], elevations[idx])
 temperatures[idx] = new_temp
 ```
 
-The computer has no concept that `station_names[0]`, `elevations[0]`, and `temperatures[0]` belong to the same physical entity. You, the programmer, are solely responsible for keeping these disconnected arrays perfectly synchronized. 
+The computer has no concept that `station_names[0]`, `elevations[0]`, and `temperatures[0]` belong to the same physical entity. You, the programmer, are solely responsible for keeping these disconnected arrays perfectly synchronized.
 
 If you sort, filter, or delete an item from one list without perfectly replicating that action across the other four lists, your entire dataset is corrupted. As your analytical pipelines become more complex, it becomes increasingly difficult to manually track these invisible relationships.
 
@@ -101,11 +116,12 @@ zurich_station.calibrate_temp()
 print(zurich_station.temp)
 ```
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L11_ch01_oop_explorer/" 
-    width="100%" 
-    height="600px" 
-    frameborder="0" 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L11_ch01_oop_explorer/"
+    width="100%"
+    height="600px"
+    frameborder="0"
     style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
 </iframe>
 
@@ -113,14 +129,15 @@ print(zurich_station.temp)
     <em><b>Interactive Explorer: Classes and Instances.</b><br>
     Click the "Instantiate Object" button to create new <code>WeatherStation</code> objects in memory. Notice how the class acts as a single blueprint, but each instantiated object maintains its own independent state (elevation and temperature) that can be individually manipulated using the encapsulated <code>.calibrate_temp()</code> method. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L11_ch01_oop_explorer/" target="_blank">link</a>.</em>
 </figcaption>
+<!-- markdownlint-enable MD033-->
 
-Notice the architectural change. We no longer pass raw elevation and temperature data into a free-floating function. The `zurich_station` object already *knows* its own internal state, and it encapsulates the logic required to calibrate itself without external micromanagement. 
+Notice the architectural change. We no longer pass raw elevation and temperature data into a free-floating function. The `zurich_station` object already *knows* its own internal state, and it encapsulates the logic required to calibrate itself without external micromanagement.
 
 In spatial data science, this paradigm is inescapable. You have actually been relying on it since you drew your first map:
 
-*   A **Coordinate** is an object managing an X and Y state.
-*   A **GeoDataFrame** is an object managing a tabular attribute table and an underlying geometry array, with built-in methods to `.plot()` or `.to_crs()` (reproject) itself.
-*   A **Data Cube** (`xarray.Dataset`) is a highly complex object managing an n-dimensional matrix, coordinate reference systems, and temporal indices, offering methods to efficiently calculate a `.mean()` across time.
+* A **Coordinate** is an object managing an X and Y state.
+* A **{term}`GeoDataFrame`** is an object managing a tabular attribute table and an underlying geometry array, with built-in methods to `.plot()` or `.to_crs()` (reproject) itself.
+* A **{term}`Data Cube <Data cube>`** (`xarray.Dataset`) is a highly complex object managing an n-dimensional matrix, coordinate reference systems, and temporal indices, offering methods to efficiently calculate a `.mean()` across time.
 
 ---
 
@@ -128,7 +145,7 @@ In spatial data science, this paradigm is inescapable. You have actually been re
 
 If the `my_raster.calculate_slope()` syntax feels familiar, it is because **you have been using objects all along**. Python is fundamentally an object-oriented programming language, meaning that almost every entity you interact with is an object.
 
-When you create a simple list, you are instantiating an object of the `list` class. It encapsulates its own internal state (the items) and exposes built-in methods (logic) to modify that state.
+When you create a simple list, you are instantiating an object of the {term}`list <List>` {term}`class <Class>`. It encapsulates its own internal state (the items) and exposes built-in methods (logic) to modify that state.
 
 ```python
 my_cities = ["Zurich", "Geneva"]
@@ -152,9 +169,30 @@ cantons_area = cantons.area
 cantons_projected = cantons.to_crs(epsg=2056)
 ```
 
-You did not have to write a complex geometric algorithm to calculate areas or reproject coordinates. The developers bundled those algorithms directly into the object. 
+You did not have to write a complex geometric algorithm to calculate areas or reproject coordinates. The developers bundled those algorithms directly into the object.
 
 By mastering {abbr}`OOP (Object-Oriented Programming)`, you will transition from merely *consuming* objects engineered by other developers, to *architecting* your own custom objects tailored to your specific scientific needs.
+
+---
+
+#### Concept Check: Identifying the Paradigm
+
+You are reading through a colleague's script and spot the following line of code used to clean a tabular dataset:
+
+`cleaned_data = dataset.dropna().reset_index()`
+
+Based on the syntax, what paradigm is predominantly being used here?
+
+A. Procedural Programming
+B. Object-Oriented Programming
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B. Object-Oriented Programming**
+The use of dot notation (`.dropna()`, `.reset_index()`) indicates that the `dataset` variable is actually an object. It is executing its own internal logic (methods) to modify and return its internal state, rather than being passed as raw data into standalone functions.
+
+```
 
 ---
 
@@ -162,10 +200,10 @@ By mastering {abbr}`OOP (Object-Oriented Programming)`, you will transition from
 
 Object-Oriented Programming rests on four foundational pillars. While these terms sound heavily theoretical, they are highly practical architectural rules designed to make your code robust, secure, and scalable.
 
-*   **Encapsulation:** The bundling of state (attributes) and logic (methods) into a single, secure unit. It acts as a protective shield, restricting direct access and preventing outside, procedural code from accidentally corrupting the object's internal state.
-*   **Abstraction:** The art of hiding complex implementation details behind a simple interface. When you execute `ds.plot()` on an Xarray dataset, the hundreds of lines of underlying Matplotlib code required to render it are abstracted away, insulating you from the complexity.
-*   **Inheritance:** The creation of hierarchical relationships to eliminate redundant code. A specialized "child" class can inherit all the state and logic of a general "parent" class. For example, a specialized `SatelliteRaster` class could inherit the base coordinate-handling logic from a generic `Raster` class, while adding its own unique methods for atmospheric correction.
-*   **Polymorphism:** The ability of a single method name to adapt its behavior based on the object executing it. For instance, calling `.plot()` on a GeoDataFrame draws discrete vector polygons, while calling `.plot()` on an Xarray DataArray draws a continuous pixel mesh. The command remains identical, but the underlying logic morphs to fit the object.
+* **{term}`Encapsulation`:** The bundling of state (attributes) and logic (methods) into a single, secure unit. It acts as a protective shield, restricting direct access and preventing outside, procedural code from accidentally corrupting the object's internal state.
+* **{term}`Abstraction`:** The art of hiding complex implementation details behind a simple interface. When you execute `ds.plot()` on an Xarray dataset, the hundreds of lines of underlying Matplotlib code required to render it are abstracted away, insulating you from the complexity.
+* **{term}`Inheritance`:** The creation of hierarchical relationships to eliminate redundant code. A specialized "child" class can inherit all the state and logic of a general "parent" class. For example, a specialized `SatelliteRaster` class could inherit the base coordinate-handling logic from a generic `Raster` class, while adding its own unique methods for atmospheric correction.
+* **{term}`Polymorphism`:** The ability of a single method name to adapt its behavior based on the object executing it. For instance, calling `.plot()` on a GeoDataFrame draws discrete vector polygons, while calling `.plot()` on an Xarray DataArray draws a continuous pixel mesh. The command remains identical, but the underlying logic morphs to fit the object.
 
 ---
 
@@ -193,8 +231,8 @@ As you transition from writing standalone analysis scripts to building your own 
 
 ## 7. Summary
 
-*   **The Architectural Shift:** Procedural programming strictly isolates data from functions. Object-Oriented Programming (OOP) merges them, bundling internal **state** (attributes) and **logic** (methods) together into self-contained **objects**.
-*   **Solving Structural Fragility:** As analytical pipelines scale, manually synchronizing disconnected parallel arrays becomes a massive liability. Objects allow you to encapsulate related state into a single, secure entity.
-*   **Python is inherently Object-Oriented:** You have been consuming objects all along. Every time you call `.append()` on a list or `.to_crs()` on a GeoDataFrame, you are executing an object's internal logic to modify its state.
-*   **The Four Pillars:** The OOP paradigm rests on Encapsulation (securing state), Abstraction (hiding implementation complexity), Inheritance (eliminating redundancy across hierarchies), and Polymorphism (methods adapting dynamically to different objects).
-*   **The Golden Rule:** Use procedural architecture to organize **verbs** (linear data pipelines and transformations). Use object-oriented architecture to model **nouns** (complex, real-world systems that must track their own behavior over time).
+* **The Architectural Shift:** Procedural programming strictly isolates data from functions. Object-Oriented Programming (OOP) merges them, bundling internal **state** (attributes) and **logic** (methods) together into self-contained **objects**.
+* **Solving Structural Fragility:** As analytical pipelines scale, manually synchronizing disconnected parallel arrays becomes a massive liability. Objects allow you to encapsulate related state into a single, secure entity.
+* **Python is inherently Object-Oriented:** You have been consuming objects all along. Every time you call `.append()` on a list or `.to_crs()` on a GeoDataFrame, you are executing an object's internal logic to modify its state.
+* **The Four Pillars:** The OOP paradigm rests on Encapsulation (securing state), Abstraction (hiding implementation complexity), Inheritance (eliminating redundancy across hierarchies), and Polymorphism (methods adapting dynamically to different objects).
+* **The Golden Rule:** Use procedural architecture to organize **verbs** (linear data pipelines and transformations). Use object-oriented architecture to model **nouns** (complex, real-world systems that must track their own behavior over time).

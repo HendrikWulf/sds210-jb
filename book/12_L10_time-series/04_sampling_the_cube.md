@@ -5,9 +5,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
-Navigating multi dimensional data across space, time, and conditions
+    Navigating multi dimensional data across space, time, and conditions
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -18,7 +20,20 @@ Navigating multi dimensional data across space, time, and conditions
 ```{admonition} Big idea
 :class: tip
 
-A data cube becomes analytically useful only once you can isolate the specific slice, region, or location required for a scientific question.
+A **{term}`data cube`** becomes analytically useful only once you can isolate the specific slice, region, or location required for a scientific question.
+```
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for querying spatial data subsets needed in lab assignments.)  
+**Project Relevance:** ★★★ (All independent projects require isolating specific spatial/temporal ranges.)  
+**Foundation:** ★★★ (Forms the bedrock of multidimensional indexing and analysis.)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Master how to extract exact locations, regions, and times from massive datasets using index-based, label-based, and conditional selection.  
+**Skip this if:** Do not skip.
+
 ```
 
 In the previous chapter, you learned how to ingest and visually verify a dataset. Now, we move from passive inspection to **active selection**. While conceptually a cube is a coherent structure of observations, its real power is unlocked when you can query it deliberately to solve scientific problems.
@@ -26,7 +41,6 @@ In the previous chapter, you learned how to ingest and visually verify a dataset
 The shift in this chapter is fundamental: you will move away from "index guessing"—manually counting matrix positions—and toward a readable scientific workflow based on **named dimensions, coordinate labels, and conditions**. This approach makes your code easier to read, easier to debug, and much closer to the scientific questions you are actually asking.
 
 We will progress from basic coordinate selection to advanced conditional masking and vectorized sampling using the `air_temperature` tutorial dataset.
-
 
 ```{code-cell} python
 import xarray as xr
@@ -63,7 +77,7 @@ Xarray provides four distinct ways to index and select data. The most important 
 
 ### .isel for position based selection
 
-The method `.isel` (integer selection) is the direct descendant of NumPy style indexing. It is **0-based** and allows you to select specific elements by their numerical position along a dimension.
+The **{term}`method`** `.isel` (integer selection) is the direct descendant of NumPy style indexing. It is **0-based** and allows you to select specific elements by their numerical position along a dimension.
 
 ```{code-cell} python
 # Select the first time step and specific row/column positions
@@ -81,9 +95,11 @@ window.plot()
 plt.title("Spatial window selected by integer index");
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-Positional selection: Extracting a rectangular spatial window using row and column indices.
+    Positional selection: Extracting a rectangular spatial window using row and column indices.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### .sel for label based selection
 
@@ -115,9 +131,11 @@ In real-world Geospatial Data Science, your target coordinates (e.g., a weather 
 air.sel(lat=52.25, lon=251.89, method="nearest", tolerance=2)
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-The nearest neighbor lookup: Automatically snapping site coordinates to the closest available grid cell center.
+    The nearest neighbor lookup: Automatically snapping site coordinates to the closest available grid cell center.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ```{admonition} Beyond Nearest Neighbor
 :class: dropdown
@@ -146,7 +164,6 @@ Positional indexing in Xarray deviates from NumPy behavior when using multiple a
 
 In NumPy, indexing with two arrays (e.g., `arr[[0,1], [0,1]]`) performs **pointwise** indexing, returning elements at `(0,0)` and `(1,1)`. In Xarray, the default behavior is **orthogonal** (or outer) indexing. This means Xarray selects the entire **Cartesian product** of the indices, resulting in a 2D sub array rather than a 1D list of points.
 
-
 ### When to use which
 
 To maintain clean and reproducible code, follow this practical rule:
@@ -154,7 +171,23 @@ To maintain clean and reproducible code, follow this practical rule:
 * Use **`.isel`** when you care about **array positions** (e.g., the "first" or "last" element).
 * Use **`.sel`** when you care about **real coordinates or dates** (e.g., "Seattle" or "2013-05-12").
 
-These methods work identically for both `DataArray` and `Dataset` objects, allowing you to index all variables in a dataset simultaneously.
+These methods work identically for both **{term}`DataArray`** and **{term}`Dataset <Dataset (xarray)>`** objects, allowing you to index all variables in a dataset simultaneously.
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L10_ch04_01_cube_slicing_masking/"
+    width="100%"
+    title="Interactive Data Cube Explorer"
+    frameborder="0"
+    style="height: 750px; min-height: 750px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+    allowfullscreen>
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Slicing vs. Masking.</b><br>
+    Use the controls to extract specific coordinate slices from the dataset, or adjust the boolean mask to filter out internal values without altering the overall dimensions of the cube. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L10_ch04_01_cube_slicing_masking/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -200,7 +233,7 @@ In standard Python lists, the "stop" value of a slice is exclusive. However, in 
 
 ### Components and fancy temporal indexing
 
-Behind the scenes, Xarray provides a `.dt` accessor that allows you to reach into the datetime objects and extract specific components like `month`, `day`, `year`, or even `season`. 
+Behind the scenes, Xarray provides a `.dt` accessor that allows you to reach into the datetime objects and extract specific components like `month`, `day`, `year`, or even `season`.
 
 This enables "fancy indexing" where you select data based on a condition rather than a continuous range. For example, if you want to perform a climatological study on a specific month across multiple years, you can filter the cube by the month component.
 
@@ -247,9 +280,11 @@ subset.mean(dim="time").plot()
 plt.title("Regional bounding box subset")
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-Slicing space: Defining a geographic bounding box using physical coordinates.
+    Slicing space: Defining a geographic bounding box using physical coordinates.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ```{admonition} Respect the coordinate order
 :class: caution
@@ -273,7 +308,7 @@ specific_station
 
 ### Reusable study areas
 
-In professional Geospatial Data Science workflows, it is best practice to define your study area once and persist it as a new object. This makes your code more readable and prevents you from accidentally running heavy calculations on the full global dataset when you only need a local subset.
+In professional Geospatial Data Science workflows, it is best practice to define your study area once and persist it as a new **{term}`object`**. This makes your code more readable and prevents you from accidentally running heavy calculations on the full global dataset when you only need a local subset.
 
 ```{code-cell} python
 # Define and persist a regional subset for Western Canada
@@ -287,17 +322,17 @@ By persisting subsets, you move from general exploration to a focused analysis o
 
 ---
 
-## 5. Conditional selection and masking
+## 4. Conditional selection and masking
 
 While `.sel()` and `.isel()` navigate the cube using its "outer" labels (where the data is), you often need to interrogate the "inner" values (what the data says). This is the role of **boolean masking**, a technique that enables filtering values based on specific scientific criteria rather than just their location.
 
 ### The concept of a boolean mask
 
-A boolean mask is a binary array of the same shape as your data, containing only `True` or `False` values. It acts as a spatial filter: when applied to a DataArray, only the elements corresponding to `True` are retained.
+A **{term}`Boolean <Boolean indexing>`** mask is a binary array of the same shape as your data, containing only `True` or `False` values. It acts as a spatial filter: when applied to a DataArray, only the elements corresponding to `True` are retained.
 
 ### Filtering with `.where()`
 
-Xarray provides the `.where()` method to apply these masks. Unlike coordinate selection, `.where()` typically preserves the **shape** of the original data. Values that do not meet the condition are replaced with a "mask" value—by default, `NaN` (Not a Number).
+Xarray provides the `.where()` method to apply these masks. Unlike coordinate selection, `.where()` typically preserves the **shape** of the original data. Values that do not meet the condition are replaced with a mask value—by default, **{term}`NaN`** (Not a Number).
 
 ```{code-cell} python
 # Keep only "warm" pixels above 270 Kelvin
@@ -309,9 +344,11 @@ warm_data.isel(time=0).plot()
 plt.title("Filtered values: Temperature > 270K");
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-Boolean masking: Filtering the data cube based on a value condition rather than a location.
+    Boolean masking: Filtering the data cube based on a value condition rather than a location.
 </div>
+<!-- markdownlint-enable MD033-->
 
 If you need to replace masked values with a specific placeholder instead of `NaN`, you can provide a second argument:
 
@@ -335,7 +372,6 @@ print(f"Clipped shape:  {arctic_only.shape}")
 
 You can specify multiple masking conditions within a single `.where()` statement using bitwise operators: `&` (and) and `|` (or). This allows for the selection of specific value ranges or complex geographic windows.
 
-
 ```{code-cell} python
 # Select temperatures between 280K and 290K
 moderate_range = air.where((air > 280) & (air < 290), drop=True)
@@ -356,6 +392,7 @@ When your data contains discrete categories rather than continuous measurements�
 ### Strategic considerations for workflows
 
 Masking is central to professional Geospatial Data Science. Typical applications include:
+
 * **Cloud Removal:** Masking pixels flagged as cloudy in satellite metadata.
 * **Hydrological Modeling:** Masking out water bodies or oceans from a terrain analysis.
 * **Anomaly Detection:** Isolating only the most extreme temperature or precipitation values.
@@ -374,13 +411,29 @@ When performing repeated operations, conditional indexing via `where()` is signi
 | **Missing Data** | None | Replaces rejected cells with `NaN` |
 | **Primary Use** | Navigation and subsetting | Thresholding and data cleaning |
 
+#### Concept Check: The Subsetting Showdown
+
+You need to remove all temperatures below 0°C from your dataset, leaving those pixels empty for future statistical calculations. Which method is the right tool for the job?
+
+1. `.isel()`
+2. `.sel()`
+3. `.where()`
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: 3. `.where()`** While `.sel()` and `.isel()` filter data based on coordinate locations or time labels, `.where()` filters data based on its actual internal values, replacing pixels that do not meet the condition with `NaN` (Not a Number).
+
+```
+
 ---
 
-## 6. Extracting a point time series
+## 5. Extracting a point time series
 
-Extracting a time series is the bridge between spatial maps and temporal trends. While maps show the distribution of a variable at one moment, a time series reveals how a specific location evolves throughout the entire duration of the dataset.
+Extracting a **{term}`time series`** is the bridge between spatial maps and temporal trends. While maps show the distribution of a variable at one moment, a time series reveals how a specific location evolves throughout the entire duration of the dataset.
 
 ### From 3D cube to 1D signal
+
 In a data cube with dimensions `(time, lat, lon)`, selecting one specific coordinate reduces the spatial dimensions to single values. This transforms the 3D structure into a one-dimensional **signal** indexed by time.
 
 ```{code-cell} python
@@ -398,6 +451,7 @@ plt.ylabel("Temperature (K)");
 ```
 
 ### Handling coordinate grid mismatches
+
 In real-world Geospatial Data Science, the coordinates of your observation sites (e.g., weather stations or cities) rarely align perfectly with the centers of a raster grid. If you attempt to select a coordinate that does not exist exactly in the index, Xarray will raise an error unless you specify a lookup strategy.
 
 The **`method="nearest"`** parameter tells Xarray to find the single closest available grid cell.
@@ -417,7 +471,8 @@ plt.ylabel("Temperature (K)");
 ```
 
 ### Continuous estimation with interpolation
-While nearest neighbor selection is fast and preserves original data values, it can lead to "blocky" results if you are sampling many points close together. To look at inferred values **between** existing grid cells, you should use the **`.interp()`** method.
+
+While nearest neighbor selection is fast and preserves original data values, it can lead to "blocky" results if you are sampling many points close together. To look at inferred values **between** existing grid cells, you should use the **{term}`interpolation`** method.
 
 Instead of snapping to the nearest pixel, interpolation uses neighboring observations (typically via a `linear` or `cubic` method) to estimate the value at your exact requested location.
 
@@ -445,6 +500,7 @@ plt.show()
 ```
 
 ### Visualizing temporal trends
+
 One of the most efficient features of Xarray is its ability to automatically detect the dimensions of a result. Because the extracted object is 1D, calling `.plot()` immediately generates a line chart with correctly formatted time labels.
 
 ```{code-cell} python
@@ -454,21 +510,23 @@ plt.title("Air temperature time series at Lat: 50.0, Lon: 260.0")
 plt.ylabel("Temperature (K)");
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-From map to series: A temporal signal extracted from a single pixel through the entire time dimension.
+    From map to series: A temporal signal extracted from a single pixel through the entire time dimension.
 </div>
+<!-- markdownlint-enable MD033-->
 
 By selecting one spatial location, you have successfully "interrogated" the 3D cube to extract a continuous signal ready for trend analysis, seasonality checks, or climatological modeling.
 
 ---
 
-## 7. Sampling multiple locations and regional summaries
+## 6. Sampling multiple locations
 
 While single point extraction is a vital diagnostic tool, scientific analysis often requires comparing several distinct sites or generating a representative summary for an entire geographic area. This section moves from simple subsetting to **pointwise indexing** and **spatial reductions**.
 
 ### Vectorized pointwise indexing
 
-In professional workflows, you often need to sample the data cube at a specific collection of coordinates (for example, at the locations of several weather stations or urban centers). 
+In professional workflows, you often need to sample the data cube at a specific collection of coordinates (for example, at the locations of several weather stations or urban centers).
 
 Xarray handles this through **Vectorized Indexing**. If you provide selection coordinates as Xarray DataArrays that share a dimension name (such as `"points"`), Xarray will extract exactly those pairs rather than a 2D rectangular grid. This is significantly more efficient than looping through locations one by one.
 
@@ -504,9 +562,11 @@ plt.ylabel("Temperature (K)")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-Comparative analysis: Plotting several extracted point time series together to identify regional trends.
+    Comparative analysis: Plotting several extracted point time series together to identify regional trends.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Regional summaries and reductions
 
@@ -535,24 +595,24 @@ Reducing a 3D cube to a 1D time series is a fundamental pattern in climate scien
 
 ### Point, box, and polygon sampling
 
-In this chapter, we have focused on point sampling (zero dimensional) and bounding box sampling (two dimensional rectangular). These tools cover the vast majority of exploratory sampling tasks. 
+In this chapter, we have focused on point sampling (zero dimensional) and bounding box sampling (two dimensional rectangular). These tools cover the vast majority of exploratory sampling tasks.
 
 For more complex analysis involving irregular geographic shapes (like political boundaries or watersheds), you will eventually use **Zonal Statistics**. This requires an additional step of rasterizing your polygons to align them with the cube, a topic we will explore in the next section on integrating vector and raster data.
 
 ---
 
-## 8. Exercise: Scale Comparison
+## 7. Exercise: Scale Comparison
 
 In this exercise, you will evaluate how well a single observation site represents its broader surrounding region. This task requires combining point selection, spatial slicing, and dimension reduction.
 
 ### Task
 
-1.  **Ingestion:** Open the `air_temperature` tutorial dataset and extract the `air` variable.
-2.  **Point Sampling:** Select the coordinate at `lat=40.0` and `lon=260.0` to extract its full time series.
-3.  **Regional Slicing:** Define a spatial bounding box centered around that same location using `lon=slice(255, 265)` and `lat=slice(45, 35)`. 
-4.  **Reduction:** Calculate the mean air temperature of that box for every time step.
-5.  **Visualization:** Plot both the point time series and the regional mean on a single figure with appropriate labels and a legend.
-6.  **Interpretation:** Write two short sentences comparing the behavior of the point and the regional mean. Consider which series is more stable and why.
+1. **Ingestion:** Open the `air_temperature` tutorial dataset and extract the `air` variable.
+2. **Point Sampling:** Select the coordinate at `lat=40.0` and `lon=260.0` to extract its full time series.
+3. **Regional Slicing:** Define a spatial bounding box centered around that same location using `lon=slice(255, 265)` and `lat=slice(45, 35)`.
+4. **Reduction:** Calculate the mean air temperature of that box for every time step.
+5. **Visualization:** Plot both the point time series and the regional mean on a single figure with appropriate labels and a legend.
+6. **Interpretation:** Write two short sentences comparing the behavior of the point and the regional mean. Consider which series is more stable and why.
 
 :::{tip}
 Check the coordinate order of your dataset before slicing. Because latitude values in this dataset decrease from North to South, your `slice(45, 35)` must follow that descending order to return data.
@@ -626,16 +686,18 @@ Point extraction identifies exactly what happens at a specific location over tim
 
 ---
 
-## 9. Summary
+## 8. Summary
 
 Sampling is where the data cube transforms from a collection of observations into a targeted analytical tool. In this chapter, you moved from passive inspection to active interrogation of the cube.
 
 You learned that Xarray supports three primary paths for navigating data:
+
 1. **Position based selection (`.isel`)**: Navigating the cube using 0-based integer indices, serving as the direct successor to NumPy indexing.
 2. **Label based selection (`.sel`)**: Querying the cube using meaningful, human-readable labels like specific dates or physical coordinates.
 3. **Condition based masking (`.where`)**: Filtering the data based on internal values, such as cloud flags or temperature thresholds, rather than its location.
 
 Beyond basic selection, you also learned how to:
+
 * **Slice time and space**: Use partial date strings or coordinate ranges with `slice()` to isolate specific intervals and geographic bounding boxes.
 * **Perform nearest neighbor lookups**: Handle mismatches between your study coordinates and the raster grid using the `nearest` method and distance tolerances.
 * **Extract point time series**: Reduce a 3D cube into a 1D temporal signal for site-specific analysis.

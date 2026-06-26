@@ -142,13 +142,11 @@ with rasterio.open(filepath) as src:
 
 ```
 
-:::{figure} images/04_elevation_nz.png
-:alt: A top-down digital elevation model (DEM) map of New Zealand rendered in a terrain colormap, showing mountainous ridges and valleys.
-:width: 600px
-:align: center
-
-*Output: The `show()` function provides immediate visual feedback, rendering the array correctly in space using the dataset's metadata.*
-:::
+<!-- markdownlint-disable MD033-->
+<div class="figure-caption-like">
+    Output: The `show()` function provides immediate visual feedback, rendering the array correctly in space using the dataset's metadata.
+</div>
+<!-- markdownlint-enable MD033 -->
 
 This `show()` function allows you to quickly spot missing data values or confirm you loaded the correct geographic region.
 

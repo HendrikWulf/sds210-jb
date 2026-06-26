@@ -357,7 +357,7 @@ with rasterio.open(filepath) as src:
 
 A multiband raster does not automatically appear as a natural color photograph. To create that kind of view, you must combine selected bands into an RGB (Red, Green, Blue) composite.
 
-A **{term}`True color`** composite mimics human vision by combining:
+A **{term}`True color composite`** mimics human vision by combining:
 
 * Red into the red channel
 * Green into the green channel
@@ -409,7 +409,7 @@ This image looks much more like a photograph because the visible light bands hav
 
 ### False color composites
 
-Sometimes, realism is not the goal. A **{term}`False color`** composite highlights environmental features that are otherwise hard to distinguish.
+Sometimes, realism is not the goal. A **{term}`false color composite`** highlights environmental features that are otherwise hard to distinguish.
 
 A common analytical composite maps Shortwave Infrared (SWIR2) to the red channel, Near Infrared (NIR) to the green channel, and Red to the blue channel. Because healthy vegetation reflects heavily in the NIR spectrum, forested areas stand out vividly in bright green, while variations in bare earth are highlighted by the SWIR band.
 

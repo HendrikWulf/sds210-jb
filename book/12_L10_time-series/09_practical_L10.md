@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
-The Alpine Snow Decline
+    The Alpine Snow Decline
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -34,16 +36,16 @@ In the previous practical, you compared two distinct snapshots in time. Now, we 
 
 After completing this practical, you will be able to:
 
-  * ingest and clip multi-dimensional data cubes using `rioxarray` and GeoPandas.
-  * extract 1D time-series data from 3D arrays using specific real-world coordinates.
-  * calculate pixel-wise temporal trends across entire spatial matrices using `.polyfit()`.
-  * sample raster data at vector point locations (centroids) to correlate environmental variables (elevation vs. snow decline).
+* ingest and clip multi-dimensional data cubes using `rioxarray` and GeoPandas.
+* extract 1D time-series data from 3D arrays using specific real-world coordinates.
+* calculate pixel-wise temporal trends across entire spatial matrices using `.polyfit()`.
+* sample raster data at vector point locations (centroids) to correlate environmental variables (elevation vs. snow decline).
 
 ---
 
 ## Practical storyline
 
-You are a climatologist working for MeteoSwiss, tasked with investigating long-term snow cover reduction in the European Alps. The Swiss Ski Resorts Council is highly concerned about the viability of their infrastructure and is wondering how their winter seasons are expected to change over the next decades. 
+You are a climatologist working for MeteoSwiss, tasked with investigating long-term snow cover reduction in the European Alps. The Swiss Ski Resorts Council is highly concerned about the viability of their infrastructure and is wondering how their winter seasons are expected to change over the next decades.
 
 You have been provided with a 25-year multi-dimensional data cube of [Snow Cover Frequency](https://code.earthengine.google.com/6d4fc5945cd77fafdc014f1b62e57ca6) (SCF), which is representing the ratio of "snow days" to the full year for the European Alps. You also have access to a [Digital Elevation Model](https://code.earthengine.google.com/adea13309b1639bbc67d3c4f5e63bb22) (DEM) and a mask of [large water bodies](https://code.earthengine.google.com/b10ac8e02c8a0ba7667b009f21ab31e9) the area, a [perimeter boundary of the European Alps](https://www.atlas.alpconv.org/catalogue/#/?q=alpine%20convention&d=432%3Bdataset%3Bvector), and a database of current ski resort infrastructure ([`bahnen-winter_2056.gpkg`](https://data.geo.admin.ch/browser/index.html#/collections/ch.swisstopo.bahnen-winter/items/bahnen-winter?.language=en)).
 
@@ -57,7 +59,8 @@ Run the cell below to download the required datasets (the 25-year SCF data cube,
 
 ### Tasks
 
-1.  Execute the setup code to create your local working directory and fetch the files.
+1. Execute the setup code to create your local working directory and fetch the files.
+
 ```{code-cell} python
 import os
 import geopandas as gpd
@@ -108,6 +111,7 @@ Data cubes can be memory-intensive. Before we perform any time-series analysis, 
 Because `.tif` files naturally load their layers as a `band` dimension, we will also quickly rename that dimension to `time` and assign it actual years (e.g., 2001 to 2025) to make our downstream plotting and trend analysis mathematically coherent.
 
 ### Tasks
+
 1. **Load Vector Data:** Load the `alpine_perimeter.gpkg` using GeoPandas. Load the `bahnen-winter_2056.gpkg`, filter it so `type == "chairlift"`, and extract the centroids of these geometries into a new GeoDataFrame called `chairlifts_pts`. Reproject the `chairlifts_pts` from `epsg:2056` to `epsg:3035`.
 2. **Load and Clip Rasters:** Use `rioxarray.open_rasterio()` to open the SCF data cube, DEM, and the Lake Mask. Clip them all to the bounding box of the alpine perimeter ([`total_bounds`](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.total_bounds.html)) to save memory using [`rio.clip.box`](https://corteva.github.io/rioxarray/html/examples/clip_box.html#Clip-using-a-bounding-box).
 3. **Format the Cube:** For the clipped SCF data cube, [rename](https://docs.xarray.dev/en/latest/generated/xarray.DataArray.rename.html) the `band` dimension to `time`. Assign an array of years (e.g., `np.arange(2001, 2026)`) to this new `time` coordinate.
@@ -124,6 +128,7 @@ Because `.tif` files naturally load their layers as a `band` dimension, we will 
 To understand the temporal dynamics, we'll focus on a single location (Zermatt) and calculate the linear trend of Snow Cover Fraction over the 25-year period.
 
 ### Tasks
+
 1. **Define Coordinates:** Set up the coordinates for Zermatt in EPSG:3035 (`x = 4146515`, `y = 2547946`).
 2. **Extract Time Series:** Use `scf_cube.sel(method="nearest")` to extract the 1D time-series data for that specific pixel.
 3. **Trend Analysis:** Use `.polyfit(dim="time", deg=1)` to calculate the linear regression slope. Convert the annual rate to a **decadal trend** (multiply by 10).
@@ -140,6 +145,7 @@ To understand the temporal dynamics, we'll focus on a single location (Zermatt) 
 Looking at a single location is useful, but the Ski Resorts Council needs a regional overview. We want to collapse our 3D data cube into a 2D map showing the *rate of change* (the slope of the linear trend line) for every single pixel in the Alps.
 
 ### Tasks
+
 1. **Calculate the Trend:** Use `xarray`'s built-in `.polyfit(dim="time", deg=1)` function on your `scf_cube` to perform linear regression down the time axis.
 2. **Extract and Scale the Slope:** Extract the `polyfit_coefficients` for `degree=1`. Multiply by 10 to convert the annual rate of change into a **decadal trend** (change per 10 years).
 3. **Apply Masking:** Use the `lakes_raw` data to mask out water bodies, which are prone to outliers (due to snow/water confusion).
@@ -158,6 +164,7 @@ We have a map of snow decline and a DEM showing elevation. Are lower-elevation s
 To conclude our investigation, we will intersect the regional trend data with specific infrastructure (chairlifts) to see if elevation plays a role in the observed snow cover decline.
 
 ### Tasks
+
 1. **Environment Setup:** Import `hvplot` for interactive web-based visualizations.
 2. **Point Sampling:** Extract the X and Y coordinates of the chairlift centroids and sample both the **Decadal Trend Map** and the **DEM** at each lift's location using `.sel(method='nearest')`.
 3. **Statistical Regression:** Use `np.polyfit` to calculate a linear regression between elevation and the rate of snow cover change.
@@ -171,7 +178,7 @@ To conclude our investigation, we will intersect the regional trend data with sp
 
 ## Reflection
 
-Take a step back and review what you have built. You navigated a multi-dimensional array, quantified historical trends, and merged raster math with vector point locations to generate actionable intelligence. 
+Take a step back and review what you have built. You navigated a multi-dimensional array, quantified historical trends, and merged raster math with vector point locations to generate actionable intelligence.
 
 Please answer the following questions briefly:
 
