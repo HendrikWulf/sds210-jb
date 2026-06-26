@@ -5,9 +5,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Quantifying Climate Change Across Space and Time
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -18,10 +20,23 @@ Quantifying Climate Change Across Space and Time
 ```{admonition} Big idea
 :class: tip
 
-A trend map is not just a picture of change. It is the result of fitting a statistical model through time at every single pixel. By quantifying the slope of this model, we transition from observing patterns to measuring the rate of environmental change.
+A trend map is not just a picture of change. It is the result of fitting a statistical model through time at every single **{term}`pixel <Pixel>`**. By quantifying the slope of this model, we transition from observing patterns to measuring the rate of environmental change.
 ```
 
-In previous chapters, we reduced the time dimension using aggregations and rolling averages. Now, we will extract the actual rate of change. We will move beyond visual inspection and apply mathematical modeling to our data cubes to quantify exactly how fast our environment is changing.
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Calculating trends and mapping rates of change are standard tasks in advanced spatial data science labs.)  
+**Project Relevance:** ★★★ (Essential for quantifying spatial variations over time in climate, land cover, and urban expansion projects.)  
+**Foundation:** ★★★ (Introduces mathematical regression modeling on multidimensional matrices.)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Quantify exactly how fast the environment is changing by fitting linear and harmonic mathematical models across multidimensional time series data.  
+**Skip this if:** You are already confident using `.polyfit()` and `.curvefit()` to extract slopes and intercepts from spatiotemporal arrays.
+
+```
+
+In previous chapters, we reduced the time dimension using aggregations and rolling averages. Now, we will extract the actual rate of change. We will move beyond visual inspection and apply mathematical modeling to our **{term}`data cubes <Data cube>`** to quantify exactly how fast our environment is changing.
 
 **Applied Scenario**
 We will continue using the NOAA Extended Reconstructed Sea Surface Temperature dataset. Our goal is to calculate the linear rate of ocean warming over the last century, interpret the mathematical baseline of our models, and ultimately apply harmonic regression to see how the Earth's seasonal cycle influences our long-term trend estimates.
@@ -39,14 +54,15 @@ ds = xr.tutorial.open_dataset("ersstv5")
 
 ## 1. The Mathematics of Change
 
-In the [previous chapter](https://hendrikwulf.github.io/sds210-jb/book/l10-time-series/temporal-aggregation/#id-2-resampling-changing-time-frequency), we observed that the global sea surface temperature (SST) increase followed an approximately linear trajectory. Visualizing your data is always a crucial first step before committing to a specific statistical trend model. 
+In the [previous chapter](https://hendrikwulf.github.io/sds210-jb/book/l10-time-series/temporal-aggregation/#id-2-resampling-changing-time-frequency), we observed that the global sea surface temperature (SST) increase followed an approximately linear trajectory. Visualizing your data is always a crucial first step before committing to a specific statistical trend model.
 
 While we will focus on linear trends, there are several more complex models used in environmental data science depending on the behavior of the data:
+
 * **Polynomial Regression:** Fits curves (such as quadratic or cubic equations) to data where the rate of change is actively accelerating or decelerating over time.
-* **Harmonic Regression:** Uses sine and cosine functions to model highly cyclical patterns, well suited for raw time series where the seasonal cycle has not been removed.
+* **{term}`Harmonic Regression <Harmonic regression>`:** Uses sine and cosine functions to model highly cyclical patterns, well suited for raw time series where the seasonal cycle has not been removed.
 * **Non-parametric Smoothing (e.g., LOESS):** Fits localized curves to data to visualize underlying patterns without forcing a single global mathematical equation.
 
-Before we scale up to entire maps, we need to understand the core idea: a trend is the result of fitting a straight line through data over time. When we talk about long-term climate trends, we typically refer to time series of 30 years or more. In this example, we use **linear regression** as a simple and robust method for quantifying these trends. We want to fit a straight line through our noisy temporal data. 
+Before we scale up to entire maps, we need to understand the core idea: a trend is the result of fitting a straight line through data over time. When we talk about long-term climate trends, we typically refer to **{term}`time series <Time series>`** of 30 years or more. In this example, we use **linear regression** as a simple and robust method for quantifying these trends. We want to fit a straight line through our noisy temporal data.
 
 The equation for a straight line is modeled as:
 $$y=mx+b$$
@@ -57,6 +73,7 @@ $$y=mx+b$$
 * **$m$** (slope) represents how fast the variable changes over time.
 
 ### Visual Intuition
+
 In climate science, the slope is the most critical component. It transforms a complex time series into a single, highly interpretable number describing environmental change.
 
 * **Positive slope:** An increasing trend (e.g., warming). A steep slope means rapid change.
@@ -69,7 +86,8 @@ In climate science, the slope is the most critical component. It transforms a co
 A trend map is not just a picture of change. It is the result of fitting this simple statistical model ($y=mx+b$) through time at *every single pixel*. 
 ```
 
-<iframe 
+<!-- markdownlint-disable MD033-->
+<iframe
     src="https://hendrikwulf.github.io/sds210_assets_L10_ch08_linear_regression_visualizer/"
     width="100%"
     title="Interactive Linear Regression Explorer"
@@ -79,12 +97,13 @@ A trend map is not just a picture of change. It is the result of fitting this si
 </iframe>
 
 *For an alternative standalone version of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_L10_ch08_linear_regression_visualizer/).*
+<!-- markdownlint-enable MD033-->
 
 ---
 
 ## 2. Point Based Trends First
 
-Before we run a calculation across the entire globe, it is always best practice to test our statistical model on a single point. This ensures we understand the inputs and outputs before scaling up. 
+Before we run a calculation across the entire globe, it is always best practice to test our statistical model on a single point. This ensures we understand the inputs and outputs before scaling up.
 
 We will select a single coordinate in the North Atlantic and use `xarray`'s built-in `.polyfit()` method. The `deg=1` argument specifies that we want a first-degree polynomial, which is a straight line.
 
@@ -118,9 +137,11 @@ plt.legend()
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A 1D time series for a single coordinate in the North Atlantic. The faded blue line represents the raw monthly observations, while the solid black line represents the linear regression model fitted through the data.
+    A 1D time series for a single coordinate in the North Atlantic. The faded blue line represents the raw monthly observations, while the solid black line represents the linear regression model fitted through the data.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ```{admonition} What just happened?
 :class: note
@@ -132,7 +153,7 @@ We reduced an entire time series to a single mathematical equation, where the sl
 
 ## 3. Pixel Wise Polyfit
 
-Now we scale up from a single point to all pixels. Because `xarray` is designed for multidimensional arrays, scaling up to the entire planet requires no manual loop structures. Instead, we use **vectorized operations** across the time dimension. 
+Now we scale up from a single point to all pixels. Because `xarray` is designed for multidimensional arrays, scaling up to the entire planet requires no manual loop structures. Instead, we use **{term}`vectorized operations <Vectorization>`** across the time dimension.
 
 We apply the exact same function to our master dataset, and `xarray` broadcasts the linear regression across every pixel simultaneously.
 
@@ -144,7 +165,7 @@ global_trend = ds.sst.polyfit(dim="time", deg=1)
 slope = global_trend.polyfit_coefficients.sel(degree=1)
 ```
 
-To truly appreciate what just happened, let us take an immediate visual peek at the resulting slope array. Even before we convert the mathematical units into something readable, we can map the raw values using a diverging colormap (`RdBu_r`) and `robust=True` to automatically handle outliers.
+To truly appreciate what just happened, let us take an immediate visual peek at the resulting slope array. Even before we convert the mathematical units into something readable, we can map the raw values using a diverging **{term}`colormap <Colormap>`** (`RdBu_r`) and `robust=True` to automatically handle outliers.
 
 ```{code-cell} python
 plt.figure(figsize=(12, 6))
@@ -154,9 +175,11 @@ plt.title("Raw Global Warming Trend (Unscaled)")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A global map of the raw regression slope. Without writing a single loop, we instantly generated a visual representation of warming (red) and cooling (blue) trends across the entire Earth.
+    A global map of the raw regression slope. Without writing a single loop, we instantly generated a visual representation of warming (red) and cooling (blue) trends across the entire Earth.
 </div>
+<!-- markdownlint-enable MD033-->
 
 You have just computed tens of thousands of individual linear regression models in a single line of code. This is the power of labeled multidimensional arrays and vectorized operations.
 
@@ -166,7 +189,7 @@ You have just computed tens of thousands of individual linear regression models 
 
 When calculating a trend, the slope inherently has units of **Variable per Time Step** (e.g., °C per time step). But what exactly is a single time step in our dataset?
 
-We must discuss units carefully. When you feed `datetime64` coordinate objects into `xarray.polyfit()`, the underlying algorithm automatically converts the dates into nanoseconds to perform the continuous math. Therefore, the raw slope returned by our function is currently measured in **degrees Celsius per nanosecond**. 
+We must discuss units carefully. When you feed `datetime64` coordinate objects into `xarray.polyfit()`, the underlying algorithm automatically converts the dates into nanoseconds to perform the continuous math. Therefore, the raw slope returned by our function is currently measured in **degrees Celsius per nanosecond**.
 
 A temperature change per nanosecond is infinitely small and scientifically meaningless to read. We need to scale this slope into a standard, interpretable metric: **degrees Celsius per decade**.
 
@@ -202,10 +225,11 @@ plt.title("Global Sea Surface Temperature Trend (1970 to Present)")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A global map showing the rate of sea surface temperature change in degrees Celsius per decade. By explicitly scaling our units and centering the diverging colormap on zero, the map clearly and accurately distinguishes between long-term warming regions (red) and cooling regions (blue).
+    A global map showing the rate of sea surface temperature change in degrees Celsius per decade. By explicitly scaling our units and centering the diverging colormap on zero, the map clearly and accurately distinguishes between long-term warming regions (red) and cooling regions (blue).
 </div>
-```
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -213,7 +237,7 @@ A global map showing the rate of sea surface temperature change in degrees Celsi
 
 While the slope tells us how fast temperatures are changing, the intercept ($b$) tells us our starting point. But what exactly is the "start" of our time series mathematically?
 
-When `xarray` converts `datetime64` objects to nanoseconds for the regression, it uses the standard Unix epoch. This means that mathematical time zero ($x=0$) is exactly **January 1, 1970**. Therefore, the intercept returned by our model represents the modeled sea surface temperature on that specific date.
+When `xarray` converts `datetime64` objects to nanoseconds for the regression, it uses the standard **{term}`Unix epoch <Unix time>`**. This means that mathematical time zero ($x=0$) is exactly **January 1, 1970**. Therefore, the intercept returned by our model represents the modeled sea surface temperature on that specific date.
 
 It is important to distinguish between the start of your specific dataset and the start of the underlying time measurement. By pure chance, the time series we are analyzing might also begin on January 1, 1970. However, even if your dataset started in 1854 or 2000, the mathematical intercept calculated by `xarray` would still represent the modeled value on January 1, 1970, simply because of how the Unix epoch anchors the timeline.
 
@@ -237,21 +261,39 @@ plt.title("Modeled Baseline Sea Surface Temperature (1970)")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A global map showing the regression intercept. Because time zero in the underlying math is 1970, this map represents the modeled spatial distribution of sea surface temperatures at the very start of that year.
+    A global map showing the regression intercept. Because time zero in the underlying math is 1970, this map represents the modeled spatial distribution of sea surface temperatures at the very start of that year.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Why does this look like a normal temperature map?
 
-You might notice that this intercept map closely resembles a standard global distribution of actual sea surface temperatures, with warm equators and cold poles. This is not a coincidence; it highlights a critical concept in climate data. 
+You might notice that this intercept map closely resembles a standard global distribution of actual sea surface temperatures, with warm equators and cold poles. This is not a coincidence; it highlights a critical concept in climate data.
 
 The geographic variation in temperature across the Earth is enormous, often spanning more than 30°C from the equator to the freezing poles. In contrast, the long term climate trend we extracted earlier is relatively small (measured in fractions of a degree per decade). Because the climate change signal is so small compared to the massive spatial temperature gradient, the mathematical intercept mirrors the physical state of the ocean.
+
+#### Concept Check: The Unix Epoch Anchor
+
+You use `.polyfit()` on a dataset of monthly temperatures extending from 2000 to 2020. What does the resulting intercept ($b$) represent mathematically?
+
+A) The modeled temperature on January 1, 2000 (the start of your dataset).
+B) The modeled temperature on January 1, 1970 (the Unix epoch).
+C) The global average temperature over the entire 20-year period.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B. The modeled temperature on January 1, 1970 (the Unix epoch).**
+Because `xarray` relies on the standard Unix epoch to convert dates to nanoseconds for continuous math, time zero ($x=0$) is always firmly anchored to 1970, regardless of when your specific dataset begins.
+
+```
 
 ---
 
 ## 6. Modeling the Seasonal Cycle
 
-In our previous examples, we relied on a simple linear regression to calculate long term trends. However, we lumped all the data together and ignored the inherent seasonal variations. 
+In our previous examples, we relied on a simple linear regression to calculate long term trends. However, we lumped all the data together and ignored the inherent seasonal variations.
 
 What if we want to model the long-term trend while explicitly including these seasonal variations? To capture both a steady trend and a repeating seasonal cycle simultaneously, we use **harmonic regression**. This model combines a standard straight line with sine and cosine waves.
 
@@ -268,7 +310,8 @@ $$\hat{y}(t) = \beta_0 + \beta_1 t + \beta_2 \cos\left(2\pi \frac{t}{T}\right) +
 
 By fitting this model, we compress decades of complex spectral-temporal dynamics into just four interpretable numbers per pixel.
 
-<iframe 
+<!-- markdownlint-disable MD033-->
+<iframe
     src="https://hendrikwulf.github.io/sds210_assets_L10_ch08_harmonic_regression_visualizer/"
     width="100%"
     title="Interactive Harmonic Regression Explorer"
@@ -278,6 +321,7 @@ By fitting this model, we compress decades of complex spectral-temporal dynamics
 </iframe>
 
 *For an alternative standalone version of the explorer, follow this [link](https://hendrikwulf.github.io/sds210_assets_L10_ch08_harmonic_regression_visualizer/).*
+<!-- markdownlint-enable MD033-->
 
 ### Preparing the Time Coordinate
 
@@ -320,7 +364,7 @@ harmonic_fit.curvefit_coefficients
 
 ### Visualizing the Fitted Values
 
-To understand how well our model fits the raw data, we can plug our estimated $\beta$ coefficients back into the `harmonic_model` function to generate the fitted curve. 
+To understand how well our model fits the raw data, we can plug our estimated $\beta$ coefficients back into the `harmonic_model` function to generate the fitted curve.
 
 ```{code-cell} python
 # Extract the estimated coefficients
@@ -360,13 +404,15 @@ plt.legend()
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A 10 year subset of sea surface temperatures in the North Atlantic. The blue dots represent the raw monthly observations, while the solid black line represents the fitted harmonic model, successfully capturing both the repeating seasonal oscillation and the underlying linear trend.
+    A 10 year subset of sea surface temperatures in the North Atlantic. The blue dots represent the raw monthly observations, while the solid black line represents the fitted harmonic model, successfully capturing both the repeating seasonal oscillation and the underlying linear trend.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Scaling to the Global Map
 
-Just like `.polyfit()`, `.curvefit()` can be broadcast across the entire multidimensional array by calling it directly on `ds.sst`. 
+Just like `.polyfit()`, `.curvefit()` can be broadcast across the entire multidimensional array by calling it directly on `ds.sst`.
 
 *Note: Pixel-wise curve fitting is highly processing intensive. It requires the computer to run an optimization algorithm on tens of thousands of individual time series. If you run this globally, be prepared for it to take significantly longer than the simple linear regression!*
 
@@ -383,7 +429,7 @@ Once processed, visualizing the coefficients reveals drastically different patte
 
 ### Visualizing the Harmonic Slope
 
-Before we plot the map, we need to consider our units. This is a great opportunity to see how custom models differ from built-in functions. 
+Before we plot the map, we need to consider our units. This is a great opportunity to see how custom models differ from built-in functions.
 
 Because we manually defined our time coordinate (`frac_year`) in years, the $\beta_1$ slope is already calculated in **degrees Celsius per year**. Unlike the nanosecond conversion required for `.polyfit()`, we only need to multiply by 10 to reach our climate standard of degrees per decade.
 
@@ -407,19 +453,22 @@ plt.title("Global SST Trend via Harmonic Regression")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A global map showing the rate of sea surface temperature change computed via harmonic regression. Because the model explicitly isolates the seasonal cycle, the $\beta_1$ parameter provides a highly robust estimate of the underlying long-term warming (red) and cooling (blue) trends.
+    A global map showing the rate of sea surface temperature change computed via harmonic regression. Because the model explicitly isolates the seasonal cycle, the $\beta_1$ parameter provides a highly robust estimate of the underlying long-term warming (red) and cooling (blue) trends.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
 ## 7. Comparing the Models
 
 We have now calculated the global warming trend using two different methods on the raw dataset:
+
 1. **Simple Linear Regression** (`.polyfit()`): Fits a straight line through the raw, seasonally noisy data.
 2. **Harmonic Regression** (`.curvefit()`): Fits a straight line while simultaneously modeling the seasonal sine and cosine waves.
 
-Which one is better? Let us compute the mathematical difference between the two slopes to see if accounting for seasonality changed our trend estimates. 
+Which one is better? Let us compute the mathematical difference between the two slopes to see if accounting for seasonality changed our trend estimates.
 
 ```{code-cell} python
 # Calculate the difference between the two models
@@ -439,10 +488,11 @@ plt.title("Difference in Estimated Slope (Harmonic vs. Linear)")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A map of the mathematical difference between the harmonic and linear regression slopes. Purple areas indicate where the harmonic model estimated a more positive trend, while orange areas indicate where the linear model estimated a more positive trend.
+    A map of the mathematical difference between the harmonic and linear regression slopes. Purple areas indicate where the harmonic model estimated a more positive trend, while orange areas indicate where the linear model estimated a more positive trend.
 </div>
-
+<!-- markdownlint-enable MD033-->
 
 ### Interpreting the Difference
 
