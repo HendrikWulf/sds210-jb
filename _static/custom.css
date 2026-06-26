@@ -29,7 +29,7 @@ html {
 .figure-caption-like {
   font-size: 0.9em;
   font-style: italic;
-  text-align: center;
+  text-align: left;
   color: var(--pst-color-text-muted);
   margin-top: -0.5rem;
   margin-bottom: 1.5rem;

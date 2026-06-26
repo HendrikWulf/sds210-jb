@@ -4,9 +4,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 From static verification to interactive exploration
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -20,7 +22,20 @@ From static verification to interactive exploration
 Visualization is the fastest way to verify data integrity. Before analyzing your data, you should always plot it to spot extreme outliers, validate spatial patterns, and check seasonal cycles.
 ```
 
-As a spatial data scientist, you are already familiar with analyzing raster data. However, visualizing multidimensional arrays in Python requires learning some new syntax. Fortunately, `xarray` acts as a highly intelligent wrapper around the standard `matplotlib` library. Because your data cube contains named dimensions, coordinates, and metadata, `xarray` automatically labels your axes, generates color bars, and formats dates. You rarely need to write boilerplate visualization code.
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Essential for validating data structures visually in assignments)  
+**Project Relevance:** ★★★ (Required for final report graphics and interactive dashboards)  
+**Foundation:** ★★☆ (Crucial bridge between data arrays and geographic maps)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Transform raw multidimensional data cubes into professional static maps, faceted grids, animations, and interactive web maps.  
+**Skip this if:** You are completely comfortable using xarray's `.plot()` wrapper, generating `FacetGrid` subplots, projecting data with Cartopy, and creating interactive time-scrubbers with `hvplot`.
+
+```
+
+As a **{term}`spatial data scientist <Spatial data science>`**, you are already familiar with analyzing **{term}`raster data <Raster data model>`**. However, visualizing multidimensional **{term}`arrays <Array>`** in Python requires learning some new syntax. Fortunately, **{term}`xarray`** acts as a highly intelligent wrapper around the standard **{term}`matplotlib <Matplotlib>`** library. Because your data cube contains named dimensions, coordinates, and metadata, `xarray` automatically labels your axes, generates color bars, and formats dates. You rarely need to write boilerplate visualization code.
 
 This chapter transitions through the complete visualization workflow. We begin with rapid static plots for data validation, move to multidimensional faceting, add geographic projections, and finally explore the cube dynamically using interactive browser tools.
 
@@ -38,9 +53,10 @@ ds = xr.tutorial.open_dataset("air_temperature")
 
 ## 1. Basic Plotting
 
-The `.plot()` method is your primary tool for rapid data validation. By default, `xarray` inspects the dimensionality of your data array and automatically chooses the most appropriate plot type. It defaults to a line plot for 1D arrays, a heatmap for 2D arrays, and a histogram for everything else. Because this method wraps `matplotlib`, all your existing visualization knowledge carries over seamlessly.
+The `.plot()` method is your primary tool for rapid data validation. By default, `xarray` inspects the dimensionality of your data array and automatically chooses the most appropriate plot type. It defaults to a line plot for 1D arrays, a heatmap for 2D arrays, and a **{term}`histogram <Histogram>`** for everything else. Because this method wraps `matplotlib`, all your existing visualization knowledge carries over seamlessly.
 
 ### Histograms
+
 To spot erroneous values, such as a sensor error recording a fill value of 9999, it is highly useful to check the overall data distribution. When you call `.plot()` on a 3D array, `xarray` automatically flattens the data and generates a histogram. You can pass standard `matplotlib` keyword arguments directly into this method to customize the look.
 
 ```{code-cell} python
@@ -50,12 +66,15 @@ plt.xlabel("Air Temperature [°K]")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
 A standard histogram of the temperature data. The axes and labels are automatically extracted from the dataset metadata.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Time Series
-If you extract a single spatial location over time, `xarray` detects the 1D data and defaults to a line plot (`.plot.line()`). This is incredibly useful for verifying temporal patterns. 
+
+If you extract a single spatial location over time, `xarray` detects the 1D data and defaults to a line plot (`.plot.line()`). This is incredibly useful for verifying temporal patterns.
 
 You can easily plot multiple lines on the same chart to compare locations. By passing a list of coordinates to `.sel()` and specifying the `hue` argument, `xarray` handles the grouping and coloring automatically.
 
@@ -71,14 +90,17 @@ plt.ylabel("Air Temperature [°K]")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-Comparing temperature cycles across different latitudes. The hue argument automatically generates a legend distinguishing the spatial coordinates.
+    Comparing temperature cycles across different latitudes. The hue argument automatically generates a legend distinguishing the spatial coordinates.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Slicing 2D Maps
+
 You cannot plot a full 3D cube on a flat screen. To map the spatial data, you must isolate a single slice of time. `xarray` automatically recognizes the two remaining spatial dimensions and generates a color mesh heatmap using the underlying `.plot.pcolormesh()` function.
 
-You can heavily customize these maps using dictionaries like `cbar_kwargs` to format the colorbar, or overlay additional information, such as a contour plot, directly on top of your base map for added detail. 
+You can heavily customize these maps using dictionaries like `cbar_kwargs` to format the colorbar, or overlay additional information, such as a contour plot, directly on top of your base map for added detail.
 
 ```{code-cell} python
 # 1. Plot the base heatmap with robust color limits and a horizontal colorbar
@@ -94,9 +116,11 @@ ds.air.isel(time=0).plot.contour(colors="k", levels=5, linewidths=0.5)
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A single time slice plotted as a 2D map. Adding robust=True calculates the color range based on the 2nd and 98th percentiles, cleanly hiding extreme anomalies.
+    A single time slice plotted as a 2D map. Adding robust=True calculates the color range based on the 2nd and 98th percentiles, cleanly hiding extreme anomalies.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -105,7 +129,8 @@ A single time slice plotted as a 2D map. Adding robust=True calculates the color
 When you want to visualize the third dimension without slicing it away completely, you can use faceting. Faceting is the art of presenting small multiples of your data in a clean grid. This is particularly effective for observing spatial changes over time.
 
 ### Faceting
-Instead of one single map, `xarray` can generate a grid of subplots that all share the exact same color scale and geographic extent. You simply tell the `.plot()` method which dimension should be spread across the columns using the `col` argument. 
+
+Instead of one single map, `xarray` can generate a grid of subplots that all share the exact same color scale and geographic extent. You simply tell the `.plot()` method which dimension should be spread across the columns using the `col` argument.
 
 Because faceted plots can easily become cramped, it is common practice to pass a dictionary of `cbar_kwargs` to move the shared colorbar to the bottom of the figure.
 
@@ -120,11 +145,32 @@ ds.air.isel(time=slice(0, 4)).plot(
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-Faceted subplots allow you to easily compare spatial patterns across the time dimension. The col_wrap argument forces the grid onto a new row, and the colorbar is formatted to sit cleanly below the grid.
+    Faceted subplots allow you to easily compare spatial patterns across the time dimension. The col_wrap argument forces the grid onto a new row, and the colorbar is formatted to sit cleanly below the grid.
 </div>
+<!-- markdownlint-enable MD033-->
+
+---
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L10_ch03_01_data_cube_faceting/"
+    width="100%"
+    title="Interactive Data Cube Explorer"
+    frameborder="0"
+    style="height: 750px; min-height: 750px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+    allowfullscreen>
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Data Cube Faceting Visualizer.</b><br>
+    Click the buttons below the visualizer to observe how a 3D data cube stored in memory is transformed for plotting. Watch as a single slice is extracted for a standalone plot, or how the <code>.plot(col='time')</code> command automatically "unrolls" the depth of the cube into a side-by-side 2D FacetGrid, allowing for easy comparison across time on a shared color scale. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L10_ch03_01_data_cube_faceting/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
 
 ### Advanced Customizations
+
 When you create a faceted plot, `xarray` returns a `FacetGrid` object. This object acts as a powerful master controller for the entire grid, giving you access to properties like `fg.fig` (the overall figure) and methods like `fg.set_xlabels()`.
 
 Most importantly, you can use `.map()` or `.map_dataarray()` to apply a custom `matplotlib` or `xarray` plotting function to every single panel simultaneously. For example, you can easily overlay topographic contours or a specific point of interest across all time steps.
@@ -141,11 +187,14 @@ fg.map(lambda: plt.plot(260.0, 40.0, marker="*", color="white", markersize=15))
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-Using the FacetGrid object to map contours and a specific white star marker across every subplot simultaneously.
+    Using the FacetGrid object to map contours and a specific white star marker across every subplot simultaneously.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Faceting Multiple Variables
+
 You are not limited to faceting along existing dimensions like time or elevation. You can actually facet entirely different variables against each other. If you convert a `Dataset` container into a single `DataArray` using `.to_array()`, your variable names become a brand new dimension that you can use in your facet grid.
 
 ```{admonition} Shared Color Scales
@@ -173,18 +222,21 @@ fg = gradients.isel(time=slice(0, 3)).plot(
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-Comparing horizontal and vertical temperature gradients over time. The variables are split across the rows, while the time steps are split across the columns.
+    Comparing horizontal and vertical temperature gradients over time. The variables are split across the rows, while the time steps are split across the columns.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
 ## 3. Geographic Context
 
-While `xarray` correctly labels the axes with latitude and longitude coordinates, the plot itself lacks physical geographic context. Since `xarray` builds directly on `matplotlib`, you can seamlessly integrate the `cartopy` library to project your raw matrices onto real Earth cartography.
+While `xarray` correctly labels the axes with latitude and longitude coordinates, the plot itself lacks physical geographic context. Since `xarray` builds directly on `matplotlib`, you can seamlessly integrate the **{term}`cartopy <Cartopy>`** library to project your raw matrices onto real Earth cartography.
 
 ### Plotting a Single Map
-Adding cartographic projections to a single plot requires three specific steps. First, you set up a matplotlib axis with a specific projection. Second, you plot the data while declaring the original Coordinate Reference System of your raw data using the `transform` argument. Third, you draw geographic features onto the axis.
+
+Adding cartographic projections to a single plot requires three specific steps. First, you set up a matplotlib axis with a specific projection. Second, you plot the data while declaring the original **{term}`Coordinate Reference System`** of your raw data using the `transform` argument. Third, you draw geographic features onto the axis.
 
 ```{code-cell} python
 import cartopy.crs as ccrs
@@ -208,12 +260,15 @@ ax.coastlines()
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-By combining xarray with cartopy, the raw data matrix is projected onto a recognizable Earth surface. The transform argument ensures the raw grid points are mapped to the correct physical locations.
+    By combining xarray with cartopy, the raw data matrix is projected onto a recognizable Earth surface. The transform argument ensures the raw grid points are mapped to the correct physical locations.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Faceting Geographic Maps
-You can easily combine the power of faceting from the previous section with Cartopy projections. 
+
+You can easily combine the power of faceting from the previous section with Cartopy projections.
 
 Because `xarray` generates the subplot axes for you automatically when faceting, you cannot create the axes manually like we did above. Instead, you pass the projection inside the `subplot_kws` dictionary. Finally, you can use the `FacetGrid.map()` method you learned earlier to apply coastlines to every single panel simultaneously.
 
@@ -235,13 +290,15 @@ fg.map(lambda: plt.gca().coastlines())
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-Faceted maps projected over North America using Cartopy. The map function ensures that the coastlines are drawn across all time steps perfectly.
+    Faceted maps projected over North America using Cartopy. The map function ensures that the coastlines are drawn across all time steps perfectly.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Animating the time dimension (GIFs)
 
-Faceted plots are great for comparing a few time steps, but if you want to visualize an entire year of data, a static grid is no longer sufficient. Because your data cube inherently understands the progression of time, you can easily generate an animated GIF. 
+Faceted plots are great for comparing a few time steps, but if you want to visualize an entire year of data, a static grid is no longer sufficient. Because your data cube inherently understands the progression of time, you can easily generate an animated GIF.
 
 The standard approach uses the `matplotlib.animation` tool. The logic is simple: you create an empty figure, define an `update` function that plots a single time slice, and then tell Python to loop that function across a set number of frames.
 
@@ -273,9 +330,11 @@ ani.save("temperature_timelapse.gif", writer="pillow")
 plt.close() # Prevents the static plot from showing up in the notebook
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-By animating the time dimension, you can visually track dynamic environmental processes like the progression of seasons, the movement of storm systems, or extreme seasonal temperature shifts.
+    By animating the time dimension, you can visually track dynamic environmental processes like the progression of seasons, the movement of storm systems, or extreme seasonal temperature shifts.
 </div>
+<!-- markdownlint-enable MD033-->
 
 :::{figure} images/08_temperature_timelapse.gif
 :alt: An animated GIF showing temperature patterns shifting across the globe over 20 consecutive days.
@@ -296,6 +355,7 @@ Generating a GIF is computationally heavy because Python has to render a brand n
 Static matplotlib plots are excellent for documentation and publications, but exploring a massive data cube requires dynamic interaction. The holoviews ecosystem provides an interactive alternative called `hvplot`. These plots build directly on the Bokeh library to output interactive, browser native widgets rather than static images.
 
 ### Introduction to hvplot
+
 The `hvplot` library makes use of the `xarray` accessor interface. Once you run `import hvplot.xarray`, every `xarray` object gains an `.hvplot()` method that behaves almost identically to the standard `.plot()` syntax. Just like the basic plotting tools, it makes the same default choices: a 1D array yields a line plot, and a 2D array yields a quadmesh heatmap.
 
 ```{code-cell} python
@@ -303,9 +363,10 @@ import hvplot.xarray
 ```
 
 ### Interactive Sliders
-Where `hvplot` truly shines is in its interactivity. By passing the entire data cube to `.hvplot()` and specifying a dimension in the `groupby` argument, the library automatically generates a user interface slider. This allows you to smoothly scrub through the time dimension. 
 
-It is highly recommended to set constant colorbar limits using the `clim` argument. If you skip this step, the color mapping will recalculate for every single frame, making visual comparisons across time impossible.
+Where `hvplot` truly shines is in its interactivity. By passing the entire data cube to `.hvplot()` and specifying a dimension in the `groupby` argument, the library automatically generates a user interface slider. This allows you to smoothly scrub through the time dimension.
+
+It is highly recommended to set constant **{term}`colormap <Colormap>`** limits using the `clim` argument. If you skip this step, the color mapping will recalculate for every single frame, making visual comparisons across time impossible.
 
 ```{code-cell} python
 # Generate an interactive map with a time slider
@@ -316,11 +377,14 @@ ds.air.hvplot(
 )
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-An interactive heatmap with a built-in time slider. Grouping by the time dimension allows you to manually scrub through the dataset, while the constant color limits ensure accurate visual comparisons.
+    An interactive heatmap with a built-in time slider. Grouping by the time dimension allows you to manually scrub through the dataset, while the constant color limits ensure accurate visual comparisons.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Animations
+
 You can easily upgrade the manual slider into a playback animation. By specifying `widget_type="scrubber"`, the map will play forward automatically, revealing dynamic environmental processes. You can also control the placement of this tool using the `widget_location` argument.
 
 ```{code-cell} python
@@ -338,11 +402,14 @@ ds.air.hvplot(
 )
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A playback scrubber widget. This upgrades the manual slider into a fully animated interface, making it easier to spot continuous environmental trends over time.
+    A playback scrubber widget. This upgrades the manual slider into a fully animated interface, making it easier to spot continuous environmental trends over time.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Geographic Maps
+
 Finally, you can seamlessly combine the interactivity of `hvplot` with the geographic projections of `cartopy`. By passing the `projection` and `coastline=True` arguments directly into the `.hvplot()` call, you create a map that supports panning, zooming, and hover tooltips to inspect exact pixel values.
 
 ```{code-cell} python
@@ -356,9 +423,11 @@ ds.air.isel(time=0).hvplot(
 )
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-An interactive geographic globe. By integrating Cartopy projections with hvplot, you gain the ability to pan, zoom, and hover over specific pixels to read their exact coordinate and temperature values.
+    An interactive geographic globe. By integrating Cartopy projections with hvplot, you gain the ability to pan, zoom, and hover over specific pixels to read their exact coordinate and temperature values.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -369,6 +438,7 @@ It is time to practice interactive visualization with a real data cube. `xarray`
 Your task is to turn this dataset into an interactive map that allows you to explore how sea surface temperature changes through time.
 
 **Your task:**
+
 1. **Open:** Load the `ersstv5` dataset using `xr.tutorial.open_dataset()`.
 2. **Select:** Extract the sea surface temperature variable `sst`.
 3. **Plot:** Use `.hvplot()` to create an interactive map grouped by the `time` dimension.

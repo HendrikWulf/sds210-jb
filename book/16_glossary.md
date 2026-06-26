@@ -266,7 +266,7 @@ Execution order
 FacetGrid
 : A plotting tool that generates grids of subplots, making it ideal for observing spatial changes over time on a shared color scale.
 
-[False color](https://en.wikipedia.org/wiki/False_color) composite
+[False color composite](https://en.wikipedia.org/wiki/False_color)
 : A multiband image representation where non-visible parts of the electromagnetic spectrum (such as Near Infrared or Shortwave Infrared) are mapped to the visible RGB color channels to highlight specific environmental features like healthy vegetation or bare earth.
 
 [Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_sequence)

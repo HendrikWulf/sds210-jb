@@ -4,9 +4,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
-Extracting Climate Signals and Anomalies
+    Extracting Climate Signals and Anomalies
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -20,7 +22,20 @@ Extracting Climate Signals and Anomalies
 Time series analysis often begins by reducing noisy observations into meaningful summaries. By reorganizing the time dimension, we can extract seasonal structure, define baseline conditions, and reveal departures from those conditions.
 ```
 
-Demonstrating how to effectively collapse, reorganize, and smooth the time dimension in Python is the core pedagogical goal of this chapter. You will learn the critical differences between resampling and grouping, and master the split, apply, combine workflow to produce interpretable environmental statistics.
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Aggregating time series and calculating anomalies are mandatory procedures in almost all climate-related labs.)  
+**Project Relevance:** ★★★ (Crucial for any project analyzing long-term environmental change, seasonal variations, or global warming trends.)  
+**Foundation:** ★★★ (Teaches the foundational distinction between changing temporal frequency and categorical grouping.)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Master how to reorganize time series data to extract climatological baselines, calculate anomalies, and smooth out noisy weather data to reveal true long-term trends.  
+**Skip this if:** You are already intimately familiar with `xarray`'s `.resample()`, `.groupby()`, and `.rolling()` methods.
+
+```
+
+Demonstrating how to effectively collapse, reorganize, and smooth the time dimension in Python is the core pedagogical goal of this chapter. You will learn the critical differences between **{term}`resampling <Resampling>`** and grouping, and master the split, apply, combine workflow to produce interpretable environmental statistics.
 
 **Applied Scenario**
 We will analyze the NOAA Extended Reconstructed Sea Surface Temperature (ERSST v5) dataset, a widely used and trusted gridded compilation of historical data going back to 1854. Our goal is to strip away the overwhelming seasonal cycle to reveal long term climate warming trends.
@@ -39,7 +54,7 @@ ds = xr.tutorial.open_dataset("ersstv5")
 
 ## 1. Basic Temporal Reductions
 
-We begin by treating time as a fully reducible dimension, exactly like latitude or longitude. Reductions are functions that reduce the dimensionality of our dataset. Rather than dealing with complex loops across hundreds of temporal slices, you can perform reductions across the entire timeline simultaneously by using dimension names.
+We begin by treating time as a fully reducible dimension, exactly like latitude or longitude. Reductions are functions that reduce the dimensionality of our dataset. Rather than dealing with complex loops across hundreds of temporal slices, you can perform reductions across the entire timeline simultaneously by using standard reduction **{term}`methods <Method>`** like `.mean(dim="time")` or `.max(dim="time")`.
 
 ### Collapsing time
 
@@ -54,9 +69,11 @@ plt.title("Historical Mean Sea Surface Temperature")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A spatial map showing the historical mean sea surface temperature. Reducing the time dimension collapses the dataset into a single 2D summary of the ocean's average state.
+    A spatial map showing the historical mean sea surface temperature. Reducing the time dimension collapses the dataset into a single 2D summary of the ocean's average state.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Reducing multiple dimensions
 
@@ -72,13 +89,15 @@ plt.ylabel("Temperature (°C)")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A 1D profile showing the zonal mean sea surface temperature. By reducing over both time and longitude, the clear temperature gradient from the warm equator to the freezing poles is revealed. Do you know which steam causes the temperature deviation from the bell-shaped curve at high northern latitudes?
+    A 1D profile showing the zonal mean sea surface temperature. By reducing over both time and longitude, the clear temperature gradient from the warm equator to the freezing poles is revealed. Do you know which steam causes the temperature deviation from the bell-shaped curve at high northern latitudes?
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Reducing all dimensions
 
-Furthermore, if no dimension is specified, `xarray` reduces across all dimensions, yielding a single global scalar value. 
+Furthermore, if no dimension is specified, `xarray` reduces across all dimensions, yielding a single global scalar value.
 
 ```{code-cell} python
 # Yields a single float representing the global average over all time and space
@@ -97,7 +116,7 @@ A reduction answers the question: *along which dimension do I want to collapse t
 
 Environmental observations often come in one temporal frequency, but your analysis needs another. Often, you will receive data at a frequency that is too granular for your analysis. Resampling means changing the time frequency of data, usually reducing to a coarser frequency. For example, converting daily precipitation into monthly totals, or monthly temperatures into yearly averages.
 
-This operation can be thought of as a groupby operation where each group is a chronological block of time. Resampling only works with proper datetime64 coordinate labels. 
+This operation can be thought of as a groupby operation where each group is a chronological block of time. Resampling only works with proper datetime64 coordinate labels.
 
 ### Monthly to yearly
 
@@ -119,9 +138,11 @@ plt.ylabel("Temperature (°C)")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A 1D time series showing the global yearly mean sea surface temperature. Notice that the output still has a proper datetime coordinate, but the time axis now represents discrete yearly observations instead of monthly ones.
+    A 1D time series showing the global yearly mean sea surface temperature. Notice that the output still has a proper datetime coordinate, but the time axis now represents discrete yearly observations instead of monthly ones.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Coarser intervals
 
@@ -138,9 +159,11 @@ plt.ylabel("Temperature (°C)")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A 1D time series showing global sea surface temperature aggregated into 5 year blocks. The `marker="o"` argument highlights the exact timestamp representing the end of each 5 year period.
+    A 1D time series showing global sea surface temperature aggregated into 5 year blocks. The `marker="o"` argument highlights the exact timestamp representing the end of each 5 year period.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### The role of the aggregation statistic
 
@@ -162,13 +185,13 @@ Use `.resample()` when you want to reorganize observations into consecutive chro
 
 ## 3. Grouping: Exploring Cyclical Patterns
 
-Unlike resampling which changes the temporal frequency, **grouping** does something different. It reorganizes the data into calendar categories that already exist inside the time coordinate. For instance, gathering all the Januaries or all the summers together. 
+Unlike resampling which changes the temporal frequency, **grouping** does something different. It reorganizes the data into calendar categories that already exist inside the time coordinate. For instance, gathering all the Januaries or all the summers together.
 
 This enables you to ask questions such as: What is the typical January temperature? Or how do the four seasons compare?
 
 ### The datetime accessor
 
-To do this, we can use the DatetimeAccessor (`.dt`) to easily extract specific components of dates and times, such as month or season.
+To do this, we can use the Datetime **{term}`Accessor`** (`.dt`) to easily extract specific components of dates and times, such as month or season.
 
 ```{code-cell} python
 # Extract the month (1-12) or the season (DJF, MAM, JJA, SON)
@@ -190,9 +213,11 @@ plt.title("Mean Sea Surface Temperature in January")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A spatial map of the January climatology. The time axis has been replaced by a "month" coordinate containing integer labels from 1 to 12.
+    A spatial map of the January climatology. The time axis has been replaced by a "month" coordinate containing integer labels from 1 to 12.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Grouping by season
 
@@ -213,9 +238,11 @@ sst_by_season.plot(
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A faceted plot showing the average sea surface temperatures for Winter (DJF), Spring (MAM), Summer (JJA), and Autumn (SON). 
+    A faceted plot showing the average sea surface temperatures for Winter (DJF), Spring (MAM), Summer (JJA), and Autumn (SON).
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Grouping versus Resampling
 
@@ -234,6 +261,21 @@ Grouping follows the classic data science workflow:
 3. **Combine** the results into one new object.
 ```
 
+#### Concept Check: Reorganizing the Timeline
+
+You have 20 years of daily precipitation data. You want to generate a continuous timeline of monthly precipitation totals (e.g., Jan 2000, Feb 2000, Mar 2000, etc.) to plot the historical record. Which operation is the correct choice?
+
+A) `.resample(time="1ME")`
+B) `.groupby("time.month")`
+C) `.rolling(time=30)`
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: A. `.resample(time="1ME")`** Resampling groups data into continuous, chronological time blocks (Jan 2000, Feb 2000, etc.) and preserves the timeline. Grouping (`.groupby`) would collapse all 20 years into just 12 categorical months (All Januaries averaged together).
+
+```
+
 ---
 
 ## 4. Climatologies and Anomalies
@@ -242,7 +284,7 @@ A useful application of the split, apply, combine workflow is generating climate
 
 ### Defining what is normal
 
-A **climatology** is a baseline average, usually defined over a long reference period. It answers the question: *What is typical for this month or season?* Let us define a baseline period from 1971 to 2000 and calculate the monthly climatology using `gb.mean()`.
+A **{term}`climatology <Climatology>`** is a baseline average, usually defined over a long reference period. It answers the question: *What is typical for this month or season?* Let us define a baseline period from 1971 to 2000 and calculate the monthly climatology using `gb.mean()`.
 
 ```{code-cell} python
 # 1. Isolate the baseline period
@@ -257,9 +299,11 @@ plt.title("January Climatology (1971–2000)")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A spatial map of the January climatology. This object now defines the expected mean sea surface temperature for every January based on our 30 year reference period.
+    A spatial map of the January climatology. This object now defines the expected mean sea surface temperature for every January based on our 30 year reference period.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ```{admonition} Climatology is a baseline
 :class: important
@@ -269,7 +313,7 @@ A climatology is not simply a continuous mean over time. It is a structured base
 
 ### Departures from the baseline
 
-Once you have a climatology, you can calculate **anomalies**. An anomaly is the residual difference between the observed value and the expected value for that calendar month. 
+Once you have a climatology, you can calculate **{term}`anomalies <Anomaly>`**. An anomaly is the residual difference between the observed value and the expected value for that calendar month.
 
 Removing the seasonal climatology to examine the residual anomaly is a perfect example of a transformation. Xarray makes these transformations easy by supporting *groupby arithmetic*, allowing us to subtract the grouped mean directly from the original grouped object.
 
@@ -290,9 +334,11 @@ plt.title("Sea Surface Temperature Anomaly (January 2016)")
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-An anomaly map for January 2016. The seasonal cycle is entirely removed. Red areas show where the ocean was unusually warm compared to the 1971–2000 baseline, while blue areas show where it was unusually cold.
+    An anomaly map for January 2016. The seasonal cycle is entirely removed. Red areas show where the ocean was unusually warm compared to the 1971–2000 baseline, while blue areas show where it was unusually cold.
 </div>
+<!-- markdownlint-enable MD033-->
 
 If you are interested in long term change, raw monthly values can hide the warming signal behind strong annual summer and winter oscillations. Anomalies isolate exactly what is unusual relative to the baseline, making them the most critical tool in climate analysis.
 
@@ -300,9 +346,9 @@ If you are interested in long term change, raw monthly values can hide the warmi
 
 ## 5. Rolling windows and smoothing
 
-Even after removing the seasonal cycle, anomaly time series can still be quite noisy. High frequency variability (like short-term weather patterns) can obscure the long term climate signal. 
+Even after removing the seasonal cycle, anomaly time series can still be quite noisy. High frequency variability (like short-term weather patterns) can obscure the long term climate signal.
 
-A common solution is to apply a **rolling mean** using `xarray`'s built-in `.rolling()` method, which creates sliding windows of fixed length. 
+A common solution is to apply a **{term}`rolling mean <Moving average>`** using `xarray`'s built-in `.rolling()` method, which creates sliding windows of fixed length.
 
 ### A 12 month rolling mean
 
@@ -326,13 +372,16 @@ ax.legend()
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A 1D time series of global temperature anomalies. The light blue line shows the raw monthly data, while the black line shows the smoothed 12 month rolling average, making the upward warming trend easier to see.
+    A 1D time series of global temperature anomalies. The light blue line shows the raw monthly data, while the black line shows the smoothed 12 month rolling average, making the upward warming trend easier to see.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Rolling versus Resampling
 
 It is important to understand what a rolling window does differently:
+
 * `.resample()` creates entirely new, coarser time bins (e.g., jumping from month to month).
 * `.rolling()` smooths the data *without* changing the fundamental time frequency. It keeps the exact same time axis, padding the boundaries with `NaN`s if necessary.
 
@@ -342,11 +391,27 @@ It is important to understand what a rolling window does differently:
 Another useful tool is `.coarsen()`, which aggregates over fixed, non-overlapping blocks. It is similar to `.rolling()`, but instead of sliding point-by-point, it jumps from block to block. It is often used to downsample high-resolution spatial datasets.
 ```
 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L10_ch07_01_climate_anomalies/"
+    width="100%"
+    title="Interactive Data Cube Explorer"
+    frameborder="0"
+    style="height: 750px; min-height: 750px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+    allowfullscreen>
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Climate Anomalies & Rolling Means.</b><br>
+    Toggle the data layers to observe how subtracting the seasonal climatology exposes the underlying temperature anomaly. Adjust the rolling mean window slider to smooth out high-frequency weather noise and clearly isolate the long-term climate warming trend. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L10_ch07_01_climate_anomalies/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
+
 ---
 
 ## 6. Spatial Weighting
 
-So far, we have discussed calculating global mean anomalies using a simple spatial average over latitude and longitude. While that is easy, it is not fully correct for a regular lat lon grid. 
+So far, we have discussed calculating global mean anomalies using a simple spatial average over latitude and longitude. While that is easy, it is not fully correct for a regular lat lon grid.
 
 Because grid cells near the poles cover less physical area than cells near the equator, a simple mean overrepresents the polar regions. If every cell contributes equally, your global temperature will be skewed.
 
@@ -377,9 +442,11 @@ ax.legend()
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-An area weighted global time series of sea surface temperature anomalies. By properly accounting for the Earth's geometry, this chart provides a scientifically rigorous view of historical ocean warming.
+    An area weighted global time series of sea surface temperature anomalies. By properly accounting for the Earth's geometry, this chart provides a scientifically rigorous view of historical ocean warming.
 </div>
+<!-- markdownlint-enable MD033-->
 
 For very small local regions, weighting may not change the results significantly. However, for large regional or global summaries, it matters immensely.
 
@@ -408,9 +475,11 @@ plt.grid(alpha=0.3)
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-A 1D profile of the global seasonal cycle. This curve represents the "expected" baseline temperature for the Earth during each calendar month.
+    A 1D profile of the global seasonal cycle. This curve represents the "expected" baseline temperature for the Earth during each calendar month.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ### Tracking anomalies over time
 
@@ -433,9 +502,11 @@ anom_2016.plot(
 plt.show()
 ```
 
+<!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-Faceted spatial anomalies for the year 2016. Faceting is incredibly helpful here because it forces every subplot to share the exact same color scale, allowing you to track the evolution of extreme warming (red) and cooling (blue) events, such as El Niño, month by month.
+    Faceted spatial anomalies for the year 2016. Faceting is incredibly helpful here because it forces every subplot to share the exact same color scale, allowing you to track the evolution of extreme warming (red) and cooling (blue) events, such as El Niño, month by month.
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -444,6 +515,7 @@ Faceted spatial anomalies for the year 2016. Faceting is incredibly helpful here
 Use the NOAA `ersstv5` dataset to bring all the concepts together and visualize the long term warming signal clearly.
 
 **Your Task:**
+
 1. **Baseline:** Calculate a monthly climatology over the baseline period 1971 to 2000.
 2. **Anomalies:** Compute monthly anomalies by subtracting the climatology from the full series.
 3. **Weight:** Compute cosine latitude weights.
