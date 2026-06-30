@@ -240,7 +240,7 @@ my-spatial-project/
 
 <!-- markdownlint-disable MD033-->
 <iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L12_ch02_01_workflow_organizer/" 
+    src="https://hendrikwulf.github.io/sds210_assets_L12_ch02_01_workflow_organizer/"
     width="100%" 
     height="600px" 
     frameborder="0" 

@@ -5,9 +5,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Writing geospatial code that checks assumptions and fails clearly
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -21,27 +23,39 @@ Writing geospatial code that checks assumptions and fails clearly
 Reliable spatial code does not only perform the intended analysis. It also anticipates mistakes, checks assumptions, and fails clearly when something is wrong.
 ```
 
-In this chapter, you will learn how to write code that is safer to rerun, easier to debug, and less likely to fail silently. The goal is to make your code trustworthy.
+In this chapter, you will learn how to write code that is safer to rerun, easier to {term}`debug <Debugging>`, and less likely to fail silently. The goal is to make your code trustworthy.
 
-A spatial workflow may look clean and still be fragile. Python may accept the code perfectly, yet the analysis can still be wrong. A vector overlay may run even though the layers use different coordinate systems. A raster extraction may return empty values because the points do not overlap the raster extent. A column name may differ slightly from what you expected, or a filter may silently remove every row.
+A spatial workflow may look clean and still be fragile. Python may accept the code perfectly, yet the analysis can still be wrong. A vector overlay may run even though the layers use different coordinate systems. A {term}`raster <Raster data model>` extraction may return empty values because the points do not overlap the raster extent. A column name may differ slightly from what you expected, or a filter may silently remove every row.
 
 These are not unusual edge cases. They are normal situations in real spatial analysis.
 
-Defensive coding means writing code that does not trust its inputs blindly. It checks the assumptions that matter, makes them explicit, and stops early when the workflow is no longer valid. This is especially important in geospatial work, where even a simple analysis depends on many small truths: that the file exists, that the data load correctly, that the CRS is known and compatible, that layers overlap, and that intermediate results are not empty.
+This mindset is called {term}`defensive coding <Defensive programming>`: writing code that does not trust its inputs blindly. It checks the assumptions that matter, makes them explicit, and stops early when the workflow is no longer valid. This is especially important in geospatial work, where even a simple analysis depends on many small truths: that the file exists, that the data load correctly, that the {term}`CRS <Coordinate Reference System>` is known and compatible, that layers overlap, and that intermediate results are not empty.
 
-In this chapter, you will learn how to write code that is safer to rerun, easier to debug, and less likely to fail silently. Well organized code is easier to follow, but robust code goes one step further: it verifies that the workflow still makes sense before continuing.
+Well-organized code is easier to follow, but robust code goes one step further: it verifies that the workflow still makes sense before continuing.
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Lab Relevance:** ★★★ (Directly helps you catch common lab errors such as missing files, wrong CRS assumptions, and empty outputs.)  
+**Project Relevance:** ★★★ (Protects your final project from silent spatial mistakes and makes your code discussion easier to defend.)  
+**Foundation:** ★★★ (Builds core habits for robust, trustworthy, and {term}`reproducible <Reproducibility>` spatial workflows.)  
+
+**Time to Read:** 24 minutes  
+**In a nutshell:** This chapter teaches you how to make spatial workflows stop early with clear messages instead of silently producing invalid results.  
+**Skip this if:** You already validate paths, parameters, CRS compatibility, spatial overlap, raster alignment, required columns, and empty outputs in your geospatial code.
+```
 
 ---
 
 ## 1. Validation of inputs and file paths
 
-A workflow becomes fragile when it assumes that the outside world—files, folders, and user inputs—is always perfectly formatted. The most common point of failure in any script is loading the data. If a file is missing, moved, or corrupted, the entire pipeline stops. 
+A workflow becomes fragile when it assumes that the outside world—files, folders, and user inputs—is always perfectly formatted. The most common point of failure in any {term}`script <Script>` is loading the data. If a file is missing, moved, or corrupted, the entire pipeline stops.
 
-A defensive programmer verifies that the data and inputs actually make sense before asking the computer to do heavy processing. This is known as **failing fast**: catching the error at the very beginning of the script, rather than letting it cause an obscure crash 100 lines deeper into your notebook.
+A defensive programmer verifies that the data and inputs actually make sense before asking the computer to do heavy processing. This is known as **failing fast**: catching the error at the very beginning of the script, rather than letting it cause an obscure crash 100 lines deeper into your {term}`notebook <Notebook>`.
 
 ### Validating file paths
 
-Using the `pathlib` module from the previous chapter, it is incredibly easy to validate file paths before running data-intensive functions.
+Using the `pathlib` module from the previous chapter, it is straightforward to validate file paths before running data-intensive {term}`functions <Function>`.
 
 ```{code-cell} python
 from pathlib import Path
@@ -62,9 +76,10 @@ def load_spatial_data(filepath):
 
 ### Validating user-supplied values
 
-Defensive coding is not just for files; it is also for variables. If your workflow depends on user-defined parameters, validate them immediately. Python's `assert` statement is perfect for these quick, readable checks.
+Defensive coding is not just for files; it is also for {term}`variables <Variable>`. If your workflow depends on user-defined {term}`parameters <Parameter>`, validate them immediately. Python's {term}`assert statement <Assertion>` is perfect for these quick, readable checks.
 
 If a user defines a buffer distance, ensure it is actually a positive number:
+
 ```{code-cell} python
 buffer_distance_m = 500
 
@@ -72,6 +87,7 @@ assert buffer_distance_m > 0, "Buffer distance must be a positive number."
 ```
 
 If your script filters satellite imagery by a date range, ensure the timeline flows forward:
+
 ```{code-cell} python
 start_year = 2015
 end_year = 2020
@@ -81,9 +97,10 @@ assert start_year <= end_year, "start_year must be smaller than or equal to end_
 
 ### Validating bounding boxes
 
-Geospatial structures like bounding boxes are a classic source of subtle mistakes. If you accidentally flip the minimum and maximum coordinates, the bounding box might still travel through several processing steps before it produces an obviously empty map.
+Geospatial structures like {term}`bounding boxes <Spatial extent>` are a classic source of subtle mistakes. If you accidentally flip the minimum and maximum coordinates, the bounding box might still travel through several processing steps before it produces an obviously empty map.
 
 Validate the geometry before using it:
+
 ```{code-cell} python
 # A rough bounding box for Switzerland (WGS84 degrees)
 bbox = {
@@ -104,17 +121,32 @@ assert bbox["ymin"] < bbox["ymax"], "Bounding box is invalid: ymin >= ymax."
 Files, paths, user inputs, and downloaded datasets are external to your code. They should be treated as highly suspicious until they pass your validation checks.
 ```
 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L12_ch03_01_defensive_coding/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Defensive Coding Gatekeeper.</b><br>
+    Select common geospatial failure modes such as missing files, CRS mismatch, no spatial overlap, or empty outputs to compare how a fragile workflow fails late while a defensive workflow stops early at the correct validation gate. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L12_ch03_01_defensive_coding/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
+
 ---
 
 ## 2. Checking assumptions early
 
-A strong defensive habit is to check important assumptions as soon as possible, ideally right after loading the data. The longer a wrong assumption stays hidden, the more confusing the workflow becomes. By the time the final map looks strange, the real problem may have occurred 20 cells earlier.
+A strong defensive habit is to check important assumptions as soon as possible, ideally right after loading the data. The longer a wrong assumption stays hidden, the more confusing the workflow becomes. By the time the final map looks strange, the real problem may have occurred 20 {term}`cells <Code cell>` earlier.
 
 ### Checking data immediately after loading
 
 When you load a new dataset, you likely have assumptions about what it contains. You can use Python's built-in `assert` statement to declare these assumptions explicitly. If the condition is false, the notebook stops immediately and prints your custom error message.
 
-For a vector dataset, you might expect it to have rows, a specific identifier, a defined CRS, and a specific geometry type:
+For a vector dataset, you might expect it to have rows, a specific {term}`identifier <Identifier>`, a defined CRS, and a specific geometry type:
 
 ```{code-cell} python
 stations_gdf = gpd.read_file(stations_path)
@@ -150,7 +182,7 @@ If the file accidentally contains polygons instead of points, or a 4-band aerial
 
 When you write custom, reusable functions (like the modules we built in the previous chapter), you cannot always control what data gets passed into them. You must protect these functions by validating inputs *before* doing the math.
 
-While `assert` is great for quick checks inside your notebook script, professional Python modules usually use explicit `raise` statements (like `KeyError` or `ValueError`) to handle bad inputs inside functions. 
+While `assert` is great for quick checks inside your notebook script, professional Python modules usually use explicit `raise` statements (like `KeyError` or `ValueError`) to handle bad inputs inside functions.
 
 If your code requires an `elevation_m` column to run a topographic calculation, check for it immediately:
 
@@ -168,7 +200,7 @@ def calculate_lapse_rate(gdf):
     return gdf["temperature_c"] / gdf["elevation_m"]
 ```
 
-Another classic silent error is performing a spatial join or an intersection on datasets with mismatching projections. Protect your spatial functions by enforcing CRS alignment:
+Another classic silent error is performing a {term}`spatial join <Spatial join>` or an intersection on datasets with mismatching projections. Protect your spatial functions by enforcing CRS alignment:
 
 ```{code-cell} python
 def intersect_study_area(points_gdf, boundary_gdf):
@@ -194,9 +226,9 @@ Do not wait until the final result looks wrong to discover that the input was al
 
 ## 3. Checking spatial compatibility
 
-Many geospatial errors are not programming errors in the ordinary sense. They are *compatibility* errors. The files load successfully, and the Python syntax is perfect, but the data layers fundamentally disagree with each other. 
+Many geospatial errors are not programming errors in the ordinary sense. They are *compatibility* errors. The files load successfully, and the Python {term}`syntax <Syntax>` is perfect, but the data layers fundamentally disagree with each other.
 
-Because Python will often try to execute the operation anyway (resulting in empty datasets or corrupted arrays), checking spatial compatibility is the most domain-specific part of defensive coding.
+Because Python will often try to execute the operation anyway (resulting in empty datasets or corrupted {term}`arrays <Array>`), checking spatial compatibility is the most domain-specific part of defensive coding.
 
 ### CRS compatibility
 
@@ -218,7 +250,7 @@ assert stations_gdf.crs == landcover_gdf.crs, (
 )
 ```
 
-If the CRS differs, the solution is never to continue and hope for the best. The solution is to explicitly reproject one layer using `.to_crs()` before proceeding.
+If the CRS differs, the solution is never to continue and hope for the best. The solution is to explicitly {term}`reproject <Map reprojection>` one layer using `.to_crs()` before proceeding.
 
 ### Extent and overlap
 
@@ -241,7 +273,7 @@ assert stations_extent.intersects(landcover_extent), (
 
 ### Raster alignment
 
-In raster math, two rasters that look identical on a map might still be mathematically incompatible. Before subtracting, stacking, or comparing rasters (like calculating an index or performing time-series change detection), you must check their structural alignment.
+In raster math, two rasters that look identical on a map might still be mathematically incompatible. Before subtracting, stacking, or comparing rasters (like calculating an index or performing {term}`time-series <Time series>` change detection), you must check their structural alignment.
 
 ```{code-cell} python
 import rasterio
@@ -253,7 +285,7 @@ with rasterio.open("../data/raw/band_red.tif") as red_src, rasterio.open("../dat
     assert red_src.transform == nir_src.transform, "Raster transform mismatch."
 ```
 
-The `transform` check is especially powerful. The transform matrix defines the exact geographic coordinates of the top-left pixel and the spatial resolution. If the transforms match, you are guaranteed that the pixels perfectly align in space.
+The `transform` check is especially powerful. The transform matrix defines the exact geographic coordinates of the top-left pixel and the {term}`spatial resolution <Spatial resolution>`. If the transforms match, you are guaranteed that the pixels perfectly align in space.
 
 ```{admonition} Spatial data can be deceptively valid
 :class: warning
@@ -261,15 +293,34 @@ The `transform` check is especially powerful. The transform matrix defines the e
 A file can load correctly and still be entirely wrong for the analysis. The data may exist, but if the CRS, extent, or pixel alignment is incompatible, your scientific result will be invalid.
 ```
 
+#### Concept Check: The Empty Overlay Mystery
+
+You load a station point layer and a land-cover polygon layer. Both files open without errors, and both layers have a CRS. But your spatial overlay returns an empty result. What should you check first?
+
+A. Check whether the layers have the same CRS and whether their spatial extents actually overlap.
+
+B. Increase the buffer distance until some results appear.
+
+C. Export both files to a new format because the file type is probably the problem.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: A**
+An empty overlay often means the layers are spatially incompatible even though they load correctly. Increasing a buffer or changing file formats can hide the real issue; first verify CRS compatibility and spatial overlap.
+
+```
+
 ---
 
 ## 4. Avoiding hard-coded magic numbers
 
-A "magic number" is a direct, hard-coded value scattered arbitrarily throughout your code without any explanation of what it means. Magic numbers make workflows fragile, difficult to update, and scientifically ambiguous.
+A {term}`magic number <Magic number>` is a direct, hard-coded value scattered arbitrarily throughout your code without any explanation of what it means. Magic numbers make workflows fragile, difficult to update, and scientifically ambiguous.
 
 ### The problem with hidden logic
 
 **Bad: Magic numbers hidden in logic**
+
 ```{code-cell} python
 # Why 10000? Why 20? Why 0.3? The reader has no idea.
 buildings_filtered = buildings[buildings.geometry.area > 10000]
@@ -281,9 +332,10 @@ Each of these numbers might be scientifically reasonable, but the code does not 
 
 ### A stronger, explicit version
 
-By defining these values as descriptive variables at the top of your script or notebook, you make your code infinitely safer to modify. In Python, it is a standard convention to write these constants in all uppercase. *(Note: You can also use underscores to make large numbers easier to read, such as `10_000`)*.
+By defining these values as descriptive variables at the top of your script or notebook, you make your code much safer to modify. In Python, it is a standard convention to write these constants in all uppercase. *(Note: You can also use underscores to make large numbers easier to read, such as `10_000`.)*
 
 **Good: Named constants**
+
 ```{code-cell} python
 MIN_BUILDING_AREA_M2 = 10_000
 ROAD_BUFFER_M = 20
@@ -299,10 +351,11 @@ Now, the assumptions are entirely visible. If you need to tweak a parameter to t
 ### Common geospatial constants
 
 This practice is especially critical in spatial workflows where numerical thresholds define the analytical outcome. You should always use named constants for:
+
 * buffer distances
 * EPSG / CRS codes
 * cloud cover percentages
-* spectral index thresholds (like NDVI or NDSI)
+* spectral index thresholds, like NDVI or {term}`NDSI <Normalized Difference Snow Index>`
 * minimum area or elevation thresholds
 * resampling resolutions
 
@@ -316,11 +369,11 @@ A named constant turns a hidden, arbitrary assumption into an explicit analytica
 
 ## 5. Clear error messages and failing loudly
 
-Defensive coding is not only about checking conditions; it is also about how the workflow reacts when something goes wrong. A robust workflow should fail **clearly and loudly**. 
+Defensive coding is not only about checking conditions; it is also about how the workflow reacts when something goes wrong. A robust workflow should fail **clearly and loudly**.
 
 ### Protecting against empty results
 
-A very common spatial bug occurs when an intersection or spatial join results in an empty dataset (often because the datasets do not actually overlap in space). If you feed an empty GeoDataFrame into a plotting function or a statistical model, it will not crash immediately. Instead, it will cause confusing downstream errors or generate a blank map.
+A very common spatial bug occurs when an intersection or spatial join results in an empty dataset, often because the datasets do not actually overlap in space. If you feed an empty {term}`GeoDataFrame` into a plotting function or a statistical model, it will not crash immediately. Instead, it will cause confusing downstream errors or generate a blank map.
 
 Use an `assert` statement to force your code to fail loudly the moment an assumption is broken:
 
@@ -336,13 +389,15 @@ assert len(clipped_stations) > 0, "The spatial intersection resulted in an empty
 
 While `assert` is perfect for quick notebook checks, professional Python modules use explicit `raise` statements to handle bad inputs. Python has dozens of built-in exceptions, but in spatial data science, you will mostly rely on these three:
 
-* **`ValueError`:** The user passed a variable with the right *type* (e.g., a number), but an inappropriate *value*. Use this for invalid thresholds, distances, or bounding box coordinates.
+* **{term}`ValueError`**: The user passed a variable with the right *type*, such as a number, but an inappropriate *value*. Use this for invalid thresholds, distances, or bounding box coordinates.
+
   ```python
   if buffer_distance_m < 0:
       raise ValueError(f"Buffer distance cannot be negative. You provided: {buffer_distance_m}")
   ```
 
-* **`TypeError`:** The user passed a variable of the completely wrong data type. Use this when your function expects a specific spatial object but receives something else.
+* **{term}`TypeError`**: The user passed a variable of the completely wrong {term}`data type <Data type>`. Use this when your function expects a specific spatial object but receives something else.
+
   ```python
   import geopandas as gpd
   
@@ -350,7 +405,8 @@ While `assert` is perfect for quick notebook checks, professional Python modules
       raise TypeError("Input must be a GeoDataFrame, not a standard pandas DataFrame.")
   ```
 
-* **`KeyError`:** You are trying to access a dictionary key or a DataFrame column that does not exist. Use this when verifying that your spatial data contains the specific attributes your model needs.
+* **`KeyError`**: You are trying to access a {term}`dictionary <Dictionary>` key or a {term}`DataFrame` column that does not exist. Use this when verifying that your spatial data contains the specific attributes your model needs.
+
   ```python
   if "elevation_m" not in stations_gdf.columns:
       raise KeyError("The required column 'elevation_m' is missing from the dataset.")
@@ -358,27 +414,31 @@ While `assert` is perfect for quick notebook checks, professional Python modules
 
 ### What makes a good error message
 
-When a script fails, the error message is the only clue you (or your collaborator) have to fix it. Writing a custom error message is an act of empathy for the person debugging the code. 
+When a script fails, the error message is the only clue you (or your collaborator) have to fix it. Writing a custom error message is an act of empathy for the person debugging the code.
 
 A useful error message should always include three things:
+
 1. **What failed** (the action)
 2. **The object or variable involved** (the specific data)
 3. **The violated assumption** (why it failed)
 
 **Weak:**
+
 ```python
 raise ValueError("Invalid input")
 ```
+
 If you see this error 6 months from now, you will have no idea what "input" was invalid or why.
 
 **Better:**
+
 ```python
 raise ValueError(f"Bounding box is invalid: xmin ({bbox['xmin']}) must be smaller than xmax ({bbox['xmax']}).")
 ```
 
 ### Example: Confirming raster and vector alignment
 
-Applying this philosophy to our custom spatial functions makes them incredibly robust. Before extracting raster values to point geometries, you can explicitly check that the points fall within the raster's bounding box and provide a highly descriptive error if they do not.
+Applying this philosophy to our custom spatial functions makes them robust. Before extracting raster values to point geometries, you can explicitly check that the points fall within the raster's bounding box and provide a highly descriptive error if they do not.
 
 ```{code-cell} python
 def verify_raster_coverage(points_gdf, raster_bounds):
@@ -404,15 +464,16 @@ A silent failure is dangerous because it lets the workflow continue with broken 
 
 ## 6. Testing parts before chaining them
 
-Many defensive coding problems are not solved by syntax alone; they are solved by workflow habits. A common, frustrating habit is writing ten processing steps in a row and then only inspecting the final map. If the map is blank, the debugging problem is now spread across the entire workflow. 
+Many defensive coding problems are not solved by syntax alone; they are solved by workflow habits. A common, frustrating habit is writing ten processing steps in a row and then only inspecting the final map. If the map is blank, the debugging problem is now spread across the entire workflow.
 
 Small checks localize problems. If a workflow breaks after step 2, that is much easier to fix than discovering at step 10 that the problem actually began at step 1.
 
 ### The danger of long method chains
 
-Modern libraries like `pandas` and `geopandas` allow you to chain many methods together in a single, elegant block. While method chaining reads beautifully, it is the enemy of defensive coding during the development phase.
+Modern {term}`libraries <Library>` like `pandas` and `geopandas` allow you to chain many {term}`methods <Method>` together in a single, elegant block. While method chaining reads beautifully, it is the enemy of defensive coding during the development phase.
 
 **The danger of long chains:**
+
 ```python
 final_gdf = (
     gpd.read_file("stations.shp")
@@ -423,11 +484,12 @@ final_gdf = (
 )
 ```
 
-If `final_gdf` ends up completely empty, which step caused the problem? Was it a CRS mismatch during the clip? Did `dropna` remove all your rows? 
+If `final_gdf` ends up completely empty, which step caused the problem? Was it a CRS mismatch during the clip? Did `dropna` remove all your rows?
 
 When building and testing your workflows, break these chains apart. Assign intermediate variables and check your assumptions along the way.
 
 **Defensive development:**
+
 ```{code-cell} python
 # Step 1: Read and project
 stations = gpd.read_file("stations.shp").to_crs("EPSG:2056")
@@ -442,14 +504,16 @@ final_gdf = clean_stations.clip(study_area_gdf).reset_index(drop=True)
 assert len(final_gdf) > 0, "No stations intersect the study area boundary."
 ```
 
-Once you are absolutely certain the logic holds, you can confidently rewrite the code into a cleaner, chained format, or wrap it safely into a custom module.
+Once you are certain the logic holds, you can confidently rewrite the code into a cleaner, chained format, or wrap it safely into a custom {term}`module <Module>`.
 
 ### Building the habit: Inspect and visualize
 
 Beyond `assert` statements, you should actively inspect intermediate products while the workflow is still small enough to reason about.
 
 **Inspect a layer right after loading:**
+
 Do not assume you know what the shapefile looks like. Check the first few rows, the CRS, and the bounding box immediately.
+
 ```{code-cell} python
 # print(stations.head())
 # print(stations.crs)
@@ -457,7 +521,9 @@ Do not assume you know what the shapefile looks like. Check the first few rows, 
 ```
 
 **Inspect raster metadata before doing math:**
+
 Before applying an equation to a 5-gigabyte DEM, verify its fundamental properties.
+
 ```{code-cell} python
 import rasterio
 
@@ -469,7 +535,8 @@ import rasterio
 ```
 
 **Test one step before looping:**
-A classic mistake is writing a `for` loop to clip 50 datasets before checking if the clipping logic actually works. Always test your spatial operation on a single file, and visually verify it with `.plot()`, before scaling it up to a loop.
+
+A classic mistake is writing a {term}`for loop <Loop>` to clip 50 datasets before checking if the clipping logic actually works. Always test your spatial operation on a single file, and visually verify it with `.plot()`, before scaling it up to a loop.
 
 ```{admonition} Verify as you go
 :class: tip
@@ -486,10 +553,11 @@ Below is a deliberately fragile geospatial workflow. It runs, but it hides assum
 ### Task
 
 Improve the fragile workflow by:
+
 1. checking that the input file actually exists before loading it
 2. checking that the dataset has a CRS defined
 3. checking that the required attribute column exists
-4. replacing all magic numbers and hard-coded strings with named constants at the top of the script
+4. replacing all magic numbers and hard-coded {term}`strings <String>` with named constants at the top of the script
 5. adding an `assert` statement to ensure the final filtered dataset is not empty
 
 ### The fragile workflow
@@ -559,15 +627,18 @@ assert len(selected_gdf) > 0, f"No '{TARGET_STATION}' stations remain after filt
 Look at the sample solution. Which potential failure does the improved version now catch earlier? Which scientific assumptions are now explicit that were previously hidden in the logic?
 ```
 
+---
+
 ## 8. Summary
 
 Defensive coding is the habit of writing workflows that do not trust their inputs blindly. By checking assumptions, validating data, and failing loudly when something is wrong, you protect your workflow from silently producing invalid spatial results.
 
 **Key Takeaways:**
-* **Validate the outside world:** Always verify that files exist and user inputs are valid before running heavy processing steps (failing fast).
+
+* **Validate the outside world:** Always verify that files exist and user inputs are valid before running heavy processing steps.
 * **Check assumptions early:** Ensure your datasets are not empty, have the correct geometry types, and contain the required columns right after loading.
 * **Verify spatial compatibility:** Never assume layers align. Explicitly check that CRSs match, spatial extents overlap, and raster transforms align.
-* **Banish magic numbers:** Replace unexplained, hard-coded numbers with named, UPPERCASE constants at the top of your script.
+* **Banish magic numbers:** Replace unexplained, hard-coded numbers with named, uppercase constants at the top of your script.
 * **Choose the right exception:** Use `assert` for quick notebook checks, but use explicit exceptions (`ValueError`, `TypeError`, `KeyError`) with highly descriptive error messages for custom functions.
 * **Verify as you go:** Test and visualize small intermediate steps rather than blindly chaining long sequences of methods together and hoping the final map is correct.
 
@@ -575,4 +646,4 @@ These habits make spatial code more robust, easier to debug, and much safer to r
 
 ### What comes next
 
-Robust, defensive code is a massive step toward full reproducibility. In the next chapter, we will broaden the perspective from safe code to completely reproducible research workflows: managing environments, version control, and ensuring others can rerun and verify your results.
+Robust, defensive code is a massive step toward full reproducibility. In the next chapter, we will broaden the perspective from safe code to completely reproducible research workflows: managing environments, {term}`version control <Version control>`, and {term}`virtual environments <Virtual environment>`.
