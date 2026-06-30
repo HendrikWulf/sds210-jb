@@ -5,9 +5,11 @@ site:
     outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 From blueprints to geospatial objects
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -21,9 +23,21 @@ From blueprints to geospatial objects
 A class is a blueprint for building reusable objects that bundle related data and behavior. In geospatial programming, this helps you model meaningful entities such as points, stations, or bounding boxes instead of scattering their properties across many separate variables.
 ```
 
-In the previous section, we established why Object Oriented Programming is a powerful paradigm for managing complexity. We discussed how organizing code around entities (nouns) rather than standalone actions (verbs) can prevent spatial data pipelines from becoming fragile.
+```{admonition} Chapter Relevance
+:class: dropdown
 
-Now, it is time to build those entities. In this chapter, we will unpack the foundational concept of a **class**, construct our first spatial objects, and understand how they manage their own internal data.
+**Project Relevance:** ★★★ (Custom classes are necessary to cleanly organize data in complex final projects.)  
+**Foundation:** ★★★ (The `__init__` method and `self` are the bedrock of Python's object-oriented system.)  
+
+**Time to Read:** 12 minutes  
+**In a nutshell:** Learn how to define a custom class blueprint and use it to instantiate independent, data-rich objects with their own internal state.  
+**Skip this if:** You are already fully comfortable writing custom Python classes, defining `__init__` methods, and explaining the difference between class and instance attributes.
+
+```
+
+In the previous section, we established why **{term}`Object-Oriented Programming <Object-oriented programming>`** is a powerful paradigm for managing complexity. We discussed how organizing code around entities (nouns) rather than standalone actions (verbs) can prevent spatial data pipelines from becoming fragile.
+
+Now, it is time to build those entities. In this chapter, we will unpack the foundational concept of a **{term}`class <Class>`**, construct our first spatial objects, and understand how they manage their own internal data.
 
 ---
 
@@ -41,12 +55,12 @@ lat2 = 46.95
 name2 = "Bern"
 ```
 
-While this works, the computer has no idea that `lon1`, `lat1`, and `name1` belong together as a single meaningful entity. As you add more cities or attempt to calculate distances between them, your variables begin to scatter and become difficult to track. 
+While this works, the computer has no idea that `lon1`, `lat1`, and `name1` belong together as a single meaningful entity. As you add more cities or attempt to calculate distances between them, your **{term}`variables <Variable>`** begin to scatter and become difficult to track.
 
 To solve this, we use object-oriented programming to group related data and behavior together. This introduces three core terms that represent different stages of the programming lifecycle:
 
 * **The Class (The Blueprint):** A class is a template. It specifies what attributes an entity *should* have (like a name, a latitude, and a longitude), but it does not contain any actual data itself. It is the abstract definition of a "City."
-* **The Object (The Instance):** An object is a concrete entity built from that class that holds specific, real data. When you populate the blueprint with the actual coordinates for Zurich or Bern, you have *instantiated* the class. These real, memory-backed entities are instances. (The terms "object" and "instance" are used interchangeably).
+* **The Object (The Instance):** An **{term}`object <Object>`** is a concrete entity built from that class that holds specific, real data. When you populate the blueprint with the actual coordinates for Zurich or Bern, you have *instantiated* the class. These real, memory-backed entities are **{term}`instances <Instance>`**. (The terms "object" and "instance" are used interchangeably).
 
 ```{admonition} Key distinction
 :class: important
@@ -71,7 +85,7 @@ Many geospatial entities are natural candidates for custom classes: a coordinate
 
 ## 2. Defining a first class
 
-Creating a class in Python is remarkably straightforward. We use the `class` keyword followed by the name we wish to give our new data type. By convention, class names use CapitalizedWords (CamelCase) notation. 
+Creating a class in Python is remarkably straightforward. We use the `class` keyword followed by the name we wish to give our new data type. By convention, class names use CapitalizedWords (CamelCase) notation.
 
 Let us define a minimalistic `GeoPoint` class to represent a geographic coordinate:
 
@@ -91,13 +105,11 @@ We have now created two distinct `GeoPoint` objects. To prove that these are com
 
 ```{code-cell} python
 print(type(point_a))
-# Output: <class '__main__.GeoPoint'>
 
 print(point_a is point_b)
-# Output: False
 ```
 
-Because `point_a is point_b` evaluates to `False`, we know they occupy completely different addresses in your computer's memory. 
+Because `point_a is point_b` evaluates to `False`, we know they occupy completely different addresses in your computer's memory.
 
 However, a blueprint that does not specify any internal state is not very useful for spatial analysis. To make our points meaningful, we need to initialize them with real geographic data.
 
@@ -105,9 +117,9 @@ However, a blueprint that does not specify any internal state is not very useful
 
 ## 3. The `__init__()` method
 
-To make our `GeoPoint` blueprint useful, it needs a starting state. If we do not explicitly set the coordinate positions, we end up with an empty object with no geographic meaning. 
+To make our `GeoPoint` blueprint useful, it needs a starting state. If we do not explicitly set the coordinate positions, we end up with an empty object with no geographic meaning.
 
-We guarantee this structure using a special initialization method called `__init__()`. Methods that begin and end with **d**ouble **under**scores are known as *dunder methods*, signaling that they have a special built in behavior in Python.
+We guarantee this structure using a special initialization method called `__init__()`. Methods that begin and end with **d**ouble **under**scores are known as **{term}`dunder methods <Dunder method>`**, signaling that they have a special built in behavior in Python.
 
 Let us upgrade our `GeoPoint` class to require coordinates upon creation:
 
@@ -119,7 +131,7 @@ class GeoPoint:
         self.name = name
 ```
 
-You do not call `__init__()` directly. When you construct a new `GeoPoint` instance, Python creates the object and then automatically runs the `__init__()` method behind the scenes to assign the starting data.
+You do not call `__init__()` directly. When you construct a new `GeoPoint` instance, Python creates the object and then automatically runs the **{term}`__init__ method`** behind the scenes to assign the starting data.
 
 ```{code-cell} python
 point1 = GeoPoint(35.6895, 139.6917, "Tokyo")
@@ -141,13 +153,13 @@ Without an `__init__()` method, your object has no guaranteed structure. You mig
 
 ## 4. The role of `self`
 
-You may have noticed a mathematical discrepancy in our previous example. When we defined the initialization method, it had four parameters: `def __init__(self, latitude, longitude, name)`. However, when we instantiated the object, we only passed three arguments: `GeoPoint(35.6895, 139.6917, "Tokyo")`. 
+You may have noticed a mathematical discrepancy in our previous example. When we defined the initialization method, it had four **{term}`parameters <Parameter>`**: `def __init__(self, latitude, longitude, name)`. However, when we instantiated the object, we only passed three **{term}`arguments <Argument>`**: `GeoPoint(35.6895, 139.6917, "Tokyo")`.
 
 What happened to the first argument?
 
-The keyword `self` is one of the most common sources of confusion when transitioning to object oriented-programming, but its purpose is actually very logical. `self` simply refers to the **current active object**.
+The **{term}`self parameter`** (often written as the keyword `self`) is one of the most common sources of confusion when transitioning to object-oriented programming, but its purpose is actually very logical. `self` simply refers to the **current active object**.
 
-When you instantiate a class, Python automatically passes the newly created instance into the method as the very first argument. You never pass it manually. 
+When you instantiate a class, Python automatically passes the newly created instance into the method as the very first argument. You never pass it manually.
 
 ### A dynamic placeholder
 
@@ -175,6 +187,22 @@ The output will show two completely separate dictionaries. By routing the incomi
 Unlike `def`, `class`, or `if`, the word `self` is not a strictly reserved keyword in Python. You could technically name that first parameter `this_point` or `me` and the code would still execute. However, using `self` is a universally accepted convention among Python developers. You should always use it to ensure your code remains readable to the broader scientific community.
 ```
 
+#### Concept Check: The Purpose of `self`
+
+You have instantiated two separate sensor stations from a `WeatherStation` class: `station_a` and `station_b`. You execute a command to update `station_a`'s temperature. Why does `station_b`'s temperature remain unchanged?
+
+1. Because `station_b` was created after `station_a`.
+2. Because the `self` keyword ensured the new temperature was routed exclusively to `station_a`'s isolated internal memory namespace.
+3. Because temperatures are Class Attributes, meaning they must be updated simultaneously for all objects.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: 2. Because the `self` keyword ensured the new temperature was routed exclusively to `station_a`'s isolated internal memory namespace.**
+When `station_a`'s state is modified, Python silently passes `station_a` into the method as `self`. This guarantees that the variable update only applies to that specific object's internal dictionary, leaving `station_b` completely unaffected.
+
+```
+
 ---
 
 ## 5. Instance attributes and class attributes
@@ -182,7 +210,8 @@ Unlike `def`, `class`, or `if`, the word `self` is not a strictly reserved keywo
 When designing spatial objects, it is critical to distinguish between data that belongs to a specific, unique entity and data that belongs to the class as a whole.
 
 ### Instance attributes
-Variables created inside the `__init__()` method and attached to `self` are called instance attributes. Their values belong to each individual object. In our `GeoPoint` class, `latitude`, `longitude`, and `name` must be instance attributes because Tokyo and Zurich have completely different coordinates and names.
+
+Variables created inside the `__init__()` method and attached to `self` are called **{term}`instance attributes <Instance attribute>`**. Their values belong to each individual object. In our `GeoPoint` class, `latitude`, `longitude`, and `name` must be instance attributes because Tokyo and Zurich have completely different coordinates and names.
 
 ```{code-cell} python
 print(tokyo.name)
@@ -190,9 +219,10 @@ print(zurich.name)
 ```
 
 ### Class attributes
-Class attributes are variables that have the exact same value for all instances of the class. You define them directly beneath the class declaration, outside of any methods.
 
-For example, if our application exclusively processes GPS data, we might want every single `GeoPoint` to share the same default Coordinate Reference System (CRS).
+**{term}`Class attributes <Class attribute>`** are variables that have the exact same value for all instances of the class. You define them directly beneath the class declaration, outside of any methods.
+
+For example, if our application exclusively processes GPS data, we might want every single `GeoPoint` to share the same default **{term}`Coordinate Reference System`** (CRS).
 
 ```{code-cell} python
 class GeoPoint:
@@ -223,18 +253,34 @@ print(GeoPoint.crs)
 Use **instance attributes** for properties that vary from object to object (like temperatures, coordinates, or timestamps). Use **class attributes** for properties that should consistently be the same for all objects of that class (like a default projection, a specific sensor name, or a mathematical constant).
 ```
 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L11_ch02_01_instance_class_attributes/"
+    width="100%"
+    title="Interactive Affine Transform Visualizer"
+    frameborder="0"
+    style="height: 700px; min-height: 700px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+    allowfullscreen>
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Instance vs. Class Attributes.</b><br>
+    Click "Spawn GeoPoint" to instantiate new objects in memory. Try editing the shared <code>GeoPoint.crs</code> text box at the top to see how changing a Class Attribute simultaneously affects all existing instances. Then, click the "Randomize Instance State" button on a specific object card to see how Instance Attributes (like coordinates) are safely isolated to that specific entity. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L11_ch02_01_instance_class_attributes/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
+
 ---
 
 ## 6. Accessing and changing attributes
 
-Once an object is instantiated, you interact with its internal state using **dot notation** (`object.attribute`). 
+Once an object is instantiated, you interact with its internal state using **{term}`dot notation <Dot notation>`** (`object.attribute`).
 
 ```{code-cell} python
 print(tokyo.latitude)
 print(tokyo.name)
 ```
 
-One of the biggest advantages of Object Oriented Programming is that custom objects are **mutable** by default. This means you can dynamically alter their state after they are created. Objects are not just static containers; they represent real world entities that evolve over time. If a physical weather station is relocated, you can update its coordinate attributes directly:
+One of the biggest advantages of Object-Oriented Programming is that custom objects are **{term}`mutable <Mutable>`** by default. This means you can dynamically alter their state after they are created. Objects are not just static containers; they represent real-world entities that evolve over time. If a physical weather station is relocated, you can update its coordinate attributes directly:
 
 ```{code-cell} python
 # Inspect the state before the change
@@ -248,17 +294,18 @@ tokyo.name = "Tokyo Relocated"
 print("After:", tokyo.__dict__)
 ```
 
-By defining the blueprint, setting the initial state, and using `self` to manage internal data, we have successfully created a self contained spatial entity. 
+By defining the blueprint, setting the initial state, and using `self` to manage internal data, we have successfully created a self contained spatial entity.
 
 ---
 
 ## 7. Exercise: Modeling an Earthquake
 
-It is time to put your blueprint-building skills to the test. Imagine you are tasked with tracking global seismic activity. 
+It is time to put your blueprint-building skills to the test. Imagine you are tasked with tracking global seismic activity.
 
 **Your tasks:**
+
 1. Define a class called `EarthquakeEvent`.
-2. Give it a **class attribute** called `planet` set to the string `"Earth"`.
+2. Give it a **class attribute** called `planet` set to the **{term}`string <String>`** `"Earth"`.
 3. Create an `__init__()` method that requires three **instance attributes**: `latitude`, `longitude`, and `magnitude`.
 4. Instantiate two distinct earthquakes (e.g., one in California, one in Japan) and assign them to variables.
 5. Print the `magnitude` of your first earthquake, and the `planet` attribute of your second earthquake.
@@ -301,7 +348,7 @@ print(f"Updated California Quake Magnitude: {california_quake.magnitude}")
 
 ## 8. Summary and Outlook
 
-* **Class vs. Instance:** A **class** is the abstract blueprint that defines a *kind* of entity. An **instance** (or object) is the concrete, memory-backed entity built from that blueprint. 
+* **Class vs. Instance:** A **class** is the abstract blueprint that defines a *kind* of entity. An **instance** (or object) is the concrete, memory-backed entity built from that blueprint.
 * **The `__init__()` method:** The specialized function executed automatically upon object creation. It guarantees that every object starts with a valid, structured baseline.
 * **The `self` convention:** A dynamic placeholder that refers to the "current active object." It ensures that incoming data is encapsulated securely within the specific object being instantiated.
 * **Attributes (State):** Variables belonging to the object. **Instance attributes** are unique to each object (like latitude), while **Class attributes** are shared universally across all objects of that class (like a default CRS).

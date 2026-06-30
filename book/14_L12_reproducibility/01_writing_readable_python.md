@@ -5,9 +5,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Code style as a tool for clarity, debugging, and scientific trust
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -18,14 +20,25 @@ Code style as a tool for clarity, debugging, and scientific trust
 ```{admonition} Big idea
 :class: tip
 
-Readable code reduces errors, speeds up debugging, and makes spatial workflows easier to understand, maintain, and rerun.
+Readable code reduces errors, speeds up {term}`debugging <Debugging>`, and makes spatial workflows easier to understand, maintain, and rerun.
 ```
 
-By now, you can write Python that reads data, processes vectors and rasters, builds data cubes, and models objects with classes. That is a major step. But there is an important difference between code that merely **works** and code that is genuinely **good to work with**.
+By now, you can write Python that reads data, processes vectors and {term}`rasters <Raster data model>`, builds {term}`data cubes <Data cube>`, and models {term}`objects <Object>` with {term}`classes <Class>`. That is a major step. But there is an important difference between code that merely **works** and code that is genuinely **good to work with**.
 
-In spatial data science, you rarely write code only once. Often, you come back to it later. You adapt it for a new study area. You share it with classmates, project partners, instructors, or your future self. At that point, readability stops being cosmetic. It becomes a scientific advantage.
+In {term}`spatial data science <Spatial data science>`, you rarely write code only once. Often, you come back to it later. You adapt it for a new study area. You share it with classmates, project partners, instructors, or your future self. At that point, readability stops being cosmetic. It becomes a scientific advantage.
 
-This chapter introduces practical conventions for writing clearer Python. These are not arbitrary rules. They are small design decisions that make code easier to scan, easier to debug, and easier to trust. The central reference for this is **PEP 8**, the [official Python style guide](https://peps.python.org/pep-0008/), but we will keep the discussion grounded in real geospatial examples rather than extended formatting rules.
+This chapter introduces practical conventions for writing clearer Python. These are not arbitrary rules. They are small design decisions that make code easier to scan, easier to debug, and easier to trust. The central reference for this is **{term}`PEP 8`**, the [official Python style guide](https://peps.python.org/pep-0008/), but we will keep the discussion grounded in real geospatial examples rather than extended formatting rules.
+
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Project Relevance:** ★★★ (Directly improves the quality of project repositories, reports, and code discussions.)  
+**Foundation:** ★★★ (Establishes everyday habits for trustworthy and reproducible spatial workflows.)  
+
+**Time to Read:** 20 minutes  
+**In a nutshell:** This chapter shows how small style choices make geospatial Python code easier to understand, debug, reuse, and trust.  
+**Skip this if:** You already write consistently styled Python using clear names, structured whitespace, meaningful comments, and NumPy-style docstrings.
+```
 
 ---
 
@@ -42,11 +55,11 @@ Among the philosophical guidelines printed by `import this`, two are especially 
 * **Readability counts.**
 * **Simple is better than complex.**
 
-These are not just slogans for beginners. They are practical, everyday design principles. 
+These are not just slogans for beginners. They are practical, everyday design principles.
 
 In geospatial analysis, unreadable code creates real friction:
 
-* you forget what a vaguely named variable actually contains
+* you forget what a vaguely named {term}`variable <Variable>` actually contains
 * you mix up $x$ (Easting) and $y$ (Northing) coordinate orders
 * you lose track of which variables are projected and which are in geographic degrees
 * you spend more time debugging your naming conventions than your actual spatial logic
@@ -57,20 +70,35 @@ Readable code eliminates that friction.
 ```{admonition} Style is not decoration
 :class: important
 
-Code style is not mainly about making notebooks look pretty. It is about reducing ambiguity. Clear code helps other people understand your logic, but it also helps you think more clearly while writing it.
+Code style is not mainly about making {term}`notebooks <Notebook>` look pretty. It is about reducing ambiguity. Clear code helps other people understand your logic, but it also helps you think more clearly while writing it.
 ```
+
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L12_ch01_02_readable_python_makeover/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Readable Python Makeover.</b><br>
+    Toggle improvements such as clearer names, whitespace, line breaks, why-comments, and docstrings to see how each change lowers cognitive load in a geospatial workflow. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L12_ch01_02_readable_python_makeover/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
 ## 2. Naming conventions
 
-Most readability problems begin with naming. Choosing good names for your variables, functions, and classes is one of the most impactful things you can do for your code. A good name tells the reader exactly what the object contains or what the function does, without needing a comment. 
+Most readability problems begin with naming. Choosing good names for your variables, {term}`functions <Function>`, and classes is one of the most impactful things you can do for your code. A good name tells the reader exactly what the object contains or what the function does, without needing a {term}`comment <Comment>`.
 
 Python has specific capitalization conventions to help readers instantly understand what type of object they are looking at:
 
 ### Variables and functions: `snake_case`
 
-Use all lowercase, separated by underscores. This is the standard style for almost all the day-to-day code you will write.
+Use all lowercase, separated by underscores. This convention is called {term}`snake case <Snake case>`, and it is the standard style for almost all the day-to-day code you will write.
 
 ```{code-cell} python
 station_id = "ZH_001"
@@ -82,7 +110,7 @@ def calculate_bbox_area(width_m, height_m):
 
 ### Classes: `CamelCase`
 
-Capitalize each word, with no underscores. This visually separates your custom object templates from standard variables.
+Capitalize each word, with no underscores. This convention is related to {term}`Camel case` and visually separates your custom object templates from standard variables.
 
 ```{code-cell} python
 class WeatherStation:
@@ -93,7 +121,8 @@ class RasterTile:
 ```
 
 ### Constants: `UPPER_SNAKE_CASE`
-Values that should not change during the execution of your script are defined at the top of the file in all caps.
+
+Values that should not change during the execution of your {term}`script <Script>` are defined at the top of the file in all caps.
 
 ```{code-cell} python
 TARGET_CRS = "EPSG:2056"
@@ -102,11 +131,12 @@ MAX_CLOUD_COVER = 20
 
 ### Geospatial naming and intent
 
-When dealing with spatial data, it is incredibly easy to end up with a mess of single-letter variables like `x`, `p`, `b`, and `c`. If a variable name is vague, every later line becomes harder to interpret. 
+When dealing with spatial data, it is incredibly easy to end up with a mess of single-letter variables like `x`, `p`, `b`, and `c`. If a variable name is vague, every later line becomes harder to interpret.
 
-Instead, use descriptive names that specify the data type, context, or units.
+Instead, use descriptive names that specify the {term}`data type <Data type>`, context, or units.
 
 **Bad: Cryptic and requires the reader to guess the context**
+
 ```{code-cell} python
 b = [2500000, 2750000, 1150000, 1300000]
 r = "landsat.tif"
@@ -114,13 +144,14 @@ df = gpd.read_file("data.shp")
 ```
 
 **Good: Explicit, clear, and context-rich**
+
 ```{code-cell} python
 study_area_bbox = [2500000, 2750000, 1150000, 1300000]
 landsat_raster_path = "landsat.tif"
 roads_gdf = gpd.read_file("roads_epsg2056.shp")
 ```
 
-Adding `_gdf` for GeoDataFrames, `_df` for standard DataFrames, or specifying units like `_m` or `_c` directly in the variable name saves your collaborators (and your future self) from constantly checking the source data. 
+Adding `_gdf` for {term}`GeoDataFrames <GeoDataFrame>`, `_df` for standard {term}`DataFrames <DataFrame>`, or specifying units like `_m` or `_c` directly in the variable name saves your collaborators (and your future self) from constantly checking the source data.
 
 A good variable name does not merely describe the data type; it describes its *role* in the workflow.
 
@@ -134,7 +165,7 @@ If someone saw your variable name in isolation, would they know roughly what it 
 
 ## 3. Indentation, whitespace, & line length
 
-Readable code is not only about naming. It is also about visual structure. Python enforces indentation syntactically, but it does not force you to format the inside of your blocks clearly. That part is your responsibility.
+Readable code is not only about naming. It is also about visual structure. Python enforces {term}`indentation <Indentation>` syntactically, but it does not force you to format the inside of your blocks clearly. That part is your responsibility.
 
 ### Use four spaces per indentation level
 
@@ -146,13 +177,14 @@ for city in ["Zurich", "Bern", "Basel"]:
         print(city)
 ```
 
-**Prefer spaces over tabs:** Tabs can display differently across different text editors and operating systems. Spaces are universally reliable. Most modern editors (like Jupyter or VS Code) are already configured to convert the Tab key into 4 spaces automatically.
+**Prefer spaces over tabs:** Tabs can display differently across different text editors and operating systems. Spaces are universally reliable. Most modern editors (like Jupyter or {term}`VS Code <Visual Studio Code>`) are already configured to convert the Tab key into 4 spaces automatically.
 
 ### Use whitespace to reveal structure
 
-Whitespace helps the eye separate concepts. Surround mathematical and assignment operators with a single space.
+Whitespace helps the eye separate concepts. Surround mathematical {term}`operators <Operator>` and {term}`assignment operators <Assignment operator>` with a single space.
 
 **Bad: Cramped and hard to read**
+
 ```{code-cell} python
 xmin=2550000
 ymin=1080000
@@ -164,6 +196,7 @@ area=width*height
 ```
 
 **Good: Space allows the eye to parse operations naturally**
+
 ```{code-cell} python
 xmin = 2550000
 ymin = 1080000
@@ -179,7 +212,7 @@ The second version is much easier to scan because the spacing makes the mathemat
 
 ### Use blank lines to separate logical blocks
 
-A long, uninterrupted code cell is hard to read, even if every line is technically correct. Use blank lines to separate the logical "steps" of your workflow.
+A long, uninterrupted {term}`code cell <Code cell>` is hard to read, even if every line is technically correct. Use blank lines to separate the logical "steps" of your workflow.
 
 ```{code-cell} python
 xmin = 2550000
@@ -209,7 +242,8 @@ PEP 8 traditionally recommends a maximum line length of 79 characters. In practi
 There are two great ways to fix long lines in spatial workflows:
 
 **1. Break expressions cleanly using parentheses**
-When you pass multiple arguments to a spatial function, do not let them run off the screen. Break the expression across multiple lines. Python automatically joins lines that are wrapped inside parentheses `()`, brackets `[]`, or braces `{}`.
+
+When you pass multiple arguments to a spatial function, do not let them run off the screen. Break the {term}`expression <Expression>` across multiple lines. Python automatically joins lines that are wrapped inside parentheses `()`, brackets `[]`, or braces `{}`.
 
 ```{code-cell} python
 # Bad: A long, unbroken line that runs off the screen
@@ -217,9 +251,9 @@ intersected_gdf = gpd.overlay(buildings_gdf, study_area_gdf, how="intersection",
 
 # Good: Cleanly broken inside parentheses for high visibility
 intersected_gdf = gpd.overlay(
-    buildings_gdf, 
-    study_area_gdf, 
-    how="intersection", 
+    buildings_gdf,
+    study_area_gdf,
+    how="intersection",
     keep_geom_type=True
 )
 ```
@@ -227,6 +261,7 @@ intersected_gdf = gpd.overlay(
 Notice how we avoid using the backslash `\` line continuation character. Relying on parentheses is cleaner, safer, and explicitly recommended by Python style guides.
 
 **2. Extract intermediate variables**
+
 Sometimes, a line is too long because it is doing too much math at once.
 
 ```{code-cell} python
@@ -252,19 +287,21 @@ When a line becomes too long, the problem is sometimes not just formatting. It m
 
 ## 4. Comments vs docstrings
 
-Comments and docstrings both explain code, but they serve entirely different purposes. Understanding when to use which keeps your codebase clean and professional.
+Comments and {term}`docstrings <Docstring>` both explain code, but they serve entirely different purposes. Understanding when to use which keeps your codebase clean and professional.
 
 ### Comments explain *why*
 
-Inline comments (starting with `#`) should help the reader understand your intent, scientific assumptions, or unusual logic. They should *not* state the obvious. A bad comment simply translates the Python syntax into English.
+Inline comments (starting with `#`) should help the reader understand your intent, scientific assumptions, or unusual logic. They should *not* state the obvious. A bad comment simply translates the Python {term}`syntax <Syntax>` into English.
 
 **Bad: Repeats the code**
+
 ```{code-cell} python
 # Create a list called summer_months
 summer_months = [6, 7, 8]
 ```
 
 **Good: Explains the scientific intent**
+
 ```{code-cell} python
 # Use only summer scenes to reduce snow contamination in the optical bands
 summer_months = [6, 7, 8]
@@ -274,9 +311,9 @@ Use a comment when you need to clarify a tricky line of code, explain a methodol
 
 ### Docstrings explain *what* and *how to use*
 
-As you learned in the [chapter on Functions](https://hendrikwulf.github.io/sds210-jb/book/l04-functions/documentation/#id-1-docstrings-the-standard-of-reproducibility), a docstring (enclosed in triple quotes `"""`) acts as the official manual for a function, method, or class. 
+As you learned in the [chapter on Functions](https://hendrikwulf.github.io/sds210-jb/book/l04-functions/documentation/#id-1-docstrings-the-standard-of-reproducibility), a docstring (enclosed in triple quotes `"""`) acts as the official manual for a function, {term}`method <Method>`, or class.
 
-For spatial data science, the **NumPy docstring style** is the gold standard. It uses clean, readable headers to define the inputs and outputs. Let us write an NDSI (Normalized Difference Snow Index) calculator to meet this standard of reproducibility:
+For spatial data science, the **{term}`NumPy <NumPy>` docstring style** is the gold standard. It uses clean, readable headers to define the inputs and outputs. Let us write an NDSI ({term}`Normalized Difference Snow Index`) calculator to meet this standard of {term}`reproducibility <Reproducibility>`:
 
 ```{code-cell} python
 def calculate_ndsi(green_band, swir1_band):
@@ -305,9 +342,9 @@ def calculate_ndsi(green_band, swir1_band):
 
 ### When to use which: A combined example
 
-The best geospatial scripts use docstrings and comments together in harmony. 
+The best geospatial scripts use docstrings and comments together in harmony.
 
-Look at this bounding box function. The **docstring** acts as the instruction manual for the user, while the **comment** acts as a clarifying note for anyone modifying the source code:
+Look at this bounding box function. The **docstring** acts as the instruction manual for the user, while the **comment** acts as a clarifying note for anyone modifying the {term}`source code <Source code>`:
 
 ```{code-cell} python
 def point_in_bbox(x, y, bbox):
@@ -340,6 +377,24 @@ def point_in_bbox(x, y, bbox):
 **Docstrings** are mainly for *users* of the function, method, or class.
 ```
 
+#### Concept Check: Comment or Docstring?
+
+You are writing a function that filters Sentinel-2 scenes to summer months only. You want future users to understand the function's parameters and return value, but you also want future maintainers to understand why winter months are excluded. Which option is best?
+
+A. Use only a docstring because all explanation belongs at the top of the function.
+
+B. Use only inline comments because docstrings are unnecessary for short functions.
+
+C. Use a docstring for the function interface and a comment near the seasonal filter to explain the scientific reason.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: C**
+The docstring should explain what the function does, what inputs it expects, and what it returns. The inline comment should explain the scientific reasoning behind excluding winter scenes; A hides the local reasoning, while B makes the function harder to reuse.
+
+```
+
 ---
 
 ## 5. Consistency within a project
@@ -350,15 +405,16 @@ A project becomes much easier to navigate when the same ideas are expressed in t
 
 ### Be consistent with names
 
-If you use `bbox` in one notebook, do not switch to `extent`, `window`, and `area_box` later unless they genuinely mean different things. 
+If you use `bbox` in one notebook, do not switch to `extent`, `window`, and `area_box` later unless they genuinely mean different things.
 
-If you use `x` and `y` for projected coordinates, do not silently switch to `lon` and `lat` unless the CRS has actually changed to geographic degrees.
+If you use `x` and `y` for projected coordinates, do not silently switch to `lon` and `lat` unless the {term}`CRS <Coordinate Reference System>` has actually changed to geographic degrees.
 
 ### Be consistent with units
 
-A variable like `distance` is ambiguous. A variable like `distance_m` is immediately clear. 
+A variable like `distance` is ambiguous. A variable like `distance_m` is immediately clear.
 
 Appending units to your spatial variables helps the reader instantly understand the math:
+
 * `elevation_m`
 * `temperature_c`
 * `area_sq_km`
@@ -368,12 +424,14 @@ Appending units to your spatial variables helps the reader instantly understand 
 Spatial code becomes unreadable very quickly when CRS logic is implicit or vaguely named.
 
 **Bad: Forces the reader to remember which is which**
+
 ```{code-cell} python
 crs1 = "EPSG:4326"
 crs2 = "EPSG:2056"
 ```
 
 **Good: Explicitly defines the workflow's intent**
+
 ```{code-cell} python
 source_crs = "EPSG:4326"
 target_crs = "EPSG:2056"
@@ -393,12 +451,13 @@ In spatial data science, a typical notebook works best when it follows a predict
 ### A small project style guide helps
 
 Even for student work, it is worth deciding early with your project partners:
+
 * how variables will be named
 * how CRS strings will be represented
-* whether file paths are relative or absolute
+* whether file paths are {term}`relative <Relative path>` or {term}`absolute <Absolute path>`
 * how outputs will be named
 
-Choose a readable style, apply it consistently, and free up your mental energy to focus on solving spatial problems!
+Choose a readable style, apply it consistently, and free up your mental energy to focus on solving spatial problems.
 
 ```{admonition} Consistency beats novelty
 :class: important
@@ -410,7 +469,7 @@ In a project, it is always better to follow one simple naming and formatting pat
 
 ## 6. Exercise: A geospatial makeover
 
-To see these principles in action, it is time to perform a "code makeover." 
+To see these principles in action, it is time to perform a "code makeover."
 
 Spatial analysis often produces long, complex expressions like chained pandas methods or multi-condition masks. It is very easy to write a script that technically works but is a nightmare to read.
 
@@ -419,12 +478,14 @@ Spatial analysis often produces long, complex expressions like chained pandas me
 Look at this incredibly dense one-liner. It uses semicolons to cram multiple commands onto a single line, completely hiding the spatial logic:
 
 **Before (Hard to read and debug):**
+
 ```{code-cell} python
 import geopandas as gpd
 gdf=gpd.read_file("data/buildings.gpkg").to_crs("EPSG:2056");gdf["area_m2"]=gdf.geometry.area;gdf=gdf[gdf["area_m2"]>100];gdf.plot(column="area_m2",legend=True)
 ```
 
 **After (Clean and reproducible):**
+
 ```{code-cell} python
 import geopandas as gpd
 
@@ -437,15 +498,17 @@ large_buildings_gdf = buildings_gdf[buildings_gdf["area_m2"] > 100]
 
 large_buildings_gdf.plot(column="area_m2", legend=True)
 ```
+
 Both versions execute exactly the same mathematical operations. But the second version is infinitely easier to read, debug, and hand over to a colleague.
 
 ---
 
 ### Task
 
-Below is a deliberately messy geospatial code snippet. Your task is to rewrite it into a clearer version **without changing what it does**. 
+Below is a deliberately messy geospatial code snippet. Your task is to rewrite it into a clearer version **without changing what it does**.
 
 Apply the ideas from this chapter, focusing specifically on:
+
 1. Clearer variable names (e.g., using `_gdf` or `_m` suffixes).
 2. Proper spacing and indentation.
 3. Breaking up long, cramped logic.
@@ -504,6 +567,7 @@ Notice that the improved version is slightly longer than the original messy scri
 Readable Python is easier to debug, easier to explain, and easier to trust.
 
 In this chapter, you learned that:
+
 * **Good names make code self-explanatory:** Using descriptive spatial names and explicit suffixes (like `_gdf` or `_m`) prevents ambiguity and cognitive load.
 * **Visual structure matters:** Consistent spacing, indentation, and cleanly broken expressions reveal the logical flow of your operations.
 * **Comments and docstrings serve different purposes:** Inline comments explain the *why* behind a specific scientific choice, while docstrings explain the *what* and *how* for anyone using your tools.

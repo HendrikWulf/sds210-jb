@@ -5,9 +5,11 @@ site:
     outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Turning geospatial objects into active, reusable tools
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -21,13 +23,25 @@ Turning geospatial objects into active, reusable tools
 A class becomes truly useful when it does not only store data, but also provides the behaviors that make sense for that data. In geospatial programming, methods allow an object like a point, route, or bounding box to act on its own state in clear and reusable ways. 
 ```
 
-In the previous chapter, you learned how to define a class and how to create objects from it. You saw that a class gives structure to your data by bundling related attributes into one coherent entity.
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Project Relevance:** ★★★ (Crucial for building logical, maintainable, and interactive spatial systems for your independent projects.)  
+**Foundation:** ★★★ (Teaches the core logic of `self` and internal state management.)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Learn how to bring classes to life by attaching methods that read, update, and enable collaborative interactions between geospatial objects.  
+**Skip this if:** You already understand how to define instance methods, safely update object state, and implement dunder methods like `__str__` and `__gt__`.
+
+```
+
+In the previous chapter, you learned how to define a class and how to create **{term}`objects <Object>`** from it. You saw that a class gives structure to your data by bundling related **{term}`attributes <Attribute>`** into one coherent entity.
 
 However, storing data is only half of the story.
 
 A geospatial point is not interesting just because it has coordinates. It becomes useful when it can **describe itself**, **move**, **measure distance**, or **test a spatial relationship**. This is where methods enter the picture.
 
-Methods are functions that belong to a class. They allow an object to act on its own data through `self`, turning passive storage into active behavior. This is one of the central ideas of Object Oriented Programming: you do not only store data together, you also attach the operations that naturally belong to that data.  
+Methods are **{term}`functions <Function>**` that belong to a class. They allow an object to act on its own data through **{term}`self <self parameter>`**, turning passive storage into active behavior. This is one of the central ideas of **{term}`Object-Oriented Programming <Object-oriented programming>`**: you do not only store data together, you also attach the operations that naturally belong to that data.
 
 In this chapter, you will extend your first geospatial classes by adding methods that read object state, update it, and interact with other objects. You will also meet a few special Python methods that make your custom objects behave more naturally in notebooks and scripts.
 
@@ -48,7 +62,7 @@ Methods answer the question: **What can this object do?**
 
 If you have ever used `list.append()` or `geodataframe.plot()`, you have already used methods. A method is simply a function that is defined inside a class block and operates specifically on the data of that class.
 
-The syntax for creating a method is almost identical to creating a standard function. We use the `def` keyword. The crucial difference is that its first parameter must always be `self`. 
+The syntax for creating a method is almost identical to creating a standard function. We use the `def` keyword. The crucial difference is that its first **{term}`parameter <Parameter>`** must always be `self`.
 
 Let us revisit our `GeoPoint` blueprint and add a basic method:
 
@@ -103,7 +117,7 @@ This is much cleaner than extracting `station1.name` and `station1.temperature` 
 
 ### Calculating Derived State
 
-The true power of reading state comes when an object computes new information based on its raw data. 
+The true power of reading state comes when an object computes new information based on its raw data.
 
 Consider a spatial bounding box. We only need to store four coordinates (xmin, ymin, xmax, ymax). From those four raw attributes, the object can calculate its own width, height, and area.
 
@@ -127,6 +141,7 @@ class BoundingBox:
 ```
 
 To see this in action, let us instantiate a bounding box using projected, metric coordinates:
+
 ```{code-cell} python
 # Coordinates in meters (e.g., a projected local grid)
 study_area = BoundingBox(1000.0, 2000.0, 1500.0, 2800.0)
@@ -135,7 +150,6 @@ print("Width (m):", study_area.width())
 print("Height (m):", study_area.height())
 print("Area (sq m):", study_area.area())
 ```
-
 
 Notice how the `area()` method calls two other methods belonging to the same object: `self.width()` and `self.height()`. This is a highly common architectural pattern. Methods are not isolated entities; they build on each other to create complex behaviors.
 
@@ -150,27 +164,30 @@ When designing a new spatial class, ask yourself:
 
 Use the interactive visualizer below to explore how an object calculates derived state. As you adjust the raw instance attributes (`xmin`, `ymin`, `xmax`, `ymax`), watch how the object's internal methods automatically recalculate its `width()`, `height()`, and `area()`.
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L11_ch03_bounding_box_explorer/" 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L11_ch03_02_derived_state/"
     width="100%"
-    title="Derived State Explorer" 
-    frameborder="0" 
-    style="height: 650px; min-height: 650px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" 
+    title="Derived State Explorer"
+    frameborder="0"
+    style="height: 650px; min-height: 650px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
     allowfullscreen>
 </iframe>
 
 <figcaption>
-        <em><b>Interactive Explorer: Derived State.</b><br>
-        Adjust the raw instance attributes using the sliders to see how the <code>BoundingBox</code> object dynamically recalculates its derived state through internal methods. For improved visibility of the explorer, follow this <a href="[https://hendrikwulf.github.io/sds210_assets_L11_ch03_bounding_box_explorer/](https://hendrikwulf.github.io/sds210_assets_L11_ch03_bounding_box_explorer/)" target="_blank">link</a>.</em>
+    <em><b>Interactive Explorer: Derived State.</b><br>
+    Adjust the raw instance attributes (X/Y Min/Max) using the sliders to see how the <code>BoundingBox</code> object dynamically recalculates its derived state in real-time. Notice how the <code>area()</code> method internally calls the <code>width()</code> and <code>height()</code> methods to compute its final result. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L11_ch03_02_derived_state/" target="_blank">link</a>.</em>
 </figcaption>
+<!-- markdownlint-enable MD033-->
 
 ---
 
 ## 3. Updating object state
 
-Methods become truly powerful when we use them to modify the internal data of an object. This is known as **changing state**. 
+Methods become truly powerful when we use them to modify the internal data of an object. This is known as **changing state**.
 
 For a spatial object, a natural state change is movement. If a sensor is relocated, we can write a method to physically translate its coordinates:
+
 ```{code-cell} python
 class GeoPoint:
     def __init__(self, x, y, name=None):
@@ -198,9 +215,10 @@ Notice that the `move()` method does not return a brand new point. It directly u
 
 You might ask: "Why bother with a method? Why not just write `point.x = 8.64` directly?"
 
-While direct assignment works, methods act as **gatekeepers**. They provide one clear place to define *how* state changes are allowed, letting you validate inputs, enforce rules, or log changes. 
+While direct assignment works, methods act as **gatekeepers**. They provide one clear place to define *how* state changes are allowed, letting you validate inputs, enforce rules, or log changes.
 
 Consider a `WeatherStation` class. If a faulty sensor tries to record a physically impossible temperature, a method can catch the error before the object's data is corrupted:
+
 ```{code-cell} python
 class WeatherStation:
     def __init__(self, name, temperature):
@@ -234,7 +252,6 @@ By routing the update through `record_new_temperature()`, the object protects it
 Direct attribute access is simple, but methods give you a cleaner, safer interface. This is the core of **encapsulation**: bundling data and behavior together so the object not only stores values, but also dictates the proper ways those values can be read or modified as your programs grow more complex.
 ```
 
-
 ---
 
 ## 4. Methods with arguments
@@ -243,9 +260,10 @@ A method does not need to work exclusively with its own object. It can also acce
 
 ### Distance to another point
 
-A classic example is a point that measures its distance to another point. We can pass a second `GeoPoint` instance directly into the method. 
+A classic example is a point that measures its distance to another point. We can pass a second `GeoPoint` instance directly into the method.
 
 For now, we will use a simple Euclidean distance formula:
+
 ```{code-cell} python
 class GeoPoint:
     def __init__(self, x, y, name=None):
@@ -273,6 +291,7 @@ print(f"Distance: {dist_z_to_b:.2f} meters")
 ```
 
 In the `distance_to` method, `self` represents `zurich`, while `other_point` represents `bern`. The method seamlessly reads the attributes from both objects to perform the math.
+
 ```{admonition} Geospatial Caution
 :class: warning
 
@@ -281,9 +300,10 @@ This Euclidean formula is appropriate for projected coordinates or abstract Cart
 
 ### Testing spatial relationships
 
-Methods can also express topological relationships between completely different types of objects. 
+Methods can also express topological relationships between completely different types of objects.
 
 Let us build a `BoundingBox` class. We can give it a method that accepts a `GeoPoint` as an argument and evaluates whether that point falls within the box's boundaries:
+
 ```{code-cell} python
 class BoundingBox:
     def __init__(self, xmin, ymin, xmax, ymax):
@@ -311,27 +331,30 @@ print("Contains B?", study_area.contains(point_b))
 
 This is a highly natural object oriented pattern. The bounding box is responsible for deciding whether a point lies inside it. You can see how classes start to collaborate to build richer systems: a `GeoPoint` measures distance to another `GeoPoint`, while a `BoundingBox` tests containment of a `GeoPoint`.
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L11_ch03_spatial_system_explorer/" 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L11_ch03_01_collaborating_objects/"
     width="100%"
-    title="Spatial System Explorer" 
-    frameborder="0" 
-    style="height: 650px; min-height: 650px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" 
+    title="Spatial System Explorer"
+    frameborder="0"
+    style="height: 650px; min-height: 650px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
     allowfullscreen>
 </iframe>
 
 <figcaption>
     <em><b>Interactive Explorer: Collaborating Objects.</b><br>
-    Drag the points on the canvas to update their individual coordinates. As their internal states change, watch the dashboard to see how the different objects interact in real time: the <code>BoundingBox</code> continuously evaluates whether it <code>.contains()</code> Point B, while the Route object dynamically recalculates its total length by asking the points for the distance between them. For improved visibility of the explorer, follow this <a href="[https://hendrikwulf.github.io/sds210_assets_L11_ch03_spatial_system_explorer/](https://hendrikwulf.github.io/sds210_assets_L11_ch03_spatial_system_explorer/)" target="_blank">link</a>.</em>
+    Drag the points and the bounding box across the grid to dynamically update their internal attributes[cite: 24]. Watch the dashboard recalculate and display the results of their encapsulated methods, such as distance and containment, to see how the objects process spatial relationships in real-time[cite: 24]. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L11_ch03_01_collaborating_objects/" target="_blank">link</a>.</em>
 </figcaption>
+<!-- markdownlint-enable MD033-->
 
 ---
 
 ## 5. Why methods can be cleaner functions
 
-At this point, you might ask a highly practical design question: "Why not just write ordinary standalone functions?" 
+At this point, you might ask a highly practical design question: "Why not just write ordinary standalone functions?"
 
 For example, we could define distance like this:
+
 ```{code-cell} python
 def distance(point_a, point_b):
     dx = point_a.x - point_b.x
@@ -355,8 +378,9 @@ The second version reads more naturally because the behavior is clearly attached
 Method based design answers an important question: **Which object is responsible for this behavior?** By attaching the behavior directly to the responsible data, object oriented design offers distinct advantages:
 
 1. **Discoverability:** If you have a free function, a new programmer has to search your entire codebase to find it. If it is a method, typing `zurich.` in an IDE will automatically pop up a menu showing `distance_to()`. The capabilities of the object travel *with* the object.
-2. **Context:** `zurich.distance_to(bern)` reads like an English sentence. The subject (Zurich) performs an action (calculates distance) on a target (Bern). 
+2. **Context:** `zurich.distance_to(bern)` reads like an English sentence. The subject (Zurich) performs an action (calculates distance) on a target (Bern).
 3. **Encapsulation:** If you change how a point stores its coordinates internally, you only have to update the `distance_to` method inside that specific class. You do not have to hunt down and fix every standalone function that ever interacted with a coordinate.
+
 ```{admonition} Not a strict rule
 :class: note
 
@@ -365,9 +389,10 @@ Object oriented design is not about forcing every single function into a class. 
 
 ### A geospatial example: Routes collaborating with Points
 
-You can really see the power of methods when different classes begin to collaborate. A route is a sequence of points. One of its obvious behaviors is to calculate its total length. 
+You can really see the power of methods when different classes begin to collaborate. A route is a sequence of points. One of its obvious behaviors is to calculate its total length.
 
 Rather than writing a massive function that extracts all the coordinates and does the math from scratch, a `Route` object can simply ask its `GeoPoint` objects to calculate the distances themselves:
+
 ```{code-cell} python
 class Route:
     def __init__(self, points, name=None):
@@ -403,19 +428,21 @@ This perfectly captures the essence of object oriented spatial programming. The 
 
 ## 6. Dunder (Magic) Methods
 
-Python has a secret tier of methods known as "dunder" methods (because their names start and end with a **d**ouble **under**score). You have already used the most important one: `__init__()`. 
+Python has a secret tier of methods known as "dunder" methods (because their names start and end with a **d**ouble **under**score). You have already used the most important one: `__init__()`.
 
 These methods are rarely called directly. Instead, Python triggers them automatically in response to standard operations, allowing you to customize how your objects behave on a fundamental level and making them feel like native Python types.
 
 ### Controlling Representation (`__str__` and `__repr__`)
 
 If you try to print a custom object, Python's default behavior is not very helpful. It just shows a generic memory address:
+
 ```{code-cell} python
 print(zurich)
 # Output: <__main__.GeoPoint object at 0x106702d30>
 ```
 
 You can fix this by defining the `__str__` dunder method. Whenever you use `print()`, Python secretly looks for `__str__` and executes it to get a readable string.
+
 ```{code-cell} python
 class GeoPoint:
     def __init__(self, x, y, name=None):
@@ -454,6 +481,7 @@ While `__str__` is meant to be user friendly and readable, `__repr__` is meant t
 Dunder methods can also define how standard operators behave with your custom objects. This is called **operator overloading**.
 
 For example, if you wanted to quickly determine which of two delivery routes is longer, you could define the `__gt__` (greater than) method.
+
 ```{code-cell} python
 class Route:
     def __init__(self, points, name=None):
@@ -499,16 +527,19 @@ It is time to build your own small geospatial object system from scratch.
 **Your Tasks:**
 
 **A. The `MobileSensor`**
+
 1. Define the class. Its `__init__` method should store `x` and `y` coordinates.
 2. Provide a `move(dx, dy)` method that updates the coordinates.
 3. Provide a `__str__` dunder method to cleanly print the sensor's current location.
 
 **B. The `StudyRegion`**
+
 1. Define the class. Its `__init__` method should store `xmin`, `ymin`, `xmax`, and `ymax`.
 2. Provide an `expand_by(amount)` method that grows the box in all directions (subtract the amount from the minimums, add the amount to the maximums).
 3. Provide a `contains(sensor)` method that accepts a `MobileSensor` object and returns `True` if it is inside the boundaries, and `False` otherwise.
 
 **C. The Simulation**
+
 1. Instantiate a sensor at `(10, 10)` and a study region bounded by `(0, 0)` and `(5, 5)`.
 2. Print whether the region contains the sensor (should be `False`).
 3. Move the sensor by `(-3, -3)`.
@@ -517,6 +548,7 @@ It is time to build your own small geospatial object system from scratch.
 
 **D. Reflection**
 Look at the methods you just wrote and ask yourself:
+
 * Which of your methods only **read** object state?
 * Which methods **changed** object state?
 * Which methods required **another custom object** as input?
