@@ -5,9 +5,11 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Choosing the right design for spatial problems
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
@@ -18,16 +20,27 @@ Choosing the right design for spatial problems
 ```{admonition} Big idea
 :class: tip
 
-Procedural and object-oriented programming solve the same problems in different ways. The key question is not which style is better in general, but which one makes a specific spatial task clearer, safer, and easier to extend.
+{term}`Procedural programming <Procedural programming>` and {term}`object-oriented programming <Object-oriented programming>` solve the same problems in different ways. The key question is not which style is better in general, but which one makes a specific spatial task clearer, safer, and easier to extend.
 ```
 
-In the previous chapters, you defined classes, created object instances, and explored how inheritance allows you to build complex spatial relationships. You might be wondering: should you write absolutely everything as a class from now on?
+```{admonition} Chapter Relevance
+:class: dropdown
+ 
+**Project Relevance:** ★★★ (Directly supports project code architecture, especially when your workflow grows beyond one-off functions.)  
+**Foundation:** ★★★ (Builds core judgment for choosing between functions, classes, and mixed designs.)  
 
-The short answer is no. Object-oriented programming is a powerful design choice, but it is not the one correct way to write Python. Python is a multi-paradigm language. It supports several different programming styles, and strong programmers move fluidly between them depending on the task at hand. 
+**Time to Read:** 18 minutes  
+**In a nutshell:** This chapter helps you decide when a spatial task is simple enough for standalone functions and when it deserves an object-oriented design.  
+**Skip this if:** You can already explain, with a spatial example, when to use functions, when to use classes, and why state and behavior sometimes belong together.
+```
 
-This matters immensely in spatial data science.
+In the previous chapters, you defined {term}`classes <Class>`, created {term}`object instances <Instance>`, and explored how {term}`inheritance <Inheritance>` allows you to build complex spatial relationships. You might be wondering: should you write absolutely everything as a class from now on?
 
-Sometimes a short, standalone function is exactly the right tool. If you only need to transform a list of coordinates, compute a single distance, or clip a raster array, writing a full class adds unnecessary complexity. In other situations, however, the data and the behavior belong together so naturally that procedural code starts to feel scattered and fragile. This is especially true when you represent real spatial entities—like a sensor network or a moving GPS track—that have multiple related properties that must stay consistent over time.
+The short answer is no. Object-oriented programming is a powerful design choice, but it is not the one correct way to write Python. Python is a multi-paradigm language. It supports several different programming styles, and strong programmers move fluidly between them depending on the task at hand.
+
+This matters immensely in {term}`spatial data science <Spatial data science>`.
+
+Sometimes a short, standalone {term}`function <Function>` is exactly the right tool. If you only need to transform a {term}`list <List>` of coordinates, compute a single distance, or clip a raster {term}`array <Array>`, writing a full class adds unnecessary complexity. In other situations, however, the data and the behavior belong together so naturally that procedural code starts to feel scattered and fragile. This is especially true when you represent real spatial entities—like a sensor network or a moving GPS track—that have multiple related {term}`properties <Property>` that must stay consistent over time.
 
 This chapter compares both design styles using the same geospatial problems to help you understand their relative strengths. The goal is not to crown a winner. The goal is to build your architectural judgment.
 
@@ -35,9 +48,9 @@ This chapter compares both design styles using the same geospatial problems to h
 
 ## 1. Why compare styles?
 
-So far in this course, you have learned Python mainly through variables, loops, conditionals, functions, and then classes. That progression can create the impression that classes are simply the "next level" and should always replace earlier tools. 
+So far in this course, you have learned Python mainly through {term}`variables <Variable>`, {term}`loops <Loop>`, conditionals, functions, and then classes. That progression can create the impression that classes are simply the "next level" and should always replace earlier tools.
 
-That is not how good design works. 
+That is not how good design works.
 
 A programming style is a way of organizing thought. Procedural code organizes workflows around **actions** (verbs). Object-oriented code organizes workflows around **entities** (nouns). Both can be excellent. Both can also be misused.
 
@@ -67,21 +80,39 @@ flowchart TD
     class Entity object;
 ```
 
+<!-- markdownlint-disable MD033-->
+<iframe 
+    src="https://hendrikwulf.github.io/sds210_assets_L11_ch05_02_procedural_vs_oop/"
+    width="100%" 
+    height="600px" 
+    frameborder="0" 
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Procedural vs Object-Oriented Design.</b><br>
+    Add fields such as CRS, elevation, timestamp, and sensor history to a spatial point and watch how the procedural version separates dictionaries from functions, while the object-oriented version bundles attributes and methods inside one object. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L11_ch05_02_procedural_vs_oop/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
+
 Consider a simple spatial question:
 
 > What is the distance between two cities?
 
 You can solve this procedurally by focusing on the action:
-* store the coordinates in tuples, lists, or dictionaries
+
+* store the coordinates in {term}`tuples <Tuple>`, lists, or {term}`dictionaries <Dictionary>`
 * write a standalone function for the distance
 * pass the coordinates into that function
 
-Or you can solve it with objects by focusing on the entity:
+Or you can solve it with {term}`objects <Object>` by focusing on the entity:
+
 * represent each city as a `Point`
-* attach a method such as `.distance_to()`
+* attach a {term}`method <Method>` such as `.distance_to()`
 * ask one point directly for the distance to another
 
 In code, that philosophical shift looks like this:
+
 ```python
 # Procedural: The function acts on the data
 dist = calculate_distance(zurich, bern)
@@ -91,6 +122,7 @@ dist = zurich.distance_to(bern)
 ```
 
 Both solutions will return the exact same number. The difference lies in **how the code is structured**, **how easy it is to read**, and **how well it scales when the task becomes larger**.
+
 ```{admonition} A useful rule of thumb
 :class: note
 
@@ -139,10 +171,11 @@ print(f"Distance Zurich-Basel: {dist_m / 1000:.1f} km")
 ```{admonition} Why projected coordinates matter
 :class: note
 
-Because our data is projected (EPSG:2056), the $x$ (Easting) and $y$ (Northing) coordinates form a flat Cartesian grid measured in meters. This allows us to use simple Euclidean math (the Pythagorean theorem) to accurately calculate the real-world ground distance. If we had used standard Latitude/Longitude degrees, this simple math would have produced distorted and meaningless results!
+Because our data is projected (EPSG:2056), the $x$ (Easting) and $y$ (Northing) coordinates form a flat Cartesian grid measured in meters. This allows us to use simple {term}`Euclidean math <Euclidean distance>` (the Pythagorean theorem) to accurately calculate the real-world ground distance. If we had used standard latitude/longitude degrees, this simple math would have produced distorted and meaningless results.
 ```
 
 This is procedural code in a very normal Python sense:
+
 * The **data** live in passive structures (dictionaries).
 * The **behavior** lives in free functions.
 * We pass all required inputs explicitly into those functions.
@@ -183,9 +216,10 @@ At this point, the procedural approach still feels quite manageable. The functio
 
 ## 3. Where procedural code strains
 
-The procedural design becomes harder to manage when the data structure grows and the same kind of logic must be repeated in many places. 
+The procedural design becomes harder to manage when the data structure grows and the same kind of logic must be repeated in many places.
 
-Suppose each point should now also store a Coordinate Reference System, an elevation, and a timestamp. A dictionary can still do that:
+Suppose each point should now also store a {term}`Coordinate Reference System`, an elevation, and a timestamp. A dictionary can still do that:
+
 ```{code-cell} python
 zurich = {
     "x": 2682217,
@@ -197,9 +231,10 @@ zurich = {
 }
 ```
 
-Notice what happens conceptually. The computer program does not inherently know that these data are related to a single concept. Therefore, you need to ensure you make all of those links in the code manually.
+Notice what happens conceptually. The {term}`computer program <Program>` does not inherently know that these data are related to a single concept. Therefore, you need to ensure that all of those links are made manually in the code.
 
 For example, if you want to write a safe, purely procedural function to move a point without destroying the original data, it might look like this:
+
 ```{code-cell} python
 def move_point(point, dx, dy):
     return {
@@ -221,13 +256,32 @@ We are manually rebuilding the structure and manually preserving fields that are
 Procedural code often begins very clearly, but it can become fragile when the same kind of entity appears again and again with many related properties. At that point, the structure is maintained mostly by programmer discipline rather than by the design itself.
 ```
 
+#### Concept Check: When Does a Class Earn Its Keep?
+
+You are building a small project around GPS stations. At first, each station only has `x`, `y`, and `name`. Later, each station must also store a CRS, elevation, timestamp, and a live temperature history. You also need to update values and compute distances repeatedly. Which design choice is most justified?
+
+A. Keep everything procedural because dictionaries can store all these fields.
+
+B. Use a class because the station now has related state and behavior that should stay together.
+
+C. Avoid both functions and classes and write all calculations directly in the notebook cells.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: B**
+A class is justified because the station has multiple related attributes and repeated behavior, so bundling them together makes the code safer and easier to extend. A can still work, but it becomes increasingly fragile; C makes the workflow hardest to read, test, and reuse.
+
+```
+
 ---
 
-## 4. An object oriented design
+## 4. An object-oriented design
 
 Now let us rebuild the same problem using classes. While functions group related operations, classes group related data and the operations that work on that data into single cohesive units.
 
-We begin with a `Point` class. Notice how we define all the attributes we struggled with in the procedural version:
+We begin with a `Point` class. Notice how we define all the {term}`attributes <Attribute>` we struggled with in the procedural version:
+
 ```{code-cell} python
 import math
 
@@ -265,9 +319,10 @@ dist_m = zurich.distance_to(bern)
 print(f"Distance: {dist_m / 1000:.1f} km")
 ```
 
-This still performs the same mathematics, but the design has changed fundamentally. The point no longer exists as a loose dictionary plus a distant function. Instead, the data and the behavior are **bundled together** in one coherent object. 
+This still performs the same mathematics, but the design has changed fundamentally. The point no longer exists as a loose dictionary plus a distant function. Instead, the data and the behavior are **bundled together** in one coherent object.
 
 Remember how tedious it was to move a point procedurally because we had to manually preserve all the unrelated dictionary keys? With an object, the state is managed internally:
+
 ```{code-cell} python
 # Move Zurich 100 meters East and 50 meters South
 zurich.move(100, -50)
@@ -279,6 +334,7 @@ print(f"New X: {zurich.x}, Elevation: {zurich.elevation_m}, CRS: {zurich.crs}")
 ### Adding a bounding box class
 
 Now let us define a `BoundingBox` class:
+
 ```{code-cell} python
 class BoundingBox:
     def __init__(self, xmin, xmax, ymin, ymax, name=None):
@@ -318,26 +374,29 @@ Now that we have both versions, we can compare them directly.
 ### Readability
 
 The procedural version says:
+
 ```python
 dist = distance(zurich, bern)
 ```
 
 The object-oriented version says:
+
 ```python
 dist = zurich.distance_to(bern)
 ```
 
 Both are highly readable, but they emphasize different things:
+
 * **Procedural code reads like a command:** *Verb ➔ Objects*. It emphasizes the mathematical operation.
 * **Object-oriented code reads like a sentence:** *Subject ➔ Verb ➔ Object*. It emphasizes the entity performing the operation.
 
 ### Maintainability and Safety
 
-Imagine that you later decide every point must also store elevation and an acquisition time. 
+Imagine that you later decide every point must also store elevation and an acquisition time.
 
-In the procedural version, you must make sure that all functions continue to respect the dictionary structure. If you accidentally misspell `"elevation_m"` as `"elev_m"` somewhere in your script, the dictionary will silently accept it, leading to bugs later on. 
+In the procedural version, you must make sure that all functions continue to respect the dictionary structure. If you accidentally misspell `"elevation_m"` as `"elev_m"` somewhere in your script, the dictionary will silently accept it, leading to bugs later on.
 
-In the object-oriented version, that logic is centralized in the class definition. The class acts as a strict formal template for what a point is supposed to contain. By **encapsulating** the data inside the object, you protect it from accidental, unstructured modifications.
+In the object-oriented version, that logic is centralized in the class definition. The class acts as a strict formal template for what a point is supposed to contain. By {term}`encapsulating <Encapsulation>` the data inside the object, you protect it from accidental, unstructured modifications.
 
 ### Growing complexity
 
@@ -352,6 +411,7 @@ The procedural design is often excellent for one-off calculations, short scripts
 | **Behavior** | Standalone, free-floating functions. | Methods attached directly to the object. |
 | **Scaling** | Can become fragile if complex data is passed through many functions. | Highly scalable; objects manage their own internal state securely. |
 | **Best used for...** | Data pipelines, math transformations, simple scripts. | Real-world modeling, complex states, building reusable libraries. |
+
 ```{admonition} Important distinction
 :class: important
 
@@ -366,11 +426,12 @@ In real projects, you will often need both. You might build an object-oriented `
 
 ## 6. A route example: Objects collaborating
 
-The difference becomes even clearer when we model something slightly more complex, such as a spatial route. 
+The difference becomes even clearer when we model something slightly more complex, such as a spatial route.
 
 If we built this procedurally, a route would simply be a list of dictionaries. We would have to write a `calculate_route_distance()` function that loops through the list, manually extracts the `x` and `y` keys from each dictionary, and processes the math.
 
-An object-oriented version makes the relationship explicit through a concept called **composition** (where objects are built out of other objects):
+An object-oriented version makes the relationship explicit through a concept called {term}`composition <Composition>` (where objects are built out of other objects):
+
 ```{code-cell} python
 class Route:
     def __init__(self, points, name=None):
@@ -387,6 +448,7 @@ class Route:
 ```
 
 Now we can create a route using the Swiss city `Point` objects we instantiated earlier:
+
 ```{code-cell} python
 route = Route([zurich, bern, basel], "Three Cities Route")
 
@@ -394,28 +456,30 @@ route_dist_m = route.total_distance()
 print(f"Route '{route.name}' total distance: {route_dist_m / 1000:.1f} km")
 ```
 
-Notice how seamlessly classes can collaborate. The `Route` object manages the sequence of the journey, but it does not need to know the mathematical details of how distance is calculated. It simply **delegates** that task by asking each `Point` for the distance to the next one. 
+Notice how seamlessly classes can collaborate. The `Route` object manages the sequence of the journey, but it does not need to know the mathematical details of how distance is calculated. It simply **delegates** that task by asking each `Point` for the distance to the next one.
 
-This makes the code incredibly modular. If we later update the `Point.distance_to()` method to account for terrain or elevation, the `Route` class will automatically benefit from that upgrade without us having to change a single line of its code!
+This makes the code highly modular. If we later update the `Point.distance_to()` method to account for terrain or elevation, the `Route` class will automatically benefit from that upgrade without us having to change a single line of its code.
 
 ---
 
 ## 7. When OOP helps and when it is overkill
 
-When you first learn about classes, it can be tempting to use them for everything. But, wrapping a simple five-line math calculation into a class usually just makes your code harder to read. 
+When you first learn about classes, it can be tempting to use them for everything. But wrapping a simple five-line math calculation into a class usually just makes your code harder to read.
 
 Understanding when to use functions versus when to use classes is the key to writing clean, maintainable spatial workflows.
 
 ### When functions are usually enough
 
 A standalone function is often the better choice when your primary goal is to **transform data**:
+
 * **Repetitive operations:** You need to perform the same calculation multiple times with different inputs (e.g., converting a list of coordinates from degrees to radians).
-* **Stateless utilities:** You want to create reusable tools for common tasks where the program does not need to "remember" anything after the function finishes (e.g., calculating the Haversine distance between two raw coordinate pairs).
+* **Stateless utilities:** You want to create reusable tools for common tasks where the program does not need to "remember" anything after the function finishes (e.g., calculating the {term}`Haversine distance <Haversine formula>` between two raw coordinate pairs).
 * **Data pipelines:** You need to validate, filter, or process data in a consistent, one-way flow (e.g., a function that filters out GPS points with high location uncertainty).
 
 ### When classes usually help
 
 A class is often the better choice when your primary goal is to **model a system or entity**:
+
 * **Complex entities:** You need to represent things with multiple related attributes (e.g., a `SensorStation` that holds coordinates, an ID, and an ongoing history of temperature readings).
 * **Bundling state and behavior:** You want data and operations to travel securely together (e.g., a `Route` that holds a list of points and internally knows how to calculate its own total distance).
 * **Simulations and dynamic states:** You need to maintain an entity's changing state over time (e.g., a `Vehicle` moving across a road network, constantly updating its internal `x` and `y` coordinates).
@@ -449,7 +513,7 @@ You are given a subset of Swiss cities and a designated study area in the Valais
    * Which cities lie inside the bounding box?
    * What is the area of the bounding box in square kilometers?
 
-#### Part B: Object oriented version
+#### Part B: Object-oriented version
 
 1. Create a `Point` class.
 2. Create a `BoundingBox` class.
@@ -464,6 +528,7 @@ You are given a subset of Swiss cities and a designated study area in the Valais
 Write three or four sentences comparing the two versions. Comment on which version was shorter, which was easier to read, and which would be easier to extend if the points also needed to track live temperature readings.
 
 ### Starter code
+
 ```{code-cell} python
 # City data (EPSG:2056)
 geneva = {"x": 2499959, "y": 1117840, "name": "Geneva"}
@@ -574,12 +639,13 @@ The procedural version was slightly shorter to write initially because setting u
 
 ## 9. Summary
 
-Procedural and object-oriented programming are not rivals in a competition. They are two different design strategies for organizing your thought process and your code. 
+Procedural and object-oriented programming are not rivals in a competition. They are two different design strategies for organizing your thought process and your code.
 
-As you saw in this chapter, both approaches can solve the exact same spatial problem correctly. The "better" design simply depends on the scale, repetition, and complexity of the task at hand. 
+As you saw in this chapter, both approaches can solve the exact same spatial problem correctly. The "better" design simply depends on the scale, repetition, and complexity of the task at hand.
 
 **Key Takeaways:**
+
 * **Procedural code** organizes analysis around **actions** and free functions. It is often the clearest, fastest solution for small spatial utilities, one-off coordinate transformations, and linear data pipelines.
 * **Object-oriented code** organizes analysis around **entities** that bundle state and behavior together. It produces code that is easier to maintain and extend when dealing with richer geospatial concepts like routes, bounding boxes, or interactive sensor stations.
 
-Ultimately, strong geospatial programmers do not restrict themselves to just one style. They seamlessly combine both to build scalable, readable workflows. 
+Ultimately, strong geospatial programmers do not restrict themselves to just one style. They seamlessly combine both to build scalable, readable workflows.
