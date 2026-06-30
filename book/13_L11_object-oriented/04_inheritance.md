@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Reusing shared geospatial designs and specializing them for new tasks
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -22,9 +24,21 @@ Reusing shared geospatial designs and specializing them for new tasks
 Inheritance lets you build a more specific class on top of a more general one. A child class reuses what is already defined in a parent class and then extends or refines that behavior for a more specialized geospatial purpose.
 ```
 
-In the previous chapters, you learned how to create a class from scratch, define its initial state using `__init__()`, and attach logic to it using methods. We built standalone spatial entities like a `GeoPoint` and a `BoundingBox`.
+```{admonition} Chapter Relevance
+:class: dropdown
 
-However, Object Oriented Programming becomes more powerful when you stop thinking only about isolated classes and begin thinking about **relationships between classes**.  
+**Project Relevance:** ★★★ (Essential for cleanly modeling related entities, like different types of sensors or geographic zones, without repeating code.)  
+**Foundation:** ★★★ (A core pillar of Object-Oriented software architecture.)  
+
+**Time to Read:** 12 minutes  
+**In a nutshell:** Learn how to automatically reuse and extend the behavior of parent blueprints to create highly specialized geospatial objects with less code.  
+**Skip this if:** You are completely comfortable with parent/child classes, method resolution order, and using `super()` to extend initialization.
+
+```
+
+In the previous chapters, you learned how to create a **{term}`class <Class>`** from scratch, define its initial state using `__init__()`, and attach logic to it using **{term}`methods <Method>`**. We built standalone spatial entities like a `GeoPoint` and a `BoundingBox`.
+
+However, **{term}`Object-Oriented Programming <Object-oriented programming>`** becomes more powerful when you stop thinking only about isolated classes and begin thinking about **relationships between classes**.
 
 As your geospatial applications grow, writing every class from scratch becomes highly inefficient. Imagine you are modeling a transportation network. You might need a `Road` class, a `River` class, and a `Railroad` class. All three are line features. All three need to calculate their length, store a name, and list their coordinate vertices. If you write three separate classes from scratch, you will type the exact same code three times.
 
@@ -34,13 +48,14 @@ Object Oriented Programming solves this through **inheritance**. If several clas
 
 ## 1. Parent and child classes
 
-Suppose you already have a class that represents a generic geographic point. It stores coordinates, knows its Coordinate Reference System, and can compute distances to other points.
+Suppose you already have a class that represents a generic geographic point. It stores coordinates, knows its **{term}`Coordinate Reference System`**, and can compute distances to other points.
 
 Now imagine that you want to represent a city, a sensor station, and a mountain summit. All of them are fundamentally points. They all need coordinates, and they all benefit from a distance method. However, each of them also needs something more specific—a city needs a population count, while a sensor needs an operational status.
 
-You could copy and paste the same coordinate handling code into every single class. That would work at first. But the moment you improve the point logic, you would need to manually update several separate classes. This is exactly the kind of brittle duplication that Object Oriented Programming helps avoid.
+You could copy and paste the same coordinate handling code into every single class. That would work at first. But the moment you improve the point logic, you would need to manually update several separate classes. This is exactly the kind of brittle duplication that Object-Oriented Programming helps avoid.
 
-Inheritance is the process by which one class (the **child class** or derived class) takes on the attributes and methods of another class (the **parent class** or base class). It is best understood as **reuse plus specialization**. The parent class captures the common structure, while the child class keeps that structure and adds something more specific.
+Inheritance is the process by which one class (the **child class** or derived class) takes on the **{term}`attributes <Attribute>`** and methods of another class (the **parent class** or base class). It is best understood as **reuse plus specialization**. The parent class captures the common structure, while the child class keeps that structure and adds something more specific.
+
 ```{admonition} The "is-a" relationship
 :class: important
 
@@ -52,6 +67,7 @@ This is very different from simply saying that two classes happen to share a few
 ```
 
 The syntax for inheritance in Python is remarkably straightforward. You place the parent class inside parentheses after the child class name:
+
 ```{code-cell} python
 class PointFeature:
     pass
@@ -60,7 +76,7 @@ class NamedPoint(PointFeature):
     pass
 ```
 
-The line `class NamedPoint(PointFeature):` tells Python to link these two blueprints. 
+The line `class NamedPoint(PointFeature):` tells Python to link these two blueprints.
 
 The core mechanism making this work is a fallback search. If a `NamedPoint` object is asked to read an attribute or execute a method, Python looks inside the `NamedPoint` class first. If it cannot find the logic there, it automatically climbs the hierarchy and searches inside `PointFeature`. This means the child class can safely reuse the parent's behavior without you having to redefine a single line of code.
 
@@ -71,6 +87,7 @@ The core mechanism making this work is a fallback search. If a `NamedPoint` obje
 Let us look at the syntax for inheritance. To make a child class inherit from a parent class, you simply put the name of the parent class in parentheses when defining the child class.
 
 We begin with a parent class called `PointFeature`. It represents a generic point in geographic space, stores coordinates, and can calculate distances.
+
 ```{code-cell} python
 import math
 
@@ -85,7 +102,8 @@ class PointFeature:
         return math.hypot(self.x - other.x, self.y - other.y)
 ```
 
-Now, let us create a specialized child class called `NamedPoint` to represent a city or landmark. Notice the `(PointFeature)` in the class definition. For the moment, we will manually redefine the setup logic in the child class. 
+Now, let us create a specialized child class called `NamedPoint` to represent a city or landmark. Notice the `(PointFeature)` in the class definition. For the moment, we will manually redefine the setup logic in the child class.
+
 ```{code-cell} python
 # 2. The Child Class (inherits from PointFeature)
 class NamedPoint(PointFeature):
@@ -97,6 +115,7 @@ class NamedPoint(PointFeature):
 ```
 
 While this initialization repeats some code from the parent (a flaw we will fix in the very next section), the true power of inheritance is immediately visible when we test the methods.
+
 ```{code-cell} python
 zurich = NamedPoint(8.5417, 47.3769, "Zurich")
 bern = NamedPoint(7.4474, 46.9480, "Bern")
@@ -108,7 +127,7 @@ dist = zurich.distance_to(bern)
 print(f"Distance: {dist:.2f} degrees")
 ```
 
-When we call `zurich.distance_to()`, Python first looks inside the `NamedPoint` class. When it does not find a `distance_to()` method there, it climbs the inheritance tree, finds the method in the parent `PointFeature` class, and executes it. 
+When we call `zurich.distance_to()`, Python first looks inside the `NamedPoint` class. When it does not find a `distance_to()` method there, it climbs the inheritance tree, finds the method in the parent `PointFeature` class, and executes it.
 
 ```{admonition} What was inherited?
 :class: note
@@ -116,7 +135,8 @@ When we call `zurich.distance_to()`, Python first looks inside the `NamedPoint` 
 The `NamedPoint` class did not define `distance_to()`, but it can still use it. The child class automatically gains access to all methods defined in the parent.
 ```
 
-You can prove this "is a" relationship directly using Python's built in `isinstance()` function. 
+You can prove this "is a" relationship directly using Python's built in `isinstance()` function.
+
 ```{code-cell} python
 print(isinstance(zurich, NamedPoint))
 # Output: True
@@ -127,18 +147,20 @@ print(isinstance(zurich, PointFeature))
 
 Because `NamedPoint` inherits from `PointFeature`, the `zurich` object is recognized as belonging to both categories. The child class is more specific, but it still belongs to the broader parent category.
 
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L11_ch04_method_resolution_order_visualizer/" 
-    width="100%" 
-    height="650px" 
-    frameborder="0" 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L11_ch04_01_method_resolution_order/"
+    width="100%"
+    height="650px"
+    frameborder="0"
     style="border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc;">
 </iframe>
 
 <figcaption>
-    <em><b>Interactive Explorer: Method Resolution Order (MRO)</b>. <br>
-    Click the buttons above to visualize how Python searches the inheritance tree to execute your code. Notice how it always checks the specific instance first before falling back to the parent blueprints. For improved visibility of the explorer, follow this <a href="[https://hendrikwulf.github.io/sds210_assets_L11_ch04_method_resolution_order_visualizer/](https://hendrikwulf.github.io/sds210_assets_L11_ch04_method_resolution_order_visualizer/)" target="_blank">link</a>.</em>
+    <em><b>Interactive Explorer: Method Resolution Order (MRO).</b><br>
+    Click the command buttons to visualize the exact path Python takes to resolve methods and attributes across an inheritance tree. Notice how the search always checks the specific instance memory first before automatically falling back to the child class and then its parent blueprints. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L11_ch04_01_method_resolution_order/" target="_blank">link</a>.</em>
 </figcaption>
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -146,9 +168,10 @@ Because `NamedPoint` inherits from `PointFeature`, the `zurich` object is recogn
 
 In the previous section, our `NamedPoint` class repeated the coordinate setup code (`self.x = x`, `self.y = y`) that was already defined in `PointFeature`. That is not ideal. A specialized child class usually needs to initialize its own unique data *in addition* to the parent's data, but it should never rewrite the parent's logic.
 
-To achieve this cleanly, Python provides the built in `super()` function. `super()` allows a child class to explicitly call a method from its parent class. Most commonly, it is used inside the child's `__init__()` method to ensure the parent initializes the shared attributes before the child sets up its specific ones.
+To achieve this cleanly, Python provides the built in **{term}`super() <super() function>`** function. `super()` allows a child class to explicitly call a method from its parent class. Most commonly, it is used inside the child's `__init__()` method to ensure the parent initializes the shared attributes before the child sets up its specific ones.
 
 Let us rewrite our `NamedPoint` class to use `super()`:
+
 ```{code-cell} python
 class NamedPoint(PointFeature):
     # The child requires four arguments
@@ -175,6 +198,7 @@ print("Name:", geneva.name)
 ```
 
 The line `super().__init__(x, y, crs)` tells Python to run the parent class initialization first. After the parent has securely stored the coordinates and the CRS, the child class takes over to add its own new attribute, `name`.
+
 ```{admonition} Why super() matters
 :class: important
 
@@ -187,11 +211,12 @@ If the parent `PointFeature` class later evolves to require a Z-coordinate (elev
 
 ## 4. Overriding methods
 
-Sometimes, a child class needs to perform the exact same action as the parent, but do it differently. This is called **overriding** a method. 
+Sometimes, a child class needs to perform the exact same action as the parent, but do it differently. This is called **{term}`overriding <Method overriding>`** a method.
 
 If you define a method in the child class with the *exact same name* as a method in the parent class, the child's method will take precedence. Python will find it first and stop looking up the inheritance tree.
 
 Let us define a `Geometry` parent class that has an abstract way to describe itself. Then we will create a `Polygon` child class that completely overrides that description to provide more specific spatial details.
+
 ```{code-cell} python
 class Geometry:
     def __init__(self, crs):
@@ -223,6 +248,7 @@ print(lake_poly.describe())
 Sometimes a child class should not completely replace the parent's behavior, but rather **extend** it. Just as we used `super()` in `__init__()`, we can use it to call the parent's version of any method and then build on top of it.
 
 For example, imagine a `SensorStation` that inherits from a generic `PointFeature`. When asked to format its state via the `__str__` dunder method, it can grab the parent's basic coordinate string and simply append the sensor readings to it:
+
 ```{code-cell} python
 class PointFeature:
     def __init__(self, x, y):
@@ -262,13 +288,30 @@ When dealing with a method from a parent class, a child class has three options:
 
 Overriding is a powerful feature because it allows systems to be flexible. If another part of your code expects to call `.describe()` on *any* piece of geometry, it does not need to know if the object is a generic geometry, a polygon, or a line. It just calls `.describe()` and trusts that the specific object will handle the request correctly based on its own overridden logic.
 
+#### Concept Check: The Missing Super
+
+You define a `SensorStation` that inherits from `PointFeature`. Both classes have an `__init__` method, but inside `SensorStation`, you forget to call `super().__init__()`. What happens to the `x` and `y` coordinate attributes defined in the parent's initialization?
+
+1. They are automatically initialized by Python behind the scenes.
+2. They are never created, meaning the `SensorStation` object will lack `x` and `y` coordinates.
+3. Python raises an immediate `SyntaxError` preventing the code from running.
+
+```{admonition} Check your understanding
+:class: dropdown
+
+**Answer: 2. They are never created, meaning the `SensorStation` object will lack `x` and `y` coordinates.**
+While inheritance grants access to the parent's methods, a child class that overrides `__init__` completely replaces the setup process. If it does not explicitly call `super().__init__()`, the parent's initialization logic is skipped, and those variables are never created in memory.
+
+```
+
 ---
 
 ## 5. Designing useful hierarchies
 
-Now that you know the syntax, the more important issue is architectural design. 
+Now that you know the syntax, the more important issue is architectural design.
 
 Because inheritance is so powerful, it is tempting to use it everywhere to avoid typing. However, the key question is not just "Do these classes share code?" but rather "Does the child class represent a more specific form of the parent class?"
+
 ```{admonition} The golden rule of inheritance
 :class: tip
 
@@ -287,9 +330,10 @@ In each case, the child truly is a more specific subtype of the parent. Inherita
 
 ### Weak inheritance design and Composition
 
-Sometimes two classes interact closely, but one is not a subtype of the other. 
+Sometimes two classes interact closely, but one is not a subtype of the other.
 
 For example, a `Route` is composed of points, and a `Map` contains raster layers. However:
+
 * A `Route` **is not a** `PointFeature`
 * A `Map` **is not a** `RasterLayer`
 
@@ -320,7 +364,7 @@ flowchart TD
 
 ### A caution on complexity
 
-Inheritance helps reduce redundant code, but too much inheritance can make designs incredibly difficult to understand. If you create many layers of parent, child, and grandchild classes, the path of attribute lookup becomes impossible to follow. 
+Inheritance helps reduce redundant code, but too much inheritance can make designs incredibly difficult to understand. If you create many layers of parent, child, and grandchild classes, the path of attribute lookup becomes impossible to follow.
 
 ```{admonition} Keep inheritance flat
 :class: warning
@@ -336,22 +380,25 @@ While Python supports complex architectural patterns (like inheriting from multi
 
 It is time to practice inheritance directly by building a small system of cooperating classes.
 
-**The Scenario:** You are managing a network of wildlife tracking collars. Every collar is fundamentally a point in space, but it also has specialized hardware properties like an ID and a battery level. 
+**The Scenario:** You are managing a network of wildlife tracking collars. Every collar is fundamentally a point in space, but it also has specialized hardware properties like an ID and a battery level.
 
 **Your Tasks:**
 
 **A. The Parent Class (`PointFeature`)**
+
 1. Define the class. Its `__init__` method should accept and store `x` and `y` coordinates.
 2. Provide a `distance_to(other)` method that calculates the Euclidean distance to another point. *(Hint: `math.hypot(self.x - other.x, self.y - other.y)`)*.
 3. Provide a `__str__` method that returns `"Location: (x, y)"`.
 
 **B. The Child Class (`MobileSensor`)**
+
 1. Inherit from `PointFeature`.
 2. The `__init__` method should accept `x`, `y`, `sensor_id`, and `battery`. Use `super()` to handle the coordinate initialization.
 3. Add a completely new method called `record_movement(dx, dy)`. It should update the `x` and `y` coordinates by the given deltas, and decrease the `battery` attribute by 1.
 4. Override the `__str__` method to *extend* the parent's string. Call `super().__str__()` to get the location text, and append the sensor ID and battery percentage to it.
 
 **C. The Simulation**
+
 1. Instantiate two sensors at different coordinates.
 2. Print the distance between them.
 3. Move one of the sensors.
@@ -359,6 +406,7 @@ It is time to practice inheritance directly by building a small system of cooper
 
 **D. Reflection**
 Look at the code you just wrote and ask yourself:
+
 * Which methods were inherited without any changes?
 * Which methods were extended using `super()`?
 * Which methods were entirely unique to the child class?
@@ -429,9 +477,10 @@ print(sensor_2)
 
 ## 7. Summary and Outlook
 
-Inheritance allows one class to build seamlessly on another. A parent class captures the shared spatial structure, and a child class reuses that structure while adding more specific attributes or behavior. 
+Inheritance allows one class to build seamlessly on another. A parent class captures the shared spatial structure, and a child class reuses that structure while adding more specific attributes or behavior.
 
 In this chapter, you learned that:
+
 * **Parent and child classes:** A parent class defines shared structure and behavior, which a child class inherits automatically.
 * **The `super()` function:** This built in function lets child classes reuse parent initialization cleanly, preventing redundant code.
 * **Overriding methods:** By redefining a parent's method, a child class can behave more specifically to suit its specialized role.
