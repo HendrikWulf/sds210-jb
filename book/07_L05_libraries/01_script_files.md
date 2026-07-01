@@ -30,9 +30,9 @@ By moving your custom functions into a dedicated Python script file (`.py`), you
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★☆☆(Good for organizing complex code but rarely needed for our lab sessions)  
-**Project Relevance:** ★★☆ (Relevant for maintaining manageable, modular codebases in final projects)  
-**Foundation:** ★★☆ (A vital structural concept, stepping beyond basic scripting)  
+**Lab Relevance:** ★☆☆ (Helpful context for organizing code, but not directly required to complete the Jupyter Notebook tasks in Practical L5)  
+**Project Relevance:** ★★☆ (Essential for building a modular codebase and achieving high marks on the Structure criteria [5] across projects 1, 2, 3, and 4)  
+**Foundation:** ★★☆ (A vital structural concept for moving beyond basic notebook scripting into professional software development)  
 
 **Time to Read:** 10 minutes  
 **In a nutshell:** Learn how to move custom functions out of messy notebooks and into structured `.py` files that act as reusable toolkits.  

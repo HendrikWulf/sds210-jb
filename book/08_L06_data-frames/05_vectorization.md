@@ -29,13 +29,13 @@ The core superpower of Pandas is **{term}`Vectorization`**. You no longer need t
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★☆ (Vectorized operations and `.apply()` are required in many spatial data workflows)  
-**Project Relevance:** ★★★ (Essential for calculating derived indicators across large datasets efficiently)  
-**Foundation:** ★★★ (A fundamental shift from Python loops to array-based mathematical programming)  
+**Lab Relevance:** ★★☆ (Highly useful for calculating the `temp_swing` cleanly in Part 3, though it is an intuitive calculation.)  
+**Project Relevance:** ★★★ (Essential for calculating derived indicators across massive datasets efficiently, particularly spectral indices in projects 3 and 4.)  
+**Foundation:** ★★★ (A fundamental shift from slow Python loops to lightning-fast array-based mathematical programming.)  
 
 **Time to Read:** 15 minutes  
 **In a nutshell:** Master the art of replacing slow Python loops with lightning-fast vectorized math, and learn how to apply custom logic across entire datasets.  
-**Skip this if:** You already intuitively use vectorized operators for Pandas columns and know when to use `.apply(axis=1)` for custom row-by-row logic.
+**Skip this if:** You already intuitively use vectorized operators for Pandas columns and know exactly when to use `.apply(axis=1)` for custom row-by-row logic.
 
 ```
 

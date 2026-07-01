@@ -26,13 +26,13 @@ They follow different rules than numbers and deserve special attention.
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Text cleaning and paths are almost everywhere in spatial data)  
-**Project Relevance:** ★★★ (Standardizing categorical data is relevant in data preparation [Project 1])  
-**Foundation:** ★★★ (Core Python logic)  
+**Lab Relevance:** ★☆☆ (Helpful context, but not strictly required for the numeric focus of the spatial distance tasks in the current lab.)  
+**Project Relevance:** ★★☆ (Highly relevant for standardizing messy categorical text in project 1 or cleaning API metadata strings in project 2.)  
+**Foundation:** ★★☆ (Core Python logic for file management, labels, and text wrangling.)  
 
-**Time to Read:** 8 minutes  
-**In a nutshell:** Strings let you handle, clean, and format textual data like file paths and geographic names without confusing Python's mathematical engine.  
-**Skip this if:** You already know how to concatenate, slice, use escape characters (`\n`), and apply string methods like `.split()`, `.strip()`, and `.replace()`.
+**Time to Read:** 20 minutes  
+**In a nutshell:** Strings represent text, requiring specific methods to cleanly slice, split, and standardize categories or file paths without breaking your mathematical engine.  
+**Skip this if:** You already know how to safely concatenate strings, use escape characters (`\n`), and apply text-cleaning methods like `.split()`, `.strip()`, and `.replace()`.
 
 ```
 

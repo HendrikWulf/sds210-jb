@@ -30,9 +30,9 @@ You do not need to download every dataset you want to analyze.
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for querying spatial data directly into your notebooks without downloading heavy files)  
-**Project Relevance:** ★★★ (Crucial for accessing real-time weather, routing, or satellite imagery in projects)  
-**Foundation:** ★★☆ (A core skill in modern software engineering, bridging local code with web services)  
+**Lab Relevance:** ★★★ (A critical bottleneck; you absolutely cannot complete Part 4: Querying the driving route or Part 5: Fetching live weather for the driver without this)  
+**Project Relevance:** ★★★ (Crucial for fetching live remote data in project 2, and highly useful for accessing external datasets dynamically in projects 1, 3, and 4)  
+**Foundation:** ★★★ (A core skill in modern software engineering, bridging local Python code with global web services)  
 
 **Time to Read:** 15 minutes  
 **In a nutshell:** Learn how to programmatically request live data from external web servers, parse the JSON responses, and safely navigate API rate limits.  

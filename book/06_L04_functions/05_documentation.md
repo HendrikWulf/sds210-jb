@@ -29,13 +29,13 @@ In data science, code is read far more often than it is written. Writing a funct
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★☆☆ (Relevant for properly documenting your custom tools and passing assignments)  
-**Project Relevance:** ★★☆ (Important for collaborative group projects and reproducible research)  
-**Foundation:** ★★☆ (A basic professional standard in software engineering and data science)  
+**Lab Relevance:** ★★☆ (Specifically required to complete Part 7: Documentation, where you must write and test a NumPy-style docstring.)  
+**Project Relevance:** ★★☆ (Directly impacts your final grade across all projects; missing or poor docstrings will cost you points under "Documentation" [Assessment Criteria 6].)  
+**Foundation:** ★★☆ (A basic professional standard in software engineering, reproducible research, and open-source development.)  
 
 **Time to Read:** 10 minutes  
-**In a nutshell:** Master the art of writing self-explanatory, professional functions using NumPy-style docstrings, and learn how to avoid the most common bugs that break Python pipelines.  
-**Skip this if:** You already strictly use NumPy-style docstrings to document your code and are completely familiar with common function pitfalls like mutable defaults and missing return statements.
+**In a nutshell:** Master the art of writing self-explanatory, professional functions using NumPy-style docstrings, and review the most common bugs that break Python pipelines.  
+**Skip this if:** You already strictly use NumPy-style docstrings to document your code and are completely familiar with standard function pitfalls like missing return statements.
 
 ```
 

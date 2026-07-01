@@ -28,13 +28,13 @@ Now that your data is loaded into a two dimensional grid, you need to know how t
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Slicing, filtering, and sorting are the absolute bread and butter of Pandas lab assignments)  
-**Project Relevance:** ★★★ (Required for isolating relevant subsets of data in any analytical pipeline)  
-**Foundation:** ★★★ (Core Pandas mechanics that replace standard Python loops and `if` statements)  
+**Lab Relevance:** ★★★ (A critical bottleneck; you must know how to use `&` operators for boolean indexing and `.sort_values()` to pass Part 3: Vectorization and Slicing.)  
+**Project Relevance:** ★★★ (Mandatory for isolating relevant subsets of data in any analytical pipeline, such as filtering for specific neighborhoods in project 1 or biomes in project 2.)  
+**Foundation:** ★★★ (Core Pandas mechanics that replace standard, slow Python loops and `if` statements.)  
 
-**Time to Read:** 15 minutes  
+**Time to Read:** 20 minutes  
 **In a nutshell:** Master the core Pandas operations to select columns, filter rows with logical conditions, and safely modify data without triggering the notorious view vs. copy trap.  
-**Skip this if:** You already know how to use boolean masks, `&`/`|` operators, `.sort_values()`, `.loc`/`.iloc`, and fully understand when to use `.copy()`.
+**Skip this if:** You already know how to use boolean masks, `&`/`|` operators, `.sort_values()`, `.loc`/`.iloc`, and fully understand Copy-on-Write and when to use `.copy()`.
 
 ```
 

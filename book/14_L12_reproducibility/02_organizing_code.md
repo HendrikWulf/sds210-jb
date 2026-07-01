@@ -22,6 +22,18 @@ Moving from one giant notebook to structured spatial workflows
 As spatial analysis grows, structure matters as much as {term}`syntax <Syntax>`. Well-organized code is easier to understand, easier to {term}`debug <Debugging>`, and much easier to rerun on another machine or with another dataset.
 ```
 
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Project Relevance:** ★★★ (Essential for fulfilling the "Repository Organization" assessment criteria in projects 1, 2, 3, and 4.)  
+**Foundation:** ★★★ (The critical shift from prototyping in a single giant notebook to building structured, professional data science pipelines.)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Transition from messy notebooks to structured spatial workflows by using robust relative paths, modular logic, and standardized project directories.  
+**Skip this if:** You already rigidly separate your raw data, processed data, and notebooks, and strictly use `pathlib` for all file I/O operations.
+
+```
+
 In the previous chapter, you focused on readable code at the scale of the line and the {term}`cell <Code cell>`. This chapter moves one level up: **workflow structure**.
 
 {term}`Jupyter Notebooks <Notebook>` are excellent for exploration, visualization, and early spatial analysis. But as projects grow, one notebook can become difficult to manage. Imports, file paths, cleaning steps, {term}`reprojections <Map reprojection>`, plots, and exports accumulate until the workflow becomes hard to follow and even harder to rerun reliably.
@@ -32,17 +44,6 @@ This chapter shows how to move beyond the giant notebook. You will learn how to 
 :class: note
 
 While this chapter teaches you how to break a massive workflow into separate scripts and folders, **it is perfectly fine to use a single Jupyter Notebook from start to finish for your SDS210 course project.** The modular techniques introduced here (like `pathlib`, custom functions, and `.py` modules) are essential for large-scale, professional {term}`spatial data science <Spatial data science>`. We want you to understand how to build these pipelines, but you are not required to build complex multi-file code for your course submission. Apply these principles where they help clarify your work, but focus on writing clean, readable code first.
-```
-
-```{admonition} Chapter Relevance
-:class: dropdown
-
-**Project Relevance:** ★★★ (Directly improves project structure, code reuse, repository quality, and code discussion performance.)  
-**Foundation:** ★★★ (Builds core habits for reproducible spatial workflows beyond one-off notebook execution.)  
-
-**Time to Read:** 24 minutes  
-**In a nutshell:** This chapter shows how to move from a fragile giant notebook toward a clearer project structure with robust paths, reusable functions, modules, and separated workflow stages.  
-**Skip this if:** You already organize spatial projects with `pathlib`, raw/processed data folders, reusable functions, `.py` modules, and a clear notebook narrative.
 ```
 
 ---

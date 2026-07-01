@@ -28,13 +28,13 @@ We write the instruction once. The computer does the repetition.
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for automating tasks across multiple files or coordinates)  
-**Project Relevance:** ★★★ (Data processing at scale is impossible without loops)  
-**Foundation:** ★★★ (Core grammar of Python)  
+**Lab Relevance:** ★★★ (A critical bottleneck; you cannot complete Part 2: Looping over structured data, or Part 3: Generating city pairs without nested `for` loops.)  
+**Project Relevance:** ★★★ (Mandatory for processing large collections of records, such as querying multiple neighborhoods in project 1 or iterating through satellite time series in project 4.)  
+**Foundation:** ★★★ (The core grammar of Python automation.)  
 
-**Time to Read:** 10 minutes  
+**Time to Read:** 25 minutes  
 **In a nutshell:** The `for` loop allows you to write an instruction once and have Python automatically repeat it for every item in a dataset.  
-**Skip this if:** You are fully comfortable iterating over lists directly, using `range()` for indexed loops, and writing nested loops.
+**Skip this if:** You are fully comfortable iterating over lists and dictionaries directly, using `range()` for indexed loops, and writing nested loops.
 
 ```
 

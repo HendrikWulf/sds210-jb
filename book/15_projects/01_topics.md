@@ -118,64 +118,7 @@ Choose this topic if you enjoy cartography, working with JSON-like web data, and
 
 ---
 
-## Project 3: Urban Heat
-
-```{admonition} Data Access
-:class: tip
-
-The dataset for this project is available for download via [Google Drive](https://drive.google.com/drive/folders/1SmEzlCAJJGYY-TdB58JX6ADvVxSQrMqj?usp=sharing). Alternatively, you can access the files directly on the university course server under `course/sds210/data/projects/project_3/`.
-For reference, you can also explore the [Google Earth Engine script](https://code.earthengine.google.com/04afb4de7a1d95d988d2972e3ed87ffd) used to generate this data.
-```
-
-This project focuses on tracking long-term environmental change in Zurich using satellite-derived indicators. You will analyze **urban heat patterns** over time using Landsat-based Land Surface Temperature (LST), and compare it alongside vegetation indicators like the Normalized Difference Vegetation Index (NDVI).
-
-:::{figure} images/03_project3_urban-heat.png
-:alt: A heat map of Zurich showing building footprints and urban areas in varying shades of yellow and orange, indicating temperature differences.
-:width: 700px
-:align: center
-
-*[Klimamodell 2024: Klimaanalysekarte Nacht - Zukunftsszenario](https://geo.zh.ch/maps?x=2680985&y=1249746&scale=31613&basemap=INTERNAL__blank)*
-:::
-
-### Core idea
-
-Your main aim is to explore how urban surface conditions in Zurich have evolved over time and how localized heat patterns physically correlate to vegetation density. You will work over a long observation period, tri-annual multispectral data **from 1985 to 2024**, and you aim to develop a coherent workflow for comparing these different environmental indicators.
-
-This topic is very analytical. It requires you to think critically about long-term trends, spatial patterns, and the statistical relationships between environmental variables (e.g. LST vs. NDVI).
-
-### What you will work with
-
-In this project, you will:
-
-  * Access and analyze Landsat-based time series data.
-  * Compare Land Surface Temperature (LST) and vegetation indicies.
-  * Calculate and compare changes in LST and vegetation over time.
-  * Summarize and visualize the climatic trends for Zurich.
-
-This workflow will involve applying spectral indicies, generating time-series charts, and analysing temporal trends.
-
-### Suggested task
-
-Your task is to analyze long-term urban heat dynamics within a clearly defined boundary. You must build a workflow that extracts meaningful statistical information from the time series and presents it in a way that clearly communicates how the urban environment has changed over the decades.
-
-Examples of project questions include:
-
-  * How drastically has the average land surface temperature changed since the mid-1980s?
-  * Is there a measurable correlation between warmer urban areas and lower vegetation or high build-up signals?
-  * How do spectral indices help us interpret the physical causes of these heat patterns?
-  * Are specific neighborhoods within the city warming faster than others?
-
-<!-- end list -->
-
-```{admonition} Is this a good fit for you?
-:class: note
-
-Choose this topic if you enjoy time-series analysis, working with continuous satellite data, and using code and charts to interpret long-term environmental trends.
-```
-
----
-
-## Project 4: Change Detection
+## Project 3: Change Detection
 
 ```{admonition} Data Access
 :class: tip
@@ -232,6 +175,63 @@ Choose this topic if you enjoy remote sensing, methodological experimentation, a
 
 ---
 
+## Project 4: Urban Heat
+
+```{admonition} Data Access
+:class: tip
+
+The dataset for this project is available for download via [Google Drive](https://drive.google.com/drive/folders/1SmEzlCAJJGYY-TdB58JX6ADvVxSQrMqj?usp=sharing). Alternatively, you can access the files directly on the university course server under `course/sds210/data/projects/project_3/`.
+For reference, you can also explore the [Google Earth Engine script](https://code.earthengine.google.com/04afb4de7a1d95d988d2972e3ed87ffd) used to generate this data.
+```
+
+This project focuses on tracking long-term environmental change in Zurich using satellite-derived indicators. You will analyze **urban heat patterns** over time using Landsat-based Land Surface Temperature (LST), and compare it alongside vegetation indicators like the Normalized Difference Vegetation Index (NDVI).
+
+:::{figure} images/03_project3_urban-heat.png
+:alt: A heat map of Zurich showing building footprints and urban areas in varying shades of yellow and orange, indicating temperature differences.
+:width: 700px
+:align: center
+
+*[Klimamodell 2024: Klimaanalysekarte Nacht - Zukunftsszenario](https://geo.zh.ch/maps?x=2680985&y=1249746&scale=31613&basemap=INTERNAL__blank)*
+:::
+
+### Core idea
+
+Your main aim is to explore how urban surface conditions in Zurich have evolved over time and how localized heat patterns physically correlate to vegetation density. You will work over a long observation period, tri-annual multispectral data **from 1985 to 2024**, and you aim to develop a coherent workflow for comparing these different environmental indicators.
+
+This topic is very analytical. It requires you to think critically about long-term trends, spatial patterns, and the statistical relationships between environmental variables (e.g. LST vs. NDVI).
+
+### What you will work with
+
+In this project, you will:
+
+  * Access and analyze Landsat-based time series data.
+  * Compare Land Surface Temperature (LST) and vegetation indicies.
+  * Calculate and compare changes in LST and vegetation over time.
+  * Summarize and visualize the climatic trends for Zurich.
+
+This workflow will involve applying spectral indicies, generating time-series charts, and analysing temporal trends.
+
+### Suggested task
+
+Your task is to analyze long-term urban heat dynamics within a clearly defined boundary. You must build a workflow that extracts meaningful statistical information from the time series and presents it in a way that clearly communicates how the urban environment has changed over the decades.
+
+Examples of project questions include:
+
+  * How drastically has the average land surface temperature changed since the mid-1980s?
+  * Is there a measurable correlation between warmer urban areas and lower vegetation or high build-up signals?
+  * How do spectral indices help us interpret the physical causes of these heat patterns?
+  * Are specific neighborhoods within the city warming faster than others?
+
+<!-- end list -->
+
+```{admonition} Is this a good fit for you?
+:class: note
+
+Choose this topic if you enjoy time-series analysis, working with continuous satellite data, and using code and charts to interpret long-term environmental trends.
+```
+
+---
+
 ## Comparing the topics
 
 All four topics are valid, challenging choices, but they cater to slightly different analytical strengths and interests.
@@ -248,12 +248,13 @@ All four topics are valid, challenging choices, but they cater to slightly diffe
 * - **Wildfire Mapping**
   - Event data and interactive web maps
   - APIs, data parsing, cartography, visual communication
-* - **Urban Heat**
-  - Long-term satellite time series
-  - Trends, statistical indicators, charting, environmental interpretation
 * - **Change Detection**
   - Before/after comparison with embeddings
   - Experimental analysis, remote sensing, spatial anomaly detection
+* - **Urban Heat**
+  - Long-term satellite time series
+  - Trends, statistical indicators, charting, environmental interpretation
+
 ```
 
 ```{admonition} Final advice

@@ -28,13 +28,13 @@ A beautifully designed static map is a powerful communication tool for reports a
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Interactive maps are an excellent way to debug and present spatial data in labs)  
-**Project Relevance:** ★★★ (Highly requested for interactive final project dashboards and outputs)  
-**Foundation:** ★★☆ (Builds on static mapping foundations, specifically geared towards web presentation)  
+**Lab Relevance:** ★★★ (A strict bottleneck; you literally cannot build the multi-layered interactive web app to explore hydrological basins without mastering Folium and the `.explore()` method.)  
+**Project Relevance:** ★★☆ (An absolute requirement if you choose project 2, which requires interactive web maps for tracking events, and a powerful presentation tool for projects 1 and 4.)  
+**Foundation:** ★★☆ (Bridges static data science outputs with modern web-based geographic information systems and browser rendering.)  
 
-**Time to Read:** 20 minutes  
+**Time to Read:** 25 minutes  
 **In a nutshell:** Transform static spatial geometries into dynamic, interactive web maps with popups, hover tooltips, and scalable marker clusters.  
-**Skip this if:** You already know how to initialize Folium maps, add GeoJSON/Choropleth layers with Tooltips, and use the `.explore()` method in GeoPandas.
+**Skip this if:** You already know how to initialize Folium maps, add GeoPandas layers with customized Tooltips, and use `.explore()` to generate HTML outputs.
 
 ```
 
@@ -121,9 +121,12 @@ There is a vast ecosystem of tile providers available online. You can explore th
     style="border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 10px;"
     allowfullscreen>
 </iframe>
-<!-- markdownlint-enable MD033-->
 
-*Explore different map styles by selecting providers on the right. For improved visibility of the explorer, follow this [link](https://leaflet-extras.github.io/leaflet-providers/preview/).*
+<figcaption>
+    <em><b>Leaflet Providers Preview.</b><br>
+    Explore different map styles by selecting providers on the right. For improved visibility of the explorer, follow this <a href="https://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033-->
 
 If you find a style you like that is not built into Folium, you can use it by passing a custom URL directly to the `tiles` argument. **Important:** When using a custom URL, Folium cannot automatically guess the attribution. You must explicitly provide the copyright and map credits using the `attr` parameter.
 
@@ -568,7 +571,7 @@ m2
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output Step 3: A multi-layered thematic map. The invisible GeoJson layer captures mouse movements to display tooltip data, while `show=False` ensures the initial view is not cluttered with overlapping colors.
+    Output Step 3: A multi-layered thematic map. The invisible GeoJson layer captures mouse movements to display tooltip data, while <code>show=False</code> ensures the initial view is not cluttered with overlapping colors.
 </div>
 <!-- markdownlint-enable MD033 -->
 

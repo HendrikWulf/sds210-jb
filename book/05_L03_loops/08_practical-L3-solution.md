@@ -6,9 +6,11 @@ site:
 
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 From structured data to automated spatial logic
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 

@@ -27,13 +27,13 @@ Reading and writing complex spatial formats like GeoPackages or Shapefiles can b
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for loading assignments and exporting your final lab results)  
-**Project Relevance:** ★★★ (Crucial for handling diverse spatial datasets in your final projects)  
+**Lab Relevance:** ★★☆ (Highly useful for loading the cantonal and national basemaps and using `.plot()` to visualize results in Part 4: Mapping the Crisis and Part 5: Regional Impact)  
+**Project Relevance:** ★★★ (Essential for ingesting diverse spatial files and exporting final results in projects 1, 2, 3, and 4)  
 **Foundation:** ★★★ (Establishes the standard data ingestion and plotting workflow for vector data)  
 
-**Time to Read:** 10 minutes  
+**Time to Read:** 15 minutes  
 **In a nutshell:** Learn the essential workflow for reading, verifying with quick plots, and exporting professional GIS formats like GeoPackages and GeoJSON using GeoPandas.  
-**Skip this if:** You are already highly proficient with `geopandas.read_file()`, categorical vs continuous `.plot()` usage, and `to_file()`/`to_parquet()`.
+**Skip this if:** You are already highly proficient with `geopandas.read_file()`, plotting categorical vs. continuous data, and exporting files with `.to_file()`.
 
 ```
 

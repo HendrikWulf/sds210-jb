@@ -26,12 +26,12 @@ A class is a blueprint for building reusable objects that bundle related data an
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Project Relevance:** ★★★ (Custom classes are necessary to cleanly organize data in complex final projects.)  
-**Foundation:** ★★★ (The `__init__` method and `self` are the bedrock of Python's object-oriented system.)  
+**Project Relevance:** ★★★ (Essential if you choose to build a custom data model for managing urban reports in project 1 or wildfire events in project 2)  
+**Foundation:** ★★★ (The `__init__` method, instance attributes, and `self` are the bedrock of Python's object-oriented system)  
 
-**Time to Read:** 12 minutes  
+**Time to Read:** 20 minutes  
 **In a nutshell:** Learn how to define a custom class blueprint and use it to instantiate independent, data-rich objects with their own internal state.  
-**Skip this if:** You are already fully comfortable writing custom Python classes, defining `__init__` methods, and explaining the difference between class and instance attributes.
+**Skip this if:** You are already fully comfortable writing custom Python classes, defining `__init__` methods, routing state via `self`, and explaining the difference between class and instance attributes.
 
 ```
 

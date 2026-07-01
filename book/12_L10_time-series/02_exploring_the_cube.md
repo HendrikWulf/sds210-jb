@@ -9,7 +9,7 @@ site:
 <div class="page-subtitle">
 Reading, inspecting, and visualizing multidimensional datasets
 </div>
-<!-- markdownlint-disable MD033-->
+<!-- markdownlint-enable MD033-->
 
 ---
 
@@ -27,13 +27,13 @@ Before you analyze a **{term}`data cube <Data cube>`**, you must learn to read i
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for loading, formatting, and saving `xarray` datasets in assignments)  
-**Project Relevance:** ★★★ (Core workflow for preparing climate/temporal data cubes for analysis)  
-**Foundation:** ★★★ (The practical foundation for interacting with multidimensional data)  
+**Lab Relevance:** ★★☆ (Highly useful for Part 1: Data Intake & Visualization, specifically for utilizing `rioxarray` to clip bounds and assigning time coordinates)  
+**Project Relevance:** ★★★ (Core workflow for reading, formatting, and standardizing raw multidimensional satellite datasets in projects 3 and 4)  
+**Foundation:** ★★★ (The practical baseline for interacting with multidimensional data)  
 
 **Time to Read:** 15 minutes  
 **In a nutshell:** Learn the standard, reliable workflow for reading, inspecting, cleaning, and exporting multidimensional data cubes using `xarray`.  
-**Skip this if:** You are already fully comfortable manipulating `xarray.Dataset` objects, editing coordinates and attributes, using the `.rio` accessor, and exporting to NetCDF or Zarr.
+**Skip this if:** You are already fully comfortable manipulating `xarray.Dataset` objects, editing coordinates, and using the `.rio` accessor to reproject or clip data.
 
 ```
 

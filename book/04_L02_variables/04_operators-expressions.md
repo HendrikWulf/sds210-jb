@@ -26,13 +26,13 @@ Expressions are evaluated when code is executed to produce new values.
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for every single calculation or data filter you write)  
-**Project Relevance:** ★★★ (Core to creating new spatial metrics or handling conditions)  
-**Foundation:** ★★★ (Fundamental grammar of programming)  
+**Lab Relevance:** ★★★ (A critical bottleneck; you absolutely cannot complete the mathematical calculations in Part 6: Manhattan distance or Part 7: Euclidean distance without this.)  
+**Project Relevance:** ★★★ (Core methodology for calculating spectral anomalies in project 3 and deriving environmental indices like NDVI in project 4.)  
+**Foundation:** ★★★ (The fundamental grammar of programming logic.)  
 
-**Time to Read:** 8 minutes  
-**In a nutshell:** Operators turn static data into dynamic code, allowing you to perform calculations, update variables, and formulate logical rules.  
-**Skip this if:** You are fully comfortable with arithmetic (`%`, `//`), update operators (`+=`), and boolean logic (`and`, `or`, `not`) in Python.
+**Time to Read:** 25 minutes  
+**In a nutshell:** Operators act as Python's calculator and logic engine, allowing you to combine static variables into dynamic mathematical equations and boolean filters.  
+**Skip this if:** You are completely comfortable using advanced arithmetic (`**`, `//`, `%`), update operators (`+=`), and compound boolean logic (`and`, `or`, `not`).
 
 ```
 

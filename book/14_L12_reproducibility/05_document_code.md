@@ -23,6 +23,18 @@ Making spatial projects understandable, not just runnable
 A {term}`reproducible project <Reproducibility>` explains itself clearly enough that someone else can follow the logic, understand the assumptions, and rerun the workflow without guesswork. Code dictates *what* happens, but documentation explains *why* it happens.
 ```
 
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Project Relevance:** ★★★ (A strict bottleneck; you must supply a clear `README.md` and well-narrated notebooks to pass the "Documentation" criteria for projects 1, 2, 3, and 4.)  
+**Foundation:** ★★☆ (Crucial for scientific communication and ensuring your computational workflows are genuinely interpretable.)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Make your spatial projects understandable to others by writing strong READMEs, descriptive docstrings, and self-explanatory scientific figures.  
+**Skip this if:** You already routinely write comprehensive `README.md` files, document custom tools with type hints, and narrate your Jupyter notebooks heavily using Markdown.
+
+```
+
 In the previous chapters, you learned how to write cleaner Python, organize code beyond one giant notebook, make workflows more robust, and record {term}`software environments <Virtual environment>`. These are all essential technical parts of reproducibility. But a project can still fail as a scientific communication artifact even if all of those pieces are perfectly in place.
 
 Why? Because reproducibility depends on more than just file availability. It fundamentally depends on **interpretability**.
@@ -61,17 +73,6 @@ In this chapter, you will learn the hierarchy of documentation in a {term}`spati
     Select documentation layers such as README, notebook Markdown, inline comments, docstrings, and figure captions to compare weak and strong examples and see which reader question each layer answers. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L12_ch05_01_documentation_hierarchy/" target="_blank">link</a>.</em>
 </figcaption>
 <!-- markdownlint-enable MD033 -->
-
-```{admonition} Chapter Relevance
-:class: dropdown
- 
-**Project Relevance:** ★★★ (Directly improves final project quality, repository clarity, figure communication, and code discussion performance.)  
-**Foundation:** ★★★ (Builds the communication layer of reproducibility: explaining purpose, assumptions, functions, and outputs.)  
-
-**Time to Read:** 22 minutes  
-**In a nutshell:** This chapter shows how to make spatial projects understandable to another reader, not merely executable on your own machine.  
-**Skip this if:** You already write useful README files, narrative notebook Markdown, why-focused comments, clear docstrings with type hints, and self-explanatory figure captions.
-```
 
 ---
 

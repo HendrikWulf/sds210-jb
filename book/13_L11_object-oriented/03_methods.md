@@ -26,12 +26,12 @@ A class becomes truly useful when it does not only store data, but also provides
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Project Relevance:** ★★★ (Crucial for building logical, maintainable, and interactive spatial systems for your independent projects.)  
-**Foundation:** ★★★ (Teaches the core logic of `self` and internal state management.)  
+**Project Relevance:** ★★☆ (Highly useful for encapsulating data processing logic cleanly in project 1 and spatial routing logic in project 4)  
+**Foundation:** ★★★ (Teaches the core logic of internal state management and Python's dunder methods)  
 
-**Time to Read:** 15 minutes  
+**Time to Read:** 25 minutes  
 **In a nutshell:** Learn how to bring classes to life by attaching methods that read, update, and enable collaborative interactions between geospatial objects.  
-**Skip this if:** You already understand how to define instance methods, safely update object state, and implement dunder methods like `__str__` and `__gt__`.
+**Skip this if:** You already understand how to define instance methods, safely update encapsulated object state, and implement dunder methods like `__str__` and `__gt__`.
 
 ```
 

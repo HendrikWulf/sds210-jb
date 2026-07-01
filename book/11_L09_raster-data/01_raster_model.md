@@ -34,13 +34,13 @@ The raster data model abandons the idea of empty space. Instead of placing shape
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Fundamental for all raster-based labs)  
-**Project Relevance:** ★★☆ (Crucial if your project incorporates environmental or satellite data)  
-**Foundation:** ★★★ (The absolute foundation for raster processing)  
+**Lab Relevance:** ★☆☆ (Provides the conceptual background required to understand the multidimensional array structures manipulated in all lab parts, though it requires no explicit code)  
+**Project Relevance:** ★★☆ (An essential conceptual foundation for interpreting continuous environmental phenomena and satellite data in projects 3 and 4)  
+**Foundation:** ★★★ (The absolute bedrock paradigm shift from discrete vector boundaries to continuous geographical grids)  
 
-**Time to Read:** 10 minutes  
-**In a nutshell:** Learn how the raster data model represents continuous spatial phenomena using large numerical matrices, and why NumPy is required to process them.  
-**Skip this if:** You already deeply understand the difference between vector and raster data, and how geographic surfaces are stored as NumPy arrays.
+**Time to Read:** 5 minutes  
+**In a nutshell:** Shift your mindset from discrete vector shapes to continuous grids of pixels to represent fluid environmental phenomena.  
+**Skip this if:** You already understand the difference between discrete vectors and continuous rasters, spatial resolution, and multi-band matrices.
 
 ```
 
@@ -180,7 +180,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: A simple 5x5 raster layer visualized with Matplotlib. The numerical values of the matrix are mapped directly to the 'terrain' colormap, creating a top-down view of a pixelated hill.
+    Output: A simple 5x5 raster layer visualized with Matplotlib. The numerical values of the matrix are mapped directly to the <code>terrain</code> colormap, creating a top-down view of a pixelated hill.
 </div>
 <!-- markdownlint-enable MD033 -->
 

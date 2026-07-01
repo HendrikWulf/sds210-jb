@@ -34,13 +34,13 @@ Without functions, your code becomes repetitive, rigid, and hard to manage.
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★☆☆ (Helpful for keeping your spatial analysis scripts organized and readable)  
-**Project Relevance:** ★★☆ (Needed for building scalable, maintainable tools for your final projects)  
-**Foundation:** ★★★ (An important core programming concept)  
+**Lab Relevance:** ★☆☆ (Explains the reasoning behind packaging code, but does not provide the syntax needed to complete any specific task in Practical L4.)  
+**Project Relevance:** ★★☆ (A vital conceptual approach for keeping your code modular and readable in all final projects, saving you from penalty deductions on "Structure" and "Readability".)  
+**Foundation:** ★★★ (A critical programming concept explaining the shift from raw scripting to reusable logic.)  
 
 **Time to Read:** 5 minutes  
 **In a nutshell:** Learn why packaging your code into functions saves you from the nightmare of copying, pasting, and manually fixing the same formulas over and over.  
-**Skip this if:** You already understand the D.R.Y. principle and the conceptual difference between hardcoded logic and reusable functions.
+**Skip this if:** You already understand the D.R.Y. (Don't Repeat Yourself) principle and the conceptual difference between hardcoded logic and reusable, packaged functions.
 
 ```
 

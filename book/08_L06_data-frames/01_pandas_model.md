@@ -26,9 +26,9 @@ When working with pure Python, you pass your data into functions. In Pandas, you
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★☆ (Essential baseline for all subsequent spatial data manipulation labs)  
-**Project Relevance:** ★★☆ (DataFrames will be the primary data container for projects 1 and 2)  
-**Foundation:** ★★★ (The shift to OOP and Pandas logic is a critical learning threshold in Python)  
+**Lab Relevance:** ★☆☆ (Conceptual foundation; not directly tied to a specific code task in Practical L6, but provides the necessary context for the entire lab.)  
+**Project Relevance:** ★★☆ (Provides the OOP foundation needed for managing DataFrames across all projects 1, 2, 3, and 4.)  
+**Foundation:** ★★★ (The shift to Object-Oriented Pandas logic is a critical learning threshold in Python data science.)  
 
 **Time to Read:** 10 minutes  
 **In a nutshell:** Master the mental shift from standard Python functions to Pandas' object-oriented data structures, enabling powerful tabular data manipulation.  
