@@ -28,11 +28,11 @@ Pandas provides highly optimized single-line commands to load and save almost an
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Fundamental for loading spatial and tabular data)  
-**Project Relevance:** ★★★ (Required for reading raw data and saving your final processed results)  
-**Foundation:** ★★★ (Core Pandas I/O operations are the starting point of any data science pipeline)  
+**Lab Relevance:** ★★☆ (Highly useful for Part 1: The Intake Workflow, specifically for parsing dates on load and checking `.info()`, but essentially a review of basic file I/O.)  
+**Project Relevance:** ★★★ (Essential for loading raw datasets and exporting your final processed CSV results in projects 1, 2, 3, and 4.)  
+**Foundation:** ★★★ (Core Pandas I/O operations are the starting point of any data science pipeline.)  
 
-**Time to Read:** 10 minutes  
+**Time to Read:** 15 minutes  
 **In a nutshell:** Learn how to quickly ingest text files into Pandas DataFrames, peek at their structure, evaluate metadata, and cleanly export your results avoiding common pitfalls.  
 **Skip this if:** You already know how to reliably use `pd.read_csv()`, inspect data with `.info()` and `.head()`, and save files using `index=False`.
 

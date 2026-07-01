@@ -28,13 +28,13 @@ Plotting spatial geometries is only the first step. Creating a map that accurate
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for ethically styling and scaling all lab outputs)  
-**Project Relevance:** ★★★ (Crucial for final visualization and communication of your results)  
-**Foundation:** ★★☆ (Key cartographic theory that bridges data science and design)  
+**Lab Relevance:** ★★★ (A critical bottleneck; you absolutely cannot mathematically scale raw attributes like catchment area to visual properties like line thickness to generate the final data art without these principles.)  
+**Project Relevance:** ★★★ (Crucial for designing ethically scaled choropleths and thematic maps, ensuring you do not lose points on "Visual Communication" in projects 1, 2, 3, and 4.)  
+**Foundation:** ★★☆ (Key cartographic theory that bridges raw data science with effective human communication.)  
 
-**Time to Read:** 15 minutes  
-**In a nutshell:** Transform plain geometries into readable, data-driven thematic maps by applying correct colormaps, data scaling, and handling missing data.  
-**Skip this if:** You are already fully comfortable applying perceptually uniform colormaps (sequential vs. diverging), controlling scale bounds with `vmin`/`vmax`, and managing missing `NaN` values with `missing_kwds`.
+**Time to Read:** 20 minutes  
+**In a nutshell:** Transform plain geometries into readable, data-driven thematic maps by applying correct colormaps, mapping continuous data scales, and handling missing data.  
+**Skip this if:** You are already fully comfortable applying perceptually uniform colormaps, scaling limits (`vmin`/`vmax`), and customizing legends and `missing_kwds` in GeoPandas.
 
 ```
 
@@ -79,7 +79,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: A basic choropleth. GeoPandas analyzes the numeric values in the specified column and assigns colors accordingly. Notice it defaults to the blue-to-yellow "viridis" palette.
+    Output: A basic choropleth. GeoPandas analyzes the numeric values in the specified column and assigns colors accordingly. Notice it defaults to the blue-to-yellow <code>viridis</code> palette.
 </div>
 <!-- markdownlint-enable MD033 -->
 
@@ -299,7 +299,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: By applying the perceptually uniform `batlow` colormap, adding a descriptive horizontal legend, and scaling the data to the 2nd and 98th percentiles, we accommodate the data distribution and create a highly readable, balanced thematic map.
+    Output: By applying the perceptually uniform <code>batlow</code> colormap, adding a descriptive horizontal legend, and scaling the data to the 2nd and 98th percentiles, we accommodate the data distribution and create a highly readable, balanced thematic map.
 </div>
 <!-- markdownlint-enable MD033 -->
 
@@ -422,7 +422,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: Proper handling of missing data via `missing_kwds` ensures the map remains structurally intact while clearly and honestly communicating exactly where data is unavailable.
+    Output: Proper handling of missing data via <code>missing_kwds</code> ensures the map remains structurally intact while clearly and honestly communicating exactly where data is unavailable.
 </div>
 <!-- markdownlint-enable MD033 -->
 

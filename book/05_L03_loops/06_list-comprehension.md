@@ -32,13 +32,13 @@ It combines:
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★☆☆ (Rather common pattern for processing spatial file paths, coordinate text strings, and table configurations cleanly)  
-**Project Relevance:** ★★☆ (Speeds up environmental feature selection profiles and reduces long multi-line pipeline setups)  
-**Foundation:** ★★☆ (An elegant syntax shorthand optimization tool, though standard loops are logically sufficient)  
+**Lab Relevance:** ★☆☆ (Helpful for concisely printing formatted outputs like in Part 7: Median and ordering, but the entire lab can be completed using standard loops.)  
+**Project Relevance:** ★★☆ (A powerful tool for scoring high on Efficiency [Criteria 9] and Readability [Criteria 7] by compressing boilerplate data extraction across all projects 1-4.)  
+**Foundation:** ★★☆ (An elegant Pythonic syntax shorthand, though standard loops are logically sufficient to accomplish the same tasks.)  
 
-**Time to Read:** 6 minutes  
+**Time to Read:** 20 minutes  
 **In a nutshell:** Compress standard append boilerplate operations into direct single-line extractions without sacrificing code execution velocity.  
-**Skip this if:** You can accurately trace where filtering gates position relative to iteration blocks inside structural bracket list declarations.
+**Skip this if:** You can accurately write single-line comprehensions and know exactly where filtering `if`s versus transforming `if-else`s position relative to the `for` keyword.
 
 ```
 

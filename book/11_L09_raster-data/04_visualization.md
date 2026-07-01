@@ -27,13 +27,13 @@ Raster visualization is never just about showing pixels. Every plot is a choice 
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for validating and presenting raster analysis results)  
-**Project Relevance:** ★★★ (Crucial for generating professional, publication-ready maps)  
-**Foundation:** ★★★ (Connects raw data matrices to visual, geographic interpretation)  
+**Lab Relevance:** ★★★ (A critical bottleneck; absolutely required for plotting False Color Composites and adjusting `vmin`/`vmax` based on histograms in Part 2 and Part 5)  
+**Project Relevance:** ★★★ (Required for accurately presenting satellite imagery and communicating visual, analytical results in projects 3 and 4)  
+**Foundation:** ★★☆ (Key visualization skills specific to multi-band imagery and continuous environmental surfaces)  
 
 **Time to Read:** 20 minutes  
-**In a nutshell:** Transform raw numerical arrays into meaningful geographic maps using scientific colormaps, histograms, RGB composites, and 3D hillshades.  
-**Skip this if:** You are fully proficient in plotting raster arrays with geographic `extent`, generating scaled RGB composites, and blending 3D hillshades in Matplotlib.
+**In a nutshell:** Transform raw numerical arrays into meaningful geographic maps using perceptually uniform colormaps, histograms, RGB composites, and 3D hillshades.  
+**Skip this if:** You are fully proficient in plotting raster arrays using `rasterio.plot.show`, generating scaled RGB False Color Composites, and interpreting raster histograms for contrast stretching.
 
 ```
 
@@ -78,7 +78,7 @@ with rasterio.open(filepath) as src:
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: The `show()` function provides immediate visual feedback, rendering the array correctly in geographic space using the dataset's attached metadata.
+    Output: The <code>show()</code> function provides immediate visual feedback, rendering the array correctly in geographic space using the dataset's attached metadata.
 </div>
 <!-- markdownlint-enable MD033 -->
 
@@ -126,7 +126,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: Visualizing the raw array using `plt.imshow()`. Notice that the axes display row and column indices rather than real-world coordinates.
+    Output: Visualizing the raw array using <code>plt.imshow()</code>. Notice that the axes display row and column indices rather than real-world coordinates.
 </div>
 <!-- markdownlint-enable MD033 -->
 
@@ -630,7 +630,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: Exploring `LightSource` blending modes. Notice how the 'hsv' mode affects the color saturation, while 'overlay' and 'soft' provide different balances of shadows and underlying hue.
+    Output: Exploring <code>LightSource</code> blending modes. Notice how the 'hsv' mode affects the color saturation, while 'overlay' and 'soft' provide different balances of shadows and underlying hue.
 </div>
 <!-- markdownlint-enable MD033 -->
 
@@ -695,7 +695,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: Combining raster and vector data. By projecting the vector layer to the raster's CRS and passing the geographic extent to `imshow`, the cyan glacier polygons align perfectly with the valleys of the underlying hillshade.
+    Output: Combining raster and vector data. By projecting the vector layer to the raster's CRS and passing the geographic extent to <code>imshow</code>, the cyan glacier polygons align perfectly with the valleys of the underlying hillshade.
 </div>
 <!-- markdownlint-enable MD033 -->
 

@@ -27,13 +27,13 @@ Data visualization is an essential part of understanding and interpreting data. 
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for plotting any results or maps in the assignments)  
-**Project Relevance:** ★★★ (Crucial for generating presentation-ready figures for the final report)  
-**Foundation:** ★★★ (Provides the fundamental mechanics for all Python data visualization)  
+**Lab Relevance:** ★★☆ (Highly useful for configuring the specific `fig, ax` canvas, setting dark background colors, and formatting axes layouts required to generate the high-resolution data art in the final lab task.)  
+**Project Relevance:** ★★★ (Essential for fulfilling the "Visual Communication" assessment criteria by generating presentation-ready figures in projects 1, 3, and 4.)  
+**Foundation:** ★★★ (Provides the fundamental mechanics and Object-Oriented architecture for all Python data visualization.)  
 
-**Time to Read:** 15 minutes  
-**In a nutshell:** Master the Object-Oriented "Figure vs. Axes" methodology to take absolute control over your Python visualizations.  
-**Skip this if:** You are already fully comfortable building, styling, and exporting Matplotlib subplots using the `fig, ax = plt.subplots()` object-oriented approach.
+**Time to Read:** 20 minutes  
+**In a nutshell:** Master the Object-Oriented "Figure vs. Axes" methodology to take absolute control over your Python visualizations and spatial maps.  
+**Skip this if:** You are already fully comfortable building, styling, and exporting Matplotlib subplots using the `fig, ax = plt.subplots()` architecture.
 
 ```
 
@@ -506,7 +506,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output of Step 1: `plt.subplots(1, 2)` generates a single Figure containing an array of two empty Axes.
+    Output of Step 1: <code>plt.subplots(1, 2)</code> generates a single Figure containing an array of two empty Axes.
 </div>
 <!-- markdownlint-enable MD033 -->
 
@@ -530,7 +530,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output of Step 2: Data successfully routed to specific axes using array indexing (`axs[0]` and `axs[1]`).
+    Output of Step 2: Data successfully routed to specific axes using array indexing (<code>axs[0]</code> and <code>axs[1]</code>).
 </div>
 <!-- markdownlint-enable MD033 -->
 
@@ -615,7 +615,7 @@ To see exactly why the "Autoscale Trap" is so important to catch, use the intera
     <em><b>Interactive Explorer: The Autoscale Issue.</b><br>
     Toggle the switch to see how relying on Matplotlib's default autoscaling can severely misrepresent the comparative shape of the data. Synchronizing the Y-axis limits ensures that both plots share the exact same mathematical scale, revealing the true visual relationship between Week 1 and Week 2. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_matplotlib_autoscale/" target="_blank">link</a>.</em>
 </figcaption>
-<!-- markdownlint-disable MD033-->
+<!-- markdownlint-enable MD033-->
 
 #### Concept Check: The Canvas and the Box
 
@@ -741,7 +741,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output of Step 3: The customized time series. The X-axis displays the Day of the Year, the viewport is restricted to a 6-day window, and `fig.autofmt_xdate()` keeps the labels neatly organized.
+    Output of Step 3: The customized time series. The X-axis displays the Day of the Year, the viewport is restricted to a 6-day window, and <code>fig.autofmt_xdate()</code> keeps the labels neatly organized.
 </div>
 <!-- markdownlint-enable MD033 -->
 

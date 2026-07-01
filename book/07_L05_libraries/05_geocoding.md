@@ -28,13 +28,13 @@ We understand the world through names and addresses. Computers understand the wo
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Required for turning real-world address data into mappable coordinates in assignments)  
-**Project Relevance:** ★☆☆ (Some spatial projects start with point-of-interest address lists that must be geocoded)  
-**Foundation:** ★★☆ (A valuable spatial data processing step, relying on external API services)  
+**Lab Relevance:** ★★★ (A strict bottleneck; you cannot complete Part 1: Geocoding the locations without using Nominatim to translate the addresses into coordinates)  
+**Project Relevance:** ★☆☆ (Helpful if you decide to extend projects 1 or 2 by translating raw text addresses into mappable spatial geometries)  
+**Foundation:** ★★☆ (A highly valuable spatial data processing step bridging human-readable text and computer-readable coordinates)  
 
 **Time to Read:** 10 minutes  
-**In a nutshell:** Learn how to automatically translate physical addresses into mappable coordinates, and convert coordinates back into human-readable locations using the `geopy` library.  
-**Skip this if:** You already know how to use the `geopy` library to forward and reverse geocode data using Nominatim and handle missing data (`None`) safely.
+**In a nutshell:** Learn how to automatically translate physical addresses into mappable coordinates, and convert coordinates back into human-readable locations using `geopy`.  
+**Skip this if:** You already know how to use the `geopy` library to forward and reverse geocode data using Nominatim, and handle missing locations safely.
 
 ```
 

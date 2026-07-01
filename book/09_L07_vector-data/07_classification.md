@@ -28,13 +28,13 @@ Raw numerical data is powerful for computation, but sub-optimal for human commun
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for producing accurate, readable maps in all assignments)  
-**Project Relevance:** ★★★ (Critical for presenting final spatial analysis results properly)  
-**Foundation:** ★★☆ (Key cartographic principles complementing the programmatic tools)  
+**Lab Relevance:** ★★★ (A critical bottleneck; you must use the `UserDefined` classification scheme with fixed bins and custom colors to build the maps in Part 4 and Part 5)  
+**Project Relevance:** ★★★ (Critical for presenting and communicating final spatial analysis results properly across all projects 1, 2, 3, and 4)  
+**Foundation:** ★★☆ (Key cartographic principles complementing programmatic tools)  
 
 **Time to Read:** 15 minutes  
-**In a nutshell:** Learn to normalize raw counts to eliminate area bias, and use Python's statistical algorithms to group continuous data into readable map categories.  
-**Skip this if:** You completely understand spatially intensive vs. extensive variables and are comfortable applying `mapclassify` schemes like Quantiles and Natural Breaks in GeoPandas.
+**In a nutshell:** Learn to normalize raw counts to eliminate area bias, and use statistical algorithms or custom rules to group continuous data into readable map categories.  
+**Skip this if:** You completely understand spatially intensive vs. extensive variables and are comfortable applying `mapclassify` schemes like Quantiles and UserDefined bins in GeoPandas plotting.
 
 ```
 

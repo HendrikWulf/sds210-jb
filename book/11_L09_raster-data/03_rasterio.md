@@ -27,13 +27,13 @@ A raster file stores two things at once: a grid of values and the spatial inform
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Crucial for importing and accessing raster data in labs)  
-**Project Relevance:** ★★★ (Essential if your project relies on raster environmental grids)  
-**Foundation:** ★★★ (Core concept establishing the link between arrays and geographic space)  
+**Lab Relevance:** ★★★ (A critical bottleneck; you must use `rasterio.open()` and `.read()` to load the satellite bands into memory in Part 1: The Intake Workflow)  
+**Project Relevance:** ★★★ (Crucial for accessing, loading, and inspecting the raw `.tif` satellite files required for analysis in projects 3 and 4)  
+**Foundation:** ★★★ (The essential bridge between raw files on a hard drive and geographic matrices in Python memory)  
 
-**Time to Read:** 15 minutes  
-**In a nutshell:** Learn how to use the Rasterio library to safely open GeoTIFF files, extract their numerical data into NumPy arrays, and access their critical spatial metadata.  
-**Skip this if:** You are fully comfortable opening rasters using the `with rasterio.open()` context manager, extracting bands with `.read()`, and retrieving metadata like `.crs` and `.transform`.
+**Time to Read:** 10 minutes  
+**In a nutshell:** Learn how to use Rasterio to safely open GeoTIFF files, extract their numerical data into NumPy arrays, and access critical spatial metadata.  
+**Skip this if:** You are completely comfortable opening rasters using the `with rasterio.open()` context manager, extracting bands with `.read()`, and retrieving metadata like `.profile` and `.transform`.
 
 ```
 
@@ -144,7 +144,7 @@ with rasterio.open(filepath) as src:
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: The `show()` function provides immediate visual feedback, rendering the array correctly in space using the dataset's metadata.
+    Output: The <code>show()</code> function provides immediate visual feedback, rendering the array correctly in space using the dataset's metadata.
 </div>
 <!-- markdownlint-enable MD033 -->
 

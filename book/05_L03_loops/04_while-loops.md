@@ -28,13 +28,13 @@ The loop continues while the condition holds and stops the moment it becomes `Fa
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★☆ (Essential for dynamically filtering tracking strings or iterating dynamically over spatial streams)  
-**Project Relevance:** ★☆☆ (Crucial when reading environmental profiles or threshold sensor logs of variable sizes)  
-**Foundation:** ★★☆ (A non-negotiable core structural pillar alongside standard for-loops)  
+**Lab Relevance:** ★★☆ (Directly required to complete the threshold-based sequence generation in Part 8 - Optional, but not a strict bottleneck for the main tasks in Parts 1-7.)  
+**Project Relevance:** ★★☆ (Highly useful for implementing robust data requests like paginated API calls in project 2, or searching continuous logs in project 4 until a target is reached.)  
+**Foundation:** ★★☆ (A core structural pillar alongside standard for-loops.)  
 
-**Time to Read:** 7 minutes  
-**In a nutshell:** Shift from running code over fixed lists to driving adaptive routines that process data flexibly until an explicit condition triggers cessation.  
-**Skip this if:** You can explain fluently how a control variable scales, what constructs an infinite loop, and how flags handle dynamic conditional updates inside a loop body.
+**Time to Read:** 15 minutes  
+**In a nutshell:** While loops shift your code from running over fixed lists to processing data flexibly until an explicit condition triggers termination.  
+**Skip this if:** You can explain fluently how a control variable scales, what constructs an infinite loop, and how flag variables handle dynamic updates inside a loop body.
 
 ```
 

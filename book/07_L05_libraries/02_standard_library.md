@@ -27,16 +27,18 @@ Before you spend hours writing complex code to solve a common problem (like adva
 
 ```
 
+### The Python Standard Library
+
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Standard library modules like `os`, `pathlib`, and `math` are essential for almost every spatial lab)  
-**Project Relevance:** ★★☆ (Required for handling Web APIs and building robust file structures in projects)  
-**Foundation:** ★★★ (Core Python knowledge that prevents you from reinventing the wheel)  
+**Lab Relevance:** ★★☆ (Highly useful for managing the API rate limits in Part 6 using `time.sleep()`, and parsing responses with the `json` module)  
+**Project Relevance:** ★★☆ (Required for safely managing file paths with `pathlib` and handling missing data dynamically in projects 1, 2, 3, and 4)  
+**Foundation:** ★★★ (Core Python knowledge that prevents you from reinventing the wheel by using built-in math and OS tools)  
 
-**Time to Read:** 10 minutes  
+**Time to Read:** 15 minutes  
 **In a nutshell:** Learn how to leverage Python's built-in modules for advanced math, robust file system navigation, and JSON parsing without downloading external tools.  
-**Skip this if:** You are already comfortable importing standard modules, using `pathlib` for file paths, and unpacking nested responses using the `json` module.
+**Skip this if:** You are already comfortable importing standard modules, using `pathlib` for file paths, and parsing nested JSON strings into dictionaries.
 
 ```
 

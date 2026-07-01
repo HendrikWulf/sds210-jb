@@ -23,12 +23,12 @@ Before writing advanced, modular Python code, you should understand the conceptu
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Project Relevance:** ★★★ (Essential if you want to architect robust, reusable code for your independent projects.)  
-**Foundation:** ★★★ (Represents a fundamental paradigm shift required for advanced Python development.)  
+**Project Relevance:** ★☆☆ (Provides the mental model for structuring projects 1 and 2, but contains no executable code necessary for your final submission)  
+**Foundation:** ★★★ (Represents a fundamental paradigm shift required for advanced Python development and building custom packages)  
 
-**Time to Read:** 10 minutes  
+**Time to Read:** 5 minutes  
 **In a nutshell:** Discover how Object-Oriented Programming bundles disconnected variables and functions into smart, self-managing entities.  
-**Skip this if:** You are already confident with concepts like classes, instances, attributes, and methods in Python.
+**Skip this if:** You are already confident with the conceptual differences between procedural and object-oriented paradigms, and understand what classes and instances are.
 
 ```
 

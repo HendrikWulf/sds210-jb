@@ -27,10 +27,10 @@ Inheritance lets you build a more specific class on top of a more general one. A
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Project Relevance:** ★★★ (Essential for cleanly modeling related entities, like different types of sensors or geographic zones, without repeating code.)  
-**Foundation:** ★★★ (A core pillar of Object-Oriented software architecture.)  
+**Project Relevance:** ★☆☆ (Helpful for cleanly modeling related entities like different types of satellite sensors in project 3, but easily brute-forced without it)  
+**Foundation:** ★★☆ (A core pillar of Object-Oriented software architecture, though flat and simple hierarchies are generally preferred)  
 
-**Time to Read:** 12 minutes  
+**Time to Read:** 20 minutes  
 **In a nutshell:** Learn how to automatically reuse and extend the behavior of parent blueprints to create highly specialized geospatial objects with less code.  
 **Skip this if:** You are completely comfortable with parent/child classes, method resolution order, and using `super()` to extend initialization.
 

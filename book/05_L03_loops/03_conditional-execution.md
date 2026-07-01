@@ -30,13 +30,13 @@ Together, they allow code to dynamically react to data.
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★☆ (Crucial for filtering and transforming data in any lab)  
-**Project Relevance:** ★★☆ (Required for custom logic, handling missing values, classifying data)  
-**Foundation:** ★★★ (Core programming logic)  
+**Lab Relevance:** ★★★ (A critical bottleneck; absolutely required for tracking the maximum distance in Part 5 and evaluating the even/odd median split in Part 7.)  
+**Project Relevance:** ★★★ (Essential for filtering data arrays in project 3 and parsing specific categories or threshold indicators in projects 1 and 2.)  
+**Foundation:** ★★★ (The fundamental logic structure for data-driven decision making.)  
 
-**Time to Read:** 10 minutes  
+**Time to Read:** 20 minutes  
 **In a nutshell:** Conditions allow your loops to make decisions, transforming static repetition into dynamic, data-driven workflows like filtering and classification.  
-**Skip this if:** You are fully comfortable with `if`, `elif`, `else` statements, logical operators (`and`, `or`, `not`), and using them inside `for` loops to filter and transform lists.
+**Skip this if:** You are fully comfortable with `if`, `elif`, and `else` statements, logical operators (`and`, `or`, `not`), and using them inside loops to filter and transform lists.
 
 ```
 

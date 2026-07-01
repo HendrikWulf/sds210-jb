@@ -26,19 +26,18 @@ You do not have to invent the wheel.
 
 The global Python community has already built and shared code for almost any task you can imagine. We just need to download it.
 
-
 ```
 
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for passing labs; you must install spatial libraries like `geopandas` to succeed)  
-**Project Relevance:** ★★★ (All advanced data science projects rely heavily on community packages)  
-**Foundation:** ★★★ (Core to navigating the modern Python ecosystem)  
+**Lab Relevance:** ★★☆ (Directly applies to importing `geopy` for Part 1 and `tqdm` for the progress bars in Part 6, though the installation steps might be pre-configured for you)  
+**Project Relevance:** ★★★ (All advanced data science projects [1, 2, 3, 4] rely heavily on installing community packages like `geopandas` or `folium` to succeed)  
+**Foundation:** ★★★ (Core to navigating and extending the modern open-source Python ecosystem)  
 
 **Time to Read:** 10 minutes  
-**In a nutshell:** Learn how to tap into Python's vast open-source ecosystem by using package managers to download and import powerful community-built tools.  
-**Skip this if:** You already know how to use `pip` or `conda` to install external packages into a virtual environment, and clearly understand namespace logic when importing functions.
+**In a nutshell:** Learn how to tap into Python's vast open-source ecosystem by using package managers like conda to download powerful community-built tools.  
+**Skip this if:** You already know how to use `pip` or `conda` to install external packages into a virtual environment, and understand namespace logic when importing functions.
 
 ```
 

@@ -23,6 +23,18 @@ Writing geospatial code that checks assumptions and fails clearly
 Reliable spatial code does not only perform the intended analysis. It also anticipates mistakes, checks assumptions, and fails clearly when something is wrong.
 ```
 
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Project Relevance:** ★★☆ (Highly useful for passing the "Robustness" assessment criteria and ensuring your spatial operations don't silently fail in projects 1, 2, 3, and 4.)  
+**Foundation:** ★★★ (A vital software engineering mindset for building trustworthy and reliable data pipelines.)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Anticipate mistakes, explicitly check spatial assumptions (like matching CRSs), and force your code to fail clearly when inputs are wrong.  
+**Skip this if:** You already implement explicit assertions, type checks, and custom `ValueError` handling to catch misaligned spatial data before it executes.
+
+```
+
 In this chapter, you will learn how to write code that is safer to rerun, easier to {term}`debug <Debugging>`, and less likely to fail silently. The goal is to make your code trustworthy.
 
 A spatial workflow may look clean and still be fragile. Python may accept the code perfectly, yet the analysis can still be wrong. A vector overlay may run even though the layers use different coordinate systems. A {term}`raster <Raster data model>` extraction may return empty values because the points do not overlap the raster extent. A column name may differ slightly from what you expected, or a filter may silently remove every row.
@@ -32,18 +44,6 @@ These are not unusual edge cases. They are normal situations in real spatial ana
 This mindset is called {term}`defensive coding <Defensive programming>`: writing code that does not trust its inputs blindly. It checks the assumptions that matter, makes them explicit, and stops early when the workflow is no longer valid. This is especially important in geospatial work, where even a simple analysis depends on many small truths: that the file exists, that the data load correctly, that the {term}`CRS <Coordinate Reference System>` is known and compatible, that layers overlap, and that intermediate results are not empty.
 
 Well-organized code is easier to follow, but robust code goes one step further: it verifies that the workflow still makes sense before continuing.
-
-```{admonition} Chapter Relevance
-:class: dropdown
-
-**Lab Relevance:** ★★★ (Directly helps you catch common lab errors such as missing files, wrong CRS assumptions, and empty outputs.)  
-**Project Relevance:** ★★★ (Protects your final project from silent spatial mistakes and makes your code discussion easier to defend.)  
-**Foundation:** ★★★ (Builds core habits for robust, trustworthy, and {term}`reproducible <Reproducibility>` spatial workflows.)  
-
-**Time to Read:** 24 minutes  
-**In a nutshell:** This chapter teaches you how to make spatial workflows stop early with clear messages instead of silently producing invalid results.  
-**Skip this if:** You already validate paths, parameters, CRS compatibility, spatial overlap, raster alignment, required columns, and empty outputs in your geospatial code.
-```
 
 ---
 

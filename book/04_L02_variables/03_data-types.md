@@ -29,13 +29,13 @@ While variables hold values in memory, data types determine how Python interpret
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Data types cause many beginner errors; essential for every lab)  
-**Project Relevance:** ★★★ (Fundamental to processing, filtering, and mapping any dataset)  
-**Foundation:** ★★★ (An important core programming concept)  
+**Lab Relevance:** ★★☆ (Required to understand float conversion behavior and accurately answer the conceptual question in Part 3: Expressions and data types.)  
+**Project Relevance:** ★★★ (Vital for distinguishing between textual categories and numeric IDs in project 1, or parsing raw string outputs from JSON web data in project 2.)  
+**Foundation:** ★★★ (An important core programming concept that explains why certain syntax combinations crash.)  
 
-**Time to Read:** 7 minutes  
+**Time to Read:** 20 minutes  
 **In a nutshell:** Data types define how Python interprets the values you store, dictating what mathematical or logical operations are allowed and explaining why certain errors occur.  
-**Skip this if:** You already know the difference between `int`, `float`, `str`, and `bool`, and know how to use `type()` to diagnose and fix `TypeError`s and `ValueError`s.
+**Skip this if:** You already know the difference between `int`, `float`, `str`, and `bool`, and know how to use `type()` to cast variables and debug `TypeError`s.
 
 ```
 

@@ -27,13 +27,13 @@ Spatial analysis is only useful if you can save your results and integrate them 
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for exporting data to be used in GIS or other scripts)  
-**Project Relevance:** ★★★ (Required for saving outputs and managing data size in projects)  
-**Foundation:** ★★★ (Core spatial data management skills)  
+**Lab Relevance:** ★☆☆ (Contextual knowledge; updating profiles, saving files, and windowed reading are not strictly required to complete the specific tasks in Practical L9)  
+**Project Relevance:** ★★★ (Essential for exporting final outputs, managing massive file sizes, and clipping arrays to specific areas of interest in projects 3 and 4)  
+**Foundation:** ★★☆ (Crucial memory management and I/O skills for making operational raster workflows actually run on personal computers)  
 
 **Time to Read:** 15 minutes  
-**In a nutshell:** Master the mechanics of writing arrays back to disk with spatial metadata, handling massive files safely, and clipping data to areas of interest.  
-**Skip this if:** You are completely comfortable updating Rasterio profiles to write GeoTIFFs, using `Window` to read array subsets, and clipping arrays with vector geometries using `rasterio.mask`.
+**In a nutshell:** Master the mechanics of writing arrays back to disk with spatial metadata, handling massive files safely, and clipping data to specific geometries.  
+**Skip this if:** You are completely comfortable updating Rasterio profiles to write GeoTIFFs to disk, using `Window` to read array subsets, and clipping arrays with vector geometries using `rasterio.mask`.
 
 ```
 
@@ -323,7 +323,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: Clipping with a vector mask. The `mask` function sets all pixels outside the polygon to zero (or NoData) and trims the array to the tightest possible bounding box around the feature.
+    Output: Clipping with a vector mask. The <code>mask</code> function sets all pixels outside the polygon to zero (or NoData) and trims the array to the tightest possible bounding box around the feature.
 </div>
 <!-- markdownlint-enable MD033 -->
 

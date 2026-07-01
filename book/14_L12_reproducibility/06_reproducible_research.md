@@ -23,6 +23,18 @@ Bringing the pillars of reproducible spatial science together
 {term}`Reproducibility` means that another person, or you at a later time, can rerun the same analysis with the same {term}`code <Source code>`, data, and {term}`environment <Virtual environment>` and recover the same results.
 ```
 
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Project Relevance:** ★☆☆ (Acts as a concluding summary and checklist for your final submission across projects 1, 2, 3, and 4, but contains no new technical requirements.)  
+**Foundation:** ★★★ (Brings all best practices together into the envisioned academic and professional standard for computational science.)  
+
+**Time to Read:** 5 minutes  
+**In a nutshell:** Review the core pillars of reproducible spatial science to ensure your final workflow is transparent, runnable, and scientifically trustworthy.  
+**Skip this if:** You are just looking for new coding techniques, as this chapter serves as a high-level conceptual recap of the module's core philosophy.
+
+```
+
 In the previous chapters, you learned how to write readable Python, organize larger workflows, code defensively, capture software environments, and document your spatial projects clearly. Each of these practices improves the quality of your code on its own. In this final chapter, we make the scientific connection explicit.
 
 Together, these practices are the building blocks of **reproducible research**.
@@ -40,17 +52,6 @@ This matters immensely because geospatial workflows are complex. A final map or 
 If these intermediate steps cannot be rerun and verified by another researcher, the final result becomes impossible to trust.
 
 This chapter brings the whole lesson together. You will learn what reproducibility means in computational research, how it differs from replicability, why it should be treated as a minimum standard, where it most often breaks down, and what a realistic reproducibility standard looks like for SDS210 projects.
-
-```{admonition} Chapter Relevance
-:class: dropdown
-
-**Project Relevance:** ★★★ (Directly supports final project quality by integrating code, data, environment, Git, and documentation into one rerunnable workflow.)  
-**Foundation:** ★★★ (Defines reproducible spatial research as a core scientific practice rather than a formatting preference.)  
-
-**Time to Read:** 24 minutes  
-**In a nutshell:** This chapter shows how the individual best practices from the lesson combine into a workflow that another person can rerun, inspect, and trust.  
-**Skip this if:** You can already distinguish reproducibility from replicability and can audit a spatial project for raw data integrity, relative paths, environment files, fixed randomness, Git history, documentation, and clean top-to-bottom execution.
-```
 
 ---
 
