@@ -25,13 +25,13 @@ Visualization is the fastest way to verify data integrity. Before analyzing your
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for validating data structures visually in assignments)  
-**Project Relevance:** ★★★ (Required for final report graphics and interactive dashboards)  
-**Foundation:** ★★☆ (Crucial bridge between data arrays and geographic maps)  
+**Lab Relevance:** ★★☆ (Relevant for visualizing 1D time series in Part 2: Time Series & Local Trend and generating the scatter visualizations with `hvplot` in Part 4)  
+**Project Relevance:** ★★☆ (Crucial for validating your data visually and generating final report graphics or interactive charts in projects 2, 3, and 4)  
+**Foundation:** ★★☆ (Bridges raw array data with visual geographic and temporal interpretation)  
 
 **Time to Read:** 15 minutes  
-**In a nutshell:** Transform raw multidimensional data cubes into professional static maps, faceted grids, animations, and interactive web maps.  
-**Skip this if:** You are completely comfortable using xarray's `.plot()` wrapper, generating `FacetGrid` subplots, projecting data with Cartopy, and creating interactive time-scrubbers with `hvplot`.
+**In a nutshell:** Transform raw multidimensional data cubes into professional static maps, faceted grids, animations, and interactive web tools.  
+**Skip this if:** You are completely comfortable using xarray's `.plot()` wrapper, generating `FacetGrid` subplots, and creating interactive graphs with `hvplot`.
 
 ```
 

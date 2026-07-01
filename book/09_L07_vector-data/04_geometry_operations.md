@@ -28,13 +28,13 @@ Now that you know how to safely project the Earth onto a flat metric grid, you c
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Measuring areas and generating proximity buffers are mandatory skills for lab assignments)  
-**Project Relevance:** ★★★ (Provides the analytical toolset needed to answer real-world spatial queries)  
-**Foundation:** ★★★ (Teaches the core topological and geometric operations that make spatial data science unique)  
+**Lab Relevance:** ★☆☆ (Contextual knowledge; generating new shapes like buffers or calculating areas is not required to complete the specific tasks in Practical L7)  
+**Project Relevance:** ★★★ (Provides the analytical toolset needed to engineer spatial metrics, like calculating neighborhood areas in project 1 or mapping fire perimeters in project 2)  
+**Foundation:** ★★★ (Teaches the core topological and geometric modification operations that make spatial data science unique)  
 
 **Time to Read:** 15 minutes  
-**In a nutshell:** Learn to actively analyze spatial data by calculating areas and perimeters, finding centroids, drawing proximity buffers, and simplifying complex geometries.  
-**Skip this if:** You are already highly proficient with Shapely geometry operations within GeoPandas (`.area`, `.length`, `.centroid`, `.buffer()`, `.simplify()`, `.envelope`, `.convex_hull`).
+**In a nutshell:** Learn to actively analyze spatial data by calculating areas and perimeters, drawing proximity buffers, and simplifying complex geometries.  
+**Skip this if:** You are already highly proficient with Shapely geometry operations within GeoPandas (`.area`, `.length`, `.centroid`, `.buffer()`, and `.convex_hull`).
 
 ```
 
@@ -202,7 +202,7 @@ ax.set_title("The Geographic Center(s) of Switzerland")
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Using `.centroid` to find the geometric center of mass. The true geographic center of the Swiss mainland is famous and is located at Älggi-Alp in the canton of Obwalden.
+    Using <code>.centroid</code> to find the geometric center of mass. The true geographic center of the Swiss mainland is famous and is located at Älggi-Alp in the canton of Obwalden.
 </div>
 <!-- markdownlint-enable MD033 -->
 
@@ -298,7 +298,7 @@ ax.set_title("Nuclear Safety Zones in Switzerland")
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Drawing zones of influence using `.buffer()`. Because our data was safely inside the EPSG:2056 grid, providing the buffer distances in meters generates perfectly accurate proximity zones around the plants.
+    Drawing zones of influence using <code>.buffer()</code>. Because our data was safely inside the EPSG:2056 grid, providing the buffer distances in meters generates perfectly accurate proximity zones around the plants.
 </div>
 <!-- markdownlint-enable MD033 -->
 

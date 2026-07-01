@@ -29,12 +29,12 @@ Real-world spatial data can be messy and unpredictable. You might not know how m
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Frequently used in advanced data parsing and cleaning tasks)  
-**Project Relevance:** ★★☆ (Useful for building robust custom tools, though not strictly necessary for simple scripts)  
-**Foundation:** ★★☆ (Core Pythonic idioms common in intermediate spatial code)  
+**Lab Relevance:** ★★★ (A critical bottleneck; required to complete Part 5: Flexible routing with `*args` and Part 6: Flexible metadata with `**kwargs`.)  
+**Project Relevance:** ★★☆ (Extremely useful for handling the unpredictable metadata dictionaries in Project 1 and parsing dynamic API responses in Project 2.)  
+**Foundation:** ★★☆ (Core Pythonic idioms commonly used in intermediate and advanced spatial libraries.)  
 
-**Time to Read:** 10 minutes  
-**In a nutshell:** Learn how to use `*args`, `**kwargs`, and lambda functions to create adaptable tools that handle unpredictable spatial data inputs.  
+**Time to Read:** 20 minutes  
+**In a nutshell:** Learn how to use `*args`, `**kwargs`, and lambda functions to create adaptable tools that handle unpredictable arrays of spatial data inputs.  
 **Skip this if:** You already know how to pack and unpack arguments using the `*` and `**` operators, and are comfortable writing and passing anonymous `lambda` functions.
 
 ```

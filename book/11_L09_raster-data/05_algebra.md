@@ -27,13 +27,13 @@ Raster bands are essentially numerical matrices. By performing mathematical oper
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for calculating indices and performing change detection in assignments)  
-**Project Relevance:** ★★★ (Crucial for deriving custom analytical masks for environmental research)  
-**Foundation:** ★★★ (The practical application of array math to spatial challenges)  
+**Lab Relevance:** ★★★ (A critical bottleneck; provides the exact mathematical framework needed for Part 3: Quantifying Spectral Change and Part 4: Statistical Anomaly Detection)  
+**Project Relevance:** ★★★ (The absolute core methodology for detecting anomalies, calculating spatial distances, and deriving indicators in projects 3 and 4)  
+**Foundation:** ★★★ (The practical application of multidimensional array math to solve complex spatial and environmental challenges)  
 
 **Time to Read:** 15 minutes  
 **In a nutshell:** Master pixel-by-pixel mathematics to calculate environmental indices, detect temporal changes, and extract hidden insights from raster arrays.  
-**Skip this if:** You are completely comfortable doing element-wise array math, handling `NaN` warning states with `np.errstate`, and calculating spectral indices like NDSI or EVI across multispectral rasters.
+**Skip this if:** You are completely comfortable doing element-wise array math, handling `NaN` warning states with `np.errstate`, and calculating spectral indices or distances across multispectral rasters.
 
 ```
 
@@ -237,7 +237,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: By comparing the 2019 and 2023 False Color Composites, we can visually spot the expansion of bare land. The EVI change map quantifies this exactly, using the diverging `bam` colormap to highlight regions of severe vegetation loss in dark red.
+    Output: By comparing the 2019 and 2023 False Color Composites, we can visually spot the expansion of bare land. The EVI change map quantifies this exactly, using the diverging <code>bam</code> colormap to highlight regions of severe vegetation loss in dark red.
 </div>
 <!-- markdownlint-enable MD033 -->
 
@@ -315,7 +315,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: Total Spectral Distance using the sequential `lajolla` colormap. Bright areas represent pixels that have drastically shifted their reflectance signature, serving as a universal mask for land surface change.
+    Output: Total Spectral Distance using the sequential <code>lajolla</code> colormap. Bright areas represent pixels that have drastically shifted their reflectance signature, serving as a universal mask for land surface change.
 </div>
 <!-- markdownlint-enable MD033 -->
 

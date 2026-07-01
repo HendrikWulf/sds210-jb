@@ -27,13 +27,14 @@ The ultimate power of a Geographic Information System lies in fusing disparate d
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Spatial joins and overlays are central requirements for advanced labs)  
-**Project Relevance:** ★★★ (Essential for linking multi-source data where no common ID exists)  
+**Lab Relevance:** ★★☆ (Directly relates to the Reflection in Practical L7; spatial joins (`.sjoin()`) are the optimized, professional alternative to the manual loop written in Part 5)  
+**Project Relevance:** ★★★ (Essential for linking multi-source data where no common ID exists, heavily utilized in projects 1, 2, and 4)  
 **Foundation:** ★★★ (The pinnacle of vector geoprocessing)  
 
 **Time to Read:** 20 minutes  
 **In a nutshell:** Combine completely disparate datasets together by using geographic location as the joining key, and physically cut geometries into new analytical shapes using overlays.  
-**Skip this if:** You are fully proficient with GeoPandas `.sjoin()` (understanding the difference between its `how` and `predicate` parameters), `.dissolve()`, and `.overlay()` algorithms.
+**Skip this if:** You are fully proficient with GeoPandas `.sjoin()` (understanding the `how` and `predicate` parameters), `.dissolve()`, and `.overlay()` algorithms.
+
 ```
 
 In the previous section, we learned how to ask spatial questions to filter our data (e.g., finding all primary homes inside an evacuation zone).
@@ -154,7 +155,7 @@ The join type determines what happens to geometries that completely fail the spa
 
 <figcaption>
     <em><b>Interactive Explorer: Spatial Joins.</b><br>
-    Toggle the predicate and join type controls to see how `.sjoin()` actively filters geometries. Notice how selecting an `inner` join deletes unmatched points entirely, while a `left` join safely keeps them with missing data (`NaN`). For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L07_ch06_02_spatial_join/" target="_blank">link</a>.</em>
+    Toggle the predicate and join type controls to see how <code>.sjoin()</code> actively filters geometries. Notice how selecting an <code>inner</code> join deletes unmatched points entirely, while a <code>left</code> join safely keeps them with missing data (<code>NaN</code>). For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L07_ch06_02_spatial_join/" target="_blank">link</a>.</em>
 </figcaption>
 <!-- markdownlint-enable MD033 -->
 
@@ -263,7 +264,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <figcaption>
-    <em>Visualizing the `.dissolve()` method. Notice how the fine, spiderweb-like internal borders of the municipalities on the left have been completely melted away, leaving only the cantonal outlines on the right.</em>
+    <em>Visualizing the <code>.dissolve()</code> method. Notice how the fine, spiderweb-like internal borders of the municipalities on the left have been completely melted away, leaving only the cantonal outlines on the right.</em>
 </figcaption>
 <!-- markdownlint-enable MD033 -->
 
@@ -409,7 +410,7 @@ ax.set_axis_off()
 
 <!-- markdownlint-disable MD033-->
 <figcaption>
-    <em>isualizing the `.overlay()` method. By coloring the cut highway lines by their new canton name, we can visually prove that the continuous roads were physically chopped exactly at the borders.</em>
+    <em>isualizing the <code>.overlay()</code> method. By coloring the cut highway lines by their new canton name, we can visually prove that the continuous roads were physically chopped exactly at the borders.</em>
 </figcaption>
 <!-- markdownlint-enable MD033 -->
 

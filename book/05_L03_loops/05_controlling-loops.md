@@ -30,13 +30,13 @@ or **leave a placeholder while drafting code**.
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★☆☆ (Indispensable for processing noisy data streams, filtering missing data points, and optimizing search operations)  
-**Project Relevance:** ★★☆ (Essential for error-handling blocks, handling missing data entries safely, and halting endless spatial lookups)  
-**Foundation:** ★★☆ (Core architectural logic commands that give you explicit internal management over any running iteration block)  
+**Lab Relevance:** ★★☆ (Crucial for successfully completing Part 6: Stopping early with `break`, ensuring you can halt iterations exactly when a threshold is breached.)  
+**Project Relevance:** ★★☆ (Essential for building robust error-handling blocks [Criteria 8] and safely skipping corrupted or missing data entries in projects 1, 2, 3, and 4.)  
+**Foundation:** ★★☆ (Core architectural commands that give you explicit internal management over any running iteration block.)  
 
-**Time to Read:** 6 minutes  
-**In a nutshell:** Gain fine-grained control over execution structures by learning to actively alter loop lifespans dynamically from the inside out.  
-**Skip this if:** You can accurately contrast how pass, break, and continue alter the execution stack, and how continue changes behavior inside a while loop versus a for loop.
+**Time to Read:** 15 minutes  
+**In a nutshell:** Gain fine-grained control over execution structures by learning to actively skip items or halt loop lifespans dynamically from the inside out.  
+**Skip this if:** You can accurately contrast how `pass`, `break`, and `continue` alter the execution stack, and how `continue` changes behavior inside a `while` loop versus a `for` loop.
 
 ```
 

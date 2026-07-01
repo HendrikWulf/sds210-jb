@@ -28,13 +28,13 @@ A beautifully styled thematic map is excellent, but polygons floating in a blank
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Adding a basemap is usually a strict requirement for spatial plots)  
-**Project Relevance:** ★★★ (Required for contextualizing any real-world maps in your reports)  
-**Foundation:** ★★☆ (Crucial workflow step to avoid the infamous coordinate clash)  
+**Lab Relevance:** ★☆☆ (Helpful background for web maps, but fetching `contextily` basemaps is not required for the specific dark-mode river data art in this specific lab.)  
+**Project Relevance:** ★★☆ (Highly useful for grounding your thematic plots with real-world spatial context, particularly in localized applications like projects 1 and 2.)  
+**Foundation:** ★★☆ (A crucial workflow step to understand and avoid the infamous Web Mercator coordinate clash in Python mapping.)  
 
 **Time to Read:** 15 minutes  
-**In a nutshell:** Learn how to dynamically fetch and overlay internet map tiles behind your plots using `contextily`, and avoid the infamous Web Mercator coordinate clash.  
-**Skip this if:** You are completely comfortable reprojecting spatial data to `EPSG:3857` and using `ctx.add_basemap(ax)` to add tiled backgrounds.
+**In a nutshell:** Learn how to dynamically fetch and overlay internet map tiles behind your static plots using `contextily`.  
+**Skip this if:** You are completely comfortable reprojecting spatial data to `EPSG:3857` and using `ctx.add_basemap()` to seamlessly overlay provider tiles under Matplotlib figures.
 
 ```
 
@@ -154,7 +154,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: By ensuring our data is in EPSG:3857, contextily successfully fetches the matching background tiles to provide real-world location context. It looks like Zurich is right in the path of totality!
+    Output: By ensuring our data is in <code>EPSG:3857</code>, contextily successfully fetches the matching background tiles to provide real-world location context. It looks like Zurich is right in the path of totality!
 </div>
 <!-- markdownlint-enable MD033 -->
 

@@ -28,13 +28,13 @@ A coordinate like `(8.5, 47.4)` is completely meaningless to a computer unless i
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Incorrect CRS alignment is the number one cause of failed spatial joins and distance calculations in labs)  
-**Project Relevance:** ★★★ (Essential for combining different datasets from different sources accurately)  
+**Lab Relevance:** ★★★ (A critical bottleneck; you must use `.to_crs(epsg=2056)` in Part 1: The Metadata Intake to accurately project WGS84 coordinates into the Swiss metric grid)  
+**Project Relevance:** ★★★ (Essential for accurately combining and analyzing different datasets from diverse sources in projects 1, 2, 3, and 4)  
 **Foundation:** ★★★ (A critical conceptual pillar of all Geographic Information Systems)  
 
 **Time to Read:** 15 minutes  
 **In a nutshell:** Master Coordinate Reference Systems (CRS) to accurately map the 3D Earth onto a 2D grid and avoid the most common spatial data errors using GeoPandas.  
-**Skip this if:** You already understand the difference between geographic (degrees) and projected (meters) CRS, know core EPSG codes (4326, 3857, 2056), and confidently understand the mathematical difference between `.set_crs()` and `.to_crs()`.
+**Skip this if:** You completely understand the difference between geographic (degrees) and projected (meters) CRS, know core EPSG codes (4326, 2056), and understand `.set_crs()` vs `.to_crs()`.
 
 ```
 

@@ -29,11 +29,11 @@ Writing a function is not just about making the code run; it is about making the
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★☆☆ (Debugging scope and mutable defaults can be helpful some lab assignments)  
-**Project Relevance:** ★★☆ (Relevant for writing reliable, bug-free spatial pipelines)  
-**Foundation:** ★★★ (Advanced foundational knowledge that separates beginners from professionals)  
+**Lab Relevance:** ★☆☆ (Helpful for debugging unexpected behaviors, though the specific tasks in Practical L4 do not explicitly test scope or mutable default parameters.)  
+**Project Relevance:** ★★☆ (Highly relevant for writing reliable, bug-free spatial pipelines across all projects, directly addressing the "Robustness" assessment criteria.)  
+**Foundation:** ★★★ (Advanced foundational knowledge that separates amateur scripters from professional software engineers.)  
 
-**Time to Read:** 15 minutes  
+**Time to Read:** 20 minutes  
 **In a nutshell:** Learn how to manage variable scope, set optional parameters correctly, and avoid the notorious mutable default trap to write safe, bug-free functions.  
 **Skip this if:** You already deeply understand local vs. global scope and know exactly why you should never use `[]` or `{}` as a default parameter in Python.
 

@@ -26,13 +26,13 @@ Once spatial datasets are aligned, mathematical operations allow you to extract 
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for calculating indices and applying conditional masks, which are staple lab tasks.)  
-**Project Relevance:** ★★★ (Core to almost any spatial analysis project involving raster data and environmental monitoring.)  
-**Foundation:** ★★★ (Fundamental skills for moving from raw pixel data to derived statistical insights.)  
+**Lab Relevance:** ★★☆ (Provides the necessary background for applying conditional masking using `.where()` to filter out lake bodies in Part 3: Pixel-Wise Trend)  
+**Project Relevance:** ★★★ (The absolute core methodology for calculating indices and applying conditional thresholds in remote sensing projects 3 and 4)  
+**Foundation:** ★★★ (Fundamental skills for moving from raw pixel data to derived statistical insights)  
 
 **Time to Read:** 15 minutes  
-**In a nutshell:** Learn to perform pixel-by-pixel mathematical operations and spatial aggregations to extract meaningful environmental boundaries from raw satellite imagery.  
-**Skip this if:** Do not skip.
+**In a nutshell:** Learn to perform pixel-by-pixel mathematical operations, handle structural alignments, and apply conditional masks to extract environmental relationships.  
+**Skip this if:** You already intuitively know how `xarray` aligns coordinates during math operations and are comfortable using `.where()` for spatial masking.
 
 ```
 
@@ -168,7 +168,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    The computed NDVI layer. Because we assigned the calculation directly back to our Dataset container (ds["NDVI"]), the new derived variable is instantly available and perfectly aligned alongside our elevation data.
+    The computed NDVI layer. Because we assigned the calculation directly back to our Dataset container (<code>ds["NDVI"]</code>), the new derived variable is instantly available and perfectly aligned alongside our elevation data.
 </div>
 <!-- markdownlint-enable MD033-->
 
@@ -200,7 +200,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    The masked NDVI layer. The white areas represent pixels that failed our condition (NDVI > 0.3) and have been safely converted to NaN.
+    The masked NDVI layer. The white areas represent pixels that failed our condition (<code>NDVI > 0.3</code>) and have been safely converted to NaN.
 </div>
 <!-- markdownlint-enable MD033-->
 

@@ -26,13 +26,13 @@ Multi-item variables store **collections of related values** in a single contain
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for literally any data manipulation in spatial labs)  
-**Project Relevance:** ★★★ (You cannot build a project without structuring your data properly)  
-**Foundation:** ★★★ (Core data structures in Python)  
+**Lab Relevance:** ★★★ (An absolute bottleneck; required to complete Part 4: Coordinates as lists, Part 5: Organising cities, and Part 8: Storing distance results.)  
+**Project Relevance:** ★★★ (Nested dictionaries map exactly to the JSON API data required for project 2, and lists are mandatory for time-series extraction in project 4.)  
+**Foundation:** ★★★ (The core data structures that govern all advanced Python logic.)  
 
-**Time to Read:** 12 minutes  
-**In a nutshell:** Python provides four main ways to group data—Lists, Tuples, Sets, and Dictionaries—and choosing the right one makes your code faster, cleaner, and less prone to bugs.  
-**Skip this if:** You already understand mutability, can confidently use dictionary keys and list indices, and know the exact difference between copying and referencing in memory.
+**Time to Read:** 25 minutes  
+**In a nutshell:** Collections like lists, tuples, sets, and dictionaries allow you to group related spatial data into powerful, queryable structures.  
+**Skip this if:** You know exactly when to use a dictionary vs. a list, understand nested indexing, and know how `.copy()` prevents shared memory reference bugs.
 
 ```
 

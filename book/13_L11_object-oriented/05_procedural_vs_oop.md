@@ -25,13 +25,14 @@ Choosing the right design for spatial problems
 
 ```{admonition} Chapter Relevance
 :class: dropdown
- 
-**Project Relevance:** ★★★ (Directly supports project code architecture, especially when your workflow grows beyond one-off functions.)  
-**Foundation:** ★★★ (Builds core judgment for choosing between functions, classes, and mixed designs.)  
 
-**Time to Read:** 18 minutes  
-**In a nutshell:** This chapter helps you decide when a spatial task is simple enough for standalone functions and when it deserves an object-oriented design.  
-**Skip this if:** You can already explain, with a spatial example, when to use functions, when to use classes, and why state and behavior sometimes belong together.
+**Project Relevance:** ★★★ (Crucial for scoring well on the "Code Quality" and "Logical Workflow" assessment criteria across all projects 1, 2, 3, and 4)  
+**Foundation:** ★★★ (Builds core architectural judgment for choosing between standalone functions, classes, and mixed designs)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Compare Procedural and Object-Oriented design side-by-side to understand when to use standalone functions and when to build self-contained classes.  
+**Skip this if:** You can already confidently explain, using a spatial data science example, exactly when to use a procedural script versus when to architect a class-based system.
+
 ```
 
 In the previous chapters, you defined {term}`classes <Class>`, created {term}`object instances <Instance>`, and explored how {term}`inheritance <Inheritance>` allows you to build complex spatial relationships. You might be wondering: should you write absolutely everything as a class from now on?

@@ -29,11 +29,11 @@ To transition from writing basic scripts to building robust spatial analysis too
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for literally any spatial data lab building custom tools)  
-**Project Relevance:** ★★★ (You need custom functions to execute coherent analysis pipelines)  
-**Foundation:** ★★★ (A fundamental core Python building block)  
+**Lab Relevance:** ★★★ (A strict bottleneck; you cannot complete Part 2: Functions for Data Cleaning or Part 3: The Two Distance Functions without mastering `def` and `return`.)  
+**Project Relevance:** ★★★ (Mandatory for completing all final projects, as you must build custom functions to execute coherent analysis pipelines [Assessment Criteria 5].)  
+**Foundation:** ★★★ (The absolute core building block of procedural Python programming.)  
 
-**Time to Read:** 12 minutes  
+**Time to Read:** 20 minutes  
 **In a nutshell:** Learn how to build custom Python tools by mastering function definitions, argument passing, and the crucial difference between printing and returning data.  
 **Skip this if:** You are completely comfortable defining functions, safely passing keyword arguments, and using `return` statements to capture data for downstream use.
 

@@ -28,13 +28,13 @@ You have mastered the mechanics of the **{term}`Matplotlib`** **{term}`Figure <F
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Mapping and stacking layers is 100% required for assignments)  
-**Project Relevance:** ★★★ (Essential for producing final spatial maps in the project)  
-**Foundation:** ★★★ (Core concept for spatial visualization)  
+**Lab Relevance:** ★★☆ (Highly useful for reliably stacking the clipped global river and basin datasets onto a shared static axis before applying advanced styling in the lab.)  
+**Project Relevance:** ★★★ (Required for composing multi-layered maps and visualizing basic spatial analysis results across all projects 1, 2, 3, and 4.)  
+**Foundation:** ★★★ (The core computational mechanism for translating spatial geometry into visual pixels on a screen.)  
 
-**Time to Read:** 10 minutes  
-**In a nutshell:** Learn how to stack multiple geographic datasets onto a single map using GeoPandas and the Matplotlib `ax` object.  
-**Skip this if:** You already know how to pass the `ax` parameter in GeoPandas `.plot()` and use `zorder` to manage layer hierarchy.
+**Time to Read:** 15 minutes  
+**In a nutshell:** Learn how to stack multiple geographic datasets onto a single map using GeoPandas and the shared Matplotlib `ax` object.  
+**Skip this if:** You are completely fluent in sharing an `ax` object across multiple `.plot()` calls, managing `zorder`, and applying basic vector styling.
 
 ```
 
@@ -81,7 +81,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: GeoPandas automatically interprets the polygon geometries and draws them on the provided `ax` object.
+    Output: GeoPandas automatically interprets the polygon geometries and draws them on the provided <code>ax</code> object.
 </div>
 <!-- markdownlint-enable MD033 -->
 
@@ -144,7 +144,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: By sharing the `ax` object, both the ocean and land datasets are rendered onto the same plotting canvas.
+    Output: By sharing the <code>ax</code> object, both the ocean and land datasets are rendered onto the same plotting canvas.
 </div>
 <!-- markdownlint-enable MD033 -->
 
@@ -202,7 +202,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: A complete geographic composition using `zorder` to ensure all five layers stack correctly, styled intuitively with named colors.
+    Output: A complete geographic composition using <code>zorder</code> to ensure all five layers stack correctly, styled intuitively with named colors.
 </div>
 <!-- markdownlint-enable MD033 -->
 
@@ -220,7 +220,7 @@ plt.show()
 
 <figcaption>
     <em><b>Interactive Explorer: Z-Order Layer Cake.</b><br>
-    Adjust the `zorder` values using the number inputs to see how Matplotlib visually stacks overlapping shapes in both the 3D stack and the flattened 2D map. Notice how failing to prioritize smaller foreground details (like cities) over massive backgrounds (like oceans) causes the data to disappear entirely! For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L08_ch02_01_z-order/" target="_blank">link</a>.</em>
+    Adjust the <code>zorder</code> values using the number inputs to see how Matplotlib visually stacks overlapping shapes in both the 3D stack and the flattened 2D map. Notice how failing to prioritize smaller foreground details (like cities) over massive backgrounds (like oceans) causes the data to disappear entirely! For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L08_ch02_01_z-order/" target="_blank">link</a>.</em>
 </figcaption>
 <!-- markdownlint-enable MD033-->
 
@@ -315,7 +315,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Output: A more professional-looking map featuring the Equal Earth projection, intuitive color definitions, logical `zorder` stacking, and an axis-free layout.
+    Output: A more professional-looking map featuring the Equal Earth projection, intuitive color definitions, logical <code>zorder</code> stacking, and an axis-free layout.
 </div>
 <!-- markdownlint-enable MD033 -->
 

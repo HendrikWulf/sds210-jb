@@ -25,13 +25,14 @@ Storing and Reusing Values
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for every upcoming practical)  
-**Project Relevance:** ★★★ (Fundamental to all Python projects)  
-**Foundation:** ★★★ (Core programming concept)  
+**Lab Relevance:** ★★☆ (Essential for assigning coordinates and names in Part 1: Single-value variables, but the core logic is basic enough to not be a strict bottleneck.)  
+**Project Relevance:** ★★★ (Forms the absolute baseline for storing datasets and parameters across all projects: 1, 2, 3, and 4.)  
+**Foundation:** ★★★ (The core programming concept for memory management and state tracking.)  
 
-**Time to Read:** 6 minutes  
+**Time to Read:** 15 minutes  
 **In a nutshell:** Variables are how Python stores data in memory, allowing you to cleanly reuse and update values instead of constantly typing out raw numbers.  
 **Skip this if:** You already know how to assign values (`x = 10`), update them, and understand that variables store independent snapshots rather than active mathematical links.
+
 ```
 
 In this section, you will learn how Python uses variables to keep track of values in memory and how those values can be reused and updated throughout a {term}`program <Program>`. You will also see how variables behave in a {term}`Jupyter Notebook <Notebook>`, why {term}`execution order <Execution order>` matters, and how small changes to one variable affect (or do not affect) others.

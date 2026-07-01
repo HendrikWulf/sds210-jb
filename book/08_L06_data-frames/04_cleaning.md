@@ -29,13 +29,13 @@ Real-world spatial and environmental data is often messy. Before performing calc
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Data cleaning is mandatory for many spatial data science labs)  
-**Project Relevance:** ★★★ (Real-world data can be messy; sanitization is a prerequisite for reliable projects)  
-**Foundation:** ★★★ (Core Pandas operations that separate beginners from professionals)  
+**Lab Relevance:** ★★★ (A strict bottleneck; you absolutely cannot complete Part 2: Cleaning the Mess without knowing how to use `.rename()`, `.astype()`, and `.interpolate()`.)  
+**Project Relevance:** ★★★ (Sanitizing messy real-world data is a prerequisite for reliable outcomes and scoring well on the "Robustness" criteria across projects 1-4.)  
+**Foundation:** ★★★ (Core Pandas data sanitization operations that separate beginners from professionals.)  
 
-**Time to Read:** 15 minutes  
+**Time to Read:** 20 minutes  
 **In a nutshell:** Learn how to sanitize messy real-world datasets by renaming columns, correcting data types, slicing strings, and safely handling missing values.  
-**Skip this if:** You are completely comfortable using `.rename()`, `.astype()`, `.str` methods, and handling NaNs with `.dropna()`, `.fillna()`, and `.interpolate()`.
+**Skip this if:** You are completely comfortable using `.rename()`, `.astype()`, `.str` methods, and handling NaNs dynamically with `.dropna()`, `.fillna()`, and `.interpolate()`.
 
 ```
 

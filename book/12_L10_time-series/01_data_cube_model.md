@@ -27,13 +27,13 @@ A raster becomes far more powerful once it is no longer just a 2D grid, but a la
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for opening and manipulating time-series environmental data)  
-**Project Relevance:** ★★★ (Core to handling large climate and satellite data cubes)  
-**Foundation:** ★★★ (Fundamental shift from 2D raster logic to N-dimensional labels)  
+**Lab Relevance:** ★☆☆ (Provides the conceptual background required to understand the multidimensional arrays used in Part 1: Data Intake & Visualization)  
+**Project Relevance:** ★★☆ (Essential architectural foundation for handling large-scale climate and satellite data cubes in projects 3 and 4)  
+**Foundation:** ★★★ (Fundamental shift from 2D raster logic to N-dimensional labeled datasets)  
 
 **Time to Read:** 15 minutes  
 **In a nutshell:** Learn how the xarray library organizes massive 3D+ environmental grids using human-readable dimension names instead of complex array indices.  
-**Skip this if:** You are already fully comfortable working with `xarray.Dataset`, `xarray.DataArray`, and label-based selection (`.sel()`).
+**Skip this if:** You are already fully comfortable working with `xarray.Dataset`, `xarray.DataArray`, and the general concept of named dimensions and coordinates.
 
 ```
 

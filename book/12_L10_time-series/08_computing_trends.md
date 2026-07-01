@@ -26,13 +26,13 @@ A trend map is not just a picture of change. It is the result of fitting a stati
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Calculating trends and mapping rates of change are standard tasks in advanced spatial data science labs.)  
-**Project Relevance:** ★★★ (Essential for quantifying spatial variations over time in climate, land cover, and urban expansion projects.)  
-**Foundation:** ★★★ (Introduces mathematical regression modeling on multidimensional matrices.)  
+**Lab Relevance:** ★★★ (A critical bottleneck; you absolutely cannot complete Part 2: Time Series & Local Trend or Part 3: Pixel-Wise Trend without using `.polyfit()`)  
+**Project Relevance:** ★★☆ (Highly relevant for quantifying rates of urban heat expansion or temporal anomalies in project 4)  
+**Foundation:** ★★★ (Introduces mathematical regression modeling applied massively across multidimensional matrices)  
 
 **Time to Read:** 15 minutes  
 **In a nutshell:** Quantify exactly how fast the environment is changing by fitting linear and harmonic mathematical models across multidimensional time series data.  
-**Skip this if:** You are already confident using `.polyfit()` and `.curvefit()` to extract slopes and intercepts from spatiotemporal arrays.
+**Skip this if:** You are already confident using `.polyfit()` to extract slopes and intercepts from spatiotemporal cubes and translating them into decadal rates of change.
 
 ```
 

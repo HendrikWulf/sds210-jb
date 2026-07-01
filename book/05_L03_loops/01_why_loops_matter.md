@@ -27,13 +27,13 @@ Without repetition and decisions, code does not scale.
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★☆☆ (Relevant idea to writing any spatial data processing script)  
-**Project Relevance:** ★☆☆ (Important approach for automating workflows across spatial datasets)  
-**Foundation:** ★★★ (A non-negotiable core programming concept)  
+**Lab Relevance:** ★☆☆ (Provides the conceptual background for the automation required throughout the entire lab, though it does not teach the specific syntax needed for Part 2 or Part 3.)  
+**Project Relevance:** ★☆☆ (A crucial mental model for automating workflows in projects 1, 2, 3, and 4, but without specific code applications yet.)  
+**Foundation:** ★★★ (A non-negotiable core programming concept that shifts you from manual data entry to scalable automation.)  
 
-**Time to Read:** 4 minutes  
+**Time to Read:** 10 minutes  
 **In a nutshell:** This chapter explains the transition from manual, line-by-line coding to automated, scalable data processing using loops and conditions.  
-**Skip this if:** You already understand why loops (`for` / `while`) and conditional statements (`if` / `else`) are necessary for scaling code beyond a single variable.
+**Skip this if:** You already understand why manual indexing fails when lists grow, and why loops are necessary to scale code beyond a single variable.
 
 ```
 

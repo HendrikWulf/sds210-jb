@@ -25,13 +25,13 @@ Time series analysis often begins by reducing noisy observations into meaningful
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Aggregating time series and calculating anomalies are mandatory procedures in almost all climate-related labs.)  
-**Project Relevance:** ★★★ (Crucial for any project analyzing long-term environmental change, seasonal variations, or global warming trends.)  
-**Foundation:** ★★★ (Teaches the foundational distinction between changing temporal frequency and categorical grouping.)  
+**Lab Relevance:** ★☆☆ (Helpful context, but Practical L10 bypasses heavy resampling in favor of a basic `.mean(dim='time')` calculation in Part 1)  
+**Project Relevance:** ★★★ (Crucial for calculating climatologies, extracting anomalies, and smoothing noisy satellite time series in projects 3 and 4)  
+**Foundation:** ★★★ (Teaches the foundational distinction between changing temporal frequency and categorical time grouping)  
 
 **Time to Read:** 15 minutes  
-**In a nutshell:** Master how to reorganize time series data to extract climatological baselines, calculate anomalies, and smooth out noisy weather data to reveal true long-term trends.  
-**Skip this if:** You are already intimately familiar with `xarray`'s `.resample()`, `.groupby()`, and `.rolling()` methods.
+**In a nutshell:** Master how to reorganize time series data to extract climatological baselines, calculate anomalies, and smooth out noisy weather data.  
+**Skip this if:** You are already intimately familiar with xarray's `.resample()`, `.groupby()` with datetime accessors, and `.rolling()` window calculations.
 
 ```
 
@@ -161,7 +161,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    A 1D time series showing global sea surface temperature aggregated into 5 year blocks. The `marker="o"` argument highlights the exact timestamp representing the end of each 5 year period.
+    A 1D time series showing global sea surface temperature aggregated into 5 year blocks. The <code>marker="o"</code> argument highlights the exact timestamp representing the end of each 5 year period.
 </div>
 <!-- markdownlint-enable MD033-->
 

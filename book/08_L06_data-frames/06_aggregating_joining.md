@@ -29,9 +29,9 @@ Raw data is just a collection of numbers. To create actual knowledge, you need t
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Grouping and joining are core operations needed for almost every spatial data science lab)  
-**Project Relevance:** ★★★ (Essential for enriching local datasets with external API data or joining shapefiles)  
-**Foundation:** ★★★ (The fundamentals of relational data manipulation)  
+**Lab Relevance:** ★☆☆ (Helpful background on aggregations, but Practical L6 relies on time-based `.resample()` rather than categorical `.groupby()` and requires no table joining.)  
+**Project Relevance:** ★★★ (Crucial for enriching local datasets with external API data or grouping categorical reports, especially in projects 1 and 2.)  
+**Foundation:** ★★★ (The fundamentals of relational data manipulation.)  
 
 **Time to Read:** 15 minutes  
 **In a nutshell:** Learn how to generate summary statistics, group data into meaningful categories, and join multiple datasets together using shared keys.  

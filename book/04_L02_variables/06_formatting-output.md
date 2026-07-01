@@ -28,15 +28,13 @@ Clear output supports debugging, communication, and learning.
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for passing formatted outputs to users and instructors)  
-**Project Relevance:** ★★★ (Required for building readable final reports and data summaries)  
-**Foundation:** ★★☆ (Crucial for debugging and understanding code execution)  
+**Lab Relevance:** ★★☆ (Specifically required to complete Part 2, Task 2 and properly display the final outputs of your calculations in Part 7.)  
+**Project Relevance:** ★★☆ (Essential for fulfilling the "Documentation" assessment criteria by generating readable summary reports in projects 1, 2, 3, and 4.)  
+**Foundation:** ★★☆ (Crucial for debugging and understanding code execution at intermediate steps.)  
 
-**Time to Read:** 6 minutes  
-**In a nutshell:** Printing and f-strings let you extract values from memory and display them in clean, human-readable sentences for debugging and reporting.  
-**Skip this if:** You already know how to use `print()` and format numbers to specific decimal places using f-strings (e.g., `f"{val:.2f}"`).
-
-```
+**Time to Read:** 15 minutes  
+**In a nutshell:** Modern f-strings allow you to embed dynamic variables directly into text and format decimals cleanly for professional reporting.  
+**Skip this if:** You are already proficient at writing f-strings and can confidently format a floating-point number to two decimal places (e.g., `f"{value:.2f}"`).
 
 So far, you have worked with values, {term}`expressions <Expression>`, and {term}`strings <String>`. In many cases, you have seen that Python already shows results automatically when you run a notebook cell.
 

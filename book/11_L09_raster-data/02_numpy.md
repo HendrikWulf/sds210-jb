@@ -27,13 +27,13 @@ A raster band is, at its core, just a grid of numbers. NumPy gives you the tools
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Fundamental for all raster-based labs)  
-**Project Relevance:** ★★☆ (Crucial if your project incorporates environmental or satellite data)  
-**Foundation:** ★★★ (The absolute foundation for Python numerical computing)  
+**Lab Relevance:** ★★☆ (Highly useful for building the 3D array stack in Part 1: The Intake Workflow and applying boolean masking in Part 4: Statistical Anomaly Detection)  
+**Project Relevance:** ★★★ (Mandatory for array manipulation, calculating statistical aggregations, and masking data in remote sensing projects 3 and 4)  
+**Foundation:** ★★★ (The core mathematical engine underpinning all of Python data science and raster data)  
 
 **Time to Read:** 15 minutes  
-**In a nutshell:** Learn the core mechanics of NumPy arrays, including creation, slicing, broadcasting, and aggregation, to understand the mathematical engine behind raster data.  
-**Skip this if:** You are highly proficient with NumPy arrays, slicing, boolean masking, and vectorized array mathematics.
+**In a nutshell:** Discover how to use NumPy to create, slice, manipulate, and apply lightning-fast vectorized math across multidimensional grids.  
+**Skip this if:** You are already highly proficient with NumPy arrays, indexing/slicing (`[row, col]`), boolean masking, and vectorized array mathematics.
 
 ```
 

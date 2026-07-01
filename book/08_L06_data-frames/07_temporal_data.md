@@ -27,11 +27,11 @@ Time is the most fundamental way we organize environmental data. In this section
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Time-series analysis and index slicing are heavily tested in labs)  
-**Project Relevance:** ★★★ (Essential for any project evaluating environmental trends over time)  
-**Foundation:** ★★★ (Time awareness separates static spreadsheets from dynamic data science)  
+**Lab Relevance:** ★★★ (An absolute bottleneck; you cannot pass Part 4: Temporal Superpowers or Part 5: Quantifying the Warming Trend without mastering `.resample()` and `.rolling()`.)  
+**Project Relevance:** ★★★ (Crucial for all time-series and trend analyses, particularly the climate evaluations in projects 3 and 4.)  
+**Foundation:** ★★★ (Time awareness separates static spreadsheets from dynamic environmental data science.)  
 
-**Time to Read:** 15 minutes  
+**Time to Read:** 20 minutes  
 **In a nutshell:** Learn how to convert clunky date strings into intelligent, time-aware datetime objects to intuitively slice, resample, and analyze chronological data.  
 **Skip this if:** You already know how to use `pd.to_datetime()`, the `.dt` accessor, `DatetimeIndex` slicing, `.resample()`, `.shift()`, and `.rolling()`.
 

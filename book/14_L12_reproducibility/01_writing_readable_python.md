@@ -23,22 +23,23 @@ Code style as a tool for clarity, debugging, and scientific trust
 Readable code reduces errors, speeds up {term}`debugging <Debugging>`, and makes spatial workflows easier to understand, maintain, and rerun.
 ```
 
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Project Relevance:** ★★☆ (Crucial for the "Code Quality" and "Readability" portions of the grading rubric across projects 1, 2, 3, and 4.)  
+**Foundation:** ★★☆ (A core industry best practice that makes your scripts maintainable and shareable.)  
+
+**Time to Read:** 10 minutes  
+**In a nutshell:** Learn to write clear, self-explanatory Python using established conventions so others can easily read and trust your spatial workflows.  
+**Skip this if:** You already consistently use descriptive spatial naming conventions, structural spacing, and targeted inline comments to clarify your scientific logic.
+
+```
+
 By now, you can write Python that reads data, processes vectors and {term}`rasters <Raster data model>`, builds {term}`data cubes <Data cube>`, and models {term}`objects <Object>` with {term}`classes <Class>`. That is a major step. But there is an important difference between code that merely **works** and code that is genuinely **good to work with**.
 
 In {term}`spatial data science <Spatial data science>`, you rarely write code only once. Often, you come back to it later. You adapt it for a new study area. You share it with classmates, project partners, instructors, or your future self. At that point, readability stops being cosmetic. It becomes a scientific advantage.
 
 This chapter introduces practical conventions for writing clearer Python. These are not arbitrary rules. They are small design decisions that make code easier to scan, easier to debug, and easier to trust. The central reference for this is **{term}`PEP 8`**, the [official Python style guide](https://peps.python.org/pep-0008/), but we will keep the discussion grounded in real geospatial examples rather than extended formatting rules.
-
-```{admonition} Chapter Relevance
-:class: dropdown
-
-**Project Relevance:** ★★★ (Directly improves the quality of project repositories, reports, and code discussions.)  
-**Foundation:** ★★★ (Establishes everyday habits for trustworthy and reproducible spatial workflows.)  
-
-**Time to Read:** 20 minutes  
-**In a nutshell:** This chapter shows how small style choices make geospatial Python code easier to understand, debug, reuse, and trust.  
-**Skip this if:** You already write consistently styled Python using clear names, structured whitespace, meaningful comments, and NumPy-style docstrings.
-```
 
 ---
 

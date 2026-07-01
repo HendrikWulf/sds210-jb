@@ -22,6 +22,18 @@ Moving beyond "It works on my machine"
 A {term}`script <Script>` is not truly reproducible if it only runs on one machine by accident. To make spatial science {term}`reproducible <Reproducibility>`, you must share not only your code and data, but also the exact {term}`software environment <Virtual environment>` used to run it.
 ```
 
+```{admonition} Chapter Relevance
+:class: dropdown
+
+**Project Relevance:** ★★★ (A critical bottleneck; you will automatically fail the "Reproducibility" assessment criteria across all projects without a documented software environment.)  
+**Foundation:** ★★★ (The absolute foundation of modern collaborative data science; code is useless if it only works on your machine.)  
+
+**Time to Read:** 15 minutes  
+**In a nutshell:** Guarantee your analysis runs on any computer by isolating dependencies and locking down package versions using virtual environments.  
+**Skip this if:** You are already completely fluent in generating, managing, and exporting `environment.yml` or `requirements.txt` files to freeze your geospatial dependencies.
+
+```
+
 In the previous chapters, you learned how to write cleaner Python, organize larger workflows, and make code fail more clearly when assumptions break. This chapter extends that logic from the code itself to the software around it.
 
 A {term}`notebook <Notebook>` may be perfectly readable, well structured, and defensively coded, and still fail on another machine. A workflow that depends on `geopandas`, `rasterio`, `xarray`, `rioxarray`, or `cartopy` may work flawlessly on one computer and fail elsewhere because a package is missing, a {term}`dependency <Dependency>` chain differs, or a newer version changed the behavior.
@@ -31,17 +43,6 @@ This is the classic **"it works on my machine"** problem.
 Reproducible environments are the answer. They make the software conditions of a project explicit: the Python version, the installed {term}`libraries <Library>`, and ideally the versions of those libraries as well. That way, someone else can recreate not only your code and data, but also the computational context that allowed the workflow to run.
 
 In this chapter, you will learn what an environment actually is, why geospatial workflows are especially sensitive to dependency problems, how to record dependencies with `requirements.txt` or `environment.yml`, and what a realistic environment strategy looks like for SDS210 projects.
-
-```{admonition} Chapter Relevance
-:class: dropdown
-
-**Project Relevance:** ★★★ (Directly supports project hand-in quality by making your workflow easier for others to rerun.)  
-**Foundation:** ★★★ (Introduces the software layer of reproducibility: environments, dependencies, version drift, and setup documentation.)  
-
-**Time to Read:** 20 minutes  
-**In a nutshell:** This chapter shows how to document and recreate the software environment behind a spatial workflow so it does not only run on your own machine.  
-**Skip this if:** You already create isolated project environments, export `environment.yml` or `requirements.txt`, pin key package versions, and document the setup command in a `README.md`.
-```
 
 ---
 

@@ -28,13 +28,13 @@ Now that you can measure and modify individual geographic shapes, it is time to 
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Spatial predicates are required for almost every spatial data science assignment)  
-**Project Relevance:** ★★★ (Essential for filtering and cross-referencing multiple diverse datasets in your final projects)  
+**Lab Relevance:** ★★★ (A critical bottleneck; you must use the `.within()` predicate in Part 5: Regional Impact (Cantons) to filter stations inside the loop)  
+**Project Relevance:** ★★★ (Crucial for filtering and cross-referencing diverse datasets, such as linking reports to neighborhoods in project 1)  
 **Foundation:** ★★★ (Topological relationships form the core mathematical basis of all GIS operations)  
 
 **Time to Read:** 15 minutes  
-**In a nutshell:** Learn how to query and filter spatial data based on geographic relationships like intersections, containment, and proximity without relying on shared text attributes.  
-**Skip this if:** You are already completely fluent in applying Shapely/GeoPandas spatial predicates (e.g., `.intersects()`, `.within()`, `.contains()`) as Boolean masks, and understand how to use `.sjoin_nearest()` for proximity searches.
+**In a nutshell:** Query and filter spatial data based on geographic relationships like intersections, containment, and proximity without relying on shared text attributes.  
+**Skip this if:** You are completely fluent in applying GeoPandas spatial predicates (e.g., `.intersects()`, `.within()`, `.contains()`) as Boolean masks, and using `.sjoin_nearest()`.
 
 ```
 
@@ -251,7 +251,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Visualizing our engineered metric. By combining a simple Python loop with a spatial predicate (`.within()`), we successfully generated a brand new geographical layer. Notice how the light grey cantons were automatically skipped by our `if not stations_inside.empty:` logic!
+    Visualizing our engineered metric. By combining a simple Python loop with a spatial predicate (<code>.within()</code>), we successfully generated a brand new geographical layer. Notice how the light grey cantons were automatically skipped by our <code>if not stations_inside.empty:</code> logic!
 </div>
 <!-- markdownlint-enable MD033 -->
 
@@ -335,7 +335,7 @@ plt.show()
 
 <!-- markdownlint-disable MD033-->
 <div class="figure-caption-like">
-    Visual proof of our spatial filter. Notice that if even a tiny sliver of a commune's border crossed into the dashed 16km evacuation zone, the entire commune polygon was correctly flagged as `True` by the `.intersects()` predicate and highlighted in red.
+    Visual proof of our spatial filter. Notice that if even a tiny sliver of a commune's border crossed into the dashed 16km evacuation zone, the entire commune polygon was correctly flagged as <code>True</code> by the <code>.intersects()</code> predicate and highlighted in red.
 </div>
 <!-- markdownlint-enable MD033 -->
 

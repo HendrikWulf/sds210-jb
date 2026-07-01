@@ -26,13 +26,13 @@ A **{term}`data cube`** becomes analytically useful only once you can isolate th
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for querying spatial data subsets needed in lab assignments.)  
-**Project Relevance:** ★★★ (All independent projects require isolating specific spatial/temporal ranges.)  
-**Foundation:** ★★★ (Forms the bedrock of multidimensional indexing and analysis.)  
+**Lab Relevance:** ★★★ (A critical bottleneck; you must use `.sel(method='nearest')` to extract point time series in Part 2 and sample the DEM in Part 4)  
+**Project Relevance:** ★★★ (Mandatory for extracting exact spatial regions, temporal windows, or specific pixel series in remote sensing projects 3 and 4)  
+**Foundation:** ★★★ (Forms the absolute bedrock of multidimensional indexing and data extraction)  
 
 **Time to Read:** 15 minutes  
 **In a nutshell:** Master how to extract exact locations, regions, and times from massive datasets using index-based, label-based, and conditional selection.  
-**Skip this if:** Do not skip.
+**Skip this if:** You already know how to perfectly utilize `.isel()`, `.sel()`, `.where()`, and perform nearest-neighbor coordinate lookups in `xarray`.
 
 ```
 

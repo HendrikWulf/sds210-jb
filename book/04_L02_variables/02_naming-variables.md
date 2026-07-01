@@ -28,13 +28,13 @@ They change how well **humans understand it**, including your future self.
 ```{admonition} Chapter Relevance
 :class: dropdown
 
-**Lab Relevance:** ★★★ (Essential for writing code that instructors and peers can read)  
-**Project Relevance:** ★★☆ (Crucial for the "Code Quality" and "Readability" portions of your final grade)  
-**Foundation:** ★★☆ (A core industry best practice, though not a strict algorithmic rule)  
+**Lab Relevance:** ★☆☆ (Directly addressed in Part 1, Task 2 when renaming variables `z`, `g`, and `l`, but poor naming will not actually stop your math from executing.)  
+**Project Relevance:** ★★☆ (Crucial for scoring well on the "Readability" and "Documentation" assessment criteria across projects 1, 2, 3, and 4.)  
+**Foundation:** ★★☆ (A core industry best practice that separates amateur scripts from professional software.)  
 
-**Time to Read:** 4 minutes  
-**In a nutshell:** Choosing clear, consistent variable names prevents bugs and is the easiest way to make your code readable to your future self and your collaborators.  
-**Skip this if:** You already know Python's naming restrictions (no spaces, no reserved words) and habitually use `snake_case` for all your variables.
+**Time to Read:** 10 minutes  
+**In a nutshell:** Choosing clear, descriptive, and consistent variable names prevents logic bugs and keeps your code readable for both your collaborators and your future self.  
+**Skip this if:** You inherently know Python's reserved keywords and routinely use descriptive `snake_case` naming conventions.
 
 ```
 
