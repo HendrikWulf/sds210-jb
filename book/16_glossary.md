@@ -1,5 +1,270 @@
 # Glossary
 
+```{raw:typst}
+// PDF-export compatibility anchors for glossary term references.
+#metadata("Absolute path") <term-absolute-path>
+#metadata("Abstraction") <term-abstraction>
+#metadata("Accessor") <term-accessor>
+#metadata("Alias") <term-alias>
+#metadata("Anomaly") <term-anomaly>
+#metadata("API") <term-api>
+#metadata("Application Programming Interface") <term-application-programming-interface>
+#metadata("Argument") <term-argument>
+#metadata("Array") <term-array>
+#metadata("Aspect") <term-aspect>
+#metadata("Assertion") <term-assertion>
+#metadata("Assignment operator") <term-assignment-operator>
+#metadata("Attribute") <term-attribute>
+#metadata("Axes (Matplotlib)") <term-axes-matplotlib>
+#metadata("Bar chart") <term-bar-chart>
+#metadata("Basemap") <term-basemap>
+#metadata("Boolean") <term-boolean>
+#metadata("Boolean indexing") <term-boolean-indexing>
+#metadata("Box plot") <term-box-plot>
+#metadata("Broadcasting") <term-broadcasting>
+#metadata("Built-in function") <term-built-in-function>
+#metadata("Camel case") <term-camel-case>
+#metadata("Cartopy") <term-cartopy>
+#metadata("Case sensitive") <term-case-sensitive>
+#metadata("Choropleth map") <term-choropleth-map>
+#metadata("Class") <term-class>
+#metadata("Class attribute") <term-class-attribute>
+#metadata("Climatology") <term-climatology>
+#metadata("Code cell") <term-code-cell>
+#metadata("Collection") <term-collection>
+#metadata("Colormap") <term-colormap>
+#metadata("Comma-separated values") <term-comma-separated-values>
+#metadata("Comment") <term-comment>
+#metadata("Commit message") <term-commit-message>
+#metadata("Computational thinking") <term-computational-thinking>
+#metadata("Computer programming") <term-computer-programming>
+#metadata("Concatenation") <term-concatenation>
+#metadata("Conda") <term-conda>
+#metadata("Container") <term-container>
+#metadata("Contextily") <term-contextily>
+#metadata("Continuous field") <term-continuous-field>
+#metadata("Control flow") <term-control-flow>
+#metadata("Control variable") <term-control-variable>
+#metadata("Coordinate Reference System") <term-coordinate-reference-system>
+#metadata("Coordinate transformation") <term-coordinate-transformation>
+#metadata("Cosine similarity") <term-cosine-similarity>
+#metadata("Cyclic colormap") <term-cyclic-colormap>
+#metadata("Data cube") <term-data-cube>
+#metadata("Data model") <term-data-model>
+#metadata("Data type") <term-data-type>
+#metadata("DataArray") <term-dataarray>
+#metadata("DataFrame") <term-dataframe>
+#metadata("Dataset (xarray)") <term-dataset-xarray>
+#metadata("DatetimeIndex") <term-datetimeindex>
+#metadata("Debugging") <term-debugging>
+#metadata("Decimal degrees") <term-decimal-degrees>
+#metadata("Default parameter") <term-default-parameter>
+#metadata("Defensive programming") <term-defensive-programming>
+#metadata("Dependency") <term-dependency>
+#metadata("Detour factor") <term-detour-factor>
+#metadata("Dictionary") <term-dictionary>
+#metadata("Digital elevation model") <term-digital-elevation-model>
+#metadata("Diurnal cycle") <term-diurnal-cycle>
+#metadata("Docker") <term-docker>
+#metadata("Docstring") <term-docstring>
+#metadata("Dot notation") <term-dot-notation>
+#metadata("Dot product") <term-dot-product>
+#metadata("Dunder method") <term-dunder-method>
+#metadata("Dynamic typing") <term-dynamic-typing>
+#metadata("Element-wise operation") <term-element-wise-operation>
+#metadata("Encapsulation") <term-encapsulation>
+#metadata("Enhanced Vegetation Index") <term-enhanced-vegetation-index>
+#metadata("Equal Earth") <term-equal-earth>
+#metadata("EPSG code") <term-epsg-code>
+#metadata("Escape character") <term-escape-character>
+#metadata("Euclidean distance") <term-euclidean-distance>
+#metadata("Execution order") <term-execution-order>
+#metadata("Expression") <term-expression>
+#metadata("FacetGrid") <term-facetgrid>
+#metadata("False color composite") <term-false-color-composite>
+#metadata("Fibonacci sequence") <term-fibonacci-sequence>
+#metadata("Figure (Matplotlib)") <term-figure-matplotlib>
+#metadata("Floating-point number") <term-floating-point-number>
+#metadata("Folium") <term-folium>
+#metadata("Fork") <term-fork>
+#metadata("Forward geocoding") <term-forward-geocoding>
+#metadata("f-string") <term-f-string>
+#metadata("Function") <term-function>
+#metadata("GDAL") <term-gdal>
+#metadata("Geocoding") <term-geocoding>
+#metadata("Geodesic distance") <term-geodesic-distance>
+#metadata("GeoDataFrame") <term-geodataframe>
+#metadata("Geographic coordinate conversion") <term-geographic-coordinate-conversion>
+#metadata("Georeferencing") <term-georeferencing>
+#metadata("GeoSeries") <term-geoseries>
+#metadata("GeoTIFF") <term-geotiff>
+#metadata("Git") <term-git>
+#metadata("Git branch") <term-git-branch>
+#metadata("Git clone") <term-git-clone>
+#metadata("Git commit") <term-git-commit>
+#metadata("Git merge") <term-git-merge>
+#metadata("Git merge conflict") <term-git-merge-conflict>
+#metadata("Git pull") <term-git-pull>
+#metadata("Git push") <term-git-push>
+#metadata("Git remote") <term-git-remote>
+#metadata("GitHub") <term-github>
+#metadata("Google Colab") <term-google-colab>
+#metadata("Harmonic regression") <term-harmonic-regression>
+#metadata("Haversine formula") <term-haversine-formula>
+#metadata("Hidden state") <term-hidden-state>
+#metadata("Hillshade") <term-hillshade>
+#metadata("Histogram") <term-histogram>
+#metadata("IDE") <term-ide>
+#metadata("Identifier") <term-identifier>
+#metadata("Immutable") <term-immutable>
+#metadata("Indentation") <term-indentation>
+#metadata("Index") <term-index>
+#metadata("Infinite loop") <term-infinite-loop>
+#metadata("Inheritance") <term-inheritance>
+#metadata("__init__ method") <term-init-method>
+#metadata("Inner join") <term-inner-join>
+#metadata("Instance") <term-instance>
+#metadata("Instance attribute") <term-instance-attribute>
+#metadata("Integer") <term-integer>
+#metadata("Integrated Development Environment") <term-integrated-development-environment>
+#metadata("Interpolation") <term-interpolation>
+#metadata("Interpreter") <term-interpreter>
+#metadata("Iteration") <term-iteration>
+#metadata("Iterative design") <term-iterative-design>
+#metadata("JSON") <term-json>
+#metadata("Jupyter server") <term-jupyter-server>
+#metadata("JupyterLab") <term-jupyterlab>
+#metadata("Kernel") <term-kernel>
+#metadata("Keyword argument") <term-keyword-argument>
+#metadata("Large language model") <term-large-language-model>
+#metadata("Leaflet") <term-leaflet>
+#metadata("Left outer join") <term-left-outer-join>
+#metadata("Library") <term-library>
+#metadata("Line chart") <term-line-chart>
+#metadata("List") <term-list>
+#metadata("List comprehension") <term-list-comprehension>
+#metadata("Local scope") <term-local-scope>
+#metadata("Logical operator") <term-logical-operator>
+#metadata("Loop") <term-loop>
+#metadata("Lossless compression") <term-lossless-compression>
+#metadata("Magic number") <term-magic-number>
+#metadata("Manhattan distance") <term-manhattan-distance>
+#metadata("Map algebra") <term-map-algebra>
+#metadata("Map projection") <term-map-projection>
+#metadata("Map reprojection") <term-map-reprojection>
+#metadata("Markdown") <term-markdown>
+#metadata("Markdown cell") <term-markdown-cell>
+#metadata("Matplotlib") <term-matplotlib>
+#metadata("Median") <term-median>
+#metadata("Metadata") <term-metadata>
+#metadata("Method") <term-method>
+#metadata("Method overriding") <term-method-overriding>
+#metadata("Module") <term-module>
+#metadata("Moving average") <term-moving-average>
+#metadata("Mutable") <term-mutable>
+#metadata("NaN") <term-nan>
+#metadata("Namespace") <term-namespace>
+#metadata("Nested loop") <term-nested-loop>
+#metadata("NetCDF") <term-netcdf>
+#metadata("Normalized Difference Snow Index") <term-normalized-difference-snow-index>
+#metadata("Notebook") <term-notebook>
+#metadata("NumPy") <term-numpy>
+#metadata("Object") <term-object>
+#metadata("Object-oriented programming") <term-object-oriented-programming>
+#metadata("Open data") <term-open-data>
+#metadata("Operand") <term-operand>
+#metadata("Operator") <term-operator>
+#metadata("Optional parameter") <term-optional-parameter>
+#metadata("Package manager") <term-package-manager>
+#metadata("Parameter") <term-parameter>
+#metadata("PEP 8") <term-pep-8>
+#metadata("Perceptually uniform colormap") <term-perceptually-uniform-colormap>
+#metadata("Pie chart") <term-pie-chart>
+#metadata("pip") <term-pip>
+#metadata("Pixel") <term-pixel>
+#metadata("Polymorphism") <term-polymorphism>
+#metadata("Positional argument") <term-positional-argument>
+#metadata("Procedural programming") <term-procedural-programming>
+#metadata("Program") <term-program>
+#metadata("Programming language") <term-programming-language>
+#metadata("Property") <term-property>
+#metadata("Raster data model") <term-raster-data-model>
+#metadata("Rate limiting") <term-rate-limiting>
+#metadata("README") <term-readme>
+#metadata("Record") <term-record>
+#metadata("Relative path") <term-relative-path>
+#metadata("Repository") <term-repository>
+#metadata("Reproducibility") <term-reproducibility>
+#metadata("Required parameter") <term-required-parameter>
+#metadata("Resampling") <term-resampling>
+#metadata("Reserved word") <term-reserved-word>
+#metadata("REST") <term-rest>
+#metadata("Return statement") <term-return-statement>
+#metadata("Reverse geocoding") <term-reverse-geocoding>
+#metadata("Scatter plot") <term-scatter-plot>
+#metadata("Scope") <term-scope>
+#metadata("Script") <term-script>
+#metadata("self parameter") <term-self-parameter>
+#metadata("Series") <term-series>
+#metadata("Set") <term-set>
+#metadata("Shifting") <term-shifting>
+#metadata("Signature") <term-signature>
+#metadata("Signed integer") <term-signed-integer>
+#metadata("Slicing") <term-slicing>
+#metadata("Slope") <term-slope>
+#metadata("Snake case") <term-snake-case>
+#metadata("Software") <term-software>
+#metadata("Source code") <term-source-code>
+#metadata("Spatial data science") <term-spatial-data-science>
+#metadata("Spatial extent") <term-spatial-extent>
+#metadata("Spatial index") <term-spatial-index>
+#metadata("Spatial join") <term-spatial-join>
+#metadata("Spatial queries") <term-spatial-queries>
+#metadata("Spatial resolution") <term-spatial-resolution>
+#metadata("Split-Apply-Combine") <term-split-apply-combine>
+#metadata("Standard library") <term-standard-library>
+#metadata("Standard score") <term-standard-score>
+#metadata("Statement") <term-statement>
+#metadata("Status code") <term-status-code>
+#metadata("String") <term-string>
+#metadata("Subplots") <term-subplots>
+#metadata("super() function") <term-super-function>
+#metadata("Syntax") <term-syntax>
+#metadata("Syntax error") <term-syntax-error>
+#metadata("Terminal") <term-terminal>
+#metadata("Third-party package") <term-third-party-package>
+#metadata("Time series") <term-time-series>
+#metadata("Topological spatial relations") <term-topological-spatial-relations>
+#metadata("True color composite") <term-true-color-composite>
+#metadata("Truncation") <term-truncation>
+#metadata("Tuple") <term-tuple>
+#metadata("Type conversion") <term-type-conversion>
+#metadata("Type hint") <term-type-hint>
+#metadata("TypeError") <term-typeerror>
+#metadata("Unsigned integer") <term-unsigned-integer>
+#metadata("Unix time") <term-unix-time>
+#metadata("uv") <term-uv>
+#metadata("ValueError") <term-valueerror>
+#metadata("Variable") <term-variable>
+#metadata("Vectorization") <term-vectorization>
+#metadata("Version") <term-version>
+#metadata("Version control") <term-version-control>
+#metadata("Version drift") <term-version-drift>
+#metadata("View (Pandas)") <term-view-pandas>
+#metadata("Violin plot") <term-violin-plot>
+#metadata("Virtual environment") <term-virtual-environment>
+#metadata("Visual Studio Code") <term-visual-studio-code>
+#metadata("Web Map Tile Service") <term-web-map-tile-service>
+#metadata("Web Mercator") <term-web-mercator>
+#metadata("Well-known binary") <term-well-known-binary>
+#metadata("Well-known text") <term-well-known-text>
+#metadata("WGS84") <term-wgs84>
+#metadata("Working directory") <term-working-directory>
+#metadata("xarray") <term-xarray>
+#metadata("Zarr") <term-zarr>
+#metadata("Zoom level") <term-zoom-level>
+```
+
 :::{glossary}
 
 [Absolute path](https://en.wikipedia.org/wiki/Path_(computing)#Absolute_and_relative_paths)

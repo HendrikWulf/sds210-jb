@@ -9,4 +9,3 @@ It can also be found on OLAT and Teams and you can also open it in a new tab if 
   height="800"
   style="border: none;">
 </iframe>
-

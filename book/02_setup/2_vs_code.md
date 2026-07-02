@@ -3,6 +3,21 @@ title: VS Code
 
 site:
  outline_maxdepth: 1
+
+#exports:
+# - id: setup-vs-code-pdf
+#   format: typst
+#   template: https://github.com/myst-templates/plain_typst_book.git
+#   articles:
+#     - book/02_setup/2_vs_code.md
+#   output: ../../exports/02_setup/02_setup_02_vs_code.pdf
+#   show_ToC: true
+#
+#downloads:
+# - file: 02_setup/1_conda.md
+#   title: Markdown File  # Jupyter Notebook
+# - id: setup-vs-code-pdf
+#   title: Download PDF 
 ---
 
 <div class="page-subtitle">

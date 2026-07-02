@@ -1,6 +1,6 @@
 # Welcome
 
-Welcome to *Programming with Spatial Data* (ESS341, GEO876, SDS210).
+Welcome to *Programming with Spatial Data* (SDS210).
 This course introduces **computational thinking and Python programming for geospatial applications**. In an increasingly data-driven and automated world, the ability to design, write, and organise code for spatial analysis has become an essential skill for addressing environmental, social, and urban challenges.
 
 Rather than focusing on isolated tools or button-clicking workflows, this course emphasises **thinking with code**. You will learn how to translate spatial questions into structured, reproducible workflows and how to implement these workflows using Python. Over the semester, you will build a solid foundation in core programming concepts and progressively apply them with widely used geospatial libraries such as GeoPandas, RasterIO, and Matplotlib. Throughout the course, strong emphasis is placed on writing **clear, structured, and well-documented code**, supported by Jupyter Notebooks and Git to enable transparent and reproducible work.
@@ -46,8 +46,6 @@ No advanced programming background is assumed. The course starts from first prin
 
 This is not a course about pushing buttons. It is about using logic, programming, and analytical thinking to tackle real-world spatial problems in a transparent, reproducible, and communicable way.
 
----
-
 ### Learning Objectives
 
 This course aims to build a solid foundation in Python programming for spatial data analysis. Rather than focusing on short-term solutions or isolated tools, the emphasis is on developing transferable skills that help you plan, implement, and explain code-based workflows.
@@ -78,21 +76,51 @@ This structure allows you to:
 
 Because the classroom is flipped, preparation is essential. Except for the first week, you are expected to come to each lab having already engaged with the assigned materials. The labs are designed for applying, testing, and discussing ideas, not for first exposure to new content.
 
----
-
 ### Workload and Commitment
 
 This module is demanding and requires consistent effort throughout the semester. Success does not come from last-minute preparation, but from regular practice, careful reading, and repeated experimentation with code.
 
 According to UZH guidelines, a 5 ECTS module corresponds to approximately 150 hours of total workload. With about two hours of timetabled lab activity per week, this leaves several hours per week for self-study. In practice, you should expect to spend time almost every day reading, coding, and practicing.
 
----
-
 ### Why the Effort Is Worthwhile
 
 There is a growing demand for analysts, planners, and geographers who can think computationally and work confidently with data and code. Across research, public administration, industry, and non-profit organisations, spatial data skills combined with programming literacy are increasingly sought after.
 
 By investing the time and effort required in this course, you are developing skills that are widely applicable and highly valued. Learning to reason with code opens up opportunities across many domains and allows you to engage more critically and creatively with spatial data.
+
+---
+
+## How to Read This Course Book?
+
+Becoming proficient in spatial programming cannot be accomplished just by passively reading; it requires structure, strategy, and hundreds of hours of hands-on practice. We have designed this book to put you in the driving seat of your own learning.
+
+While you can (and generally should) read this book from start to finish, as each lesson logically builds upon the last, we have organized the content so you can safely budget your time and focus on what matters most to your progress.
+
+### The Structure of a Lesson
+
+The book is divided into thematic **Lessons** (e.g., L3 - Loops, L7 - Vector Data). Each lesson follows a predictable structure:
+
+* **The Lesson Introduction:** Sets the stage, explains the motivation behind the tools, and outlines the big-picture learning objectives.
+* **The Chapters:** Each lesson is broken down into several chapters with numbered sections. These pages tackle specific concepts, syntax, and workflows, culminating in short exercises to test your immediate understanding.
+* **The Practical Lab:** At the end of every lesson, a comprehensive lab brings all the individual chapter concepts together. Here, you will apply what you have learned to a complex, real-world spatial storyline.
+
+### The Triage Tool: "Chapter Relevance"
+
+We know your time is valuable. To help you evaluate how deeply you need to study a specific topic, every chapter begins with a dropdown box titled **Chapter Relevance**. Think of this as your personal signpost. It evaluates the chapter across three criteria using a 0-to-3 star rating system:
+
+* **Lab Relevance:** How critical is this exact chapter for managing this week's Practical Lab?
+* **Project Relevance:** How useful is this methodology for a Final Student Project?
+* **Foundation:** How important is this concept for your general growth as a GeoPython programmer?
+
+Additionally, this block provides a **"Time to Read"** estimate, a one-sentence **"In a nutshell"** summary, and a specific **"Skip this if"** condition. If you already possess the prior knowledge listed in the "Skip" condition, you can confidently skim or bypass the chapter without falling behind.
+
+### Practice and Productive Struggle
+
+The short exercises at the end of the chapters and the weekly Practical Labs are based on real-world environmental and geographical data, making them interesting and challenging. It is entirely normal to feel stuck at first. When you hit a wall, take a break, read the Python error messages carefully, and try breaking the problem down into smaller steps. Although we provide sample solutions in dropdown boxes, we strongly encourage you to attempt the code yourself first. The learning happens during the struggle, not when reading the answer.
+
+### The Final Project
+
+Everything in this book (every chapter and every lab) is designed to prepare you for the **Final Project**. This project is where the training wheels come off. It is your opportunity to synthesize the different skills you have learned (data intake, cleaning, spatial analysis, and visualization) and demonstrate that you can work independently to solve a real-world spatial problem from start to finish.
 
 ---
 
