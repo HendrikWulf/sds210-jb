@@ -5,20 +5,19 @@ site:
  outline_maxdepth: 1
 
 #exports:
-#  - id: setup-conda-pdf
-#    format: typst
-#    template: https://github.com/myst-templates/plain_typst_book.git
-#    articles:
-#      - book/02_setup/1_conda.md
-#      - book/16_glossary.md
-#    output: ../../exports/02_setup/02_setup_01_conda.pdf
-#    show_ToC: true
-
+# - id: setup-conda-pdf
+#   format: typst
+#   template: https://github.com/myst-templates/plain_typst_book.git
+#   articles:
+#     - book/02_setup/1_conda.md
+#   output: ../../exports/02_setup/02_setup_01_conda.pdf
+#   show_ToC: true
+#
 #downloads:
-#  - file: 02_setup/1_conda.md
-#    title: Markdown File  # Jupyter Notebook
-#  - id: setup-conda-pdf
-#    title: Download PDF
+# - file: 02_setup/1_conda.md
+#   title: Markdown File  # Jupyter Notebook
+# - id: setup-conda-pdf
+#   title: Download PDF
 
 ---
 
@@ -395,11 +394,11 @@ Conda is a command line interface (CLI) tool, which means you’ll use a shell a
 :::::{tab-item} Windows 
 To open Anaconda Prompt, type “Anaconda Prompt” in the Windows search bar, then select Anaconda Prompt.
 
-:::{figure} images/1_conda_win_anaconda_promt.png
-:alt: Opening the Anaconda Propmt application
+:::{figure} images/1_conda_win_anaconda_prompt.png
+:alt: Opening the Anaconda Prompt application
 :width: 700px
 
-Opening the Anaconda Propmt application.
+Opening the Anaconda Prompt application.
 :::
 
 
