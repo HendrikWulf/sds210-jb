@@ -12,11 +12,31 @@ project:
       format: typst # pdf
       template: https://github.com/myst-templates/plain_typst_book.git # https://github.com/myst-templates/book-theme.git # 
       articles: 
+      - book/01_about.md
+      - book/01_about/1_welcome.md
+      - book/01_about/2_team.md
+      - book/01_about/3_syllabus.md
+      - book/01_about/4_schedule.md
+      - book/01_about/5_error_culture.md
+      - book/01_about/6_ai.md
+      - book/01_about/7_resources.md
+      - book/01_about/8_acknowledgments.md
       - book/02_setup.md
       - book/02_setup/1_conda.md
       - book/02_setup/2_vs_code.md
+      - book/02_setup/3_git.md
+      - book/02_setup/4_colab.md
+      - book/02_setup/5_jupyterLab.md
+      - book/03_L01_get-started/01_motivation.md
+      # - book/03_L01_get-started/02_programming.md
+      # - book/03_L01_get-started/03_syntax.md
+      # - book/03_L01_get-started/04_notebooks.md
+      # - book/03_L01_get-started/05_practical-L1.ipynb
+      # - book/04_L02_variables/01_variables.md
+      # - book/04_L02_variables/02_naming-variables.md
+      - book/16_glossary.md
       # toc: _toc.yml
-      output: exports/sds210-book.pdf
+      output: book/exports/sds210-book.pdf
       # show_ToC: false
 
   binder: https://mybinder.org
