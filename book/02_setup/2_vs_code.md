@@ -44,9 +44,9 @@ In this section, you will learn how VS Code fits into the python workflow and ho
 
 After working through this section, you should be able to:
 
-* **Work productively in VS Code as your main workspace** 
-* **Select and verify the correct Conda interpreter in VS Code** 
-* **Run Python scripts and Jupyter notebooks inside VS Code** 
+* Work productively in VS Code as your main workspace
+* Select and verify the correct Conda interpreter in VS Code
+* Run Python scripts and Jupyter notebooks inside VS Code
 
 These objectives focus on using VS Code as part of a practical workflow. You will build on them throughout the course as your projects become more complex.
 
@@ -64,7 +64,8 @@ VS Code is available for **[Windows](https://code.visualstudio.com/docs/setup/wi
 
 ::::::{tab-set}
 
-:::::{tab-item} Windows 
+:::::{tab-item} Windows
+
 * Download the Windows installer (`.exe`)
 * Run the installer and follow the setup wizard
 * Keep the default options unless you know you want something different
@@ -77,6 +78,7 @@ During installation, make sure the option to add VS Code to your PATH is enabled
 :::::
 
 :::::{tab-item} macOS
+
 * Download the macOS installer (`.dmg`)
 * Open the file and drag **Visual Studio Code app** into the Applications folder
 * Start VS Code from Applications or Spotlight
@@ -85,6 +87,7 @@ During installation, make sure the option to add VS Code to your PATH is enabled
 :::::
 
 :::::{tab-item} Linux
+
 * Download the appropriate package for your distribution (`.deb` or `.rpm`)
 * Install it using your package manager or by opening the downloaded file
 * Alternatively, follow the instructions on the [VS Code website](https://code.visualstudio.com/docs/setup/linux) for your distribution
@@ -125,7 +128,7 @@ You can always add more later. Start simple.
 These two extensions are essential for this course.
 
 **Python** by Microsoft
- 
+
 This is the foundation for all Python work in VS Code.
 
 It provides:
@@ -197,7 +200,7 @@ VS Code offers thousands of extensions. It is tempting to install many of them, 
 
 For now:
 
-* Do not install formatters, linters, or AI tools (unless instructed)
+* Do not install formatters, linters, or AI tools
 * Do not change many settings
 
 You will add more extensions later, once you understand your workflow better.
@@ -205,7 +208,7 @@ You will add more extensions later, once you understand your workflow better.
 ```{admonition} Fortune cookie wisdom
 :class: hint
 Extensions should support your workflow, not distract from learning Python and geospatial concepts.
-``` 
+```
 
 In the next subsection, you will connect VS Code to your Conda environment and run your first Python code inside the editor.
 
@@ -213,24 +216,9 @@ In the next subsection, you will connect VS Code to your Conda environment and r
 
 ## 5. Connecting VS Code to Conda
 
-VS Code does not automatically know which Python environment you want to use.
-To make sure your code runs with the **right packages and the right Python version**, you must explicitly connect VS Code to your Conda environment.
+VS Code does not auto-detect your Python environment. You must explicitly connect it to your Conda environment to ensure your code uses the correct packages. Skipping this is the most common cause of setup errors.
 
-In this course, this step is essential. Most setup problems later come from using the **wrong environment**.
-
----
-
-### Why this matters
-
-When VS Code is connected to a Conda environment, it will:
-
-* run Python code using the correct interpreter
-* find the packages you installed with Conda
-* use the same environment in scripts, notebooks, and the terminal
-* avoid confusing situations where code works in one place but not another
-
-Think of this as telling VS Code
-*this is the toolbox I want you to use for this project*.
+Think of this as selecting your project's "toolbox." It guarantees your scripts, notebooks, and terminal all share the same Python interpreter.
 
 ---
 
@@ -252,8 +240,7 @@ Use the Command Palette to select the correct interpreter.
   * Windows or Linux: `Ctrl + Shift + P`
   * macOS: `Cmd + Shift + P`
 * Type **Python: Select Interpreter**
-* Choose your Conda environment
-  for example `sds-env (conda)`
+* Choose your Conda environment (e.g. `sds210`)
 
 Once selected, VS Code stores this choice for the current workspace.
 
@@ -302,7 +289,6 @@ Now that VS Code is installed and connected to your Conda environment, this sect
 ---
 
 “From here on, VS Code is a convinient place where you write code, run notebooks, and manage your projects.”
-
 
 Before diving into Python, notebooks, or geospatial libraries, it is worth getting comfortable with the basic ideas behind how VS Code works. This will save you time and reduce confusion later.
 
@@ -431,7 +417,6 @@ Make sure scripts, notebooks, and the terminal use the same Conda environment.
 
 In this course, you will mainly use the following files:
 
-
 * `.ipynb` files for Jupyter notebooks
 * `.py` files for Python scripts
 * `.yml` files for Conda environments
@@ -469,6 +454,7 @@ Learn how VS Code works with folders and projects.
    ```python
    print("Every machine that is clever enough to pass the Turing test could also be clever enough not to pass it.")
    ```
+
 6. Save the file
 
 This folder is now your **workspace**. VS Code will remember settings for this project.
@@ -485,7 +471,7 @@ Make sure VS Code uses the correct Python environment.
    * Windows or Linux: `Ctrl + Shift + P`
    * macOS: `Cmd + Shift + P`
 2. Select **Python: Select Interpreter**
-3. Choose your Conda environment (for example `sds-env`)
+3. Choose your Conda environment (for example `sds210`)
 4. Open `DIDit.py`
 5. Run the file using **Run → Run Without Debugging**
 
@@ -517,6 +503,7 @@ Use VS Code as a single place for code, commands, and notebooks.
    ```bash
    python --version
    ```
+
 4. Create a new notebook `notebooks/DUTgemacht.ipynb`
 5. Select the same Conda environment as the kernel
 6. Run a code cell with:
