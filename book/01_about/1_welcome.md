@@ -102,7 +102,7 @@ The book is divided into thematic **Lessons** (e.g., L3 - Loops, L7 - Vector Dat
 
 * **The Lesson Introduction:** Sets the stage, explains the motivation behind the tools, and outlines the big-picture learning objectives.
 * **The Chapters:** Each lesson is broken down into several chapters with numbered sections. These pages tackle specific concepts, syntax, and workflows, culminating in short exercises to test your immediate understanding.
-* **The Practical Lab:** At the end of every lesson, a comprehensive lab brings all the individual chapter concepts together. Here, you will apply what you have learned to a complex, real-world spatial storyline.
+* **The Practical Lab:** At the end of every lesson, a comprehensive lab brings all the individual chapter concepts together. Here, you will apply what you have learned to a more complex, real-world spatial storyline.
 
 ### The Triage Tool: "Chapter Relevance"
 
