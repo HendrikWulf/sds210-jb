@@ -777,9 +777,21 @@ What matters is not the exact commands, but the pattern:
 
 Think in environments, not installations. A clean environment is the foundation of reliable and reproducible geospatial programming.
 
+---
+
+### The Course Environment
+
 ```{admonition} Which environment do we use in SDS210?
 :class: important
-In lesson 1 *Getting Started*, we will create the `sds210` course environment with all the necessary packages based on an existing environment.yml. The test environment `test-env` is intended to familiarise you with environments, but will not be required later on. You can delete it once your setup is complete and you no longer need it.
+In lesson 1 *Getting Started*, we will create the `sds210` course environment with all the necessary packages based on an existing environment.yml. 
+The test environment `test-env` is intended to familiarise you with environments, but will not be required later on. You can delete it once your setup is complete and you no longer need it.
+
+https://gitlab.com/HendrikWulf/sds210/-/blob/14744377bcee6e4a44c6955536b9fb804d4b6568/environment.yml
+```
+
+```bash
+# create a new environment for the project
+conda create -n test-env python=3.12
 ```
 
 ---
