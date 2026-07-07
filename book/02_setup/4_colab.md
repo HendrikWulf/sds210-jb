@@ -25,7 +25,7 @@ Throughout this course, you can use Colab to **run all course notebooks**, modif
 
 ## 2. Learning Objectives
 
-After working through this section, you should be able to:
+After working through this chapter, you should be able to:
 
 - Open and run **course notebooks** in Colab
 - Install and use required **Python packages** 
@@ -220,7 +220,7 @@ Running notebooks in Colab is meant to support learning and experimentation. Fee
 
 ## 9. Exercises
 
-The following exercises help you practice the learning objectives of this section. They focus on running notebooks in Colab, managing packages, and working with data in a session based environment.
+The following exercises help you practice the learning objectives of this chapter. They focus on running notebooks in Colab, managing packages, and working with data in a session based environment.
 
 #### Exercise 1: Colab setup
 

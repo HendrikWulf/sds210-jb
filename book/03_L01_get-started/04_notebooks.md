@@ -126,7 +126,7 @@ To update your course files later, download a fresh ZIP file or switch to the Gi
 
 ---
 
-### Create the Python environment
+### Create the course environment `sds210`
 
 The `environment.yml` file in the course repository contains all information needed to set up your Python environment.
 
@@ -149,16 +149,15 @@ conda activate sds210
 
 Once the environment is activated, you can select it as a notebook kernel in VS Code or start JupyterLab from the same terminal.
 
-``````{admonition} Updating the environment
+``````{admonition} Only create the course environment once
 :class: important
-
-If the `environment.yml` file changes during the course, update your existing environment with:
+In the [Working with Conda](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/#id-5-working-with-conda) section of the [Setup](https://hendrikwulf.github.io/sds210-jb/book/setup/) guide, we showed you how to set up the 'sds210' course environment. If you have already created the `sds210` course environment, there is no need to repeat this step, as it only needs to be done once. If you are unsure, you can quickly check which environments you have already installed.
 
 ```bash
-conda env update -f environment.yml
+# Check which environments you have installed
+conda info --envs
 ```
 
-Make sure the `sds210` environment is active when you work on course notebooks.
 ``````
 
 ---
