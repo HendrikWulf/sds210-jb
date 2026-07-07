@@ -13,7 +13,7 @@ An interactive workspace for exploratory data analysis
 
 ## 1. Introduction
 
-[JupyterLab](https://jupyterlab.readthedocs.io/en/latest/) is the main **working environment** in this course. It is not just a place to run code, but a space where **thinking**, **coding**, and **documentation** come together.
+[JupyterLab](https://jupyterlab.readthedocs.io/en/latest/) is an alternative **working environment** in case you prefer it over VS Code. It provides a simple interface where **thinking**, **coding**, and **documentation** come together.
 
 In spatial data science, work is rarely linear. You load data, inspect it, try something, visualize the result, adjust your approach, and document what you learned. JupyterLab is designed for exactly this kind of **exploratory** and **iterative** work.
 

@@ -55,7 +55,7 @@ The goal of this section is not to memorise commands, but to understand **how to
 
 ## 2. Learning Objectives
 
-After working through this section, you should be able to:
+After working through this chapter, you should be able to:
 
 * **Explain why package management and isolated environments matter** for geospatial programming.
 * **Create and manage project-specific environments** using Conda.
@@ -393,26 +393,44 @@ If you understand these three ideas, you understand the foundation of reproducib
 
 ## 5. Working with Conda
 
-This short tutorial walks you through creating and using your first Conda environment as part of a real Python workflow. You’ll create an environment, install packages, and use that environment to run a small Python program.
+This short tutorial walks you through creating and using your first Conda environment as part of a real Python workflow. You will create a small practice environment, install packages, inspect what is inside it, and then create the actual course environment used in SDS210.
+
+The goal is not to memorise every command, but to understand the basic workflow:
+
+```text
+create → activate → install → work → document → deactivate
+```
+
+You will first practise with a small environment called `test-env`. Later in this section, you will create the real course environment called `sds210`.
 
 ---
 
-### Creating an environment
+### Creating a practice environment
 
-The Conda installation process creates an environment called `base`, which is where Conda itself is installed. However, when starting work on a new project, it’s best practice to create a new environment. This keeps your environments maintainable and reproducible while also keeping your base environment stable.
+The Conda installation process creates an environment called `base`, which is where Conda itself is installed. However, when starting work on a new project, it is best practice to create a separate environment. This keeps your projects maintainable and reproducible while also keeping your `base` environment stable.
 
-Let’s create a new environment called `test-env` with Python 3.12 as the {term}`interpreter <Interpreter>` (the Python installation that will run your code).
+In this first step, we create a small practice environment called `test-env` with Python 3.12 as the {term}`interpreter <Interpreter>`.
+
+```{admonition} Why not use base?
+:class: important
+
+The `base` environment should stay clean because Conda itself depends on it.  
+For projects, labs, and thesis work, create a separate environment instead.
+```
 
 ---
 
-**1. Open a shell application**
+#### 1. Open a shell application
 
-Conda is a command-line interface (CLI) tool, which means you’ll use a shell application to run Conda commands. For Windows users, you’ll use an application called Anaconda Prompt, which comes installed with Anaconda Distribution and Miniconda. For macOS and Linux users, you’ll use your system’s {term}`Terminal` application.
+Conda is a command-line interface tool, which means you use a shell application to run Conda commands.
 
 ::::::{tab-set}
 
 :::::{tab-item} Windows
-To open Anaconda Prompt, type “Anaconda Prompt” in the Windows search bar, then select Anaconda Prompt.
+
+Open **Anaconda Prompt**.
+
+To find it, press the Windows key, type **Anaconda Prompt**, and select the application.
 
 :::{figure} images/1_conda_win_anaconda_prompt.png
 :alt: Opening the Anaconda Prompt application
@@ -425,16 +443,16 @@ Opening the Anaconda Prompt application.
 
 :::::{tab-item} macOS/Linux
 
-Open Terminal:
+Open your system {term}`Terminal`.
 
-* On macOS, open Spotlight with Cmd + Spacebar, then search for “Terminal”.
-* On Linux, press Ctrl + Alt + T or search for “Terminal” in your application menu.
+* On macOS, open Spotlight with Cmd + Spacebar, then search for **Terminal**.
+* On Linux, press Ctrl + Alt + T or search for **Terminal** in your application menu.
 
 :::{figure} images/1_conda_mac_terminal.png
-:alt: Opening the Terminal to use conda
+:alt: Opening the Terminal to use Conda
 :width: 700px
 
-Opening the Terminal to use conda.
+Opening the Terminal to use Conda.
 :::
 
 :::::
@@ -443,10 +461,9 @@ Opening the Terminal to use conda.
 
 ---
 
-**2. Create a new environment**
+#### 2. Create a new environment
 
-Use the **{abbr}`copy button (hover over the code block)`** 📄 to copy the command below.
-Paste it into your shell (Anaconda Prompt, Terminal, or PowerShell) and press Enter (Windows) or Return (macOS/Linux) to run it.
+Use the **{abbr}`copy button (hover over the code block)`** 📄 to copy the command below, paste the command into your shell (Anaconda Prompt or Terminal) and press Enter (Windows) or Return (macOS/Linux) to run it.
 
 ```bash
 conda create --name test-env python=3.12
@@ -454,46 +471,60 @@ conda create --name test-env python=3.12
 
 This command tells Conda to:
 
-* create a **new isolated environment**
+* create a new isolated environment
 * name it `test-env`
-* install **Python 3.12** inside that environment
+* install Python 3.12 inside that environment
 
 The `--name` flag assigns a human-readable name, which makes the environment easy to activate and manage later.
 
+Conda may ask you to confirm the installation. If the package list looks reasonable, type `y` and press Enter.
+
 ---
 
-When you create a **named** Conda environment, Conda stores it automatically in its default `envs` directory.
+When you create a named Conda environment, Conda stores it automatically in its default `envs` directory.
 
 ::::::{tab-set}
 
 :::::{tab-item} Windows
 
-`C:\Users\<username>\miniconda3\envs\test-env`
+```text
+C:\Users\<username>\miniconda3\envs\test-env
+```
 
 :::::
 
 :::::{tab-item} macOS/Linux
 
-`/Users/<username>/miniconda3/envs/test-env`
+```text
+/Users/<username>/miniconda3/envs/test-env
+```
 
 :::::
 
 ::::::
 
-You usually do **not** need to interact with this folder directly.
-Conda takes care of activating, updating, and removing environments for you.
+You usually do not need to interact with this folder directly. Conda takes care of activating, updating, and removing environments for you.
+
+```{admonition} Tip
+:class: tip
+
+Keep your **environments** and your **project files** separate.
+
+Conda environments live in Conda's environment folder.  
+Your notebooks, scripts, data, and results should live in your project folder.
+```
 
 ---
 
-**3. Activate your new environment**
+#### 3. Activate and verify your environment
 
-You’ll need to activate your newly created environment before you can use it. Run the following command to activate `test-env`:
+Before you can use an environment, you need to activate it.
 
 ```bash
-conda activate test-env   
+conda activate test-env
 ```
 
-Conda displays the currently active environment in your shell application beside the input line:
+After activation, Conda displays the currently active environment at the beginning of your shell prompt.
 
 ::::::{tab-set}
 
@@ -517,112 +548,151 @@ Conda displays the currently active environment in your shell application beside
 
 From now on, every Python and Conda command you run applies to this environment.
 
-```{admonition} Attention
-:class: attention
-Most setup issues come from one of these mistakes.
+You can verify this with:
 
-* Installing packages into the `base` environment by accident
-* Forgetting to **activate** the correct environment before installing or running code
-* Mixing Conda and {term}`pip` without thinking (install conda packages first, pip only if needed)
-
-If something breaks, stop and check your active environment first.
+```bash
+conda info --envs
 ```
 
-**Deactivate your environment when you are done**
+The active environment is marked with an asterisk (`*`).
 
-When you finish working in an environment, you can deactivate it using:
+You can also check which Python version is active:
+
+```bash
+python --version
+```
+
+```{admonition} Attention
+:class: important
+
+Most setup issues come from one of these mistakes:
+
+* installing packages into the `base` environment by accident
+* forgetting to activate the correct environment before installing or running code
+* selecting the wrong notebook kernel later in VS Code or JupyterLab
+
+If something breaks, first check your active environment.
+```
+
+---
+
+#### 4. Deactivate your environment when you are done
+
+When you finish working in an environment, deactivate it using:
 
 ```bash
 conda deactivate
 ```
 
-After deactivation, you return to the base environment and the environment name disappears from the prompt.
+After deactivation, you return to the previous environment and the environment name disappears from the prompt.
 
 ```{admonition} Tip
 :class: tip
-Activating and deactivating environments is cheap and safe. Switch environments whenever you change projects.
+
+Activating and deactivating environments is cheap and safe.  
+Switch environments whenever you change projects.
 ```
 
 ---
 
 ### Adding packages to your environment
 
-Right now, your environment only has Python 3.12 and its dependencies installed. However, our project uses functionality that is not provided by the {term}`Python standard library <Standard library>`, so we must install {term}`third-party packages <Third-party package>` to provide that functionality.
+Right now, `test-env` only contains Python 3.12 and its basic dependencies. Most spatial data science workflows need additional packages that are not included in the {term}`Python standard library <Standard library>`.
+
+There are two common ways to install packages:
+
+* use `conda install` for packages available through Conda channels
+* use `pip` when a package is not available through Conda
 
 ---
 
-**1. Add conda packages**
+#### 1. Add Conda packages from conda-forge
 
-We can find the additional Conda packages that we need for our project on the conda-forge community channel.
+For geospatial and scientific Python work, the most important Conda channel is `conda-forge`.
 
-```{admonition} Channels
+```{admonition} What is conda-forge?
 :class: tip
-**conda-forge** is a community-maintained channel that provides up-to-date packages, especially for geospatial and scientific software. Most geospatial libraries you will use in this course are best installed from conda-forge.
+
+**conda-forge** is a community-maintained channel that provides up-to-date packages, especially for geospatial and scientific software.
+
+Most geospatial libraries in this course are best installed from `conda-forge`.
 ```
 
-The command below installs common geospatial packages and their dependencies from the conda-forge channel.
+Make sure your `test-env` environment is active:
+
+```bash
+conda activate test-env
+```
+
+Then install a package from `conda-forge`:
 
 ```bash
 conda install --channel conda-forge xarray
 ```
 
-The `--channel` flag tells Conda to give the specified channel top priority for installing packages and their dependencies. The short option `-c` can also be used instead.
+The `--channel` flag tells Conda to give the specified channel priority when installing packages and their dependencies. The shorter version is `-c`, so the following command is equivalent:
+
+```bash
+conda install -c conda-forge xarray
+```
 
 ---
 
-**2. Add packages with pip**
+#### 2. Add packages with pip when needed
 
-Sometimes you will need a package that is not available through Conda. This is common for smaller or newer Python libraries, including some geospatial helper tools.
+Sometimes you need a package that is not available through Conda but is published on [{abbr}`PyPI (Python Package Index)`](https://pypi.org/). This is common for smaller or newer Python libraries.
 
-In these cases, you can use pip, Python’s built-in package manager.
-
-When you created your Conda environment, Python was installed automatically, and with it pip. This means you can already use pip inside your active Conda environment.
-
-```{admonition} When mixing Conda and pip
-:class: advice
-To minimize the risk of dependency conflicts, follow this advice:
-- Install Conda packages first
-- Use pip for packages that are not available via Conda
-```
-
-Assume your project needs a small helper library that is only published on [{abbr}`PyPI (Python Package Index)`](https://pypi.org/), for example a lightweight utility for working with map tiles. First, make sure your Conda environment is active. Then install the package using pip:
+In these cases, you can use `pip`, Python's built-in package installer.
 
 ```bash
 pip install pooch
 ```
 
-```{admonition} Fun Fact
+```{admonition} When mixing Conda and pip
+:class: warning
+
+To reduce the risk of dependency conflicts:
+
+* install Conda packages first
+* prefer `conda-forge` for geospatial packages
+* use `pip` for packages that are not available through Conda
+```
+
+```{admonition} Fun fact
 :class: note
-Many Python tools are named after reptiles. The Python package manager pip references the process of hatching eggs. Interestingly, the naming of the Python language itself had nothing to do with reptiles as it was inspired by the comedy series [Monty Python's Flying Circus](https://youtu.be/5ptUMe9eqYE?si=OzfQ_zW7W55Fwq9i). 
+
+Many Python tools are named after reptiles. The Python package manager `pip` references the process of hatching eggs. Interestingly, the naming of the Python language itself had nothing to do with reptiles as it was inspired by the comedy series [Monty Python's Flying Circus](https://youtu.be/5ptUMe9eqYE?si=OzfQ_zW7W55Fwq9i).
 ```
 
 ---
 
 ### Working with Conda environments
 
-At this point, you have created an environment and installed packages into it. Now let’s look at how to **inspect, update, and manage environments** during day-to-day work.
+At this point, you have created an environment and installed packages into it. Now let us look at how to inspect, update, copy, remove, and document environments during day-to-day work.
 
-Think of this section as learning how to *stay in control* once your environment exists.
+Think of this subsection as learning how to stay in control once your environment exists.
 
-**1. Checking your environments**
+---
 
-It is good practice to start a session by checking which environments exist and which one is currently active.
+#### 1. Check your environments
+
+It is good practice to start a work session by checking which environments exist and which one is currently active.
 
 ```bash
 conda info --envs
 ```
 
-Conda lists all environments on your system.
-The environment marked with an asterisk is the active one.
+Conda lists all environments on your system. The environment marked with an asterisk is the active one.
 
 ```{admonition} Hint
 :class: hint
-If something behaves unexpectedly, the first thing to check is whether the correct environment is active.
+
+If something behaves unexpectedly, first check whether the correct environment is active.
 ```
 
 ---
 
-**2. Inspecting what is installed**
+#### 2. Inspect what is installed
 
 To see which packages are installed in an environment, including where they came from, use:
 
@@ -634,51 +704,52 @@ This helps you understand:
 
 * which packages are installed
 * which versions are used
-* whether they came from conda-forge or another channel
+* whether they came from `conda-forge` or another channel
 
 This is especially useful when debugging or documenting your setup.
 
 ---
 
-**3. Installing and removing packages safely**
+#### 3. Install and remove packages safely
 
-If you need to modify an environment without activating it, you can always target it explicitly.
+If you need to modify an environment without activating it first, you can target it explicitly by name.
 
-**Install** packages into a specific environment:
+Install packages into a specific environment:
 
 ```bash
-conda install --name test-env geopandas rasterio
+conda install --name test-env --channel conda-forge geopandas rasterio
 ```
 
-**Remove** a package you no longer need from the environment:
+Remove a Conda-installed package from a specific environment:
 
 ```bash
 conda remove --name test-env rasterio
 ```
 
----
+If a package was installed using `pip`, remove it using `pip` as well. First activate the correct environment:
 
-If a package was installed using `pip`, it should also be removed using `pip`.
+```bash
+conda activate test-env
+```
 
-First, make sure you are targeting the **correct environment** (either by activating it or by using the full path to `pip`).
-
-**Remove** a package with pip:
+Then remove the package:
 
 ```bash
 pip uninstall pooch
 ```
 
----
-
 ```{admonition} Tip
 :class: tip
-Always remove packages using the same tool you used to install them.  
-Specifying the environment name makes your commands explicit and reduces the risk of installing packages into the wrong environment.
+
+Always remove packages using the same tool you used to install them.
+
+* Conda-installed package → remove with `conda remove`
+* pip-installed package → remove with `pip uninstall`
 ```
 
 ---
 
-**4. Updating packages**
+#### 4. Update packages intentionally
 
 Over time, packages receive updates. To update all packages in an environment:
 
@@ -686,14 +757,13 @@ Over time, packages receive updates. To update all packages in an environment:
 conda update --all --name test-env
 ```
 
-Use this with care in active projects, as updates may change behaviour.
-For long-term or shared projects, updating should be done intentionally and documented.
+Use this with care in active projects, as updates may change package versions and behaviour. For long-term or shared projects, updates should be done intentionally and documented.
 
 ---
 
-**5. Copying and cleaning up environments**
+#### 5. Copy and clean up environments
 
-Sometimes you want to experiment without breaking a working setup.
+Sometimes you want to experiment without breaking a working setup. In that case, clone the environment first.
 
 Clone an existing environment:
 
@@ -709,23 +779,23 @@ When an environment is no longer needed, remove it completely:
 conda remove --name test-env-copy --all
 ```
 
-Removing unused environments helps keep your system clean and avoids confusion later.
+Removing unused environments keeps your system clean and avoids confusion later.
 
 ---
 
-**6. Exporting environments for reproducibility**
+#### 6. Export environments for reproducibility
 
-One of the most important steps in professional workflows is **documenting your environment**.
+One of the most important steps in professional workflows is documenting your environment.
 
-Export an environment to a file (to your current {term}`working directory <Working directory>`):
+Export an environment to a file in your current {term}`working directory <Working directory>`:
 
 ```bash
-conda env export --name test-env > test-env.yml
+conda env export --name test-env --no-builds > test-env.yml
 ```
 
-This file records package names and versions so others can recreate the same setup.
+This creates a YAML file that records the packages and versions in your environment. The `--no-builds` option makes the file more portable by leaving out platform-specific build strings.
 
-Recreate an environment from such a file:
+You can recreate an environment from such a file:
 
 ```bash
 conda env create --name test-env-copy --file test-env.yml
@@ -733,7 +803,9 @@ conda env create --name test-env-copy --file test-env.yml
 
 ```{admonition} Tip
 :class: tip
-When sharing code or finishing a project, it is good practice to export your environment.
+
+When sharing code, submitting a project, or finishing an analysis, export your environment.  
+Your environment is part of your project documentation.
 ```
 
 ---
@@ -744,13 +816,13 @@ By now, you have seen the full lifecycle of working with Conda for a project. Th
 
 ```bash
 # create a new environment for the project
-conda create -n test-env python=3.12
+conda create --name test-env python=3.12
 
 # activate the environment
 conda activate test-env
 
 # install required geospatial packages
-conda install -c conda-forge geopandas rasterio
+conda install --channel conda-forge geopandas rasterio
 
 # check what is installed
 conda list
@@ -759,39 +831,64 @@ conda list
 python analysis.py
 
 # export the environment for reproducibility
-conda env export > environment.yml
+conda env export --no-builds > environment.yml
 
 # deactivate when you are done
 conda deactivate
-
 ```
-
-You will repeat this workflow throughout your geospatial projects. Over time, it becomes second nature.  
 
 What matters is not the exact commands, but the pattern:
 
-* one environment per project / course
+* one environment per project or course
 * activate before you start working
-* prefer conda-forge for geospatial packages
+* prefer `conda-forge` for geospatial packages
+* use `pip` only when Conda is not an option
 * document environments for reproducibility
 
 Think in environments, not installations. A clean environment is the foundation of reliable and reproducible geospatial programming.
 
 ---
 
-### The Course Environment
+### Create the course environment `sds210`
 
-```{admonition} Which environment do we use in SDS210?
-:class: important
-In lesson 1 *Getting Started*, we will create the `sds210` course environment with all the necessary packages based on an existing environment.yml. 
-The test environment `test-env` is intended to familiarise you with environments, but will not be required later on. You can delete it once your setup is complete and you no longer need it.
+So far, you practised with a small environment called `test-env`. For the actual SDS210 course, we use a predefined environment called `sds210`.
 
-https://gitlab.com/HendrikWulf/sds210/-/blob/14744377bcee6e4a44c6955536b9fb804d4b6568/environment.yml
-```
+This environment is created from an `environment.yml` file. The file lists the packages needed for the course, so you do not have to install them one by one.
+
+1. Download the [environment.yml](https://gitlab.com/HendrikWulf/sds210/-/blob/7845456798b7d3229be7471197050c5d7a191ee5/environment.yml) file to a suitable location on your computer where you will store your SDS210 course files.
+
+2. Open Anaconda Prompt on Windows or Terminal on macOS/Linux.
+
+3. Navigate to the folder that contains the `environment.yml` file:
 
 ```bash
-# create a new environment for the project
-conda create -n test-env python=3.12
+cd <path-to-sds210-repository-folder>
+```
+
+4. Create the course environment:
+
+```bash
+conda env create --file environment.yml
+```
+
+5. Activate the course environment:
+
+```bash
+conda activate sds210
+```
+
+Et voilà. You have just created your course environment `sds210`. This environment includes all packages required for this course.
+
+The environment `test-env` was only created for practice. Once your `sds210` environment works, you can remove `test-env`:
+
+```bash
+conda remove --name test-env --all
+```
+
+```{admonition} Only create the course environment once
+:class: important
+In the 'Running Notebooks' chapter of Lesson 1, we will show you how to set up the 'sds210' course environment again. If you have already done so, there is no need to repeat this step, as it only needs to be done once.
+
 ```
 
 ---

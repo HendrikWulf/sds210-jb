@@ -25,7 +25,7 @@ In this course, Docker is not used much, as we do not build production systems. 
 
 ## 2. Learning Objectives
 
-After working through this section, you should be able to:
+After working through this chapter, you should be able to:
 
 * Explain **when and why Docker is useful** for geospatial programming
 * Run a **JupyterLab based geospatial environment** using Docker
