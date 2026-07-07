@@ -40,7 +40,7 @@ Git works locally on your computer and integrates well with tools you will use, 
 
 ## 2. Learning Objectives
 
-After working through this section, you should be able to:
+After working through this chapter, you should be able to:
 * use **Git** to track changes in code and notebooks
 * save and restore project states using commits
 * sync a local project with **GitHub**
