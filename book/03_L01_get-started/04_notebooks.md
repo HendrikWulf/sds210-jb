@@ -68,7 +68,7 @@ To get started with Python in this course and beyond, for example for your BSc o
 The setup process is explained in the [Setup](https://hendrikwulf.github.io/sds210-jb/book/setup/) section of the book. In short, you need:
 
 * the Python environment `sds210`, created with {term}`Conda`
-* an {term}`IDE`, preferably [VS Code](https://hendrikwulf.github.io/sds210-jb/book/setup/vs-code/) or [JupyterLab](https://hendrikwulf.github.io/sds210-jb/book/setup/jupyterlab/)
+* an {term}`IDE <Integrated Development Environment>`, preferably [VS Code](https://hendrikwulf.github.io/sds210-jb/book/setup/vs-code/) or [JupyterLab](https://hendrikwulf.github.io/sds210-jb/book/setup/jupyterlab/)
 * the SDS210 course files, including notebooks, data, and practicals
 
 ---
