@@ -5,27 +5,29 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 How we express ideas as code
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
 ```{admonition} Big idea
 :class: tip
-We use Python and notebooks as a practical environment to turn ideas into code, explore data, and document our work in a [reproducible](https://en.wikipedia.org/wiki/Reproducibility) way.
+We use Python and {term}`notebooks <Notebook>` as a practical environment to turn ideas into {term}`code <Source code>`, explore data, and document our work in a [reproducible](https://en.wikipedia.org/wiki/Reproducibility) way.
 ```
 
-In the previous section, you saw why programming matters for working with data.
+In the previous chapter, you saw why programming matters for working with data.
 Now, we move one step closer to practice:
 
 * what we mean by *programming* in this course
-* why we use **Python** as our main language
-* how we run code using **scripts** and **notebooks**
-* how **JupyterLab** provides the environment in which all of this comes together
+* why we use **Python** as our main {term}`language <Programming language>`
+* how we run code using **{term}`scripts <Script>`** and **notebooks**
+* how **{term}`JupyterLab`** provides the environment in which all of this comes together
 
 The goal is orientation. You do not need to remember every term yet.
-By the end of the section, you should have a clear picture of how ideas become code and how we will work with Python throughout the course.
+By the end of the chapter, you should have a clear picture of how ideas become code and how we will work with Python throughout the course.
 
 ---
 
@@ -52,9 +54,9 @@ The focus is not on building large applications. Instead, we use code as a pract
 * explore data
 * automate repetitive tasks
 * document analysis steps
-* make results reproducible
+* make results {term}`reproducible <Reproducibility>`
 
-Even short programs can already be useful. A few lines of code can load a dataset, calculate a summary, and produce a clear visualisation.
+Even short {term}`programs <Program>` can already be useful. A few lines of code can load a dataset, calculate a summary, and produce a clear visualisation.
 
 ```{admonition} Reflection
 :class: dropdown
@@ -63,7 +65,7 @@ Think of one task from your studies that feels repetitive or error prone.
 Which steps would you repeat?
 Which steps could be described as clear rules?
 
-Keep that example in mind as you work through the next sections.
+Keep that example in mind as you work through the next chapters.
 ```
 
 ---
@@ -86,14 +88,14 @@ Examples of printing “Hello, world!” in different programming languages. Cre
 Python works well for this course because it:
 
 * is **readable** and close to everyday language, which makes code easier to understand and discuss
-* is a **general purpose language** that supports several styles of programming (for example procedural and object oriented), so you can start simple and grow into more advanced patterns later
+* is a **general-purpose language** that supports several styles of programming, for example {term}`procedural <Procedural programming>` and {term}`object-oriented <Object-oriented programming>` programming, so you can start simple and grow into more advanced patterns later
 * is **interpreted and interactive**, which means you can try out ideas in small steps, see results immediately, and learn by experimentation rather than long compile cycles
-* is **dynamically typed**, so you can write code quickly without declaring data types up front, while still working with clear and predictable values
-* has a rich ecosystem of **scientific and geospatial libraries** for working with tables, arrays, rasters, time series, and vector data
-* integrates well with **GIS and remote sensing tools**, including QGIS and other spatial software that provide a Python console
+* is {term}`dynamically typed <Dynamic typing>`, so you can write code quickly without declaring {term}`data types <Data type>` up front, while still working with clear and predictable values
+* has a rich ecosystem of scientific and geospatial {term}`libraries <Library>` for working with tables, {term}`arrays <Array>`, rasters, {term}`time series`, and vector data
+* integrates well with GIS and remote sensing tools, including QGIS and other spatial software that provide a Python console
 * is **free and open source**, with a large community, extensive documentation, and many examples you can reuse and adapt
 
-In practice this means you can focus on **questions and workflows**, not on low level technical details.
+In practice, this means you can focus on **questions and workflows**, not on low-level technical details.
 
 :::{figure} images/04_programming_languages_carto.png
 :alt: Popular programming languages.
@@ -108,7 +110,7 @@ You do not need to know any of these technical terms now. What matters is:
 
 * Python is widely used in science and industry
 * it runs on all major operating systems
-* it is a good long term investment for your studies and beyond
+* it is a good long-term investment for your studies and beyond
 
 ```{admonition} Course focus
 :class: note
@@ -124,11 +126,11 @@ The goal is to use Python as a practical tool for working with spatial data.
 There is more than one way to write and run Python code.
 Each option has its strengths, and you will encounter several during your studies.
 
-In this course we mainly use **notebooks**, but it helps to know what else exists.
+In this course, we mainly use notebooks, but it helps to know what else exists.
 
 ### Scripts
 
-Python {term}`script`s are plain text files with the file extension `.py`.
+Python scripts are plain text files with the file extension `.py`.
 
 They are well suited for:
 
@@ -136,7 +138,7 @@ They are well suited for:
 * tasks you want to repeat in the same way
 * automation on servers or as scheduled jobs
 
-To run a script, you typically call Python from your {term}`Integrated Development Environment`, a {term}`terminal` or from a Python {term}`interpreter`.
+To run a script, you typically call Python from your {term}`Integrated Development Environment`, a {term}`Terminal`, or from a Python {term}`interpreter <Interpreter>`.
 
 :::{figure} images/05_python-script-example2.png
 :alt: Example of a Python script file.
@@ -145,23 +147,23 @@ To run a script, you typically call Python from your {term}`Integrated Developme
 Example of a Python script file.
 :::
 
-Scripts are common in software development and production systems. For learning and exploration they can feel less transparent, because the explanation, results, and code often live in separate places.
+Scripts are common in software development and production systems. For learning and exploration, they can feel less transparent, because the explanation, results, and code often live in separate places.
 
 ### Notebooks
 
 Jupyter notebooks combine several elements in a single interactive document:
 
-* {term}`code cell`s
-* formatted text & equations
+* {term}`code cells <Code cell>`
+* formatted text and equations
 * figures and tables
 * intermediate and final results
 
 Notebook files have the extension `.ipynb`. They are divided into **cells**. Each cell has a specific purpose:
 
 * **Code cells** contain executable Python code.
-* **Markdown cells** contain formatted text written in [Markdown](https://en.wikipedia.org/wiki/Markdown).
+* **{term}`Markdown cells <Markdown cell>`** contain formatted text written in [Markdown](https://en.wikipedia.org/wiki/Markdown).
 
-You run the notebook in a web browser, while a Jupyter server executes the code in the background. The server can run on your computer or on a remote machine.
+You run the notebook in a web browser, while a {term}`Jupyter server` executes the code in the background. The server can run on your computer or on a remote machine.
 
 :::{figure} images/06_jupyter_notebook.png
 :alt: Elements of a Jupyter Notebook.
@@ -172,7 +174,7 @@ Elements of a Jupyter Notebook. Credit: [GeoPython](https://python-gis-book.read
 
 ---
 
-This capability of combining code and documentation makes them ideal for:
+This capability of combining code and documentation makes notebooks ideal for:
 
 * learning new concepts step by step
 * interactive data exploration
@@ -205,25 +207,25 @@ Compared to the simple Python interpreter, IDEs provide many tools in one place,
 
 * a code editor
 * a file browser
-* debugging tools
+* {term}`debugging <Debugging>` tools
 * error highlighting
-* version control integration
+* {term}`version control` integration
 
 IDEs can look complex at first, but they can also be very helpful. Many IDEs highlight {term}`syntax` errors immediately and suggest fixes, which makes it easier to learn and debug your code.
 
 Several popular IDEs are used for Python:
 
-* **JupyterLab**
-  A browser-based environment designed for working with notebooks. It combines a file browser, notebook interface, Python console, and terminal in one workspace. This is the environment we use in this course.
+* **Visual Studio Code (VS Code)**  
+  A flexible code editor that becomes a full IDE through extensions. It supports many programming languages, including Python. This is the environment we recommend in this course.
 
-* **Visual Studio Code (VS Code)**
-  A flexible code editor that becomes a full IDE through extensions. It supports many programming languages, including Python.
+* **JupyterLab**  
+  A browser-based environment designed for working with notebooks. It combines a file browser, notebook interface, Python console, and terminal in one workspace.
 
-* **PyCharm**
+* **PyCharm**  
   A powerful IDE designed specifically for Python. It provides advanced tools for larger software projects and professional development.
 
-You do not need to master an IDE right away. In this course, we focus on JupyterLab as a baseline. In addition, we encourage you to explore Visual Studio Code for its advanced tools when you start with your projects.  
-At this stage, the focus now is learning how to think in code, not mastering development tools.
+You do not need to master an IDE right away. In this course, we focus on [Visual Studio Code](https://hendrikwulf.github.io/sds210-jb/book/setup/vs-code/) as a baseline. We encourage you to explore its advanced tools throughout the semester, so you benefit from them when you start with your projects.  As an alternative, you can also start with JupyterLab to gain a basic understanding of how to work with notebooks.
+At this early stage, the focus is learning how to think in code, not mastering development tools.
 
 ---
 
@@ -231,19 +233,19 @@ At this stage, the focus now is learning how to think in code, not mastering dev
 
 Jupyter is the system that allows notebooks to run in a web browser.
 
-From your perspective, you open a notebook in a tab, write code in cells, and run them. In the background, a {term}`Jupyter server` executes the Python code and sends the results back to your browser. That server can run:
+From your perspective, you open a notebook in a tab, write code in cells, and run them. In the background, a Jupyter server executes the Python code and sends the results back to your browser. That server can run:
 
 * **on your own computer**, for example when you start JupyterLab locally
 * **on a university or research server**, which you access remotely
-* **in a cloud service**, such as Google Colab, which provides a managed notebook environment
+* **in a cloud service**, such as {term}`Google Colab`, which provides a managed notebook environment
 
 In all cases, the experience in the browser is very similar.
 
 ### JupyterLab
 
-[JupyterLab](https://hendrikwulf.github.io/sds210-jb/book/setup/jupyterlab/) is the main interface we use in this course.
+[JupyterLab](https://hendrikwulf.github.io/sds210-jb/book/setup/jupyterlab/) is a simple interface to write, edit and run notebooks.
 
-It is a browser based environment where you can:
+It is a browser-based environment where you can:
 
 * browse and manage files in your project
 * open notebooks in tabs for code and text
@@ -259,23 +261,24 @@ When you start JupyterLab, it opens in a browser window and shows these componen
 If you installed [Miniconda](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/#id-3-installing-conda), the typical workflow looks like this:
 
 1. **Open a terminal**
-2. **Navigate to your working directory**, for example:
+
+2. **Navigate to your {term}`working directory <Working directory>`**, for example:
 
    ```bash
    cd path/to/your/project-folder
    ```
 
-3. **Create and activate your environment** (once you installed [Conda](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/))
+3. **Create and activate your environment** after you have installed [Conda](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/):
 
    ```bash
-   conda create -n sds-env python=3.14
-   conda activate sds-env
+   conda create -n my-env python=3.12
+   conda activate my-env
    ```
 
 4. **Install and start JupyterLab**
 
    ```bash
-   conda install jupyterlab
+   conda install --channel conda-forge jupyterlab
    jupyter lab
    ```
 
@@ -298,9 +301,9 @@ When you are finished:
 
 2. Press:
 
-```bash
-Control + C
-```
+   ```text
+   Control + C
+   ```
 
 3. Confirm with `y` if prompted.
 
@@ -374,7 +377,7 @@ You can:
 | File browser       | Separate page    | Built-in panel                |
 | Terminal access    | No               | Yes                           |
 | Layout flexibility | Limited          | Flexible                      |
-| Best for           | Simple workflows | Larger or structured projects |
+| Best for           | Simple workflows | Small projects                |
 ````
 
 ---
@@ -388,9 +391,9 @@ The JupyterLab starting window
 
 ---
 
-## 6. Summary
+## 5. Summary
 
-In this section, you learned how ideas become executable code.
+In this chapter, you learned how ideas become executable code.
 
 You now understand that:
 
@@ -398,7 +401,7 @@ You now understand that:
 * **Coding** is the act of expressing those steps in a programming language  
 * **Python** is our language of choice because it is readable, widely used, and powerful for scientific and spatial data work  
 * **Scripts** and **notebooks** are two different ways to run Python code  
-* **JupyterLab** is the environment we use to combine code, explanation, and results in one place  
+* **VS Code / JupyterLab** is the environment we use to combine code, explanation, and results in one place  
 
 Most importantly, you should understand that programming in this course is not about building large software systems. It is about:
 
@@ -410,14 +413,14 @@ Most importantly, you should understand that programming in this course is not a
 
 ### Looking ahead
 
-In the next section, we move from concepts to structure and learn the basic rules that make Python code valid and readable.
+In the next chapter, we move from concepts to structure and learn the basic rules that make Python code valid and readable.
 The aim is to write Python that the computer can understand. Here, small details matter:
 
-* names are case sensitive  
+* names are {term}`case sensitive <Case sensitive>`  
 * quotes must match  
-* indentation defines structure  
+* {term}`indentation <Indentation>` defines structure  
 
-In the next section, you will learn the core rules of **Python syntax**.  
+In the next chapter, you will learn the core rules of **Python syntax**.  
 These rules are about writing code that is clear, consistent, and easy to debug.
 
 Once you understand the syntax, you can start turning ideas into working programs.
