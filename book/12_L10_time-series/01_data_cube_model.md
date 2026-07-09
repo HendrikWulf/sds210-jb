@@ -1,9 +1,9 @@
 ---
-title: The Data Cube Model
-
 site: 
   outline_maxdepth: 1
 ---
+
+# The Data Cube Model
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

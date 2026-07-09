@@ -1,10 +1,9 @@
 ---
-title: Getting Data In and Out
-
 site:
  outline_maxdepth: 1
- 
 ---
+
+# Getting Data In and Out
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

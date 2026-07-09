@@ -1,10 +1,11 @@
 ---
-title: Practical L8 - Solutions
 
 site: 
     outline_maxdepth: 1
 
 ---
+
+# Practical L8 - Solutions
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

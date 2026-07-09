@@ -1,11 +1,11 @@
 ---
 
-title: Practical L4 - Solutions
-
 site: 
     outline_maxdepth: 1
 
 ---
+
+# Practical L4 - Solutions
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

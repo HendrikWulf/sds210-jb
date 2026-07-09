@@ -1,11 +1,11 @@
 ---
 
-title: Third Party Modules
-
 site:
     outline_maxdepth: 1
 
 ---
+
+# Third Party Modules
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

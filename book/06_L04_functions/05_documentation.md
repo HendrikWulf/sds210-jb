@@ -1,10 +1,11 @@
 ---
-title: Writing Professional Functions
 
 site:
     outline_maxdepth: 1
 
 ---
+
+# Writing Professional Functions
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

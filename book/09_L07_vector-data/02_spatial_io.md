@@ -1,9 +1,9 @@
 ---
-title: Reading, Writing & Peeking
-
 site:
  outline_maxdepth: 1
 ---
+
+# Reading, Writing & Peeking
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

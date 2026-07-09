@@ -1,9 +1,9 @@
 ---
-title: The idea of a class
-
 site: 
     outline_maxdepth: 1
 ---
+
+# The idea of a class
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

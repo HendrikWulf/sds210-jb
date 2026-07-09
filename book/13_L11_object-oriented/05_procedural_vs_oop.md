@@ -1,9 +1,9 @@
 ---
-title: Procedural vs OOP
-
 site:
   outline_maxdepth: 1
 ---
+
+# Procedural vs OOP
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

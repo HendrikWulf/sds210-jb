@@ -1,9 +1,9 @@
 ---
-title: Visualizing Raster Layers
-
 site:
   outline_maxdepth: 1
 ---
+
+# Visualizing Raster Layers
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

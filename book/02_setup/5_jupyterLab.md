@@ -73,7 +73,7 @@ If you are working in a {term}`pip`-based environment, you can install JupyterLa
 pip install jupyterlab
 ```
 
-Only use one {term}`package manager <Package manager>` per environment when possible. 
+Only use one {term}`package manager <Package manager>` per environment when possible.
 
 ```{admonition} Recommendation
 :class: tip
@@ -119,11 +119,11 @@ Here is what happens in the background:
 If you close the terminal, the server stops and JupyterLab shuts down. Understanding this connection between **terminal**, **server**, **browser**, and notebook {term}`kernels <Kernel>` helps explain many common issues students run into later.
 
 <!-- markdownlint-disable MD033-->
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L00_setup_ch05_JupyterLab_launch_curcuit/" 
-    width="100%" 
-    height="600px" 
-    frameborder="0" 
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L00_setup_ch05_JupyterLab_launch_curcuit/"
+    width="100%"
+    height="600px"
+    frameborder="0"
     style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
 </iframe>
 

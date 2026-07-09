@@ -1,10 +1,11 @@
 ---
-title: The Raster Model
 
 site: 
     outline_maxdepth: 1
 
 ---
+
+# The Raster Model
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
