@@ -38,9 +38,9 @@ Now that you know how to safely project the Earth onto a flat metric grid, you c
 
 ```
 
-In the previous sections, we learned how to load spatial files and navigate the complexities of **{term}`Coordinate Reference Systems <Coordinate Reference System>`** (CRS). Up until now, we have only been visualizing existing shapes.
+In the previous chapters, we learned how to load spatial files and navigate the complexities of **{term}`Coordinate Reference Systems <Coordinate Reference System>`** (CRS). Up until now, we have only been visualizing existing shapes.
 
-This section marks your transition into active spatial analysis. You will learn how to interrogate your geometries to generate numeric measurements and manipulate them to create brand new derived shapes.
+This chapter marks your transition into active spatial analysis. You will learn how to interrogate your geometries to generate numeric measurements and manipulate them to create brand new derived shapes.
 
 ```{admonition} Data Preparation
 :class: dropdown
@@ -493,7 +493,7 @@ ax.set_title("Switzerland: Boundary Buffer & Convex Hull")
 
 ## 7. Summary: Geometric Operations
 
-In this section, you progressed from managing spatial files to performing active spatial analysis. You now have the skills to interrogate geometries for data and twist them into new analytical shapes.
+In this chapter, you progressed from managing spatial files to performing active spatial analysis. You now have the skills to interrogate geometries for data and twist them into new analytical shapes.
 
 ### Key takeaways
 
@@ -506,4 +506,4 @@ In this section, you progressed from managing spatial files to performing active
 
 Up to this point, we have only been working with one geometric layer at a time. We learned how to draw an 80-kilometer buffer around a nuclear power plant, but we haven't answered the most important question: *How many people actually live inside that buffer?*
 
-To answer questions like that, we need to compare two completely different datasets. In the next section, **Spatial Relationships (Topological Queries)**, you will learn how to ask spatial questions. You will discover how to test if a point is `within` a polygon, if two lines `intersect`, and how to use geography itself as a filter to seamlessly link different datasets together!
+To answer questions like that, we need to compare two completely different datasets. In the next chapter, **Spatial Relationships (Topological Queries)**, you will learn how to ask spatial questions. You will discover how to test if a point is `within` a polygon, if two lines `intersect`, and how to use geography itself as a filter to seamlessly link different datasets together!

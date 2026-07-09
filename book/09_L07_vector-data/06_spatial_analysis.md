@@ -21,7 +21,7 @@ Combining and Aggregating Spatial Data
 ```{admonition} Big Idea
 :class: tip
 
-The ultimate power of a Geographic Information System lies in fusing disparate datasets together. In this section, you will learn how to transfer attributes between layers based on their physical location, merge adjacent shapes into larger territories, and literally cut geometries into pieces using spatial overlays. 
+The ultimate power of a Geographic Information System lies in fusing disparate datasets together. In this chapter, you will learn how to transfer attributes between layers based on their physical location, merge adjacent shapes into larger territories, and literally cut geometries into pieces using spatial overlays. 
 ```
 
 ```{admonition} Chapter Relevance
@@ -37,7 +37,7 @@ The ultimate power of a Geographic Information System lies in fusing disparate d
 
 ```
 
-In the previous section, we learned how to ask spatial questions to filter our data (e.g., finding all primary homes inside an evacuation zone).
+In the previous chapter, we learned how to ask spatial questions to filter our data (e.g., finding all primary homes inside an evacuation zone).
 
 Now, we will take the final step in vector analysis: **Data Fusion**. You will learn how to permanently combine the geometries and attributes of entirely different datasets to engineer new, multi-dimensional analytical tables.
 
@@ -554,4 +554,4 @@ You have successfully engineered new spatial datasets and aggregated complex sta
 
 If you look back at the hospital map we just created, we used a continuous color gradient. While it looks nice, the human brain actually struggles to interpret the exact difference between two similar shades of blue.
 
-To make our maps truly readable, we need to group our raw numbers into logical "bins" (e.g., "Low", "Medium", and "High" density). In the next section, **Data Classification**, you will learn how to bridge the gap between raw data and clear visual communication using rule-based logic and statistical grouping methods!
+To make our maps truly readable, we need to group our raw numbers into logical "bins" (e.g., "Low", "Medium", and "High" density). In the next chapter, **Data Classification**, you will learn how to bridge the gap between raw data and clear visual communication using rule-based logic and statistical grouping methods!

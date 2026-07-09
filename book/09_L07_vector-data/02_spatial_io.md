@@ -37,11 +37,11 @@ Reading and writing complex spatial formats like GeoPackages or Shapefiles can b
 
 ```
 
-In the previous section, we learned how to manually construct a **{term}`GeoDataFrame`** from a raw **{term}`CSV <Comma-separated values>`** file. While that is a great skill to have, it is not how you will usually start a project.
+In the previous chapter, we learned how to manually construct a **{term}`GeoDataFrame`** from a raw **{term}`CSV <Comma-separated values>`** file. While that is a great skill to have, it is not how you will usually start a project.
 
-In the real world, spatial data comes neatly packaged in professional GIS formats designed to store coordinates, **{term}`attributes <Attribute>`**, and **{term}`coordinate reference systems <Coordinate Reference System>`** all in one place. This section covers the spatial intake workflow: how to get these files into your notebook, verify them visually, and save them back to your computer.
+In the real world, spatial data comes neatly packaged in professional GIS formats designed to store coordinates, **{term}`attributes <Attribute>`**, and **{term}`coordinate reference systems <Coordinate Reference System>`** all in one place. This chapter covers the spatial intake workflow: how to get these files into your notebook, verify them visually, and save them back to your computer.
 
-Before we begin, make sure you have downloaded the necessary datasets for this section. We will be using the national boundaries of Switzerland provided in three different industry standard formats.
+Before we begin, make sure you have downloaded the necessary datasets for this chapter. We will be using the national boundaries of Switzerland provided in three different industry standard formats.
 
 ```{admonition} Data Preparation
 :class: dropdown
@@ -358,7 +358,7 @@ Based on the distinctive eastern coastline touching the Black Sea and the northe
 
 ## 6. Summary: Spatial I/O
 
-In this section, you learned how to seamlessly move spatial data between your hard drive and your Python environment. You now possess the tools to ingest almost any professional GIS file you encounter in the wild, verify its contents, and save your results.
+In this chapter, you learned how to seamlessly move spatial data between your hard drive and your Python environment. You now possess the tools to ingest almost any professional GIS file you encounter in the wild, verify its contents, and save your results.
 
 ### Key takeaways
 
@@ -374,4 +374,4 @@ Up to this point, we have successfully loaded and plotted geographic shapes. How
 
 If you look closely at the X and Y axes of our Switzerland plots, the numbers are massive (e.g., 2,600,000). But if you load the Bulgaria dataset, the numbers are tiny (e.g., 25, 43). Why? Because our planet is a 3D sphere, and drawing it on a flat 2D screen requires complex mathematical translation.
 
-In the next section, **Coordinate Reference Systems (CRS) - The "Where"**, we will tackle the single most common source of GIS errors. You will learn how to identify your coordinate system, translate data from degrees into measurable metric units (meters), and safely flatten the Earth!
+In the next chapter, **Coordinate Reference Systems (CRS) - The "Where"**, we will tackle the single most common source of GIS errors. You will learn how to identify your coordinate system, translate data from degrees into measurable metric units (meters), and safely flatten the Earth!

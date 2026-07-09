@@ -38,7 +38,7 @@ They change how well **humans understand it**, including your future self.
 
 ```
 
-In this section, you will learn how to choose clear and meaningful {term}`variable <Variable>` names in Python.
+In this chapter, you will learn how to choose clear and meaningful {term}`variable <Variable>` names in Python.
 Good naming makes your {term}`code <Source code>` easier to read, {term}`debug <Debugging>`, and share, even months after you first wrote it.
 
 ---
@@ -278,7 +278,7 @@ Notice how `elevation_meters` is much safer than just `elevation`, as it prevent
 
 ## 8. Summary
 
-After this section, you should understand that:
+After this chapter, you should understand that:
 
 * Python allows many variable names, but not all are good choices.
 * Good variable names improve readability, prevent bugs, and help your future self.
@@ -290,6 +290,6 @@ After this section, you should understand that:
 ### What Comes Next
 
 Variable names describe **what a value represents**.
-In the next section, we will look at **{term}`data types <Data type>`**, which describe **what kind of value** it is (text, numbers, decimals) and what operations you can perform on it.
+In the next chapter, we will look at **{term}`data types <Data type>`**, which describe **what kind of value** it is (text, numbers, decimals) and what operations you can perform on it.
 
 Together, good naming and an understanding of data types form the basis for clear and reliable code.

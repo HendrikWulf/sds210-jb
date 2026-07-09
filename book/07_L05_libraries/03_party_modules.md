@@ -41,7 +41,7 @@ The global Python community has already built and shared code for almost any tas
 
 ```
 
-In the previous sections, you learned how to write your own custom **{term}`modules <Module>`** and how to unlock the tools bundled in the Python Standard Library. This gave you a solid foundation. However, Python truly shines because of its massive open source ecosystem.
+In the previous chapters, you learned how to write your own custom **{term}`modules <Module>`** and how to unlock the tools bundled in the Python Standard Library. This gave you a solid foundation. However, Python truly shines because of its massive open source ecosystem.
 
 When you want to perform specialized tasks like processing geospatial polygons, creating interactive maps, or visually tracking your code's progress, the Standard Library is not quite enough. This is where **{term}`third-party modules <Third-party package>`** come in.
 
@@ -366,7 +366,7 @@ If you guessed **B (~67 km)**, you were right! You can trust established communi
 
 ## 9. Summary
 
-In this section, you learned how to break out of the built in Python ecosystem and utilize the vast library of community tools. You discovered how to:
+In this chapter, you learned how to break out of the built in Python ecosystem and utilize the vast library of community tools. You discovered how to:
 
 * Identify the difference between the Standard Library and third party modules.
 * Understand the role of package managers like `conda` and `pip`.
@@ -378,4 +378,4 @@ In this section, you learned how to break out of the built in Python ecosystem a
 
 You now know how to extend Python with powerful community tools. But what if the data you need isn't saved on your computer?
 
-In the next section, **Using Web APIs**, you will learn how to connect Python directly to the live internet. You will discover how to use the `requests` module to ask remote servers for exact data—like live weather forecasts and historical climate records—and pull it straight into your code without ever opening a web browser.
+In the next chapter, **Using Web APIs**, you will learn how to connect Python directly to the live internet. You will discover how to use the `requests` module to ask remote servers for exact data—like live weather forecasts and historical climate records—and pull it straight into your code without ever opening a web browser.

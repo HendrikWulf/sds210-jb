@@ -38,7 +38,7 @@ Expressions are evaluated when code is executed to produce new values.
 
 So far, you have learned how to store values in variables, how to name them clearly, and how Python distinguishes between different data types.
 
-In this section, we focus on **how values interact**. We start with simple calculations, then build up to comparisons, logic, and {term}`module`-based mathematical expressions.
+In this chapter, we focus on **how values interact**. We start with simple calculations, then build up to comparisons, logic, and {term}`module`-based mathematical expressions.
 
 ---
 
@@ -632,7 +632,7 @@ print("Sine value:", sin_value, "| Is valid:", valid_range)
 
 ## 10. Summary
 
-After completing this section, you should understand that:
+After completing this chapter, you should understand that:
 
 * **Expressions combine values and operators** to produce a single result.
 * **Expressions are evaluated when code is executed.**
@@ -643,4 +643,4 @@ After completing this section, you should understand that:
 
 ### Looking Ahead
 
-Expressions are the foundation for making decisions in code. In the next section, we will take a deeper dive into **Strings**. Strings behave uniquely, especially when combined, sliced, or formatted. Isolating these behaviors early helps keep numeric reasoning clear while building your confidence with text handling.
+Expressions are the foundation for making decisions in code. In the next chapter, we will take a deeper dive into **Strings**. Strings behave uniquely, especially when combined, sliced, or formatted. Isolating these behaviors early helps keep numeric reasoning clear while building your confidence with text handling.

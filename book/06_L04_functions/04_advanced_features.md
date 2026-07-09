@@ -41,7 +41,7 @@ Real-world spatial data can be messy and unpredictable. You might not know how m
 
 Up to now, our **{term}`functions <Function>`** have had a rigid structure: a fixed number of inputs, each with a predefined name. But what if you need to write a function that can accept *any* number of coordinates? Or a function that processes spatial features with a completely unpredictable set of attributes?
 
-In this section, we will unlock the power of flexible function interfaces and anonymous functions.
+In this chapter, we will unlock the power of flexible function interfaces and anonymous functions.
 
 ---
 
@@ -521,7 +521,7 @@ print(coords)
 
 ## 6. Summary
 
-In this section, you learned how to break free from rigid function definitions:
+In this chapter, you learned how to break free from rigid function definitions:
 
 * **`*args`**: Collects an arbitrary number of positional arguments into a tuple.
 * **`kwargs`**: Collects an arbitrary number of keyword arguments into a dictionary, perfect for flexible metadata.

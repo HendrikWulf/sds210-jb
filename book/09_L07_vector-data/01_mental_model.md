@@ -41,7 +41,7 @@ In the previous lesson, you mastered the standard Pandas DataFrame. You learned 
 
 However, when working with geoscience data, knowing *what* happened is only half the story. We also need to know *where* it happened. This lesson introduces **GeoPandas**, the industry standard library for spatial data analysis in Python.
 
-Before we begin, make sure you have downloaded the necessary datasets for this section. We will be using the Swiss pollen monitoring station network and nuclear power plant location data.
+Before we begin, make sure you have downloaded the necessary datasets for this chapter. We will be using the Swiss pollen monitoring station network and nuclear power plant location data.
 
 ```{admonition} Data Preparation
 :class: dropdown
@@ -351,7 +351,7 @@ display(power_plants_gdf.head(3))
 
 ## 6. Summary: The Anatomy of a GeoDataFrame
 
-In this section, you successfully shifted your mental model from flat spreadsheets to dynamic spatial objects.
+In this chapter, you successfully shifted your mental model from flat spreadsheets to dynamic spatial objects.
 
 ### Key takeaways
 
@@ -364,4 +364,4 @@ In this section, you successfully shifted your mental model from flat spreadshee
 
 Now that you understand the anatomy of a GeoDataFrame, how do we actually load professional GIS files? We rarely build spatial datasets from raw CSVs in the real world.
 
-In the next section, **Reading, Writing, and Peeking at Spatial Data**, we will learn how effortlessly Python handles complex industry-standard formats (like Shapefiles, GeoJSON, and GeoPackages), how to instantly verify your data visually using the `.plot()` method, and how to export your modified maps back to your hard drive!
+In the next chapter, **Reading, Writing, and Peeking at Spatial Data**, we will learn how effortlessly Python handles complex industry-standard formats (like Shapefiles, GeoJSON, and GeoPackages), how to instantly verify your data visually using the `.plot()` method, and how to export your modified maps back to your hard drive!

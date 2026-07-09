@@ -447,7 +447,7 @@ Matplotlib also supports highly specialized plots like [Dendrograms](https://en.
 
 Regardless of whether you are building a bar chart, a scatter plot, or a complex 3D surface model, almost all plots share a common structural DNA.
 
-When you encounter a problem or want to customize a specific part of your visual, you need to know the correct terminology to search for in the Matplotlib documentation. We have already manipulated many of these elements using keyword arguments (`kwargs`) in the previous section.
+When you encounter a problem or want to customize a specific part of your visual, you need to know the correct terminology to search for in the Matplotlib documentation. We have already manipulated many of these elements using keyword arguments (`kwargs`) in the previous chapter.
 
 :::{figure} images/08_anatomy_figure.png
 :alt: The basic elements of a figure.

@@ -22,7 +22,7 @@ Extracting Insights from Relational Data
 ```{admonition} Big idea
 :class: tip
 
-Raw data is just a collection of numbers. To create actual knowledge, you need to zoom out. In this section, you will learn how to extract high level insights using summary statistics, combine multiple datasets using shared keys, and group data into meaningful categories.
+Raw data is just a collection of numbers. To create actual knowledge, you need to zoom out. In this chapter, you will learn how to extract high level insights using summary statistics, combine multiple datasets using shared keys, and group data into meaningful categories.
 
 ```
 
@@ -39,7 +39,7 @@ Raw data is just a collection of numbers. To create actual knowledge, you need t
 
 ```
 
-Before we begin, make sure you have downloaded the necessary datasets for this section. We will be using our familiar Kloten datasets, plus a new extended dataset from Lugano.
+Before we begin, make sure you have downloaded the necessary datasets for this chapter. We will be using our familiar Kloten datasets, plus a new extended dataset from Lugano.
 
 ```{admonition} Data Preparation
 :class: dropdown
@@ -382,4 +382,4 @@ Throughout this chapter, we relied on a bit of a hack: we used string slicing (`
 
 Dates are not just strings of text; they are measurable, plottable dimensions.
 
-In the next section, **Working with Temporal Data**, we will learn how to convert clunky text into intelligent Pandas `datetime` objects. You will learn how to effortlessly extract years, months, and days using the special `.dt` accessor, and how to automatically resample time-series data (like converting hourly sensor readings into daily averages) without writing complex code.
+In the next chapter, **Working with Temporal Data**, we will learn how to convert clunky text into intelligent Pandas `datetime` objects. You will learn how to effortlessly extract years, months, and days using the special `.dt` accessor, and how to automatically resample time-series data (like converting hourly sensor readings into daily averages) without writing complex code.

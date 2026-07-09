@@ -39,7 +39,7 @@ Writing a function is not just about making the code run; it is about making the
 
 ```
 
-In the previous section, we built our first **{term}`functions <Function>`**. Now, we will look at how functions actually behave in your computer's memory. This section covers critical design concepts that may save you hours of debugging when building more complex spatial data pipelines.
+In the previous chapter, we built our first **{term}`functions <Function>`**. Now, we will look at how functions actually behave in your computer's memory. This chapter covers critical design concepts that may save you hours of debugging when building more complex spatial data pipelines.
 
 ---
 
@@ -538,7 +538,7 @@ print(f"Inn: {inn_data}")
 
 ## 5. Summary
 
-In this section, we moved from writing functional code to writing **safe** code:
+In this chapter, we moved from writing functional code to writing **safe** code:
 
 * **Scope:** Variables created inside a function are destroyed when the function finishes. Do not rely on global variables; always use parameters.
 * **Defaults:** Optional parameters make your tools flexible, but they must always be listed *after* required parameters.

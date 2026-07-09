@@ -112,7 +112,7 @@ For those of us based here in the Zurich area, astronomical events like total [s
 
 But will our exact location actually be plunged into total darkness, or will we need to travel to see the full effect? To find out, we need to map the predicted path of totality and overlay it onto a real-world basemap.
 
-Let us load the [umbral path polygon](http://xjubier.free.fr/en/site_pages/SolarEclipsesGoogleEarth.html) (the exact zone of total darkness) for the 2081 solar eclipse. We will immediately reproject this data to Web Mercator (`EPSG:3857`) to avoid the coordinate clash trap we discussed in the previous section.
+Let us load the [umbral path polygon](http://xjubier.free.fr/en/site_pages/SolarEclipsesGoogleEarth.html) (the exact zone of total darkness) for the 2081 solar eclipse. We will immediately reproject this data to Web Mercator (`EPSG:3857`) to avoid the coordinate clash trap we discussed in the previous chapter.
 
 Once the data is plotted on our axes, we use the `ctx.add_basemap(ax)` function. This tool looks at the current spatial boundaries of your axes, connects to the internet to download the corresponding OpenStreetMap tiles, and seamlessly draws them underneath your data.
 

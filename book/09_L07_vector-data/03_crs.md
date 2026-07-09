@@ -38,9 +38,9 @@ A coordinate like `(8.5, 47.4)` is completely meaningless to a computer unless i
 
 ```
 
-In the previous section, we successfully loaded and plotted geographic shapes. However, we ignored a critical question: how does the computer know exactly *where* on the planet those shapes belong?
+In the previous chapter, we successfully loaded and plotted geographic shapes. However, we ignored a critical question: how does the computer know exactly *where* on the planet those shapes belong?
 
-This section addresses the most common source of frustration in Geographic Information Systems (GIS): **Projections**. You will learn why mapping the Earth is mathematically complicated, how to identify your current coordinate system, and how to safely manipulate it using GeoPandas.
+This chapter addresses the most common source of frustration in Geographic Information Systems (GIS): **Projections**. You will learn why mapping the Earth is mathematically complicated, how to identify your current coordinate system, and how to safely manipulate it using GeoPandas.
 
 ```{admonition} Data Preparation
 :class: dropdown
@@ -337,7 +337,7 @@ Stacked visual inspection of unprojected degrees (top) versus projected meters (
 
 ## 6. Summary: Managing Projections
 
-In this section, you learned how to navigate the complexities of mapping a 3D Earth onto a 2D screen. Mastering these concepts will save you hours of debugging and prevent the vast majority of spatial errors you might encounter in the wild.
+In this chapter, you learned how to navigate the complexities of mapping a 3D Earth onto a 2D screen. Mastering these concepts will save you hours of debugging and prevent the vast majority of spatial errors you might encounter in the wild.
 
 ### Key takeaways
 
@@ -350,4 +350,4 @@ In this section, you learned how to navigate the complexities of mapping a 3D Ea
 
 Now that you know how to safely flatten the Earth onto a measurable metric grid, it is time to actually start measuring it.
 
-Up to this point, we have only been loading and visualizing existing shapes. In the next section, **Measuring and Modifying Geometries**, we will move from simply holding spatial data to generating brand new geospatial metrics. You will learn how to calculate precise surface areas, find the exact center of a country, and draw proximity buffers around train stations to see exactly what falls inside their zone of influence!
+Up to this point, we have only been loading and visualizing existing shapes. In the next chapter, **Measuring and Modifying Geometries**, we will move from simply holding spatial data to generating brand new geospatial metrics. You will learn how to calculate precise surface areas, find the exact center of a country, and draw proximity buffers around train stations to see exactly what falls inside their zone of influence!

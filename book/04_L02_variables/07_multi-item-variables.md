@@ -38,7 +38,7 @@ Multi-item variables store **collections of related values** in a single contain
 
 So far, each variable has stored exactly one value. In practice, we constantly work with groups of values that belong together, such as coordinate pairs, lists of cities, or sets of unique IDs.
 
-In this section, you will learn how Python stores multiple values in one variable (often called collections or data structures) and how to choose the right one for your spatial workflows.
+In this chapter, you will learn how Python stores multiple values in one variable (often called collections or data structures) and how to choose the right one for your spatial workflows.
 
 ---
 
@@ -569,7 +569,7 @@ print(f"Station {name} is located at latitude {lat}.")
 
 ## 9. Summary
 
-After completing this section, you should understand that:
+After completing this chapter, you should understand that:
 
 * **Lists** (`[]`) are ordered and changeable, serving as the workhorse for sequential data.
 * **Tuples** (`()`) are ordered and permanently fixed, ideal for protecting coordinate pairs.

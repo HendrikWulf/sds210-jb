@@ -52,7 +52,7 @@ You know how to let your program **decide** what to do using `if` statements.
 However, writing larger, more complex spatial programs requires a new tool.
 It requires **packaging your logic so it can be reused**.
 
-This section explains **why** **{term}`functions <Function>`** are necessary before you learn **how** to write them.
+This chapter explains **why** **{term}`functions <Function>`** are necessary before you learn **how** to write them.
 
 ---
 

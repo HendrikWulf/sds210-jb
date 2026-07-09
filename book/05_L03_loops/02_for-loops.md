@@ -41,7 +41,7 @@ We write the instruction once. The computer does the repetition.
 Programs become powerful when they can repeat work automatically.
 Loops are the main tool for expressing repetition in Python.
 
-This section focuses only on **repetition**, not on decisions.
+This chapter focuses only on **repetition**, not on decisions.
 Every example does the same thing each time the loop runs.
 
 ## 1. The idea of a loop
@@ -716,7 +716,7 @@ The final `print(v)` prints:
 
 ## 7. Summary
 
-In this section, you learned how Python expresses **repetition** using loops.
+In this chapter, you learned how Python expresses **repetition** using loops.
 
 ### Key ideas
 
