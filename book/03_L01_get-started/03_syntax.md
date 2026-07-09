@@ -4,20 +4,22 @@ site:
   outline_maxdepth: 1
 ---
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 How Python code is structured
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ---
 
 ```{admonition} Big idea
 :class: tip
-Python follows clear structural rules. Understanding {term}`syntax` helps you write readable code and avoid errors.
+Python follows clear structural rules. Understanding {term}`syntax <Syntax>` helps you write readable {term}`code <Source code>` and avoid errors.
 ```
 
 ---
 
-Programming works only if the computer understands the structure of your code.  
+{term}`Programming <Computer programming>` works only if the computer understands the structure of your code.  
 This structure is called **syntax**.
 
 Syntax defines:
@@ -29,15 +31,30 @@ Syntax defines:
 Even small syntax mistakes can prevent code from running. Clear syntax is not only about avoiding errors.
 It also makes your code easier for others to read and reuse.
 
+<!-- markdownlint-disable MD033-->
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L01_ch03_01_syntax_rules/"
+    width="100%"
+    height="600px"
+    frameborder="0"
+    style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
+</iframe>
+
+<figcaption>
+    <em><b>Interactive Explorer: Python Syntax Rules.</b><br>
+    Click the syntax rules to see how Python reads identifiers, comments, strings, statements, and indentation. Use the broken-code examples to reveal where Python gets confused and how a corrected structure makes the code readable again. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L01_ch03_01_syntax_rules/" target="_blank">link</a>.</em>
+</figcaption>
+<!-- markdownlint-enable MD033 -->
+
 ---
 
 ## 1. Identifiers and case
 
-An {term}`identifier` is a name used for {term}`variable`s, {term}`function`s and {term}`class`es.
+An {term}`identifier <Identifier>` is a name used for {term}`variables <Variable>`, {term}`functions <Function>`, and {term}`classes <Class>`.
 
 Example:
 
-```python
+```{code-cell} python
 x = 5
 X = "Harry"
 
@@ -45,7 +62,7 @@ print(x)
 print(X)
 ```
 
-Python is {term}`case sensitive`.
+Python is {term}`case sensitive <Case sensitive>`.
 
 `x` and `X` are two different identifiers.
 
@@ -62,7 +79,7 @@ print(value)
 
 A) 10  
 B) 20  
-C) Error  
+C) Value Error  
 
 Think first, then try it.
 ````
@@ -71,7 +88,7 @@ Think first, then try it.
 
 ## 2. Comments
 
-Comments explain your code to humans.  
+{term}`Comments <Comment>` explain your code to humans.  
 They are ignored by Python.
 
 Comments start with `#`.
@@ -92,7 +109,7 @@ Good comments:
 
 ## 3. Strings and quotes
 
-Strings represent text.
+{term}`Strings <String>` represent text.
 
 Python allows:
 
@@ -113,13 +130,13 @@ print(a, b)
 print(c)
 ```
 
-Triple quotes are useful for multi line text.
+Triple quotes are useful for multi-line text.
 
 ---
 
 ## 4. Statements and lines
 
-Each line in Python normally represents one {term}`statement`.
+Each line in Python normally represents one {term}`statement <Statement>`.
 
 ```{code-cell} python
 x = 5
@@ -159,10 +176,10 @@ print(week_days)
 
 ## 5. Indentation and blocks
 
-Indentation is not just formatting in Python.  
+{term}`Indentation <Indentation>` is not just formatting in Python.  
 It defines structure.
 
-Blocks such as loops, conditions, and functions:
+Blocks such as {term}`loops <Loop>`, conditions, and functions:
 
 - end with a colon `:`  
 - require indentation  
@@ -207,7 +224,7 @@ print(calculate_fee(80))
 Each colon introduces a block.
 Each block must be consistently indented.
 ```
- 
+
 ---
 
 ## 6. Common beginner errors
@@ -222,7 +239,7 @@ If your code does not run, first check:
 ```{admonition} Handling syntax errors
 :class: tip
 
-If Python shows a syntax error, read the message carefully.  
+If Python shows a {term}`syntax error <Syntax error>`, read the message carefully.  
 It usually tells you where the problem starts.
 ```
 
@@ -230,7 +247,7 @@ It usually tells you where the problem starts.
 
 ## 7. Summary
 
-In this section, you learned:
+In this chapter, you learned:
 
 - identifiers are case sensitive  
 - comments start with `#`  
@@ -246,10 +263,10 @@ Clear structure is essential for reproducible workflows.
 
 ### Looking ahead
 
-In the next section, you will apply your syntax knowledge in a real {term}`notebook` environment. You will:
+In the next chapter, you will apply your syntax knowledge in a real {term}`notebook <Notebook>` environment. You will:
 
 - run cells interactively  
-- observe how execution order matters  
+- observe how {term}`execution order <Execution order>` matters  
 - experience how notebooks store variables in memory  
 
 Syntax tells Python what your code means.

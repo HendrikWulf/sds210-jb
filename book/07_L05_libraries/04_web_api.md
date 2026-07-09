@@ -50,7 +50,7 @@ You do not need to download every dataset you want to analyze.
 
 So far, we have worked with tools and data running locally on your computer. But the true power of spatial data science unlocks when your code can talk to the rest of the world.
 
-In this section, you will learn how to write Python code that fetches live information from external servers, such as real-time weather data, without ever opening a web browser.
+In this chapter, you will learn how to write Python code that fetches live information from external servers, such as real-time weather data, without ever opening a web browser.
 
 ---
 
@@ -370,7 +370,7 @@ We want to find out which of the world's 10 most populated cities is currently e
 
 Since we are sending 10 requests in a row, we must respect the server's rate limits by pausing between each request.
 
-1. Review the code block in Section 4 above to see how the API is called.
+1. Review the code block in [Section 4](https://hendrikwulf.github.io/sds210-jb/book/l05-libraries/web-api/#id-4-fetching-live-weather-data-json) above to see how the API is called.
 2. Below, we have provided a dictionary containing the names and coordinates of the 10 most populated cities.
 3. Write a `for` loop that iterates through the `megacities` dictionary using `.items()`.
 4. Inside the loop, create a new `parameters` dictionary using the latitude and longitude of the current city. Set `"current_weather": "true"`.
@@ -468,7 +468,7 @@ Instead of looking at monthly data for a single year, we want to look at the **y
 MeteoSwiss provides yearly aggregations in a separate file ending in `_y.csv` instead of `_m.csv`.
 
 1. Create a variable `csv_url` pointing to the **yearly** CSV file for Weissfluhjoch (`wfj`).
-*(Hint: Look at the URL structure in Section 5 and change `klo` to `wfj`, and `_m.csv` to `_y.csv`)*.
+*(Hint: Look at the URL structure in [Section 5](https://hendrikwulf.github.io/sds210-jb/book/l05-libraries/web-api/#id-5-fetching-historical-climate-data-csv) and change `klo` to `wfj`, and `_m.csv` to `_y.csv`)*.
 2. Make a `requests.get()` call to this URL.
 3. Extract the raw text using `response.text`.
 4. Break the text into a list of lines using `.splitlines()`.
@@ -531,7 +531,7 @@ API endpoints are often highly structured. By understanding how the URL is built
 
 ## 8. Summary
 
-In this section, you learned how to break out of your local machine and fetch dynamic spatial data from the web.
+In this chapter, you learned how to break out of your local machine and fetch dynamic spatial data from the web.
 
 ### Key ideas
 
@@ -545,4 +545,4 @@ In this section, you learned how to break out of your local machine and fetch dy
 
 You now know how to fetch live data using exact latitude and longitude. But what if you only have a list of street addresses, city names, or landmarks?
 
-In the next section, **Geocoding**, we will use Web APIs to bridge the gap between human language and computer geometry. You will learn how to automatically translate everyday text into exact, mappable coordinates, and vice versa.
+In the next chapter, **Geocoding**, we will use Web APIs to bridge the gap between human language and computer geometry. You will learn how to automatically translate everyday text into exact, mappable coordinates, and vice versa.

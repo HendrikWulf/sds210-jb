@@ -253,7 +253,7 @@ Answer the following questions:
 
 ## 6. Summary: The OOP Data Shift
 
-In this section, you learned how to shift your mindset from procedural Python to the Object Oriented logic of Pandas.
+In this chapter, you learned how to shift your mindset from procedural Python to the Object Oriented logic of Pandas.
 
 ### Key takeaways
 

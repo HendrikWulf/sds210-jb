@@ -436,7 +436,7 @@ Restarting the kernel is crucial. It ensures Python loads the newest saved versi
 
 ## 7. Summary
 
-In this section, you learned how to move your code out of the notebook sandbox and into reusable script files. You discovered how to:
+In this chapter, you learned how to move your code out of the notebook sandbox and into reusable script files. You discovered how to:
 
 * Create and save a `.py` file containing custom functions.
 * Verify your working directory using `%ls`.
@@ -447,4 +447,4 @@ By writing modular tools in separate scripts, you keep your main notebooks clean
 
 ### What comes next?
 
-You have now built and imported your own custom module. But you do not have to write every tool from scratch! In the next section, we will explore the **{term}`Python Standard Library <Standard library>`** and discover how to use the exact same `import` syntax to unlock powerful tools that are already built into Python.
+You have now built and imported your own custom module. But you do not have to write every tool from scratch! In the next chapter, we will explore the **{term}`Python Standard Library <Standard library>`** and discover how to use the exact same `import` syntax to unlock powerful tools that are already built into Python.

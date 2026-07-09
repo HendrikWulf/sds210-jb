@@ -39,7 +39,7 @@ In data science, code is read far more often than it is written. Writing a funct
 
 ```
 
-By this point, you know how to build powerful, flexible spatial tools. But as your scripts grow into larger pipelines, relying solely on memory to remember what each function does becomes impossible. In this final section, we will learn how to formally document our code and review the most common mistakes that break pipelines.
+By this point, you know how to build powerful, flexible spatial tools. But as your scripts grow into larger pipelines, relying solely on memory to remember what each function does becomes impossible. In this final chapter, we will learn how to formally document our code and review the most common mistakes that break pipelines.
 
 ---
 

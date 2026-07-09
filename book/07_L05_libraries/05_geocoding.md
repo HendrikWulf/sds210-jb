@@ -46,9 +46,9 @@ We understand the world through names and addresses. Computers understand the wo
 *Geocoding is the essential bridge in spatial data science, translating between the human world of names and addresses and the computer world of geometry and coordinates.*
 :::
 
-In the previous section, we used coordinates to fetch weather data from an API. In the real world, however, you may not receive a dataset that is perfectly formatted with latitudes and longitudes. Instead, you may get a list of street addresses, city names, or famous landmarks.
+In the previous chapter, we used coordinates to fetch weather data from an API. In the real world, however, you may not receive a dataset that is perfectly formatted with latitudes and longitudes. Instead, you may get a list of street addresses, city names, or famous landmarks.
 
-In this section, you will learn how to convert place names into geographic coordinates so you can map them, and how to do the exact reverse.
+In this chapter, you will learn how to convert place names into geographic coordinates so you can map them, and how to do the exact reverse.
 
 ---
 
@@ -62,7 +62,7 @@ Under the hood, geocoding relies heavily on the **{term}`Web APIs <API>`** we ju
 
 ## 2. Geocoding with geopy
 
-In the "Third Party Modules" section, we already installed and used the `geopy` library to calculate the distance between two points. Now, we will use another powerful tool hidden inside that same package: the geocoder.
+In the "Third Party Modules" chapter, we already installed and used the `geopy` library to calculate the distance between two points. Now, we will use another powerful tool hidden inside that same package: the geocoder.
 
 While we could write custom `requests` code to query a geocoding API manually, `geopy` acts as a unified wrapper for dozens of different geocoding services, making the process incredibly smooth. Today, we will use it to access **[Nominatim](https://nominatim.org/)**, which is the free geocoding service powered by OpenStreetMap data.
 
@@ -209,7 +209,7 @@ Just like that, `geopy` asks OpenStreetMap what exists at those exact coordinate
 
 ## 5. API etiquette and rate limiting
 
-Because `geopy` is using Web APIs in the background, all the rules regarding **{term}`rate limiting <Rate limiting>`** from the previous section still apply.
+Because `geopy` is using Web APIs in the background, all the rules regarding **{term}`rate limiting <Rate limiting>`** from the previous chapter still apply.
 
 Nominatim is a free service, but it has very strict usage policies. They limit users to **1 request per second**. If you try to geocode a list of 100 addresses instantly using a loop, OpenStreetMap will permanently block your access.
 
@@ -354,7 +354,7 @@ Reverse geocoding is incredibly useful for enriching raw spatial data (like GPS 
 
 ## 7. Summary
 
-In this section, you learned how to convert human language into geographic coordinates using community tools.
+In this chapter, you learned how to convert human language into geographic coordinates using community tools.
 
 ### Key ideas
 

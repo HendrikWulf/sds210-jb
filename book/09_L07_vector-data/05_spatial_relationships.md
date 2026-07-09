@@ -38,9 +38,9 @@ Now that you can measure and modify individual geographic shapes, it is time to 
 
 ```
 
-In the previous sections, we learned how to load shapes, project them onto a metric grid, and calculate their areas and buffers. However, we only manipulated one dataset at a time.
+In the previous chapters, we learned how to load shapes, project them onto a metric grid, and calculate their areas and buffers. However, we only manipulated one dataset at a time.
 
-In this section, we transition to answering complex **{term}`spatial questions <Spatial queries>`** by comparing two entirely different datasets. You will learn how to evaluate the physical relationships between geometries and use those relationships to filter data and find nearest neighbors.
+In this chapter, we transition to answering complex **{term}`spatial questions <Spatial queries>`** by comparing two entirely different datasets. You will learn how to evaluate the physical relationships between geometries and use those relationships to filter data and find nearest neighbors.
 
 ```{admonition} Data Preparation
 :class: dropdown
@@ -525,7 +525,7 @@ ax.axis("off")
 
 ## 6. Summary: Spatial Querying
 
-In this section, you unlocked the ability to link disparate datasets together purely based on where they exist in the real world. From calculating nuclear evacuation zones to routing emergency helicopters and tracking wolves, you have learned the foundational logic of all advanced geographic information systems.
+In this chapter, you unlocked the ability to link disparate datasets together purely based on where they exist in the real world. From calculating nuclear evacuation zones to routing emergency helicopters and tracking wolves, you have learned the foundational logic of all advanced geographic information systems.
 
 ### Key takeaways
 
@@ -538,4 +538,4 @@ In this section, you unlocked the ability to link disparate datasets together pu
 
 We have successfully used spatial relationships to *filter* data (e.g., keeping only the wolves inside the park). But what if we want to permanently *merge* the columns of two overlapping datasets together?
 
-In the final section of this chapter, **Spatial Joins**, we will explore how to fuse datasets based on their spatial relationships to create entirely new, multi-dimensional analytical tables!
+In the final chapter of this chapter, **Spatial Joins**, we will explore how to fuse datasets based on their spatial relationships to create entirely new, multi-dimensional analytical tables!

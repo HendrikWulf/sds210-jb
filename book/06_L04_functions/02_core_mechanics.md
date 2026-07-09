@@ -39,7 +39,7 @@ To transition from writing basic scripts to building robust spatial analysis too
 
 ```
 
-Now that you understand *why* functions matter, it is time to look under the hood. In this section, we will build functions from scratch. We will start with a simple spatial calculation, explore how to pass geographic data into our tools safely, and clear up one of the most common beginner misunderstandings: the difference between printing a value and returning one.
+Now that you understand *why* functions matter, it is time to look under the hood. In this chapter, we will build functions from scratch. We will start with a simple spatial calculation, explore how to pass geographic data into our tools safely, and clear up one of the most common beginner misunderstandings: the difference between printing a value and returning one.
 
 ---
 
@@ -623,7 +623,7 @@ This is how spatial querying works! You just built a custom proximity tool. Beca
 
 ## 6. Summary
 
-In this section, you learned the viable mechanics needed to build and use a function safely:
+In this chapter, you learned the viable mechanics needed to build and use a function safely:
 
 * **Define** your tool using the `def` keyword, a verb-based name, and an indented code block.
 * **Parameters** are the placeholders in your definition; **arguments** are the actual values you pass when calling the function.
@@ -637,4 +637,4 @@ In this section, you learned the viable mechanics needed to build and use a func
 
 You now understand the basic mechanics of building predictable, modular functions.  You know how to pass data in, and how to safely `return` data back out.
 
-But as you start designing more complex spatial tools, you need to understand how Python manages memory behind the scenes. In the next section, **Function Design Concepts**, we will look at where your variables actually "live" (scope), how to make your tools more flexible using optional parameters, and how to avoid the dangerous memory traps that catch many beginner data scientists.
+But as you start designing more complex spatial tools, you need to understand how Python manages memory behind the scenes. In the next chapter, **Function Design Concepts**, we will look at where your variables actually "live" (scope), how to make your tools more flexible using optional parameters, and how to avoid the dangerous memory traps that catch many beginner data scientists.

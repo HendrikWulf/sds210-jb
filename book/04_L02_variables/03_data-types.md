@@ -39,7 +39,7 @@ While variables hold values in memory, data types determine how Python interpret
 
 ```
 
-In this section, you will learn how Python classifies values, how to inspect their data types, and how data types explain both successful operations and common errors.
+In this chapter, you will learn how Python classifies values, how to inspect their data types, and how data types explain both successful operations and common errors.
 
 Understanding data types is essential for {term}`debugging <Debugging>` and for writing code that behaves predictably. These ideas will form a foundation for calculations, comparisons, and logical decisions later in the course.
 
@@ -70,7 +70,7 @@ You do not need to memorize all data types yet. The key idea is this:
 
 > Variables store values. Data types define how those values behave.
 
-In the next sections, we will look at common data types and see how Python reacts when we combine them.
+In the next chapters, we will look at common data types and see how Python reacts when we combine them.
 
 ---
 
@@ -544,5 +544,5 @@ So far, you have focused on **what values are** and **how Python understands the
 
 The next step is to focus on **what you can do with those values**.
 
-In the next section, you will build on this foundation by applying data types in more complex expressions and operations.
+In the next chapter, you will build on this foundation by applying data types in more complex expressions and operations.
 Understanding operators and expressions will let you move from *storing values* to *doing things with values*, which is the core of programming.

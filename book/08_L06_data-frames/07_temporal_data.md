@@ -20,7 +20,7 @@ Mastering Time Series in Pandas
 ```{admonition} Big idea
 :class: tip
 
-Time is the most fundamental way we organize environmental data. In this section, you will learn that dates are not just strings of text, but measurable, plottable dimensions. By converting raw text into "time-aware" objects, Pandas unlocks the ability to instantly calculate durations, extract specific months or hours, and seamlessly align separate datasets.
+Time is the most fundamental way we organize environmental data. In this chapter, you will learn that dates are not just strings of text, but measurable, plottable dimensions. By converting raw text into "time-aware" objects, Pandas unlocks the ability to instantly calculate durations, extract specific months or hours, and seamlessly align separate datasets.
 
 ```
 
@@ -37,7 +37,7 @@ Time is the most fundamental way we organize environmental data. In this section
 
 ```
 
-Before we begin, make sure you have downloaded the necessary datasets for this section. We will be using one familiar and two new Kloten datasets, plus a new dataset from Säntis.
+Before we begin, make sure you have downloaded the necessary datasets for this chapter. We will be using one familiar and two new Kloten datasets, plus a new dataset from Säntis.
 
 ```{admonition} Data Preparation
 :class: dropdown

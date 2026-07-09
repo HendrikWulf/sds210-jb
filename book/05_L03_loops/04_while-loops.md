@@ -376,7 +376,7 @@ while not outlier_found and index < len(temperatures):
 
 ## 7. Summary
 
-In this section, you learned how to use the `while` loop to control repetition based on **conditions**, rather than fixed collections.
+In this chapter, you learned how to use the `while` loop to control repetition based on **conditions**, rather than fixed collections.
 
 ### Key ideas
 

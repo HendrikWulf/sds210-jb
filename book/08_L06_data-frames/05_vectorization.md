@@ -39,7 +39,7 @@ The core superpower of Pandas is **{term}`Vectorization`**. You no longer need t
 
 ```
 
-Before we explore this superpower, we need some fresh data. For this section, we will use an extended dataset from the Kloten weather station (`kloten_summer_2022_extended.txt`). This file contains additional environmental variables like relative humidity, wind speed, and solar radiation.
+Before we explore this superpower, we need some fresh data. For this chapter, we will use an extended dataset from the Kloten weather station (`kloten_summer_2022_extended.txt`). This file contains additional environmental variables like relative humidity, wind speed, and solar radiation.
 
 ```{admonition} Data Preparation
 :class: dropdown
@@ -450,4 +450,4 @@ You now know how to clean your data, compute new variables, and plot the daily v
 
 How do we find the absolute highest temperature of the entire summer? What is the average rainfall for the month of June specifically? How would we combine this Kloten dataset with sensor data from Geneva?
 
-In the next section, **Summarizing, Aggregating, and Joining**, we will learn how to extract high-level statistical insights from thousands of rows of raw data, group our information into manageable categories, and merge separate tables together.
+In the next chapter, **Summarizing, Aggregating, and Joining**, we will learn how to extract high-level statistical insights from thousands of rows of raw data, group our information into manageable categories, and merge separate tables together.
