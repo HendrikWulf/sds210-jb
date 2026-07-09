@@ -1,10 +1,11 @@
 ---
-title: Vector Analysis
 
 site: 
     outline_maxdepth: 1
 
 ---
+
+# Vector Analysis
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

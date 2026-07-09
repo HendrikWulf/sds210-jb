@@ -1,10 +1,11 @@
 ---
-title: Function Design Concepts
 
 site:
     outline_maxdepth: 1
 
 ---
+
+# Function Design Concepts
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

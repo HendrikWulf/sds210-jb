@@ -1,10 +1,11 @@
 ---
-title: The for Loop
 
 site:
  outline_maxdepth: 1
  
 ---
+
+# The for Loop
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

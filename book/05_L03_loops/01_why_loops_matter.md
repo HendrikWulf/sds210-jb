@@ -1,10 +1,9 @@
 ---
-title: Why Loops Matter
-
 site:
- outline_maxdepth: 1
- 
+ outline_maxdepth: 1 
 ---
+
+# Why Loops Matter
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

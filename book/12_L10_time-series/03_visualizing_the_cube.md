@@ -1,8 +1,9 @@
 ---
-title: Visualizing the Cube
 site: 
   outline_maxdepth: 1
 ---
+
+# Visualizing the Cube
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

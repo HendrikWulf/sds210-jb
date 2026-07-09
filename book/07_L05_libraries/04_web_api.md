@@ -1,9 +1,9 @@
 ---
-title: Using Web APIs
-
 site:
   outline_maxdepth: 1
 ---
+
+# Using Web APIs
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

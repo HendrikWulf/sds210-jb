@@ -1,10 +1,11 @@
 ---
-title: Flexible Function Interfaces
 
 site:
     outline_maxdepth: 1
 
 ---
+
+# Flexible Function Interfaces
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

@@ -1,11 +1,11 @@
 ---
 
-title: Cleaning the Mess
-
 site:
     outline_maxdepth: 1
 
 ---
+
+# Cleaning the Mess
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

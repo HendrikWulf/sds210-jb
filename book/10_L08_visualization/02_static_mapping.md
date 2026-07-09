@@ -1,10 +1,11 @@
 ---
-title: Mapping with GeoPandas
 
 site:
     outline_maxdepth: 1
 
 ---
+
+# Mapping with GeoPandas
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

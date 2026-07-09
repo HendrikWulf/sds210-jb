@@ -1,9 +1,9 @@
 ---
-title: Writing script files
-
 site:
    outline_maxdepth: 1
 ---
+
+# Writing script files
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

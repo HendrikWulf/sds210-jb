@@ -5,9 +5,11 @@ site:
 
 # Practical L1
 
+<!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
 Understanding and execution notebooks
 </div>
+<!-- markdownlint-enable MD033-->
 
 ---
 

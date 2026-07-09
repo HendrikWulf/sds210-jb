@@ -1,10 +1,11 @@
 ---
-title: Cartographic Design
 
 site: 
     outline_maxdepth: 1
 
 ---
+
+# Cartographic Design
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

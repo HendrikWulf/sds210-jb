@@ -1,9 +1,9 @@
 ---
-title: Sampling the Cube
-
 site: 
   outline_maxdepth: 1
 ---
+
+# Sampling the Cube
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

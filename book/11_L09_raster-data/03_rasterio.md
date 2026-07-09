@@ -1,9 +1,9 @@
 ---
-title: Reading Spatial Grids
-
 site:
   outline_maxdepth: 1
 ---
+
+# Reading Spatial Grids
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

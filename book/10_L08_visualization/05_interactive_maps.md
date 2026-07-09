@@ -1,10 +1,11 @@
 ---
-title: Going Interactive
 
 site: 
     outline_maxdepth: 1
 
 ---
+
+# Going Interactive
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

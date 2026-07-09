@@ -1,10 +1,11 @@
 ---
-title: Core Mechanics
 
 site:
     outline_maxdepth: 1
 
 ---
+
+# Core Mechanics
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

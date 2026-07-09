@@ -1,11 +1,11 @@
 ---
 
-title: Aggregating and Joining
-
 site:
  outline_maxdepth: 1
 
 ---
+
+# Aggregating and Joining
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
