@@ -1,8 +1,9 @@
 ---
-title: Practical L1
 site:
   outline_maxdepth: 1
 ---
+
+# Practical L1
 
 <div class="page-subtitle">
 Understanding and execution notebooks
