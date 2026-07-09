@@ -36,9 +36,9 @@ They follow different rules than numbers and deserve special attention.
 
 ```
 
-So far, you have mainly worked with numeric values. In this section, we focus on text values, called strings.
+So far, you have mainly worked with numeric values. In this chapter, we focus on text values, called strings.
 
-Strings behave fundamentally differently from numbers. By isolating their special behaviour here, we avoid confusion later when data processing becomes more complex. After this section, you will be able to safely combine, clean, and prepare text for output.
+Strings behave fundamentally differently from numbers. By isolating their special behaviour here, we avoid confusion later when data processing becomes more complex. After this chapter, you will be able to safely combine, clean, and prepare text for output.
 
 ---
 
@@ -549,7 +549,7 @@ print("The final cleaned string has " + str(summary_length) + " characters.")
 
 ## 8. Summary
 
-After completing this section, you should understand that:
+After completing this chapter, you should understand that:
 
 * **Strings represent text values** and are written using single, double, or triple quotation marks.
 * The `+` operator **concatenates** strings, while the `*` operator **repeats** strings.
@@ -564,7 +564,7 @@ After completing this section, you should understand that:
 
 Next, you will learn how to **display results clearly**.
 
-In the upcoming section on *Printing and Formatting Output*, we focus on:
+In the upcoming chapter on *Printing and Formatting Output*, we focus on:
 
 * advanced ways to print values to the screen
 * using modern f-strings to inject variables directly into text

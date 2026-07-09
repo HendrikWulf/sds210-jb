@@ -264,7 +264,7 @@ cities_df.to_csv("outputs/worldcities_backup.csv", index=False)
 
 ## 6. Summary: File I/O and Inspection
 
-In this section, we covered the essential data loading and saving pipeline. The goal of this phase is to make getting data in and out of your Python pipeline frictionless.
+In this chapter, we covered the essential data loading and saving pipeline. The goal of this phase is to make getting data in and out of your Python pipeline frictionless.
 
 You learned how to:
 

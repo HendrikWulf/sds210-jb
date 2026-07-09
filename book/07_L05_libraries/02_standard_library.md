@@ -42,7 +42,7 @@ Before you spend hours writing complex code to solve a common problem (like adva
 
 ```
 
-In the previous section, you learned how to write and import your own custom scripts. While building your own tools is a vital skill, you rarely need to invent everything from scratch.
+In the previous chapter, you learned how to write and import your own custom scripts. While building your own tools is a vital skill, you rarely need to invent everything from scratch.
 
 When you install Python, it automatically comes pre-packaged with the **{term}`Python Standard Library <Standard library>`**. This is a substantial collection of highly optimized, ready-to-use **{term}`modules <Module>`**. Whether you need to run complex statistical math, generate random coordinate samples, or navigate your computer's file system, the tools are already sitting on your machine. You do not need to download or install anything extra.
 
@@ -636,7 +636,7 @@ print(mountain_name)
 
 ## 7. Summary
 
-In this section, you learned how to leverage the Python Standard Library to solve common programming tasks without installing external tools. You discovered how to:
+In this chapter, you learned how to leverage the Python Standard Library to solve common programming tasks without installing external tools. You discovered how to:
 
 * Import entire modules (`import math`) or specific tools (`from math import pi`).
 * Use `math` and `statistics` for complex calculations and data summaries.
@@ -648,4 +648,4 @@ In this section, you learned how to leverage the Python Standard Library to solv
 
 The Standard Library is powerful, but it has its limits. What if you need to calculate highly accurate spatial distances across the Earth's curved surface, or add visual progress bars to a massive loop?
 
-Instead of writing that complex code from scratch, you can tap into the massive open-source community. In the next section, **Third Party Modules**, we will explore how to find, install, and use external packages to extend Python's capabilities far beyond its built-in tools.
+Instead of writing that complex code from scratch, you can tap into the massive open-source community. In the next chapter, **Third Party Modules**, we will explore how to find, install, and use external packages to extend Python's capabilities far beyond its built-in tools.

@@ -114,4 +114,4 @@ When evaluating the available project topics, consider whether the subject genui
 The programming project is your platform to prove you can apply the core concepts of SDS210 independently and reproducibly. Start early, work iteratively, select a topic with a clear path forward, and focus on delivering a solution that you can confidently run and explain.
 ```
 
-The next section introduces the available project topics in more detail to help you compare them before making your final choice.
+The next chapter introduces the available project topics in more detail to help you compare them before making your final choice.

@@ -423,7 +423,7 @@ stations_gdf = stations_gdf.to_crs(TARGET_CRS)
 
 #### 3. Analysis
 
-This is where you leverage the custom modules you built in Section 4. The notebook stays clean because the complex array math is hidden inside the imported function.
+This is where you leverage the custom modules you built in [Section 3](https://hendrikwulf.github.io/sds210-jb/book/l12-reproducibility/organizing-code/#id-3-splitting-logic-into-functions). The notebook stays clean because the complex array math is hidden inside the imported function.
 
 ```{code-cell} python
 from src.raster_utils import sample_raster_at_points

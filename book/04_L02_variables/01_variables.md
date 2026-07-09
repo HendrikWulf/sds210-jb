@@ -35,7 +35,7 @@ Storing and Reusing Values
 
 ```
 
-In this section, you will learn how Python uses variables to keep track of values in memory and how those values can be reused and updated throughout a {term}`program <Program>`. You will also see how variables behave in a {term}`Jupyter Notebook <Notebook>`, why {term}`execution order <Execution order>` matters, and how small changes to one variable affect (or do not affect) others.
+In this chapter, you will learn how Python uses variables to keep track of values in memory and how those values can be reused and updated throughout a {term}`program <Program>`. You will also see how variables behave in a {term}`Jupyter Notebook <Notebook>`, why {term}`execution order <Execution order>` matters, and how small changes to one variable affect (or do not affect) others.
 
 These concepts form the foundation for all later {term}`programming <Computer programming>` tasks in this course, from simple calculations to more complex geospatial workflows.
 
@@ -286,7 +286,7 @@ Python variables store values, not relationships. When `y_coordinate` was define
 
 ## 8. Short Exercise
 
-This exercise revises the key ideas from this section.
+This exercise revises the key ideas from this chapter.
 
 ### Task
 
@@ -338,7 +338,7 @@ print("New travel time (hours):", travel_time_hours)
 
 ## 9. Summary
 
-After completing this section, you should understand that:
+After completing this chapter, you should understand that:
 
 * **Variables store values in memory** for later reuse.
 * Assigning a variable does **not** produce output.
@@ -354,7 +354,7 @@ These ideas form the foundation for everything that follows in this course.
 
 So far, we focused on what variables do. Next, we focus on how to name them well.
 
-In the next section, you will learn:
+In the next chapter, you will learn:
 
 * why variable names matter for readability and collaboration
 * what Python allows and disallows in variable names

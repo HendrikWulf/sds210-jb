@@ -22,7 +22,7 @@ Handling Real-World Data with Pandas
 ```{admonition} Big Idea
 :class: tip
 
-Real-world spatial and environmental data is often messy. Before performing calculations or plotting, you must "sanitize" your dataset. This section teaches you how to standardize column headers, convert data types, clean text strings, and safely handle missing values (NaNs).
+Real-world spatial and environmental data is often messy. Before performing calculations or plotting, you must "sanitize" your dataset. This chapter teaches you how to standardize column headers, convert data types, clean text strings, and safely handle missing values (NaNs).
 
 ```
 
@@ -41,7 +41,7 @@ Real-world spatial and environmental data is often messy. Before performing calc
 
 Real-world data is rarely ready for immediate analysis. Files from environmental sensors, satellites, or crowdsourced databases often contain irregular formatting, missing observations, or incorrect data types. Skipping the data cleaning stage is dangerous, as it leads to errors in calculations and misleading visualizations.
 
-In this section, we will learn standard techniques to programmatically clean a dataset using Pandas. We will return to our [kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt) dataset, applying the skipping logic learned in previous sections to load a fresh **{term}`DataFrame`**.
+In this chapter, we will learn standard techniques to programmatically clean a dataset using Pandas. We will return to our [kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt) dataset, applying the skipping logic learned in previous chapters to load a fresh **{term}`DataFrame`**.
 
 ```{admonition} Data Preparation
 :class: dropdown
@@ -399,7 +399,7 @@ C) Drop rows in both scenarios.
 
 Now that we have successfully sanitized our dataset by standardizing headers, fixing data types, and safely interpolating missing values, we need to save our hard work! This allows us to load the pristine data in the next lesson without having to rewrite all our cleaning code.
 
-As you learned in the [Getting Data In and Out](https://hendrikwulf.github.io/sds210-jb/book/l06-data-frames/data_in_out/) section, we use the `.to_csv()` method for this.
+As you learned in the [Getting Data In and Out](https://hendrikwulf.github.io/sds210-jb/book/l06-data-frames/data_in_out/) chapter, we use the `.to_csv()` method for this.
 
 ```{code-cell} python
 # Save the fully cleaned dataset to a new CSV file
@@ -412,7 +412,7 @@ print("Cleaned dataset saved successfully!")
 
 ## 6. Exercise: Sanitize the City Data
 
-Real-world spatial and demographic data is rarely perfect. Let's apply our cleaning skills to the global `worldcities.csv` dataset you downloaded in the previous section.
+Real-world spatial and demographic data is rarely perfect. Let's apply our cleaning skills to the global `worldcities.csv` dataset you downloaded in the previous chapter.
 
 Because this specific CSV happens to be quite clean already, we are going to intentionally simulate a "messy" state in Step 3 so you can practice fixing it.
 
@@ -508,4 +508,4 @@ Now that your dataset is clean, properly formatted, and free of missing values, 
 
 But wait, if you want to divide a column of populations by a column of areas to find the density for 48,000 cities, how do you do it? In pure Python, you would have to write a massive, slow `for` loop to calculate each row one by one.
 
-In Pandas, we have a superpower called **{term}`Vectorization`**. In the next section, **Math Without Loops**, we will learn how to apply instant arithmetic across entire datasets and create brand new columns of data in a single line of code.
+In Pandas, we have a superpower called **{term}`Vectorization`**. In the next chapter, **Math Without Loops**, we will learn how to apply instant arithmetic across entire datasets and create brand new columns of data in a single line of code.

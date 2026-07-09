@@ -38,7 +38,7 @@ Clear output supports debugging, communication, and learning.
 
 So far, you have worked with values, {term}`expressions <Expression>`, and {term}`strings <String>`. In many cases, you have seen that Python already shows results automatically when you run a notebook cell.
 
-In this section, you will learn **when and why to print values explicitly** and how to format output so it is readable, professional, and meaningful.
+In this chapter, you will learn **when and why to print values explicitly** and how to format output so it is readable, professional, and meaningful.
 
 ---
 
@@ -331,7 +331,7 @@ print(f"\nDEBUG -> speeds (km/h): Slow={speed_kmh_slow:.1f}, Fast={speed_kmh_fas
 
 ## 6. Summary
 
-After this section, you should understand that:
+After this chapter, you should understand that:
 
 * Notebooks display the last expression automatically, but `print()` makes output explicit and works in all Python environments.
 * Multiple values can be printed together by separating them with commas.

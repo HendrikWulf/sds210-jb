@@ -38,9 +38,9 @@ Raw numerical data is powerful for computation, but sub-optimal for human commun
 
 ```
 
-In the previous sections, we learned how to generate new spatial datasets, engineer new columns, and combine geometries. You now have a **{term}`GeoDataFrame`** packed with precise, raw numbers.
+In the previous chapters, we learned how to generate new spatial datasets, engineer new columns, and combine geometries. You now have a **{term}`GeoDataFrame`** packed with precise, raw numbers.
 
-However, if you try to plot these raw numbers directly, the resulting map can be confusing. This section marks the transition from spatial *analysis* to spatial *communication*. You will learn why we must normalize our data and how to use Python rules and statistical algorithms to categorize (classify) your data into readable groups.
+However, if you try to plot these raw numbers directly, the resulting map can be confusing. This chapter marks the transition from spatial *analysis* to spatial *communication*. You will learn why we must normalize our data and how to use Python rules and statistical algorithms to categorize (classify) your data into readable groups.
 
 ```{admonition} Data Preparation
 :class: dropdown
@@ -496,7 +496,7 @@ plt.show()
 
 ## 5. Summary: Prepping for Visualization
 
-In this section, you bridged the critical gap between raw spatial analysis and human readability. By transforming your numbers into organized classes, you have prepared your data for the final stage of geographic information systems: map making.
+In this chapter, you bridged the critical gap between raw spatial analysis and human readability. By transforming your numbers into organized classes, you have prepared your data for the final stage of geographic information systems: map making.
 
 ### Key takeaways
 

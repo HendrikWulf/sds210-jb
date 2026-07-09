@@ -86,14 +86,14 @@ After this lesson, you will be able to:
 
 ## 4. Lesson structure
 
-This lesson has four short sections:
+This lesson has four short chapters:
 
 1. **Motivation**
 2. **Programming & Python**
 3. **Python syntax**
 4. **Running notebooks**
 
-Each section is designed to be quick to read and immediately usable.
+Each chapter is designed to be quick to read and immediately usable.
 
 ---
 

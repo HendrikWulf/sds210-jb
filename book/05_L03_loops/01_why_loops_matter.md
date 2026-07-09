@@ -41,7 +41,7 @@ So far, you have learned how to store values and collections of values. You can 
 
 However, writing useful spatial programs requires more than just storing data. It requires **processing data systematically**.
 
-This section explains **why** automation is necessary before you learn **how** to implement it.
+This chapter explains **why** automation is necessary before you learn **how** to implement it.
 
 ---
 

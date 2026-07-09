@@ -716,7 +716,7 @@ even
 
 ## 7. Summary
 
-In this section, you learned how **repetition and decisions work together**.
+In this chapter, you learned how **repetition and decisions work together**.
 
 ### Key ideas
 

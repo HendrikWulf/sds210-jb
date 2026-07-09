@@ -38,7 +38,7 @@ Now that your data is loaded into a two dimensional grid, you need to know how t
 
 ```
 
-In the previous section, we successfully loaded the [kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt) weather dataset. Let us quickly reload it to your local working directory so we have a fresh **{term}`DataFrame`** to work with.
+In the previous chapter, we successfully loaded the [kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt) weather dataset. Let us quickly reload it to your local working directory so we have a fresh **{term}`DataFrame`** to work with.
 
 ```{code-cell} python
 import pandas as pd
@@ -393,7 +393,7 @@ However, because `.loc[]` searches for specific labels, it is **inclusive**. `da
 
 ## 7. Exercise: Isolate the Target Data
 
-Let us bring all these skills together using the global cities dataset you downloaded in the previous section.
+Let us bring all these skills together using the global cities dataset you downloaded in the previous chapter.
 
 Imagine you are doing an analysis focused solely on major urban centers in Japan. You need to load the data, extract exactly what you need, and secure it in memory.
 
@@ -450,7 +450,7 @@ display(top_japan_cities.head(5))
 
 ## 8. Summary: Navigating the 2D Grid
 
-In this section, you learned how to slice and dice your data to extract exactly the information you need. You now have the tools to surgically navigate large datasets without relying on manual `for` loops.
+In this chapter, you learned how to slice and dice your data to extract exactly the information you need. You now have the tools to surgically navigate large datasets without relying on manual `for` loops.
 
 ### Key takeaways
 
@@ -465,4 +465,4 @@ In this section, you learned how to slice and dice your data to extract exactly 
 
 Now that you can navigate, slice, and filter your data, you might notice a glaring issue: real-world data is rarely perfect.
 
-If you try to do math on a column where numbers are accidentally stored as text, or if a sensor went offline and left blank gaps in your dataset, your code will crash. In the next section, **Cleaning the Mess**, we will learn how to standardize messy column headers, fix text strings, and handle the infamous `NaN` (Not a Number) so your data is pristine and ready for analysis!
+If you try to do math on a column where numbers are accidentally stored as text, or if a sensor went offline and left blank gaps in your dataset, your code will crash. In the next chapter, **Cleaning the Mess**, we will learn how to standardize messy column headers, fix text strings, and handle the infamous `NaN` (Not a Number) so your data is pristine and ready for analysis!

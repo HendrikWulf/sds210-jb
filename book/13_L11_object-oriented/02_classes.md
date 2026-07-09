@@ -35,7 +35,7 @@ A class is a blueprint for building reusable objects that bundle related data an
 
 ```
 
-In the previous section, we established why **{term}`Object-Oriented Programming <Object-oriented programming>`** is a powerful paradigm for managing complexity. We discussed how organizing code around entities (nouns) rather than standalone actions (verbs) can prevent spatial data pipelines from becoming fragile.
+In the previous chapter, we established why **{term}`Object-Oriented Programming <Object-oriented programming>`** is a powerful paradigm for managing complexity. We discussed how organizing code around entities (nouns) rather than standalone actions (verbs) can prevent spatial data pipelines from becoming fragile.
 
 Now, it is time to build those entities. In this chapter, we will unpack the foundational concept of a **{term}`class <Class>`**, construct our first spatial objects, and understand how they manage their own internal data.
 
