@@ -1,9 +1,9 @@
 ---
-title: Multi-item Variables
-
 site:
  outline_maxdepth: 1
 ---
+
+# Multi-item Variables
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

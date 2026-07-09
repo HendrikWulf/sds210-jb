@@ -1,9 +1,9 @@
 ---
-title: Running Notebooks
-
 site:
   outline_maxdepth: 1
 ---
+
+# Running Notebooks
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

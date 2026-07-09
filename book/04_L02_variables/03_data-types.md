@@ -1,10 +1,9 @@
 ---
-title: Data Types
-
 site:
  outline_maxdepth: 1
-
 ---
+
+# Data Types
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

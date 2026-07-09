@@ -1,9 +1,9 @@
 ---
-title: Printing & Formatting
-
 site:
  outline_maxdepth: 1
 ---
+
+# Printing & Formatting
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

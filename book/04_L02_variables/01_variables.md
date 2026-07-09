@@ -1,10 +1,9 @@
 ---
-title: Variables
-
 site:
  outline_maxdepth: 1
-
 ---
+
+# Variables
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

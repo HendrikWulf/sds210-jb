@@ -1,11 +1,9 @@
 ---
-
-title: Practical L2 - Solutions
-
 site:
  outline_maxdepth: 1
- 
 ---
+
+# Practical L2 - Solutions
 
 <div class="page-subtitle">
 From single variables to structured spatial calculations

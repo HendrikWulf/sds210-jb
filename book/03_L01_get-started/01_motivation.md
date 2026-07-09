@@ -1,10 +1,11 @@
 ---
-title: Motivation
 
 site:
  outline_maxdepth: 1
 
 ---
+
+# Motivation
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

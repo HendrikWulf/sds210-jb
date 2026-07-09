@@ -701,7 +701,7 @@ Inner join
 [Iteration](https://en.wikipedia.org/wiki/Iteration)
 : The repetition of a process or instruction sequence within a computer program. In Python, this is commonly achieved using loops to execute code for each item in a collection.
 
-[Iterative design](https://en.wikipedia.org/wiki/Iterative_design) (Iterative development)
+[Iterative design](https://en.wikipedia.org/wiki/Iterative_design)
 : A methodology where a project takes shape through repeated cycles of prototyping, testing, analyzing, and refining. In programming, this means making a simple baseline work first, and then improving and refining it step by step rather than trying to write perfect code immediately.
 
 [JSON](https://en.wikipedia.org/wiki/JSON)

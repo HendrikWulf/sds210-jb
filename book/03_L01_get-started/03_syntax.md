@@ -1,8 +1,9 @@
 ---
-title: Python syntax
 site:
   outline_maxdepth: 1
 ---
+
+# Python syntax
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

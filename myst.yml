@@ -87,7 +87,8 @@ project:
       children:
          - file: book/03_L01_get-started/01_motivation.md
          - file: book/03_L01_get-started/02_programming.md
-         - file: book/03_L01_get-started/03_syntax.md
+         - file: book/03_L01_get-started/03_syntax.ipynb
+         # - file: book/03_L01_get-started/03_syntax.md
          - file: book/03_L01_get-started/04_notebooks.md
          - file: book/03_L01_get-started/05_practical-L1.ipynb
          # - file: book/03_L01_get-started/05_practical-L1.md
