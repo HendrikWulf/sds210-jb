@@ -1,9 +1,9 @@
 ---
-title: Long-Term Trends
-
 site: 
   outline_maxdepth: 1
 ---
+
+# Long-Term Trends
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

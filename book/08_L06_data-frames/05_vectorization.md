@@ -1,11 +1,11 @@
 ---
 
-title: Vectorization
-
 site:
     outline_maxdepth: 1
 
 ---
+
+# Vectorization
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

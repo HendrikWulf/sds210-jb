@@ -1,10 +1,11 @@
 ---
-title: Data Classification
 
 site: 
     outline_maxdepth: 1
 
 ---
+
+# Data Classification
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

@@ -248,9 +248,9 @@ VS Code remembers the Python environment **per workspace**, not globally.
 <!-- markdownlint-disable MD033-->
 <iframe
     src="https://hendrikwulf.github.io/sds210_assets_L00_setup_ch02_VSCode_wiring/"
-    width="100%" 
-    height="600px" 
-    frameborder="0" 
+    width="100%"
+    height="600px"
+    frameborder="0"
     style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
 </iframe>
 

@@ -865,13 +865,13 @@ This environment is created from an `environment.yml` file. The file lists the p
 cd <path-to-sds210-repository-folder>
 ```
 
-4. Create the course environment:
+1. Create the course environment:
 
 ```bash
 conda env create --file environment.yml
 ```
 
-5. Activate the course environment:
+1. Activate the course environment:
 
 ```bash
 conda activate sds210

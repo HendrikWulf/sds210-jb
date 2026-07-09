@@ -1,10 +1,9 @@
 ---
-title: Inheritance and extension
-
 site: 
     outline_maxdepth: 1
-
 ---
+
+# Inheritance and extension
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

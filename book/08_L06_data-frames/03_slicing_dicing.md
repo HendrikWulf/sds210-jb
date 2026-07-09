@@ -1,10 +1,9 @@
 ---
-title: Slicing and Dicing
-
 site:
  outline_maxdepth: 1
-
 ---
+
+# Slicing and Dicing
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

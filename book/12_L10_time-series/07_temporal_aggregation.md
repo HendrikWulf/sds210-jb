@@ -1,8 +1,9 @@
 ---
-title: Temporal Aggregation
 site: 
   outline_maxdepth: 1
 ---
+
+# Temporal Aggregation
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

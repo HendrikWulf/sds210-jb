@@ -1,10 +1,11 @@
 ---
-title: Coordinate Reference Systems (CRS)
 
 site: 
     outline_maxdepth: 1
 
 ---
+
+# Coordinate Reference Systems (CRS)
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

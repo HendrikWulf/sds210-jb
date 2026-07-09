@@ -1,10 +1,11 @@
 ---
-title: Introduction to OOP
 
 site: 
     outline_maxdepth: 1
 
 ---
+
+# Introduction to OOP
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

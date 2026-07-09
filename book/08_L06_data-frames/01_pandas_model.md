@@ -1,9 +1,9 @@
 ---
-title: The Pandas Mental Model
-
 site:
  outline_maxdepth: 1
 ---
+
+# The Pandas Mental Model
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

@@ -1,9 +1,9 @@
 ---
-title: Crunching NumPy
-
 site:
   outline_maxdepth: 1
 ---
+
+# Crunching NumPy
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

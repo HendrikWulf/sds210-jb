@@ -1,9 +1,9 @@
 ---
-title: Exploring the Cube
-
 site: 
   outline_maxdepth: 1
 ---
+
+# Exploring the Cube
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

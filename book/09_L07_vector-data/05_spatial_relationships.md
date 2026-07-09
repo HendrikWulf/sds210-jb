@@ -1,10 +1,11 @@
 ---
-title: Spatial Relationships
 
 site: 
     outline_maxdepth: 1
 
 ---
+
+# Spatial Relationships
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

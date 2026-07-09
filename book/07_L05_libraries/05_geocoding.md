@@ -1,8 +1,9 @@
 ---
-title: Geocoding
 site:
   outline_maxdepth: 1
 ---
+
+# Geocoding
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

@@ -1,9 +1,9 @@
 ---
-title: Using Temporal Data
-
 site:
  outline_maxdepth: 1
 ---
+
+# Using Temporal Data
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

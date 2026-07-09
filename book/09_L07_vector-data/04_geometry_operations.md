@@ -1,10 +1,11 @@
 ---
-title: Measuring & Modifying
 
 site: 
     outline_maxdepth: 1
 
 ---
+
+# Measuring & Modifying
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

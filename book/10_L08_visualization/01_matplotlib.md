@@ -1,10 +1,11 @@
 ---
-title: The Matplotlib Model
 
 site: 
     outline_maxdepth: 1
 
 ---
+
+# The Matplotlib Model
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

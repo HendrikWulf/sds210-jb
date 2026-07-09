@@ -1,10 +1,11 @@
 ---
-title: Controlling Loops
 
 site:
  outline_maxdepth: 1
  
 ---
+
+# Controlling Loops
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

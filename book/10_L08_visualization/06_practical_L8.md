@@ -1,10 +1,11 @@
 ---
-title: Practical L8
 
 site: 
     outline_maxdepth: 1
 
 ---
+
+# Practical L8
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

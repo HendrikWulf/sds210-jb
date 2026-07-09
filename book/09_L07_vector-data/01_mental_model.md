@@ -1,9 +1,9 @@
 ---
-title: The Spatial Mental Model
-
 site:
   outline_maxdepth: 1
 ---
+
+# The Spatial Mental Model
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

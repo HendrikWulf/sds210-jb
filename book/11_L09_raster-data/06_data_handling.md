@@ -1,9 +1,9 @@
 ---
-title: Data Handling
-
 site:
   outline_maxdepth: 1
 ---
+
+# Data Handling
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

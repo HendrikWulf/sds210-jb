@@ -1,9 +1,9 @@
 ---
-title: Methods driven behavior
-
 site: 
     outline_maxdepth: 1
 ---
+
+# Methods driven behavior
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

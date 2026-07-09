@@ -1,10 +1,11 @@
 ---
-title: The while Loop
 
 site:
  outline_maxdepth: 1
  
 ---
+
+# The while Loop
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

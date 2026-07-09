@@ -1,10 +1,11 @@
 ---
-title: Why Functions Matter
 
 site:
     outline_maxdepth: 1
 
 ---
+
+# Why Functions Matter
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

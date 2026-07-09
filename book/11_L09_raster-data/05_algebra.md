@@ -1,9 +1,9 @@
 ---
-title: Map Algebra
-
 site:
   outline_maxdepth: 1
 ---
+
+# Map Algebra
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

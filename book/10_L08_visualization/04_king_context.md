@@ -1,10 +1,11 @@
 ---
-title: Context is King
 
 site: 
     outline_maxdepth: 1
 
 ---
+
+# Context is King
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

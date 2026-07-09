@@ -1,9 +1,9 @@
 ---
-title: Raster Math
-
 site: 
   outline_maxdepth: 1
 ---
+
+# Raster Math
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

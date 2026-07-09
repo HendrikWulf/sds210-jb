@@ -1,9 +1,9 @@
 ---
-title: The Python Standard Library
-
 site:
   outline_maxdepth: 1
 ---
+
+# The Python Standard Library
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

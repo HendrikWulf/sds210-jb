@@ -1,9 +1,9 @@
 ---
-title: List Comprehension
-
 site:
  outline_maxdepth: 1
 ---
+
+# List Comprehension
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

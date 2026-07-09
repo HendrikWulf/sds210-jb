@@ -72,11 +72,11 @@ The {term}`execution order <Execution order>` is not always the same as the visu
 The **runtime** defines where your code runs and which resources are available. Most of the time, the default runtime is sufficient: Python 3 on a {abbr}`CPU (Central Processing Unit)`. In later projects, you may switch runtimes for more demanding tasks using **Runtime → Change runtime type**, for example to use a {abbr}`GPU (Graphics Processing Unit)` or {abbr}`TPU (Tensor Processing Unit)`.
 
 <!-- markdownlint-disable MD033-->
-<iframe 
-    src="https://hendrikwulf.github.io/sds210_assets_L00_setup_ch04_Colab_GoogleDrive/" 
-    width="100%" 
-    height="600px" 
-    frameborder="0" 
+<iframe
+    src="https://hendrikwulf.github.io/sds210_assets_L00_setup_ch04_Colab_GoogleDrive/"
+    width="100%"
+    height="600px"
+    frameborder="0"
     style="border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); background-color: #f8fafc; margin-bottom: 15px;">
 </iframe>
 
