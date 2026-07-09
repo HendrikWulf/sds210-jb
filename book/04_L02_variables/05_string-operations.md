@@ -1,9 +1,9 @@
 ---
-title: Strings & Basic Operations
-
 site:
  outline_maxdepth: 1
 ---
+
+# Strings & Basic Operations
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

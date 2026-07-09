@@ -1,9 +1,9 @@
 ---
-title: Operators & Expressions
-
 site:
  outline_maxdepth: 1
 ---
+
+# Operators & Expressions
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">

@@ -1,9 +1,9 @@
 ---
-title: Programming & Python
-
 site:
   outline_maxdepth: 1
 ---
+
+# Programming & Python
 
 <!-- markdownlint-disable MD033-->
 <div class="page-subtitle">
