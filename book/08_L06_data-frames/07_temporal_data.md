@@ -589,7 +589,7 @@ historical_data["10_year_trend"].plot(
 ax.set_title("40-Year Temperature Trends in Kloten (1980 - 2026)", fontsize=14)
 ax.set_ylabel("Temperature (°C)", fontsize=12)
 ax.set_xlabel("Date", fontsize=12)
-ax.legend()
+ax.legend();
 
 ```
 
