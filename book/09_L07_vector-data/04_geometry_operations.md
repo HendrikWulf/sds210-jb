@@ -197,7 +197,7 @@ ax = cantons_gdf.plot(figsize=(10, 6), color="whitesmoke", edgecolor="lightgrey"
 # 2. Draw the centroids ON TOP of the base map by passing 'ax=ax'
 ch_centroid.plot(ax=ax, color="red", marker="x", markersize=100);
 
-ax.set_title("The Geographic Center(s) of Switzerland")
+ax.set_title("The Geographic Center(s) of Switzerland");
 
 ```
 
@@ -293,7 +293,7 @@ zone_2_monitor.plot(ax=ax, color="orange", alpha=0.3, label="80km Monitoring");
 zone_1_evac.plot(ax=ax, color="red", alpha=0.5, label="16km Evacuation");
 npp_gdf.plot(ax=ax, color="black", marker="*", markersize=50);
 
-ax.set_title("Nuclear Safety Zones in Switzerland")
+ax.set_title("Nuclear Safety Zones in Switzerland");
 
 ```
 
@@ -477,7 +477,7 @@ ax = ch_hull.plot(figsize=(8, 5), color="lightgreen", alpha=0.5);
 ch_buffer.plot(ax=ax, color="dodgerblue", alpha=0.5);
 original_centroid.plot(ax=ax, color="red", marker="o");
 hull_centroid.plot(ax=ax, color="black", marker="x");
-ax.set_title("Switzerland: Boundary Buffer & Convex Hull")
+ax.set_title("Switzerland: Boundary Buffer & Convex Hull");
 ```
 
 :::{figure} images/18_shape_shifter_solution.png
