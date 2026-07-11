@@ -494,7 +494,7 @@ print(diagonal)  # Returns 6.0
 
 Modules also provide useful constants, which do not require parentheses because they are stored values, not functions:
 
-```{code-cell} python
+```python
 area = math.pi * (radius ** 2)
 
 
