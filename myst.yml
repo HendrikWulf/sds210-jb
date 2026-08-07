@@ -307,8 +307,48 @@ project:
  #   - file: book/introduction.md
  #   - file: book/notebooks.ipynb
  #   - file: book/references.bib
+
 site:
   template: book-theme
+
+  nav:
+    - title: Course
+      children:
+        - title: About
+          url: /book/about
+        - title: Schedule
+          url: /book/about/schedule
+        - title: Syllabus
+          url: /book/about/syllabus
+        - title: Use of AI
+          url: /book/about/ai
+        - title: Resources
+          url: /book/about/resources
+
+    - title: Setup
+      children:
+        - title: Setup overview
+          url: /book/setup
+        - title: Conda
+          url: /book/setup/conda
+        - title: VS Code
+          url: /book/setup/vs-code
+        - title: Git
+          url: /book/setup/git
+
+    - title: Projects
+      url: /book/projects
+
+    - title: Glossary
+      url: /book/glossary
+
+    - title: Feedback
+      url: /book/feedback
+  
+  actions:
+    - title: GitHub
+      url: https://github.com/HendrikWulf/sds210-jb 
+
   options:
     logo: logo.png
     favicon: fav.ico
