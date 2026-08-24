@@ -39,7 +39,7 @@ A standard Pandas **{term}`DataFrame`** is blind to space. To analyze geographic
 
 In the previous lesson, you mastered the standard Pandas DataFrame. You learned how to load complex environmental datasets, clean missing values, and calculate new indicators across thousands of rows instantly.
 
-However, when working with geoscience data, knowing *what* happened is only half the story. We also need to know *where* it happened. This lesson introduces **GeoPandas**, the industry standard library for spatial data analysis in Python.
+However, when working with geoscience data, knowing *what* happened is only half the story. We also need to know *where* it happened. This lesson introduces **[GeoPandas](https://www.sciencedirect.com/science/article/pii/S0198971526000979?via%3Dihub)**, the industry standard library for spatial data analysis in Python.
 
 Before we begin, make sure you have downloaded the necessary datasets for this chapter. We will be using the Swiss pollen monitoring station network and nuclear power plant location data.
 
