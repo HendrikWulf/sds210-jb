@@ -1,8 +1,16 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
+  outline_maxdepth: 1
 ---
 
 # Cartographic Design
@@ -58,7 +66,7 @@ This technique allows readers to instantly visualize spatial patterns, clusters,
 
 Let us load our [Eurostat data](https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/territorial-units-statistics) and create a basic choropleth map visualizing the percentage of the [population](https://gisco-services.ec.europa.eu/image/) aged 0 to 14 (`pop0_14_percentage`). By passing the `column` parameter to the `.plot()` method, GeoPandas automatically maps the data values to a color scale.
 
-```{code-cell} python
+```{code-cell} ipython3
 import geopandas as gpd
 import matplotlib.pyplot as plt
 
@@ -75,7 +83,6 @@ ax.set_title("Proportion of Population Age 0 to 14")
 ax.axis("off")
 
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -132,7 +139,7 @@ While Matplotlib includes excellent default perceptually uniform maps (like `vir
 
 Let us install the package (if needed) and visualize three excellent examples by plotting a simple gradient array:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Install the cmcrameri package if you haven't already:
 
 # Colab:
@@ -152,25 +159,27 @@ gradient = np.linspace(0, 1, 256).reshape(1, -1)
 fig, axs = plt.subplots(nrows=5, figsize=(8, 6))
 
 # 1. Sequential: 'batlow' (Perfect for low-to-high data)
-axs[0].imshow(gradient, aspect='auto', cmap=cmc.batlow)
-axs[0].set_title("Sequential: cmc.batlow", loc='left', fontsize=11, fontweight="bold")
+axs[0].imshow(gradient, aspect="auto", cmap=cmc.batlow)
+axs[0].set_title("Sequential: cmc.batlow", loc="left", fontsize=11, fontweight="bold")
 
 # 2. Diverging: 'berlin' (Perfect for data with a critical midpoint)
-axs[1].imshow(gradient, aspect='auto', cmap=cmc.berlin)
-axs[1].set_title("Diverging: cmc.berlin", loc='left', fontsize=11, fontweight="bold")
+axs[1].imshow(gradient, aspect="auto", cmap=cmc.berlin)
+axs[1].set_title("Diverging: cmc.berlin", loc="left", fontsize=11, fontweight="bold")
 
 # 3. Cyclic: 'romaO' (Perfect for data that wraps around, like phase angles or time)
-axs[2].imshow(gradient, aspect='auto', cmap=cmc.romaO)
-axs[2].set_title("Cyclic: cmc.romaO", loc='left', fontsize=11, fontweight="bold")
+axs[2].imshow(gradient, aspect="auto", cmap=cmc.romaO)
+axs[2].set_title("Cyclic: cmc.romaO", loc="left", fontsize=11, fontweight="bold")
 
 # 4. Qualitative: 'batlowS' (Perfect for distinct categories)
 # (We use a discrete version of batlow for qualitative data)
-axs[3].imshow(gradient, aspect='auto', cmap=cmc.batlowS)
-axs[3].set_title("Qualitative: cmc.batlowS", loc='left', fontsize=11, fontweight="bold")
+axs[3].imshow(gradient, aspect="auto", cmap=cmc.batlowS)
+axs[3].set_title("Qualitative: cmc.batlowS", loc="left", fontsize=11, fontweight="bold")
 
 # 5. Multi-sequential: 'oleron' (Combines distinct sequential gradients)
-axs[4].imshow(gradient, aspect='auto', cmap=cmc.oleron)
-axs[4].set_title("Multi-sequential: cmc.oleron", loc='left', fontsize=11, fontweight="bold")
+axs[4].imshow(gradient, aspect="auto", cmap=cmc.oleron)
+axs[4].set_title(
+    "Multi-sequential: cmc.oleron", loc="left", fontsize=11, fontweight="bold"
+)
 
 # Clean up the axes for a clean look
 for ax in axs:
@@ -178,7 +187,6 @@ for ax in axs:
 
 plt.tight_layout()
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -253,37 +261,37 @@ A mathematically robust approach is to use the Pandas `.quantile()` method to es
 
 Let us upgrade our visualization with both a properly formatted legend and a scaled sequential colormap.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Create the overarching Figure (fig) and the specific plotting box (ax).
 # figsize=(10, 8) sets the width to 10 inches and the height to 8 inches.
 fig, ax = plt.subplots(figsize=(10, 8))
 
 # Calculate the 2% and 98% quantiles to scale the display.
-# This prevents extreme values from washing out the colormap by finding 
+# This prevents extreme values from washing out the colormap by finding
 # the values where 2% of the data falls below and 98% falls below, respectively.
-vmin = nuts['pop0_14_percentage'].quantile(0.02)
-vmax = nuts['pop0_14_percentage'].quantile(0.98)
+vmin = nuts["pop0_14_percentage"].quantile(0.02)
+vmax = nuts["pop0_14_percentage"].quantile(0.98)
 
 # Define legend formatting options in a dictionary.
 # These parameters will be passed down to Matplotlib's colorbar function.
 legend_options = {
-    "label": "Population Age 0 to 14 (%)", # The title text displayed next to the colorbar
-    "orientation": "horizontal",           # Draws the colorbar left-to-right beneath the map
-    "shrink": 0.6,                         # Scales the length of the colorbar down to 60% of the axis width
-    "pad": 0.05                            # Adds a 5% spacing gap between the map and the colorbar
+    "label": "Population Age 0 to 14 (%)",  # The title text displayed next to the colorbar
+    "orientation": "horizontal",  # Draws the colorbar left-to-right beneath the map
+    "shrink": 0.6,  # Scales the length of the colorbar down to 60% of the axis width
+    "pad": 0.05,  # Adds a 5% spacing gap between the map and the colorbar
 }
 
 # Plot the GeoDataFrame
 nuts.plot(
-    ax=ax,                        # The Magic Parameter: Forces GeoPandas to draw on our specific axes
+    ax=ax,  # The Magic Parameter: Forces GeoPandas to draw on our specific axes
     column="pop0_14_percentage",  # The data column that dictates the color of each polygon
-    cmap=cmc.batlow,              # The scientific, perceptually uniform colormap to apply
-    vmin=vmin,                    # The data value mapped to the absolute bottom of the colormap
-    vmax=vmax,                    # The data value mapped to the absolute top of the colormap
-    legend=True,                  # Tells GeoPandas to generate the colorbar
-    legend_kwds=legend_options,   # Passes our formatting dictionary to the legend
-    edgecolor="grey",             # Sets the color of the polygon boundary lines (borders)
-    linewidth=0.1                 # Sets the thickness of the borders (thin lines reduce visual clutter)
+    cmap=cmc.batlow,  # The scientific, perceptually uniform colormap to apply
+    vmin=vmin,  # The data value mapped to the absolute bottom of the colormap
+    vmax=vmax,  # The data value mapped to the absolute top of the colormap
+    legend=True,  # Tells GeoPandas to generate the colorbar
+    legend_kwds=legend_options,  # Passes our formatting dictionary to the legend
+    edgecolor="grey",  # Sets the color of the polygon boundary lines (borders)
+    linewidth=0.1,  # Sets the thickness of the borders (thin lines reduce visual clutter)
 )
 
 # Add a title to the specific axes and set the text size
@@ -295,7 +303,6 @@ ax.axis("off")
 
 # Display the final rendered map to the screen
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -332,21 +339,20 @@ Real-world data is rarely perfect. Occasionally, geographic regions will be miss
 
 Fortunately, our Eurostat dataset is beautifully complete. However, to learn how to properly handle incomplete data, we must first intentionally break ours! In the code below, we will use NumPy to simulate missing data by forcing the youth population values for a few specific regions (in Turkey, Spain, and Norway) to `NaN`.
 
-```{code-cell} python
+```{code-cell} ipython3
 import numpy as np
 
 # Create a copy of our dataset
 nuts_nan = nuts.copy()
 
 # Target specific NUTS_IDs and replace their population values with NaN
-target_ids = ['TR521', 'ES422', 'NO020']
-nuts_nan.loc[nuts_nan['NUTS_ID'].isin(target_ids), 'pop0_14_percentage'] = np.nan
+target_ids = ["TR521", "ES422", "NO020"]
+nuts_nan.loc[nuts_nan["NUTS_ID"].isin(target_ids), "pop0_14_percentage"] = np.nan
 
 # Optional: Save the modified dataset for future use
-nan_output_path = 'data/nuts_rg_03m_2024_3035_pop_wm_eu_nan.gpkg'
-nuts_nan.to_file(nan_output_path, driver='GPKG')
-print(f'Saved modified dataset to {nan_output_path}')
-
+nan_output_path = "data/nuts_rg_03m_2024_3035_pop_wm_eu_nan.gpkg"
+nuts_nan.to_file(nan_output_path, driver="GPKG")
+print(f"Saved modified dataset to {nan_output_path}")
 ```
 
 ### The `missing_kwds` Parameter
@@ -357,7 +363,7 @@ To fix this, we use the `missing_kwds` **{term}`parameter <Parameter>`** to assi
 
 Let us plot our simulated dataset and handle the missing gaps gracefully.
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 
@@ -366,51 +372,61 @@ fig, ax = plt.subplots(figsize=(10, 8))
 # Define styling explicitly for regions with NaN (missing) values in a dictionary.
 # These parameters tell Matplotlib how to draw the polygons that have no data.
 missing_styling = {
-    "color": "lightgrey",      # Fills the missing polygons with a neutral light grey background
-    "edgecolor": "darkgrey",   # Outlines the missing polygons in a slightly darker grey
-    "hatch": "///",            # Overlays a diagonal hash mark pattern to clearly indicate a data gap
-    "label": "Missing Data"    # The text label that will appear in the legend for these specific polygons
+    "color": "lightgrey",  # Fills the missing polygons with a neutral light grey background
+    "edgecolor": "darkgrey",  # Outlines the missing polygons in a slightly darker grey
+    "hatch": "///",  # Overlays a diagonal hash mark pattern to clearly indicate a data gap
+    "label": "Missing Data",  # The text label that will appear in the legend for these specific polygons
 }
 
 # Define standard legend formatting options in a dictionary.
 # These parameters will be passed down to Matplotlib's colorbar function.
 legend_options = {
-    "label": "Population Age 0 to 14 (%)", # The title text displayed next to the colorbar
-    "orientation": "horizontal",           # Draws the colorbar left-to-right beneath the map
-    "shrink": 0.6,                         # Scales the length of the colorbar down to 60% of the axis width
-    "pad": 0.05                            # Adds a 5% spacing gap between the map and the colorbar
+    "label": "Population Age 0 to 14 (%)",  # The title text displayed next to the colorbar
+    "orientation": "horizontal",  # Draws the colorbar left-to-right beneath the map
+    "shrink": 0.6,  # Scales the length of the colorbar down to 60% of the axis width
+    "pad": 0.05,  # Adds a 5% spacing gap between the map and the colorbar
 }
 
 # Plot the map using the dataset containing simulated NaN values
 nuts_nan.plot(
-    ax=ax,                          # The Magic Parameter: Forces GeoPandas to draw on our specific axes
-    column="pop0_14_percentage",    # The data column that dictates the color of each polygon
-    cmap=cmc.batlow,                # The scientific, perceptually uniform colormap to apply
-    vmin=vmin,                      # The data value mapped to the absolute bottom of the colormap
-    vmax=vmax,                      # The data value mapped to the absolute top of the colormap
-    legend=True,                    # Tells GeoPandas to generate the colorbar
-    legend_kwds=legend_options,     # Passes our formatting dictionary to the main colorbar legend
-    missing_kwds=missing_styling,   # Passes our styling dictionary to specifically handle the NaN polygons
-    edgecolor="grey",               # Sets the color of the standard polygon boundary lines (borders)
-    linewidth=0.1                   # Sets the thickness of the borders (thin lines reduce visual clutter)
+    ax=ax,  # The Magic Parameter: Forces GeoPandas to draw on our specific axes
+    column="pop0_14_percentage",  # The data column that dictates the color of each polygon
+    cmap=cmc.batlow,  # The scientific, perceptually uniform colormap to apply
+    vmin=vmin,  # The data value mapped to the absolute bottom of the colormap
+    vmax=vmax,  # The data value mapped to the absolute top of the colormap
+    legend=True,  # Tells GeoPandas to generate the colorbar
+    legend_kwds=legend_options,  # Passes our formatting dictionary to the main colorbar legend
+    missing_kwds=missing_styling,  # Passes our styling dictionary to specifically handle the NaN polygons
+    edgecolor="grey",  # Sets the color of the standard polygon boundary lines (borders)
+    linewidth=0.1,  # Sets the thickness of the borders (thin lines reduce visual clutter)
 )
 
 # Manually create a legend handle (a "patch") to represent the missing data.
 # GeoPandas does not automatically add missing data to the main colorbar legend,
 # so we must construct a custom proxy artist using the matplotlib.patches module.
 missing_patch = mpatches.Patch(
-    facecolor=missing_styling["color"],      # Sets the inside color of the legend box to light grey
-    edgecolor=missing_styling["edgecolor"],  # Sets the border color of the legend box to dark grey
-    hatch=missing_styling["hatch"],          # Applies the same diagonal hatch pattern used on the map
-    label=missing_styling["label"]           # Sets the text label ("Missing Data") to appear next to the box
+    facecolor=missing_styling[
+        "color"
+    ],  # Sets the inside color of the legend box to light grey
+    edgecolor=missing_styling[
+        "edgecolor"
+    ],  # Sets the border color of the legend box to dark grey
+    hatch=missing_styling[
+        "hatch"
+    ],  # Applies the same diagonal hatch pattern used on the map
+    label=missing_styling[
+        "label"
+    ],  # Sets the text label ("Missing Data") to appear next to the box
 )
 
 # Add the custom legend to the plot.
 # We pass our custom 'missing_patch' in a list to the 'handles' parameter.
 ax.legend(
-    handles=[missing_patch],  # Tells the legend specifically what graphic elements to display
-    loc='lower right',        # Positions this specific legend in the lower right corner of the axes
-    frameon=False             # Removes the border box around the legend to keep the map looking clean
+    handles=[
+        missing_patch
+    ],  # Tells the legend specifically what graphic elements to display
+    loc="lower right",  # Positions this specific legend in the lower right corner of the axes
+    frameon=False,  # Removes the border box around the legend to keep the map looking clean
 )
 
 ax.set_title("Youth Population in Europe with Simulated Missing Data", fontsize=16)
@@ -418,7 +434,6 @@ ax.axis("off")
 
 # Display the map
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -446,9 +461,8 @@ Because this data has a critical meaningful center point (100), a **Diverging** 
 7. Set the polygon borders (`edgecolor`) to `"black"` with a very thin `linewidth` (`0.1`) so the regions are defined but not cluttered.
 8. Turn the axis boundary off and title the Figure "Gender Ratio Across European Regions".
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample Solution

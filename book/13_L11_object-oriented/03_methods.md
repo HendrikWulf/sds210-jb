@@ -1,11 +1,22 @@
 ---
-site: 
-    outline_maxdepth: 1
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
+  outline_maxdepth: 1
 ---
 
 # Methods driven behavior
 
 <!-- markdownlint-disable MD033-->
+
 <div class="page-subtitle">
 Turning geospatial objects into active, reusable tools
 </div>
@@ -66,7 +77,7 @@ The syntax for creating a method is almost identical to creating a standard func
 
 Let us revisit our `GeoPoint` blueprint and add a basic method:
 
-```{code-cell} python
+```{code-cell} ipython3
 class GeoPoint:
     def __init__(self, latitude, longitude, name=None):
         self.latitude = latitude
@@ -80,7 +91,7 @@ class GeoPoint:
 
 Because `report_status` belongs to the `GeoPoint` class, you cannot call it floating on its own. You must call it *through* a specific instantiated object using dot notation:
 
-```{code-cell} python
+```{code-cell} ipython3
 station_zrh = GeoPoint(47.3769, 8.5417, "Zurich_Main")
 
 # The object executes its own internal logic
@@ -99,7 +110,7 @@ The most basic role of a method is to read, format, or analyze the object's inte
 
 Imagine we are building a `WeatherStation` class. We might want a method that neatly formats the current temperature for a dashboard.
 
-```{code-cell} python
+```{code-cell} ipython3
 class WeatherStation:
     def __init__(self, name, temperature):
         self.name = name
@@ -109,6 +120,7 @@ class WeatherStation:
         # The method reads its own state and returns a formatted string
         return f"{self.name} Current Temp: {self.temperature}°C"
 
+
 station1 = WeatherStation("Alps_High", -4.5)
 print(station1.get_dashboard_readout())
 ```
@@ -117,11 +129,11 @@ This is much cleaner than extracting `station1.name` and `station1.temperature` 
 
 ### Calculating Derived State
 
-The true power of reading state comes when an object computes new information based on its raw data.
+The true power of reading state comes when an object computes new information based on its raw data. 
 
 Consider a spatial bounding box. We only need to store four coordinates (xmin, ymin, xmax, ymax). From those four raw attributes, the object can calculate its own width, height, and area.
 
-```{code-cell} python
+```{code-cell} ipython3
 class BoundingBox:
     def __init__(self, xmin, ymin, xmax, ymax):
         self.xmin = xmin
@@ -142,7 +154,7 @@ class BoundingBox:
 
 To see this in action, let us instantiate a bounding box using projected, metric coordinates:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Coordinates in meters (e.g., a projected local grid)
 study_area = BoundingBox(1000.0, 2000.0, 1500.0, 2800.0)
 
@@ -165,17 +177,18 @@ When designing a new spatial class, ask yourself:
 Use the interactive visualizer below to explore how an object calculates derived state. As you adjust the raw instance attributes (`xmin`, `ymin`, `xmax`, `ymax`), watch how the object's internal methods automatically recalculate its `width()`, `height()`, and `area()`.
 
 <!-- markdownlint-disable MD033-->
-<iframe
+
+<iframe 
     src="https://hendrikwulf.github.io/sds210_assets_L11_ch03_02_derived_state/"
     width="100%"
-    title="Derived State Explorer"
-    frameborder="0"
-    style="height: 650px; min-height: 650px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+    title="Derived State Explorer" 
+    frameborder="0" 
+    style="height: 650px; min-height: 650px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" 
     allowfullscreen>
 </iframe>
 
 <figcaption>
-    <em><b>Interactive Explorer: Derived State.</b><br>
+        <em><b>Interactive Explorer: Derived State.</b><br>
     Adjust the raw instance attributes (X/Y Min/Max) using the sliders to see how the <code>BoundingBox</code> object dynamically recalculates its derived state in real-time. Notice how the <code>area()</code> method internally calls the <code>width()</code> and <code>height()</code> methods to compute its final result. For improved visibility of the explorer, follow this <a href="https://hendrikwulf.github.io/sds210_assets_L11_ch03_02_derived_state/" target="_blank">link</a>.</em>
 </figcaption>
 <!-- markdownlint-enable MD033-->
@@ -184,11 +197,11 @@ Use the interactive visualizer below to explore how an object calculates derived
 
 ## 3. Updating object state
 
-Methods become truly powerful when we use them to modify the internal data of an object. This is known as **changing state**.
+Methods become truly powerful when we use them to modify the internal data of an object. This is known as **changing state**. 
 
 For a spatial object, a natural state change is movement. If a sensor is relocated, we can write a method to physically translate its coordinates:
 
-```{code-cell} python
+```{code-cell} ipython3
 class GeoPoint:
     def __init__(self, x, y, name=None):
         self.x = x
@@ -201,7 +214,7 @@ class GeoPoint:
         self.y += dy
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 point = GeoPoint(8.54, 47.37, "Zurich")
 print("Before:", point.x, point.y)
 
@@ -215,11 +228,11 @@ Notice that the `move()` method does not return a brand new point. It directly u
 
 You might ask: "Why bother with a method? Why not just write `point.x = 8.64` directly?"
 
-While direct assignment works, methods act as **gatekeepers**. They provide one clear place to define *how* state changes are allowed, letting you validate inputs, enforce rules, or log changes.
+While direct assignment works, methods act as **gatekeepers**. They provide one clear place to define *how* state changes are allowed, letting you validate inputs, enforce rules, or log changes. 
 
 Consider a `WeatherStation` class. If a faulty sensor tries to record a physically impossible temperature, a method can catch the error before the object's data is corrupted:
 
-```{code-cell} python
+```{code-cell} ipython3
 class WeatherStation:
     def __init__(self, name, temperature):
         self.name = name
@@ -234,7 +247,7 @@ class WeatherStation:
             print(f"{self.name} successfully updated to {self.temperature}°C")
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 station1 = WeatherStation("Alps_High", -4.5)
 
 # Attempting a valid update
@@ -252,6 +265,7 @@ By routing the update through `record_new_temperature()`, the object protects it
 Direct attribute access is simple, but methods give you a cleaner, safer interface. This is the core of **encapsulation**: bundling data and behavior together so the object not only stores values, but also dictates the proper ways those values can be read or modified as your programs grow more complex.
 ```
 
+
 ---
 
 ## 4. Methods with arguments
@@ -260,11 +274,11 @@ A method does not need to work exclusively with its own object. It can also acce
 
 ### Distance to another point
 
-A classic example is a point that measures its distance to another point. We can pass a second `GeoPoint` instance directly into the method.
+A classic example is a point that measures its distance to another point. We can pass a second `GeoPoint` instance directly into the method. 
 
 For now, we will use a simple Euclidean distance formula:
 
-```{code-cell} python
+```{code-cell} ipython3
 class GeoPoint:
     def __init__(self, x, y, name=None):
         self.x = x
@@ -276,11 +290,11 @@ class GeoPoint:
         # other_point is the second object passed as an argument
         dx = self.x - other_point.x
         dy = self.y - other_point.y
-        
+
         return (dx**2 + dy**2) ** 0.5
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 # Coordinates in a projected metric grid
 zurich = GeoPoint(2683000, 1248000, "Zurich")
 bern = GeoPoint(2600000, 1200000, "Bern")
@@ -291,7 +305,6 @@ print(f"Distance: {dist_z_to_b:.2f} meters")
 ```
 
 In the `distance_to` method, `self` represents `zurich`, while `other_point` represents `bern`. The method seamlessly reads the attributes from both objects to perform the math.
-
 ```{admonition} Geospatial Caution
 :class: warning
 
@@ -300,11 +313,11 @@ This Euclidean formula is appropriate for projected coordinates or abstract Cart
 
 ### Testing spatial relationships
 
-Methods can also express topological relationships between completely different types of objects.
+Methods can also express topological relationships between completely different types of objects. 
 
 Let us build a `BoundingBox` class. We can give it a method that accepts a `GeoPoint` as an argument and evaluates whether that point falls within the box's boundaries:
 
-```{code-cell} python
+```{code-cell} ipython3
 class BoundingBox:
     def __init__(self, xmin, ymin, xmax, ymax):
         self.xmin = xmin
@@ -314,10 +327,12 @@ class BoundingBox:
 
     def contains(self, point):
         # The method tests the incoming point's attributes against its own boundaries
-        return (self.xmin <= point.x <= self.xmax) and (self.ymin <= point.y <= self.ymax)
+        return (self.xmin <= point.x <= self.xmax) and (
+            self.ymin <= point.y <= self.ymax
+        )
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 # Create a study area and two points
 study_area = BoundingBox(0, 0, 10, 10)
 
@@ -332,12 +347,13 @@ print("Contains B?", study_area.contains(point_b))
 This is a highly natural object oriented pattern. The bounding box is responsible for deciding whether a point lies inside it. You can see how classes start to collaborate to build richer systems: a `GeoPoint` measures distance to another `GeoPoint`, while a `BoundingBox` tests containment of a `GeoPoint`.
 
 <!-- markdownlint-disable MD033-->
-<iframe
+
+<iframe 
     src="https://hendrikwulf.github.io/sds210_assets_L11_ch03_01_collaborating_objects/"
     width="100%"
-    title="Spatial System Explorer"
-    frameborder="0"
-    style="height: 650px; min-height: 650px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+    title="Spatial System Explorer" 
+    frameborder="0" 
+    style="height: 650px; min-height: 650px; border: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" 
     allowfullscreen>
 </iframe>
 
@@ -351,15 +367,16 @@ This is a highly natural object oriented pattern. The bounding box is responsibl
 
 ## 5. Why methods can be cleaner functions
 
-At this point, you might ask a highly practical design question: "Why not just write ordinary standalone functions?"
+At this point, you might ask a highly practical design question: "Why not just write ordinary standalone functions?" 
 
 For example, we could define distance like this:
 
-```{code-cell} python
+```{code-cell} ipython3
 def distance(point_a, point_b):
     dx = point_a.x - point_b.x
     dy = point_a.y - point_b.y
     return (dx**2 + dy**2) ** 0.5
+
 
 # Calling the standalone function
 distance(zurich, bern)
@@ -378,9 +395,8 @@ The second version reads more naturally because the behavior is clearly attached
 Method based design answers an important question: **Which object is responsible for this behavior?** By attaching the behavior directly to the responsible data, object oriented design offers distinct advantages:
 
 1. **Discoverability:** If you have a free function, a new programmer has to search your entire codebase to find it. If it is a method, typing `zurich.` in an IDE will automatically pop up a menu showing `distance_to()`. The capabilities of the object travel *with* the object.
-2. **Context:** `zurich.distance_to(bern)` reads like an English sentence. The subject (Zurich) performs an action (calculates distance) on a target (Bern).
+2. **Context:** `zurich.distance_to(bern)` reads like an English sentence. The subject (Zurich) performs an action (calculates distance) on a target (Bern). 
 3. **Encapsulation:** If you change how a point stores its coordinates internally, you only have to update the `distance_to` method inside that specific class. You do not have to hunt down and fix every standalone function that ever interacted with a coordinate.
-
 ```{admonition} Not a strict rule
 :class: note
 
@@ -389,11 +405,11 @@ Object oriented design is not about forcing every single function into a class. 
 
 ### A geospatial example: Routes collaborating with Points
 
-You can really see the power of methods when different classes begin to collaborate. A route is a sequence of points. One of its obvious behaviors is to calculate its total length.
+You can really see the power of methods when different classes begin to collaborate. A route is a sequence of points. One of its obvious behaviors is to calculate its total length. 
 
 Rather than writing a massive function that extracts all the coordinates and does the math from scratch, a `Route` object can simply ask its `GeoPoint` objects to calculate the distances themselves:
 
-```{code-cell} python
+```{code-cell} ipython3
 class Route:
     def __init__(self, points, name=None):
         self.points = points
@@ -408,7 +424,7 @@ class Route:
         return total
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 # Create our points
 a = GeoPoint(0, 0, "A")
 b = GeoPoint(3, 4, "B")
@@ -428,7 +444,7 @@ This perfectly captures the essence of object oriented spatial programming. The 
 
 ## 6. Dunder (Magic) Methods
 
-Python has a secret tier of methods known as "dunder" methods (because their names start and end with a **d**ouble **under**score). You have already used the most important one: `__init__()`.
+Python has a secret tier of methods known as "dunder" methods (because their names start and end with a **d**ouble **under**score). You have already used the most important one: `__init__()`. 
 
 These methods are rarely called directly. Instead, Python triggers them automatically in response to standard operations, allowing you to customize how your objects behave on a fundamental level and making them feel like native Python types.
 
@@ -436,14 +452,14 @@ These methods are rarely called directly. Instead, Python triggers them automati
 
 If you try to print a custom object, Python's default behavior is not very helpful. It just shows a generic memory address:
 
-```{code-cell} python
+```{code-cell} ipython3
 print(zurich)
 # Output: <__main__.GeoPoint object at 0x106702d30>
 ```
 
 You can fix this by defining the `__str__` dunder method. Whenever you use `print()`, Python secretly looks for `__str__` and executes it to get a readable string.
 
-```{code-cell} python
+```{code-cell} ipython3
 class GeoPoint:
     def __init__(self, x, y, name=None):
         self.x = x
@@ -454,7 +470,7 @@ class GeoPoint:
         dx = self.x - other_point.x
         dy = self.y - other_point.y
         return (dx**2 + dy**2) ** 0.5
-        
+
     # Customizing the readable print output
     def __str__(self):
         return f"{self.name or 'Unnamed point'} ({self.x}, {self.y})"
@@ -464,11 +480,11 @@ class GeoPoint:
         return f"GeoPoint(x={self.x}, y={self.y}, name='{self.name}')"
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 p = GeoPoint(8.54, 47.37, "Zurich")
 
 # Triggers __str__
-print(p) 
+print(p)
 
 # Triggers __repr__ (often seen when evaluating variables in Jupyter)
 p
@@ -482,7 +498,7 @@ Dunder methods can also define how standard operators behave with your custom ob
 
 For example, if you wanted to quickly determine which of two delivery routes is longer, you could define the `__gt__` (greater than) method.
 
-```{code-cell} python
+```{code-cell} ipython3
 class Route:
     def __init__(self, points, name=None):
         self.points = points
@@ -500,7 +516,7 @@ class Route:
         return self.total_length() > other.total_length()
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 # Assuming r1 and r2 are instantiated Route objects
 r1 = Route([GeoPoint(0, 0), GeoPoint(3, 4)], "Route 1")
 r2 = Route([GeoPoint(0, 0), GeoPoint(1, 1)], "Route 2")
@@ -527,19 +543,16 @@ It is time to build your own small geospatial object system from scratch.
 **Your Tasks:**
 
 **A. The `MobileSensor`**
-
 1. Define the class. Its `__init__` method should store `x` and `y` coordinates.
 2. Provide a `move(dx, dy)` method that updates the coordinates.
 3. Provide a `__str__` dunder method to cleanly print the sensor's current location.
 
 **B. The `StudyRegion`**
-
 1. Define the class. Its `__init__` method should store `xmin`, `ymin`, `xmax`, and `ymax`.
 2. Provide an `expand_by(amount)` method that grows the box in all directions (subtract the amount from the minimums, add the amount to the maximums).
 3. Provide a `contains(sensor)` method that accepts a `MobileSensor` object and returns `True` if it is inside the boundaries, and `False` otherwise.
 
 **C. The Simulation**
-
 1. Instantiate a sensor at `(10, 10)` and a study region bounded by `(0, 0)` and `(5, 5)`.
 2. Print whether the region contains the sensor (should be `False`).
 3. Move the sensor by `(-3, -3)`.
@@ -548,12 +561,11 @@ It is time to build your own small geospatial object system from scratch.
 
 **D. Reflection**
 Look at the methods you just wrote and ask yourself:
-
 * Which of your methods only **read** object state?
 * Which methods **changed** object state?
 * Which methods required **another custom object** as input?
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
 ```
 

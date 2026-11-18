@@ -1,13 +1,22 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
   outline_maxdepth: 1
-
 ---
 
 # Practical L3 - Solutions
 
 <!-- markdownlint-disable MD033-->
+
 <div class="page-subtitle">
 From structured data to automated spatial logic
 </div>
@@ -53,13 +62,13 @@ We start with a small dataset of cities and coordinates. To work efficiently, we
 
 ### Code
 
-```{code-cell} python
+```{code-cell} ipython3
 cities = ["Zurich", "Geneva", "Lugano"]
 
 coordinates = [
-    [2682217, 1247945],   # Zurich
-    [2499959, 1117840],   # Geneva
-    [2720031, 1098728]    # Lugano
+    [2682217, 1247945],  # Zurich
+    [2499959, 1117840],  # Geneva
+    [2720031, 1098728],  # Lugano
 ]
 
 city_data = {}
@@ -68,7 +77,6 @@ for i in range(len(cities)):
     city_data[cities[i]] = coordinates[i]
 
 print(city_data)
-
 ```
 
 ### Tasks

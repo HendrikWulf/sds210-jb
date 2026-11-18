@@ -1,8 +1,12 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+site:
+  outline_maxdepth: 1
 ---
 
 # Practical L7 - Solutions
@@ -86,7 +90,6 @@ import geopandas as gpd
 
 # 4. Verify the result
 # print(f"Found {len(stations_gdf)} long-term climate stations.")
-
 ```
 
 ````{admonition} Sample Solution
@@ -139,7 +142,6 @@ In the [previous practical](https://hendrikwulf.github.io/sds210-jb/book/l06-dat
 import numpy as np
 
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -207,7 +209,6 @@ import numpy as np
 from tqdm.auto import tqdm  # The standard progress bar library!
 
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -330,7 +331,6 @@ ax.axis("off")
 plt.tight_layout()
 plt.show()
 """
-
 ```
 
 ````{admonition} Sample Solution
@@ -491,7 +491,6 @@ ax.axis("off")
 plt.tight_layout()
 plt.show()
 """
-
 ```
 
 ````{admonition} Sample Solution
@@ -606,7 +605,6 @@ Please answer the following questions briefly:
 
 ```{code-cell} python
 # Write your reflections here (as python comments or in a markdown cell)
-
 ```
 
 ````{admonition} Sample Answers

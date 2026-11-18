@@ -1,8 +1,16 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
+  outline_maxdepth: 1
 ---
 
 # Vector Analysis
@@ -35,7 +43,6 @@ The ultimate power of a Geographic Information System lies in fusing disparate d
 **Time to Read:** 20 minutes  
 **In a nutshell:** Combine completely disparate datasets together by using geographic location as the joining key, and physically cut geometries into new analytical shapes using overlays.  
 **Skip this if:** You are fully proficient with GeoPandas `.sjoin()` (understanding the `how` and `predicate` parameters), `.dissolve()`, and `.overlay()` algorithms.
-
 ```
 
 In the previous chapter, we learned how to ask spatial questions to filter our data (e.g., finding all primary homes inside an evacuation zone).
@@ -84,7 +91,7 @@ If a point falls inside a polygon, GeoPandas will grab the attributes of that po
 
 Let us answer the question: **Which Swiss canton has the highest number of Alpine huts?** We will spatially join the cantons to the huts, and then count the results.
 
-```{code-cell} python
+```{code-cell} ipython3
 import geopandas as gpd
 
 # 1. Load the data and ensure matching metric CRS
@@ -94,12 +101,7 @@ huts_gdf = gpd.read_file("data/alpine_huts.gpkg").to_crs(epsg=2056)
 # 2. Perform the Spatial Join
 # We keep the Huts geometry (left) and attach Canton attributes (right)
 # where the hut is "within" the canton polygon.
-huts_with_cantons = gpd.sjoin(
-    huts_gdf, 
-    cantons_gdf, 
-    how="inner", 
-    predicate="within"
-)
+huts_with_cantons = gpd.sjoin(huts_gdf, cantons_gdf, how="inner", predicate="within")
 
 # 3. View the fused attribute table
 display(huts_with_cantons[["name_left", "name_right"]].head(3))
@@ -181,7 +183,7 @@ A Left Outer Join (`how="left"`) prioritizes your primary left dataset (the hosp
 
 Now that every individual hut has a canton name securely attached to it, we can use a standard Pandas `.groupby()` to count them up!
 
-```{code-cell} python
+```{code-cell} ipython3
 # Group by the canton name and count the occurrences
 hut_counts = huts_with_cantons.groupby("name_right").size()
 
@@ -201,50 +203,53 @@ Dissolving takes multiple adjacent geometries that share the same attribute and 
 
 Let us test this. We will load the Swiss Municipalities dataset. First, we will use a spatial join to figure out which canton each municipality belongs to. Then, we will dissolve the thousands of tiny municipalities back into large cantonal boundaries, summing up their population (`einwohnerzahl`) and surface area along the way!
 
-```{code-cell} python
+```{code-cell} ipython3
 import geopandas as gpd
 
 # 1. Load municipalities and ensure metric CRS
 muni_gdf = gpd.read_file("data/swissBoundaries3D_municipalities.gpkg").to_crs(epsg=2056)
 
 # 2. Assign Canton names to Municipalities via a Spatial Join
-muni_with_cantons = gpd.sjoin(muni_gdf, cantons_gdf[["name", "geometry"]], predicate="within")
+muni_with_cantons = gpd.sjoin(
+    muni_gdf, cantons_gdf[["name", "geometry"]], predicate="within"
+)
 
-# 3. Dissolve! 
+# 3. Dissolve!
 # Group by the attached canton name ('name_right')
 # Sum the population, lake area, and municipal area for the new melted shape
 cantons_rebuilt = muni_with_cantons.dissolve(
     by="name_right",
-    aggfunc={
-        "einwohnerzahl": "sum",
-        "see_flaeche": "sum",
-        "gem_flaeche": "sum"
-    }
+    aggfunc={"einwohnerzahl": "sum", "see_flaeche": "sum", "gem_flaeche": "sum"},
 )
 
 # 4. View the result of our manual aggregation
-display(cantons_rebuilt[["einwohnerzahl", "gem_flaeche", "see_flaeche"]].round(0).astype(int).sort_values("see_flaeche", ascending=False).head(5))
+display(
+    cantons_rebuilt[["einwohnerzahl", "gem_flaeche", "see_flaeche"]]
+    .round(0)
+    .astype(int)
+    .sort_values("see_flaeche", ascending=False)
+    .head(5)
+)
 ```
 
 Because we just engineered entirely new polygons and summed up their data from scratch, it is good practice to verify our math. Let us compare our `cantons_rebuilt` data against the official statistics stored in the original `cantons_gdf`:
 
-```{code-cell} python
+```{code-cell} ipython3
 # 5. Compare results with the official cantonal attributes
-display(cantons_gdf
-        .set_index("name")
-        [["einwohnerzahl", "kantonsflaeche", "see_flaeche"]]
-        .round(0)
-        .astype(int)
-        .sort_values("see_flaeche", ascending=False)
-        .head(5)
-        )
+display(
+    cantons_gdf.set_index("name")[["einwohnerzahl", "kantonsflaeche", "see_flaeche"]]
+    .round(0)
+    .astype(int)
+    .sort_values("see_flaeche", ascending=False)
+    .head(5)
+)
 ```
 
 The numbers match perfectly! Best quality made by SwissTopo. By dissolving the municipalities, we successfully recreated the cantonal dataset from the ground up.
 
 We can visually prove that this operation physically melted the geometries together by plotting our original municipalities next to our newly dissolved `cantons_rebuilt` layer:
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 
 # Create a side-by-side plot layout
@@ -264,9 +269,9 @@ plt.show()
 ```
 
 <!-- markdownlint-disable MD033-->
-<figcaption>
-    <em>Visualizing the <code>.dissolve()</code> method. Notice how the fine, spiderweb-like internal borders of the municipalities on the left have been completely melted away, leaving only the cantonal outlines on the right.</em>
-</figcaption>
+<div class="figure-caption-like">
+Visualizing the `.dissolve()` method. Notice how the fine, spiderweb-like internal borders of the municipalities on the left have been completely melted away, leaving only the cantonal outlines on the right.
+</div>
 <!-- markdownlint-enable MD033 -->
 
 <!-- markdownlint-disable MD033-->
@@ -381,14 +386,16 @@ When performing an overlay, you use the `how` parameter to control exactly which
 
 To demonstrate why this is vital, let us calculate the total length of highways in each canton. A highway is typically a single, continuous line that spans across multiple cantons. If we just did a spatial join, the entire length of the highway would be assigned to just one canton. We must use `.overlay()` to physically cut the highway lines at the cantonal borders first!
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Load the Highways
-highways_gdf = gpd.read_file("data/swissHighways.gpkg").set_crs(epsg=2056, allow_override=True)
+highways_gdf = gpd.read_file("data/swissHighways.gpkg").set_crs(
+    epsg=2056, allow_override=True
+)
 
 # 2. Perform the Overlay (Cut the lines at the polygon boundaries)
 highways_cut = gpd.overlay(highways_gdf, cantons_gdf, how="intersection")
 
-# 3. Recalculate Length! 
+# 3. Recalculate Length!
 # Because the lines were physically chopped, we MUST calculate their new lengths
 highways_cut["length_km"] = highways_cut.geometry.length / 1000
 
@@ -449,9 +456,8 @@ You will need to use a Spatial Join to combine the points and polygons, and then
 3. **Aggregate:** Use `.groupby()` on the newly attached canton name column and count the number of landing sites per canton.
 4. **Identify:** Sort the results in descending order and print the top 5 cantons.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ````{admonition} Sample solution

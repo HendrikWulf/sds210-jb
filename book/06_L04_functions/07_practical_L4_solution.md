@@ -1,8 +1,12 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+site:
+  outline_maxdepth: 1
 ---
 
 # Practical L4 - Solutions
@@ -53,16 +57,16 @@ Instead of giving you all the data immediately, let's look at how you find it.
 import math
 
 swiss_cities = {
-    "Zurich":   {"lv95": [2682217, 1247945], "latlon": [47.377210, 8.527313]},
-    "Geneva":   {"lv95": [2499959, 1117840], "latlon": [46.204559, 6.142456]},
-    "Lugano":   {"lv95": [2720031, 1098728], "latlon": [46.029430, 8.988879]},
-    "Basel":    {"lv95": [2611415, 1267104], "latlon": [47.554552, 7.590273]},
-    "Bern":     {"lv95": [2598634, 1200387], "latlon": [46.954559, 7.420685]},
-    "Sion":     {"lv95": [2592607, 1118393], "latlon": [46.216943, 7.342848]},
-    "St.Gallen":{"lv95": [2747116, 1254357], "latlon": [47.423584, 9.388511]},
-    "Davos":    {"lv95": [2784107, 1182025], "latlon": [46.763954, 9.849066]},
-    "Andermatt":{"lv95": [2690960, 1163987], "latlon": [46.620943, 8.626235]},
-    "Neuchatel":{"lv95": [2562706, 1207887], "latlon": [47.020975, 6.948081]}
+    "Zurich": {"lv95": [2682217, 1247945], "latlon": [47.377210, 8.527313]},
+    "Geneva": {"lv95": [2499959, 1117840], "latlon": [46.204559, 6.142456]},
+    "Lugano": {"lv95": [2720031, 1098728], "latlon": [46.029430, 8.988879]},
+    "Basel": {"lv95": [2611415, 1267104], "latlon": [47.554552, 7.590273]},
+    "Bern": {"lv95": [2598634, 1200387], "latlon": [46.954559, 7.420685]},
+    "Sion": {"lv95": [2592607, 1118393], "latlon": [46.216943, 7.342848]},
+    "St.Gallen": {"lv95": [2747116, 1254357], "latlon": [47.423584, 9.388511]},
+    "Davos": {"lv95": [2784107, 1182025], "latlon": [46.763954, 9.849066]},
+    "Andermatt": {"lv95": [2690960, 1163987], "latlon": [46.620943, 8.626235]},
+    "Neuchatel": {"lv95": [2562706, 1207887], "latlon": [47.020975, 6.948081]},
 }
 ```
 
@@ -90,6 +94,7 @@ def create_id(name):
     # Slicing the first 3 characters and converting to upper case
     short_name = name[:3].upper()
     return short_name
+
 
 print(f"Test Geneva: {create_id('Geneva')}")
 print(f"Test St. Gallen: {create_id('St. Gallen')}")
@@ -140,18 +145,23 @@ def euclidean(coords1, coords2):
     dist_meters = (dx**2 + dy**2) ** 0.5
     return dist_meters / 1000.0  # Convert to km
 
+
 def haversine(coords1, coords2):
     lat1, lon1 = coords1[0], coords1[1]
     lat2, lon2 = coords2[0], coords2[1]
-    R = 6371.0 
-    
+    R = 6371.0
+
     phi1, phi2 = math.radians(lat1), math.radians(lat2)
     delta_phi = math.radians(lat2 - lat1)
     delta_lambda = math.radians(lon2 - lon1)
 
-    a = math.sin(delta_phi / 2.0)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(delta_lambda / 2.0)**2
+    a = (
+        math.sin(delta_phi / 2.0) ** 2
+        + math.cos(phi1) * math.cos(phi2) * math.sin(delta_lambda / 2.0) ** 2
+    )
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     return R * c
+
 
 # Quick test
 z_lv95 = swiss_cities["Zurich"]["lv95"]
@@ -181,7 +191,9 @@ Write a nested loop to create a **Difference Matrix** (Euclidean distance minus 
 cities = list(swiss_cities.keys())
 
 # Print the top header row (x-axis)
-print(f"{'Diff(km)':>8}", end="")   # sting formatting for table; :>8 → right-align in width 8; end="" → no newline after printing
+print(
+    f"{'Diff(km)':>8}", end=""
+)  # sting formatting for table; :>8 → right-align in width 8; end="" → no newline after printing
 for city in cities:
     print(f"{create_id(city):>8}", end="")
 print("\n" + "-" * 89)
@@ -190,29 +202,31 @@ print("\n" + "-" * 89)
 for city_a in cities:
     # Print row header
     print(f"{create_id(city_a):>8}|", end="")
-    
+
     # Loop through columns
     for city_b in cities:
-        
         # Skip self-comparisons
         if city_a == city_b:
             print(f"{'-':>8}", end="")
             continue
-            
+
         # Extract coordinates
         lv95_a, lv95_b = swiss_cities[city_a]["lv95"], swiss_cities[city_b]["lv95"]
-        latlon_a, latlon_b = swiss_cities[city_a]["latlon"], swiss_cities[city_b]["latlon"]
-        
+        latlon_a, latlon_b = (
+            swiss_cities[city_a]["latlon"],
+            swiss_cities[city_b]["latlon"],
+        )
+
         # Calculate using our functions
         dist_euc = euclidean(lv95_a, lv95_b)
         dist_hav = haversine(latlon_a, latlon_b)
-        
+
         # Calculate the projection distortion (difference)
         difference = abs(dist_euc - dist_hav)
-        
+
         # Print the difference rounded to 2 decimal places
         print(f"{difference:>8.2f}", end="")
-        
+
     # Drop to the next line after finishing a row
     print()
 ```
@@ -239,16 +253,17 @@ Write a function called `route_length` that:
 ```{code-cell} python
 def route_length(*route_coords):
     total_length = 0
-    
+
     # We stop at len(route_coords) - 1 because we look ahead to the next point
     for i in range(len(route_coords) - 1):
         current_point = route_coords[i]
         next_point = route_coords[i + 1]
-        
+
         # Add the segment distance to the total
         total_length += haversine(current_point, next_point)
-        
+
     return total_length
+
 
 # Extract Lat/Lon coordinates for our trip
 c_basel = swiss_cities["Basel"]["latlon"]
@@ -281,17 +296,18 @@ def create_spatial_feature(name, coordinates, **metadata):
     feature = {
         "feature_name": name,
         "geometry": coordinates,
-        "properties": metadata # kwargs packs everything else into this dictionary!
+        "properties": metadata,  # kwargs packs everything else into this dictionary!
     }
     return feature
 
+
 # Let's create Geneva with some unpredictable metadata
 geneva_feature = create_spatial_feature(
-    "Geneva", 
-    swiss_cities["Geneva"]["latlon"], 
-    language="French", 
-    population=201818, 
-    has_lake=True
+    "Geneva",
+    swiss_cities["Geneva"]["latlon"],
+    language="French",
+    population=201818,
+    has_lake=True,
 )
 
 print(geneva_feature)
@@ -313,18 +329,18 @@ Copy your `euclidean` function from Part 3. Add a complete, formatted docstring 
 def euclidean(coords1, coords2):
     """
     Calculates the straight-line Euclidean distance between two points.
-    
-    This function assumes the input coordinates are in a projected 
-    coordinate system (e.g., Swiss Grid LV95 in meters). The output 
+
+    This function assumes the input coordinates are in a projected
+    coordinate system (e.g., Swiss Grid LV95 in meters). The output
     is converted to kilometers.
-    
+
     Parameters
     ----------
     coords1 : list
         The [x, y] coordinates of the first point in meters.
     coords2 : list
         The [x, y] coordinates of the second point in meters.
-        
+
     Returns
     -------
     float
@@ -334,6 +350,7 @@ def euclidean(coords1, coords2):
     dy = coords1[1] - coords2[1]
     dist_meters = (dx**2 + dy**2) ** 0.5
     return dist_meters / 1000.0
+
 
 # Check if Python understood your documentation!
 help(euclidean)

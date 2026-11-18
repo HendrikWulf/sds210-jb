@@ -1,6 +1,16 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210_home
+  language: python
+  name: python3
 site:
- outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
 # Printing & Formatting
@@ -62,10 +72,8 @@ This automatic display is highly convenient when you are exploring values intera
 
 The `print()` {term}`function <Function>` sends output to the screen explicitly.
 
-```{code-cell} python
+```{code-cell} ipython3
 print(2 + 3)
-
-
 ```
 
 Printing works consistently everywhere: in notebooks, in scripts, and in massive software programs. This makes `print()` essential for debugging, explaining steps, and clearly communicating your final results.
@@ -86,22 +94,18 @@ When clarity matters, or when you need to show multiple things from one cell, re
 
 The `print()` function can display **multiple values at once** if you separate them with commas. Python automatically inserts a space between each value.
 
-```{code-cell} python
+```{code-cell} ipython3
 distance_km = 120
 speed_kmh = 80
 
 # Quick inspection of multiple variables
 print(distance_km, speed_kmh)
-
-
 ```
 
 Output becomes much clearer when you add text labels. Clear labels turn raw numbers into meaningful information, helping your future self (and others) understand what the numbers represent.
 
-```{code-cell} python
+```{code-cell} ipython3
 print("Distance:", distance_km, "Speed:", speed_kmh)
-
-
 ```
 
 ---
@@ -112,12 +116,10 @@ While separating items with commas works, modern Python provides a much more pow
 
 F-strings allow you to embed {term}`variable <Variable>` values directly into the middle of a text string.
 
-```{code-cell} python
+```{code-cell} ipython3
 travel_time_h = distance_km / speed_kmh
 
 print(f"The travel time is {travel_time_h} hours.")
-
-
 ```
 
 :::{figure} images/09_f-string-anatomy.png
@@ -136,10 +138,8 @@ print(f"The travel time is {travel_time_h} hours.")
 
 You can even put full mathematical expressions inside the brackets!
 
-```{code-cell} python
+```{code-cell} ipython3
 print(f"If we double our speed, we will go {speed_kmh * 2} km/h.")
-
-
 ```
 
 ---
@@ -148,11 +148,9 @@ print(f"If we double our speed, we will go {speed_kmh * 2} km/h.")
 
 At times, calculations produce long, ugly decimals (e.g., `1.50000000002`). You can control **how numbers are displayed** by adding formatting rules inside the f-string brackets using a colon `:`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Format the variable to show only 2 decimal places
 print(f"Travel time: {travel_time_h:.2f} hours")
-
-
 ```
 
 The part after the colon `:.2f` defines the formatting rule:
@@ -164,16 +162,15 @@ The part after the colon `:.2f` defines the formatting rule:
 
 Different format specifiers change how numbers appear:
 
-```{code-cell} python
+```{code-cell} ipython3
 value = 1.2345
 
-print(f"{value:.2f}")   # decimal format
-print(f"{value:.2e}")   # scientific notation
-print(f"{value:.2%}")   # percentage
+print(f"{value:.2f}")  # decimal format
+print(f"{value:.2e}")  # scientific notation
+print(f"{value:.2%}")  # percentage
 
 x = 1.2345
 y = 5
-
 ```
 
 | Format | Meaning | What it does | Example f-string | Displayed result |
@@ -251,18 +248,18 @@ Clear output helps you understand what your code is doing, communicate results t
 
 Printing intermediate values is one of the simplest and most effective debugging techniques in data science. If a complex calculation is giving you the wrong answer, print out the pieces!
 
-```{code-cell} python
+```{code-cell} ipython3
 print("Distance:", distance_km)
 print("Speed:", speed_kmh)
 print("Time:", travel_time_h)
-
 ```
 
 You can also use an f-string to make the output more readable.
 
-```{code-cell} python
-print(f"Distance = {distance_km} km, Speed = {speed_kmh} km/h, Time = {travel_time_h:.2f} h")
-
+```{code-cell} ipython3
+print(
+    f"Distance = {distance_km} km, Speed = {speed_kmh} km/h, Time = {travel_time_h:.2f} h"
+)
 ```
 
 This allows you to verify that values are correct at each specific step and quickly identify exactly where the math went wrong.
@@ -275,10 +272,8 @@ Many migratory birds travel long distances over several days. To understand such
 
 Assume a migratory bird is flying from Northern Europe to Southern Europe. The estimated migration distance is:
 
-```{code-cell} python
+```{code-cell} ipython3
 distance_km = 1800
-
-
 ```
 
 Two possible average airspeeds are:

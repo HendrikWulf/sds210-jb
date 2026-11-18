@@ -1,8 +1,12 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+site:
+  outline_maxdepth: 1
 ---
 
 # Practical L8 - Solutions
@@ -66,29 +70,28 @@ import gdown
 import cmcrameri.cm as cmc
 
 # Create data directory
-data_folder = 'data'
+data_folder = "data"
 os.makedirs(data_folder, exist_ok=True)
 
 # Dictionary of file IDs and their output names
 datasets = {
-    'hydrorivers_100.gpkg': '1fbJewilJnHkEQjNxEbhid0EGVH1X2Evi',
-    'hydrosheds_basins_level_01.gpkg': '1wReA_w83eO8sR-4Ma_j-JvtjoSeCU5Z0',
-    'hydrosheds_basins_level_02.gpkg': '1uA4qvCIv0egR7698WkI8oUIidjmPLt_n'
+    "hydrorivers_100.gpkg": "1fbJewilJnHkEQjNxEbhid0EGVH1X2Evi",
+    "hydrosheds_basins_level_01.gpkg": "1wReA_w83eO8sR-4Ma_j-JvtjoSeCU5Z0",
+    "hydrosheds_basins_level_02.gpkg": "1uA4qvCIv0egR7698WkI8oUIidjmPLt_n",
 }
 
 for filename, file_id in datasets.items():
     filepath = os.path.join(data_folder, filename)
     if not os.path.exists(filepath):
         print(f"Downloading {filename}...")
-        url = f'https://drive.google.com/uc?id={file_id}'
+        url = f"https://drive.google.com/uc?id={file_id}"
         gdown.download(url, filepath, quiet=False)
     else:
         print(f"{filename} already exists.")
 
-rivers_fp = os.path.join(data_folder, 'hydrorivers_100.gpkg')
-basins_l1_fp = os.path.join(data_folder, 'hydrosheds_basins_level_01.gpkg')
-basins_l2_fp = os.path.join(data_folder, 'hydrosheds_basins_level_02.gpkg')
-
+rivers_fp = os.path.join(data_folder, "hydrorivers_100.gpkg")
+basins_l1_fp = os.path.join(data_folder, "hydrosheds_basins_level_01.gpkg")
+basins_l2_fp = os.path.join(data_folder, "hydrosheds_basins_level_02.gpkg")
 ```
 
 ---
@@ -113,7 +116,6 @@ Before we load the massive river dataset, we need to decide which basin to map. 
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -178,7 +180,6 @@ Now that you have explored the basins, it is time to load the actual river data.
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -217,7 +218,6 @@ To fix this, we need to map the data to a visual variable. We will scale the ups
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -259,7 +259,6 @@ It is time to generate the final, high-resolution static map for the NGO's repor
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -319,7 +318,6 @@ Take a step back and review your workflow. You built a web app to navigate the g
 
 ```{code-cell} python
 # Write your reflections here (as python comments or in a markdown cell)
-
 ```
 
 ```{admonition} Sample Answers

@@ -1,8 +1,12 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+site:
+  outline_maxdepth: 1
 ---
 
 # Practical L9 - Solutions
@@ -67,26 +71,26 @@ import matplotlib.pyplot as plt
 import gdown
 
 # Create data directory
-data_folder = 'data'
+data_folder = "data"
 os.makedirs(data_folder, exist_ok=True)
 
 # Dictionary of file IDs and their output names
 datasets = {
-    's2_composite_2017.tif': '1nKuXp1pk2nWx7pXsSHegDYoJflkBhVuw',
-    's2_composite_2025.tif': '1OOcFk_UG_rBbiSDRXfHGKXmnMkANGUlU'
+    "s2_composite_2017.tif": "1nKuXp1pk2nWx7pXsSHegDYoJflkBhVuw",
+    "s2_composite_2025.tif": "1OOcFk_UG_rBbiSDRXfHGKXmnMkANGUlU",
 }
 
 for filename, file_id in datasets.items():
     filepath = os.path.join(data_folder, filename)
     if not os.path.exists(filepath):
         print(f"Downloading {filename}...")
-        url = f'https://drive.google.com/uc?id={file_id}'
+        url = f"https://drive.google.com/uc?id={file_id}"
         gdown.download(url, filepath, quiet=False)
     else:
         print(f"{filename} already exists.")
 
-s2_2017_fp = os.path.join(data_folder, 's2_composite_2017.tif')
-s2_2025_fp = os.path.join(data_folder, 's2_composite_2025.tif')
+s2_2017_fp = os.path.join(data_folder, "s2_composite_2017.tif")
+s2_2025_fp = os.path.join(data_folder, "s2_composite_2025.tif")
 ```
 
 ---

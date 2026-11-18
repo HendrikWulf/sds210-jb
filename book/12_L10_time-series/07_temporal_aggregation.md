@@ -1,5 +1,15 @@
 ---
-site: 
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
   outline_maxdepth: 1
 ---
 
@@ -41,7 +51,7 @@ Demonstrating how to effectively collapse, reorganize, and smooth the time dimen
 **Applied Scenario**
 We will analyze the NOAA Extended Reconstructed Sea Surface Temperature (ERSST v5) dataset, a widely used and trusted gridded compilation of historical data going back to 1854. Our goal is to strip away the overwhelming seasonal cycle to reveal long term climate warming trends.
 
-```{code-cell} python
+```{code-cell} ipython3
 import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
@@ -61,7 +71,7 @@ We begin by treating time as a fully reducible dimension, exactly like latitude 
 
 You can collapse the entire time dimension into a single 2D spatial map using standard reduction methods like `.mean(dim="time")` or `.max(dim="time")`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Calculate the historical mean temperature for every pixel
 mean_sst = ds.sst.mean(dim="time")
 
@@ -80,7 +90,7 @@ plt.show()
 
 You are not limited to reducing one dimension at a time. You can reduce over multiple dimensions by passing a list of dimension names. For example, to visualize the North to South temperature gradient, we can average over both time and longitude.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Collapse time and longitude to see the average temperature by latitude
 zonal_mean = ds.sst.mean(dim=["time", "lon"])
 
@@ -100,7 +110,7 @@ plt.show()
 
 Furthermore, if no dimension is specified, `xarray` reduces across all dimensions, yielding a single global scalar value.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Yields a single float representing the global average over all time and space
 ds.sst.mean()
 ```
@@ -125,7 +135,7 @@ The ERSST dataset is monthly. We can aggregate it into annual means using the `.
 
 To make the effect of resampling visible, let us first reduce the spatial dimensions and then plot the resulting global time series.
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Resample to yearly means
 sst_yearly = ds.sst.resample(time="YE").mean()
 
@@ -149,7 +159,7 @@ plt.show()
 
 You can also aggregate into longer blocks, for example using `time="5YE"` for 5 year intervals.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Resample to 5-year means and collapse spatially
 sst_5year = ds.sst.resample(time="5YE").mean()
 sst_5year_global = sst_5year.mean(dim=["lat", "lon"])
@@ -194,7 +204,7 @@ This enables you to ask questions such as: What is the typical January temperatu
 
 To do this, we can use the Datetime **{term}`Accessor`** (`.dt`) to easily extract specific components of dates and times, such as month or season.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extract the month (1-12) or the season (DJF, MAM, JJA, SON)
 print(ds.time.dt.month.values[:12])
 print(ds.time.dt.season.values[:12])
@@ -204,7 +214,7 @@ print(ds.time.dt.season.values[:12])
 
 We can demonstrate the split step using `.groupby("time.month")`. To complete the workflow, we immediately chain the `.mean()` method to apply the calculation and combine the results into a new dataset.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Split the data into 12 monthly groups, apply the mean, and combine
 sst_by_month = ds.sst.groupby("time.month").mean()
 
@@ -224,17 +234,12 @@ plt.show()
 
 Grouping is the natural entry point for climatological thinking. We can easily group by season and use `xarray`'s built-in faceting to plot all four seasons side by side.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Group by the four meteorological seasons
 sst_by_season = ds.sst.groupby("time.season").mean()
 
 sst_by_season.plot(
-    col="season", 
-    col_wrap=2, 
-    cmap="cmc.batlow", 
-    vmin=0, 
-    vmax=30,
-    figsize=(10, 6)
+    col="season", col_wrap=2, cmap="cmc.batlow", vmin=0, vmax=30, figsize=(10, 6)
 )
 plt.show()
 ```
@@ -287,7 +292,7 @@ A useful application of the split, apply, combine workflow is generating climate
 
 A **{term}`climatology <Climatology>`** is a baseline average, usually defined over a long reference period. It answers the question: *What is typical for this month or season?* Let us define a baseline period from 1971 to 2000 and calculate the monthly climatology using `gb.mean()`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Isolate the baseline period
 baseline = ds.sst.sel(time=slice("1971", "2000"))
 
@@ -295,7 +300,9 @@ baseline = ds.sst.sel(time=slice("1971", "2000"))
 monthly_climatology = baseline.groupby("time.month").mean()
 
 # 3. Inspect the baseline for January
-monthly_climatology.sel(month=1).plot(cmap="cmc.batlow", vmin=0, vmax=30, figsize=(9, 4))
+monthly_climatology.sel(month=1).plot(
+    cmap="cmc.batlow", vmin=0, vmax=30, figsize=(9, 4)
+)
 plt.title("January Climatology (1971–2000)")
 plt.show()
 ```
@@ -318,19 +325,14 @@ Once you have a climatology, you can calculate **{term}`anomalies <Anomaly>`**. 
 
 Removing the seasonal climatology to examine the residual anomaly is a perfect example of a transformation. Xarray makes these transformations easy by supporting *groupby arithmetic*, allowing us to subtract the grouped mean directly from the original grouped object.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Subtract the baseline climatology from the original observations
 sst_anom = ds.sst.groupby("time.month") - monthly_climatology
 
 # Inspect a single anomaly map for a recent month
 anom_example = sst_anom.sel(time="2016-01-01", method="nearest")
 
-anom_example.plot(
-    cmap="RdBu_r", 
-    vmin=-3, 
-    vmax=3, 
-    figsize=(9, 4)
-)
+anom_example.plot(cmap="RdBu_r", vmin=-3, vmax=3, figsize=(9, 4))
 plt.title("Sea Surface Temperature Anomaly (January 2016)")
 plt.show()
 ```
@@ -355,7 +357,7 @@ A common solution is to apply a **{term}`rolling mean <Moving average>`** using 
 
 Let us create a simple global mean anomaly series and smooth it with a 12 month rolling window. We use `center=True` to ensure the moving average is centered on the current timestamp rather than trailing it.
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Create a raw global mean anomaly series
 sst_anom_global = sst_anom.mean(dim=["lat", "lon"])
 
@@ -422,7 +424,7 @@ To fix this, a standard correction is to weight the pixels by the cosine of thei
 
 Xarray provides a `.weighted()` mechanism that creates a special `DataArrayWeighted` object, allowing you to apply reduction operations accurately.
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Create a weights array proportional to the cosine of latitude
 weights = np.cos(np.deg2rad(ds.lat))
 
@@ -435,7 +437,9 @@ sst_anom_weighted_roll12 = sst_anom_weighted.rolling(time=12, center=True).mean(
 # 4. Plot the results
 fig, ax = plt.subplots(figsize=(10, 4))
 sst_anom_weighted.plot(ax=ax, alpha=0.35, label="Weighted Monthly Anomaly")
-sst_anom_weighted_roll12.plot(ax=ax, color="black", linewidth=2, label="Weighted 12 Month Rolling Mean")
+sst_anom_weighted_roll12.plot(
+    ax=ax, color="black", linewidth=2, label="Weighted 12 Month Rolling Mean"
+)
 
 ax.set_title("Area-Weighted Global SST Anomaly")
 ax.set_ylabel("Temperature Anomaly (°C)")
@@ -461,7 +465,7 @@ Temporal aggregation and groupby arithmetic become much easier to interpret once
 
 To understand the baseline we established earlier, we can plot the global average of our monthly climatology. Because we are aggregating over a large geographic area (the entire globe) to create a 1D time series, we must remember to apply our spatial weights!
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Apply the spatial weights to our climatology
 weighted_climatology = monthly_climatology.weighted(weights)
 
@@ -471,7 +475,7 @@ weighted_climatology.mean(dim=["lat", "lon"]).plot(marker="o", figsize=(10, 4))
 plt.title("Global Mean Monthly Climatology (1971–2000)")
 plt.ylabel("Temperature (°C)")
 plt.xlabel("Month")
-plt.xticks(range(1, 13)) # Ensure all 12 months are labeled
+plt.xticks(range(1, 13))  # Ensure all 12 months are labeled
 plt.grid(alpha=0.3)
 plt.show()
 ```
@@ -486,7 +490,7 @@ plt.show()
 
 While 1D global means are great for overall trends, we often want to see exactly *where* extreme events are happening. To see how anomalies shift geographically across a specific year, we can use `xarray`'s built-in faceting.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Isolate the anomaly data for a single highly anomalous year
 anom_2016 = sst_anom.sel(time="2016")
 
@@ -498,7 +502,7 @@ anom_2016.plot(
     vmin=-3,
     vmax=3,
     figsize=(12, 8),
-    cbar_kwargs={"label": "SST Anomaly (°C)"}
+    cbar_kwargs={"label": "SST Anomaly (°C)"},
 )
 plt.show()
 ```
@@ -527,7 +531,7 @@ Use the NOAA `ersstv5` dataset to bring all the concepts together and visualize 
 
 **Starter code:**
 
-```{code-cell} python
+```{code-cell} ipython3
 import xarray as xr
 import numpy as np
 import matplotlib.pyplot as plt

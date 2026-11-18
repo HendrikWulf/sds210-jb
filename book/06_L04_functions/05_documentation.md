@@ -1,8 +1,12 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
-    outline_maxdepth: 1
-
+  outline_maxdepth: 1
 ---
 
 # Writing Professional Functions
@@ -57,12 +61,13 @@ Let's document our `haversine` distance calculator:
 ```{code-cell} python
 import math
 
+
 def haversine(lat1, lon1, lat2, lon2):
     """
     Calculates the great-circle distance between two geographic coordinates.
-    
-    This function assumes a spherical Earth with a radius of 6371.0 km and 
-    uses the Haversine formula to compute the shortest distance over the 
+
+    This function assumes a spherical Earth with a radius of 6371.0 km and
+    uses the Haversine formula to compute the shortest distance over the
     earth's surface.
 
     Parameters
@@ -80,7 +85,7 @@ def haversine(lat1, lon1, lat2, lon2):
     -------
     float
         The distance between the two points in kilometers.
-        
+
     Examples
     --------
     >>> haversine(47.37, 8.54, 46.20, 6.14)
@@ -88,8 +93,6 @@ def haversine(lat1, lon1, lat2, lon2):
     """
     # (Math implementation goes here...)
     pass
-
-
 ```
 
 A professional docstring typically contains:
@@ -112,7 +115,6 @@ You can simply pass the function's name into Python's built-in `help()` function
 ```{code-cell} python
 # Ask Python how the function works
 help(haversine)
-
 ```
 
 **Output:**
@@ -197,7 +199,6 @@ You have been handed a poorly documented tool written by a former colleague. It 
 ```{code-cell} python
 def knots_to_kmh(speed_knots):
     return speed_knots * 1.852
-
 ```
 
 ``````{admonition} Sample solution
@@ -300,10 +301,10 @@ def log_movement(coord, track=[]):
     track.append(coord)
     print("New track logged:", track)
 
-# Tracking the wolf pack
-log_movement([46.770343, 8.886892]) 
-log_movement([46.770352, 8.886903])
 
+# Tracking the wolf pack
+log_movement([46.770343, 8.886892])
+log_movement([46.770352, 8.886903])
 ```
 
 ``````{admonition} Sample solution

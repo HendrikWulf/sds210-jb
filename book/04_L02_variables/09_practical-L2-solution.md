@@ -1,6 +1,12 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
- outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
 # Practical L2 - Solutions
@@ -50,7 +56,6 @@ g = "Geneva"
 l = "Lugano"
 
 print(z, g, l)
-
 ```
 
 ### Tasks
@@ -94,7 +99,6 @@ dist_geneva_lugano = 370
 
 # Old-style concatenation (assuming you used the updated variable names from Part 1)
 print("The distance from " + city_zurich + " to " + city_geneva + " is " + str(dist_zurich_geneva) + " km")
-
 ```
 
 ### Tasks
@@ -136,7 +140,6 @@ z_val = y ** 0.5
 
 print(f"{x} squared is {y} and the square root of {y} is {z_val}")
 print(f"{x} is of type {type(x)}, {y} is of type {type(y)}, and {z_val} is of type {type(z_val)}")
-
 ```
 
 ### Tasks
@@ -180,7 +183,6 @@ lugano_coords = [27, 10]
 # Access individual coordinate values using indexing
 print("Zurich x:", zurich_coords[0])
 print("Zurich y:", zurich_coords[1])
-
 ```
 
 ### Tasks
@@ -234,7 +236,6 @@ print(cities.values())
 cz = cities["Zurich"]
 cg = cities["Geneva"]
 cl = cities["Lugano"]
-
 ```
 
 ### Tasks
@@ -303,7 +304,6 @@ dy = dy ** 0.5  # Square root to get absolute value
 manhattan_zl = dx + dy
 
 print(f"Manhattan distance from Zurich to Lugano is {manhattan_zl}")
-
 ```
 
 ### Tasks
@@ -364,7 +364,6 @@ dy = cz[1] - cl[1]
 euclidean_zl = (dx**2 + dy**2) ** 0.5
 
 print(f"Euclidean distance from Zurich to Lugano is {euclidean_zl}")
-
 ```
 
 ### Tasks
@@ -413,7 +412,6 @@ distances = {
 }
 
 print(distances)
-
 ```
 
 ### Tasks

@@ -1,8 +1,16 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
-    outline_maxdepth: 1
-
+  outline_maxdepth: 1
 ---
 
 # Third Party Modules
@@ -25,6 +33,7 @@ Extending Python with community tools
 You do not have to invent the wheel.
 
 The global Python community has already built and shared code for almost any task you can imagine. We just need to download it.
+
 
 ```
 
@@ -97,11 +106,9 @@ Once a package is installed in your active environment, it stays there. You only
 
 Once a third party package is installed, bringing it into your notebook is exactly the same as importing your own scripts or the Standard Library.
 
-```{code-cell} python
+```{code-cell} ipython3
 from tqdm import tqdm
 import geopy
-
-
 ```
 
 Because third party libraries can be massive, the `dir()` and `help()` **{term}`functions <Function>`** you learned about earlier might output an overwhelming amount of information. For community packages, your best approach is to read the official online documentation. Most popular packages host comprehensive guides and tutorials on websites like *Read the Docs*.
@@ -131,15 +138,14 @@ In the previous chapter, you learned how to write `for` loops. When a loop proce
 
 To demonstrate how this works, we will also use the `time` module. Unlike `tqdm`, which is a third-party package you must install, `time` is built directly into Python's standard library, so it is always available right out of the box.
 
-```{code-cell} python
+```{code-cell} ipython3
 import time
 from tqdm import tqdm
 
 # We wrap our range() with tqdm() to automatically generate a progress bar
 for i in tqdm(range(5)):
     # Simulate a task that takes 0.5 seconds to complete
-    time.sleep(0.5) 
-
+    time.sleep(0.5)
 ```
 
 ```{admonition} Understanding the code
@@ -186,7 +192,7 @@ Writing complex math formulas yourself is prone to typos. Instead, we can trust 
 
 This [function](https://geopy.readthedocs.io/en/stable/#module-geopy.distance) calculates the shortest **{term}`geodesic distance <Geodesic distance>`** between two points on the surface of the Earth. Instead of treating the Earth as a perfect sphere, `geopy` uses a highly accurate ellipsoidal model (WGS-84) by default. It accepts coordinates in `(latitude, longitude)` order, and can output the distance in kilometers, meters, or miles.
 
-```{code-cell} python
+```{code-cell} ipython3
 from geopy import distance
 
 # Define our coordinates (lat, lon) as tuples
@@ -197,7 +203,6 @@ hanoi = (21.0291, 105.8358)
 true_distance = distance.geodesic(kolkata, hanoi).km
 
 print(f"Distance: {true_distance:.1f} km")
-
 ```
 
 By leveraging third party code, we replaced a complicated math function with a single, highly readable line of code.
@@ -234,15 +239,14 @@ We have provided a list of cities in geographical order from north to south, alo
 6. Use `time.sleep(1)` to pause for one second so you can watch the progress bar update.
 7. Print the final cumulative distance after the loop finishes.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Copy this list into your script
 route = [
     ("Bogotá", (4.7110, -74.0721)),
     ("Quito", (-0.1807, -78.4678)),
     ("Lima", (-12.0464, -77.0428)),
-    ("La Paz", (-16.4897, -68.1193))
+    ("La Paz", (-16.4897, -68.1193)),
 ]
-
 ```
 
 ``````{admonition} Sample solution
@@ -323,9 +327,8 @@ Use the `geopy` package to calculate the exact difference. Because `geopy` uses 
 4. Calculate the geodesic distance for both quarter-circles in kilometers.
 5. Multiply both by 4 to estimate the full circumferences, then print their difference.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution
