@@ -1,6 +1,16 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210_home
+  language: python
+  name: python3
 site:
- outline_maxdepth: 1 
+  outline_maxdepth: 1
 ---
 
 # Practical L2
@@ -42,14 +52,13 @@ Single variables store exactly one value. They are useful for names, labels, and
 
 ### Code
 
-```{code-cell} python
+```{code-cell} ipython3
 # City names
 z = "Zurich"
 g = "Geneva"
 l = "Lugano"
 
 print(z, g, l)
-
 ```
 
 ### Tasks
@@ -58,9 +67,8 @@ print(z, g, l)
 2. The variable names `z`, `g`, and `l` are poor choices. Rename them to better follow the descriptive naming conventions learned earlier in this chapter.
 3. Add a short comment explaining what each variable represents.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ---
@@ -71,7 +79,7 @@ Variables can also store numeric values, which can be combined with text to crea
 
 ### Code
 
-```{code-cell} python
+```{code-cell} ipython3
 # Approximate travel distances (km)
 dist_zurich_geneva = 280
 dist_zurich_lugano = 205
@@ -79,7 +87,6 @@ dist_geneva_lugano = 370
 
 # Old-style concatenation
 print("The distance from " + z + " to " + g + " is " + str(dist_zurich_geneva) + " km")
-
 ```
 
 ### Tasks
@@ -87,9 +94,8 @@ print("The distance from " + z + " to " + g + " is " + str(dist_zurich_geneva) +
 1. Modify the print statement to show the distance from Zurich to Lugano.
 2. Rewrite the print statement using a modern **f-string** for better readability.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ---
@@ -100,14 +106,15 @@ Numeric variables can be combined using operators to perform calculations.
 
 ### Code
 
-```{code-cell} python
+```{code-cell} ipython3
 x = 2
-y = x ** 2
-z_val = y ** 0.5
+y = x**2
+z_val = y**0.5
 
 print(f"{x} squared is {y} and the square root of {y} is {z_val}")
-print(f"{x} is of type {type(x)}, {y} is of type {type(y)}, and {z_val} is of type {type(z_val)}")
-
+print(
+    f"{x} is of type {type(x)}, {y} is of type {type(y)}, and {z_val} is of type {type(z_val)}"
+)
 ```
 
 ### Tasks
@@ -116,9 +123,8 @@ print(f"{x} is of type {type(x)}, {y} is of type {type(y)}, and {z_val} is of ty
 2. Observe how the **data types** change.
 3. Explain (in a comment) why the square root results in a `float` data type even if the answer is a whole number.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ---
@@ -129,7 +135,7 @@ Some values naturally belong together, such as coordinates. Lists are a great wa
 
 ### Code
 
-```{code-cell} python
+```{code-cell} ipython3
 # CH1903+ coordinates (example values)
 zurich_coords = [26, 12]
 geneva_coords = [25, 11]
@@ -138,7 +144,6 @@ lugano_coords = [27, 10]
 # Access individual coordinate values using indexing
 print("Zurich x:", zurich_coords[0])
 print("Zurich y:", zurich_coords[1])
-
 ```
 
 ### Tasks
@@ -146,9 +151,8 @@ print("Zurich y:", zurich_coords[1])
 1. Replace the example coordinates above with real Swiss CH1903+ values by looking them up on [map.geo.admin.ch](https://map.geo.admin.ch).
 2. Add a comment explaining why a **list** (or a **tuple**) is a suitable data structure for coordinates.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ---
@@ -159,12 +163,8 @@ Dictionaries allow us to link **keys** (names) to **values** (coordinates), maki
 
 ### Code
 
-```{code-cell} python
-cities = {
-    "Zurich": zurich_coords,
-    "Geneva": geneva_coords,
-    "Lugano": lugano_coords
-}
+```{code-cell} ipython3
+cities = {"Zurich": zurich_coords, "Geneva": geneva_coords, "Lugano": lugano_coords}
 
 print(cities)
 
@@ -176,7 +176,6 @@ print(cities.values())
 cz = cities["Zurich"]
 cg = cities["Geneva"]
 cl = cities["Lugano"]
-
 ```
 
 ### Tasks
@@ -184,9 +183,8 @@ cl = cities["Lugano"]
 1. Print the coordinates of Geneva explicitly using the dictionary.
 2. Explain (in a comment) why dictionaries are more flexible and powerful than storing individual variables for every city.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ---
@@ -209,21 +207,20 @@ $$d = |x_1 - x_2| + |y_1 - y_2|$$
 
 ### Code
 
-```{code-cell} python
+```{code-cell} ipython3
 # Manhattan distance: Zurich – Lugano
 
 dx = cz[0] - cl[0]
-dx = dx ** 2
-dx = dx ** 0.5  # Square root to get absolute value
+dx = dx**2
+dx = dx**0.5  # Square root to get absolute value
 
 dy = cz[1] - cl[1]
-dy = dy ** 2
-dy = dy ** 0.5  # Square root to get absolute value
+dy = dy**2
+dy = dy**0.5  # Square root to get absolute value
 
 manhattan_zl = dx + dy
 
 print(f"Manhattan distance from Zurich to Lugano is {manhattan_zl}")
-
 ```
 
 ### Tasks
@@ -231,9 +228,8 @@ print(f"Manhattan distance from Zurich to Lugano is {manhattan_zl}")
 1. Calculate the Manhattan distance between Zurich & Geneva, and Lugano & Geneva.
 2. Store the results in appropriately named new variables.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ---
@@ -246,7 +242,7 @@ $$d = \sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}$$
 
 ### Code
 
-```{code-cell} python
+```{code-cell} ipython3
 # Euclidean distance: Zurich – Lugano
 
 dx = cz[0] - cl[0]
@@ -255,7 +251,6 @@ dy = cz[1] - cl[1]
 euclidean_zl = (dx**2 + dy**2) ** 0.5
 
 print(f"Euclidean distance from Zurich to Lugano is {euclidean_zl}")
-
 ```
 
 ### Tasks
@@ -263,9 +258,8 @@ print(f"Euclidean distance from Zurich to Lugano is {euclidean_zl}")
 1. Compute the Euclidean distance between Zurich & Geneva, and Lugano & Geneva.
 2. Print both Manhattan and Euclidean distances clearly using f-strings. Which one is always shorter?
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ---
@@ -276,16 +270,10 @@ Computed values are also data and should be stored systematically so we can look
 
 ### Code
 
-```{code-cell} python
-distances = {
-    "Zurich_Lugano": {
-        "manhattan": manhattan_zl,
-        "euclidean": euclidean_zl
-    }
-}
+```{code-cell} ipython3
+distances = {"Zurich_Lugano": {"manhattan": manhattan_zl, "euclidean": euclidean_zl}}
 
 print(distances)
-
 ```
 
 ### Tasks
@@ -294,9 +282,8 @@ print(distances)
 2. Add the distances for Lugano–Geneva.
 3. Inspect the structure and explain (in a comment) how this resembles an attribute table in GIS.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ---
@@ -309,9 +296,8 @@ Take a moment to review what you've built. Answer briefly in comments or markdow
 2. Why are **dictionaries** useful for spatial data?
 3. Which step helped you most to understand how Python executes mathematical distance calculations?
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ---
@@ -326,10 +312,10 @@ Design a single comprehensive dictionary that stores:
 
 You do **not** need to automate anything yet. Focus solely on structure and clarity. How would you design the "perfect" data structure to hold all this information?
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
+
 <!-- markdownlint-enable MD024 -->
 ---
 

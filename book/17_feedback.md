@@ -53,9 +53,9 @@ This includes, for example:
 
 You have **two simple options**:
 
-### Drop a note on [Teams](https://hendrikwulf.github.io/sds210-jb/book/about/team/#ms-teams)
+### Drop a note on [Teams](01_about/2_team.md#ms-teams)
 
-If you just want to flag an issue, simply leave a short comment on [Teams](https://hendrikwulf.github.io/sds210-jb/book/about/team/#ms-teams) in the respective lesson channel.  
+If you just want to flag an issue, simply leave a short comment on [Teams](01_about/2_team.md#ms-teams) in the respective lesson channel.  
 Even a brief pointer like *“This section on X was confusing”* can be helpful.
 
 ### Edit the page directly

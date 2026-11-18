@@ -13,10 +13,6 @@ Writing geospatial code that checks assumptions and fails clearly
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/14_L12_best-practices/03_defensive_coding.ipynb)
-
----
-
 ```{admonition} Big idea
 :class: tip
 

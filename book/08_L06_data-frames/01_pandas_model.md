@@ -1,6 +1,16 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210_home
+  language: python
+  name: python3
 site:
- outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
 # The Pandas Mental Model
@@ -57,20 +67,16 @@ To understand Pandas, you only need to understand two new data structures, which
 *Illustration of the Pandas `DataFrame` and `Series` data structures. A `DataFrame` is a two dimensional data structure used for storing and manipulating table like data. A `Series` is a one dimensional data structure used for storing a sequence of values. Source: [Geopython*](https://python-gis-book.readthedocs.io/en/latest/part1/chapter-03/nb/00-pandas-basics.html#pandas-data-structures)
 :::
 
-```{code-cell} python
+```{code-cell} ipython3
 import pandas as pd
 
 # Creating a Series (like a list)
 cities = pd.Series(["Zurich", "Geneva", "Bern", "Basel"])
 
 # Creating a DataFrame (like a dictionary of lists)
-data = pd.DataFrame({
-    "City": cities,
-    "Population": [415000, 201000, 133000, 177000]
-})
+data = pd.DataFrame({"City": cities, "Population": [415000, 201000, 133000, 177000]})
 
 print(data)
-
 ```
 
 ---
@@ -95,9 +101,8 @@ In Pandas, the DataFrame object owns its tools. These built in tools are called 
 
 For example, to get a technical summary of your data, you use the `.info()` {term}`method`:
 
-```{code-cell} python
+```{code-cell} ipython3
 data.info()
-
 ```
 
 :::{table} Output of data.info() method
@@ -153,11 +158,10 @@ The Index is **not** a standard column! It is the metadata that labels the rows.
 
 The index does not have to be a simple sequence of numbers. You can assign names, dates, or unique IDs as the index.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Setting a custom text index instead of numbers
 data = data.set_index("City")
 print(data)
-
 ```
 
 :::{table} Output of data after setting a custom Index
@@ -233,9 +237,8 @@ Answer the following questions:
 3. If a DataFrame acts like a dictionary of Series, what are the "keys" of that dictionary?
 4. Is `.mean()` a standard Python function or a Pandas method?
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ```{admonition} Sample solution

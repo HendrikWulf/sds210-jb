@@ -1,4 +1,14 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
   outline_maxdepth: 1
 ---
@@ -6,6 +16,7 @@ site:
 # Procedural vs OOP
 
 <!-- markdownlint-disable MD033-->
+
 <div class="page-subtitle">
 Choosing the right design for spatial problems
 </div>
@@ -32,12 +43,11 @@ Choosing the right design for spatial problems
 **Time to Read:** 15 minutes  
 **In a nutshell:** Compare Procedural and Object-Oriented design side-by-side to understand when to use standalone functions and when to build self-contained classes.  
 **Skip this if:** You can already confidently explain, using a spatial data science example, exactly when to use a procedural script versus when to architect a class-based system.
-
 ```
 
 In the previous chapters, you defined {term}`classes <Class>`, created {term}`object instances <Instance>`, and explored how {term}`inheritance <Inheritance>` allows you to build complex spatial relationships. You might be wondering: should you write absolutely everything as a class from now on?
 
-The short answer is no. Object-oriented programming is a powerful design choice, but it is not the one correct way to write Python. Python is a multi-paradigm language. It supports several different programming styles, and strong programmers move fluidly between them depending on the task at hand.
+The short answer is no. Object-oriented programming is a powerful design choice, but it is not the one correct way to write Python. Python is a multi-paradigm language. It supports several different programming styles, and strong programmers move fluidly between them depending on the task at hand. 
 
 This matters immensely in {term}`spatial data science <Spatial data science>`.
 
@@ -51,7 +61,7 @@ This chapter compares both design styles using the same geospatial problems to h
 
 So far in this course, you have learned Python mainly through {term}`variables <Variable>`, {term}`loops <Loop>`, conditionals, functions, and then classes. That progression can create the impression that classes are simply the "next level" and should always replace earlier tools.
 
-That is not how good design works.
+That is not how good design works. 
 
 A programming style is a way of organizing thought. Procedural code organizes workflows around **actions** (verbs). Object-oriented code organizes workflows around **entities** (nouns). Both can be excellent. Both can also be misused.
 
@@ -107,13 +117,11 @@ You can solve this procedurally by focusing on the action:
 * pass the coordinates into that function
 
 Or you can solve it with {term}`objects <Object>` by focusing on the entity:
-
 * represent each city as a `Point`
 * attach a {term}`method <Method>` such as `.distance_to()`
 * ask one point directly for the distance to another
 
 In code, that philosophical shift looks like this:
-
 ```python
 # Procedural: The function acts on the data
 dist = calculate_distance(zurich, bern)
@@ -123,7 +131,6 @@ dist = zurich.distance_to(bern)
 ```
 
 Both solutions will return the exact same number. The difference lies in **how the code is structured**, **how easy it is to read**, and **how well it scales when the task becomes larger**.
-
 ```{admonition} A useful rule of thumb
 :class: note
 
@@ -140,7 +147,7 @@ Let us begin with the most direct solution: plain data structures plus standalon
 
 Imagine we want to represent named locations and compute distances between them. We will use the Swiss projected coordinate system (EPSG:2056 / LV95), where coordinates are measured in meters.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Coordinates in EPSG:2056 (LV95)
 zurich = {"x": 2682217, "y": 1247945, "name": "Zurich"}
 bern = {"x": 2598634, "y": 1200387, "name": "Bern"}
@@ -151,8 +158,9 @@ Each city is stored as a dictionary. This is an improvement over scattering the 
 
 Now we can write a standalone distance function:
 
-```{code-cell} python
+```{code-cell} ipython3
 import math
+
 
 def distance(point1, point2):
     dx = point1["x"] - point2["x"]
@@ -160,7 +168,7 @@ def distance(point1, point2):
     return math.sqrt(dx**2 + dy**2)
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 # Calculate distance and convert to kilometers
 dist_m = distance(zurich, bern)
 print(f"Distance Zurich-Bern: {dist_m / 1000:.1f} km")
@@ -176,7 +184,6 @@ Because our data is projected (EPSG:2056), the $x$ (Easting) and $y$ (Northing) 
 ```
 
 This is procedural code in a very normal Python sense:
-
 * The **data** live in passive structures (dictionaries).
 * The **behavior** lives in free functions.
 * We pass all required inputs explicitly into those functions.
@@ -185,19 +192,19 @@ This is procedural code in a very normal Python sense:
 
 Let us add another spatial entity: a bounding box representing the Swiss Plateau, again using a dictionary.
 
-```{code-cell} python
+```{code-cell} ipython3
 study_area = {
     "xmin": 2500000,
     "xmax": 2750000,
     "ymin": 1150000,
     "ymax": 1300000,
-    "name": "Swiss Plateau Window"
+    "name": "Swiss Plateau Window",
 }
 ```
 
 Now we can write a function that checks whether a point lies inside that box:
 
-```{code-cell} python
+```{code-cell} ipython3
 def point_in_bbox(point, bbox):
     return (
         bbox["xmin"] <= point["x"] <= bbox["xmax"]
@@ -205,7 +212,7 @@ def point_in_bbox(point, bbox):
     )
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 print(f"Zurich in study area: {point_in_bbox(zurich, study_area)}")
 print(f"Bern in study area: {point_in_bbox(bern, study_area)}")
 print(f"Basel in study area: {point_in_bbox(basel, study_area)}")
@@ -217,18 +224,18 @@ At this point, the procedural approach still feels quite manageable. The functio
 
 ## 3. Where procedural code strains
 
-The procedural design becomes harder to manage when the data structure grows and the same kind of logic must be repeated in many places.
+The procedural design becomes harder to manage when the data structure grows and the same kind of logic must be repeated in many places. 
 
 Suppose each point should now also store a {term}`Coordinate Reference System`, an elevation, and a timestamp. A dictionary can still do that:
 
-```{code-cell} python
+```{code-cell} ipython3
 zurich = {
     "x": 2682217,
     "y": 1247945,
     "name": "Zurich",
     "crs": "EPSG:2056",
     "elevation_m": 408,
-    "timestamp": "2026-05-06"
+    "timestamp": "2026-05-06",
 }
 ```
 
@@ -236,7 +243,7 @@ Notice what happens conceptually. The {term}`computer program <Program>` does no
 
 For example, if you want to write a safe, purely procedural function to move a point without destroying the original data, it might look like this:
 
-```{code-cell} python
+```{code-cell} ipython3
 def move_point(point, dx, dy):
     return {
         "x": point["x"] + dx,
@@ -245,7 +252,7 @@ def move_point(point, dx, dy):
         "name": point["name"],
         "crs": point["crs"],
         "elevation_m": point["elevation_m"],
-        "timestamp": point["timestamp"]
+        "timestamp": point["timestamp"],
     }
 ```
 
@@ -283,11 +290,14 @@ Now let us rebuild the same problem using classes. While functions group related
 
 We begin with a `Point` class. Notice how we define all the {term}`attributes <Attribute>` we struggled with in the procedural version:
 
-```{code-cell} python
+```{code-cell} ipython3
 import math
 
+
 class Point:
-    def __init__(self, x, y, name=None, crs="EPSG:2056", elevation_m=None, timestamp=None):
+    def __init__(
+        self, x, y, name=None, crs="EPSG:2056", elevation_m=None, timestamp=None
+    ):
         self.x = x
         self.y = y
         self.name = name
@@ -307,7 +317,7 @@ class Point:
 
 Now we instantiate our Swiss cities:
 
-```{code-cell} python
+```{code-cell} ipython3
 zurich = Point(2682217, 1247945, "Zurich", elevation_m=408, timestamp="2026-05-06")
 bern = Point(2598634, 1200387, "Bern", elevation_m=542)
 basel = Point(2611415, 1267104, "Basel", elevation_m=260)
@@ -315,16 +325,16 @@ basel = Point(2611415, 1267104, "Basel", elevation_m=260)
 
 The distance calculation is now expressed differently:
 
-```{code-cell} python
+```{code-cell} ipython3
 dist_m = zurich.distance_to(bern)
 print(f"Distance: {dist_m / 1000:.1f} km")
 ```
 
-This still performs the same mathematics, but the design has changed fundamentally. The point no longer exists as a loose dictionary plus a distant function. Instead, the data and the behavior are **bundled together** in one coherent object.
+This still performs the same mathematics, but the design has changed fundamentally. The point no longer exists as a loose dictionary plus a distant function. Instead, the data and the behavior are **bundled together** in one coherent object. 
 
 Remember how tedious it was to move a point procedurally because we had to manually preserve all the unrelated dictionary keys? With an object, the state is managed internally:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Move Zurich 100 meters East and 50 meters South
 zurich.move(100, -50)
 
@@ -336,7 +346,7 @@ print(f"New X: {zurich.x}, Elevation: {zurich.elevation_m}, CRS: {zurich.crs}")
 
 Now let us define a `BoundingBox` class:
 
-```{code-cell} python
+```{code-cell} ipython3
 class BoundingBox:
     def __init__(self, xmin, xmax, ymin, ymax, name=None):
         self.xmin = xmin
@@ -351,13 +361,10 @@ class BoundingBox:
         return (width_m * height_m) / 1_000_000
 
     def contains(self, point):
-        return (
-            self.xmin <= point.x <= self.xmax
-            and self.ymin <= point.y <= self.ymax
-        )
+        return self.xmin <= point.x <= self.xmax and self.ymin <= point.y <= self.ymax
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 study_area = BoundingBox(2500000, 2750000, 1150000, 1300000, "Swiss Plateau Window")
 
 print(f"Area: {study_area.area_sq_km():.1f} sq km")
@@ -375,27 +382,24 @@ Now that we have both versions, we can compare them directly.
 ### Readability
 
 The procedural version says:
-
 ```python
 dist = distance(zurich, bern)
 ```
 
 The object-oriented version says:
-
 ```python
 dist = zurich.distance_to(bern)
 ```
 
 Both are highly readable, but they emphasize different things:
-
 * **Procedural code reads like a command:** *Verb ➔ Objects*. It emphasizes the mathematical operation.
 * **Object-oriented code reads like a sentence:** *Subject ➔ Verb ➔ Object*. It emphasizes the entity performing the operation.
 
 ### Maintainability and Safety
 
-Imagine that you later decide every point must also store elevation and an acquisition time.
+Imagine that you later decide every point must also store elevation and an acquisition time. 
 
-In the procedural version, you must make sure that all functions continue to respect the dictionary structure. If you accidentally misspell `"elevation_m"` as `"elev_m"` somewhere in your script, the dictionary will silently accept it, leading to bugs later on.
+In the procedural version, you must make sure that all functions continue to respect the dictionary structure. If you accidentally misspell `"elevation_m"` as `"elev_m"` somewhere in your script, the dictionary will silently accept it, leading to bugs later on. 
 
 In the object-oriented version, that logic is centralized in the class definition. The class acts as a strict formal template for what a point is supposed to contain. By {term}`encapsulating <Encapsulation>` the data inside the object, you protect it from accidental, unstructured modifications.
 
@@ -412,7 +416,6 @@ The procedural design is often excellent for one-off calculations, short scripts
 | **Behavior** | Standalone, free-floating functions. | Methods attached directly to the object. |
 | **Scaling** | Can become fragile if complex data is passed through many functions. | Highly scalable; objects manage their own internal state securely. |
 | **Best used for...** | Data pipelines, math transformations, simple scripts. | Real-world modeling, complex states, building reusable libraries. |
-
 ```{admonition} Important distinction
 :class: important
 
@@ -427,13 +430,13 @@ In real projects, you will often need both. You might build an object-oriented `
 
 ## 6. A route example: Objects collaborating
 
-The difference becomes even clearer when we model something slightly more complex, such as a spatial route.
+The difference becomes even clearer when we model something slightly more complex, such as a spatial route. 
 
 If we built this procedurally, a route would simply be a list of dictionaries. We would have to write a `calculate_route_distance()` function that loops through the list, manually extracts the `x` and `y` keys from each dictionary, and processes the math.
 
 An object-oriented version makes the relationship explicit through a concept called {term}`composition <Composition>` (where objects are built out of other objects):
 
-```{code-cell} python
+```{code-cell} ipython3
 class Route:
     def __init__(self, points, name=None):
         self.points = points
@@ -450,14 +453,14 @@ class Route:
 
 Now we can create a route using the Swiss city `Point` objects we instantiated earlier:
 
-```{code-cell} python
+```{code-cell} ipython3
 route = Route([zurich, bern, basel], "Three Cities Route")
 
 route_dist_m = route.total_distance()
 print(f"Route '{route.name}' total distance: {route_dist_m / 1000:.1f} km")
 ```
 
-Notice how seamlessly classes can collaborate. The `Route` object manages the sequence of the journey, but it does not need to know the mathematical details of how distance is calculated. It simply **delegates** that task by asking each `Point` for the distance to the next one.
+Notice how seamlessly classes can collaborate. The `Route` object manages the sequence of the journey, but it does not need to know the mathematical details of how distance is calculated. It simply **delegates** that task by asking each `Point` for the distance to the next one. 
 
 This makes the code highly modular. If we later update the `Point.distance_to()` method to account for terrain or elevation, the `Route` class will automatically benefit from that upgrade without us having to change a single line of its code.
 
@@ -472,7 +475,6 @@ Understanding when to use functions versus when to use classes is the key to wri
 ### When functions are usually enough
 
 A standalone function is often the better choice when your primary goal is to **transform data**:
-
 * **Repetitive operations:** You need to perform the same calculation multiple times with different inputs (e.g., converting a list of coordinates from degrees to radians).
 * **Stateless utilities:** You want to create reusable tools for common tasks where the program does not need to "remember" anything after the function finishes (e.g., calculating the {term}`Haversine distance <Haversine formula>` between two raw coordinate pairs).
 * **Data pipelines:** You need to validate, filter, or process data in a consistent, one-way flow (e.g., a function that filters out GPS points with high location uncertainty).
@@ -480,7 +482,6 @@ A standalone function is often the better choice when your primary goal is to **
 ### When classes usually help
 
 A class is often the better choice when your primary goal is to **model a system or entity**:
-
 * **Complex entities:** You need to represent things with multiple related attributes (e.g., a `SensorStation` that holds coordinates, an ID, and an ongoing history of temperature readings).
 * **Bundling state and behavior:** You want data and operations to travel securely together (e.g., a `Route` that holds a list of points and internally knows how to calculate its own total distance).
 * **Simulations and dynamic states:** You need to maintain an entity's changing state over time (e.g., a `Vehicle` moving across a road network, constantly updating its internal `x` and `y` coordinates).
@@ -530,7 +531,7 @@ Write three or four sentences comparing the two versions. Comment on which versi
 
 ### Starter code
 
-```{code-cell} python
+```{code-cell} ipython3
 # City data (EPSG:2056)
 geneva = {"x": 2499959, "y": 1117840, "name": "Geneva"}
 sion = {"x": 2592607, "y": 1118393, "name": "Sion"}
@@ -546,7 +547,7 @@ bbox_data = {
     "xmax": 2750000,
     "ymin": 1080000,
     "ymax": 1180000,
-    "name": "Alpine Window"
+    "name": "Alpine Window",
 }
 
 # Your procedural functions here...
@@ -640,12 +641,11 @@ The procedural version was slightly shorter to write initially because setting u
 
 ## 9. Summary
 
-Procedural and object-oriented programming are not rivals in a competition. They are two different design strategies for organizing your thought process and your code.
+Procedural and object-oriented programming are not rivals in a competition. They are two different design strategies for organizing your thought process and your code. 
 
-As you saw in this chapter, both approaches can solve the exact same spatial problem correctly. The "better" design simply depends on the scale, repetition, and complexity of the task at hand.
+As you saw in this chapter, both approaches can solve the exact same spatial problem correctly. The "better" design simply depends on the scale, repetition, and complexity of the task at hand. 
 
 **Key Takeaways:**
-
 * **Procedural code** organizes analysis around **actions** and free functions. It is often the clearest, fastest solution for small spatial utilities, one-off coordinate transformations, and linear data pipelines.
 * **Object-oriented code** organizes analysis around **entities** that bundle state and behavior together. It produces code that is easier to maintain and extend when dealing with richer geospatial concepts like routes, bounding boxes, or interactive sensor stations.
 

@@ -13,10 +13,6 @@ Bringing the pillars of reproducible spatial science together
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/14_L12_best-practices/06_reproducible_research.ipynb)
-
----
-
 ```{admonition} Big idea
 :class: tip
 
@@ -272,7 +268,7 @@ Reproducibility usually breaks through small, everyday habits, not dramatic mist
 
 ## 5. Version control as a reproducibility tool
 
-[At the beginning of this course](https://hendrikwulf.github.io/sds210-jb/book/setup/git/), you were introduced to Git as a way to keep track of changes. While Git is often viewed merely as a convenient backup tool or a "never-forget undo button", it is actually a cornerstone of reproducible science. In fact, *The Turing Way* puts version control at the very front of reproducible research practice.
+[At the beginning of this course](../02_setup/3_git.md), you were introduced to Git as a way to keep track of changes. While Git is often viewed merely as a convenient backup tool or a "never-forget undo button", it is actually a cornerstone of reproducible science. In fact, *The Turing Way* puts version control at the very front of reproducible research practice.
 
 {term}`Version control <Version control>` is not just about saving files; it is a permanent record of how your spatial analysis evolves over time.
 

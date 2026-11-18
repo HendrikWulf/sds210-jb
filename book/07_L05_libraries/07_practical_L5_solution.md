@@ -1,8 +1,12 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
-    outline_maxdepth: 1
-
+  outline_maxdepth: 1
 ---
 
 # Practical L5 - Solutions
@@ -48,19 +52,17 @@ Before we can calculate distances or query APIs, we need exact coordinates. Your
 ```{code-cell} python
 from geopy.geocoders import Nominatim
 
-# Initialize the geocoder with a unique app name. 
+# Initialize the geocoder with a unique app name.
 # Review the Geocoding chapter to learn more about the user_agent parameter. 
 geolocator = Nominatim(user_agent="sds_euro_logistics_YOUR_ID")
 
 origin_address = "Spitalgasse 47-51, 3001 Bern, Switzerland"
 dest_address = "Corso del Lavoro e della Scienza, 3, 38122 Trento TN, Italy"
-
-
 ```
 
 ### Tasks
 
-1. Geocode the `origin_address` and `dest_address`. Extract their latitudes and longitudes into two tuples named `origin_coords` and `dest_coords`. (see previous chapter on [Geocoding](https://hendrikwulf.github.io/sds210-jb/book/l5-libraries/geocoding#id-2-geocoding-with-geopy))
+1. Geocode the `origin_address` and `dest_address`. Extract their latitudes and longitudes into two tuples named `origin_coords` and `dest_coords`. (see previous chapter on [Geocoding](https://hendrikwulf.github.io/sds210-jb/book/l05-libraries/geocoding#id-2-geocoding-with-geopy))
 2. Print the coordinates and verify them on a map service (like Google Maps or OpenStreetMap) to ensure they are correct.
 3. Change the destination address to a real street address of your choice anywhere in the world and geocode it.
 4. Print the full official address returned by Nominatim for your new destination using the `.address` attribute to ensure it found the correct place.
@@ -107,8 +109,6 @@ To understand how much the road network bends and curves around the Alps, we fir
 
 ```{code-cell} python
 from geopy import distance
-
-
 ```
 
 ### Tasks
@@ -144,13 +144,36 @@ Now we want the real world driving distance. For this, we will use the **OpenRou
 
 1. Visit the [HeiGIT Sign Up page](https://account.heigit.org/signup) to create a free account for [OpenRouteService](https://openrouteservice.org/).
 2. Once logged in, you can find your Basic Key at the top of the page.
-3. Copy the long string of characters and numbers and paste it into the variable below as a string.
+3. Copy the long string of characters and numbers, but **do not paste it into your code**. Store it outside the notebook using one of the options below, then run the cell.
+
+```{admonition} Keep your API key out of your code
+:class: warning
+
+An API key works like a password: anyone who has it can use your account and quota. Notebooks are easily shared or pushed to GitHub/GitLab, and a key written into a cell travels with them, often also through the git history after you delete it. Choose one of these options instead:
+
+* **Environment variable (local):** Set the key in a terminal, e.g. `export ORS_API_KEY="your_key"` (macOS/Linux) or `setx ORS_API_KEY "your_key"` (Windows, then open a new terminal). Start Jupyter or VS Code (`code .`) from that terminal so the notebook can see it.
+* **Colab Secrets:** In Google Colab, click the key icon (🔑) in the left sidebar, add a secret named `ORS_API_KEY`, and enable notebook access.
+* **Hidden prompt:** If neither is set, the cell asks you to paste the key into a hidden input field. The key is then only kept in memory for this session and is not saved in the notebook.
+```
 
 ```{code-cell} python
-# Paste your personal API key inside the quotes
-ORS_API_KEY = "replace_this_with_your_actual_key"
+import os
+from getpass import getpass
 
+# 1. Look for the key in an environment variable
+ORS_API_KEY = os.environ.get("ORS_API_KEY")
 
+# 2. If running in Google Colab, look for it in Colab Secrets
+if not ORS_API_KEY:
+    try:
+        from google.colab import userdata
+        ORS_API_KEY = userdata.get("ORS_API_KEY")
+    except Exception:
+        pass  # Not in Colab, or no secret with that name
+
+# 3. Otherwise, ask for it in a hidden input field (not saved in the notebook)
+if not ORS_API_KEY:
+    ORS_API_KEY = getpass("Paste your ORS API key: ")
 ```
 
 ---
@@ -167,18 +190,16 @@ import requests
 # Build the parameters dictionary
 # Note: ORS requires coords as "longitude,latitude"
 parameters = {
-    'api_key': ORS_API_KEY,
-    'start': f"{origin_coords[1]},{origin_coords[0]}",
-    'end': f"{dest_coords[1]},{dest_coords[0]}"
+    "api_key": ORS_API_KEY,
+    "start": f"{origin_coords[1]},{origin_coords[0]}",
+    "end": f"{dest_coords[1]},{dest_coords[0]}",
 }
 
 # Define the API endpoint for car driving directions
-api_url = 'https://api.openrouteservice.org/v2/directions/driving-car'
+api_url = "https://api.openrouteservice.org/v2/directions/driving-car"
 
 # Send the request
 response = requests.get(api_url, params=parameters)
-
-
 ```
 
 ### Tasks
@@ -259,7 +280,6 @@ Before dispatching the driver across international borders, it is good practice 
 ```{code-cell} python
 # Write your weather fetching code here
 
-
 ```
 
 ``````{admonition} Sample solution
@@ -322,15 +342,13 @@ deliveries = {
     "Girona": (41.9794, 2.8214),
     "Plymouth": (50.3755, -4.1427),
     "Quimper": (47.9975, -4.0979),
-    "Odense": (55.4038, 10.4024)
+    "Odense": (55.4038, 10.4024),
 }
 
 # The origin is always Bern
 origin_lon = 7.4474
 origin_lat = 46.9480
 start_string = f"{origin_lon},{origin_lat}"
-
-
 ```
 
 ### Tasks
@@ -427,7 +445,6 @@ Take a moment to review what you have built. Answer briefly in comments or markd
 
 ```{code-cell} python
 # Write your reflections here.
-
 ```
 
 ``````{admonition} Sample solution

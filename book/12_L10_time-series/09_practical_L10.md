@@ -1,6 +1,12 @@
 ---
-site: 
-    outline_maxdepth: 1
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+site:
+  outline_maxdepth: 1
 ---
 
 # Practical L10
@@ -22,7 +28,7 @@ site:
 
 Before proceeding with this practical, please ensure that several specialized packages are installed in your course environment. You can install them all at once by running the following command in your terminal or directly in a notebook cell:
 
-`%pip install cmcrameri gdown pooch hvplot jupyter_bokeh rioxarray geoviews -q`
+`%pip install cmcrameri pooch hvplot jupyter_bokeh rioxarray geoviews -q`
 ```
 
 ```{admonition} A Note on Time-Series Data Cubes
@@ -62,43 +68,46 @@ Run the cell below to download the required datasets (the 25-year SCF data cube,
 
 ```{code-cell} python
 import os
+from urllib.request import urlretrieve
 import geopandas as gpd
 import xarray as xr
 import rioxarray
 import numpy as np
 import matplotlib.pyplot as plt
-import gdown
 from scipy.stats import linregress
 import cmcrameri.cm as cmc
 from matplotlib.colors import LightSource
 
 # Create data directory
-data_folder = 'data'
+data_folder = "data"
 os.makedirs(data_folder, exist_ok=True)
 
-# Dictionary of file IDs and their output names
+# Download the data from Source Cooperative (https://source.coop/giuz/sds210/L10)
+base_url = "https://data.source.coop/giuz/sds210/L10"
+# Local file name: file name on Source Cooperative
 datasets = {
-    'scf_alps_25yr.tif': '1Uds7kAGnbl7gdFQrDRIdeRXMSpztiO3i', 
-    'dem_alps.tif': '1Q895LhVvtbEoeg1LL9wQFGdmg11M9x_N', 
-    'lakes_alps.tif': '1VPuhMBWuX_JX3Ud798vd9gccPUAwqmIz', 
-    'alpine_perimeter.zip': '1945H8BAefR6C8umzaLKPhrVfGT_uFRNN', 
-    'bahnen-winter_2056.gpkg': '1c2f4Nwe5f4Pp5leDSuQZj1nyRoluJoOT' 
+    "scf_alps_25yr.tif": "MODIS_Annual_SCF_2001-2025_1000m_epsg3035.tif",
+    "dem_alps.tif": "Copernicus_DEM_Alps_1000m_epsg3035.tif",
+    "lakes_alps.tif": "mod44w_lake_mask_min100px_1000m_epsg3035.tif",
+    "alpine_perimeter.zip": "AlpineConventionPerimeter_epsg3035.zip",
+    "bahnen-winter_2056.gpkg": "bahnen-winter_epsg2056.gpkg",
 }
 
-for filename, file_id in datasets.items():
+for filename, remote_name in datasets.items():
     filepath = os.path.join(data_folder, filename)
     if not os.path.exists(filepath):
         print(f"Downloading {filename}...")
-        url = f'https://drive.google.com/uc?id={file_id}'
-        gdown.download(url, filepath, quiet=False)
+        # Download to a temporary name first, so an interrupted download is not mistaken for a complete file
+        urlretrieve(f"{base_url}/{remote_name}", filepath + ".part")
+        os.replace(filepath + ".part", filepath)
     else:
         print(f"{filename} already exists.")
 
-scf_fp = os.path.join(data_folder, 'scf_alps_25yr.tif')
-dem_fp = os.path.join(data_folder, 'dem_alps.tif')
-lakes_fp = os.path.join(data_folder, 'lakes_alps.tif')
-perim_fp = os.path.join(data_folder, 'alpine_perimeter.zip')
-lifts_fp = os.path.join(data_folder, 'bahnen-winter_2056.gpkg')
+scf_fp = os.path.join(data_folder, "scf_alps_25yr.tif")
+dem_fp = os.path.join(data_folder, "dem_alps.tif")
+lakes_fp = os.path.join(data_folder, "lakes_alps.tif")
+perim_fp = os.path.join(data_folder, "alpine_perimeter.zip")
+lifts_fp = os.path.join(data_folder, "bahnen-winter_2056.gpkg")
 ```
 
 ---

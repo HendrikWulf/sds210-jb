@@ -1,8 +1,16 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
+  outline_maxdepth: 1
 ---
 
 # The Matplotlib Model
@@ -151,7 +159,7 @@ To understand how the Object-Oriented interface works, we are going to build a v
 
 We will use the following data representing temperature readings over two different weeks:
 
-```{code-cell} python
+```{code-cell} ipython3
 days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 temperature_week1 = [3.3, 4.7, 5.2, 11.6, 14.1, 15.8, 17.4]
 temperature_week2 = [15.9, 11.3, 12.8, 13.4, 13.7, 10.2, 8.6]
@@ -163,7 +171,7 @@ temperature_week2 = [15.9, 11.3, 12.8, 13.4, 13.7, 10.2, 8.6]
 
 Before we can map our data, we must initialize the objects. If we run our golden rule setup and immediately ask Python to show the plot, we get a completely empty grid. The X and Y axes default to arbitrary scales (0.0 to 1.0) because we haven't fed them any data yet.
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 
 # 1. Initialize the Figure and Axes
@@ -183,7 +191,7 @@ plt.show()
 
 Now that we have our `ax` object (the plotting box), we can tell it specifically what to draw. We use the `ax.plot()` method, passing the X-axis data first (`days`), followed by the Y-axis data (`temperature_week1`).
 
-```{code-cell} python
+```{code-cell} ipython3
 fig, ax = plt.subplots()
 
 # 2. Add the first line plot
@@ -206,7 +214,7 @@ A plain blue line is fine, but data visualization requires specific styling. We 
 
 Let's use `"o-r"`, which tells Matplotlib to use circle markers (`o`), a solid line (`-`), and the color red (`r`).
 
-```{code-cell} python
+```{code-cell} ipython3
 fig, ax = plt.subplots()
 
 # 3. Style the line with red circles and a solid line
@@ -221,12 +229,11 @@ plt.show()
 </div>
 <!-- markdownlint-enable MD033 -->
 
-
 ### Step 4: Adding Context (Labels and Titles)
 
 A chart without labels is scientifically useless. In the Object-Oriented interface, we use methods that begin with `set_` to add text to our `Axes` object. Let's add a descriptive title and label both axes.
 
-```{code-cell} python
+```{code-cell} ipython3
 fig, ax = plt.subplots()
 
 ax.plot(days, temperature_week1, "o-r")
@@ -251,7 +258,7 @@ The true power of the `ax` object is that you can keep adding layers to it. To a
 
 To help the viewer differentiate the two lines, we will call `ax.legend()`, passing a list of names that correspond to the order we plotted the lines. Finally, we will turn on the background grid to make the temperatures easier to read.
 
-```{code-cell} python
+```{code-cell} ipython3
 fig, ax = plt.subplots()
 
 # Plot the first layer
@@ -269,7 +276,6 @@ ax.legend(["Week 1", "Week 2"])
 ax.grid(True)
 
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -288,15 +294,33 @@ Typography is equally important for readable visualizations. You can control `fo
 
 Let’s upgrade our temperature plot by making these choices explicit:
 
-```{code-cell} python
+```{code-cell} ipython3
 fig, ax = plt.subplots()
 
 # 6a. Explicitly define line and marker aesthetics
-ax.plot(days, temperature_week1, color="tab:red", marker="o", linestyle="-", linewidth=2, markersize=8)
-ax.plot(days, temperature_week2, color="tab:blue", marker="D", linestyle=":", linewidth=2, markersize=8)
+ax.plot(
+    days,
+    temperature_week1,
+    color="tab:red",
+    marker="o",
+    linestyle="-",
+    linewidth=2,
+    markersize=8,
+)
+ax.plot(
+    days,
+    temperature_week2,
+    color="tab:blue",
+    marker="D",
+    linestyle=":",
+    linewidth=2,
+    markersize=8,
+)
 
 # 6b. Adjust typography (font size, weight, and family)
-ax.set_title("Spring Temperature Variations", fontsize=16, fontweight="bold", fontfamily="serif")
+ax.set_title(
+    "Spring Temperature Variations", fontsize=16, fontweight="bold", fontfamily="serif"
+)
 ax.set_xlabel("Day of the Week", fontsize=12, fontfamily="sans-serif")
 ax.set_ylabel("Temperature (°C)", fontsize=12, fontfamily="sans-serif")
 
@@ -496,7 +520,7 @@ When we used `plt.subplots()` previously, we left the parentheses empty, which d
 
 Because a grid can result in a cramped layout, it is also highly recommended to use the `figsize` parameter (width, height in inches) to widen our canvas.
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 
 # 1. Create a figure with 1 row and 2 columns
@@ -517,7 +541,7 @@ Because we asked for multiple plots, Matplotlib does not return a single `ax` ob
 
 To plot our data, we must select which specific box we want to draw in using standard list indexing: `axs[0]` for the left box, and `axs[1]` for the right box.
 
-```{code-cell} python
+```{code-cell} ipython3
 fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 5))
 
 # 2. Plot data on the first (left) axes
@@ -541,7 +565,7 @@ Look closely at the Y-axis of the previous output. Week 1 ranges from roughly 3�
 
 **This is a dangerous visualization trap.** A viewer quickly glancing at the charts might assume the peaks are identical because the lines reach the top of the box. To make visual comparisons accurate, we must force both subplots to share the exact same Y-axis limits using the `set_ylim()` method.
 
-```{code-cell} python
+```{code-cell} ipython3
 fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 5))
 
 axs[0].plot(days, temperature_week1, color="red", marker="o")
@@ -568,7 +592,7 @@ Each subplot gets its own `ax.set_title()`, `ax.set_xlabel()`, and `ax.grid()`. 
 
 Let's add our final polish to the subplots:
 
-```{code-cell} python
+```{code-cell} ipython3
 fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 5))
 
 axs[0].plot(days, temperature_week1, color="red", marker="o")
@@ -587,7 +611,9 @@ axs[1].set_title("Week 2")
 axs[1].grid(True, linestyle=":", alpha=0.6)
 
 # 4c. Add a Figure-level Super Title
-fig.suptitle("Spring Temperature Variations: Week 1 vs Week 2", fontsize=16, fontweight="bold")
+fig.suptitle(
+    "Spring Temperature Variations: Week 1 vs Week 2", fontsize=16, fontweight="bold"
+)
 
 plt.show()
 ```
@@ -650,27 +676,49 @@ To fix this, we must convert our string dates into **datetime objects** using th
 
 First, we will concatenate our two weeks of temperature data into a single list and pair it with a list of dates formatted as `DD-MM-YYYY`. Then, we will load this into a pandas DataFrame.
 
-```{code-cell} python
+```{code-cell} ipython3
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 # Combine our two weeks of data into a single 14-day list
-all_temperatures = [3.3, 4.7, 5.2, 11.6, 14.1, 15.8, 17.4, 
-                    15.9, 11.3, 12.8, 13.4, 13.7, 10.2, 8.6]
+all_temperatures = [
+    3.3,
+    4.7,
+    5.2,
+    11.6,
+    14.1,
+    15.8,
+    17.4,
+    15.9,
+    11.3,
+    12.8,
+    13.4,
+    13.7,
+    10.2,
+    8.6,
+]
 
 # Create a corresponding list of 14 dates for April 2048 (DD-MM-YYYY)
 date_strings = [
-    "01-04-2048", "02-04-2048", "03-04-2048", "04-04-2048", "05-04-2048", 
-    "06-04-2048", "07-04-2048", "08-04-2048", "09-04-2048", "10-04-2048",
-    "11-04-2048", "12-04-2048", "13-04-2048", "14-04-2048"
+    "01-04-2048",
+    "02-04-2048",
+    "03-04-2048",
+    "04-04-2048",
+    "05-04-2048",
+    "06-04-2048",
+    "07-04-2048",
+    "08-04-2048",
+    "09-04-2048",
+    "10-04-2048",
+    "11-04-2048",
+    "12-04-2048",
+    "13-04-2048",
+    "14-04-2048",
 ]
 
 # Create the DataFrame
-df = pd.DataFrame({
-    "Date": date_strings,
-    "Temp": all_temperatures
-})
+df = pd.DataFrame({"Date": date_strings, "Temp": all_temperatures})
 
 # CRITICAL STEP: Convert the text strings into actual datetime objects
 df["Date"] = pd.to_datetime(df["Date"], format="%d-%m-%Y")
@@ -680,11 +728,13 @@ df["Date"] = pd.to_datetime(df["Date"], format="%d-%m-%Y")
 
 Because our `Date` column is now full of official datetime objects, we can pass it directly into our `ax.plot()` method. Matplotlib will automatically recognize the chronological sequence.
 
-```{code-cell} python
+```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(10, 5))
 
 # Plot the DataFrame columns
-ax.plot(df["Date"], df["Temp"], marker="o", linestyle="-", color="tab:orange", linewidth=2)
+ax.plot(
+    df["Date"], df["Temp"], marker="o", linestyle="-", color="tab:orange", linewidth=2
+)
 
 ax.set_title("Forecasted Temperatures: April 2048")
 ax.set_ylabel("Temperature (°C)")
@@ -709,10 +759,12 @@ When you have long date labels, they will inevitably overlap and become unreadab
 
 Furthermore, we can zoom in on a specific timeframe by passing datetime objects directly into the `ax.set_xlim()` method.
 
-```{code-cell} python
+```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(10, 5))
 
-ax.plot(df["Date"], df["Temp"], marker="o", linestyle="-", color="tab:blue", linewidth=2)
+ax.plot(
+    df["Date"], df["Temp"], marker="o", linestyle="-", color="tab:blue", linewidth=2
+)
 
 ax.set_title("Forecasted Temperatures: Focus on Early-April 2048")
 ax.set_ylabel("Temperature (°C)")
@@ -760,10 +812,36 @@ You have been given the monthly average NDSI (Normalized Difference Snow Index) 
 
 **The Data:**
 
-```{code-cell} python
-months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+```{code-cell} ipython3
+months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+]
 # Realistic NDSI values (values > 0.4 typically indicate snow)
-ndsi_values = [0.75, 0.82, 0.70, 0.45, 0.20, -0.15, -0.40, -0.35, -0.10, 0.15, 0.50, 0.65]
+ndsi_values = [
+    0.75,
+    0.82,
+    0.70,
+    0.45,
+    0.20,
+    -0.15,
+    -0.40,
+    -0.35,
+    -0.10,
+    0.15,
+    0.50,
+    0.65,
+]
 ```
 
 **Your Tasks:**
@@ -775,9 +853,8 @@ ndsi_values = [0.75, 0.82, 0.70, 0.45, 0.20, -0.15, -0.40, -0.35, -0.10, 0.15, 0
 5. Add a background grid with a transparency (`alpha`) of 0.4 to make reading the index values easier.
 6. Save the final plot as a high-resolution PNG file (`annual_ndsi.png`) using `bbox_inches="tight"`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample Solution
@@ -826,7 +903,7 @@ You are comparing two different species of trees planted in a city park over six
 
 **The Data:**
 
-```{code-cell} python
+```{code-cell} ipython3
 years = [2018, 2019, 2020, 2021, 2022, 2023]
 oak_height_meters = [1.2, 1.5, 1.9, 2.4, 3.0, 3.8]
 pine_height_meters = [1.5, 2.2, 3.1, 4.5, 6.2, 8.5]
@@ -841,9 +918,8 @@ pine_height_meters = [1.5, 2.2, 3.1, 4.5, 6.2, 8.5]
 5. Give each subplot an appropriate title ("Oak Growth" and "Pine Growth").
 6. Add a Super Title (`fig.suptitle()`) to the entire figure called "City Park: Tree Growth Comparison".
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -894,13 +970,23 @@ You have 10 days of streamflow data (measured in cubic meters per second) for a 
 
 **The Data:**
 
-```{code-cell} python
+```{code-cell} ipython3
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-dates = ["2024-05-01", "2024-05-02", "2024-05-03", "2024-05-04", "2024-05-05", 
-         "2024-05-06", "2024-05-07", "2024-05-08", "2024-05-09", "2024-05-10"]
+dates = [
+    "2024-05-01",
+    "2024-05-02",
+    "2024-05-03",
+    "2024-05-04",
+    "2024-05-05",
+    "2024-05-06",
+    "2024-05-07",
+    "2024-05-08",
+    "2024-05-09",
+    "2024-05-10",
+]
 discharge_m3s = [42, 45, 48, 155, 180, 75, 50, 47, 45, 44]
 
 df = pd.DataFrame({"Date": dates, "Discharge": discharge_m3s})
@@ -915,9 +1001,8 @@ df = pd.DataFrame({"Date": dates, "Discharge": discharge_m3s})
 5. Zoom in on the flood event by setting the X-axis limits (`ax.set_xlim`) to only show data between May 3rd and May 6th.
 6. Use `ax.text()` to add an annotation near the peak that says "Flash Flood Peak".
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution

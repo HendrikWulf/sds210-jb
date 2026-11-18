@@ -1,6 +1,16 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210_home
+  language: python
+  name: python3
 site:
- outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
 # Data Types
@@ -57,10 +67,8 @@ This explains why some lines of code work as expected while others fail, even if
 
 For example, text behaves differently from numbers:
 
-```{code-cell} python
+```{code-cell} ipython3
 weather_forecast = "Hot"
-
-
 ```
 
 Here, the variable stores **text**, not a number. Because of this, Python will treat the value as a word rather than something that can be used in mathematical calculations.
@@ -103,10 +111,8 @@ They are commonly used for:
 * indices
 * IDs
 
-```{code-cell} python
+```{code-cell} ipython3
 num_points = 120
-
-
 ```
 
 The value `120` is a whole number, so Python assigns it the data type `int`.
@@ -120,10 +126,8 @@ Typical uses include:
 * coordinates
 * temperatures
 
-```{code-cell} python
+```{code-cell} ipython3
 temp_celsius = 37.6
-
-
 ```
 
 Because the value contains a decimal point, Python interprets it as a `float`.
@@ -137,10 +141,8 @@ Strings are often used for:
 * categories
 * metadata and descriptions
 
-```{code-cell} python
+```{code-cell} ipython3
 weather_forecast = "Hot"
-
-
 ```
 
 Even if a string contains numbers (like `"120"`), Python treats it as text, not as a mathematical value.
@@ -154,10 +156,8 @@ Typical uses include:
 * yes or no states
 * on or off decisions
 
-```{code-cell} python
+```{code-cell} ipython3
 is_georeferenced = True
-
-
 ```
 
 Booleans are especially important when making decisions in code, which you will explore later.
@@ -170,20 +170,16 @@ When working with variables, it is often not obvious what data type a value has.
 
 Python provides a simple diagnostic tool for this purpose: the `type()` function. It does not change a variable; it only **inspects** it.
 
-```{code-cell} python
+```{code-cell} ipython3
 type(weather_forecast)
-
-
 ```
 
 Python returns `str`. It tells us that `weather_forecast` is a string.
 
 Now compare this with a numeric value:
 
-```{code-cell} python
+```{code-cell} ipython3
 type(temp_celsius)
-
-
 ```
 
 Python returns `float`.
@@ -221,18 +217,15 @@ Before learning formal rules, it is useful to **observe what Python actually doe
 
 Start by defining two string variables:
 
-```{code-cell} python
+```{code-cell} ipython3
 a = "Hot"
 b = "Cold"
-
 ```
 
 ### Add two strings
 
-```{code-cell} python
+```{code-cell} ipython3
 a + b
-
-
 ```
 
 ```{admonition} What happens?
@@ -244,10 +237,8 @@ Python merges the two texts together (called *concatenation*). The output is `'H
 
 ### Subtract two strings
 
-```{code-cell} python
+```{code-cell} ipython3
 a - b
-
-
 ```
 
 ```{admonition} What happens?
@@ -259,10 +250,8 @@ Python raises a `TypeError`. You can stick words together with `+`, but it makes
 
 ### Multiply a string by a number
 
-```{code-cell} python
+```{code-cell} ipython3
 a * 3
-
-
 ```
 
 ```{admonition} What happens?
@@ -282,18 +271,14 @@ Different data types are not automatically compatible, but they can often be mad
 
 Consider this realistic example of a temperature reading imported from a text file:
 
-```{code-cell} python
+```{code-cell} ipython3
 forecast_bahnhofstrasse = "39.0"
-
-
 ```
 
 At first glance, this looks like a number. However, the quotation marks mean it is stored as **text**.
 
-```{code-cell} python
-type(forecast_bahnhofstrasse) # Returns: str
-
-
+```{code-cell} ipython3
+type(forecast_bahnhofstrasse)  # Returns: str
 ```
 
 If we want to compare this value mathematically with a temperature stored as a number, we must first check the data types involved. **Inspection comes before fixing.** Once you understand what each variable represents, you can make them compatible by explicitly converting one data type into another.
@@ -318,36 +303,28 @@ Type casting transforms a value from one data type to another, allowing you to t
 
 To use our string `"39.0"` in calculations, we convert it explicitly:
 
-```{code-cell} python
+```{code-cell} ipython3
 forecast_high = float(forecast_bahnhofstrasse)
-
-
 ```
 
 Now inspect the result:
 
-```{code-cell} python
-type(forecast_high) # Returns: float
-
-
+```{code-cell} ipython3
+type(forecast_high)  # Returns: float
 ```
 
 Because the data types are now compatible, we can perform calculations:
 
-```{code-cell} python
+```{code-cell} ipython3
 forecast_high - temp_celsius
-
-
 ```
 
 ### 7.2 Converting to `int()` and a Subtle Pitfall
 
 You can also convert numeric values to integers:
 
-```{code-cell} python
+```{code-cell} ipython3
 temp_celsius_int = int(temp_celsius)
-
-
 ```
 
 If the original value contains a decimal part, Python **{term}`truncates <Truncation>`** it. It removes the decimal completely; **it does not round**.
@@ -370,10 +347,8 @@ Type conversion only works when the **content** of a value makes sense for the r
 
 Consider this example:
 
-```{code-cell} python
+```{code-cell} ipython3
 float("Cold")
-
-
 ```
 
 Here, we ask Python to convert a string into a floating point number. Python attempts the conversion and stops, raising a **{term}`ValueError`**.
@@ -432,13 +407,11 @@ These exercises build on each other. Focus on understanding what Python does and
 
 Consider the following variables:
 
-```{code-cell} python
+```{code-cell} ipython3
 a = 25
 b = 25.0
 c = "25"
 d = False
-
-
 ```
 
 1. For each variable, write down what data type you expect.
@@ -464,11 +437,9 @@ Variables `a`, `b`, and `c` may look similar to a human, but they behave complet
 
 You are given two variables:
 
-```{code-cell} python
+```{code-cell} ipython3
 temp_celsius = 37.6
 forecast_bahnhofstrasse = "39.0"
-
-
 ```
 
 1. Check the data type of each variable.
@@ -497,9 +468,8 @@ Continue with the variables from Exercise 2.
 2. Convert `temp_celsius` to an integer and inspect the result.
 3. Compare the values before and after conversion. Why could this difference matter in spatial analysis?
 
-```{code-cell} python
+```{code-cell} ipython3
 # Do the exercise here
-
 ```
 
 ````{admonition} Sample solution (click to expand)
