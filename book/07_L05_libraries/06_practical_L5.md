@@ -94,11 +94,36 @@ Now we want the real world driving distance. For this, we will use the **OpenRou
 
 1. Visit the [HeiGIT Sign Up page](https://account.heigit.org/signup) to create a free account for [OpenRouteService](https://openrouteservice.org/).
 2. Once logged in, you can find your Basic Key at the top of the page.
-3. Copy the long string of characters and numbers and paste it into the variable below as a string.
+3. Copy the long string of characters and numbers, but **do not paste it into your code**. Store it outside the notebook using one of the options below, then run the cell.
+
+```{admonition} Keep your API key out of your code
+:class: warning
+
+An API key works like a password: anyone who has it can use your account and quota. Notebooks are easily shared or pushed to GitHub/GitLab, and a key written into a cell travels with them, often also through the git history after you delete it. Choose one of these options instead:
+
+* **Environment variable (local):** Set the key in a terminal, e.g. `export ORS_API_KEY="your_key"` (macOS/Linux) or `setx ORS_API_KEY "your_key"` (Windows, then open a new terminal). Start Jupyter or VS Code (`code .`) from that terminal so the notebook can see it.
+* **Colab Secrets:** In Google Colab, click the key icon (🔑) in the left sidebar, add a secret named `ORS_API_KEY`, and enable notebook access.
+* **Hidden prompt:** If neither is set, the cell asks you to paste the key into a hidden input field. The key is then only kept in memory for this session and is not saved in the notebook.
+```
 
 ```{code-cell} python
-# Paste your personal API key inside the quotes
-ORS_API_KEY = "replace_this_with_your_actual_key"
+import os
+from getpass import getpass
+
+# 1. Look for the key in an environment variable
+ORS_API_KEY = os.environ.get("ORS_API_KEY")
+
+# 2. If running in Google Colab, look for it in Colab Secrets
+if not ORS_API_KEY:
+    try:
+        from google.colab import userdata
+        ORS_API_KEY = userdata.get("ORS_API_KEY")
+    except Exception:
+        pass  # Not in Colab, or no secret with that name
+
+# 3. Otherwise, ask for it in a hidden input field (not saved in the notebook)
+if not ORS_API_KEY:
+    ORS_API_KEY = getpass("Paste your ORS API key: ")
 
 
 ```
