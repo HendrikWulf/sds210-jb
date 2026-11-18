@@ -5,7 +5,8 @@ site:
   outline_maxdepth: 1
 ---
 
-```{div} page-subtitle
+```{div}
+:class: page-subtitle
 How to document, submit, and reflect on your programming project
 ```
 
