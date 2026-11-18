@@ -1,4 +1,6 @@
-# Dependabot keeps the GitHub Actions and the pinned Python packages up to date.
+# Dependabot keeps the GitHub Actions in the workflows up to date.
+# requirements.txt is not included on purpose: its pins mirror the tested sds210
+# student environment and are updated together with it between semesters.
 # https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 version: 2
 updates:
@@ -8,12 +10,4 @@ updates:
       interval: "monthly"
     groups:
       actions:
-        patterns: ["*"]
-  # requirements.txt: bundle all version bumps into one monthly pull request
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "monthly"
-    groups:
-      python-packages:
         patterns: ["*"]
