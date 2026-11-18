@@ -87,7 +87,7 @@ This lesson is structured to take you from the mechanics of drawing lines to bui
 :width: 700px  # Adjust width as needed
 :align: center  # Adjust alignment as needed
 
-*Preview of the visuals you can produce in this lessons practial session.*
+*Preview of the visuals you can produce in this lesson's practical session.*
 :::
 
 ---
