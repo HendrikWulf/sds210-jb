@@ -3,7 +3,7 @@
 title: L12 - Best Practices & Reproducibility
 
 site:
-outline_maxdepth: 1
+  outline_maxdepth: 1
 
 ---
 

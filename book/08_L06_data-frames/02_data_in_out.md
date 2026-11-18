@@ -159,7 +159,7 @@ This raw text block instantly tells us four critical pieces of information:
 
 ---
 
-#### Concept Check: Parentheses or not?
+### Concept Check: Parentheses or not?
 
 In the code above, why do we type `data.info()` with parentheses, but `data.shape` without them?
 

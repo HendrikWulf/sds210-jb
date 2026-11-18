@@ -176,7 +176,7 @@ By mastering {abbr}`OOP (Object-Oriented Programming)`, you will transition from
 
 ---
 
-#### Concept Check: Identifying the Paradigm
+### Concept Check: Identifying the Paradigm
 
 You are reading through a colleague's script and spot the following line of code used to clean a tabular dataset:
 
