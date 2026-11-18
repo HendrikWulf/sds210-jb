@@ -50,11 +50,11 @@ A beautifully styled thematic map is excellent, but polygons floating in a blank
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
 
-* [Total Solar Eclipse 2081 - core shadow (total_solar_eclipse_03-09-2081_core_shadow.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/total_solar_eclipse_03-09-2081_core_shadow.gpkg)
-* [Total Solar Eclipse 2081 - center line (total_solar_eclipse_03-09-2081_center_line.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/total_solar_eclipse_03-09-2081_center_line.gpkg)
-* [World Cities (worldcities.csv)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/worldcities.csv)
+* [Total Solar Eclipse 2081 - core shadow (total_solar_eclipse_03-09-2081_core_shadow.gpkg)](https://data.source.coop/giuz/sds210/L08/total_solar_eclipse_03-09-2081_core_shadow.gpkg)
+* [Total Solar Eclipse 2081 - center line (total_solar_eclipse_03-09-2081_center_line.gpkg)](https://data.source.coop/giuz/sds210/L08/total_solar_eclipse_03-09-2081_center_line.gpkg)
+* [World Cities (worldcities.csv)](https://data.source.coop/giuz/sds210/L08/worldcities.csv)
 
 ```
 
@@ -140,7 +140,7 @@ import contextily as ctx
 
 # Load the umbral path polygon and instantly reproject to Web Mercator (EPSG:3857)
 eclipse_path = gpd.read_file(
-    "data/total_solar_eclipse_03-09-2081_core_shadow.gpkg"
+    "https://data.source.coop/giuz/sds210/L08/total_solar_eclipse_03-09-2081_core_shadow.gpkg"
 ).to_crs(epsg=3857)
 
 # Set up the Figure and Axes
@@ -323,8 +323,8 @@ import matplotlib.pyplot as plt
 import contextily as ctx
 
 # 1. Load and reproject to Web Mercator
-shadow = gpd.read_file("data/total_solar_eclipse_03-09-2081_core_shadow.gpkg").to_crs(epsg=3857)
-center = gpd.read_file("data/total_solar_eclipse_03-09-2081_center_line.gpkg").to_crs(epsg=3857)
+shadow = gpd.read_file("https://data.source.coop/giuz/sds210/L08/total_solar_eclipse_03-09-2081_core_shadow.gpkg").to_crs(epsg=3857)
+center = gpd.read_file("https://data.source.coop/giuz/sds210/L08/total_solar_eclipse_03-09-2081_center_line.gpkg").to_crs(epsg=3857)
 
 # 2. Setup
 fig, ax = plt.subplots(figsize=(12, 8))
@@ -380,7 +380,7 @@ To find out, we need to perform a spatial filter (a point-in-polygon overlay). W
 import pandas as pd
 
 # Load CSV
-df = pd.read_csv("data/worldcities.csv")
+df = pd.read_csv("https://data.source.coop/giuz/sds210/L08/worldcities.csv")
 
 # Convert to GeoDataFrame and reproject to Web Mercator
 cities = gpd.GeoDataFrame(
@@ -405,10 +405,10 @@ import matplotlib.pyplot as plt
 import contextily as ctx
 
 # 1. Load shadow
-shadow = gpd.read_file("data/total_solar_eclipse_03-09-2081_core_shadow.gpkg").to_crs(epsg=3857)
+shadow = gpd.read_file("https://data.source.coop/giuz/sds210/L08/total_solar_eclipse_03-09-2081_core_shadow.gpkg").to_crs(epsg=3857)
 
 # 2 & 3. Load CSV, convert to GeoDataFrame, and project to EPSG:3857
-df = pd.read_csv("data/worldcities.csv")
+df = pd.read_csv("https://data.source.coop/giuz/sds210/L08/worldcities.csv")
 cities = gpd.GeoDataFrame(
     df, 
     geometry=gpd.points_from_xy(df.lng, df.lat), 

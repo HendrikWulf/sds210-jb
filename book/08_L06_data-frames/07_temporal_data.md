@@ -47,16 +47,16 @@ Time is the most fundamental way we organize environmental data. In this chapter
 
 ```
 
-Before we begin, make sure you have downloaded the necessary datasets for this chapter. We will be using one familiar and two new Kloten datasets, plus a new dataset from Säntis.
+We will be using one familiar and two new Kloten datasets, plus a new dataset from Säntis.
 
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
-* [kloten_daily_19800101_20260101.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_daily_19800101_20260101.csv)
-* [kloten_spring_2024_hourly.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_spring_2024_hourly.csv)
-* [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
-* [saentis_hourly_temp_precip_20200101_20260101.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/saentis_hourly_temp_precip_20200101_20260101.csv)
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
+* [kloten_daily_19800101_20260101.csv](https://data.source.coop/giuz/sds210/L06/kloten_daily_19800101_20260101.csv)
+* [kloten_spring_2024_hourly.csv](https://data.source.coop/giuz/sds210/L06/kloten_spring_2024_hourly.csv)
+* [kloten_summer_2022_extended.txt](https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_extended.txt)
+* [saentis_hourly_temp_precip_20200101_20260101.csv](https://data.source.coop/giuz/sds210/L06/saentis_hourly_temp_precip_20200101_20260101.csv)
 
 ```
 
@@ -70,7 +70,7 @@ To explore these temporal superpowers, let us start by loading our familiar dail
 import pandas as pd
 
 # Load the daily Kloten dataset
-fp = "data/kloten_summer_2022_extended.txt"
+fp = "https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_extended.txt"
 data = pd.read_csv(fp, sep=r"\s+", skiprows=[1], na_values=["-9999"])
 
 # Let us ensure our DATE column is treated as text (a string) for now
@@ -228,7 +228,7 @@ Let us reload our dataset one last time, using the pro-trick to get it perfectly
 
 ```{code-cell} ipython3
 # The cleanest way to load temporal data
-fp = "data/kloten_summer_2022_extended.txt"
+fp = "https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_extended.txt"
 
 data = pd.read_csv(
     fp,
@@ -289,7 +289,7 @@ To see the true power of this, let us switch to a higher-resolution dataset. We 
 ```{code-cell} ipython3
 # 1. Load the hourly dataset and instantly parse the timestamp
 hourly_data = pd.read_csv(
-    "data/kloten_spring_2024_hourly.csv", parse_dates=["timestamp"]
+    "https://data.source.coop/giuz/sds210/L06/kloten_spring_2024_hourly.csv", parse_dates=["timestamp"]
 )
 
 # 2. Extract components into brand new columns using the .dt accessor
@@ -468,7 +468,7 @@ To demonstrate this, let us load a massive new dataset: the historical daily rec
 
 ```{code-cell} ipython3
 # 1. Load the historical daily dataset, parse the dates, and set the index
-fp_daily = "data/kloten_daily_19800101_20260101.csv"
+fp_daily = "https://data.source.coop/giuz/sds210/L06/kloten_daily_19800101_20260101.csv"
 historical_data = pd.read_csv(fp_daily, parse_dates=["DATE"])
 historical_data = historical_data.set_index("DATE")
 
@@ -673,7 +673,7 @@ Now, let us analyze the Säntis mountain dataset (`saentis_hourly_temp_precip_20
 :class: dropdown, tip
 
 ```{code-cell} python
-fp_saentis = "data/saentis_hourly_temp_precip_20200101_20260101.csv"
+fp_saentis = "https://data.source.coop/giuz/sds210/L06/saentis_hourly_temp_precip_20200101_20260101.csv"
 
 # Load the data and parse the dates in one step
 saentis = pd.read_csv(fp_saentis, parse_dates=["timestamp"])

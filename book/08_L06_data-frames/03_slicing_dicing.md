@@ -47,13 +47,13 @@ Now that your data is loaded into a two dimensional grid, you need to know how t
 
 ```
 
-In the previous chapter, we successfully loaded the [kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt) weather dataset. Let us quickly reload it to your local working directory so we have a fresh **{term}`DataFrame`** to work with.
+In the previous chapter, we successfully loaded the [kloten_summer_2022.txt](https://data.source.coop/giuz/sds210/L06/kloten_summer_2022.txt) weather dataset. Let us quickly reload it so we have a fresh **{term}`DataFrame`** to work with.
 
 ```{code-cell} ipython3
 import pandas as pd
 
 # Load the Kloten summer weather data, skipping metadata
-data = pd.read_csv("data/kloten_summer_2022.txt", skiprows=10)
+data = pd.read_csv("https://data.source.coop/giuz/sds210/L06/kloten_summer_2022.txt", skiprows=10)
 ```
 
 ---

@@ -49,14 +49,14 @@ Real-world spatial and environmental data is often messy. Before performing calc
 
 Real-world data is rarely ready for immediate analysis. Files from environmental sensors, satellites, or crowdsourced databases often contain irregular formatting, missing observations, or incorrect data types. Skipping the data cleaning stage is dangerous, as it leads to errors in calculations and misleading visualizations.
 
-In this chapter, we will learn standard techniques to programmatically clean a dataset using Pandas. We will return to our [kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt) dataset, applying the skipping logic learned in previous chapters to load a fresh **{term}`DataFrame`**.
+In this chapter, we will learn standard techniques to programmatically clean a dataset using Pandas. We will return to our [kloten_summer_2022.txt](https://data.source.coop/giuz/sds210/L06/kloten_summer_2022.txt) dataset, applying the skipping logic learned in previous chapters to load a fresh **{term}`DataFrame`**.
 
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following dataset in a `data` folder next to your notebook:
+The code in this chapter reads the following dataset directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download it. To work offline, save it in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
 
-* [kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt)
+* [kloten_summer_2022.txt](https://data.source.coop/giuz/sds210/L06/kloten_summer_2022.txt)
 
 ```
 
@@ -64,7 +64,7 @@ To follow along with this chapter, place the following dataset in a `data` folde
 import pandas as pd
 
 # Define relative path to the file
-fp = "data/kloten_summer_2022.txt"
+fp = "https://data.source.coop/giuz/sds210/L06/kloten_summer_2022.txt"
 
 # Read data, skipping the top 10 rows of metadata
 data = pd.read_csv(fp, skiprows=10)

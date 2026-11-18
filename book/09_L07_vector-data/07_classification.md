@@ -54,8 +54,8 @@ However, if you try to plot these raw numbers directly, the resulting map can be
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following dataset in a `data` folder next to your notebook:
-* [swissBoundaries3D_municipalities.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_municipalities.gpkg)
+The code in this chapter reads the following dataset directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download it. To work offline, save it in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
+* [swissBoundaries3D_municipalities.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_municipalities.gpkg)
 
 ```
 
@@ -82,7 +82,7 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 
 # Load municipalities and ensure metric CRS
-muni_gdf = gpd.read_file("data/swissBoundaries3D_municipalities.gpkg").to_crs(epsg=2056)
+muni_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_municipalities.gpkg").to_crs(epsg=2056)
 
 # Calculate Population Density (People per hectare)
 # gem_flaeche is the municipal area in hectares

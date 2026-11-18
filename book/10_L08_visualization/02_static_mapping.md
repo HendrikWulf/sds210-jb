@@ -46,14 +46,14 @@ You have mastered the mechanics of the **{term}`Matplotlib`** **{term}`Figure <F
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
 
-* [Land Polygons (ne_10m_land.zip)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/ne_10m_land.zip)
-* [Ocean Polygons (ne_10m_ocean.zip)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/ne_10m_ocean.zip)
-* [Rivers and Lakes (ne_10m_rivers_lake_centerlines.zip)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/ne_10m_rivers_lake_centerlines.zip)
-* [Glaciated Areas (ne_10m_glaciated_areas.zip)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/ne_10m_glaciated_areas.zip)
-* [Lakes (ne_10m_lakes.zip)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/ne_10m_lakes.zip)
-* [World Cities (worldcities.csv)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/worldcities.csv)
+* [Land Polygons (ne_10m_land.zip)](https://data.source.coop/giuz/sds210/L08/ne_10m_land.zip)
+* [Ocean Polygons (ne_10m_ocean.zip)](https://data.source.coop/giuz/sds210/L08/ne_10m_ocean.zip)
+* [Rivers and Lakes (ne_10m_rivers_lake_centerlines.zip)](https://data.source.coop/giuz/sds210/L08/ne_10m_rivers_lake_centerlines.zip)
+* [Glaciated Areas (ne_10m_glaciated_areas.zip)](https://data.source.coop/giuz/sds210/L08/ne_10m_glaciated_areas.zip)
+* [Lakes (ne_10m_lakes.zip)](https://data.source.coop/giuz/sds210/L08/ne_10m_lakes.zip)
+* [World Cities (worldcities.csv)](https://data.source.coop/giuz/sds210/L08/worldcities.csv)
 
 ```
 
@@ -72,7 +72,7 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 
 # Load the spatial data
-land = gpd.read_file("data/ne_10m_land.zip")
+land = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_land.zip")
 
 # The Standard Setup
 fig, ax = plt.subplots(figsize=(10, 5))
@@ -130,7 +130,7 @@ Let us add the oceans to our map. To ensure we can easily distinguish the two ov
 
 ```{code-cell} python
 # Load the ocean data
-ocean = gpd.read_file("data/ne_10m_ocean.zip")
+ocean = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_ocean.zip")
 
 fig, ax = plt.subplots(figsize=(10, 5))
 
@@ -173,11 +173,11 @@ Let us combine our new layers and establish a strict visual hierarchy:
 
 ```{code-cell} python
 # Load data
-ocean = gpd.read_file("data/ne_10m_ocean.zip")
-land = gpd.read_file("data/ne_10m_land.zip")
-rivers = gpd.read_file("data/ne_10m_rivers_lake_centerlines.zip")
-glaciated_areas = gpd.read_file("data/ne_10m_glaciated_areas.zip")
-lakes = gpd.read_file("data/ne_10m_lakes.zip")
+ocean = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_ocean.zip")
+land = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_land.zip")
+rivers = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_rivers_lake_centerlines.zip")
+glaciated_areas = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_glaciated_areas.zip")
+lakes = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_lakes.zip")
 
 fig, ax = plt.subplots(figsize=(10, 5))
 
@@ -277,15 +277,17 @@ To fix this, we will append `.to_crs(epsg=8857)` when loading our datasets. This
 Let us combine everything into one complete, professional map script:
 
 ```{code-cell} python
+import os
+
 import geopandas as gpd
 import matplotlib.pyplot as plt
 
 # Load the data and reproject to the Equal Earth projection (EPSG:8857)
-ocean = gpd.read_file("data/ne_10m_ocean.zip").to_crs(epsg=8857)
-land = gpd.read_file("data/ne_10m_land.zip").to_crs(epsg=8857)
-rivers = gpd.read_file("data/ne_10m_rivers_lake_centerlines.zip").to_crs(epsg=8857)
-glaciated_areas = gpd.read_file("data/ne_10m_glaciated_areas.zip").to_crs(epsg=8857)
-lakes = gpd.read_file("data/ne_10m_lakes.zip").to_crs(epsg=8857)
+ocean = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_ocean.zip").to_crs(epsg=8857)
+land = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_land.zip").to_crs(epsg=8857)
+rivers = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_rivers_lake_centerlines.zip").to_crs(epsg=8857)
+glaciated_areas = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_glaciated_areas.zip").to_crs(epsg=8857)
+lakes = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_lakes.zip").to_crs(epsg=8857)
 
 fig, ax = plt.subplots(figsize=(14, 7))
 
@@ -311,7 +313,8 @@ ax.set_title("Global Landmasses, Rivers, Glaciers, and Lakes", fontsize=18)
 ax.axis("off")
 
 # Save the final polished map
-fig.savefig("data/global_map.png", dpi=200, bbox_inches="tight")
+os.makedirs("outputs", exist_ok=True)
+fig.savefig("outputs/global_map.png", dpi=200, bbox_inches="tight")
 
 plt.show()
 ```
@@ -357,11 +360,11 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 
 # 1. Load shapefiles and reproject
-land = gpd.read_file("data/ne_10m_land.zip").to_crs(epsg=8857)
-ocean = gpd.read_file("data/ne_10m_ocean.zip").to_crs(epsg=8857)
+land = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_land.zip").to_crs(epsg=8857)
+ocean = gpd.read_file("https://data.source.coop/giuz/sds210/L08/ne_10m_ocean.zip").to_crs(epsg=8857)
 
 # 2. Load CSV
-df = pd.read_csv("data/worldcities.csv")
+df = pd.read_csv("https://data.source.coop/giuz/sds210/L08/worldcities.csv")
 
 # 3. Convert to GeoDataFrame and reproject
 cities = gpd.GeoDataFrame(

@@ -54,12 +54,12 @@ In this chapter, you will learn how to visualize raster data more deliberately. 
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook: 
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name: 
 
-* [Copernicus DEM New Zealand (Copernicus_DEM_NZ_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/Copernicus_DEM_NZ_subset.tif)
-* [Landsat 9 Multispectral Subset (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
-* [GLIMS Glaciers New Zealand (GLIMS_glaciers_NZ_subset.zip)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/GLIMS_glaciers_NZ_subset.zip)
-* [ETOPO1 Topography & Bathymetry (ETOPO1_bedrock_subset_2000m_3857.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/ETOPO1_bedrock_subset_2000m_3857.tif)
+* [Copernicus DEM New Zealand (Copernicus_DEM_NZ_subset.tif)](https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif)
+* [Landsat 9 Multispectral Subset (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
+* [GLIMS Glaciers New Zealand (GLIMS_glaciers_NZ_subset.zip)](https://data.source.coop/giuz/sds210/L09/GLIMS_glaciers_NZ_subset.zip)
+* [ETOPO1 Topography & Bathymetry (ETOPO1_bedrock_subset_2000m_3857.tif)](https://data.source.coop/giuz/sds210/L09/ETOPO1_bedrock_subset_2000m_3857.tif)
 
 ```
 
@@ -79,7 +79,7 @@ Rasterio makes this initial check incredibly easy with the `show()` function.
 import rasterio
 from rasterio.plot import show
 
-filepath = "data/Copernicus_DEM_NZ_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif"
 
 with rasterio.open(filepath) as src:
     show(src, title="New Zealand Elevation DEM", cmap="terrain")
@@ -122,7 +122,7 @@ The simplest way to visualize such a raster is to read the band into a standard 
 ```{code-cell} ipython3
 import matplotlib.pyplot as plt
 
-with rasterio.open("data/Copernicus_DEM_NZ_subset.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif") as src:
     dem = src.read(1)
 
 plt.figure(figsize=(7, 6))
@@ -160,7 +160,7 @@ import matplotlib.pyplot as plt
 import cmcrameri.cm as cmc
 import matplotlib.ticker as ticker
 
-filepath = "data/Copernicus_DEM_NZ_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif"
 
 with rasterio.open(filepath) as src:
     left, bottom, right, top = src.bounds
@@ -216,7 +216,7 @@ A typical multispectral raster may include bands such as: Blue, Green, Red, Near
 Each band is its own raster layer. That means a multispectral image is really a stack of perfectly aligned single band rasters. You can check how many bands a raster contains using the `.count` attribute:
 
 ```{code-cell} ipython3
-filepath = "data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
 
 with rasterio.open(filepath) as src:
     print("Band count:", src.count)
@@ -307,7 +307,7 @@ from rasterio.plot import show, show_hist
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
-filepath = "data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
 
 with rasterio.open(filepath) as src:
     # Create a 2x3 grid of subplots
@@ -379,7 +379,7 @@ import numpy as np
 import rasterio
 import matplotlib.pyplot as plt
 
-filepath = "data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
 
 with rasterio.open(filepath) as src:
     red = src.read(3)
@@ -515,7 +515,7 @@ def hillshade(array, azimuth, angle_altitude, z_factor=1):
 Notice that when we plot the result, we use `np.percentile` to dynamically set our `vmin` and `vmax`. This stretches the contrast by ignoring the extreme 2% of outliers, resulting in a much crisper image.
 
 ```{code-cell} ipython3
-with rasterio.open("data/Copernicus_DEM_NZ_subset.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif") as src:
     dem = src.read(1)
 
 # Increase z_factor for better contrast in relief
@@ -666,11 +666,11 @@ import numpy as np
 import matplotlib.ticker as ticker
 
 # Load the vector data (glacier outlines)
-vector_path = "data/GLIMS_glaciers_NZ_subset.zip"
+vector_path = "https://data.source.coop/giuz/sds210/L09/GLIMS_glaciers_NZ_subset.zip"
 gdf = gpd.read_file(vector_path)
 
 # Load the raster data and extract spatial metadata
-with rasterio.open("data/Copernicus_DEM_NZ_subset.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif") as src:
     dem = src.read(1)
     src_crs = src.crs
     src_bounds = src.bounds
@@ -745,7 +745,7 @@ Unlike `GeoDataFrame.plot()`, which natively understands spatial coordinates, Ma
 
 In this final exercise, you will apply your knowledge of scientific colormaps and hillshade blending to a global dataset.
 
-You are given a subset of the ETOPO1 dataset (`data/ETOPO1_bedrock_subset_2000m_3857.tif`), which contains continuous elevation data for the entire globe. Positive values represent land topography, while negative values represent ocean bathymetry.
+You are given a subset of the ETOPO1 dataset (`https://data.source.coop/giuz/sds210/L09/ETOPO1_bedrock_subset_2000m_3857.tif`), which contains continuous elevation data for the entire globe. Positive values represent land topography, while negative values represent ocean bathymetry.
 
 **Tasks:**
 
@@ -761,7 +761,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LightSource
 import cmcrameri.cm as cmc
 
-filepath = "data/ETOPO1_bedrock_subset_2000m_3857.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/ETOPO1_bedrock_subset_2000m_3857.tif"
 
 # Write your code here
 ```
@@ -777,7 +777,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LightSource
 import cmcrameri.cm as cmc
 
-filepath = "data/ETOPO1_bedrock_subset_2000m_3857.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/ETOPO1_bedrock_subset_2000m_3857.tif"
 
 with rasterio.open(filepath) as src:
     dem = src.read(1)

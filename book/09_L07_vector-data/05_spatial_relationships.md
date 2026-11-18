@@ -54,15 +54,15 @@ In this chapter, we transition to answering complex **{term}`spatial questions <
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
-* [meteoswiss_pollen_network.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/meteoswiss_pollen_network.csv)
-* [NuclearPowerPlant.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/NuclearPowerPlant.csv)
-* [swissBoundaries3D_cantons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_cantons.gpkg)
-* [alpine_huts.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/alpine_huts.gpkg)
-* [hospital_landing_sites.geojson](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/hospital_landing_sites.geojson)
-* [swiss_parks.shp.zip](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swiss_parks.shp.zip)
-* [wohnungsinventar.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/wohnungsinventar.gpkg)
-* [wolf_tracks_switzerland.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/wolf_tracks_switzerland.gpkg)
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
+* [meteoswiss_pollen_network.csv](https://data.source.coop/giuz/sds210/L07/meteoswiss_pollen_network.csv)
+* [NuclearPowerPlant.csv](https://data.source.coop/giuz/sds210/L07/NuclearPowerPlant.csv)
+* [swissBoundaries3D_cantons.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg)
+* [alpine_huts.gpkg](https://data.source.coop/giuz/sds210/L07/alpine_huts.gpkg)
+* [hospital_landing_sites.geojson](https://data.source.coop/giuz/sds210/L07/hospital_landing_sites.geojson)
+* [swiss_parks.shp.zip](https://data.source.coop/giuz/sds210/L07/swiss_parks.shp.zip)
+* [wohnungsinventar.gpkg](https://data.source.coop/giuz/sds210/L07/wohnungsinventar.gpkg)
+* [wolf_tracks_switzerland.gpkg](https://data.source.coop/giuz/sds210/L07/wolf_tracks_switzerland.gpkg)
 
 ```
 
@@ -132,13 +132,13 @@ import pandas as pd
 import numpy as np
 
 # 1. Load the Cantons Polygons
-cantons_gdf = gpd.read_file("data/swissBoundaries3D_cantons.gpkg")
+cantons_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg")
 
 # Extract just the geometry for the canton of Zurich
 canton_zh = cantons_gdf[cantons_gdf["name"] == "Zürich"].geometry.iloc[0]
 
 # 2. Load the Pollen Stations Points (CSV -> GeoDataFrame)
-pollen_df = pd.read_csv("data/meteoswiss_pollen_network.csv")
+pollen_df = pd.read_csv("https://data.source.coop/giuz/sds210/L07/meteoswiss_pollen_network.csv")
 pollen_gdf = gpd.GeoDataFrame(
     pollen_df, geometry=gpd.points_from_xy(pollen_df.X, pollen_df.Y), crs="EPSG:2056"
 )
@@ -270,10 +270,10 @@ We will load the Swiss housing inventory (which contains communal polygons and h
 
 ```{code-cell} ipython3
 # 1. Load the Housing Inventory (Communal polygons)
-housing_gdf = gpd.read_file("data/wohnungsinventar.gpkg")
+housing_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/wohnungsinventar.gpkg")
 
 # 2. Load the Nuclear Power Plants and isolate Beznau
-npp_df = pd.read_csv("data/NuclearPowerPlant.csv")
+npp_df = pd.read_csv("https://data.source.coop/giuz/sds210/L07/NuclearPowerPlant.csv")
 npp_gdf = gpd.GeoDataFrame(
     npp_df, geometry=gpd.points_from_xy(npp_df.X, npp_df.Y), crs="EPSG:2056"
 )
@@ -350,8 +350,8 @@ import geopandas as gpd
 # 1. Load both datasets
 # (Both files are already in the Swiss metric grid, but adding .to_crs()
 # right when you load data is a fantastic safety habit to prevent degree-errors!)
-huts_gdf = gpd.read_file("data/alpine_huts.gpkg").to_crs(epsg=2056)
-hospitals_gdf = gpd.read_file("data/hospital_landing_sites.geojson").to_crs(epsg=2056)
+huts_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/alpine_huts.gpkg").to_crs(epsg=2056)
+hospitals_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/hospital_landing_sites.geojson").to_crs(epsg=2056)
 
 # 2. Find the nearest hospital for every hut
 # - how="left": Keep all the huts in our results, even if something goes wrong.
@@ -475,8 +475,8 @@ Your task is to use a spatial predicate as a Boolean mask to filter the GPS trac
 import geopandas as gpd
 
 # 1. Load Data (Specifying the exact layer prevents warnings!)
-wolves_gdf = gpd.read_file("data/wolf_tracks_switzerland.gpkg", layer="Schneeschuhwanderwege").to_crs(epsg=2056)
-parks_gdf = gpd.read_file("data/swiss_parks.shp.zip", layer="N2026_Revision_Park_20250430").to_crs(epsg=2056)
+wolves_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/wolf_tracks_switzerland.gpkg", layer="Schneeschuhwanderwege").to_crs(epsg=2056)
+parks_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swiss_parks.shp.zip", layer="N2026_Revision_Park_20250430").to_crs(epsg=2056)
 
 # 2. Merge Parks into a single massive geometry
 all_parks = parks_gdf.geometry.union_all()
