@@ -1,4 +1,10 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
   outline_maxdepth: 1
 ---
@@ -72,7 +78,6 @@ filepath = "data/Copernicus_DEM_NZ_subset.tif"
 with rasterio.open(filepath) as src:
     print(src.name)
     print(src.mode)
-
 ```
 
 Using the `with` statement is a strict best practice. It creates a temporary context for the `src` object (the "source" dataset). The moment your code finishes executing the indented block, Rasterio automatically closes the file and releases the memory, even if an error occurs during processing.
@@ -99,7 +104,6 @@ print(f"Type: {type(elevation)}")
 print(f"Dimensions: {elevation.ndim}")
 print(f"Shape: {elevation.shape}")
 print(f"Data type: {elevation.dtype}")
-
 ```
 
 Notice the critical transition here: `src` was a Rasterio dataset object, but `elevation` is purely a standard `numpy.ndarray`. You have successfully crossed the bridge into the familiar territory of NumPy matrix math.
@@ -139,7 +143,6 @@ from rasterio.plot import show
 with rasterio.open(filepath) as src:
     # Display the raster directly from the source object
     show(src, title="New Zealand Elevation DEM", cmap="terrain")
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -171,9 +174,8 @@ You can access all the critical spatial information at once using the `.meta` or
 ```{code-cell} python
 with rasterio.open(filepath) as src:
     metadata = src.meta
-    
-print(metadata)
 
+print(metadata)
 ```
 
 This metadata dictionary is vital. When you finish crunching numbers in NumPy and want to save your results as a new GeoTIFF, you must pass this metadata back to Rasterio so the new file retains its correct geographic positioning.
@@ -188,7 +190,6 @@ Just like GeoPandas vector layers, every spatial raster has a Coordinate Referen
 with rasterio.open(filepath) as src:
     print(f"CRS: {src.crs}")
     print(f"Bounds: {src.bounds}")
-
 ```
 
 ### The Affine Transform
@@ -235,7 +236,6 @@ You are given a multispectral satellite image subset: `data/LC09_L1TP_075090_202
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ``````{admonition} Sample Solution

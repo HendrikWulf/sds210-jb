@@ -1,8 +1,16 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
+  outline_maxdepth: 1
 ---
 
 # Coordinate Reference Systems (CRS)
@@ -47,7 +55,6 @@ This chapter addresses the most common source of frustration in Geographic Infor
 :class: dropdown
 
 To follow along with this chapter, place the following dataset in a `data` folder next to your notebook:
-
 * [ne_50m_admin_0_countries.zip](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/ne_50m_admin_0_countries.zip)
 
 ```
@@ -104,7 +111,7 @@ Whenever you load a new spatial dataset, the very first thing you should do afte
 
 Let us load our global countries dataset and inspect its spatial reference using the `.crs` attribute.
 
-```{code-cell} python
+```{code-cell} ipython3
 import geopandas as gpd
 
 # Load the global countries dataset directly from the zip archive
@@ -112,19 +119,17 @@ world_gdf = gpd.read_file("data/ne_50m_admin_0_countries.zip")
 
 # Inspect the Coordinate Reference System
 print(world_gdf.crs)
-
 ```
 
 That short `EPSG:4326` output is incredibly important! It tells GeoPandas exactly what mathematical grid our geometries are drawn on.
 
 But GeoPandas is actually hiding a lot of powerful information here. Under the hood, `.crs` returns a rich spatial object powered by a library called `pyproj`. We can actually ask this object for specific, human-readable details about our grid:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extracting specific characteristics from the CRS object
 print("Name of the CRS:", world_gdf.crs.name)
 print("Is it geographic (degrees)?", world_gdf.crs.is_geographic)
 print("Is it projected (meters)?", world_gdf.crs.is_projected)
-
 ```
 
 ### Defining a Missing CRS (.set_crs)
@@ -135,11 +140,10 @@ When this happens, GeoPandas will still load the geographic shapes, but it will 
 
 To fix this, you must manually assign the correct CRS using the **`.set_crs()`** method. Because our coordinates are clearly in degrees (longitude/latitude), we know the missing grid is WGS84 (EPSG 4326):
 
-```{code-cell} python
+```{code-cell} ipython3
 # How to manually define a CRS if your dataset is missing one
 # (Note: This does not change the math/coordinates, it just adds the missing label!)
 world_gdf = world_gdf.set_crs(epsg=4326)
-
 ```
 
 ```{admonition} The Golden Rule of Projections
@@ -257,7 +261,7 @@ Behind the scenes, `.to_crs()` runs the complex trigonometry required to move ev
 
 Let us reproject our world map from geographic degrees into the **{term}`Web Mercator`** projection (the metric grid Google Maps uses). To prove that the math is actually happening, we will peek at the coordinates of the very first country before and after the transformation.
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Look at the coordinates BEFORE (Notice the small degree numbers like 18.0)
 print("Before (Degrees):")
 print(world_gdf.geometry.head(1))
@@ -268,7 +272,6 @@ world_mercator = world_gdf.to_crs(epsg=3857)
 # 3. Look at the coordinates AFTER (Notice the massive metric numbers!)
 print("\nAfter (Meters):")
 print(world_mercator.geometry.head(1))
-
 ```
 
 It is that simple! Your data has been perfectly translated onto a flat, metric grid. Those numbers in the "After" output are no longer degrees on a sphere; they are physical meters on a Cartesian plane.
@@ -296,9 +299,8 @@ Your task is to reproject the world dataset into a flat, area-preserving project
 3. **Plot Projected:** Plot your new `world_equal_area` dataset right below it using a green color.
 4. **Compare:** Look closely at the visual difference between the two stacked maps, particularly the size of Greenland and Antarctica! Notice how the axis numbers have changed from degrees (e.g., -180 to 180) to millions of meters!
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution

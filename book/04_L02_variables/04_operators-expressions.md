@@ -1,6 +1,16 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210_home
+  language: python
+  name: python3
 site:
- outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
 # Operators & Expressions
@@ -56,11 +66,9 @@ The anatomy of a Python expression: operators combine operands to evaluate to a 
 
 Think of an expression as a question you ask Python: *"What is the result of this calculation right now?"*
 
-```{code-cell} python
+```{code-cell} ipython3
 # Python evaluates this expression and returns 35
 5 * 7
-
-
 ```
 
 An important idea is that expressions are evaluated **when you run the cell**, not when you type them. If you change a variable and run the cell again, Python recalculates the result using the newest values in memory.
@@ -87,24 +95,20 @@ At this stage, we focus only on **numeric operations**.
 
 Python supports the common arithmetic operators you already know.
 
-```{code-cell} python
+```{code-cell} ipython3
 2 + 2
-
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 5 - 3
-
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 4 * 6
-
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 10 / 2
-
 ```
 
 Each expression is evaluated when the cell is executed and returns a numeric result.
@@ -116,20 +120,17 @@ Each expression is evaluated when the cell is executed and returns a numeric res
 Arithmetic operators do not only work with literal numbers.
 They also work with **variables that store numbers**.
 
-```{code-cell} python
+```{code-cell} ipython3
 x = 7
 y = 3
-
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 x + y
-
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 x * y
-
 ```
 
 Here, `x` and `y` are **operands**.
@@ -141,9 +142,8 @@ An operand is simply a value or a variable that an operator acts on.
 
 Python uses `` to raise a value to a power.
 
-```{code-cell} python
-2 ** 3
-
+```{code-cell} ipython3
+2**3
 ```
 
 This means two to the power of three.
@@ -154,16 +154,14 @@ This means two to the power of three.
 
 Some additional arithmetic operators are useful in practice.
 
-```{code-cell} python
+```{code-cell} ipython3
 7 % 3
-
 ```
 
 The modulus operator returns the remainder of a division.
 
-```{code-cell} python
+```{code-cell} ipython3
 7 // 3
-
 ```
 
 Floor division returns the number of whole divisions.
@@ -227,9 +225,8 @@ This section connects operators back to variables.
 
 The assignment operator `=` stores the result of an expression in a variable.
 
-```{code-cell} python
+```{code-cell} ipython3
 x = 5
-
 ```
 
 Here, Python:
@@ -247,14 +244,12 @@ It only changes what value a variable refers to.
 
 You can assign the result of any expression.
 
-```{code-cell} python
+```{code-cell} ipython3
 y = 2 + 3
-
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 y
-
 ```
 
 The expression `2 + 3` is evaluated first.
@@ -268,28 +263,24 @@ Python does not remember how the value was computed.
 
 Python provides **update operators** that combine calculation and assignment.
 
-```{code-cell} python
+```{code-cell} ipython3
 x += 3
-
 ```
 
 This is a shorter way of writing:
 
-```{code-cell} python
+```{code-cell} ipython3
 x = x + 3
-
 ```
 
 Other common update operators follow the same pattern.
 
-```{code-cell} python
+```{code-cell} ipython3
 x -= 1
-
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 x *= 2
-
 ```
 
 Each update:
@@ -308,10 +299,9 @@ An important mental model is this:
 
 After reassignment, the old value is gone.
 
-```{code-cell} python
+```{code-cell} ipython3
 speed = 50
 speed = 80
-
 ```
 
 After the second line, `speed` refers only to `80`.
@@ -378,27 +368,21 @@ Python provides three logical operators:
 
 * **`and`**: Returns `True` only if **both** conditions are true.
 
-```{code-cell} python
+```{code-cell} ipython3
 x = 7
 (x > 5) and (x < 10)  # Returns True because 7 is between 5 and 10
-
-
 ```
 
 * **`or`**: Returns `True` if **at least one** condition is true.
 
-```{code-cell} python
-(x < 5) or (x > 6)    # Returns True because 7 > 6
-
-
+```{code-cell} ipython3
+(x < 5) or (x > 6)  # Returns True because 7 > 6
 ```
 
 * **`not`**: **Reverses** the boolean value.
 
-```{code-cell} python
-not (x == 7)          # Returns False, because x IS 7
-
-
+```{code-cell} ipython3
+not (x == 7)  # Returns False, because x IS 7
 ```
 
 Logical operators allow you to express complex reasoning in code. Instead of asking one question, you can combine several and get a single, definitive answer.
@@ -424,22 +408,19 @@ Operators do not behave the same way for all data types. What an operator does d
 
 When applied to numbers (`int`, `float`), the `+` and `*` operators perform standard arithmetic. But look what happens when we apply them to strings (`str`):
 
-```{code-cell} python
+```{code-cell} ipython3
 # Concatenation: Joins strings together
-"Hot" + "Cold"   # Returns "HotCold"
+"Hot" + "Cold"  # Returns "HotCold"
 
 # Repetition: Multiplies the string
-"Hot" * 3        # Returns "HotHotHot"
-3 * "Hot"        # Returns "HotHotHot"
-
+"Hot" * 3  # Returns "HotHotHot"
+3 * "Hot"  # Returns "HotHotHot"
 ```
 
 If you try to mix incompatible data types, the operation will fail:
 
-```{code-cell} python
-2 + "Hot"        # Raises a TypeError!
-
-
+```{code-cell} ipython3
+2 + "Hot"  # Raises a TypeError!
 ```
 
 This is not a bug; it is Python protecting you from an undefined operation. If an operation fails, check your data types!
@@ -482,22 +463,18 @@ Expressions can also include **functions**. Functions take an input, perform a c
 
 To access advanced mathematical functions, we must `import` the `math` module (a built-in library of extra Python tools).
 
-```{code-cell} python
+```{code-cell} ipython3
 import math
 
 # Functions return values that can be used inside expressions
 diagonal = math.sqrt(16) + 2
 print(diagonal)  # Returns 6.0
-
-
 ```
 
 Modules also provide useful constants, which do not require parentheses because they are stored values, not functions:
 
 ```python
 area = math.pi * (radius ** 2)
-
-
 ```
 
 ---
@@ -508,14 +485,12 @@ When expressions become complex, it is helpful to inspect intermediate results t
 
 You can use the `print()` function to combine text and expression results for highly readable debugging output:
 
-```{code-cell} python
+```{code-cell} ipython3
 distance = 150
 time = 2
 
 # We can perform the expression directly inside the print statement!
 print("The average speed is", distance / time, "km/h")
-
-
 ```
 
 Well-formatted output makes checking your work significantly easier and is a fundamental debugging habit.
@@ -534,9 +509,8 @@ Well-formatted output makes checking your work significantly easier and is a fun
 2. Run each expression in its own code cell.
 3. Change one number in the code and *do not* re-run the cell yet. Does the output change automatically?
 
-```{code-cell} python
+```{code-cell} ipython3
 # Do the exercise here
-
 ```
 
 ````{admonition} Sample solution (click to expand)
@@ -561,11 +535,9 @@ Changing the code has no effect until the cell is run again. Python does not rem
 **Task:**
 Given the following variables:
 
-```{code-cell} python
+```{code-cell} ipython3
 distance_km = 180
 time_hours = 2.5
-
-
 ```
 
 1. Compute the average speed in km/h and store it in a new variable.
@@ -603,9 +575,8 @@ print("The average speed is", speed_kmh, "km/h. Speed above 70 km/h:", speed_abo
 4. Compute the sine of the angle using `math.sin()`.
 5. Use logical operators to check if the sine value is **both** greater than 0 **and** less than 1.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Do the exercise here
-
 ```
 
 ````{admonition} Sample solution (click to expand)

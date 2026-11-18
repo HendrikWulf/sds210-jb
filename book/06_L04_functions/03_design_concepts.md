@@ -1,8 +1,12 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
-    outline_maxdepth: 1
-
+  outline_maxdepth: 1
 ---
 
 # Function Design Concepts
@@ -95,12 +99,13 @@ This can lead to dangerous bugs. Look at this example:
 # A global variable defined at the top of our notebook
 base_elevation = 1500
 
+
 def calculate_relative_elevation(elevation):
     # BAD: This function uses a global variable instead of a parameter!
     return elevation - base_elevation
 
-print(calculate_relative_elevation(2000))
 
+print(calculate_relative_elevation(2000))
 ```
 
 This code *works*, but it is poor software design. The function `calculate_relative_elevation` is no longer a standalone tool. It secretly relies on `base_elevation` existing elsewhere in the notebook. If you copy this function into a new script, or if you accidentally change `base_elevation` in a different cell, your pipeline will break, and it might be hard to figure out why.
@@ -163,7 +168,6 @@ def check_accuracy(point_accuracy, threshold=5):
         return True
     else:
         return False
-
 ```
 
 Now, the user has a choice:
@@ -174,7 +178,6 @@ check_accuracy(3)
 
 # Option 2: Override the default by providing a second argument.
 check_accuracy(3, threshold=2)
-
 ```
 
 ### The Ordering Rule
@@ -248,7 +251,6 @@ Let's write a function that takes a new GPS waypoint and adds it to a route list
 def add_waypoint(waypoint, route=[]):
     route.append(waypoint)
     return route
-
 ```
 
 Watch what happens when we use it to track two different animals:
@@ -259,7 +261,6 @@ print(f"Bear Track: {track_bear}")
 
 track_wolf = add_waypoint("Point X")
 print(f"Wolf Track: {track_wolf}")
-
 ```
 
 **What happened?!** The wolf is somehow inheriting the bear's GPS points!
@@ -275,10 +276,9 @@ To fix this, we must use `None` as our default value, and create the fresh list 
 def add_waypoint(waypoint, route=None):
     if route is None:
         route = []  # Creates a brand new, empty list every time it runs!
-        
+
     route.append(waypoint)
     return route
-
 ```
 
 ```{admonition} The Mutable Default Rule
@@ -436,7 +436,6 @@ Calculating a simplified bounding box. By adding and subtracting a buffer value 
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution
@@ -484,6 +483,7 @@ def log_sample(ph_level, river_samples=[]):
     river_samples.append(ph_level)
     return river_samples
 
+
 # We take two samples from the Isar
 isar_data = log_sample(7.2)
 isar_data = log_sample(7.4, isar_data)
@@ -493,7 +493,6 @@ inn_data = log_sample(6.8)
 
 print(f"Isar: {isar_data}")
 print(f"Inn: {inn_data}")
-
 ```
 
 ``````{admonition} Sample solution

@@ -1,8 +1,12 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
- outline_maxdepth: 1
- 
+  outline_maxdepth: 1
 ---
 
 # Conditional Statements
@@ -124,24 +128,20 @@ Here is a conceptual example:
 
 ```{code-cell} python
 a = [1, 2, 3]
-b = a          # b points to the exact same list as a
+b = a  # b points to the exact same list as a
 c = [1, 2, 3]  # c is a brand new list with identical values
-
-
 ```
 
 Now compare them:
 
 ```{code-cell} python
 print(a is b)
-
 ```
 
 Both `a` and `b` point to the **same {term}`list <List>`**.
 
 ```{code-cell} python
 print(a is c)
-
 ```
 
 Even though `a` and `c` contain the exact same numbers, they are **different objects** in the computer's memory.
@@ -176,15 +176,12 @@ cities = ["Lima", "Quito", "Bogotá"]
 print("Lima" in cities)
 
 print("Santiago" in cities)
-
-
 ```
 
 Membership operators also work seamlessly with **{term}`strings <String>`** to check for substrings:
 
 ```{code-cell} python
 print("a" in "data")
-
 ```
 
 ```{admonition} Summary
@@ -220,7 +217,6 @@ Consider a numeric value:
 value = 42
 
 print(value > 0 and value < 100)
-
 ```
 
 Both conditions are true, so the whole expression is true.
@@ -232,7 +228,6 @@ cities = ["Lima", "Quito", "Bogotá"]
 capitals = ["Lima", "Buenos Aires"]
 
 print("Quito" in cities or "Quito" in capitals)
-
 ```
 
 Only one of the conditions needs to be true for an `or` statement to evaluate to `True`.
@@ -242,7 +237,6 @@ Using `not` simply flips the Boolean result:
 ```{code-cell} python
 value = 0
 print(not value == 0)
-
 ```
 
 ---
@@ -267,8 +261,6 @@ When combining several conditions, it is best practice to use parentheses to mak
 
 ```{code-cell} python
 (a < b and b < c) or (a > b)
-
-
 ```
 
 Parentheses:
@@ -330,7 +322,6 @@ temperature = 5
 
 if temperature > 0:
     print("Above freezing")
-
 ```
 
 If the condition is false, nothing happens. The program skips the indented block and continues.
@@ -348,7 +339,6 @@ if temperature > 0:
     print("Above freezing")
 else:
     print("Freezing or below")
-
 ```
 
 Exactly one of the two blocks will run. Never both.
@@ -370,7 +360,6 @@ elif temperature == 0:
     print(f"{temperature} degrees is at the freezing point")
 else:
     print(f"{temperature} degrees is below freezing")
-
 ```
 
 :::{figure} images/04_if_elif_else_flowchart.png
@@ -446,7 +435,6 @@ values = [3, 12, 7, 25]
 for v in values:
     if v > 10:
         print(v)
-
 ```
 
 The loop still processes **every value** in the list. However, only values that satisfy the condition (`v > 10`) are printed.
@@ -486,8 +474,6 @@ for v in values:
         print(v * 2)
     else:
         print(v)
-
-
 ```
 
 Here:
@@ -566,7 +552,6 @@ You are given a list of temperatures:
 
 ```{code-cell} python
 temperatures = [5, 12, 18, 3, 25]
-
 ```
 
 Write a loop that prints **only temperatures above 10**.
@@ -605,7 +590,6 @@ You are given a list of distances (in kilometres):
 
 ```{code-cell} python
 distances = [2, 10, 4, 5]
-
 ```
 
 Write a loop that:
@@ -651,7 +635,6 @@ You are given a list of cities and a list of capitals:
 ```{code-cell} python
 cities = ["Lima", "Quito", "Santiago", "Bogotá"]
 capitals = ["Lima", "Bogotá"]
-
 ```
 
 Write a loop that prints only the cities
@@ -693,7 +676,6 @@ for v in values:
         print("even")
     else:
         print("odd")
-
 ```
 
 Write down the expected output line by line.

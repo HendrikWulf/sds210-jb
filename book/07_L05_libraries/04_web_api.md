@@ -1,4 +1,10 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
   outline_maxdepth: 1
 ---
@@ -87,12 +93,10 @@ When you send a request, the server sends back a response containing both the da
 import requests
 
 # Ask a web server for its homepage
-response = requests.get('https://objectiveunclear.com/airloom.html?airport=ZRH')
+response = requests.get("https://objectiveunclear.com/airloom.html?airport=ZRH")
 
 # Check if the request was successful
 print(response.status_code)
-
-
 ```
 
 #### Concept Check: The Missing Data
@@ -157,11 +161,7 @@ import requests
 api_url = "https://api.open-meteo.com/v1/forecast"
 
 # 2. Define our query parameters (Zurich coordinates)
-parameters = {
-    "latitude": 47.37,
-    "longitude": 8.54,
-    "current_weather": "true"
-}
+parameters = {"latitude": 47.37, "longitude": 8.54, "current_weather": "true"}
 
 # 3. Send the GET request
 response = requests.get(api_url, params=parameters)
@@ -169,18 +169,17 @@ response = requests.get(api_url, params=parameters)
 # 4. Check the status and extract the data
 if response.status_code == 200:
     print("Request successful!")
-    
+
     # Convert the JSON response into a Python dictionary
     data = response.json()
-    
+
     # Navigate the dictionary to find the temperature
     current_temp = data["current_weather"]["temperature"]
-    
+
     print(f"The current temperature in Zurich is {current_temp}°C")
 else:
     print("Request failed.")
-    print("Reason:", response.text) 
-
+    print("Reason:", response.text)
 ```
 
 By changing the latitude and longitude in the `parameters` dictionary, you can instantly fetch the current weather for anywhere on Earth.
@@ -247,13 +246,13 @@ response = requests.get(csv_url)
 
 if response.status_code == 200:
     print("Download successful!\n")
-    
+
     # 3. Extract raw text (do NOT use .json() here)
     csv_text = response.text
-    
+
     # 4. Split the massive text block into a list of individual lines
     lines = csv_text.splitlines()
-    
+
     # 5. Loop through all lines and filter for the year 1953
     print("Average Monthly Temperatures in Kloten (1953):")
     print("-" * 50)
@@ -262,18 +261,16 @@ if response.status_code == 200:
             # MeteoSwiss separates columns with a semicolon (;)
             # Let's split the line into a list of values
             columns = line.split(";")
-            
+
             # The date is the 2nd column (index 1)
             date = columns[1]
             # The average temperature is the 3rd column (index 2)
             temp = columns[2]
-            
+
             print(f"{date}: {temp}°C")
-            
+
 else:
     print(f"Failed to fetch data. Status code: {response.status_code}")
-
-
 ```
 
 If you run this code, you will see exactly 12 lines of data (one for each month of 1953).
@@ -315,8 +312,6 @@ for x in range(3):
     print(f"Sending request {x}...")
     # Pause for 1 second to respect rate limits
     time.sleep(1)
-
-
 ```
 
 By adding `time.sleep()` inside your data-fetching loops, you ensure your program plays nicely with the API provider's rules.
@@ -395,12 +390,10 @@ megacities = {
     "Shanghai": (31.2286, 121.4747),
     "Sao Paulo": (-23.5504, -46.6339),
     "Seoul": (37.5667, 126.9833),
-    "Mexico City": (19.4333, -99.1333)
+    "Mexico City": (19.4333, -99.1333),
 }
 
 # Your loop goes here
-
-
 ```
 
 ``````{admonition} Sample solution
@@ -479,7 +472,6 @@ MeteoSwiss provides yearly aggregations in a separate file ending in `_y.csv` in
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution

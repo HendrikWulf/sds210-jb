@@ -1,6 +1,16 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210_home
+  language: python
+  name: python3
 site:
- outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
 # Multi-item Variables
@@ -72,30 +82,28 @@ Choosing the right collection type improves the clarity and correctness of your 
 
 For example, imagine we are recording a sequence of elevations (in meters) along a hiking transect:
 
-```{code-cell} python
+```{code-cell} ipython3
 elevations_m = [450, 470, 515, 560, 545, 580]
-
 ```
 
 ### Accessing and Slicing Lists
 
 You can retrieve individual values using their numeric **{term}`index <Index>`** position, always starting at `0`. You can also extract a segment (or "slice") of the list using a colon `:`. This is highly useful for isolating specific chunks of a spatial profile or time series without modifying the original data.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Indexing retrieves a single item
-print("Start of transect:", elevations_m[0])   # 450
-print("End of transect:", elevations_m[-1])    # 580 (negative index counts backward)
+print("Start of transect:", elevations_m[0])  # 450
+print("End of transect:", elevations_m[-1])  # 580 (negative index counts backward)
 
 # Slicing retrieves a new list of items
-print("Middle segment:", elevations_m[1:4])    # [470, 515, 560]
-
+print("Middle segment:", elevations_m[1:4])  # [470, 515, 560]
 ```
 
 ### Building Lists Dynamically
 
 In spatial data science, you rarely type out lists manually. Instead, you often start with an **empty list** and populate it dynamically as you process data (for example, reading coordinates from a file one by one).
 
-```{code-cell} python
+```{code-cell} ipython3
 # Create an empty list
 processed_elevations = []
 
@@ -104,14 +112,13 @@ processed_elevations.append(450)
 processed_elevations.append(470)
 
 print("Dynamically built list:", processed_elevations)
-
 ```
 
 ### Modifying and Expanding Lists
 
 Because lists are mutable, you can change their contents in place. You can overwrite existing values using their index, or dynamically add new measurements to the transect using methods like `.append()`, `.insert()`, and `.extend()`. You can even combine two separate lists using the `+` operator.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Overwrite a specific value
 elevations_m[2] = 520
 
@@ -127,14 +134,13 @@ elevations_m.extend(new_measurements)
 
 # Combine lists to create a completely new list
 all_elevations = elevations_m + [640, 655]
-
 ```
 
 ### Removing and Organizing Items
 
 Python also provides built-in methods to clean and organize your lists. You can remove items by their specific value (`.remove()`), or by their index position (`.pop()` or `del`). Once your data is clean, you can reorganize it using `.sort()` or `.reverse()`. To check how many items remain in your list, use the `len()` function.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Remove the first matching value of '460'
 elevations_m.remove(460)
 
@@ -149,12 +155,11 @@ del elevations_m[0]
 
 # Check the total number of items remaining
 print("Total measurements:", len(elevations_m))
-
 ```
 
 Lists can be sorted in place. You can sort them normally, in reverse, or just flip the current order entirely.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Sort the measurements from lowest to highest elevation
 elevations_m.sort()
 
@@ -163,7 +168,6 @@ elevations_m.sort(reverse=True)
 
 # Reverse the current order directly without sorting
 elevations_m.reverse()
-
 ```
 
 ---
@@ -174,12 +178,11 @@ elevations_m.reverse()
 
 You use tuples when values represent a single logical entity that should be permanently protected. The most common geospatial example is a coordinate pair (latitude, longitude) or a bounding box. Modifying half of a coordinate pair accidentally would ruin your spatial analysis, so storing it as a tuple makes your intention strictly clear: *this group of values is fixed*.
 
-```{code-cell} python
+```{code-cell} ipython3
 manila_coords = (14.6007, 120.9746)
 
 # Attempting to change a value will instantly raise a TypeError
 # manila_coords[0] = 14.7  <-- This fails!
-
 ```
 
 ### Combining and Unpacking Tuples
@@ -188,7 +191,7 @@ While you cannot alter the contents of a tuple, you *can* combine two tuples tog
 
 Tuples also offer a highly readable feature called "unpacking." Unpacking allows you to extract the contents of a tuple into distinct variables in a single, elegant line of code.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Combining tuples
 bbox_min = (14.5, 120.9)
 bbox_max = (14.7, 121.1)
@@ -198,20 +201,18 @@ bbox = bbox_min + bbox_max
 lat, lon = manila_coords
 
 print(f"Latitude: {lat}, Longitude: {lon}")
-
 ```
 
 ### The List Workaround
 
 Sometimes you start with a tuple but later realize the data actually *does* need to change. Because you cannot change the tuple directly, the standard workaround is to convert it to a list using `list()`, modify the list, and then convert it back to a tuple using `tuple()`.
 
-```{code-cell} python
+```{code-cell} ipython3
 colors = ("red", "green", "blue")
 
 temp = list(colors)
 temp.append("yellow")
 colors = tuple(temp)
-
 ```
 
 If you find yourself converting tuples to lists often, you likely chose the wrong data structure to begin with. Use a list from the start!
@@ -224,14 +225,13 @@ If you find yourself converting tuples to lists often, you likely chose the wron
 
 This makes sets the absolute best choice when you need to extract unique categories from messy data, such as identifying the distinct land cover classes in a regional survey.
 
-```{code-cell} python
+```{code-cell} ipython3
 # A messy list containing duplicates
 messy_list = ["forest", "water", "urban", "water", "forest"]
 
 # Converting to a set instantly strips all duplicates!
 unique_classes = set(messy_list)
 print(unique_classes)
-
 ```
 
 ### Modifying Sets and Membership Testing
@@ -240,7 +240,7 @@ Because sets ignore order, you **cannot** access their items using an index (e.g
 
 When removing items, Python gives you two choices: `.remove()` will throw an error if the item doesn't exist, while `.discard()` will silently ignore the request if the item is missing.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Check if a category exists (Returns True/False)
 print("water" in unique_classes)
 
@@ -254,8 +254,7 @@ unique_classes.update({"shrubland", "bare_rock"})
 unique_classes.discard("urban")
 
 # Remove strictly (throws an error if "Europe" is not present)
-# unique_classes.remove("Europe") 
-
+# unique_classes.remove("Europe")
 ```
 
 ---
@@ -266,14 +265,8 @@ unique_classes.discard("urban")
 
 Dictionaries are the backbone of attribute data in Python. Whenever you need to represent the properties of a real-world object—such as the metadata of a weather station, the configuration settings of an algorithm, or a GeoJSON feature—a dictionary is the correct choice.
 
-```{code-cell} python
-station = {
-    "id": "CH-BRN",
-    "name": "Bern",
-    "elevation_m": 540,
-    "temperature_C": 12.4
-}
-
+```{code-cell} ipython3
+station = {"id": "CH-BRN", "name": "Bern", "elevation_m": 540, "temperature_C": 12.4}
 ```
 
 ### Accessing, Modifying, and Safe Lookup
@@ -282,7 +275,7 @@ You retrieve values by passing the exact string name of the key inside square br
 
 If you try to access a key that does not exist using square brackets (e.g., `station["precipitation"]`), Python will raise a `KeyError`. When working with real-world datasets that might have missing attributes, it is much safer to use the `.get()` method. It allows you to request a key and provide a default fallback value just in case the key is missing.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Update an existing value
 station["elevation_m"] = 542
 
@@ -291,14 +284,13 @@ station["active"] = True
 
 # Safely request precipitation. If it's missing, return "No data"
 precip = station.get("precipitation", "No data")
-
 ```
 
 ### Advanced Dictionary Methods
 
 Dictionaries come with powerful methods to manage their contents and explore their structure. You can update multiple key-value pairs at once using `.update()`. When you want to explore the dictionary without knowing the keys in advance, you can use *views*: `.keys()` shows all the labels, `.values()` shows the raw data, and `.items()` shows both together as tuples.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Update multiple values at once
 station.update({"population": 133000, "country": "Switzerland"})
 
@@ -306,7 +298,6 @@ station.update({"population": 133000, "country": "Switzerland"})
 print("Keys:", station.keys())
 print("Values:", station.values())
 print("Key-Value Pairs:", station.items())
-
 ```
 
 ```{admonition} Extracting Dictionary Views
@@ -318,7 +309,7 @@ When you use `.keys()` or `.values()`, Python returns a dynamic *view*. If you n
 
 If you need to remove data, you have multiple options depending on your needs.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Remove a specific key and return its value
 station.pop("temperature_C")
 
@@ -327,7 +318,6 @@ station.popitem()
 
 # Wipe the entire dictionary clean
 station.clear()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -390,19 +380,14 @@ To work with values stored inside collections, Python relies heavily on **indexi
 
 Collections can easily contain other collections. This is called **nesting**, and it is how we build multidimensional matrices (like grids of pixels or lists of coordinates). To access data buried inside nested collections, you simply chain the brackets together. Python evaluates indexing **one level at a time, from the outside in**.
 
-```{code-cell} python
+```{code-cell} ipython3
 # A 2D list representing a 3x3 grid
-grid = [
-    [1, 2, 3],
-    [7, 8, 9],
-    [6, 5, 4]
-]
+grid = [[1, 2, 3], [7, 8, 9], [6, 5, 4]]
 
 # Step 1: grid[1] selects the second row -> [7, 8, 9]
 # Step 2: [0] selects the first item in that row -> 7
 value = grid[1][0]
 print(value)
-
 ```
 
 You do not need special syntax for higher dimensions; you just keep applying brackets for each level you want to drill into.
@@ -415,7 +400,7 @@ How Python handles assignment (`=`) depends entirely on the type of data you are
 
 When you assign a **single value** (like an integer or string) to a new variable, Python creates an independent copy. However, when you assign a **mutable collection** (like a list, dictionary, or set) to a new variable, Python does **not** create a copy. Instead, it creates a shared reference: both variables now point to the exact same object in computer memory.
 
-```{code-cell} python
+```{code-cell} ipython3
 list_a = [1, 2, 3]
 list_b = list_a
 
@@ -423,8 +408,7 @@ list_b = list_a
 list_a.append(4)
 
 # The "second" list changed too!
-print(list_b) # Output: [1, 2, 3, 4]
-
+print(list_b)  # Output: [1, 2, 3, 4]
 ```
 
 Because Python wants to save memory and processing time, it assumes you just want two name tags (`list_a` and `list_b`) pointing at the same underlying box of data.
@@ -437,7 +421,7 @@ This distinction is why Python has two different comparison operators. `==` chec
 
 If you actually want a separate, safe backup of a collection before you manipulate it, you must explicitly tell Python to clone the memory block using `.copy()` or by wrapping it in the collection constructor (e.g. `list()`).
 
-```{code-cell} python
+```{code-cell} ipython3
 list_a = [1, 2, 3]
 
 # Create a true, independent clone
@@ -448,7 +432,6 @@ list_c = list_a.copy()
 list_a.append(4)
 print("Original:", list_a)
 print("Independent Clone:", list_c)
-
 ```
 
 ```{admonition} Copying Nested Objects
@@ -514,17 +497,16 @@ You have received raw field information and need to organise it into the **appro
 
 ### Given Data
 
-```{code-cell} python
+```{code-cell} ipython3
 raw_cities = ["Bari", "Harare", "Manila", "Harare"]
-coords = (41.1311, 16.8701)   
+coords = (41.1311, 16.8701)
 
 raw_attributes = {
     "station": "Bari",
     "elevation_m": 315,
-    "crs": "EPSG:4326"
+    "crs": "EPSG:4326",
     # Note: "discharge_m3s" is missing
 }
-
 ```
 
 ### Task

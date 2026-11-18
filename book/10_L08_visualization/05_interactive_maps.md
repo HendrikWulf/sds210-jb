@@ -1,8 +1,12 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+site:
+  outline_maxdepth: 1
 ---
 
 # Going Interactive
@@ -77,7 +81,6 @@ import folium
 m = folium.Map()
 # Display the map object. This will render the map.
 m
-
 ```
 
 You can customise it by providing a starting `location` (passed as a list containing `[latitude, longitude]`) and an initial **{term}`zoom level <Zoom level>`** via the `zoom_start` **{term}`parameter <Parameter>`**. Higher numbers zoom in closer to the street level, while lower numbers zoom out toward a global view. You can also define a basemap using `tiles` to change the `OpenStreetMap` default.
@@ -91,14 +94,13 @@ import folium
 # Initialize the map centered on Zurich
 # Coordinates are [Latitude, Longitude]
 zurich_map = folium.Map(
-    location=[47.3769, 8.5417], 
+    location=[47.3769, 8.5417],
     zoom_start=13,
-    tiles="CartoDB Positron" # A clean, light basemap
+    tiles="CartoDB Positron",  # A clean, light basemap
 )
 
 # Display the map in the notebook
 zurich_map
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -152,7 +154,6 @@ clean_map = folium.Map(
 )
 
 clean_map
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -198,21 +199,16 @@ import folium
 import geopandas as gpd
 
 # 1. Load the bicycle parking data and reproject to standard Lat/Lon (EPSG:4326)
-bike_parking = gpd.read_file('data/Zurich_bike_parking.gpkg').to_crs(epsg=4326)
+bike_parking = gpd.read_file("data/Zurich_bike_parking.gpkg").to_crs(epsg=4326)
 
 # 2. Initialize the basemap centered on Zurich
-m1 = folium.Map(
-    location=[47.3769, 8.5417], 
-    zoom_start=13, 
-    tiles='CartoDB Positron'
-)
+m1 = folium.Map(location=[47.3769, 8.5417], zoom_start=13, tiles="CartoDB Positron")
 
 # 3. Add the raw GeoDataFrame to the map as a GeoJSON layer
-folium.GeoJson(bike_parking).add_to(m1)                         # <- THIS IS NEW
+folium.GeoJson(bike_parking).add_to(m1)  # <- THIS IS NEW
 
 # 4. Display the map
 m1
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -227,19 +223,18 @@ If you plan to add multiple datasets (like bike lanes and pumping stations) to a
 
 ```{code-cell} python
 # Initialize the basemap centered on Zurich
-m2 = folium.Map(location=[47.3769, 8.5417], zoom_start=13, tiles='CartoDB Positron')
+m2 = folium.Map(location=[47.3769, 8.5417], zoom_start=13, tiles="CartoDB Positron")
 
 # Add the layer and assign it a clean, readable name for the menu
 folium.GeoJson(
     bike_parking,
-    name='Bike Parking'                                         # <- THIS IS NEW
+    name="Bike Parking",  # <- THIS IS NEW
 ).add_to(m2)
 
 # Add the interactive layer control menu to the top right corner
-folium.LayerControl().add_to(m2)                                # <- THIS IS NEW
+folium.LayerControl().add_to(m2)  # <- THIS IS NEW
 
 m2
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -254,24 +249,22 @@ Right now, our markers are blind. To make the map informative, we need to reveal
 
 ```{code-cell} python
 # Initialize the basemap centered on Zurich
-m3 = folium.Map(location=[47.3769, 8.5417], zoom_start=13, tiles='CartoDB Positron')
+m3 = folium.Map(location=[47.3769, 8.5417], zoom_start=13, tiles="CartoDB Positron")
 
 # Add the layer with a configured tooltip
 folium.GeoJson(
     bike_parking,
-    name='Bike Parking',
+    name="Bike Parking",
     # Link the tooltip to the 'anzahl_pp' column and give it a readable English alias
-    tooltip=folium.GeoJsonTooltip(                              # <- THIS IS NEW
-        fields=['anzahl_pp'], 
-        aliases=['Spaces:']
-    )
+    tooltip=folium.GeoJsonTooltip(  # <- THIS IS NEW
+        fields=["anzahl_pp"], aliases=["Spaces:"]
+    ),
 ).add_to(m3)
 
 # Add the interactive layer control menu
 folium.LayerControl().add_to(m3)
 
 m3
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -286,23 +279,22 @@ Standard blue teardrop markers are generic. We can customize the aesthetics by p
 
 ```{code-cell} python
 # Initialize the basemap centered on Zurich
-m4 = folium.Map(location=[47.3769, 8.5417], zoom_start=13, tiles='CartoDB Positron')
+m4 = folium.Map(location=[47.3769, 8.5417], zoom_start=13, tiles="CartoDB Positron")
 
 # Add the layer with a custom marker parameter
 folium.GeoJson(
     bike_parking,
-    name='Bike Parking',
-    tooltip=folium.GeoJsonTooltip(fields=['anzahl_pp'], aliases=['Spaces:']),
+    name="Bike Parking",
+    tooltip=folium.GeoJsonTooltip(fields=["anzahl_pp"], aliases=["Spaces:"]),
     # Override the default teardrop with a blue bicycle icon
-    marker=folium.Marker(                                       # <- THIS IS NEW
-        icon=folium.Icon(color='blue', icon='bicycle', prefix='fa')
-    )
+    marker=folium.Marker(  # <- THIS IS NEW
+        icon=folium.Icon(color="blue", icon="bicycle", prefix="fa")
+    ),
 ).add_to(m4)
 
 # Add the interactive layer control menu
 folium.LayerControl().add_to(m4)
 m4
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -321,32 +313,33 @@ We can solve this using the `MarkerCluster` plugin.
 from folium.plugins import MarkerCluster
 
 # Initialize the basemap centered on Zurich
-m5 = folium.Map(location=[47.3769, 8.5417], zoom_start=13, tiles='CartoDB Positron')
+m5 = folium.Map(location=[47.3769, 8.5417], zoom_start=13, tiles="CartoDB Positron")
 
 # Create an empty MarkerCluster group and add it to the map
-marker_cluster = MarkerCluster(name='Bike Parking Clusters').add_to(m5) # <- THIS IS NEW
+marker_cluster = MarkerCluster(name="Bike Parking Clusters").add_to(
+    m5
+)  # <- THIS IS NEW
 
 # Iterate manually through the GeoDataFrame to ensure tooltips survive clustering
-for idx, row in bike_parking.iterrows():                          # <- THIS IS DIFFERENT
+for idx, row in bike_parking.iterrows():  # <- THIS IS DIFFERENT
     # Extract coordinates
     lat = row.geometry.y
     lon = row.geometry.x
-    
+
     # Format the tooltip text explicitly
     tooltip_text = f"Spaces: {int(row['anzahl_pp'])}"
-    
+
     # Create the individual marker and add it to the cluster (NOT directly to the map)
     folium.Marker(
         location=[lat, lon],
-        icon=folium.Icon(color='blue', icon='bicycle', prefix='fa'),
-        tooltip=tooltip_text
+        icon=folium.Icon(color="blue", icon="bicycle", prefix="fa"),
+        tooltip=tooltip_text,
     ).add_to(marker_cluster)
 
 # Add the interactive layer control menu
 folium.LayerControl().add_to(m5)
 
 m5
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -365,21 +358,21 @@ Instead of using a generic icon, we can dynamically scale the size of our custom
 import numpy as np
 
 # Initialize the basemap centered on Zurich
-m6 = folium.Map(location=[47.3769, 8.5417], zoom_start=13, tiles='CartoDB Positron')
-marker_cluster = MarkerCluster(name='Scaled Bike Parking Clusters').add_to(m6)
+m6 = folium.Map(location=[47.3769, 8.5417], zoom_start=13, tiles="CartoDB Positron")
+marker_cluster = MarkerCluster(name="Scaled Bike Parking Clusters").add_to(m6)
 
 for idx, row in bike_parking.iterrows():
     lat = row.geometry.y
     lon = row.geometry.x
-    count = int(row['anzahl_pp'])
+    count = int(row["anzahl_pp"])
     tooltip_text = f"Spaces: {count}"
 
-    # Mathematical Scaling Logic: 
+    # Mathematical Scaling Logic:
     # Base size of 14px, plus an increase based on the square root of the parking count
-    icon_size = 14 + (np.sqrt(count) * 3)                      # <- THIS IS NEW
+    icon_size = 14 + (np.sqrt(count) * 3)  # <- THIS IS NEW
 
     # Injecting custom CSS to draw a perfect circle with our dynamic size (NEW)
-    icon_html = f'''
+    icon_html = f"""
         <div style="
             font-size: {icon_size}px;
             color: #1f77b4;
@@ -392,24 +385,23 @@ for idx, row in bike_parking.iterrows():
             justify-content: center;
             border: 1px solid #1f77b4;">
             <i class="fa fa-bicycle"></i>
-        </div>'''
+        </div>"""
 
     # Apply the custom HTML using DivIcon
     folium.Marker(
         location=[lat, lon],
-        icon=folium.DivIcon(                                    # <- THIS IS NEW
+        icon=folium.DivIcon(  # <- THIS IS NEW
             html=icon_html,
             icon_size=(icon_size, icon_size),
-            icon_anchor=(icon_size/2, icon_size/2) # Centers the icon perfectly
+            icon_anchor=(icon_size / 2, icon_size / 2),  # Centers the icon perfectly
         ),
-        tooltip=tooltip_text
+        tooltip=tooltip_text,
     ).add_to(marker_cluster)
 
 # Add the interactive layer control menu
 folium.LayerControl().add_to(m6)
 
 m6
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -440,29 +432,30 @@ import geopandas as gpd
 quarters = gpd.read_file("data/Zurich_quarters.gpkg")
 
 # Calculate the area in square kilometers
-quarters['area'] = (quarters.geometry.area / 1000000).round(3)
+quarters["area"] = (quarters.geometry.area / 1000000).round(3)
 
 # 2. Initialize the Folium Map
-m = folium.Map(location=[47.3769, 8.5417], zoom_start=12, tiles="CartoDB Positron No Labels")
+m = folium.Map(
+    location=[47.3769, 8.5417], zoom_start=12, tiles="CartoDB Positron No Labels"
+)
 
 # 3. Add the Choropleth layer
 folium.Choropleth(
-    geo_data=quarters,             # The spatial geometries
-    name="Quarter Area",           # Name for the LayerControl
-    data=quarters,                 # The tabular data source containing the values
-    columns=["name", "area"],      # [The Key column to match, The Value column to color by]
-    key_on="feature.properties.name", # The exact path to the key inside the GeoJSON structure
-    fill_color="viridis",          # The color palette
-    fill_opacity=0.6,              # Transparency of the polygons
-    line_opacity=0.2,              # Transparency of the borders
-    legend_name="Area in km2"      # Title for the automatically generated legend
+    geo_data=quarters,  # The spatial geometries
+    name="Quarter Area",  # Name for the LayerControl
+    data=quarters,  # The tabular data source containing the values
+    columns=["name", "area"],  # [The Key column to match, The Value column to color by]
+    key_on="feature.properties.name",  # The exact path to the key inside the GeoJSON structure
+    fill_color="viridis",  # The color palette
+    fill_opacity=0.6,  # Transparency of the polygons
+    line_opacity=0.2,  # Transparency of the borders
+    legend_name="Area in km2",  # Title for the automatically generated legend
 ).add_to(m)
 
 # 4. Add layer control to toggle the map on and off
 folium.LayerControl().add_to(m)
 
 m
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -488,27 +481,26 @@ if quarters.crs is None:
 if bike_parking.crs is None:
     bike_parking.set_crs(epsg=2056, inplace=True)
 
-quarters['area_km2'] = (quarters.geometry.area / 1000000).round(3)
+quarters["area_km2"] = (quarters.geometry.area / 1000000).round(3)
 
 # 2. Spatial Join: Count parking locations within each quarter
 joined = gpd.sjoin(bike_parking, quarters, how="inner", predicate="within")
 
 # Handle potential naming conflicts from the join
-name_col = 'name_right' if 'name_right' in joined.columns else 'name'
+name_col = "name_right" if "name_right" in joined.columns else "name"
 
 # Group by the quarter name and count the occurrences
-counts = joined.groupby(name_col).size().reset_index(name='anzahl_pp')
-counts.rename(columns={name_col: 'name'}, inplace=True)
+counts = joined.groupby(name_col).size().reset_index(name="anzahl_pp")
+counts.rename(columns={name_col: "name"}, inplace=True)
 
 # Merge the counts back into the main quarters GeoDataFrame
-quarters = quarters.merge(counts, on='name', how='left').fillna({'anzahl_pp': 0})
+quarters = quarters.merge(counts, on="name", how="left").fillna({"anzahl_pp": 0})
 
 # Calculate the density (parking locations per square kilometer)
-quarters['parking_density'] = (quarters['anzahl_pp'] / quarters['area_km2']).round(2)
+quarters["parking_density"] = (quarters["anzahl_pp"] / quarters["area_km2"]).round(2)
 
 # 3. Reproject back to Web standard for Folium
 quarters_4326 = quarters.to_crs(epsg=4326)
-
 ```
 
 ### Step 3: Multi-Layer Choropleths with Tooltips
@@ -521,7 +513,9 @@ Finally, we encounter a quirk of Folium. The `folium.Choropleth` class does not 
 
 ```{code-cell} python
 # Initialize the map
-m2 = folium.Map(location=[47.3769, 8.5417], zoom_start=12, tiles="CartoDB Positron No Labels")
+m2 = folium.Map(
+    location=[47.3769, 8.5417], zoom_start=12, tiles="CartoDB Positron No Labels"
+)
 
 # 1. Area Choropleth (Hidden by default using show=False)
 folium.Choropleth(
@@ -534,7 +528,7 @@ folium.Choropleth(
     fill_opacity=0.6,
     line_opacity=0.2,
     legend_name="Area in km2",
-    show=False # Keeps the map clean on initial load
+    show=False,  # Keeps the map clean on initial load
 ).add_to(m2)
 
 # 2. Density Choropleth (Visible by default)
@@ -555,19 +549,18 @@ folium.GeoJson(
     quarters_4326,
     name="Interactive Tooltips",
     # Make the polygons completely transparent so they do not hide the choropleth colors
-    style_function=lambda x: {'fillColor': '#ffffff00', 'color': '#ffffff00'},
+    style_function=lambda x: {"fillColor": "#ffffff00", "color": "#ffffff00"},
     tooltip=folium.GeoJsonTooltip(
-        fields=['name', 'parking_density'],
-        aliases=['Quarter:', 'Density:'],
-        localize=True
-    )
+        fields=["name", "parking_density"],
+        aliases=["Quarter:", "Density:"],
+        localize=True,
+    ),
 ).add_to(m2)
 
 # Add Layer Control and display
 folium.LayerControl().add_to(m2)
 
 m2
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -593,16 +586,15 @@ Let us recreate our parking density map using the `quarters_4326` GeoDataFrame w
 
 # Generate an interactive choropleth in a single command
 interactive_map = quarters_4326.explore(
-    column="parking_density",   # The column dictating the color
-    cmap="viridis",             # The colormap
-    alpha=0.6,                  # Transparency of the polygons
-    tiles="CartoDB Positron No Labels", # A clean basemap
-    legend_kwds={'caption': 'Parking locations / km²'} # Set legend title
+    column="parking_density",  # The column dictating the color
+    cmap="viridis",  # The colormap
+    alpha=0.6,  # Transparency of the polygons
+    tiles="CartoDB Positron No Labels",  # A clean basemap
+    legend_kwds={"caption": "Parking locations / km²"},  # Set legend title
 )
 
 # Display the map
 interactive_map
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -636,7 +628,9 @@ This is the perfect approach for building **Multi-Layer Dashboards**. It allows 
 import folium
 
 # 1. Initialize the Folium map (The Control)
-my_map = folium.Map(location=[47.37, 8.54], zoom_start=12, tiles="CartoDB Positron No Labels")
+my_map = folium.Map(
+    location=[47.37, 8.54], zoom_start=12, tiles="CartoDB Positron No Labels"
+)
 
 # 2. Prepare the data
 bike_lanes = gpd.read_file("data/Zurich_bike_lanes_masterplan.gpkg")
@@ -648,7 +642,6 @@ bike_lanes.explore(m=my_map, color="blue", name="Bike Lanes")
 folium.LayerControl().add_to(my_map)
 
 my_map
-
 ```
 
 ---
@@ -676,7 +669,6 @@ Because charging stations are numerous, you must use clustering to prevent visua
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ``````{admonition} Sample Solution

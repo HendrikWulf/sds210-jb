@@ -1,8 +1,16 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
+  outline_maxdepth: 1
 ---
 
 # Data Classification
@@ -47,7 +55,6 @@ However, if you try to plot these raw numbers directly, the resulting map can be
 :class: dropdown
 
 To follow along with this chapter, place the following dataset in a `data` folder next to your notebook:
-
 * [swissBoundaries3D_municipalities.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_municipalities.gpkg)
 
 ```
@@ -70,7 +77,7 @@ To fix this area bias, we must convert our counts into **spatially intensive** v
 
 Let us load the Swiss municipalities and prove this visually by comparing the extensive total population to the intensive population density.
 
-```{code-cell} python
+```{code-cell} ipython3
 import geopandas as gpd
 import matplotlib.pyplot as plt
 
@@ -87,40 +94,39 @@ fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 6))
 
 # Plot 1: Raw Population
 muni_gdf.plot(
-    column="einwohnerzahl", 
-    ax=ax1, 
+    column="einwohnerzahl",
+    ax=ax1,
     cmap="Blues",
     legend=True,
-    legend_kwds={"orientation": "horizontal", "label": "Total Population"}
+    legend_kwds={"orientation": "horizontal", "label": "Total Population"},
 )
 ax1.set_title("1. Population")
 ax1.axis("off")
 
 # Plot 2: Raw Area
 muni_gdf.plot(
-    column="gem_flaeche", 
-    ax=ax2, 
+    column="gem_flaeche",
+    ax=ax2,
     cmap="Greens",
     legend=True,
-    legend_kwds={"orientation": "horizontal", "label": "Area (Hectares)"}
+    legend_kwds={"orientation": "horizontal", "label": "Area (Hectares)"},
 )
 ax2.set_title("2. Area")
 ax2.axis("off")
 
 # Plot 3: Population Density (The correct way)
 muni_gdf.plot(
-    column="pop_density", 
-    ax=ax3, 
+    column="pop_density",
+    ax=ax3,
     cmap="Reds",
     legend=True,
-    legend_kwds={"orientation": "horizontal", "label": "People per Hectare"}
+    legend_kwds={"orientation": "horizontal", "label": "People per Hectare"},
 )
 ax3.set_title("3. Population Density")
 ax3.axis("off")
 
 plt.tight_layout()
 plt.show()
-
 ```
 
 Click through the tabs below to see how plotting a spatially extensive variable creates a visual illusion, and how a spatially intensive ratio fixes it.
@@ -197,9 +203,10 @@ Once the data is classified into text labels (categories), there is a common tra
 
 To fix this, we can quickly convert the new column into a Pandas `Categorical` data type to enforce a strict, logical order before plotting.
 
-```{code-cell} python
+```{code-cell} ipython3
 import pandas as pd
 import matplotlib.pyplot as plt
+
 
 # 1. Define a custom classification function
 def classify_density(density_value):
@@ -214,29 +221,28 @@ def classify_density(density_value):
     else:
         return "Very High"
 
+
 # 2. Apply the function to create a new classified column
 muni_gdf["density_class"] = muni_gdf["pop_density"].apply(classify_density)
 
 # 3. Enforce a logical order for our categories (prevents alphabetical sorting in the legend)
 category_order = ["Very Low", "Low", "Medium", "High", "Very High"]
 muni_gdf["density_class"] = pd.Categorical(
-    muni_gdf["density_class"], 
-    categories=category_order, 
-    ordered=True
+    muni_gdf["density_class"], categories=category_order, ordered=True
 )
 
 # 4. Plot the beautifully ordered categorical map
 fig, ax = plt.subplots(figsize=(12, 8))
 
 muni_gdf.plot(
-    column="density_class", 
-    categorical=True,       # Tell GeoPandas these are distinct groups, not a continuous scale
-    cmap="YlOrRd",          # Yellow to Orange to Red color map
-    linewidth=0.1, 
-    edgecolor="darkgrey", 
+    column="density_class",
+    categorical=True,  # Tell GeoPandas these are distinct groups, not a continuous scale
+    cmap="YlOrRd",  # Yellow to Orange to Red color map
+    linewidth=0.1,
+    edgecolor="darkgrey",
     legend=True,
     legend_kwds={"title": "Density Class", "loc": "upper left"},
-    ax=ax
+    ax=ax,
 )
 
 ax.set_title("Rule-Based Classification of Population Density")
@@ -245,7 +251,6 @@ plt.show()
 
 # Let's peek at the actual data table too!
 display(muni_gdf[["name", "pop_density", "density_class"]].head(3))
-
 ```
 
 :::{figure} images/33_rule_based_density_map.png
@@ -273,28 +278,27 @@ Here are the four most common statistical classification schemes:
 
 You do not even need to write the complex mathematical code for these. GeoPandas allows you to pass the `scheme` directly into the `.plot()` command, along with `k` to define the number of bins!
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots(figsize=(10, 6))
 
 # Plotting with a statistical classification scheme
 muni_gdf.plot(
-    column="pop_density", 
-    scheme="quantiles",   # Change this string to test different algorithms!
-    k=5,                  # Number of bins
-    cmap="Reds", 
+    column="pop_density",
+    scheme="quantiles",  # Change this string to test different algorithms!
+    k=5,  # Number of bins
+    cmap="Reds",
     legend=True,
     legend_kwds={"title": "Pop Density (Quantiles)", "loc": "upper left"},
     linewidth=0.1,
     edgecolor="darkgrey",
-    ax=ax
+    ax=ax,
 )
 
 ax.set_title("Statistical Classification of Population Density")
 ax.axis("off")
 plt.show()
-
 ```
 
 Let us compare how these four different algorithms slice the exact same `pop_density` data into 5 classes. Click through the tabs below and pay close attention to the numbers in the legends!
@@ -441,9 +445,8 @@ However, geography is messy. Some municipalities have lakes but zero residents. 
 3. **Calculate the Ratio:** Create a new column called `water_ratio` by dividing the population (`einwohnerzahl`) by the newly cleaned lake area (`see_flaeche`).
 4. **Plot and Classify:** Plot the `water_ratio` column. Use the `quantiles` scheme with `k=5` classes. Use the `missing_kwds` argument to color all the municipalities that had no lakes in `lightgrey`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution

@@ -1,4 +1,14 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
   outline_maxdepth: 1
 ---
@@ -47,7 +57,6 @@ Before we begin, make sure you have downloaded the necessary datasets for this c
 :class: dropdown
 
 To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
-
 * [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
 * [NuclearPowerPlant.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/NuclearPowerPlant.csv)
 * [meteoswiss_pollen_network.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/meteoswiss_pollen_network.csv)
@@ -60,16 +69,18 @@ To follow along with this chapter, place the following datasets in a `data` fold
 
 Let us start by looking at a standard Pandas DataFrame. We will reload the extended Kloten weather dataset from our previous exercises.
 
-```{code-cell} python
+```{code-cell} ipython3
 import pandas as pd
 
 # Load the familiar Kloten dataset
 kloten_df = pd.read_csv(
-    "data/kloten_summer_2022_extended.txt", sep=r"\s+", skiprows=[1], na_values=["-9999"]
+    "data/kloten_summer_2022_extended.txt",
+    sep=r"\s+",
+    skiprows=[1],
+    na_values=["-9999"],
 )
 
 display(kloten_df.head(2))
-
 ```
 
 This table is extremely useful for statistical analysis, but it has a fundamental flaw: **it has no concept of space.** Python knows that the maximum temperature was 19.6 degrees, but it has no idea where the Kloten weather station actually is on Earth.
@@ -122,7 +133,7 @@ Because Shapely objects are mathematically aware, they come equipped with built-
 
 Let us look at how these geometries are constructed in pure Python:
 
-```{code-cell} python
+```{code-cell} ipython3
 from shapely.geometry import Point, LineString, Polygon
 
 # 1. Point: A single coordinate pair (Longitude, Latitude)
@@ -140,7 +151,6 @@ print(f"Point geometry: {point.wkt}")
 # Objects know their own mathematical properties
 print(f"Line length: {line.length:.2f} degrees")
 print(f"Polygon area: {poly.area} square degrees")
-
 ```
 
 ### Complex Entities (Multi-Geometries)
@@ -161,7 +171,7 @@ Just like the fundamental primitives, these complex entities have standardized W
 
 Creating these in Python is just as straightforward as creating the primitives. You just wrap the individual geometries in a list:
 
-```{code-cell} python
+```{code-cell} ipython3
 from shapely.geometry import MultiPoint, MultiPolygon
 
 # Grouping multiple Point objects into a single MultiPoint entity
@@ -177,7 +187,6 @@ multi_poly = MultiPolygon(
 
 print(f"MultiPoint geometry: {multi_point.wkt}")
 print(f"Total area of all polygons combined: {multi_poly.area} square degrees")
-
 ```
 
 ---
@@ -190,7 +199,7 @@ To demonstrate how to upgrade a standard table into a spatially aware object, we
 
 First, we load the CSV using standard Pandas:
 
-```{code-cell} python
+```{code-cell} ipython3
 import geopandas as gpd
 import pandas as pd
 
@@ -200,7 +209,6 @@ pollen_df = pd.read_csv("data/meteoswiss_pollen_network.csv")
 # Look at the data types
 print("Original type:", type(pollen_df))
 display(pollen_df.head(3))
-
 ```
 
 Notice that the spatial data is currently trapped in the `X` and `Y` columns as basic numeric coordinates.
@@ -213,7 +221,7 @@ A **GeoDataFrame** is basically like a standard pandas DataFrame, but it contain
 
 To transform our pollen data into a GeoDataFrame, we must tell GeoPandas to take the coordinate columns, fuse them into Shapely `Point` objects, and store them in a new `GeoSeries` column named `geometry`. We do this using the `gpd.points_from_xy()` function:
 
-```{code-cell} python
+```{code-cell} ipython3
 # 2. Convert the standard DataFrame into a GeoDataFrame
 pollen_gdf = gpd.GeoDataFrame(
     pollen_df, geometry=gpd.points_from_xy(pollen_df["X"], pollen_df["Y"])
@@ -222,7 +230,6 @@ pollen_gdf = gpd.GeoDataFrame(
 # Verify the transformation!
 print("New type:", type(pollen_gdf))
 display(pollen_gdf.head(3))
-
 ```
 
 Congratulations! You have just created your first GeoDataFrame. Notice the brand new `geometry` column on the far right. It contains actual Shapely `Point` objects, meaning this data is now fully equipped for spatial analysis.
@@ -280,10 +287,9 @@ However, **a GeoDataFrame can only have one active geometry at a time.** This ac
 
 You can always check which column is currently powering the spatial engine using the `.geometry.name` attribute:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Check which column is currently powering the spatial math
 print("The active geometry column is:", pollen_gdf.geometry.name)
-
 ```
 
 ### Switching the Spatial Context
@@ -312,9 +318,8 @@ Your task is to ingest this purely tabular data, explore its structure, and upgr
 4. **Verify:** Print the **{term}`data type <Data type>`** of `power_plants_gdf` to verify it is no longer a standard DataFrame.
 5. **Inspect:** Display the first 3 rows to confirm the new `geometry` column exists. Finally, to tie it all together, print the name of the active geometry column!
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution

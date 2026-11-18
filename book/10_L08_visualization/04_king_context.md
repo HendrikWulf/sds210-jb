@@ -1,8 +1,16 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
+  outline_maxdepth: 1
 ---
 
 # Context is King
@@ -117,7 +125,7 @@ Let us load the [umbral path polygon](http://xjubier.free.fr/en/site_pages/Solar
 
 Once the data is plotted on our axes, we use the `ctx.add_basemap(ax)` function. This tool looks at the current spatial boundaries of your axes, connects to the internet to download the corresponding OpenStreetMap tiles, and seamlessly draws them underneath your data.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Install the contextily package if you haven't already:
 
 # Colab:
@@ -131,18 +139,15 @@ import matplotlib.pyplot as plt
 import contextily as ctx
 
 # Load the umbral path polygon and instantly reproject to Web Mercator (EPSG:3857)
-eclipse_path = gpd.read_file("data/total_solar_eclipse_03-09-2081_core_shadow.gpkg").to_crs(epsg=3857)
+eclipse_path = gpd.read_file(
+    "data/total_solar_eclipse_03-09-2081_core_shadow.gpkg"
+).to_crs(epsg=3857)
 
 # Set up the Figure and Axes
 fig, ax = plt.subplots(figsize=(12, 8))
 
 # Plot the eclipse path with transparency so the basemap shows through
-eclipse_path.plot(
-    ax=ax, 
-    facecolor="black", 
-    alpha=0.4, 
-    edgecolor="none"
-)
+eclipse_path.plot(ax=ax, facecolor="black", alpha=0.4, edgecolor="none")
 
 # Add the default OpenStreetMap basemap
 ctx.add_basemap(ax)
@@ -150,7 +155,6 @@ ctx.add_basemap(ax)
 ax.set_title("Path of Totality: Solar Eclipse Sept 3rd, 2081", fontsize=16)
 
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -171,11 +175,10 @@ There is no single "best" basemap. Sometimes you need detailed satellite imagery
 
 You can view the main providers by printing the `ctx.providers` dictionary. On top, you can filter for open-access providers only:
 
-```{code-cell} python
+```{code-cell} ipython3
 import contextily as ctx
 
 print(list(ctx.providers.filter(requires_token=False)))
-
 ```
 
 :::{figure} images/11_basemaps_tiles.webp
@@ -188,32 +191,25 @@ print(list(ctx.providers.filter(requires_token=False)))
 
 Furthermore, each provider offers multiple unique styles. For example, we can inspect the specific basemaps offered by OpenStreetMap:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Print the names of different basemap styles
 print(ctx.providers.OpenStreetMap.keys())
-
 ```
 
 Test different providers and styles by changing the source flag and adding different providers and styles-
 
-```{code-cell} python
+```{code-cell} ipython3
 # Set up the Figure and Axes
 fig, ax = plt.subplots(figsize=(12, 8))
 
 # Plot the eclipse path with transparency so the basemap shows through
-eclipse_path.plot(
-    ax=ax, 
-    facecolor="black", 
-    alpha=0.4, 
-    edgecolor="none"
-)
+eclipse_path.plot(ax=ax, facecolor="black", alpha=0.4, edgecolor="none")
 
 # Replace the default OpenStreetMap with another basemap
 ctx.add_basemap(ax, source=ctx.providers.OpenTopoMap.url)
 
 ax.set_title("Path of Totality: Solar Eclipse Sept 3rd, 2081", fontsize=16)
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -238,7 +234,7 @@ When you call `ctx.add_basemap()`, contextily automatically calculates a reasona
 
 If you aren't sure what zoom level to use, contextily provides handy utility functions to calculate it based on your data's spatial bounds:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Calculate the optimal zoom level for the entire eclipse path
 zoom_level = ctx.tile._calculate_zoom(*eclipse_path.total_bounds)
 print(f"Optimal auto-zoom level: {zoom_level}")
@@ -246,7 +242,6 @@ print(f"Optimal auto-zoom level: {zoom_level}")
 # Check how many tiles a specific zoom level would download
 tile_count = ctx.howmany(*eclipse_path.total_bounds, zoom=4, ll=False)
 print(f"Tiles required at zoom level 4: {tile_count}")
-
 ```
 
 ### Polishing the Map: Axes, Extents, and Attribution
@@ -257,19 +252,19 @@ Since we want to know if Zurich will experience totality, we don't need to look 
 
 Finally, we must clean up the visual clutter. The Web Mercator coordinate numbers on the X and Y axes are mathematically accurate (representing meters), but they are entirely useless to a human reader. We will remove them using `ax.set_axis_off()`. Because we are publishing this, we will also use the `attribution` parameter to properly credit both our data source and the map provider.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Set up the Figure and Axes
 fig, ax = plt.subplots(figsize=(10, 8))
 
 # Plot the eclipse path
 eclipse_path.plot(
-    ax=ax, 
-    facecolor="#2c1932", # A dark purple from the twilight palette
-    alpha=0.6, 
-    edgecolor="none"
+    ax=ax,
+    facecolor="#2c1932",  # A dark purple from the twilight palette
+    alpha=0.6,
+    edgecolor="none",
 )
 
-# 1. Spatial Zoom: Focus on the Alps/Switzerland region 
+# 1. Spatial Zoom: Focus on the Alps/Switzerland region
 # (Coordinates are in EPSG:3857 Web Mercator meters)
 ax.set_xlim(600000, 1500000)
 ax.set_ylim(5700000, 6300000)
@@ -279,10 +274,7 @@ custom_credits = "Eclipse Data: NASA | Map Tiles © CartoDB"
 
 # 3. Add Basemap: Use CartoDB Positron for a clean look, set a specific zoom, and apply credits
 ctx.add_basemap(
-    ax, 
-    source=ctx.providers.CartoDB.Positron, 
-    zoom=7,
-    attribution=custom_credits
+    ax, source=ctx.providers.CartoDB.Positron, zoom=7, attribution=custom_credits
 )
 
 # 4. Polish: Remove the mathematical axis borders and ticks
@@ -291,7 +283,6 @@ ax.set_axis_off()
 ax.set_title("Will Zurich see the 2081 Solar Eclipse?", fontsize=16)
 
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -319,9 +310,8 @@ We already established that Zurich will be in the path of totality. But what abo
 5. Remove the axis borders and add a title.
 6. Look at your final map: **Will Istanbul experience the total solar eclipse?**
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample Solution 5.1
@@ -401,9 +391,8 @@ cities = gpd.GeoDataFrame(
 
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample Solution 5.2
