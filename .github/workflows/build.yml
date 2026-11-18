@@ -1,31 +1,25 @@
-name: build
+# Checks that the book still builds for every pull request into main.
+# Uses the same toolchain as deploy.yml; notebooks are not executed.
+name: Build book (PR check)
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
-# This job installs dependencies, build the book, and pushes it to `gh-pages`
+env:
+  BASE_URL: /${{ github.event.repository.name }}
+  # Keep in sync with requirements.txt and .github/workflows/deploy.yml
+  JUPYTER_BOOK_VERSION: 2.1.7
+
 jobs:
-  build-the-book:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.11"]
+  build:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-
-      # Install dependencies
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+      - uses: actions/setup-node@v6
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-
-      # Build the book
-      - name: Build the book
-        run: |
-          jupyter-book build .
+          node-version: 22
+      - name: Install Jupyter Book
+        run: npm install -g jupyter-book@${{ env.JUPYTER_BOOK_VERSION }}
+      - name: Build HTML
+        run: jupyter-book build --html
