@@ -394,6 +394,7 @@ plt.show()
 
 :::::{tab-item} Long-Term
 :::{figure} images/l7_station_trend_all.png
+:alt: Map of Switzerland with weather stations drawn as circles, coloured by their warming trend in °C per decade from pale yellow (below 0) to dark red (above 2), for the long-term period 1981–2025.
 :width: 700px
 :align: center
 
@@ -403,6 +404,7 @@ plt.show()
 
 :::::{tab-item} 30-Year
 :::{figure} images/l7_station_trend_30yr.png
+:alt: Map of Switzerland with weather stations drawn as circles, coloured by their warming trend in °C per decade from pale yellow (below 0) to dark red (above 2), for the most recent 30 years.
 :width: 700px
 :align: center
 
@@ -412,6 +414,7 @@ plt.show()
 
 :::::{tab-item} 10-Year
 :::{figure} images/l7_station_trend_10yr.png
+:alt: Map of Switzerland with weather stations drawn as circles, coloured by their warming trend in °C per decade from pale yellow (below 0) to dark red (above 2), for the most recent 10 years, 2016–2025.
 :width: 700px
 :align: center
 
@@ -562,6 +565,7 @@ plt.show()
 
 :::::{tab-item} Long-Term
 :::{figure} images/l7_canton_trend_all.png
+:alt: Map of Switzerland with each canton coloured by the average warming trend of its stations in °C per decade, from pale yellow (below 0) to dark red (above 2); cantons without stations are grey, for the long-term period 1981–2025.
 :width: 700px
 :align: center
 
@@ -571,6 +575,7 @@ plt.show()
 
 :::::{tab-item} 30-Year
 :::{figure} images/l7_canton_trend_30yr.png
+:alt: Map of Switzerland with each canton coloured by the average warming trend of its stations in °C per decade, from pale yellow (below 0) to dark red (above 2); cantons without stations are grey, for the most recent 30 years.
 :width: 700px
 :align: center
 
@@ -580,6 +585,7 @@ plt.show()
 
 :::::{tab-item} 10-Year
 :::{figure} images/l7_canton_trend_10yr.png
+:alt: Map of Switzerland with each canton coloured by the average warming trend of its stations in °C per decade, from pale yellow (below 0) to dark red (above 2); cantons without stations are grey, for the most recent 10 years, 2016–2025.
 :width: 700px
 :align: center
 
