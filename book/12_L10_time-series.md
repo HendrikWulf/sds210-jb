@@ -26,7 +26,7 @@ Before proceeding with the chapters in this lesson, you best ensure several spec
 
 You can install them all at once by running the following command in your terminal (make sure your course environment is activated):
 
-`%pip install contextily cmcrameri gdown cftime cartopy pooch h5netcdf netCDF4 hvplot jupyter_bokeh rioxarray geoviews`
+`%pip install contextily cmcrameri cftime cartopy pooch h5netcdf netCDF4 hvplot jupyter_bokeh rioxarray geoviews`
 ```
 
 ---
