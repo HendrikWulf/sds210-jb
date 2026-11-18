@@ -50,11 +50,11 @@ Spatial analysis is only useful if you can save your results and integrate them 
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook: 
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name: 
 
-* [Landsat 9 Multispectral Subset NZ (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
-* [Lake Mapourika Boundaries (JRC_lake_mapourika.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/JRC_lake_mapourika.gpkg)
-* [Haupapa/Tasman Glacier Boundaries (GLIMS_haupapa_tasman.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/GLIMS_haupapa_tasman.gpkg)
+* [Landsat 9 Multispectral Subset NZ (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
+* [Lake Mapourika Boundaries (JRC_lake_mapourika.gpkg)](https://data.source.coop/giuz/sds210/L09/JRC_lake_mapourika.gpkg)
+* [Haupapa/Tasman Glacier Boundaries (GLIMS_haupapa_tasman.gpkg)](https://data.source.coop/giuz/sds210/L09/GLIMS_haupapa_tasman.gpkg)
 
 ```
 
@@ -107,7 +107,7 @@ import rasterio
 import numpy as np
 import os
 
-input_path = "data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
+input_path = "https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
 
 # Create a dedicated directory to organize our saved results
 os.makedirs("outputs", exist_ok=True)
@@ -297,7 +297,7 @@ import numpy as np
 from rasterio.mask import mask
 
 # 1. Load the vector boundary
-glacier_gdf = gpd.read_file("data/GLIMS_haupapa_tasman.gpkg")
+glacier_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L09/GLIMS_haupapa_tasman.gpkg")
 
 with rasterio.open(input_path) as src:
     # Ensure the vector data matches the raster CRS
@@ -413,8 +413,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from rasterio.mask import mask
 
-input_raster = "data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
-vector_path = "data/JRC_lake_mapourika.gpkg"
+input_raster = "https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
+vector_path = "https://data.source.coop/giuz/sds210/L09/JRC_lake_mapourika.gpkg"
 output_raster = "outputs/lake_mapourika_nir.tif"
 
 os.makedirs("outputs", exist_ok=True)

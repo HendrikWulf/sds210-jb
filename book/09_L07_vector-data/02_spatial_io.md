@@ -51,16 +51,16 @@ In the previous chapter, we learned how to manually construct a **{term}`GeoData
 
 In the real world, spatial data comes neatly packaged in professional GIS formats designed to store coordinates, **{term}`attributes <Attribute>`**, and **{term}`coordinate reference systems <Coordinate Reference System>`** all in one place. This chapter covers the spatial intake workflow: how to get these files into your notebook, verify them visually, and save them back to your computer.
 
-Before we begin, make sure you have downloaded the necessary datasets for this chapter. We will be using the national boundaries of Switzerland provided in three different industry standard formats.
+We will be using the national boundaries of Switzerland provided in three different industry standard formats.
 
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
-* [swissBoundaries3D_switzerland.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.gpkg)
-* [swissBoundaries3D_switzerland.geojson](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.geojson)
-* [swissBoundaries3D_switzerland.zip](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.zip) (Contains the Shapefile)
-* [country_in_europe.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/country_in_europe.gpkg) (For the exercise at the end!)
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
+* [swissBoundaries3D_switzerland.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.gpkg)
+* [swissBoundaries3D_switzerland.geojson](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.geojson)
+* [swissBoundaries3D_switzerland.zip](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.zip) (Contains the Shapefile)
+* [country_in_europe.gpkg](https://data.source.coop/giuz/sds210/L07/country_in_europe.gpkg) (For the exercise at the end!)
 
 ```
 
@@ -78,14 +78,14 @@ Let us load the borders of Switzerland. We have provided the exact same boundary
 import geopandas as gpd
 
 # 1. Loading a GeoPackage (The modern, highly recommended standard)
-ch_gpkg = gpd.read_file("data/swissBoundaries3D_switzerland.gpkg")
+ch_gpkg = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.gpkg")
 
 # 2. Loading a GeoJSON (The standard for web mapping and APIs)
-ch_geojson = gpd.read_file("data/swissBoundaries3D_switzerland.geojson")
+ch_geojson = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.geojson")
 
 # 3. Loading a Shapefile directly from a zipped archive
 # (Shapefiles are the old legacy standard, consisting of multiple mandatory files)
-ch_shp = gpd.read_file("data/swissBoundaries3D_switzerland.zip")
+ch_shp = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.zip")
 
 print("All three formats loaded successfully!")
 ```
@@ -268,15 +268,18 @@ However, modern spatial data science is increasingly moving towards cloud-comput
 Let us export our Swiss boundaries dataset into three different formats to prepare it for different use cases:
 
 ```{code-cell} ipython3
+import os
+
 # 1. Export as a GeoPackage (For sharing with QGIS/ArcGIS users)
-ch_gpkg.to_file("data/switzerland_processed.gpkg")
+os.makedirs("outputs", exist_ok=True)
+ch_gpkg.to_file("outputs/switzerland_processed.gpkg")
 
 # 2. Export as a GeoJSON (For uploading to a web map or API)
-ch_gpkg.to_file("data/switzerland_processed.geojson")
+ch_gpkg.to_file("outputs/switzerland_processed.geojson")
 
 # 3. Export as a GeoParquet (For big data applications)
 # Note: Parquet uses its own dedicated method!
-ch_gpkg.to_parquet("data/switzerland_processed.parquet")
+ch_gpkg.to_parquet("outputs/switzerland_processed.parquet")
 
 print("Spatial data successfully exported in multiple formats!")
 ```
@@ -338,7 +341,7 @@ It is time to test your new spatial I/O skills. We have provided you with a myst
 import geopandas as gpd
 
 # 1. Load the mystery file
-mystery_gdf = gpd.read_file("data/country_in_europe.gpkg")
+mystery_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/country_in_europe.gpkg")
 
 # 2. Visualize the borders to guess the country!
 mystery_gdf.plot(figsize=(8, 8), color="mediumseagreen", edgecolor="black");
@@ -347,7 +350,7 @@ mystery_gdf.plot(figsize=(8, 8), color="mediumseagreen", edgecolor="black");
 display(mystery_gdf.head())
 
 # 4. Export to a web-friendly GeoJSON
-mystery_gdf.to_file("data/revealed_country.geojson")
+mystery_gdf.to_file("outputs/revealed_country.geojson")
 ```
 
 **Quiz Answer:**

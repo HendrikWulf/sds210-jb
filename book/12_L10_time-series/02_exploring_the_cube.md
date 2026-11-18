@@ -277,13 +277,13 @@ The `rioxarray` package provides the `.rio` accessor. It acts as a bridge betwee
 
 ### Loading geospatial metadata
 
-Let us load a new dataset to explore these features: a Copernicus Digital Elevation Model (DEM) subset over New Zealand. You can download the DEM [here](https://gitlab.com/HendrikWulf/sds210/-/blob/2085f7fae2ea7abb440770465bbc7783f49da090/L10/data/Copernicus_DEM_NZ_subset.tif). We will use the `rasterio` engine to open the GeoTIFF.
+Let us load a new dataset to explore these features: a Copernicus Digital Elevation Model (DEM) subset over New Zealand. You can download the DEM [here](https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif). We will use the `rasterio` engine to open the GeoTIFF.
 
 ```{code-cell} ipython3
 import xarray as xr
 import rioxarray
 
-filepath = "data/Copernicus_DEM_NZ_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif"
 da_dem = xr.open_dataarray(filepath, engine="rasterio")
 ```
 
@@ -376,7 +376,7 @@ It is time to practice the complete ingestion, inspection, and export workflows 
 
 **Task B: The Geospatial Workflow (GeoTIFF)**
 
-1. **Open:** Load the New Zealand DEM (`data/Copernicus_DEM_NZ_subset.tif`) using the `rasterio` engine.
+1. **Open:** Load the New Zealand DEM (`https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif`) using the `rasterio` engine.
 2. **Inspect CRS:** Programmatically print the original Coordinate Reference System of the DEM.
 3. **Reproject:** Reproject the data to WGS 84 (`EPSG:4326`).
 4. **Export:** Save the reprojected array to a new GeoTIFF named `nz_dem_wgs84.tif`.
@@ -405,7 +405,7 @@ import rioxarray
 
 
 # --- TASK B: Geospatial Workflow ---
-filepath = "data/Copernicus_DEM_NZ_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif"
 
 # 1. Open the DEM
 # ...
@@ -447,7 +447,7 @@ print("Task A - Exported to rasm_cleaned.nc")
 
 
 # --- TASK B: Geospatial Workflow ---
-filepath = "data/Copernicus_DEM_NZ_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif"
 
 # 1. Open the DEM
 da_dem = xr.open_dataarray(filepath, engine="rasterio")

@@ -50,9 +50,9 @@ Plotting spatial geometries is only the first step. Creating a map that accurate
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following dataset in a `data` folder next to your notebook. This package contains detailed demographic data for European {abbr}`NUTS (Nomenclature of territorial units for statistics)` [level 3 regions](https://ec.europa.eu/eurostat/web/nuts).
+The code in this chapter reads the following dataset directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download it. To work offline, save it in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name. This package contains detailed demographic data for European {abbr}`NUTS (Nomenclature of territorial units for statistics)` [level 3 regions](https://ec.europa.eu/eurostat/web/nuts).
 
-* [Eurostat NUTS Regions (nuts_rg_03m_2024_3035_pop_wm_eu.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/nuts_rg_03m_2024_3035_pop_wm_eu.gpkg)
+* [Eurostat NUTS Regions (nuts_rg_03m_2024_3035_pop_wm_eu.gpkg)](https://data.source.coop/giuz/sds210/L08/nuts_rg_03m_2024_3035_pop_wm_eu.gpkg)
 
 ```
 
@@ -71,7 +71,7 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 
 # Load the geospatial data
-nuts = gpd.read_file("data/nuts_rg_03m_2024_3035_pop_wm_eu.gpkg")
+nuts = gpd.read_file("https://data.source.coop/giuz/sds210/L08/nuts_rg_03m_2024_3035_pop_wm_eu.gpkg")
 
 # Set up the Figure and Axes
 fig, ax = plt.subplots(figsize=(10, 8))
@@ -340,6 +340,8 @@ Real-world data is rarely perfect. Occasionally, geographic regions will be miss
 Fortunately, our Eurostat dataset is beautifully complete. However, to learn how to properly handle incomplete data, we must first intentionally break ours! In the code below, we will use NumPy to simulate missing data by forcing the youth population values for a few specific regions (in Turkey, Spain, and Norway) to `NaN`.
 
 ```{code-cell} ipython3
+import os
+
 import numpy as np
 
 # Create a copy of our dataset
@@ -350,7 +352,8 @@ target_ids = ["TR521", "ES422", "NO020"]
 nuts_nan.loc[nuts_nan["NUTS_ID"].isin(target_ids), "pop0_14_percentage"] = np.nan
 
 # Optional: Save the modified dataset for future use
-nan_output_path = "data/nuts_rg_03m_2024_3035_pop_wm_eu_nan.gpkg"
+os.makedirs("outputs", exist_ok=True)
+nan_output_path = "outputs/nuts_rg_03m_2024_3035_pop_wm_eu_nan.gpkg"
 nuts_nan.to_file(nan_output_path, driver="GPKG")
 print(f"Saved modified dataset to {nan_output_path}")
 ```
@@ -475,7 +478,7 @@ import cmcrameri.cm as cmc
 import numpy as np
 
 # Load the data
-nuts = gpd.read_file("data/nuts_rg_03m_2024_3035_pop_wm_eu.gpkg")
+nuts = gpd.read_file("https://data.source.coop/giuz/sds210/L08/nuts_rg_03m_2024_3035_pop_wm_eu.gpkg")
 
 # Calculate the offset to center the diverging map at 100
 # We find the furthest distance from 100 to make the scale symmetrical

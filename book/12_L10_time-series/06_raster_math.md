@@ -57,10 +57,10 @@ To demonstrate this, we will combine a Landsat 9 optical image (7 bands) and a C
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook: 
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name: 
 
-* [Copernicus DEM New Zealand (Copernicus_DEM_NZ_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L10/data/Copernicus_DEM_NZ_subset.tif)
-* [Landsat 9 Multispectral Subset (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L10/data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
+* [Copernicus DEM New Zealand (Copernicus_DEM_NZ_subset.tif)](https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif)
+* [Landsat 9 Multispectral Subset (LC09_L1TP_075090_20230224_20230308_02_T1_subset_30m.tif)](https://data.source.coop/giuz/sds210/L10/LC09_L1TP_075090_20230224_20230308_02_T1_subset_30m.tif)
 ```
 
 ---
@@ -76,14 +76,14 @@ import rioxarray
 
 # Load the DEM and squeeze out the empty 'band' dimension so it is purely 2D
 da_dem = xr.open_dataarray(
-    "data/Copernicus_DEM_NZ_subset.tif", engine="rasterio"
+    "https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif", engine="rasterio"
 ).squeeze(drop=True)
 # Explicitly drop the 'band' coordinate from da_dem if it exists, to avoid conflicts during merge
 da_dem = da_dem.drop_vars("band", errors="ignore")
 
 # Load the Landsat 9 multispectral image
 da_landsat = xr.open_dataarray(
-    "data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif", engine="rasterio"
+    "https://data.source.coop/giuz/sds210/L10/LC09_L1TP_075090_20230224_20230308_02_T1_subset_30m.tif", engine="rasterio"
 )
 
 # Merge the selected bands and the DEM into a single, aligned Dataset

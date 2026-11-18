@@ -62,7 +62,7 @@ One of the most useful features of pandas is its ability to interact with numero
 
 Once you have acquired your data, the next step in every data science workflow is to load it. Pandas provides a single, highly optimised function for this: `pd.read_csv()`.
 
-We will load a dataset containing daily weather observations from the Kloten weather station in Zurich for the summer of 2022. You can download this dataset from: [https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt) and add it to a `data` folder your working directory on your local file system.
+We will load a dataset containing daily weather observations from the Kloten weather station in Zurich for the summer of 2022. `pd.read_csv()` can read it directly from its web address, [https://data.source.coop/giuz/sds210/L06/kloten_summer_2022.txt](https://data.source.coop/giuz/sds210/L06/kloten_summer_2022.txt), part of the course data on [Source Cooperative](https://source.coop/giuz/sds210). To work offline, download the file into a `data` folder next to your notebook and use the path `"data/kloten_summer_2022.txt"` instead.
 
 You might notice the file is named `kloten_summer_2022.txt`. Why use `read_csv` for a `.txt` file?
 File extensions are simply naming conventions. Whether a file ends in `.csv`, `.txt`, or `.dat`, if the internal contents are plain text separated by commas, `pd.read_csv()` is the correct tool to read it.
@@ -97,7 +97,7 @@ As we can see, the first 10 rows contain metadata comments starting with `#`. We
 import pandas as pd
 
 # Read the data file, skipping the first 10 lines of metadata comments
-data = pd.read_csv("data/kloten_summer_2022.txt", skiprows=10)
+data = pd.read_csv("https://data.source.coop/giuz/sds210/L06/kloten_summer_2022.txt", skiprows=10)
 
 print("Data loaded successfully!")
 ```

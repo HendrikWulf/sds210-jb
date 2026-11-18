@@ -53,7 +53,7 @@ Your task is to write a Python pipeline that compares these two massive arrays, 
 
 ## Part 0 – The Data Intake Helper
 
-We will use the `gdown` library to download the two pre-processed Sentinel-2 `.tif` files. Alternatively, you will find these files also on [GitLab](https://gitlab.com/HendrikWulf/sds210/-/tree/0bd25613a7742fde5d8e37a4a31ae5cde1d9d5cc/L09/data).
+The code cell below downloads the two pre-processed Sentinel-2 `.tif` files into a local `data` folder from the course data on [Source Cooperative](https://source.coop/giuz/sds210/L09), where you can also download them manually.
 
 ### Tasks
 
@@ -61,36 +61,34 @@ We will use the `gdown` library to download the two pre-processed Sentinel-2 `.t
 
 ```{code-cell} python
 import os
+from urllib.request import urlretrieve
 import numpy as np
 import rasterio
 import matplotlib.pyplot as plt
-
-# Install packages (if needed in Colab)
-# !pip install gdown
-
-import gdown
 
 # Create data directory
 data_folder = "data"
 os.makedirs(data_folder, exist_ok=True)
 
-# Dictionary of file IDs and their output names
-datasets = {
-    "s2_composite_2017.tif": "1nKuXp1pk2nWx7pXsSHegDYoJflkBhVuw",
-    "s2_composite_2025.tif": "1OOcFk_UG_rBbiSDRXfHGKXmnMkANGUlU",
-}
+# Download the data from Source Cooperative (https://source.coop/giuz/sds210/L09)
+base_url = "https://data.source.coop/giuz/sds210/L09"
+datasets = [
+    "S2_composite_2017.tif",
+    "S2_composite_2025.tif",
+]
 
-for filename, file_id in datasets.items():
+for filename in datasets:
     filepath = os.path.join(data_folder, filename)
     if not os.path.exists(filepath):
         print(f"Downloading {filename}...")
-        url = f"https://drive.google.com/uc?id={file_id}"
-        gdown.download(url, filepath, quiet=False)
+        # Download to a temporary name first, so an interrupted download is not mistaken for a complete file
+        urlretrieve(f"{base_url}/{filename}", filepath + ".part")
+        os.replace(filepath + ".part", filepath)
     else:
         print(f"{filename} already exists.")
 
-s2_2017_fp = os.path.join(data_folder, "s2_composite_2017.tif")
-s2_2025_fp = os.path.join(data_folder, "s2_composite_2025.tif")
+s2_2017_fp = os.path.join(data_folder, "S2_composite_2017.tif")
+s2_2025_fp = os.path.join(data_folder, "S2_composite_2025.tif")
 ```
 
 ---

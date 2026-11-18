@@ -52,9 +52,9 @@ Before we explore this superpower, we need some fresh data. For this chapter, we
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following dataset in a `data` folder next to your notebook:
+The code in this chapter reads the following dataset directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download it. To work offline, save it in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
 
-* [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
+* [kloten_summer_2022_extended.txt](https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_extended.txt)
 
 ```
 
@@ -64,7 +64,7 @@ We can actually perform some data cleaning right at the moment we read the file!
 import pandas as pd
 
 # Define relative path to the file
-fp = "data/kloten_summer_2022_extended.txt"
+fp = "https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_extended.txt"
 
 # Read data using advanced cleaning parameters
 data = pd.read_csv(

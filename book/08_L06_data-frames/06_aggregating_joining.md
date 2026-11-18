@@ -47,15 +47,15 @@ Raw data is just a collection of numbers. To create actual knowledge, you need t
 
 ```
 
-Before we begin, make sure you have downloaded the necessary datasets for this chapter. We will be using our familiar Kloten datasets, plus a new extended dataset from Lugano.
+We will be using our familiar Kloten datasets, plus a new extended dataset from Lugano.
 
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
-* [kloten_summer_2022_rain_sun.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_rain_sun.csv)
-* [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
-* [Lugano_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/Lugano_summer_2022_extended.txt)
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
+* [kloten_summer_2022_rain_sun.csv](https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_rain_sun.csv)
+* [kloten_summer_2022_extended.txt](https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_extended.txt)
+* [Lugano_summer_2022_extended.txt](https://data.source.coop/giuz/sds210/L06/Lugano_summer_2022_extended.txt)
 
 ```
 
@@ -65,7 +65,7 @@ Let us load our primary extended Kloten dataset. We will also extract the month 
 import pandas as pd
 
 # Load the extended Kloten dataset
-fp = "data/kloten_summer_2022_extended.txt"
+fp = "https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_extended.txt"
 data = pd.read_csv(fp, sep=r"\s+", skiprows=[1], na_values=["-9999"])
 
 # Extract the month (characters 4 and 5 from the YYYYMMDD string)
@@ -215,7 +215,7 @@ Let us load a new supplementary dataset (`kloten_summer_2022_rain_sun.csv`) that
 ```{code-cell} ipython3
 # Load the supplementary dataset
 # (Since it is a standard CSV, we don't need sep or skiprows!)
-supp_fp = "data/kloten_summer_2022_rain_sun.csv"
+supp_fp = "https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_rain_sun.csv"
 supp_data = pd.read_csv(supp_fp)
 
 # Merge the two DataFrames.
@@ -308,7 +308,7 @@ It is time to put your relational data skills to the test. You have been asked t
 ```{code-cell} python
 # 1. Load Lugano data
 lugano_data = pd.read_csv(
-    "data/Lugano_summer_2022_extended.txt", 
+    "https://data.source.coop/giuz/sds210/L06/Lugano_summer_2022_extended.txt", 
     sep=r"\s+", 
     skiprows=[1], 
     na_values=["-9999"]
