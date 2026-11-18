@@ -205,11 +205,11 @@ This topic is very analytical. It requires you to think critically about long-te
 In this project, you will:
 
   * Access and analyze Landsat-based time series data.
-  * Compare Land Surface Temperature (LST) and vegetation indicies.
+  * Compare Land Surface Temperature (LST) and vegetation indices.
   * Calculate and compare changes in LST and vegetation over time.
   * Summarize and visualize the climatic trends for Zurich.
 
-This workflow will involve applying spectral indicies, generating time-series charts, and analysing temporal trends.
+This workflow will involve applying spectral indices, generating time-series charts, and analysing temporal trends.
 
 ### Suggested task
 

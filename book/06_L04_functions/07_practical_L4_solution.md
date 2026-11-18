@@ -193,7 +193,7 @@ cities = list(swiss_cities.keys())
 # Print the top header row (x-axis)
 print(
     f"{'Diff(km)':>8}", end=""
-)  # sting formatting for table; :>8 → right-align in width 8; end="" → no newline after printing
+)  # string formatting for table; :>8 → right-align in width 8; end="" → no newline after printing
 for city in cities:
     print(f"{create_id(city):>8}", end="")
 print("\n" + "-" * 89)
