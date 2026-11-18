@@ -13,10 +13,6 @@ Bringing the pillars of reproducible spatial science together
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/14_L12_best-practices/06_reproducible_research.ipynb)
-
----
-
 ```{admonition} Big idea
 :class: tip
 

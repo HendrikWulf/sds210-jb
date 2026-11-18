@@ -13,7 +13,7 @@ Using batteries included with Python
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/07_L05_libraries/02_stadard_library.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/07_L05_libraries/02_standard_library.ipynb)
 
 ---
 
