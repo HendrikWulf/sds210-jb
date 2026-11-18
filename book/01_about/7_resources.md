@@ -137,7 +137,7 @@ Use them as reference tools when you need a fast answer or an alternative explan
 
 ---
 
-These resources are by no means complete or perfect. If you have any suggestions for additional resources or criticism, please [let us know](https://hendrikwulf.github.io/sds210-jb/book/about/team/).
+These resources are by no means complete or perfect. If you have any suggestions for additional resources or criticism, please [let us know](2_team.md).
 
 ```{admonition} How to use these resources
 :class: tip
