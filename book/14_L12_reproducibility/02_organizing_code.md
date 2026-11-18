@@ -217,7 +217,7 @@ A 500 m buffer only makes sense after the data are in a metric coordinate system
 
 A good project layout makes your code easier to navigate and your workflows easier to rerun. It reduces cognitive load; when a reader sees a folder named `data/raw/`, they instantly know what kind of files belong there before reading a single line of code.
 
-As established in the [project guidelines](https://hendrikwulf.github.io/sds210-jb/book/projects/repository/#id-2-recommended-repository-structure), a professional, easy-to-follow {term}`repository <Repository>` explicitly separates your data, notebooks, and scripts:
+As established in the [project guidelines](../15_projects/03_repository.md#id-2-recommended-repository-structure), a professional, easy-to-follow {term}`repository <Repository>` explicitly separates your data, notebooks, and scripts:
 
 ```text
 my-spatial-project/
@@ -419,7 +419,7 @@ stations_gdf = stations_gdf.to_crs(TARGET_CRS)
 
 #### 3. Analysis
 
-This is where you leverage the custom modules you built in [Section 3](https://hendrikwulf.github.io/sds210-jb/book/l12-reproducibility/organizing-code/#id-3-splitting-logic-into-functions). The notebook stays clean because the complex array math is hidden inside the imported function.
+This is where you leverage the custom modules you built in [Section 3](#id-3-splitting-logic-into-functions). The notebook stays clean because the complex array math is hidden inside the imported function.
 
 ```{code-cell} python
 from src.raster_utils import sample_raster_at_points
