@@ -1,8 +1,16 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
+  outline_maxdepth: 1
 ---
 
 # The Raster Model
@@ -135,14 +143,13 @@ Let us start by importing the `numpy` and `matplotlib` libraries which we use fo
 
 Creating a simple 2D raster layer can be done easily by using the numpy method `.zeros()` which fills the cells (pixels) with zeros. Each zero represents a default pixel value, like an elevation of exactly 0 meters. You can think of this as an empty raster grid.
 
-```{code-cell} python
+```{code-cell} ipython3
 import numpy as np
 import matplotlib.pyplot as plt
 
 # Create a 5x5 array filled with zeros
 raster_layer = np.zeros((5, 5))
 print(raster_layer)
-
 ```
 
 ### Step 2: Sculpting the Terrain
@@ -153,7 +160,7 @@ We can do this by slicing the numpy array using the indices of the array and upd
 
 Let us build the base of the hill (an elevation of 5) and the peak of the hill (an elevation of 10):
 
-```{code-cell} python
+```{code-cell} ipython3
 # Update a 3x3 block in the middle to have an elevation of 5
 raster_layer[1:4, 1:4] = 5
 
@@ -161,22 +168,20 @@ raster_layer[1:4, 1:4] = 5
 raster_layer[2, 2] = 10
 
 print(raster_layer)
-
 ```
 
 ### Step 3: Visualizing the Matrix
 
 As a result, we have a raster layer that simulates a simple terrain. We can also plot this raster layer using the matplotlib library and its `.imshow()` function that can be used to visualize arrays.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Visualize the array
-plt.imshow(raster_layer, cmap='terrain')
+plt.imshow(raster_layer, cmap="terrain")
 
 # Add cartographic context
-plt.colorbar(label='Elevation')
-plt.title('Simple Raster Layer representing a Hill')
+plt.colorbar(label="Elevation")
+plt.title("Simple Raster Layer representing a Hill")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->

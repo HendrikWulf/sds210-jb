@@ -1,8 +1,16 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210_home
+  language: python
+  name: python3
 site:
-    outline_maxdepth: 1
-
+  outline_maxdepth: 1
 ---
 
 # Vectorization
@@ -52,7 +60,7 @@ To follow along with this chapter, place the following dataset in a `data` folde
 
 We can actually perform some data cleaning right at the moment we read the file! By using advanced parameters in the `read_csv()` function, we can handle varying spaces, skip specific rows of dashes, and convert missing data markers all in one step.
 
-```{code-cell} python
+```{code-cell} ipython3
 import pandas as pd
 
 # Define relative path to the file
@@ -61,15 +69,14 @@ fp = "data/kloten_summer_2022_extended.txt"
 # Read data using advanced cleaning parameters
 data = pd.read_csv(
     fp,
-    sep=r"\s+",             # Handle varying amounts of spaces between columns
-    skiprows=[1],           # Skip the second row (usually a line of dashes)
-    na_values=["-9999"],    # Convert -9999 placeholders directly to NaN
-    usecols=["DATE", "tmin", "tmax", "tmean", "rh", "wind_speed", "radiation"]
+    sep=r"\s+",  # Handle varying amounts of spaces between columns
+    skiprows=[1],  # Skip the second row (usually a line of dashes)
+    na_values=["-9999"],  # Convert -9999 placeholders directly to NaN
+    usecols=["DATE", "tmin", "tmax", "tmean", "rh", "wind_speed", "radiation"],
 )
 
 # Inspect the first few rows
 display(data.head(3))
-
 ```
 
 Notice that our `tmean` column has a missing value (**{term}`NaN`**) on the third day. We will use this to our advantage later.
@@ -82,13 +89,12 @@ If you were asked to calculate the temperature range (maximum minus minimum) for
 
 Here is what that clunky code looks like:
 
-```{code-cell} python
+```{code-cell} ipython3
 # The slow, pure Python way (DO NOT DO THIS)
 temp_ranges = []
 for i in range(len(data)):
     diff = data.loc[i, "tmax"] - data.loc[i, "tmin"]
     temp_ranges.append(diff)
-
 ```
 
 For a dataset with millions of records, this row-by-row looping is rather slow and requires more typing.
@@ -119,12 +125,11 @@ When you do this, Pandas performs an **element-wise** operation. It looks at the
 
 Let us calculate the temperature range (the difference between the maximum and minimum temperatures) for every day in our dataset.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Calculate the difference between two columns simultaneously
 temp_difference = data["tmax"] - data["tmin"]
 
 display(temp_difference.head(4))
-
 ```
 
 In just one line of code, Pandas matched the indices and calculated the precise difference for every single row in the dataset!
@@ -150,13 +155,12 @@ In just one line of code, Pandas matched the indices and calculated the precise 
 
 Once you perform a calculation, you usually want to save it as a brand new feature in your dataset. You can attach a newly calculated Series back onto the main DataFrame by defining a new column name in brackets and assigning the calculation to it.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Create a new column named 'temp_range' and store the results
 data["temp_range"] = data["tmax"] - data["tmin"]
 
 # Check the DataFrame to see the new column attached at the end
 display(data[["DATE", "tmax", "tmin", "temp_range"]].head(3))
-
 ```
 
 ```{admonition} The Overwrite Pitfall
@@ -171,12 +175,11 @@ You do not always need a mathematical calculation to create a new column. You ca
 
 For example, if you wanted to create a blank column to store future quality-control notes, you could simply assign a single string. Pandas will automatically copy that single value down to fill every single row:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Create a column filled with a static string
 data["qc_notes"] = "Not checked"
 
 display(data[["DATE", "qc_notes"]].head(3))
-
 ```
 
 ---
@@ -197,13 +200,12 @@ Luckily, since our data starts exactly on June 1st and records one row per day, 
 
 Let us plot our maximum temperature (red), minimum temperature (blue), and our new temperature range (green).
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Define exactly which columns we want to draw
 columns_to_plot = ["tmax", "tmin", "temp_range"]
 
 # 2. Create a basic plot with custom colors
 data[columns_to_plot].plot(color=["red", "blue", "green"]);
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -220,20 +222,19 @@ Good data scientists do not just make plots; they design visualizations that tel
 
 Let us add labels, adjust the canvas size, and change the line styles to differentiate our calculated range from the actual sensor readings.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Create a customized, styled plot
 data[columns_to_plot].plot(
-    figsize=(10, 5),                 # Make the canvas wide (10) and tall (5)
+    figsize=(10, 5),  # Make the canvas wide (10) and tall (5)
     color=["red", "blue", "green"],  # Assign specific colors
-    style=["-", "-", "*"],           # Solid lines for temps, stars for range
-    linewidth=2,                     # Make the lines slightly thicker
+    style=["-", "-", "*"],  # Solid lines for temps, stars for range
+    linewidth=2,  # Make the lines slightly thicker
     title="Daily Temperatures and Range (Kloten, Summer 2022)",
-    ylabel="Temperature (°C)",       # Always label your axes!
-    xlabel="Days after June 1st",    # Clarify what the bottom numbers mean
-    grid=True,                       # Add a faint grid for readability
+    ylabel="Temperature (°C)",  # Always label your axes!
+    xlabel="Days after June 1st",  # Clarify what the bottom numbers mean
+    grid=True,  # Add a faint grid for readability
     # subplots=True                    # each column in its own subplot
 );
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -274,17 +275,17 @@ The `.apply()` method takes a custom function and runs it efficiently across you
 
 To learn the syntax, let us start by defining a standard Python function that converts temperatures from Celsius to Kelvin, and then apply it to our `tmax` column. *(Note: While we could easily do this with simple vectorized math like `data["tmax"] + 273.15`, using a simple formula helps us focus purely on how `.apply()` works!)*
 
-```{code-cell} python
+```{code-cell} ipython3
 # Define a standard Python function
 def celsius_to_kelvin(temp_celsius):
     """Converts Celsius to Kelvin."""
     return temp_celsius + 273.15
 
+
 # Apply the function to the entire column
 data["tmax_kelvin"] = data["tmax"].apply(celsius_to_kelvin)
 
 display(data[["tmax", "tmax_kelvin"]].head(3))
-
 ```
 
 ```{admonition} No Parentheses!
@@ -303,7 +304,7 @@ In Pandas, `axis=0` (the default) means moving vertically down columns. `axis=1`
 
 Let us write a function that uses an `if/else` block to check both the `tmax` and `rh` (humidity) columns to categorize if a day was "Muggy" (hot and humid):
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Define a function that accepts an entire row of data
 def check_muggy(row):
     """Categorizes a day as Muggy if temp > 24C AND humidity > 70%."""
@@ -313,13 +314,13 @@ def check_muggy(row):
     else:
         return "No"
 
+
 # 2. Apply the function to the entire DataFrame using axis=1
 data["is_muggy"] = data.apply(check_muggy, axis=1)
 
 # 3. View the results
 columns_to_show = ["DATE", "tmax", "rh", "is_muggy"]
 display(data[columns_to_show].head(3))
-
 ```
 
 #### Concept Check: The Axis of Action
@@ -360,9 +361,8 @@ Can we accurately guess the true daily mean by just averaging the min and max? L
 2. Calculate a new column called `tmean_error` by subtracting your `tmean_approx` from the true `tmean`.
 3. **Plot the results:** Create a line plot of your `tmean_error` column. Does this simple min/max method usually overestimate or underestimate the true daily temperature?
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution
@@ -398,9 +398,8 @@ While we *could* do this with basic vectorized math, let us practice using `.app
 2. **Apply the function:** Create a new column called `feels_like_index` by applying your function to the `data` DataFrame. *(Crucial: You must include `axis=1` inside the apply parentheses so Pandas knows to send rows, not columns!)*
 3. **Plot the results:** Plot both the original `tmean` and your new `feels_like_index` on the same graph to visually compare how the wind and humidity altered the baseline temperature across the summer.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution

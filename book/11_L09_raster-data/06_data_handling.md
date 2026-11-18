@@ -1,4 +1,14 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
   outline_maxdepth: 1
 ---
@@ -92,7 +102,7 @@ Before writing the file, we must update the copied profile dictionary to reflect
 
 Once the profile is updated and our output directory is ready, we open a new file connection using `'w'` (write) mode, pass in the profile arguments, and use `.write()` to save the array to the hard drive.
 
-```{code-cell} python
+```{code-cell} ipython3
 import rasterio
 import numpy as np
 import os
@@ -108,13 +118,13 @@ with rasterio.open(input_path) as src:
     green = src.read(2).astype(float)
     nir = src.read(4).astype(float)
     swir2 = src.read(6).astype(float)
-    
-    with np.errstate(divide='ignore', invalid='ignore'):
+
+    with np.errstate(divide="ignore", invalid="ignore"):
         ndsi = (green - swir2) / (green + swir2)
         snow_mask = (ndsi * (nir > 0.2)) > 0.6
-        
+
     # Convert boolean mask to an 8 bit integer (0 or 1) for efficient storage
-    snow_mask = snow_mask.astype('uint8')
+    snow_mask = snow_mask.astype("uint8")
 
     # Copy the spatial profile
     profile = src.profile.copy()
@@ -122,8 +132,8 @@ with rasterio.open(input_path) as src:
 # Update the profile to reflect the new data structure
 profile.update(
     dtype=rasterio.uint8,
-    count=1,          # We are only exporting 1 band
-    compress="lzw"    # Apply lossless compression to save disk space
+    count=1,  # We are only exporting 1 band
+    compress="lzw",  # Apply lossless compression to save disk space
 )
 
 # Write to disk
@@ -132,7 +142,6 @@ with rasterio.open(output_path, "w", **profile) as dst:
     dst.write(snow_mask, 1)
 
 print(f"Successfully saved {output_path}")
-
 ```
 
 ---
@@ -146,31 +155,29 @@ Satellite imagery can be massive. A single full scene might be several gigabytes
 * **Read one window:** You can load a small, specific bounding box of pixels into memory without touching the rest of the file using Rasterio's `Window` class.
 * **Process chunk by chunk:** The most robust way to handle massive files is to loop through the raster in blocks. You open the file, read a small chunk into memory, process it, write that chunk directly to the new output file, and then move on to the next block.
 
-```{code-cell} python
+```{code-cell} ipython3
 from rasterio.windows import Window
 
 with rasterio.open(input_path) as src:
     # Read an 800x800 pixel block starting from the top-left corner
     small_window = Window(col_off=0, row_off=0, width=800, height=800)
     chunk = src.read(1, window=small_window)
-    
-    print(f"Loaded chunk shape: {chunk.shape}")
 
+    print(f"Loaded chunk shape: {chunk.shape}")
 ```
 
 Once this subset is securely in memory, it behaves exactly like any other NumPy array. Before applying complex algorithms or map algebra to large datasets, it is highly recommended to visualize the extracted chunk to verify you grabbed the correct geographic area.
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 
 plt.figure(figsize=(7, 7))
 # We apply a contrast stretch using vmin and vmax for better visibility
-plt.imshow(chunk, cmap='gray', vmin=0.05, vmax=0.2) 
-plt.title('Visualization of the 800x800 chunk', fontsize=15)
-plt.colorbar(label='Pixel Value', fraction=0.046, pad=0.04)
-plt.axis('off')
+plt.imshow(chunk, cmap="gray", vmin=0.05, vmax=0.2)
+plt.title("Visualization of the 800x800 chunk", fontsize=15)
+plt.colorbar(label="Pixel Value", fraction=0.046, pad=0.04)
+plt.axis("off")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -181,21 +188,19 @@ plt.show()
 
 While manually defining a single window is perfect for targeted extraction, applying map algebra to an entire multi-gigabyte scene requires automation. You can bridge this gap and process a massive file sequentially using Rasterio's built-in `block_windows()` iterator.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Example: Looping through a massive dataset efficiently
 with rasterio.open(input_path) as src:
     # Generate windows based on the internal tiling structure of Band 1
     for block_id, window in src.block_windows(1):
-        
         # Read only the current chunk into memory
         chunk = src.read(1, window=window)
-        
+
         # Process the chunk here (e.g., apply a math formula or index)
         # result = chunk * 2
-        
-        # In a full workflow, you would write 'result' to a destination 
-        # file using the exact same 'window' to maintain spatial alignment.
 
+        # In a full workflow, you would write 'result' to a destination
+        # file using the exact same 'window' to maintain spatial alignment.
 ```
 
 ---
@@ -208,12 +213,12 @@ Often, your study area is much smaller than the satellite scene you downloaded. 
 
 Because rasters are essentially NumPy arrays once read into memory, the fastest way to clip data is to simply slice the rows and columns using index numbers.
 
-```{code-cell} python
+```{code-cell} ipython3
 import rasterio
 import matplotlib.pyplot as plt
 
 with rasterio.open(input_path) as src:
-    data = src.read(4) # Read Band 4 (NIR)
+    data = src.read(4)  # Read Band 4 (NIR)
 
 # Slice the array: [rows, columns]
 array_subset = data[1000:1500, 800:1300]
@@ -224,7 +229,6 @@ plt.imshow(array_subset, cmap="gray")
 plt.title("Clipping via Array Slicing", fontsize=15)
 plt.axis("off")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -255,16 +259,16 @@ plt.show()
 
 Slicing by pixel index is fast, but it is not geographically accurate. If you know the exact real-world coordinate bounding box of your study area, you can use Rasterio to safely convert those coordinates into a pixel window.
 
-```{code-cell} python
+```{code-cell} ipython3
 from rasterio.windows import from_bounds
 
 with rasterio.open(input_path) as src:
     # Define your geographic bounding box (left, bottom, right, top)
     min_x, min_y, max_x, max_y = 420000, 5170000, 440000, 5190000
-    
+
     # Create a window from geographic bounds using the raster's transform matrix
     geo_window = from_bounds(min_x, min_y, max_x, max_y, src.transform)
-    
+
     # Read only the data within that calculated window
     geo_subset = src.read(4, window=geo_window)
 
@@ -273,7 +277,6 @@ plt.imshow(geo_subset, cmap="gray")
 plt.title("Clipping via Geographic Bounds", fontsize=15)
 plt.axis("off")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -288,7 +291,7 @@ The most common and precise clipping method uses vector boundaries (polygons) to
 
 Rasterio provides a dedicated `mask` module to handle this complex geometry intersection.
 
-```{code-cell} python
+```{code-cell} ipython3
 import geopandas as gpd
 import numpy as np
 from rasterio.mask import mask
@@ -299,14 +302,14 @@ glacier_gdf = gpd.read_file("data/GLIMS_haupapa_tasman.gpkg")
 with rasterio.open(input_path) as src:
     # Ensure the vector data matches the raster CRS
     glacier_gdf = glacier_gdf.to_crs(src.crs)
-    
+
     # Extract all shapes into a list directly from the geometry column
     shapes = glacier_gdf.geometry.tolist()
-    
+
     # 2. Apply the mask. crop=True shrinks the array to the bounding box of the polygon.
     out_image, out_transform = mask(src, shapes, crop=True)
 
-# Plot the clipped array 
+# Plot the clipped array
 # Note: mask() returns all bands. Index 3 corresponds to Band 4 (NIR)
 plt.figure(figsize=(7, 7))
 nir_clipped = out_image[3]
@@ -318,7 +321,6 @@ plt.imshow(nir_clean, cmap="viridis")
 plt.title("Clipped to Glacier Geometry", fontsize=16)
 plt.axis("off")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -339,7 +341,7 @@ Reprojecting a raster is computationally intensive because the computer cannot s
 
 Because we are warping the grid, we must first calculate the new dimensions and transformation matrix for the destination CRS before we can actually move the pixel values.
 
-```{code-cell} python
+```{code-cell} ipython3
 from rasterio.warp import calculate_default_transform, reproject, Resampling
 
 input_raster = "outputs/snow_mask.tif"
@@ -347,23 +349,20 @@ dst_crs = "EPSG:2193"
 output_raster = "outputs/snow_mask_nztm.tif"
 
 with rasterio.open(input_raster) as src:
-    # 1. Use GDAL engine to calculate the new dimensions and transform matrix 
+    # 1. Use GDAL engine to calculate the new dimensions and transform matrix
     # for the destination CRS based on the source boundaries
     transform, width, height = calculate_default_transform(
         src.crs, dst_crs, src.width, src.height, *src.bounds
     )
-    
+
     # 2. Update the profile with the newly calculated spatial parameters
     profile = src.profile.copy()
-    profile.update({
-        'crs': dst_crs,
-        'transform': transform,
-        'width': width,
-        'height': height
-    })
-    
+    profile.update(
+        {"crs": dst_crs, "transform": transform, "width": width, "height": height}
+    )
+
     # 3. Write and reproject pixel by pixel
-    with rasterio.open(output_raster, 'w', **profile) as dst:
+    with rasterio.open(output_raster, "w", **profile) as dst:
         reproject(
             source=rasterio.band(src, 1),
             destination=rasterio.band(dst, 1),
@@ -371,13 +370,12 @@ with rasterio.open(input_raster) as src:
             src_crs=src.crs,
             dst_transform=transform,
             dst_crs=dst_crs,
-            resampling=Resampling.nearest 
+            resampling=Resampling.nearest,
             # Nearest neighbor is critical here! It preserves our binary (0 or 1) values.
             # Using bilinear interpolation would create decimals (e.g., 0.45) at the edges.
         )
 
 print("Reprojection complete.")
-
 ```
 
 ---
@@ -398,9 +396,8 @@ Imagine a colleague needs a standalone GeoTIFF of the Near Infrared data (Band 4
 6. Write the result to a new file named `outputs/lake_mapourika_nir.tif`.
 7. Plot the `nir_clipped` array to verify your extraction. *Hint: The `mask` function sets pixels outside the polygon to `0`. Use `np.where()` to convert these zeros to `NaN` (**{term}`NaN`**, Not a Number) so the background renders cleanly.*
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample Solution

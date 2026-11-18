@@ -1,6 +1,12 @@
 ---
-site: 
-    outline_maxdepth: 1
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+site:
+  outline_maxdepth: 1
 ---
 
 # Practical L10
@@ -73,32 +79,32 @@ import cmcrameri.cm as cmc
 from matplotlib.colors import LightSource
 
 # Create data directory
-data_folder = 'data'
+data_folder = "data"
 os.makedirs(data_folder, exist_ok=True)
 
 # Dictionary of file IDs and their output names
 datasets = {
-    'scf_alps_25yr.tif': '1Uds7kAGnbl7gdFQrDRIdeRXMSpztiO3i', 
-    'dem_alps.tif': '1Q895LhVvtbEoeg1LL9wQFGdmg11M9x_N', 
-    'lakes_alps.tif': '1VPuhMBWuX_JX3Ud798vd9gccPUAwqmIz', 
-    'alpine_perimeter.zip': '1945H8BAefR6C8umzaLKPhrVfGT_uFRNN', 
-    'bahnen-winter_2056.gpkg': '1c2f4Nwe5f4Pp5leDSuQZj1nyRoluJoOT' 
+    "scf_alps_25yr.tif": "1Uds7kAGnbl7gdFQrDRIdeRXMSpztiO3i",
+    "dem_alps.tif": "1Q895LhVvtbEoeg1LL9wQFGdmg11M9x_N",
+    "lakes_alps.tif": "1VPuhMBWuX_JX3Ud798vd9gccPUAwqmIz",
+    "alpine_perimeter.zip": "1945H8BAefR6C8umzaLKPhrVfGT_uFRNN",
+    "bahnen-winter_2056.gpkg": "1c2f4Nwe5f4Pp5leDSuQZj1nyRoluJoOT",
 }
 
 for filename, file_id in datasets.items():
     filepath = os.path.join(data_folder, filename)
     if not os.path.exists(filepath):
         print(f"Downloading {filename}...")
-        url = f'https://drive.google.com/uc?id={file_id}'
+        url = f"https://drive.google.com/uc?id={file_id}"
         gdown.download(url, filepath, quiet=False)
     else:
         print(f"{filename} already exists.")
 
-scf_fp = os.path.join(data_folder, 'scf_alps_25yr.tif')
-dem_fp = os.path.join(data_folder, 'dem_alps.tif')
-lakes_fp = os.path.join(data_folder, 'lakes_alps.tif')
-perim_fp = os.path.join(data_folder, 'alpine_perimeter.zip')
-lifts_fp = os.path.join(data_folder, 'bahnen-winter_2056.gpkg')
+scf_fp = os.path.join(data_folder, "scf_alps_25yr.tif")
+dem_fp = os.path.join(data_folder, "dem_alps.tif")
+lakes_fp = os.path.join(data_folder, "lakes_alps.tif")
+perim_fp = os.path.join(data_folder, "alpine_perimeter.zip")
+lifts_fp = os.path.join(data_folder, "bahnen-winter_2056.gpkg")
 ```
 
 ---

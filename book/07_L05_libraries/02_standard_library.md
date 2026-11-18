@@ -1,4 +1,14 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
   outline_maxdepth: 1
 ---
@@ -54,22 +64,20 @@ You just have to unlock them using the `import` command.
 
 To use a module from the Standard Library, you must import it at the top of your script or notebook. Once imported, you can access all the **{term}`functions <Function>`** inside it by typing the module name, a dot, and the function name.
 
-```{code-cell} python
+```{code-cell} ipython3
 import math
 
 # Use the square root function from the math module
 result = math.sqrt(25)
 print(result)
-
 ```
 
 If you only need a specific tool, you can import just that part. This allows you to use the tool directly without typing the module name every time.
 
-```{code-cell} python
+```{code-cell} ipython3
 from math import pi
 
 print(f"The value of pi is approximately {pi:.44f}")
-
 ```
 
 ---
@@ -86,11 +94,12 @@ The `math` module provides access to advanced mathematical functions and constan
 *The Haversine formula calculates the shortest distance between two points across the spherical surface of the Earth (great-circle distance), rather than a straight line through it.*
 :::
 
-```{code-cell} python
+```{code-cell} ipython3
 import math
 
 san_francisco = (37.77, -122.41)
 new_york = (40.66, -73.94)
+
 
 def haversine_distance(origin, destination):
     """Calculates spherical distance between two coordinates in meters."""
@@ -114,7 +123,6 @@ def haversine_distance(origin, destination):
 
 dist = haversine_distance(san_francisco, new_york)
 print(f"Distance: {dist / 1000:.1f} km")
-
 ```
 
 ```{admonition} Useful tools in the math module
@@ -151,14 +159,13 @@ While the `math` module contains dozens of functions, you will likely rely on th
 
 If you need to analyze lists of numbers, the `statistics` module is incredibly useful. It provides functions for calculating the mean, median, and mode of your data without writing loops yourself.
 
-```{code-cell} python
+```{code-cell} ipython3
 import statistics
 
 elevations = [450, 1200, 890, 2300, 1200, 500]
 
 print(f"Average: {statistics.mean(elevations)} m")
 print(f"Median: {statistics.median(elevations)} m")
-
 ```
 
 ```{admonition} Useful tools in the statistics module
@@ -216,7 +223,7 @@ D) `-6` and `-6`
 
 The `random` module is used to generate random numbers and make random selections. This is especially useful in spatial sampling, simulations, or creating dummy data for testing.
 
-```{code-cell} python
+```{code-cell} ipython3
 import random
 
 # Pick a random integer between 1 and 10
@@ -227,7 +234,6 @@ print(f"Random number: {random_number}")
 cities = ["Zurich", "Geneva", "Basel", "Bern"]
 random_city = random.choice(cities)
 print(f"Randomly selected city: {random_city}")
-
 ```
 
 ```{admonition} Useful tools in the random module
@@ -301,7 +307,7 @@ While `os` is the older, traditional way to handle paths using text strings, mod
 *Pathlib allows you to navigate directory trees programmatically, intelligently joining parent folders to file names using the `/` operator.*
 :::
 
-```{code-cell} python
+```{code-cell} ipython3
 import os
 from pathlib import Path
 
@@ -316,7 +322,6 @@ print(f"Pathlib Object: {current_folder_pathlib}")
 # Pathlib makes joining folders to file names incredibly easy using the / operator
 data_file = current_folder_pathlib / "data" / "elevations.csv"
 print(f"Looking for data at: {data_file}")
-
 ```
 
 ```{admonition} Useful tools in the os module
@@ -418,7 +423,7 @@ This is a critical skill for working with Web APIs, which almost always return d
 *The `json.loads()` function translates a flat string of text into a structured, hierarchical Python dictionary that you can navigate using keys.*
 :::
 
-```{code-cell} python
+```{code-cell} ipython3
 import json
 
 # A string of text formatted as JSON
@@ -432,7 +437,6 @@ data = json.loads(api_response_text)
 # Now we can access it using standard dictionary keys
 print(data["city"])
 print(data["coordinates"])
-
 ```
 
 ```{admonition} Coordinate order matters
@@ -545,9 +549,8 @@ To practice using the Standard Library, complete the following tasks.
 
 Using the `random` module, write a loop that generates 3 random coordinate pairs (representing latitude and longitude). Assume the latitude must be a decimal between 45.0 and 47.0, and the longitude must be a decimal between 6.0 and 9.0. Print each pair rounded to 4 decimal places.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution
@@ -604,10 +607,8 @@ When you don't round your coordinates, your Python script is specifying a locati
 
 You downloaded a small JSON string representing a feature collection. Use the `json` module to parse it into a Python dictionary, then print the name of the feature.
 
-```{code-cell} python
+```{code-cell} ipython3
 geojson_string = '{"type": "Feature", "properties": {"name": "Matterhorn"}, "geometry": {"type": "Point", "coordinates": [7.65, 45.97]}}'
-
-
 ```
 
 ``````{admonition} Sample solution

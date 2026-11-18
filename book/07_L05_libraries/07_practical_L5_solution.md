@@ -1,8 +1,12 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
-    outline_maxdepth: 1
-
+  outline_maxdepth: 1
 ---
 
 # Practical L5 - Solutions
@@ -48,14 +52,12 @@ Before we can calculate distances or query APIs, we need exact coordinates. Your
 ```{code-cell} python
 from geopy.geocoders import Nominatim
 
-# Initialize the geocoder with a unique app name. 
+# Initialize the geocoder with a unique app name.
 # Review the Geocoding chapter to learn more about the user_agent parameter. 
 geolocator = Nominatim(user_agent="sds_euro_logistics_YOUR_ID")
 
 origin_address = "Spitalgasse 47-51, 3001 Bern, Switzerland"
 dest_address = "Corso del Lavoro e della Scienza, 3, 38122 Trento TN, Italy"
-
-
 ```
 
 ### Tasks
@@ -107,8 +109,6 @@ To understand how much the road network bends and curves around the Alps, we fir
 
 ```{code-cell} python
 from geopy import distance
-
-
 ```
 
 ### Tasks
@@ -174,8 +174,6 @@ if not ORS_API_KEY:
 # 3. Otherwise, ask for it in a hidden input field (not saved in the notebook)
 if not ORS_API_KEY:
     ORS_API_KEY = getpass("Paste your ORS API key: ")
-
-
 ```
 
 ---
@@ -192,18 +190,16 @@ import requests
 # Build the parameters dictionary
 # Note: ORS requires coords as "longitude,latitude"
 parameters = {
-    'api_key': ORS_API_KEY,
-    'start': f"{origin_coords[1]},{origin_coords[0]}",
-    'end': f"{dest_coords[1]},{dest_coords[0]}"
+    "api_key": ORS_API_KEY,
+    "start": f"{origin_coords[1]},{origin_coords[0]}",
+    "end": f"{dest_coords[1]},{dest_coords[0]}",
 }
 
 # Define the API endpoint for car driving directions
-api_url = 'https://api.openrouteservice.org/v2/directions/driving-car'
+api_url = "https://api.openrouteservice.org/v2/directions/driving-car"
 
 # Send the request
 response = requests.get(api_url, params=parameters)
-
-
 ```
 
 ### Tasks
@@ -284,7 +280,6 @@ Before dispatching the driver across international borders, it is good practice 
 ```{code-cell} python
 # Write your weather fetching code here
 
-
 ```
 
 ``````{admonition} Sample solution
@@ -347,15 +342,13 @@ deliveries = {
     "Girona": (41.9794, 2.8214),
     "Plymouth": (50.3755, -4.1427),
     "Quimper": (47.9975, -4.0979),
-    "Odense": (55.4038, 10.4024)
+    "Odense": (55.4038, 10.4024),
 }
 
 # The origin is always Bern
 origin_lon = 7.4474
 origin_lat = 46.9480
 start_string = f"{origin_lon},{origin_lat}"
-
-
 ```
 
 ### Tasks
@@ -452,7 +445,6 @@ Take a moment to review what you have built. Answer briefly in comments or markd
 
 ```{code-cell} python
 # Write your reflections here.
-
 ```
 
 ``````{admonition} Sample solution

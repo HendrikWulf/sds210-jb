@@ -1,6 +1,16 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
- outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
 # Using Temporal Data
@@ -43,7 +53,6 @@ Before we begin, make sure you have downloaded the necessary datasets for this c
 :class: dropdown
 
 To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
-
 * [kloten_daily_19800101_20260101.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_daily_19800101_20260101.csv)
 * [kloten_spring_2024_hourly.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_spring_2024_hourly.csv)
 * [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
@@ -57,7 +66,7 @@ In data science workflows, there are many ways to represent time (such as Python
 
 To explore these temporal superpowers, let us start by loading our familiar daily weather dataset from Kloten.
 
-```{code-cell} python
+```{code-cell} ipython3
 import pandas as pd
 
 # Load the daily Kloten dataset
@@ -68,7 +77,6 @@ data = pd.read_csv(fp, sep=r"\s+", skiprows=[1], na_values=["-9999"])
 data["DATE"] = data["DATE"].astype(str)
 
 display(data[["DATE", "tmean"]].head(3))
-
 ```
 
 ---
@@ -118,7 +126,7 @@ Pandas provides a dedicated function for this called `pd.to_datetime()`. It take
 
 Let us overwrite our broken string column with these new datetime objects, and try our math calculation one more time!
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Convert the string column to official Pandas datetime objects
 data["DATE"] = pd.to_datetime(data["DATE"])
 
@@ -131,7 +139,6 @@ first_date = data["DATE"].iloc[0]
 
 duration = last_date - first_date
 print(f"The dataset covers a duration of: {duration}")
-
 ```
 
 It worked! Because the data is now stored as `datetime64`, Pandas mathematically understands the rules of the calendar. When you subtract two dates, it successfully returns a `Timedelta` object (representing an exact duration of time) showing us our summer dataset spans exactly 91 days.
@@ -153,7 +160,7 @@ For example, how would we parse the human-written date `"22 December 2020"`?
 
 Let us see this in action:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Create a tiny DataFrame with a very strange, human-written date format
 messy_data = pd.DataFrame({"messy_date": ["22 December 2020", "01 January 2021"]})
 
@@ -161,7 +168,6 @@ messy_data = pd.DataFrame({"messy_date": ["22 December 2020", "01 January 2021"]
 messy_data["clean_date"] = pd.to_datetime(messy_data["messy_date"], format="%d %B %Y")
 
 display(messy_data)
-
 ```
 
 To parse any temporal text you encounter in the wild, simply match the characters to the standard directives below.
@@ -220,7 +226,7 @@ The `pd.read_csv()` function has a built-in parameter called `parse_dates`. If y
 
 Let us reload our dataset one last time, using the pro-trick to get it perfectly clean from the start.
 
-```{code-cell} python
+```{code-cell} ipython3
 # The cleanest way to load temporal data
 fp = "data/kloten_summer_2022_extended.txt"
 
@@ -229,13 +235,12 @@ data = pd.read_csv(
     sep=r"\s+",
     skiprows=[1],
     na_values=["-9999"],
-    parse_dates=["DATE"]  # <-- The magic parameter!
+    parse_dates=["DATE"],  # <-- The magic parameter!
 )
 
 # Verify it worked automatically
 display(data[["DATE", "tmean"]].head(3))
 print("Column type:", data["DATE"].dtypes)
-
 ```
 
 Notice how the `DATE` column in the table now has dashes (`2022-06-01`) instead of being crammed together (`20220601`)? That is the visual confirmation that Pandas has successfully parsed your text into a fully functioning datetime object.
@@ -281,9 +286,11 @@ The `.dt` accessor extracts specific temporal components from a full timestamp.
 
 To see the true power of this, let us switch to a higher-resolution dataset. We will load hourly weather data for the spring of 2024 (`kloten_spring_2024_hourly.csv`), remembering to use our `parse_dates` trick right from the start!
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Load the hourly dataset and instantly parse the timestamp
-hourly_data = pd.read_csv("data/kloten_spring_2024_hourly.csv", parse_dates=["timestamp"])
+hourly_data = pd.read_csv(
+    "data/kloten_spring_2024_hourly.csv", parse_dates=["timestamp"]
+)
 
 # 2. Extract components into brand new columns using the .dt accessor
 hourly_data["month"] = hourly_data["timestamp"].dt.month
@@ -292,7 +299,6 @@ hourly_data["hour"] = hourly_data["timestamp"].dt.hour
 
 # 3. View a random sample of 3 rows to see our new columns
 display(hourly_data[["timestamp", "month", "day_of_week", "hour"]].sample(3))
-
 ```
 
 :::{table} Output of .dt extraction
@@ -320,7 +326,7 @@ If we group our entire spring dataset by the newly extracted `hour` column, we c
 
 Let us calculate it and plot the results!
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Group by the hour and calculate the mean temperature
 diurnal_cycle = hourly_data.groupby("hour")["temperature"].mean()
 
@@ -331,14 +337,12 @@ ax = diurnal_cycle.plot(
     xlabel="Hour of the Day (0-23)",
     ylabel="Average Temperature (°C)",
     linewidth=2,
-    marker="o",        # Add dots for each specific hour
-    color="darkorange"
-);
-
+    marker="o",  # Add dots for each specific hour
+    color="darkorange",
+)
 # Add a grid and set the bottom axis to show every 2 hours
 ax.grid(True, linestyle="--", alpha=0.7)
 ax.set_xticks(range(0, 24, 2));
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -357,13 +361,12 @@ When working with time series, there is a much more elegant way. The ultimate Pa
 
 Let us take our `hourly_data` from the previous section and move the `timestamp` column into the index position:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Set the timestamp column as the index
 hourly_data = hourly_data.set_index("timestamp")
 
 # Notice how 'timestamp' drops down a level to become the index!
 display(hourly_data.head(3))
-
 ```
 
 ### Partial String Indexing
@@ -372,12 +375,11 @@ Now that our DataFrame is equipped with a **{term}`DatetimeIndex`**, it unlocks 
 
 You no longer need to write complex logical rules to filter your data. You can simply pass a string representing the year and month to `.loc[]`, and Pandas is smart enough to instantly grab every single row that belongs to that month!
 
-```{code-cell} python
+```{code-cell} ipython3
 # Effortlessly select all 744 hourly observations from exactly May 2024
 may_data = hourly_data.loc["2024-05"]
 
 print(f"May 2024 contains {len(may_data)} hourly observations.")
-
 ```
 
 ### Time Slicing
@@ -386,7 +388,7 @@ This string indexing also works flawlessly for ranges (slicing).
 
 Imagine you wanted to analyze the weather during the first week of April. Instead of trying to calculate exactly which index row numbers correspond to those days, you just pass the start and end dates separated by a colon (`:`).
 
-```{code-cell} python
+```{code-cell} ipython3
 # Slice a specific week of data (April 1st through April 7th)
 # Note: With .loc slicing, the end date is INCLUDED!
 first_week_april = hourly_data.loc["2024-04-01":"2024-04-07"]
@@ -396,7 +398,6 @@ total_rain = first_week_april["precipitation"].sum()
 
 print(f"Total rows extracted: {len(first_week_april)}")
 print(f"Total rain for the first week of April: {total_rain} mm")
-
 ```
 
 By putting time in the index, your DataFrame is now fundamentally "time-aware," allowing you to slice, filter, and navigate your dataset using natural dates instead of arbitrary row numbers.
@@ -435,7 +436,7 @@ To downsample your data (change it to a lower frequency), Pandas provides the **
 
 Let us take our `hourly_data` (which already has the `timestamp` as its index) and aggregate it into daily summaries.
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Resample hourly precipitation into Daily ('D') buckets and calculate the SUM
 daily_rain = hourly_data["precipitation"].resample("D").sum()
 
@@ -444,7 +445,6 @@ daily_temp = hourly_data["temperature"].resample("D").mean()
 
 print("Total Daily Rainfall (mm):")
 display(daily_rain.head(3))
-
 ```
 
 Notice that you must choose the correct mathematical function for your variable! Taking the *sum* of daily rainfall makes scientific sense, while taking the *sum* of hourly temperatures would be meaningless (which is why we use `.mean()` for temperature).
@@ -466,7 +466,7 @@ The .shift(1) operation lags data by pushing all values down one row. The empty 
 
 To demonstrate this, let us load a massive new dataset: the historical daily records for Kloten spanning over 40 years (`kloten_daily_19800101_20260101.csv`).
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Load the historical daily dataset, parse the dates, and set the index
 fp_daily = "data/kloten_daily_19800101_20260101.csv"
 historical_data = pd.read_csv(fp_daily, parse_dates=["DATE"])
@@ -476,12 +476,13 @@ historical_data = historical_data.set_index("DATE")
 historical_data["tmax_yesterday"] = historical_data["tmax"].shift(1)
 
 # 3. Calculate the day-to-day temperature swing
-historical_data["temp_swing"] = historical_data["tmax"] - historical_data["tmax_yesterday"]
+historical_data["temp_swing"] = (
+    historical_data["tmax"] - historical_data["tmax_yesterday"]
+)
 
 # View the first few rows to see the shift in action!
 columns_to_show = ["tmax", "tmax_yesterday", "temp_swing"]
 display(historical_data[columns_to_show].head(4))
-
 ```
 
 Notice the first row! Because we shifted the data forward by exactly one day, there is no "yesterday" available for the very first observation (January 1st, 1980), so Pandas correctly fills it with **{term}`NaN`**.
@@ -500,7 +501,7 @@ Pandas provides the **`.rolling()`** method for this exact purpose. It creates a
 
 Let us use our 40-year historical dataset to see this in action. Because our DataFrame has a `DatetimeIndex`, we do not have to guess row numbers; we can just pass a string representing the time window we want (e.g., `"365D"` for a one-year window)!
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Calculate a 1-year rolling average (smooths out daily weather, shows yearly cycles)
 historical_data["1_year_trend"] = historical_data["tmean"].rolling("365D").mean()
 
@@ -510,7 +511,6 @@ historical_data["10_year_trend"] = historical_data["tmean"].rolling("3650D").mea
 
 # 3. View the first few rows
 display(historical_data[["tmean", "1_year_trend", "10_year_trend"]].head(5).round(2))
-
 ```
 
 *(Note: Because we used a time-based window like `"365D"`, Pandas starts calculating the average immediately using whatever data it has so far. If we had used a strict row count like `window=365`, the first 364 rows would simply be `NaN`!)*
@@ -560,37 +560,27 @@ C) Both require `.resample()`.
 
 Now for the payoff. Let us plot our raw, noisy daily temperatures in a light, transparent color, and overlay our newly calculated rolling averages to see the true trajectory of Kloten's climate since 1980.
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Plot the raw daily data (faint gray)
 ax = historical_data["tmean"].plot(
-    figsize=(12, 6), 
-    color="lightgray", 
-    alpha=0.5,           # Make it partially transparent
-    label="Daily Mean (Raw Weather)"
-);
-
+    figsize=(12, 6),
+    color="lightgray",
+    alpha=0.5,  # Make it partially transparent
+    label="Daily Mean (Raw Weather)",
+)
 # 2. Add the 1-year rolling average (blue)
 historical_data["1_year_trend"].plot(
-    ax=ax, 
-    color="dodgerblue", 
-    linewidth=1.5, 
-    label="1-Year Trend"
-);
-
+    ax=ax, color="dodgerblue", linewidth=1.5, label="1-Year Trend"
+)
 # 3. Add the 10-year rolling average (red)
 historical_data["10_year_trend"].plot(
-    ax=ax, 
-    color="crimson", 
-    linewidth=3, 
-    label="10-Year Climate Trend"
-);
-
+    ax=ax, color="crimson", linewidth=3, label="10-Year Climate Trend"
+)
 # 4. Add styling and labels
 ax.set_title("40-Year Temperature Trends in Kloten (1980 - 2026)", fontsize=14)
 ax.set_ylabel("Temperature (°C)", fontsize=12)
 ax.set_xlabel("Date", fontsize=12)
 ax.legend();
-
 ```
 
 When you run this code, the visual story becomes undeniable. The gray static represents the chaotic daily weather. The blue line oscillates up and down, showing the reliable shift between warm summers and cold winters. But the thick red line cuts through all the noise, revealing a clear, upward trajectory in the baseline average temperature over the last 40 years.
@@ -603,7 +593,7 @@ Visualizing the red line going up is powerful, but as data scientists, we want t
 
 To find out, we can calculate a linear trendline (the slope). The easiest way to do this is to take our daily data, resample it into **annual averages**, and then use a mathematical function from the **NumPy** library to calculate the slope of the line.
 
-```{code-cell} python
+```{code-cell} ipython3
 import numpy as np
 
 # 1. Resample the data to Annual ('YE') averages ('YE' = Year-End)
@@ -619,7 +609,6 @@ slope, intercept = np.polyfit(years_passed, annual_temps, 1)
 
 print(f"The long-term warming trend is {slope:.3f}°C per year.")
 print(f"Total warming over the dataset: {(slope * len(years_passed)):.2f}°C")
-
 ```
 
 *(Note: The exact output will depend on your specific dataset, but you will likely see a total warming of roughly 1.5°C to 2.0°C over the last 40 years!)*
@@ -643,9 +632,8 @@ Use `.loc[]` to slice your exact birthday from the `historical_data` DataFrame a
 
 Can you also solve what day of the week were you born using the `.day_name()` method?
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here:
-
 ```
 
 ``````{admonition} Sample Solution
@@ -677,9 +665,8 @@ Now, let us analyze the Säntis mountain dataset (`saentis_hourly_temp_precip_20
 3. Set the `timestamp` column as the DataFrame's index.
 4. Display the first 2 rows to check your work.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here:
-
 ```
 
 ``````{admonition} Sample Solution
@@ -706,9 +693,8 @@ The data is currently hourly. That is far too detailed to see the seasonal shift
 1. Resample the hourly `temperature` data into **monthly** averages (`"MS"` or `"M"`).
 2. Plot the resulting monthly averages as a line chart.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here:
-
 ```
 
 ``````{admonition} Sample Solution
@@ -736,9 +722,8 @@ ax.grid(True, linestyle="--", alpha=0.6)
 Using your newly resampled `monthly_saentis` data, can you find the exact month that had the absolute highest average temperature?
 *(Hint: The `.idxmax()` method will return the index label—in this case, the date—of the highest value!)*
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here:
-
 ```
 
 ``````{admonition} Sample Solution

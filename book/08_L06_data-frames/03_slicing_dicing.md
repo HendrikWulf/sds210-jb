@@ -1,6 +1,16 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210_home
+  language: python
+  name: python3
 site:
- outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
 # Slicing and Dicing
@@ -39,12 +49,11 @@ Now that your data is loaded into a two dimensional grid, you need to know how t
 
 In the previous chapter, we successfully loaded the [kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt) weather dataset. Let us quickly reload it to your local working directory so we have a fresh **{term}`DataFrame`** to work with.
 
-```{code-cell} python
+```{code-cell} ipython3
 import pandas as pd
 
 # Load the Kloten summer weather data, skipping metadata
-data = pd.read_csv('data/kloten_summer_2022.txt', skiprows=10)
-
+data = pd.read_csv("data/kloten_summer_2022.txt", skiprows=10)
 ```
 
 ---
@@ -55,7 +64,7 @@ When performing data analysis, you rarely need every variable in your dataset. Y
 
 To extract a single column, pass the name as a string. This returns a one dimensional **{term}`Series`**.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extract a single column
 max_temps = data["MAX"]
 
@@ -64,9 +73,7 @@ print(type(max_temps))
 
 # Look at the first 3 rows
 max_temps.head(3)
-
 ```
-
 
 ```{admonition} The Dot Notation Alternative
 :class: warning
@@ -81,7 +88,7 @@ To extract multiple columns, you must pass a **{term}`list <List>`** of column n
 
 Extracting multiple columns returns a smaller DataFrame, rather than a Series.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extract multiple columns
 subset = data[["YEARMODA", "MAX", "MIN"]]
 
@@ -89,7 +96,6 @@ subset = data[["YEARMODA", "MAX", "MIN"]]
 print(type(subset))
 
 display(subset.head(3))
-
 ```
 
 *"Note: We use the `display()` function here to explicitly print the DataFrame as a cleanly formatted HTML table in our notebook."*
@@ -110,10 +116,9 @@ Selecting columns is easy, but how do we select specific rows? In pure Python, y
 
 First, we ask the question. Let us find out which days had a maximum temperature greater than 30 degrees Celsius:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Ask the question (creates a boolean mask)
 data["MAX"] > 30
-
 ```
 
 This returns a Series of `True` and `False` values, often called a **mask**.
@@ -122,23 +127,21 @@ To actually filter the data, we place this conditional mask *inside* the selecti
 
 For absolute clarity, here is how you do it in two steps:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Step 1: Save the mask to a variable
 is_hot = data["MAX"] > 30
 
 # Step 2: Pass the mask variable into the brackets
 hot_days = data[is_hot]
-
 ```
 
 However, experienced programmers usually combine this into a single line of code by placing the condition directly inside the brackets. Notice how the word `data` appears twice:
 
-```{code-cell} python
+```{code-cell} ipython3
 # The standard one-line approach
 hot_days = data[data["MAX"] > 30]
 
 display(hot_days.head(3))
-
 ```
 
 Notice the **{term}`Index`** on the far left. It jumped from 15 to 18 to 19, preserving the original row labels of the days that met our criteria.
@@ -164,22 +167,20 @@ When combining conditions in Pandas, you **must** wrap each individual condition
 
 Let us find "extreme" summer days that were both very hot (`MAX > 30`) but also had surprisingly cool mornings (`MIN < 14`).
 
-```{code-cell} python
+```{code-cell} ipython3
 # Using & (AND) for logical conditions
 extreme_days = data[(data["MAX"] > 30) & (data["MIN"] < 14)]
 display(extreme_days)
-
 ```
 
 ### OR Condition Example
 
 Next, let us find days that were either extremely hot (`MAX > 33`) OR had very cold mornings (`MIN < 10`). This query will include days meeting either criteria, or both.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Using | (OR) logic for extreme temperatures
 either_extreme_days = data[(data["MAX"] > 33) | (data["MIN"] < 10)]
 display(either_extreme_days)
-
 ```
 
 ---
@@ -190,11 +191,10 @@ Once you have isolated your data, you frequently want to order it. The `.sort_va
 
 By default, Pandas sorts in ascending order (smallest to largest). To find the absolute hottest days of the summer at the top of our table, we need to set the `ascending` parameter to `False`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Sort by MAX temperature, descending
 sorted_data = data.sort_values(by="MAX", ascending=False)
 display(sorted_data.head(3))
-
 ```
 
 ---
@@ -219,7 +219,7 @@ This makes pandas more predictable than older versions. You can create a filtere
 
 Let us filter the data for early June and add a new column:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Create a subset for early June
 early_june = data[data["YEARMODA"] < 20220610]
 
@@ -231,7 +231,7 @@ display(early_june.head())
 
 The new column is added to `early_june`. The original `data` DataFrame remains unchanged.
 
-```{code-cell} python
+```{code-cell} ipython3
 # The new column exists in the subset
 print("Columns in early_june:")
 print(early_june.columns)
@@ -250,7 +250,7 @@ A filtered subset can be used as a separate working object. If you modify that s
 
 You can still use `.copy()` when you want to make your intention extra clear:
 
-```{code-cell} python
+```{code-cell} ipython3
 early_june_copy = data[data["YEARMODA"] < 20220610].copy()
 early_june_copy["IS_HOT"] = early_june_copy["MAX"] > 25
 
@@ -273,13 +273,13 @@ Am I creating a new object for separate analysis, or am I trying to change the o
 
 If you create a new object, use a new variable name:
 
-```{code-cell} python
+```{code-cell} ipython3
 hot_days = data[data["MAX"] > 30]
 ```
 
 If you want to continue working with this subset, you can modify it:
 
-```{code-cell} python
+```{code-cell} ipython3
 hot_days["VERY_HOT"] = hot_days["MAX"] > 33
 
 display(hot_days.head())
@@ -340,7 +340,7 @@ For this, pandas provides two powerful indexers: `.loc[]` and `.iloc[]`.
 
 Let us look at the difference. Imagine we sort our data so the hottest day (originally Index 18) is at the very top of the table.
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. .iloc looks for the row currently sitting in the very first position (position 0)
 print("Result of .iloc[0]:")
 print(sorted_data.iloc[0])
@@ -350,7 +350,6 @@ print("\n-------------------\n")
 # 2. .loc looks for the row literally labeled '0' (which is now deep in the middle of the sorted data)
 print("Result of .loc[0]:")
 print(sorted_data.loc[0])
-
 ```
 
 Notice how `.iloc[0]` returned the data for the hottest day (labeled 18), while `.loc[0]` hunted down the specific row labeled 0 (June 1st).
@@ -359,11 +358,10 @@ Notice how `.iloc[0]` returned the data for the hottest day (labeled 18), while 
 
 The true power of these indexers is that you can select rows and columns at the same time by separating them with a comma: `[rows, columns]`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Use .loc to get rows labeled 0 through 3, and specifically the "MAX" and "MIN" columns
 subset_loc = data.loc[0:3, ["MAX", "MIN"]]
 display(subset_loc)
-
 ```
 
 :::{table} Output of .loc[0:3, ["MAX", "MIN"]]
@@ -406,9 +404,8 @@ Imagine you are doing an analysis focused solely on major urban centers in Japan
 
 *(Hint for Step 5: Remember that selecting multiple columns requires a list inside the selection brackets, which looks like double brackets `[[ ]]`)*.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution

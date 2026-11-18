@@ -1,4 +1,14 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
   outline_maxdepth: 1
 ---
@@ -55,9 +65,8 @@ The most important shift in thinking is this: operations on NumPy arrays are usu
 
 By convention, NumPy is usually imported with the alias `np`.
 
-```{code-cell} python
+```{code-cell} ipython3
 import numpy as np
-
 ```
 
 ### Understanding dimensions
@@ -89,7 +98,7 @@ These restrictions are helpful. They allow NumPy to store data efficiently and p
 
 You can create a NumPy array directly from a Python list using `np.array()`.
 
-```{code-cell} python
+```{code-cell} ipython3
 arr_1d = np.array([1, 2, 3, 4])
 arr_2d = np.array([[1, 2], [3, 4]])
 
@@ -98,7 +107,6 @@ print(arr_1d)
 
 print("\n2D array:")
 print(arr_2d)
-
 ```
 
 When working with raster like data, you often want to begin with a blank grid. NumPy provides simple ways to generate these starting structures:
@@ -107,7 +115,7 @@ When working with raster like data, you often want to begin with a blank grid. N
 * `np.ones()` creates an array filled with ones
 * `np.arange()` creates a regular numeric sequence
 
-```{code-cell} python
+```{code-cell} ipython3
 zeros = np.zeros((3, 3))
 ones = np.ones((2, 4))
 sequence = np.arange(0, 10, 2)
@@ -115,7 +123,6 @@ sequence = np.arange(0, 10, 2)
 print("Zeros:\n", zeros)
 print("\nOnes:\n", ones)
 print("\nSequence:\n", sequence)
-
 ```
 
 ### `arange()` vs. `linspace()`
@@ -127,10 +134,9 @@ Both `np.arange()` and `np.linspace()` create sequences, but they work a little 
 
 Here is a simple example with `linspace()`:
 
-```{code-cell} python
+```{code-cell} ipython3
 values = np.linspace(0, 10, num=5)
 print(values)
-
 ```
 
 This creates five evenly spaced values between `0` and `10`, including both endpoints.
@@ -161,7 +167,7 @@ This is especially useful when flat data need to be turned into a matrix.
 *Visualizing array restructuring: A one dimensional sequence of 6 elements can be instantly reshaped into a grid of 2 rows and 3 columns, or 3 rows and 2 columns. Source: [Numpy*](https://numpy.org/devdocs/user/absolute_beginners.html#transposing-and-reshaping-a-matrix)
 :::
 
-```{code-cell} python
+```{code-cell} ipython3
 # Create a 1D sequence from 1 to 6
 data = np.arange(1, 7)
 
@@ -172,7 +178,6 @@ print("2x3 grid:\n", grid_2x3)
 # Reshape the same data sequence into a 3x2 grid
 grid_3x2 = data.reshape((3, 2))
 print("\n3x2 grid:\n", grid_3x2)
-
 ```
 
 A result like this is already starting to look like a tiny raster band: a regular grid of values arranged by rows and columns. At this stage, however, it is still just a numerical array. The spatial meaning comes later, when coordinates, resolution, and other raster metadata are added.
@@ -192,13 +197,12 @@ You can use the built-in Python `type()` **{term}`function <Function>`** to conf
 
 This quick "first check" is one of the most useful debugging habits you can build before you start performing map algebra on large raster datasets.
 
-```{code-cell} python
+```{code-cell} ipython3
 print(f"Type: {type(grid_3x2)}")
 print(f"Dimensions: {grid_3x2.ndim}")
 print(f"Shape: {grid_3x2.shape}")
 print(f"Size: {grid_3x2.size}")
 print(f"Data type: {grid_3x2.dtype}")
-
 ```
 
 ---
@@ -220,15 +224,14 @@ Indexing selects one position. **{term}`Slicing`** selects a range of positions.
 
 Before working with grids, it helps to recall how indexing works in a simple one dimensional array.
 
-```{code-cell} python
+```{code-cell} ipython3
 data = np.array([1, 2, 3, 4, 5, 6])
 
-print(data[0])    # first value
-print(data[1])    # second value
+print(data[0])  # first value
+print(data[1])  # second value
 print(data[0:2])  # first two values
-print(data[3:])   # everything from index 3 onward
+print(data[3:])  # everything from index 3 onward
 print(data[-2:])  # last two values
-
 ```
 
 :::{figure} images/03_np_indexing.png
@@ -245,17 +248,12 @@ An important rule in Python slicing is that the **stop value is excluded**. So `
 
 In a two dimensional array, you specify both the row and column position inside one pair of square brackets.
 
-```{code-cell} python
-grid = np.array([
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-])
+```{code-cell} ipython3
+grid = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
 # Access the element in the first row and second column
 value = grid[0, 1]
 print(value)
-
 ```
 
 ```{admonition} Row & Column
@@ -269,7 +267,7 @@ For two dimensional arrays, the index order is always `[row, column]`. This orde
 
 Slicing lets you extract subsets of an array using the `:` symbol. In two dimensions, you can slice rows and columns at the very same time.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Slice the first two rows and all columns
 top_rows = grid[:2, :]
 
@@ -286,7 +284,6 @@ print("Top rows:\n", top_rows)
 print("\nBottom left window:\n", bottom_left_window)
 print("\n2x2 window:\n", window)
 print("\nRectangular inner window:\n", inner_window)
-
 ```
 
 This is the foundational pattern for extracting analysis windows or cropping regions of interest from large raster files.
@@ -313,7 +310,7 @@ In Python, arrays are **zero-indexed**, meaning the second pixel is at index `1`
 
 You can use indexing and slicing not only to read values, but also to instantly change them.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Set a specific cell to 10
 grid[2, 2] = 10
 
@@ -321,23 +318,17 @@ grid[2, 2] = 10
 grid[0:2, 0:2] = 5
 
 print(grid)
-
 ```
 
 ### Boolean indexing
 
 NumPy also allows you to select values based on specific mathematical conditions. This is called **{term}`boolean indexing <Boolean indexing>`**.
 
-```{code-cell} python
-a = np.array([
-    [1, 2, 3, 4],
-    [5, 6, 7, 8],
-    [9, 10, 11, 12]
-])
+```{code-cell} ipython3
+a = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
 
 print(a[a < 5])
 print(a[a >= 5])
-
 ```
 
 A condition such as `a < 5` actually creates a temporary boolean array of the exact same shape, filled entirely with `True` and `False` values. NumPy then applies that mask over your original array to return only the matching values.
@@ -345,10 +336,9 @@ A condition such as `a < 5` actually creates a temporary boolean array of the ex
 This technique is very useful for thresholding or isolating pixels.
 You can also combine multiple conditions using `&` (and) or `|` (or):
 
-```{code-cell} python
+```{code-cell} ipython3
 selected = a[(a > 2) & (a < 11)]
 print(selected)
-
 ```
 
 This kind of targeted updating is useful when simulating terrain, applying masks, or changing selected raster cells.
@@ -377,12 +367,8 @@ NumPy is powerful because it lets you apply mathematical operations to entire ar
 
 If you combine an array with a single number (a scalar), NumPy automatically applies that operation to every cell in the array. This concept is called **{term}`broadcasting <Broadcasting>`**.
 
-```{code-cell} python
-grid = np.array([
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-])
+```{code-cell} ipython3
+grid = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
 # Scalar math (Broadcasting): multiply all pixels by 2
 doubled_grid = grid * 2
@@ -392,24 +378,22 @@ offset_grid = grid + 10
 
 print("Doubled Grid:\n", doubled_grid)
 print("\nOffset Grid:\n", offset_grid)
-
 ```
 
 You can also perform **{term}`element-wise <Element-wise operation>`** math between two arrays, provided they have compatible dimensions (e.g., the same shape). This is useful for operations like calculating the difference between two raster layers (e.g., finding elevation change over time).
 
-```{code-cell} python
+```{code-cell} ipython3
 # Element-wise addition
 combined_grid = grid + offset_grid
 
 print("Combined Grid:\n", combined_grid)
-
 ```
 
 ### Mathematical functions
 
 NumPy includes a vast library of ready-made mathematical functions (often called universal functions or **ufuncs**) that work directly on arrays.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Apply a logarithmic transformation (log(1 + x) handles zeros safely)
 log_grid = np.log1p(grid)
 
@@ -418,7 +402,6 @@ sqrt_grid = np.sqrt(grid)
 
 # Or perform trigonometry (e.g., when calculating terrain slope/aspect)
 sin_grid = np.sin(grid)
-
 ```
 
 This is especially useful in spatial data science, where raster processing often involves transforming values before analysis or visualization.
@@ -429,14 +412,13 @@ Once you have a grid of values, you often want quick summaries. NumPy provides a
 
 By default, these functions evaluate the entire array.
 
-```{code-cell} python
+```{code-cell} ipython3
 print(f"Min elevation: {grid.min()}")
 print(f"Max elevation: {grid.max()}")
 print(f"Sum of elevation: {grid.sum()}")
 print(f"Mean elevation: {grid.mean()}")
 print(f"Median elevation: {np.median(grid)}")
 print(f"Standard deviation: {np.std(grid).round(2)}")
-
 ```
 
 ```{admonition} Median
@@ -455,7 +437,7 @@ You can also calculate statistics for specific dimensions by specifying an `axis
 * `axis=0` aggregates down the columns (vertically).
 * `axis=1` aggregates across the rows (horizontally).
 
-```{code-cell} python
+```{code-cell} ipython3
 # Find the maximum value in each column
 max_per_col = grid.max(axis=0)
 
@@ -464,7 +446,6 @@ mean_per_row = grid.mean(axis=1)
 
 print("Max value per column:", max_per_col)
 print("Mean value per row:", mean_per_row)
-
 ```
 
 These kinds of targeted summaries are very common in raster analysis, for example, when creating zonal statistics or analyzing temporal data where one axis represents time.
@@ -505,9 +486,8 @@ You are given a tiny elevation raster for a mountain valley. Your task is to bui
 8. Create a Boolean mask for all cells with elevation greater than `4`.
 9. Assign `np.nan` (**{term}`NaN`**) to one corner cell to represent missing data.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample Solution

@@ -1,8 +1,16 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
+  outline_maxdepth: 1
 ---
 
 # Measuring & Modifying
@@ -47,7 +55,6 @@ This chapter marks your transition into active spatial analysis. You will learn 
 :class: dropdown
 
 To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
-
 * [swissBoundaries3D_switzerland.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.gpkg)
 * [swissBoundaries3D_cantons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_cantons.gpkg)
 * [swissBoundaries3D_grisons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_grisons.gpkg)
@@ -96,7 +103,7 @@ We can extract these properties instantly using `.geometry.area` and `.geometry.
 
 Let us load our Swiss Cantons dataset, verify it is in our metric projection (EPSG:2056), and find out which canton has the largest area and which has the longest border.
 
-```{code-cell} python
+```{code-cell} ipython3
 import geopandas as gpd
 
 # Load the cantons dataset
@@ -110,12 +117,21 @@ cantons_gdf["border_km"] = cantons_gdf.geometry.length / 1000
 
 # Top 3 Cantons by Area
 print("Largest Cantons (Area):")
-display(cantons_gdf[["name", "area_sqkm"]].sort_values(by="area_sqkm", ascending=False).head(3).round(1))
+display(
+    cantons_gdf[["name", "area_sqkm"]]
+    .sort_values(by="area_sqkm", ascending=False)
+    .head(3)
+    .round(1)
+)
 
 # Top 3 Cantons by Border Length
 print("\nLongest Borders (Perimeter):")
-display(cantons_gdf[["name", "border_km"]].sort_values(by="border_km", ascending=False).head(3).round(1))
-
+display(
+    cantons_gdf[["name", "border_km"]]
+    .sort_values(by="border_km", ascending=False)
+    .head(3)
+    .round(1)
+)
 ```
 
 **Before you look at the results:** Run the code above and compare the two lists. Are the exact same cantons in the top 3, and is their order exactly the same?
@@ -148,17 +164,16 @@ This highlights a fundamental concept in spatial data: **shape complexity**. A t
 
 We can easily prove this visually by plotting our new `border_km` column:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Visualize the shape complexity by coloring cantons by their border length
 cantons_gdf.plot(
     column="border_km",
     cmap="viridis",
     figsize=(10, 6),
     legend=True,
-    legend_kwds={'label': "Border Length (km)"},
-    edgecolor="white"
+    legend_kwds={"label": "Border Length (km)"},
+    edgecolor="white",
 );
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -175,13 +190,12 @@ The **centroid** is the mathematical center of mass of a geometry. Extracting ce
 
 Let us load the national boundary dataset and extract the exact geographic center of Switzerland.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Load the national boundaries
 ch_gdf = gpd.read_file("data/swissBoundaries3D_switzerland.gpkg")
 
 # Extract the centroid (This generates a new GeoSeries containing Point geometries)
 ch_centroid = ch_gdf.geometry.centroid
-
 ```
 
 ### How to Layer Maps (Overlays)
@@ -190,15 +204,12 @@ Up to this point, we have only plotted one dataset at a time. To see which canto
 
 In GeoPandas, layering maps is done by saving the first plot as a variable (usually called `ax`, short for "axis" or canvas). When we generate the second plot, we pass `ax=ax` as an argument, which tells GeoPandas: *"Do not create a new plot; draw this on top of the existing canvas!"*
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Draw the base map (Cantons) and save the canvas as 'ax'
-ax = cantons_gdf.plot(figsize=(10, 6), color="whitesmoke", edgecolor="lightgrey");
-
+ax = cantons_gdf.plot(figsize=(10, 6), color="whitesmoke", edgecolor="lightgrey")
 # 2. Draw the centroids ON TOP of the base map by passing 'ax=ax'
-ch_centroid.plot(ax=ax, color="red", marker="x", markersize=100);
-
+ch_centroid.plot(ax=ax, color="red", marker="x", markersize=100)
 ax.set_title("The Geographic Center(s) of Switzerland");
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -234,7 +245,7 @@ So, how do we get *just* the true center of Switzerland without those extra thre
 
 Because GeoPandas is built directly on top of Pandas, **all your standard Pandas filtering skills still work perfectly!** If we want to isolate the geometry for Switzerland, we simply filter the **{term}`DataFrame`** using the `name` column before we calculate the centroid:
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Filter the dataset to only keep the row named "Schweiz"
 ch_mainland = ch_gdf[ch_gdf["name"] == "Schweiz"]
 
@@ -243,7 +254,6 @@ true_center = ch_mainland.geometry.centroid
 
 print("Success! We isolated the single center point:")
 print(true_center)
-
 ```
 
 ```{admonition} Centroids outside the shape!
@@ -267,7 +277,7 @@ Let us convert our CSV to a **{term}`GeoDataFrame`** and draw these exact zones.
 
 *Note: If you look closely at the raw CSV data, the coordinates are not longitude/latitude degrees; they are massive numbers stored in columns named `X` and `Y`. This tells us the provider already projected the data into the Swiss metric grid for us! We just need to make sure we assign the correct CRS when we build the GeoDataFrame.*
 
-```{code-cell} python
+```{code-cell} ipython3
 import pandas as pd
 
 # 1. Load the CSV
@@ -276,25 +286,21 @@ npp_df = pd.read_csv("data/NuclearPowerPlant.csv")
 # 2. Convert to a spatial GeoDataFrame
 # Because the data is already metric, we set the CRS directly to EPSG:2056
 npp_gdf = gpd.GeoDataFrame(
-    npp_df, 
-    geometry=gpd.points_from_xy(npp_df.X, npp_df.Y),
-    crs="EPSG:2056" 
+    npp_df, geometry=gpd.points_from_xy(npp_df.X, npp_df.Y), crs="EPSG:2056"
 )
 
-# 3. Create the Buffers 
+# 3. Create the Buffers
 # Because our CRS is already in meters, we can safely buffer by 16,000 and 80,000
 # This creates completely new geometry objects
 zone_1_evac = npp_gdf.geometry.buffer(16000)
 zone_2_monitor = npp_gdf.geometry.buffer(80000)
 
 # 4. Plot the results layered over the Swiss border
-ax = ch_gdf.plot(figsize=(10, 6), color="none", edgecolor="black", linewidth=1.5);
-zone_2_monitor.plot(ax=ax, color="orange", alpha=0.3, label="80km Monitoring");
-zone_1_evac.plot(ax=ax, color="red", alpha=0.5, label="16km Evacuation");
-npp_gdf.plot(ax=ax, color="black", marker="*", markersize=50);
-
+ax = ch_gdf.plot(figsize=(10, 6), color="none", edgecolor="black", linewidth=1.5)
+zone_2_monitor.plot(ax=ax, color="orange", alpha=0.3, label="80km Monitoring")
+zone_1_evac.plot(ax=ax, color="red", alpha=0.5, label="16km Evacuation")
+npp_gdf.plot(ax=ax, color="black", marker="*", markersize=50)
 ax.set_title("Nuclear Safety Zones in Switzerland");
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -343,7 +349,7 @@ To see the difference between these three tools clearly, it is best to put the m
 
 Think of `plt.subplots(1, 3)` as building a single large picture frame (`fig`) that contains a grid of 1 row and 3 columns. Inside that frame are three blank canvases (`ax1`, `ax2`, and `ax3`). We can then tell GeoPandas exactly which canvas to draw on!
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 import geopandas as gpd
 
@@ -365,26 +371,25 @@ grisons_hull = grisons_gdf.geometry.convex_hull
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))
 
 # Canvas 1: Simplify
-grisons_gdf.plot(ax=ax1, color="lightgrey");
-grisons_simple.plot(ax=ax1, color="none", edgecolor="blue", linewidth=2);
+grisons_gdf.plot(ax=ax1, color="lightgrey")
+grisons_simple.plot(ax=ax1, color="none", edgecolor="blue", linewidth=2)
 ax1.set_title("Simplified (5km tolerance)")
-ax1.axis("off") # This hides the coordinate numbers to make it look cleaner
+ax1.axis("off")  # This hides the coordinate numbers to make it look cleaner
 
 # Canvas 2: Envelope
-grisons_gdf.plot(ax=ax2, color="lightgrey");
-grisons_box.plot(ax=ax2, color="none", edgecolor="red", linewidth=2);
+grisons_gdf.plot(ax=ax2, color="lightgrey")
+grisons_box.plot(ax=ax2, color="none", edgecolor="red", linewidth=2)
 ax2.set_title("Envelope (Bounding Box)")
 ax2.axis("off")
 
 # Canvas 3: Convex Hull
-grisons_gdf.plot(ax=ax3, color="lightgrey");
-grisons_hull.plot(ax=ax3, color="none", edgecolor="green", linewidth=2);
+grisons_gdf.plot(ax=ax3, color="lightgrey")
+grisons_hull.plot(ax=ax3, color="none", edgecolor="green", linewidth=2)
 ax3.set_title("Convex Hull")
 ax3.axis("off")
 
 # Display the final frame
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -441,9 +446,8 @@ It is time to combine everything you have learned. In this exercise, you will ma
 5. **Centroids:** Calculate the centroid of your new convex hull, and the centroid of the original filtered Switzerland polygon.
 6. **Distance:** Use the `.distance()` method to find the exact distance in meters between the two centroids. *(Hint: Because centroids are stored in a **{term}`GeoSeries`**, you should extract the raw point geometry first using `.values[0]` to do the math: e.g., `point_a.values[0].distance(point_b.values[0])`)*. Was your guess close?
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution

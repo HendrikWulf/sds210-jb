@@ -1,8 +1,12 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
-    outline_maxdepth: 1
-
+  outline_maxdepth: 1
 ---
 
 # Mapping with GeoPandas
@@ -77,7 +81,6 @@ fig, ax = plt.subplots(figsize=(10, 5))
 land.plot(ax=ax)
 
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -133,14 +136,13 @@ fig, ax = plt.subplots(figsize=(10, 5))
 
 # Draw both datasets on the same Axes
 ocean.plot(ax=ax)
-land.plot(ax=ax, color='lightgrey')
+land.plot(ax=ax, color="lightgrey")
 
 # Apply geographic context to the axes
 ax.set_xlabel("Longitude")
 ax.set_ylabel("Latitude")
 
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -182,23 +184,22 @@ fig, ax = plt.subplots(figsize=(10, 5))
 # Plot Oceans (Background)
 ocean.plot(ax=ax, zorder=1)
 
-# Plot Land 
-land.plot(ax=ax, color='lightgrey', zorder=2) 
+# Plot Land
+land.plot(ax=ax, color="lightgrey", zorder=2)
 
 # Plot Glaciated Areas (Midground)
-glaciated_areas.plot(ax=ax, color='white', zorder=3)
+glaciated_areas.plot(ax=ax, color="white", zorder=3)
 
-# Plot Rivers 
-rivers.plot(ax=ax, color='blue', zorder=4) 
+# Plot Rivers
+rivers.plot(ax=ax, color="blue", zorder=4)
 
 # Plot Lakes (Foreground)
-lakes.plot(ax=ax, color='darkblue', zorder=5) 
+lakes.plot(ax=ax, color="darkblue", zorder=5)
 
 ax.set_xlabel("Longitude")
 ax.set_ylabel("Latitude")
 
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -292,16 +293,18 @@ fig, ax = plt.subplots(figsize=(14, 7))
 ocean.plot(ax=ax, color="#add8e6", zorder=1)
 
 # Plot Land using named colors and transparency (alpha)
-land.plot(ax=ax, color="lightgrey", alpha=0.5, edgecolor="darkgrey", linewidth=0.5, zorder=2) 
+land.plot(
+    ax=ax, color="lightgrey", alpha=0.5, edgecolor="darkgrey", linewidth=0.5, zorder=2
+)
 
 # Plot Glaciated Areas using shorthand "w" for white
 glaciated_areas.plot(ax=ax, color="w", zorder=3)
 
 # Plot Rivers using Matplotlib's default categorical palette (C9)
-rivers.plot(ax=ax, color="C9", linewidth=0.3, zorder=4) 
+rivers.plot(ax=ax, color="C9", linewidth=0.3, zorder=4)
 
 # Plot Lakes using Matplotlib's default categorical palette (C0)
-lakes.plot(ax=ax, color="C0", zorder=5) 
+lakes.plot(ax=ax, color="C0", zorder=5)
 
 # Add a title and remove the confusing coordinate grid box
 ax.set_title("Global Landmasses, Rivers, Glaciers, and Lakes", fontsize=18)
@@ -311,7 +314,6 @@ ax.axis("off")
 fig.savefig("data/global_map.png", dpi=200, bbox_inches="tight")
 
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -344,7 +346,6 @@ It is time to practice composing a map from scratch. You will load polygon layer
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ``````{admonition} Sample Solution

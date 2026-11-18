@@ -1,8 +1,16 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210_home
+  language: python
+  name: python3
 site:
-    outline_maxdepth: 1
-
+  outline_maxdepth: 1
 ---
 
 # Cleaning the Mess
@@ -52,7 +60,7 @@ To follow along with this chapter, place the following dataset in a `data` folde
 
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 import pandas as pd
 
 # Define relative path to the file
@@ -63,7 +71,6 @@ data = pd.read_csv(fp, skiprows=10)
 
 # Inspect the first few rows of the uncleaned data
 display(data.head())
-
 ```
 
 Take a close look at the table above. What is wrong with it?
@@ -84,7 +91,7 @@ We can rename columns using the `.rename()` method. To tell Pandas exactly what 
 
 Let's define descriptive, lowercase names for our Kloten data.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Define the dictionary mapping old names to new names
 new_names = {
     "YEARMODA": "date",
@@ -99,7 +106,6 @@ data = data.rename(columns=new_names)
 
 # View the clean headers
 print(data.columns)
-
 ```
 
 ```{admonition} Reassignment vs. Inplace
@@ -120,20 +126,18 @@ The key method for changing data types in Pandas is `.astype()`.
 
 Let's check the current types of our DataFrame using `.dtypes`.
 
-```{code-cell} python
+```{code-cell} ipython3
 data.dtypes
-
 ```
 
 We see that `date` is currently stored as an **{term}`integer <Integer>`** (`int64`). Since we intend to perform string slicing on the date in the next subsection, we must first convert it to a string.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Convert the 'date' column to string
 data["date"] = data["date"].astype(str)
 
 # Verify the change
 data.dtypes
-
 ```
 
 ```{admonition} Why does it say "object"?
@@ -148,7 +152,7 @@ You might also want to convert **{term}`floating-point numbers <Floating-point n
 
 Look at what happens to the first value of our `temp_max` column (originally `19.6`):
 
-```{code-cell} python
+```{code-cell} ipython3
 # Look at the fifth value of the temp_10am column
 original_val = data["temp_10am"].iloc[4]
 
@@ -161,7 +165,6 @@ rounded_val = data["temp_10am"].round(0).astype(int).iloc[4]
 print(f"Original: {original_val}")
 print(f"astype(int): {truncated_val} <-- Truncated!")
 print(f"round().astype(int): {rounded_val} <-- Correctly rounded!")
-
 ```
 
 ---
@@ -186,12 +189,11 @@ Index:    0  1  2  3  4  5  6  7
 
 To get the month (`06`), we need to start at index `4` and stop before index `6`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extract months (characters at position 4 and 5)
 data["month"] = data["date"].str.slice(start=4, stop=6)
 
 display(data.head())
-
 ```
 
 #### Concept Check: Slicing the Year
@@ -230,10 +232,9 @@ If we look back at our Kloten DataFrame above, we can clearly see a `NaN` at ind
 
 Pandas provides handy tools to detect missing values. Every Series has a `.hasnans` attribute which quickly tells you if the column contains any missing data:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Check if a column has NaNs
 print(data["temp_max"].hasnans)
-
 ```
 
 ### Finding the Missing Data
@@ -242,11 +243,10 @@ Knowing that NaNs exist is good, but usually, we want to know exactly *where* th
 
 By itself, `.isna()` generates a True/False mask. If we chain the `.sum()` method to it, Pandas will count up all the `True` values, telling us exactly how many NaNs are in the column:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Count exactly how many NaNs are in the column
 missing_count = data["temp_max"].isna().sum()
 print(f"There are {missing_count} missing values in temp_max.")
-
 ```
 
 **Output:**
@@ -258,12 +258,11 @@ There are 10 missing values in temp_max.
 
 Even better, we can use `.isna()` as a boolean filter inside our selection brackets to isolate and view only the rows that are missing data!
 
-```{code-cell} python
+```{code-cell} ipython3
 # Filter the DataFrame to show ONLY rows where temp_max is NaN
 missing_data_rows = data[data["temp_max"].isna()]
 
 display(missing_data_rows.head(3))
-
 ```
 
 ---
@@ -284,7 +283,7 @@ It is highly recommended to use the `subset` parameter to specify exactly which 
 
 Let's drop rows where `temp_max` is missing. We had 92 rows initially.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Define crucial columns to check
 cols_to_check = ["temp_max"]
 
@@ -294,7 +293,6 @@ kloten_clean = data.dropna(subset=cols_to_check)
 # Check the new size
 print(f"Original rows: {len(data)}")
 print(f"Cleaned rows: {len(kloten_clean)}")
-
 ```
 
 4 rows were dropped.
@@ -307,9 +305,9 @@ For mathematical data like temperatures, you must be extremely cautious about wh
 
 A better approach is often to fill NaNs with a representative statistic, like the average (mean) value of the rest of the column.
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Make a safe copy first
-data_filled = data.copy() 
+data_filled = data.copy()
 
 # 2. Calculate the average max temp (Pandas automatically ignores NaNs here)
 avg_max = data_filled["temp_max"].mean()
@@ -318,7 +316,6 @@ avg_max = data_filled["temp_max"].mean()
 data_filled["temp_max"] = data_filled["temp_max"].fillna(avg_max)
 
 display(data_filled.head(3))
-
 ```
 
 Notice index 2 is now successfully filled with the calculated average (`25.845`).
@@ -337,15 +334,14 @@ Let's look at the original data around our missing value at Index 2:
 * Index 2 (June 3): `NaN`
 * Index 3 (June 4): `24.3`
 
-```{code-cell} python
-# 1. Make a safe copy 
-data_interp = data.copy() 
+```{code-cell} ipython3
+# 1. Make a safe copy
+data_interp = data.copy()
 
 # 2. Use interpolate() to connect the dots between the day before and day after
 data_interp["temp_max"] = data_interp["temp_max"].interpolate()
 
 display(data_interp.head(4))
-
 ```
 
 > Notice how clever Pandas is! It looked at the day before (`21.8`) and the day after (`24.3`), drew a straight line between them, and calculated the exact midpoint: `(21.8 + 24.3) / 2 = 23.05`. This is a much safer and more accurate way to clean environmental data than using the overall summer average.
@@ -401,11 +397,10 @@ Now that we have successfully sanitized our dataset by standardizing headers, fi
 
 As you learned in the [Getting Data In and Out](https://hendrikwulf.github.io/sds210-jb/book/l06-data-frames/data_in_out/) chapter, we use the `.to_csv()` method for this.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Save the fully cleaned dataset to a new CSV file
 data_interp.to_csv("kloten_summer_2022_clean.csv", index=False)
 print("Cleaned dataset saved successfully!")
-
 ```
 
 ---
@@ -427,9 +422,8 @@ Because this specific CSV happens to be quite clean already, we are going to int
 7. Crucial Check: Use `.dropna()` (using the `subset` parameter) to remove any cities where the `population` is missing (NaN).
 8. Display the first 5 rows of the cleaned DataFrame, and print the total number of rows left to verify your drop worked.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution

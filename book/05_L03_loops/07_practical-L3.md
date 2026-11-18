@@ -1,13 +1,22 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
   outline_maxdepth: 1
-
 ---
 
 # Practical L3
 
 <!-- markdownlint-disable MD033-->
+
 <div class="page-subtitle">
 From structured data to automated spatial logic
 </div>
@@ -57,9 +66,9 @@ We start with a small dataset of cities and coordinates. To work efficiently, we
 cities = ["Zurich", "Geneva", "Lugano"]
 
 coordinates = [
-    [2682217, 1247945],   # Zurich
-    [2499959, 1117840],   # Geneva
-    [2720031, 1098728]    # Lugano
+    [2682217, 1247945],  # Zurich
+    [2499959, 1117840],  # Geneva
+    [2720031, 1098728],  # Lugano
 ]
 
 city_data = {}
@@ -68,7 +77,6 @@ for i in range(len(cities)):
     city_data[cities[i]] = coordinates[i]
 
 print(city_data)
-
 ```
 
 ### Tasks
@@ -79,7 +87,6 @@ print(city_data)
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -98,7 +105,6 @@ Write a loop that iterates over all cities in `city_data` and prints the city na
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -120,7 +126,6 @@ Write code that extracts all city names from `city_data` and uses **nested loops
 
 city_names = list(city_data.keys())
 pairs = []
-
 ```
 
 ---
@@ -150,7 +155,6 @@ Write code that loops over all city pairs, computes both Euclidean and Manhattan
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -171,7 +175,6 @@ Write code that iterates over the `distances` dictionary, checks the Euclidean d
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -189,7 +192,6 @@ Write code that loops over all city pairs, computes the Euclidean distance, and 
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -207,7 +209,6 @@ Loops are often used to **prepare data for analysis**. Here, you will extract th
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -221,7 +222,6 @@ Loops are often used to **prepare data for analysis**. Here, you will extract th
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -236,7 +236,6 @@ Answer briefly in comments or markdown:
 
 ```{code-cell} python
 # Write your reflections here
-
 ```
 
 ---
