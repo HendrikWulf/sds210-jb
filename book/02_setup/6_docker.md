@@ -173,10 +173,11 @@ This distinction is the most important Docker concept for beginners.
 This section shows the core SDS210 Docker workflow. The important idea is:
 
 * the **Docker image** provides the reproducible software environment
-* the **GitLab course repository** provides the notebooks, data, and practicals
+* the **course repository** on GitHub provides the notebooks and practicals
+* **Source Cooperative** provides the course data, which the notebooks read from the web
 * the **mounted folder** keeps your work safely on your own computer
 
-The SDS210 Docker image does not contain the course data or your personal work. This keeps the image smaller and avoids duplicating large files. Your course files remain in the cloned GitLab repository on your own computer.
+The SDS210 Docker image does not contain the course notebooks, the data, or your personal work. This keeps the image smaller and avoids duplicating large files. Your course files remain in the cloned course repository on your own computer.
 
 ---
 
@@ -207,19 +208,19 @@ Status: Downloaded newer image for registry.gitlab.com/hendrikwulf/sds210:latest
 
 The SDS210 Docker image contains JupyterLab and the Python packages used in this course, including the geospatial libraries needed for the practical notebooks.
 
-It does **not** contain the full course data folder. The data and practical notebooks come from the SDS210 GitLab repository and are mounted into the container from your computer.
+It does **not** contain the course notebooks or data. The notebooks come from the SDS210 course repository and are mounted into the container from your computer. The notebooks read the data from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so the container needs an internet connection.
 ```
 
 ---
 
 ### Getting the course files
 
-The Docker image provides the software environment. The course notebooks, data, and practicals come from the SDS210 GitLab repository. Now make sure your terminal is in the folder where you want to keep your course files.
+The Docker image provides the software environment. The course notebooks and practicals come from the SDS210 course repository on GitHub. Now make sure your terminal is in the folder where you want to keep your course files.
 
-Clone the course repository once:
+Clone the course repository once. The last word, `sds210`, names the new folder:
 
 ```bash
-git clone https://gitlab.com/HendrikWulf/sds210.git
+git clone https://github.com/HendrikWulf/sds210-jb.git sds210
 ```
 
 Then move into the course folder:
@@ -235,7 +236,7 @@ This folder will be mounted into the Docker container. Any notebooks or outputs 
 
 The Docker image gives you the software environment.
 
-The GitLab repository gives you the course files.
+The GitHub repository gives you the course notebooks.
 
 You need both: pull the image, clone the repository, and then mount the repository folder into the container.
 ```
@@ -343,7 +344,7 @@ Work inside `/home/jovyan/work` so your files remain available after the contain
 
 A simple and reliable workflow looks like this:
 
-1. Clone or update the SDS210 GitLab repository.
+1. Clone or update the SDS210 course repository.
 2. Pull the current SDS210 Docker image.
 3. Start the Docker container from inside the `sds210` folder.
 4. Work only inside `/home/jovyan/work`.
@@ -378,7 +379,7 @@ Run `git pull` from inside the cloned `sds210` folder.
 
 Updating the Docker image updates the software environment.
 
-Updating the GitLab repository updates the notebooks, practicals, and data.
+Updating the course repository updates the notebooks and practicals.
 
 These are related, but they are not the same thing.
 ```
@@ -442,7 +443,7 @@ Start the SDS210 Docker-based JupyterLab environment and open it in your browser
 2. Clone the SDS210 course repository:
 
    ```bash
-   git clone https://gitlab.com/HendrikWulf/sds210.git
+   git clone https://github.com/HendrikWulf/sds210-jb.git sds210
    ```
 
 3. Move into the repository:

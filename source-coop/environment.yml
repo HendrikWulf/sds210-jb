@@ -1,0 +1,58 @@
+# SDS210 Programming with Spatial Data: course environment
+#
+# Create it once with:
+#   conda env create --file https://data.source.coop/giuz/sds210/environment.yml
+# or, after downloading this file:
+#   conda env create --file environment.yml
+# Then activate it with:
+#   conda activate sds210
+#
+# Tested with the versions in requirements.txt of the course book
+# (https://github.com/HendrikWulf/sds210-jb).
+name: sds210
+channels:
+  - conda-forge
+
+dependencies:
+  # Core
+  - python=3.12
+  - numpy>=2.0
+  - pandas>=3.0
+  - matplotlib>=3.9
+  - seaborn>=0.13
+  - scipy>=1.14
+
+  # Notebook environment
+  - jupyterlab>=4.2
+  - ipykernel>=6.29
+  - jupyterlab_widgets>=3.0
+
+  # Geospatial stack
+  - geopandas>=1.0
+  - mapclassify>=2.8
+  - rasterio>=1.4
+  - xarray>=2024.10
+  - rioxarray>=0.17
+  - contextily>=1.6
+  - cartopy>=0.24
+  - geopy>=2.4
+
+  # Multidimensional and NetCDF data
+  - cftime>=1.6
+  - h5netcdf>=1.3
+  - netcdf4>=1.7
+
+  # Interactive maps and visualisation
+  - folium>=0.17
+  - hvplot>=0.11
+  - jupyter_bokeh>=4.0
+  - geoviews>=1.13
+  - cmcrameri>=1.9
+
+  # Web APIs and sample data
+  - requests>=2.32
+  - pooch>=1.8
+
+  # Utilities
+  - pyarrow>=17.0
+  - tqdm>=4.66

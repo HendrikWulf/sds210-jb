@@ -248,7 +248,7 @@ In this section, you will learn how to use Git in practice. We will cover two di
 
 ### Workflow A: Syncing the SDS210 Course Material
 
-Throughout this course, new practical notebooks are released weekly on GitLab. Instead of downloading ZIP files every week, you can use Git to download the repository **once** and update it with a single command.
+Throughout this course, new practical notebooks are released weekly in the course book's [GitHub repository](https://github.com/HendrikWulf/sds210-jb). Instead of downloading ZIP files every week, you can use Git to download the repository **once** and update it with a single command.
 
 ---
 
@@ -274,10 +274,10 @@ Type `ls` to list the files in your current folder and check whether you are in 
 
 #### 2. Clone the repository once
 
-Download the repository to your computer. This creates a new folder called `sds210/` in your current directory.
+Download the repository to your computer. The last word, `sds210`, names the new folder that Git creates in your current directory.
 
 ```bash
-git clone https://gitlab.com/HendrikWulf/sds210.git
+git clone https://github.com/HendrikWulf/sds210-jb.git sds210
 ```
 
 ---
@@ -296,6 +296,8 @@ If you list all files, including hidden files, you should see the course files a
 ls -a
 ```
 
+The lesson and practical notebooks are in the `book/` folder, with one subfolder per lesson. The data are not part of the notebooks' folders: the notebooks read them from the course data on [Source Cooperative](https://source.coop/giuz/sds210).
+
 ---
 
 #### 4. Update the repository weekly
@@ -307,7 +309,7 @@ git pull
 ```
 
 :::{figure} images/3_3_sds210_safe_workflow.png
-:alt: Diagram showing the sds210 folder syncing from GitLab and notebooks being copied to an sds210-work folder.
+:alt: Diagram showing the sds210 folder syncing from the online course repository and notebooks being copied to an sds210-work folder.
 :width: 500px
 :align: center
 
