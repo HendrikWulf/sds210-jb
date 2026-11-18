@@ -103,7 +103,7 @@ project:
         # - file: book/04_L02_variables/03_data-types.md
         - file: book/04_L02_variables/04_operators-expressions.ipynb
         # - file: book/04_L02_variables/04_operators-expressions.md
-        # - file: book/04_L02_variables/05_string-operations.ipynb
+        - file: book/04_L02_variables/05_string-operations.ipynb
         # - file: book/04_L02_variables/05_string-operations.md
         - file: book/04_L02_variables/06_formatting-output.ipynb
         # - file: book/04_L02_variables/06_formatting-output.md
