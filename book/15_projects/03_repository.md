@@ -51,7 +51,7 @@ Both platforms are excellent, free, and industry-standard. If you are unsure whi
 Ultimately, the underlying Git commands you type on your computer are identical for both. Choose the one you feel most comfortable with!
 ```
 
-> If you need a refresher on configuring your [Git Setup](https://hendrikwulf.github.io/sds210-jb/book/setup/git/#id-4-git-setup) or [Starting Your Own Project](https://hendrikwulf.github.io/sds210-jb/book/setup/git/#workflow-b-starting-your-own-project), please review the [Git setup chapter](https://hendrikwulf.github.io/sds210-jb/book/setup/git/ .
+> If you need a refresher on configuring your [Git Setup](../02_setup/3_git.md#id-4-git-setup) or [Starting Your Own Project](../02_setup/3_git.md#workflow-b-starting-your-own-project), please review the [Git setup chapter](../02_setup/3_git.md).
 
 ### Use Git from Day One
 

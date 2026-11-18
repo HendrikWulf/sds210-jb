@@ -67,7 +67,7 @@ The project runs alongside the second half of the course. Because coding involve
 Please mark the following project dates in your calendar:
 <!-- markdownlint-disable MD059 -->
 * **Monday, 20 April 2026**: Project report assignment published on MS Teams.
-* **Monday, 04 May 2026**: Presentation schedule published [here](https://hendrikwulf.github.io/sds210-jb/book/projects/presentation#id-2-booking-your-slot).
+* **Monday, 04 May 2026**: Presentation schedule published [here](15_projects/06_presentation.md#id-2-booking-your-slot).
 * **Friday, 22 May 2026 at 18:00**: Deadline for project report submission.
 * **Wednesday, 27 May to Monday, 01 June 2026**: Individual project presentations.
 <!-- markdownlint-enable MD059 -->
@@ -96,7 +96,7 @@ A highly effective way to manage your time is to break the project into small, a
 
 ## 4. Choosing a topic
 
-You will select your project from a set of predefined [topics](https://hendrikwulf.github.io/sds210-jb/book/projects/topics). Each topic is anchored in open data and addresses a real spatial question. This provides you with a solid foundation to get started while leaving ample room for your own analytical decisions and creative problem-solving.
+You will select your project from a set of predefined [topics](15_projects/01_topics.md). Each topic is anchored in open data and addresses a real spatial question. This provides you with a solid foundation to get started while leaving ample room for your own analytical decisions and creative problem-solving.
 
 When choosing a topic, try not to base your decision solely on which one sounds the most "impressive." Be candid with yourself about your current skill level, and pick a topic that offers a clear, manageable path toward a working solution.
 

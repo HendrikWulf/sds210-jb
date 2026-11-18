@@ -270,7 +270,7 @@ To practice good environmental hygiene, follow this strategy for your course pro
 
 1. **Do not use the base environment.** Before starting a new project, create a fresh, isolated conda environment, for example `conda create -n sds210-project python=3.11`.
 2. **Install only what you need.** Activate your environment and install the packages you need for your project.
-3. **Export it.** Once your code is working, [export](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/#working-with-conda-environments) your `environment.yml` or `requirements.txt` file listing the core packages and their major versions.
+3. **Export it.** Once your code is working, [export](../02_setup/1_conda.md#working-with-conda-environments) your `environment.yml` or `requirements.txt` file listing the core packages and their major versions.
 4. **Ship it with the code.** Place the environment file in the root folder of your project {term}`repository <Repository>`, right next to your notebooks.
 5. **Document the setup.** Mention the environment briefly in your {term}`README.md <README>` file, providing the single command needed to recreate it.
 6. **Verify the pipeline.** Restart your {term}`kernel <Kernel>` and verify one last time that your notebook runs completely from top to bottom in this explicit environment.

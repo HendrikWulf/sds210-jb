@@ -62,7 +62,7 @@ dest_address = "Corso del Lavoro e della Scienza, 3, 38122 Trento TN, Italy"
 
 ### Tasks
 
-1. Geocode the `origin_address` and `dest_address`. Extract their latitudes and longitudes into two tuples named `origin_coords` and `dest_coords`. (see previous chapter on [Geocoding](https://hendrikwulf.github.io/sds210-jb/book/l5-libraries/geocoding#id-2-geocoding-with-geopy))
+1. Geocode the `origin_address` and `dest_address`. Extract their latitudes and longitudes into two tuples named `origin_coords` and `dest_coords`. (see previous chapter on [Geocoding](https://hendrikwulf.github.io/sds210-jb/book/l05-libraries/geocoding#id-2-geocoding-with-geopy))
 2. Print the coordinates and verify them on a map service (like Google Maps or OpenStreetMap) to ensure they are correct.
 3. Change the destination address to a real street address of your choice anywhere in the world and geocode it.
 4. Print the full official address returned by Nominatim for your new destination using the `.address` attribute to ensure it found the correct place.

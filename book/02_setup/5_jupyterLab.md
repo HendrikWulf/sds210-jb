@@ -57,7 +57,7 @@ The basic idea is simple:
 * the environment must be **activated** before starting JupyterLab
 * all packages used in a notebook come from the active environment
 
-If this is new to you, revisit the **[Conda](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/)** chapter before continuing.
+If this is new to you, revisit the **[Conda](1_conda.md)** chapter before continuing.
 
 ### Installing JupyterLab
 
