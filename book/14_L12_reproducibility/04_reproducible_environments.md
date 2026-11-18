@@ -12,10 +12,6 @@ Moving beyond "It works on my machine"
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/14_L12_reproducibility/04_reproducible_environments.ipynb)
-
----
-
 ```{admonition} Big idea
 :class: tip
 
