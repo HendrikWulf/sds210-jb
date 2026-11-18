@@ -54,8 +54,8 @@ This chapter addresses the most common source of frustration in Geographic Infor
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following dataset in a `data` folder next to your notebook:
-* [ne_50m_admin_0_countries.zip](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/ne_50m_admin_0_countries.zip)
+The code in this chapter reads the following dataset directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download it. To work offline, save it in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
+* [ne_50m_admin_0_countries.zip](https://data.source.coop/giuz/sds210/L07/ne_50m_admin_0_countries.zip)
 
 ```
 
@@ -115,7 +115,7 @@ Let us load our global countries dataset and inspect its spatial reference using
 import geopandas as gpd
 
 # Load the global countries dataset directly from the zip archive
-world_gdf = gpd.read_file("data/ne_50m_admin_0_countries.zip")
+world_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/ne_50m_admin_0_countries.zip")
 
 # Inspect the Coordinate Reference System
 print(world_gdf.crs)

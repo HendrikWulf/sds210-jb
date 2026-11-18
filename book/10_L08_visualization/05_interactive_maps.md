@@ -46,12 +46,12 @@ A beautifully designed static map is a powerful communication tool for reports a
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
 
-* [Zurich Quarters (Zurich_quarters.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/Zurich_quarters.gpkg)
-* [EV Charging Stations (EV_charging_stations.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/EV_charging_stations.gpkg)
-* [Bike Parking (Zurich_bike_parking.gpkg)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/Zurich_bike_parking.gpkg)
-* [Bike Lanes (Zurich_bike_lanes_masterplan.gpkg")](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L08/data/Zurich_bike_lanes_masterplan.gpkg)
+* [Zurich Quarters (Zurich_quarters.gpkg)](https://data.source.coop/giuz/sds210/L08/Zurich_quarters.gpkg)
+* [EV Charging Stations (EV_charging_stations.gpkg)](https://data.source.coop/giuz/sds210/L08/EV_charging_stations.gpkg)
+* [Bike Parking (Zurich_bike_parking.gpkg)](https://data.source.coop/giuz/sds210/L08/Zurich_bike_parking.gpkg)
+* [Bike Lanes (Zurich_bike_lanes_masterplan.gpkg")](https://data.source.coop/giuz/sds210/L08/Zurich_bike_lanes_masterplan.gpkg)
 
 ```
 
@@ -199,7 +199,7 @@ import folium
 import geopandas as gpd
 
 # 1. Load the bicycle parking data and reproject to standard Lat/Lon (EPSG:4326)
-bike_parking = gpd.read_file("data/Zurich_bike_parking.gpkg").to_crs(epsg=4326)
+bike_parking = gpd.read_file("https://data.source.coop/giuz/sds210/L08/Zurich_bike_parking.gpkg").to_crs(epsg=4326)
 
 # 2. Initialize the basemap centered on Zurich
 m1 = folium.Map(location=[47.3769, 8.5417], zoom_start=13, tiles="CartoDB Positron")
@@ -429,7 +429,7 @@ import folium
 import geopandas as gpd
 
 # 1. Prepare the data
-quarters = gpd.read_file("data/Zurich_quarters.gpkg")
+quarters = gpd.read_file("https://data.source.coop/giuz/sds210/L08/Zurich_quarters.gpkg")
 
 # Calculate the area in square kilometers
 quarters["area"] = (quarters.geometry.area / 1000000).round(3)
@@ -474,7 +474,7 @@ Because area calculations and spatial joins require location accuracy, we should
 
 ```{code-cell} python
 # 1. Prepare the data and ensure correct projected CRS for Swiss spatial math
-bike_parking = gpd.read_file("data/Zurich_bike_parking.gpkg")
+bike_parking = gpd.read_file("https://data.source.coop/giuz/sds210/L08/Zurich_bike_parking.gpkg")
 
 if quarters.crs is None:
     quarters.set_crs(epsg=2056, inplace=True)
@@ -633,7 +633,7 @@ my_map = folium.Map(
 )
 
 # 2. Prepare the data
-bike_lanes = gpd.read_file("data/Zurich_bike_lanes_masterplan.gpkg")
+bike_lanes = gpd.read_file("https://data.source.coop/giuz/sds210/L08/Zurich_bike_lanes_masterplan.gpkg")
 
 # 3. Add multiple datasets using GeoPandas (The Convenience)
 bike_lanes.explore(m=my_map, color="blue", name="Bike Lanes")
@@ -680,7 +680,7 @@ import folium
 from folium.plugins import MarkerCluster
 
 # 1. Load and reproject the data to Lat/Lon (EPSG:4326)
-ev_stations = gpd.read_file("data/EV_charging_stations.gpkg").to_crs(epsg=4326)
+ev_stations = gpd.read_file("https://data.source.coop/giuz/sds210/L08/EV_charging_stations.gpkg").to_crs(epsg=4326)
 
 # 2. Initialize the map centered on Switzerland
 map = folium.Map(

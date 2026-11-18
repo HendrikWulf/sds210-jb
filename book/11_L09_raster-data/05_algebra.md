@@ -50,13 +50,13 @@ Raster bands are essentially numerical matrices. By performing mathematical oper
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook: 
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name: 
 
-* [Landsat 9 Multispectral Subset NZ (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
-* [Landsat 8 Indonesia 2023 (LC08_121061_20230814_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC08_121061_20230814_subset.tif)
-* [Landsat 8 Indonesia 2019 (LC08_121061_20190904_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC08_121061_20190904_subset.tif)
-* [GERD Before Flood (GERD_before_composite_SWIR1_NIR_Green.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/GERD_before_composite_SWIR1_NIR_Green.tif)
-* [GERD After Flood (GERD_after_composite_SWIR1_NIR_Green.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/GERD_after_composite_SWIR1_NIR_Green.tif)
+* [Landsat 9 Multispectral Subset NZ (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
+* [Landsat 8 Indonesia 2023 (LC08_121061_20230814_subset.tif)](https://data.source.coop/giuz/sds210/L09/LC08_121061_20230814_subset.tif)
+* [Landsat 8 Indonesia 2019 (LC08_121061_20190904_subset.tif)](https://data.source.coop/giuz/sds210/L09/LC08_121061_20190904_subset.tif)
+* [GERD Before Flood (GERD_before_composite_SWIR1_NIR_Green.tif)](https://data.source.coop/giuz/sds210/L09/GERD_before_composite_SWIR1_NIR_Green.tif)
+* [GERD After Flood (GERD_after_composite_SWIR1_NIR_Green.tif)](https://data.source.coop/giuz/sds210/L09/GERD_after_composite_SWIR1_NIR_Green.tif)
 
 ```
 
@@ -92,7 +92,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cmcrameri.cm as cmc
 
-filepath = "data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
 
 with rasterio.open(filepath) as src:
     # Read the bands and immediately convert them to float to allow division
@@ -188,7 +188,7 @@ def normalize(array, vmin=0.05, vmax=0.4):
 
 
 # Prepare data for 2019
-with rasterio.open("data/LC08_121061_20190904_subset.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/LC08_121061_20190904_subset.tif") as src:
     blue19 = src.read(1).astype(float)
     red19 = src.read(3).astype(float)
     nir19 = src.read(4).astype(float)
@@ -203,7 +203,7 @@ with rasterio.open("data/LC08_121061_20190904_subset.tif") as src:
     )
 
 # Prepare data for 2023
-with rasterio.open("data/LC08_121061_20230814_subset.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/LC08_121061_20230814_subset.tif") as src:
     blue23 = src.read(1).astype(float)
     red23 = src.read(3).astype(float)
     nir23 = src.read(4).astype(float)
@@ -290,7 +290,7 @@ import matplotlib.pyplot as plt
 import cmcrameri.cm as cmc
 
 # 1. Read and define all relevant bands for 2019
-with rasterio.open("data/LC08_121061_20190904_subset.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/LC08_121061_20190904_subset.tif") as src:
     blue19 = src.read(1).astype(float)
     green19 = src.read(2).astype(float)
     red19 = src.read(3).astype(float)
@@ -299,7 +299,7 @@ with rasterio.open("data/LC08_121061_20190904_subset.tif") as src:
     swir2_19 = src.read(6).astype(float)
 
 # 2. Read and define all relevant bands for 2023
-with rasterio.open("data/LC08_121061_20230814_subset.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/LC08_121061_20230814_subset.tif") as src:
     blue23 = src.read(1).astype(float)
     green23 = src.read(2).astype(float)
     red23 = src.read(3).astype(float)
@@ -371,12 +371,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # 1. Read the Green and NIR data for both periods
-with rasterio.open("data/GERD_before_composite_SWIR1_NIR_Green.tif") as src_before:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/GERD_before_composite_SWIR1_NIR_Green.tif") as src_before:
     # Band 2 is NIR, Band 3 is Green
     nir_before = src_before.read(2).astype(float)
     green_before = src_before.read(3).astype(float)
 
-with rasterio.open("data/GERD_after_composite_SWIR1_NIR_Green.tif") as src_after:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/GERD_after_composite_SWIR1_NIR_Green.tif") as src_after:
     nir_after = src_after.read(2).astype(float)
     green_after = src_after.read(3).astype(float)
 
@@ -396,14 +396,14 @@ def normalize_fcc(array, vmin=0.0, vmax=0.3):
     clipped = np.clip(array, vmin, vmax)
     return (clipped - vmin) / (vmax - vmin)
 
-with rasterio.open("data/GERD_before_composite_SWIR1_NIR_Green.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/GERD_before_composite_SWIR1_NIR_Green.tif") as src:
     fcc_before = np.dstack((
         normalize_fcc(src.read(1).astype(float)),
         normalize_fcc(src.read(2).astype(float)),
         normalize_fcc(src.read(3).astype(float))
     ))
 
-with rasterio.open("data/GERD_after_composite_SWIR1_NIR_Green.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/GERD_after_composite_SWIR1_NIR_Green.tif") as src:
     fcc_after = np.dstack((
         normalize_fcc(src.read(1).astype(float)),
         normalize_fcc(src.read(2).astype(float)),

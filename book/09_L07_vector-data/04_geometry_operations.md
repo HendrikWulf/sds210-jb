@@ -54,11 +54,11 @@ This chapter marks your transition into active spatial analysis. You will learn 
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
-* [swissBoundaries3D_switzerland.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.gpkg)
-* [swissBoundaries3D_cantons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_cantons.gpkg)
-* [swissBoundaries3D_grisons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_grisons.gpkg)
-* [NuclearPowerPlant.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/NuclearPowerPlant.csv)
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
+* [swissBoundaries3D_switzerland.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.gpkg)
+* [swissBoundaries3D_cantons.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg)
+* [swissBoundaries3D_grisons.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_grisons.gpkg)
+* [NuclearPowerPlant.csv](https://data.source.coop/giuz/sds210/L07/NuclearPowerPlant.csv)
 
 ```
 
@@ -107,7 +107,7 @@ Let us load our Swiss Cantons dataset, verify it is in our metric projection (EP
 import geopandas as gpd
 
 # Load the cantons dataset
-cantons_gdf = gpd.read_file("data/swissBoundaries3D_cantons.gpkg")
+cantons_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg")
 
 # 1. Calculate Area (Returns square meters, so we divide by 1,000,000 for sq km)
 cantons_gdf["area_sqkm"] = cantons_gdf.geometry.area / 10**6
@@ -192,7 +192,7 @@ Let us load the national boundary dataset and extract the exact geographic cente
 
 ```{code-cell} ipython3
 # Load the national boundaries
-ch_gdf = gpd.read_file("data/swissBoundaries3D_switzerland.gpkg")
+ch_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.gpkg")
 
 # Extract the centroid (This generates a new GeoSeries containing Point geometries)
 ch_centroid = ch_gdf.geometry.centroid
@@ -281,7 +281,7 @@ Let us convert our CSV to a **{term}`GeoDataFrame`** and draw these exact zones.
 import pandas as pd
 
 # 1. Load the CSV
-npp_df = pd.read_csv("data/NuclearPowerPlant.csv")
+npp_df = pd.read_csv("https://data.source.coop/giuz/sds210/L07/NuclearPowerPlant.csv")
 
 # 2. Convert to a spatial GeoDataFrame
 # Because the data is already metric, we set the CRS directly to EPSG:2056
@@ -354,7 +354,7 @@ import matplotlib.pyplot as plt
 import geopandas as gpd
 
 # Load the canton of Grisons
-grisons_gdf = gpd.read_file("data/swissBoundaries3D_grisons.gpkg")
+grisons_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_grisons.gpkg")
 
 # 1. Simplify (Allow the shape to deviate by up to 5000 meters)
 grisons_simple = grisons_gdf.geometry.simplify(tolerance=5000)

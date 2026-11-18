@@ -53,10 +53,10 @@ Your goal is to download the historical metadata for all stations, isolate the o
 
 ```{admonition} Download the Datasets
 :class: note
-Please download this file to your local working directory for this lesson:
-* [swissBoundaries3D_switzerland.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.gpkg)
-* [swissBoundaries3D_cantons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_cantons.gpkg)
-* [kloten_test_data.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/kloten_test_data.csv)
+You can read these files directly from their web addresses, or download them to your working directory:
+* [swissBoundaries3D_switzerland.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.gpkg)
+* [swissBoundaries3D_cantons.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg)
+* [kloten_test_data.csv](https://data.source.coop/giuz/sds210/L07/kloten_test_data.csv)
 ```
 
 ---
@@ -171,7 +171,7 @@ def calculate_trend(df, start_date, end_date="2025-12-31"):
 
 # 7. Load the test dataset and test the function!
 # We must parse the dates and set the index so .loc[] slicing works
-test_df = pd.read_csv("kloten_test_data.csv", parse_dates=["DATE"], index_col="DATE")
+test_df = pd.read_csv("https://data.source.coop/giuz/sds210/L07/kloten_test_data.csv", parse_dates=["DATE"], index_col="DATE")
 
 trend_10yr = calculate_trend(test_df, "2016-01-01")
 trend_30yr = calculate_trend(test_df, "1996-01-01")
@@ -341,7 +341,7 @@ import matplotlib.pyplot as plt
 import geopandas as gpd
 
 # 1. Load the national basemap
-ch_gdf = gpd.read_file("swissBoundaries3D_switzerland.gpkg").to_crs(epsg=2056)
+ch_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.gpkg").to_crs(epsg=2056)
 ch_mainland = ch_gdf[ch_gdf["name"] == "Schweiz"]
 
 # 2. Define fixed upper bounds for our UserDefined categories
@@ -504,7 +504,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # 1. Load cantons
-cantons_gdf = gpd.read_file("swissBoundaries3D_cantons.gpkg").to_crs(epsg=2056)
+cantons_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg").to_crs(epsg=2056)
 
 # 2. Initialize empty columns for our three metrics
 cantons_gdf["avg_trend_10yr"] = np.nan

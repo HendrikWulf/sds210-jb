@@ -52,13 +52,13 @@ Now, we will take the final step in vector analysis: **Data Fusion**. You will l
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
 
-* [swissBoundaries3D_cantons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_cantons.gpkg)
-* [swissBoundaries3D_municipalities.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_municipalities.gpkg)
-* [swissHighways.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissHighways.gpkg)
-* [alpine_huts.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/alpine_huts.gpkg)
-* [hospital_landing_sites.geojson](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/hospital_landing_sites.geojson)
+* [swissBoundaries3D_cantons.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg)
+* [swissBoundaries3D_municipalities.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_municipalities.gpkg)
+* [swissHighways.gpkg](https://data.source.coop/giuz/sds210/L07/swissHighways.gpkg)
+* [alpine_huts.gpkg](https://data.source.coop/giuz/sds210/L07/alpine_huts.gpkg)
+* [hospital_landing_sites.geojson](https://data.source.coop/giuz/sds210/L07/hospital_landing_sites.geojson)
 ```
 
 ---
@@ -95,8 +95,8 @@ Let us answer the question: **Which Swiss canton has the highest number of Alpin
 import geopandas as gpd
 
 # 1. Load the data and ensure matching metric CRS
-cantons_gdf = gpd.read_file("data/swissBoundaries3D_cantons.gpkg").to_crs(epsg=2056)
-huts_gdf = gpd.read_file("data/alpine_huts.gpkg").to_crs(epsg=2056)
+cantons_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg").to_crs(epsg=2056)
+huts_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/alpine_huts.gpkg").to_crs(epsg=2056)
 
 # 2. Perform the Spatial Join
 # We keep the Huts geometry (left) and attach Canton attributes (right)
@@ -207,7 +207,7 @@ Let us test this. We will load the Swiss Municipalities dataset. First, we will 
 import geopandas as gpd
 
 # 1. Load municipalities and ensure metric CRS
-muni_gdf = gpd.read_file("data/swissBoundaries3D_municipalities.gpkg").to_crs(epsg=2056)
+muni_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_municipalities.gpkg").to_crs(epsg=2056)
 
 # 2. Assign Canton names to Municipalities via a Spatial Join
 muni_with_cantons = gpd.sjoin(
@@ -388,7 +388,7 @@ To demonstrate why this is vital, let us calculate the total length of highways 
 
 ```{code-cell} ipython3
 # 1. Load the Highways
-highways_gdf = gpd.read_file("data/swissHighways.gpkg").set_crs(
+highways_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissHighways.gpkg").set_crs(
     epsg=2056, allow_override=True
 )
 
@@ -467,8 +467,8 @@ You will need to use a Spatial Join to combine the points and polygons, and then
 import geopandas as gpd
 
 # 1. Load the data and project to metric grid
-hospitals_gdf = gpd.read_file("data/hospital_landing_sites.geojson").to_crs(epsg=2056)
-cantons_gdf = gpd.read_file("data/swissBoundaries3D_cantons.gpkg").to_crs(epsg=2056)
+hospitals_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/hospital_landing_sites.geojson").to_crs(epsg=2056)
+cantons_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg").to_crs(epsg=2056)
 
 # 2. Perform the spatial join (Points within Polygons)
 hospitals_with_cantons = gpd.sjoin(

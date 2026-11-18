@@ -53,10 +53,10 @@ Your goal is to download the historical metadata for all stations, isolate the o
 
 ```{admonition} Download the Datasets
 :class: note
-Please download this file to your local working directory for this lesson:
-* [swissBoundaries3D_switzerland.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.gpkg)
-* [swissBoundaries3D_cantons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_cantons.gpkg)
-* [kloten_test_data.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/kloten_test_data.csv)
+You can read these files directly from their web addresses, or download them to your working directory:
+* [swissBoundaries3D_switzerland.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.gpkg)
+* [swissBoundaries3D_cantons.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg)
+* [kloten_test_data.csv](https://data.source.coop/giuz/sds210/L07/kloten_test_data.csv)
 ```
 
 ---

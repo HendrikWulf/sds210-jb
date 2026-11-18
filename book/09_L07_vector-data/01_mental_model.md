@@ -51,15 +51,15 @@ In the previous lesson, you mastered the standard Pandas DataFrame. You learned 
 
 However, when working with geoscience data, knowing *what* happened is only half the story. We also need to know *where* it happened. This lesson introduces **[GeoPandas](https://www.sciencedirect.com/science/article/pii/S0198971526000979?via%3Dihub)**, the industry standard library for spatial data analysis in Python.
 
-Before we begin, make sure you have downloaded the necessary datasets for this chapter. We will be using the Swiss pollen monitoring station network and nuclear power plant location data.
+We will be using the Swiss pollen monitoring station network and nuclear power plant location data.
 
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
-* [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
-* [NuclearPowerPlant.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/NuclearPowerPlant.csv)
-* [meteoswiss_pollen_network.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/meteoswiss_pollen_network.csv)
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
+* [kloten_summer_2022_extended.txt](https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_extended.txt)
+* [NuclearPowerPlant.csv](https://data.source.coop/giuz/sds210/L07/NuclearPowerPlant.csv)
+* [meteoswiss_pollen_network.csv](https://data.source.coop/giuz/sds210/L07/meteoswiss_pollen_network.csv)
 
 ```
 
@@ -74,7 +74,7 @@ import pandas as pd
 
 # Load the familiar Kloten dataset
 kloten_df = pd.read_csv(
-    "data/kloten_summer_2022_extended.txt",
+    "https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_extended.txt",
     sep=r"\s+",
     skiprows=[1],
     na_values=["-9999"],
@@ -204,7 +204,7 @@ import geopandas as gpd
 import pandas as pd
 
 # 1. Load the CSV as a standard Pandas DataFrame
-pollen_df = pd.read_csv("data/meteoswiss_pollen_network.csv")
+pollen_df = pd.read_csv("https://data.source.coop/giuz/sds210/L07/meteoswiss_pollen_network.csv")
 
 # Look at the data types
 print("Original type:", type(pollen_df))
@@ -330,7 +330,7 @@ import pandas as pd
 import geopandas as gpd
 
 # 1. Load the raw tabular data
-power_plants_df = pd.read_csv("data/NuclearPowerPlant.csv")
+power_plants_df = pd.read_csv("https://data.source.coop/giuz/sds210/L07/NuclearPowerPlant.csv")
 
 # 2. Explore the columns to find the coordinate names
 print("Columns in CSV:", power_plants_df.columns.values)

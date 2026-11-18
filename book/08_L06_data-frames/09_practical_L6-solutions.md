@@ -51,12 +51,12 @@ Before we can analyze anything, we need to load the data, understand its shape, 
 
 ```{admonition} Download the Dataset
 :class: note
-Please download this file to your local working directory:
-* [magic_mountain_weather.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/magic_mountain_weather.csv)
+You can read this file directly from its web address, or download it to your working directory:
+* [magic_mountain_weather.csv](https://data.source.coop/giuz/sds210/L06/magic_mountain_weather.csv)
 
 ```
 
-*(Note: For this practical, assume the file `magic_mountain_weather.csv` is in your working directory. The raw file contains a header row and columns for Date, maximum temperature, minimum temperature, and daily precipitation).*
+*(Note: For this practical, read `magic_mountain_weather.csv` directly from its web address above, or from your working directory if you downloaded it. The raw file contains a header row and columns for Date, maximum temperature, minimum temperature, and daily precipitation).*
 
 ### Tasks
 
@@ -77,7 +77,7 @@ import pandas as pd
 import pandas as pd
 
 # 1. Load the dataset and instantly parse the timestamp column
-climate_data = pd.read_csv("magic_mountain_weather.csv", parse_dates=["TIMESTAMP"])
+climate_data = pd.read_csv("https://data.source.coop/giuz/sds210/L06/magic_mountain_weather.csv", parse_dates=["TIMESTAMP"])
 
 # 2. Set the parsed timestamp as the DatetimeIndex
 climate_data = climate_data.set_index("TIMESTAMP")
