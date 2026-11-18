@@ -4,6 +4,7 @@ Reads manifest.csv (next to this script) and builds a folder with exactly the
 layout of the Source Cooperative product:
 
     <out>/README.md            (copied from product-README.md)
+    <out>/environment.yml      (the course conda environment)
     <out>/SHA256SUMS
     <out>/L06/... <out>/L10/...
 
@@ -135,6 +136,7 @@ def stage(out, compare, cog, only=None):
     if open_todos:
         problems.append(f"product-README.md still has {open_todos} TODO(confirm) markers: confirm those sources, then rerun")
     shutil.copy2(HERE / "product-README.md", out / "README.md")
+    shutil.copy2(HERE / "environment.yml", out / "environment.yml")
     files = sorted(p for p in out.rglob("*") if p.is_file() and p.name not in ("SHA256SUMS", ".DS_Store"))
     with open(out / "SHA256SUMS", "w", encoding="utf-8") as f:
         for p in files:
