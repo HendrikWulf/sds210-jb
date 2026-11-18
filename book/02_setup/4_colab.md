@@ -248,11 +248,19 @@ Many datasets can be accessed directly from the web. This avoids manual download
 !wget https://opengeos.org/data/world/world_cities.csv
 ```
 
-Course code and example data are often stored in a {term}`GitHub` {term}`repository <Repository>`. You can {term}`clone <Git clone>` a repository directly into your session.
+The SDS210 course data are stored on [Source Cooperative](https://source.coop/giuz/sds210). Pandas, GeoPandas and rasterio read them straight from their web address, so you do not need to upload anything:
 
 ```python
-# Copies a GitLab repository into the Colab session
-!git clone https://gitlab.com/HendrikWulf/sds210.git
+# Reads a course dataset directly from Source Cooperative
+import geopandas as gpd
+cantons = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg")
+```
+
+Course code is often stored in a {term}`GitHub` {term}`repository <Repository>`. You can {term}`clone <Git clone>` a repository directly into your session.
+
+```python
+# Copies the SDS210 course repository into the Colab session
+!git clone https://github.com/HendrikWulf/sds210-jb.git sds210
 ```
 
 Working directly with online sources makes it easier to rerun notebooks and share them with others.
@@ -263,7 +271,7 @@ Working directly with online sources makes it easier to rerun notebooks and shar
 
 Many notebooks in this course can be run directly in Google Colab. This allows you to start working immediately without setting up a local environment.
 
-When a page in this Jupyter Book provides an **Open in Colab** link, you can use it to open the notebook directly in Colab. While this approach gets you started online, it should not replace your local Conda and VS Code setup in the long term.
+When a page in this Jupyter Book provides an **Open in Colab** link, you can use it to open the notebook directly in Colab. The lesson notebooks read their data from the course data on Source Cooperative, so they run in Colab without uploading any files. While this approach gets you started online, it should not replace your local Conda and VS Code setup in the long term.
 
 You can also open notebooks directly from a GitHub repository if a GitHub version of the notebook is available. Colab can load notebooks from GitHub without downloading them manually.
 
