@@ -1,8 +1,12 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
-    outline_maxdepth: 1
-
+  outline_maxdepth: 1
 ---
 
 # Why Functions Matter
@@ -123,8 +127,7 @@ Instead of repeating the math, you package it into a self-contained block:
 
 ```{code-cell} python
 def euclidean_distance(x1, y1, x2, y2):
-    return ((x2 - x1)**2 + (y2 - y1)**2)**0.5
-
+    return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
 ```
 
 Now, whenever you or anyone else needs to find a distance, you simply call its name:
@@ -133,7 +136,6 @@ Now, whenever you or anyone else needs to find a distance, you simply call its n
 # The complex math is hidden away, leaving clean, readable code
 dist_ab = euclidean_distance(10, 20, 15, 25)
 dist_cd = euclidean_distance(100, 50, -10, 40)
-
 ```
 
 ---
@@ -193,7 +195,6 @@ Write down short answers in your own words, or think of suitable ones.
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution

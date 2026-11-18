@@ -1,8 +1,12 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
-    outline_maxdepth: 1
-
+  outline_maxdepth: 1
 ---
 
 # Core Mechanics
@@ -54,7 +58,6 @@ Here is the blueprint:
 def function_name(parameters):
     # The body of the function (indented)
     return value
-
 ```
 
 Let's break down the components:
@@ -84,8 +87,7 @@ Here is how we package that logic into a function:
 
 ```{code-cell} python
 def calculate_buffer_area(radius):
-    return 3.14159 * (radius ** 2)
-
+    return 3.14159 * (radius**2)
 ```
 
 :::{figure} images/01_anatomy-function.png
@@ -104,7 +106,6 @@ nesting_zone_area = calculate_buffer_area(50)
 
 # Embedding the function call inside an f-string
 print(f"A 100 m buffer covers {calculate_buffer_area(100)} square meters.")
-
 ```
 
 ---
@@ -135,7 +136,6 @@ Instead of relying on order, you can explicitly state the parameter name in the 
 ```{code-cell} python
 # Calling the function using a keyword argument
 calculate_buffer_area(radius=50)
-
 ```
 
 ---
@@ -159,20 +159,20 @@ Here is what that function looks like in Python:
 ```{code-cell} python
 from math import radians, sin, cos, sqrt, atan2
 
+
 def haversine(lat1, lon1, lat2, lon2):
     R = 6371.0  # Earth radius in kilometers
     dlat = radians(lat2 - lat1)
     dlon = radians(lon2 - lon1)
-    
+
     a = (
         sin(dlat / 2) ** 2
         + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon / 2) ** 2
     )
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
-    
+
     distance = R * c
     return distance
-
 ```
 
 Look at the four parameters required by this function: `lat1`, `lon1`, `lat2`, `lon2`. If you use **positional arguments**, your function call looks like a random string of numbers.
@@ -182,8 +182,6 @@ For example, let's calculate the distance between Beirut (33.8869° N, 35.5131°
 ```{code-cell} python
 # BAD: All these numbers look similar (31-35). Did I pass Lat/Lon or Lon/Lat?
 dist = haversine(33.8869, 35.5131, 31.7683, 35.2137)
-
-
 ```
 
 This is incredibly dangerous in spatial analysis. If you accidentally provide the longitude first (`35.5131, 33.8869`), Python won't throw an error. It will just quietly place your data point 200 kilometers away, floating in the middle of the Mediterranean Sea!
@@ -191,13 +189,12 @@ This is incredibly dangerous in spatial analysis. If you accidentally provide th
 Using **keyword arguments** makes your code self-documenting, safe, and highly readable:
 
 ```{code-cell} python
-# GOOD: Clear, safe, and readable. 
+# GOOD: Clear, safe, and readable.
 dist = haversine(lat1=33.8869, lon1=35.5131, lat2=31.7683, lon2=35.2137)
 
 # Because we used keywords, we can even safely change the order!
 # (Many spatial systems use X/Y or Lon/Lat ordering, so this is very useful)
 dist = haversine(lon1=35.5131, lat1=33.8869, lon2=35.2137, lat2=31.7683)
-
 ```
 
 ```{admonition} The Golden Rule of Ordering
@@ -242,10 +239,10 @@ Let's look at the difference in action by creating two functions that calculate 
 def print_density(population, area):
     print(population / area)
 
+
 # Function 2: Returns the result to the computer's memory
 def calculate_density(population, area):
     return population / area
-
 ```
 
 If you just run `print_density(5000, 10)`, the number `500.0` appears on your screen. It looks like it worked perfectly! But what happens if we try to capture that output and save it to a variable for our spatial analysis?
@@ -253,7 +250,6 @@ If you just run `print_density(5000, 10)`, the number `500.0` appears on your sc
 ```{code-cell} python
 output = print_density(5000, 10)
 print("The stored output is:", output)
-
 ```
 
 ---
@@ -276,7 +272,6 @@ If you want to use the result of a function later in your code, you **must** use
 # This works! The data is saved in memory.
 output = calculate_density(5000, 10)
 print("The stored output is:", output)
-
 ```
 
 ```{admonition} Rule of Thumb
@@ -339,12 +334,12 @@ We already built a tool to calculate density. Let's build a quick tool to calcul
 ```{code-cell} python
 # Tool 1: Calculate Area
 def calculate_area(radius):
-    return 3.14159 * (radius ** 2)
+    return 3.14159 * (radius**2)
+
 
 # Tool 2: Calculate Density
 def calculate_density(population, area):
     return population / area
-
 ```
 
 Now, we can simply build a new function that calls the tools we already made!
@@ -354,14 +349,14 @@ Now, we can simply build a new function that calls the tools we already made!
 def estimate_city_density(population, radius):
     # Step 1: Call the first function and save its returned data
     city_area = calculate_area(radius)
-    
+
     # Step 2: Pass that saved data into the second function, and return the final result
     return calculate_density(population, city_area)
+
 
 # Testing our modular function
 density = estimate_city_density(50000, 5)
 print(f"The estimated density is {density} people per square kilometer.")
-
 ```
 
 ---
@@ -448,9 +443,8 @@ reserves = {
     # South-East (Africa/Australasia)
     "Kakadu, AUS": {"lat": "-13 02 00.0", "lon": "132 26 00.0"},
     "Kruger, ZAF": {"lat": "-23 50 00.0", "lon": "31 30 00.0"},
-    "Fiordland, NZL": {"lat": "-45 25 00.0", "lon": "167 43 00.0"}
+    "Fiordland, NZL": {"lat": "-45 25 00.0", "lon": "167 43 00.0"},
 }
-
 ```
 
 Let's build a modular toolkit to find out which reserves are connected on valid migratory routes!
@@ -474,7 +468,6 @@ To calculate decimal degrees, we can use the formula below:
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution
@@ -528,7 +521,6 @@ Inside this function:
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution
@@ -580,7 +572,6 @@ Inside your function:
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution

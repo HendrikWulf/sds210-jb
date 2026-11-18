@@ -1,8 +1,12 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
- outline_maxdepth: 1
- 
+  outline_maxdepth: 1
 ---
 
 # Controlling Loops
@@ -66,7 +70,6 @@ However, Python relies on {term}`indentation`. If you create a `for` loop or an 
 ```{code-cell} python
 for i in range(5):
     pass  # Keeps the code valid while you are drafting
-
 ```
 
 This loop runs perfectly, but performs no action.
@@ -113,13 +116,12 @@ max_temp = 40
 
 for day, temp in enumerate(temperatures, start=1):
     print(f"Day {day}: {temp} °C")
-    
+
     if temp < min_temp or temp > max_temp:
         print(f"⚠️ Outlier detected on day {day}: {temp} °C. Stopping analysis!")
         break
 
 print("Finished checking the record.")
-
 ```
 
 As soon as the `break` statement is triggered on the 111 °C outlier, the loop is abandoned. The remaining temperature (11 °C) is never checked.
@@ -160,9 +162,8 @@ temperatures = [3, None, 7, 6, None, 9]
 for temp in temperatures:
     if temp is None:
         continue  # Skip to the next temperature
-        
-    print(f"Valid value: {temp} °C")
 
+    print(f"Valid value: {temp} °C")
 ```
 
 Here, the loop skips the `None` entries without breaking the loop, ensuring the valid temperatures (`7`, `6`, `9`) are still printed.
@@ -237,7 +238,6 @@ while index < len(values):
         continue
 
     print(value)
-
 ```
 
 Now the loop safely progresses to the end of the list.
@@ -344,7 +344,6 @@ Values below −20 °C or above 40 °C are invalid.
 
 ```{code-cell} python
 temperatures = [5, 7, 9, 11, 13, 45, 14, 16]
-
 ```
 
 Write a loop that:
@@ -389,7 +388,6 @@ You are processing sensor data where some measurements are missing (`None`).
 
 ```{code-cell} python
 temperatures = [3, None, 6, 7, None, 9]
-
 ```
 
 Write a loop that:
@@ -432,7 +430,6 @@ Consider the following dataset:
 
 ```{code-cell} python
 values = [10, 12, None, 15, -999, 18]
-
 ```
 
 Assume:

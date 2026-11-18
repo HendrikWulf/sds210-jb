@@ -65,10 +65,10 @@ To get started with Python in this course and beyond, for example for your BSc o
 * persistent files and folders on your own computer
 * a workflow that transfers well to research and professional projects
 
-The setup process is explained in the [Setup](https://hendrikwulf.github.io/sds210-jb/book/setup/) guide of the book. In short, you need:
+The setup process is explained in the [Setup](../02_setup.md) guide of the book. In short, you need:
 
 * the Python environment `sds210`, created with {term}`Conda`
-* an {term}`IDE <Integrated Development Environment>`, preferably [VS Code](https://hendrikwulf.github.io/sds210-jb/book/setup/vs-code/) or [JupyterLab](https://hendrikwulf.github.io/sds210-jb/book/setup/jupyterlab/)
+* an {term}`IDE <Integrated Development Environment>`, preferably [VS Code](../02_setup/2_vs_code.md) or [JupyterLab](../02_setup/5_jupyterLab.md)
 * the SDS210 course files, including notebooks, data, and practicals
 
 ---
@@ -130,7 +130,7 @@ To update your course files later, download a fresh ZIP file or switch to the Gi
 
 The `environment.yml` file in the [course repository](https://gitlab.com/HendrikWulf/sds210/-/blob/7845456798b7d3229be7471197050c5d7a191ee5/environment.yml) contains all information needed to set up your Python environment.
 
-If you have not yet installed Conda, download and install [Miniconda](https://www.anaconda.com/docs/getting-started/miniconda/install). Follow the default installation settings described in the [Conda setup chapter](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/).
+If you have not yet installed Conda, download and install [Miniconda](https://www.anaconda.com/docs/getting-started/miniconda/install). Follow the default installation settings described in the [Conda setup chapter](../02_setup/1_conda.md).
 
 After installing Conda, open **Anaconda Prompt** on Windows or your {term}`Terminal` on macOS or Linux.
 
@@ -151,7 +151,7 @@ Once the environment is activated, you can select it as a notebook kernel in VS 
 
 ``````{admonition} Only create the course environment once
 :class: important
-In the [Working with Conda](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/#id-5-working-with-conda) section of the [Setup](https://hendrikwulf.github.io/sds210-jb/book/setup/) guide, we showed you how to set up the 'sds210' course environment. If you have already created the `sds210` course environment, there is no need to repeat this step, as it only needs to be done once. If you are unsure, you can quickly check which environments you have already installed.
+In the [Working with Conda](../02_setup/1_conda.md#id-5-working-with-conda) section of the [Setup](../02_setup.md) guide, we showed you how to set up the 'sds210' course environment. If you have already created the `sds210` course environment, there is no need to repeat this step, as it only needs to be done once. If you are unsure, you can quickly check which environments you have already installed.
 
 ```bash
 # Check which environments you have installed
@@ -174,7 +174,7 @@ To run a notebook in VS Code:
 4. Select the correct Python kernel if prompted.
 5. Run the notebook cells and save your work regularly.
 
-Both installation and environment setup are explained in the [Conda](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/) and [VS Code](https://hendrikwulf.github.io/sds210-jb/book/setup/vs-code/) setup guides.
+Both installation and environment setup are explained in the [Conda](../02_setup/1_conda.md) and [VS Code](../02_setup/2_vs_code.md) setup guides.
 
 VS Code provides a notebook interface similar to JupyterLab, but it is integrated into a full code editor. This is especially useful once your projects grow beyond a single notebook.
 

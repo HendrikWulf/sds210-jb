@@ -2,6 +2,8 @@
 # Always pair ipynb notebooks to md files.
 # formats = "ipynb,md"
 formats = "ipynb,myst"
+# Keep the MyST page settings (e.g. site.outline_maxdepth) in the paired .md front matter
+notebook_metadata_filter = "site"
 
 # jupytext --to ipynb *.md                        # convert all .md files to notebooks with no outputs
 # jupytext --to ipynb --execute *.md              # convert all .md files to notebooks and execute them

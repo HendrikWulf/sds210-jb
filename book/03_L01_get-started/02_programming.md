@@ -224,7 +224,7 @@ Several popular IDEs are used for Python:
 * **PyCharm**  
   A powerful IDE designed specifically for Python. It provides advanced tools for larger software projects and professional development.
 
-You do not need to master an IDE right away. In this course, we focus on [Visual Studio Code](https://hendrikwulf.github.io/sds210-jb/book/setup/vs-code/) as a baseline. We encourage you to explore its advanced tools throughout the semester, so you benefit from them when you start with your projects.  As an alternative, you can also start with JupyterLab to gain a basic understanding of how to work with notebooks.
+You do not need to master an IDE right away. In this course, we focus on [Visual Studio Code](../02_setup/2_vs_code.md) as a baseline. We encourage you to explore its advanced tools throughout the semester, so you benefit from them when you start with your projects.  As an alternative, you can also start with JupyterLab to gain a basic understanding of how to work with notebooks.
 At this early stage, the focus is learning how to think in code, not mastering development tools.
 
 ---
@@ -243,7 +243,7 @@ In all cases, the experience in the browser is very similar.
 
 ### JupyterLab
 
-[JupyterLab](https://hendrikwulf.github.io/sds210-jb/book/setup/jupyterlab/) is a simple interface to write, edit and run notebooks.
+[JupyterLab](../02_setup/5_jupyterLab.md) is a simple interface to write, edit and run notebooks.
 
 It is a browser-based environment where you can:
 
@@ -258,7 +258,7 @@ When you start JupyterLab, it opens in a browser window and shows these componen
 
 #### How to start JupyterLab
 
-If you installed [Miniconda](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/#id-3-installing-conda), the typical workflow looks like this:
+If you installed [Miniconda](../02_setup/1_conda.md#id-3-installing-conda), the typical workflow looks like this:
 
 1. **Open a terminal**
 
@@ -268,7 +268,7 @@ If you installed [Miniconda](https://hendrikwulf.github.io/sds210-jb/book/setup/
    cd path/to/your/project-folder
    ```
 
-3. **Create and activate your environment** after you have installed [Conda](https://hendrikwulf.github.io/sds210-jb/book/setup/conda/):
+3. **Create and activate your environment** after you have installed [Conda](../02_setup/1_conda.md):
 
    ```bash
    conda create -n my-env python=3.12

@@ -1,8 +1,12 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
- outline_maxdepth: 1
- 
+  outline_maxdepth: 1
 ---
 
 # The while Loop
@@ -126,7 +130,6 @@ counter = 1
 while counter <= 5:
     print(counter)
     counter += 1  # This is the update step!
-
 ```
 
 Here, Python repeatedly performs the same cycle:
@@ -230,8 +233,6 @@ while keep_running:
         keep_running = False  # Lower the flag to stop the loop!
 
     index += 1
-
-
 ```
 
 Here, two different roles are clearly separated:
@@ -292,7 +293,6 @@ while not found:
         print(f"--> Threshold reached at index {index}!")
 
     index += 1
-
 ```
 
 Conceptually, this loop:
@@ -311,7 +311,6 @@ You are given a time-ordered record of daily mean temperatures (in °C). Some va
 
 ```{code-cell} python
 temperatures = [3, 5, 7, 6, -42, 8, 9, 58, 10]
-
 ```
 
 Assume the following plausible range for this environment:

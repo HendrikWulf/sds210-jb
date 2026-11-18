@@ -1,6 +1,12 @@
 ---
-site: 
-    outline_maxdepth: 1
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+site:
+  outline_maxdepth: 1
 ---
 
 # Practical L9
@@ -47,7 +53,7 @@ Your task is to write a Python pipeline that compares these two massive arrays, 
 
 ## Part 0 – The Data Intake Helper
 
-We will use the `gdown` library to download the two pre-processed Sentinel-2 `.tif` files. Alternatively, you will find these files also on [GitLab](https://gitlab.com/HendrikWulf/sds210/-/tree/0bd25613a7742fde5d8e37a4a31ae5cde1d9d5cc/L09/data).
+The code cell below downloads the two pre-processed Sentinel-2 `.tif` files into a local `data` folder from the course data on [Source Cooperative](https://source.coop/giuz/sds210/L09), where you can also download them manually.
 
 ### Tasks
 
@@ -55,43 +61,41 @@ We will use the `gdown` library to download the two pre-processed Sentinel-2 `.t
 
 ```{code-cell} python
 import os
+from urllib.request import urlretrieve
 import numpy as np
 import rasterio
 import matplotlib.pyplot as plt
 
-# Install packages (if needed in Colab)
-# !pip install gdown
-
-import gdown
-
 # Create data directory
-data_folder = 'data'
+data_folder = "data"
 os.makedirs(data_folder, exist_ok=True)
 
-# Dictionary of file IDs and their output names
-datasets = {
-    's2_composite_2017.tif': '1nKuXp1pk2nWx7pXsSHegDYoJflkBhVuw',
-    's2_composite_2025.tif': '1OOcFk_UG_rBbiSDRXfHGKXmnMkANGUlU'
-}
+# Download the data from Source Cooperative (https://source.coop/giuz/sds210/L09)
+base_url = "https://data.source.coop/giuz/sds210/L09"
+datasets = [
+    "S2_composite_2017.tif",
+    "S2_composite_2025.tif",
+]
 
-for filename, file_id in datasets.items():
+for filename in datasets:
     filepath = os.path.join(data_folder, filename)
     if not os.path.exists(filepath):
         print(f"Downloading {filename}...")
-        url = f'https://drive.google.com/uc?id={file_id}'
-        gdown.download(url, filepath, quiet=False)
+        # Download to a temporary name first, so an interrupted download is not mistaken for a complete file
+        urlretrieve(f"{base_url}/{filename}", filepath + ".part")
+        os.replace(filepath + ".part", filepath)
     else:
         print(f"{filename} already exists.")
 
-s2_2017_fp = os.path.join(data_folder, 's2_composite_2017.tif')
-s2_2025_fp = os.path.join(data_folder, 's2_composite_2025.tif')
+s2_2017_fp = os.path.join(data_folder, "S2_composite_2017.tif")
+s2_2025_fp = os.path.join(data_folder, "S2_composite_2025.tif")
 ```
 
 ---
 
 ## Part 1 – Reading & Visualizing
 
-To understand what has changed, we must first look at the data. Sentinel-2 data is often stored as 16-bit integers with values roughly ranging from 0 to 10,000.
+To understand what has changed, we must first look at the data. Sentinel-2 reflectance is usually distributed as 16-bit integers scaled to roughly 0 to 10,000. Our composites keep that value range, but were exported from Earth Engine as 64-bit floating point numbers, which allows missing pixels to be stored as `NaN`.
 
 The 6 bands in our file correspond to the following NumPy indices (0-based):
 
@@ -104,7 +108,7 @@ The 6 bands in our file correspond to the following NumPy indices (0-based):
 
 ### Tasks
 
-1. **Load the Data:** Use `rasterio.open()` to read the entire 2017 and 2025 images into NumPy arrays called `img_2017` and `img_2025`. Check their `.shape` to confirm they have 6 bands.
+1. **Load the Data:** Use `rasterio.open()` to read the entire 2017 and 2025 images into NumPy arrays called `img_2017` and `img_2025`. Check their `.shape` to confirm they have 6 bands. While each file is open, also store its pixel size (`src.res`) and coordinate reference system (`src.crs`) in variables called `pixel_size` and `crs`. You will need them to calculate areas in Part 4.
 2. **Define a Normalization Function:** Just like you did with Landsat, define a `normalize(array, vmin=0, vmax=3500)` function that [clips](https://numpy.org/devdocs/reference/generated/numpy.clip.html#numpy.clip) the array to those bounds and scales it to a `0-1` range for display. *(Note: We use `3500` instead of `0.4` here because Sentinel-2 reflectance is scaled up to ~10,000).*
 3. **Extract and Normalize Bands:** For both 2017 and 2025, extract the 2D arrays for SWIR-2 (`Index 5`), NIR (`Index 3`), and Red (`Index 2`). Pass each of these 2D arrays through your `normalize` function.
 4. **Stack and Plot:** Use [`np.dstack()`](https://numpy.org/devdocs/reference/generated/numpy.dstack.html#numpy-dstack) to stack your three normalized bands into False Color Composites (`fcc_2017` and `fcc_2025`). Plot both composites side-by-side using `plt.subplots(1, 2)`.
@@ -188,7 +192,7 @@ Instead of guessing, we will use statistics. We will calculate the mean and stan
 1. **Calculate Stats:** Calculate the `mean_val` and `std_val` of your `change_cosine` array using `np.nanmean()` and `np.nanstd()`.
 2. **Calculate Z-Score:** Subtract the mean from `change_cosine`, and divide by the standard deviation. Save as `z_score`.
 3. **Boolean Mask:** Define a variable `threshold = 0.5`. Create a mask called `strong_change` that is `True` wherever the `z_score` is strictly greater than this threshold.
-4. **Calculate Area:** Sentinel-2 pixels have a spatial resolution of 10m x 10m (100 m² per pixel). Use `np.sum()` on your boolean mask to count the number of changed pixels. Multiply this count by the pixel area to get total square meters, convert it to square kilometers (divide by 1,000,000), and print the result.
+4. **Calculate Area:** Do not assume the pixel size, read it from the metadata you stored in Part 1. First check that `crs.is_projected` is `True`: only then is the pixel size given in metres rather than degrees. The area of one pixel is `pixel_size[0] * pixel_size[1]` (for these files 10 m × 10 m = 100 m²). Use `np.sum()` on your boolean mask to count the number of changed pixels. Multiply this count by the pixel area to get total square meters, convert it to square kilometers (divide by 1,000,000), and print the result.
 5. **Visualize the Final Product:** Create a 1x2 side-by-side plot (`plt.subplots(1, 2)`).
     * **Plot 1 (Left):** Plot the continuous `z_score` array along with a colorbar.
     * **Plot 2 (Right):** Plot the `fcc_2025` image as a background. Then, overlay your `strong_change` mask using `cmap='winter'` and `alpha=0.8`. *(Hint: To make the `False` values invisible, use `np.where(strong_change, 1, np.nan)` before plotting the mask, see: [where](https://numpy.org/devdocs/reference/generated/numpy.where.html#)).*

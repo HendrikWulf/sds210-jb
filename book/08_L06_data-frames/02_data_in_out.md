@@ -1,6 +1,16 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210_home
+  language: python
+  name: python3
 site:
- outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
 # Getting Data In and Out
@@ -52,7 +62,7 @@ One of the most useful features of pandas is its ability to interact with numero
 
 Once you have acquired your data, the next step in every data science workflow is to load it. Pandas provides a single, highly optimised function for this: `pd.read_csv()`.
 
-We will load a dataset containing daily weather observations from the Kloten weather station in Zurich for the summer of 2022. You can download this dataset from: [https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022.txt) and add it to a `data` folder your working directory on your local file system.
+We will load a dataset containing daily weather observations from the Kloten weather station in Zurich for the summer of 2022. `pd.read_csv()` can read it directly from its web address, [https://data.source.coop/giuz/sds210/L06/kloten_summer_2022.txt](https://data.source.coop/giuz/sds210/L06/kloten_summer_2022.txt), part of the course data on [Source Cooperative](https://source.coop/giuz/sds210). To work offline, download the file into a `data` folder next to your notebook and use the path `"data/kloten_summer_2022.txt"` instead.
 
 You might notice the file is named `kloten_summer_2022.txt`. Why use `read_csv` for a `.txt` file?
 File extensions are simply naming conventions. Whether a file ends in `.csv`, `.txt`, or `.dat`, if the internal contents are plain text separated by commas, `pd.read_csv()` is the correct tool to read it.
@@ -83,14 +93,13 @@ As we can see, the first 10 rows contain metadata comments starting with `#`. We
 *The `read_csv` function automatically parses delimiters, detects headers, and assigns an index. Parameters like `skiprows` allow you to bypass messy metadata.*
 :::
 
-```{code-cell} python
+```{code-cell} ipython3
 import pandas as pd
 
 # Read the data file, skipping the first 10 lines of metadata comments
-data = pd.read_csv("data/kloten_summer_2022.txt", skiprows=10)
+data = pd.read_csv("https://data.source.coop/giuz/sds210/L06/kloten_summer_2022.txt", skiprows=10)
 
 print("Data loaded successfully!")
-
 ```
 
 *(Note: Pandas has similar functions for other formats, such as `pd.read_excel()` for Excel files or `pd.read_json()` for JSON files.)*
@@ -103,20 +112,18 @@ Data scientists rarely print entire datasets directly. Trying to display million
 
 Pandas provides the `.head()` **{term}`method <Method>`**, which returns the first five rows of a DataFrame by default. You can return any specific number of rows by placing an integer inside the parentheses.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Check the first 4 rows
 data.head(4)
-
 ```
 
 Notice that Pandas correctly identified our header row and automatically generated a sequential numeric **{term}`Index`** on the far left. Also notice the `NaN` value in row 2. **{term}`NaN`** stands for "Not a Number" and is how Pandas represents missing data.
 
 Similarly, `.tail()` returns the last rows of the DataFrame.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Check the last 3 rows
 data.tail(3)
-
 ```
 
 ---
@@ -127,23 +134,20 @@ After loading data, the standard "first 30 seconds" workflow is to explore the d
 
 First, we check the dimensions using the `.shape` **{term}`attribute <Attribute>`**. It returns a **{term}`tuple <Tuple>`** representing `(rows, columns)`.
 
-```{code-cell} python
+```{code-cell} ipython3
 data.shape
-
 ```
 
 Next, we extract the exact column names using `.columns.values`. This is incredibly helpful when working with datasets that contain hundreds of features, or to check if there are hidden spaces in the column names.
 
-```{code-cell} python
+```{code-cell} ipython3
 data.columns.values
-
 ```
 
 Finally, the most powerful metadata tool is the `.info()` method. It provides a dense summary including row counts, missing values, and the data types (`dtypes`) of every column.
 
-```{code-cell} python
+```{code-cell} ipython3
 data.info()
-
 ```
 
 This raw text block instantly tells us four critical pieces of information:
@@ -155,7 +159,7 @@ This raw text block instantly tells us four critical pieces of information:
 
 ---
 
-#### Concept Check: Parentheses or not?
+### Concept Check: Parentheses or not?
 
 In the code above, why do we type `data.info()` with parentheses, but `data.shape` without them?
 
@@ -186,7 +190,7 @@ If you are working with other software, you can easily adapt this using methods 
 
 One critical parameter to remember when saving is `index=False`. If you omit this, Pandas will write the row labels (the 0, 1, 2 sequence) into the file as a brand new column.  If you load that file again later, you will end up with an redundant column named `Unnamed: 0`.
 
-```{code-cell} python
+```{code-cell} ipython3
 from pathlib import Path
 
 # Define the output folder and file name
@@ -201,7 +205,6 @@ output_folder.mkdir(parents=True, exist_ok=True)
 data.to_csv(output_file, index=False)
 
 print("File successfully saved!")
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -232,9 +235,8 @@ You can download a zip-file called `simplemaps_worldcities_basicv1.901.zip` usin
 3. **Shape & Columns:** Print the shape of the DataFrame and an array of its column names.
 4. **Export:** Save a copy of the data as `worldcities_backup.csv`, ensuring you do not save the index.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution

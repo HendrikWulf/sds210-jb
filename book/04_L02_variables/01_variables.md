@@ -1,6 +1,16 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210_home
+  language: python
+  name: python3
 site:
- outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
 # Variables
@@ -60,9 +70,8 @@ A variable is **not** the value itself, and it is **not** a container that remem
 
 To create a variable, you use the **{term}`assignment operator <Assignment operator>`** `=`.
 
-```{code-cell} python
+```{code-cell} ipython3
 temp_celsius = 10.0
-
 ```
 
 * `temp_celsius` is the **variable name**
@@ -94,9 +103,8 @@ You will use variables constantly when working with coordinates, distances, and 
 
 In a **Jupyter Notebook**, you can display the value of a variable simply by writing its name as the last line of a {term}`code cell <Code cell>`.
 
-```{code-cell} python
+```{code-cell} ipython3
 temp_celsius
-
 ```
 
 **Why does this work?** Jupyter Notebooks have a special, convenient behaviour: *The output of the last {term}`expression <Expression>` in a code cell is displayed automatically.*
@@ -105,9 +113,8 @@ temp_celsius
 
 If you want to display multiple things from a single cell, or add formatted text, you must use the `print()` {term}`function <Function>` explicitly. This works in any Python environment, not just notebooks.
 
-```{code-cell} python
+```{code-cell} ipython3
 print("Temperature in Celsius:", temp_celsius)
-
 ```
 
 ---
@@ -116,9 +123,8 @@ print("Temperature in Celsius:", temp_celsius)
 
 Once a value is stored in a variable, you can use that variable **just like a number** in calculations. Let’s convert our temperature from Celsius to Fahrenheit:
 
-```{code-cell} python
+```{code-cell} ipython3
 print("Temperature in Fahrenheit:", 9 / 5 * temp_celsius + 32)
-
 ```
 
 When this cell is executed, Python looks up the current value stored in `temp_celsius` (which is `10.0`), substitutes it into the math expression, evaluates the calculation, and displays the result.
@@ -139,9 +145,8 @@ Let’s pause briefly and try this yourself.
 
 *Tip: Use a **meaningful variable name** formatted in **{term}`snake_case <Snake case>`** (words separated by underscores).*
 
-```{code-cell} python
+```{code-cell} ipython3
 # Define and display your variable here
-
 
 ```
 
@@ -151,10 +156,9 @@ Let’s pause briefly and try this yourself.
 
 Variables are **not fixed**. Their values can be changed by assigning a new value to the same variable name. This is called **reassignment**.
 
-```{code-cell} python
+```{code-cell} ipython3
 temp_celsius = 17.0
 print("Temperature in Celsius is now:", temp_celsius)
-
 ```
 
 When this cell is executed, the new value `17.0` is stored in `temp_celsius`. The previous value (`10.0`) is **replaced** and is no longer available.
@@ -173,9 +177,8 @@ In a Jupyter Notebook, **code cells are executed in the order you run them**, no
 
 Let’s see what happens if we try to use a variable that has **not been defined yet**.
 
-```{code-cell} python
+```{code-cell} ipython3
 print(5 / 9 * (temp_fahrenheit - 32))
-
 ```
 
 Running this cell raises a `NameError`.
@@ -193,9 +196,8 @@ If you see a `NameError`, or if a calculation looks "wrong", it usually means:
 
 To fix the error, we must first define the variable by running this cell:
 
-```{code-cell} python
+```{code-cell} ipython3
 temp_fahrenheit = 9 / 5 * temp_celsius + 32
-
 ```
 
 Once this cell has been run, the variable exists in memory, and you can rerun the previous cell successfully.
@@ -208,7 +210,7 @@ An important and sometimes surprising behaviour in Python is that **variables ar
 
 Let’s update `temp_celsius` one more time and inspect both variables together:
 
-```{code-cell} python
+```{code-cell} ipython3
 temp_celsius = 20.0
 print(
     "Temperature in Celsius is now:",
@@ -216,7 +218,6 @@ print(
     "and temperature in Fahrenheit is still:",
     temp_fahrenheit,
 )
-
 ```
 
 Even though `temp_fahrenheit` was originally calculated using `temp_celsius`, its value does **not** change when `temp_celsius` changes!
@@ -295,9 +296,8 @@ This exercise revises the key ideas from this chapter.
 4. Display the result.
 5. Update the value of `speed_kmh` and **re-run the calculation** to see the new travel time.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Do the exercise here
-
 
 ```
 

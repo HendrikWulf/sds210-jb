@@ -1,8 +1,16 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210_home
+  language: python
+  name: python3
 site:
- outline_maxdepth: 1
-
+  outline_maxdepth: 1
 ---
 
 # Aggregating and Joining
@@ -39,38 +47,31 @@ Raw data is just a collection of numbers. To create actual knowledge, you need t
 
 ```
 
-Before we begin, make sure you have downloaded the necessary datasets for this chapter. We will be using our familiar Kloten datasets, plus a new extended dataset from Lugano.
+We will be using our familiar Kloten datasets, plus a new extended dataset from Lugano.
 
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
-
-* [kloten_summer_2022_rain_sun.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_rain_sun.csv)
-* [kloten_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/kloten_summer_2022_extended.txt)
-* [Lugano_summer_2022_extended.txt](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/Lugano_summer_2022_extended.txt)
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
+* [kloten_summer_2022_rain_sun.csv](https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_rain_sun.csv)
+* [kloten_summer_2022_extended.txt](https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_extended.txt)
+* [Lugano_summer_2022_extended.txt](https://data.source.coop/giuz/sds210/L06/Lugano_summer_2022_extended.txt)
 
 ```
 
 Let us load our primary extended Kloten dataset. We will also extract the month from the date **{term}`string <String>`** right away, as we will need it for grouping later.
 
-```{code-cell} python
+```{code-cell} ipython3
 import pandas as pd
 
 # Load the extended Kloten dataset
-fp = "data/kloten_summer_2022_extended.txt"
-data = pd.read_csv(
-    fp,
-    sep=r"\s+",
-    skiprows=[1],
-    na_values=["-9999"]
-)
+fp = "https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_extended.txt"
+data = pd.read_csv(fp, sep=r"\s+", skiprows=[1], na_values=["-9999"])
 
 # Extract the month (characters 4 and 5 from the YYYYMMDD string)
 data["month"] = data["DATE"].astype(str).str.slice(4, 6)
 
 display(data.head(3))
-
 ```
 
 ---
@@ -81,13 +82,12 @@ Sometimes you want to know exactly what distinct categories exist within a speci
 
 For example, let us confirm exactly which months are represented in our dataset.
 
-```{code-cell} python
+```{code-cell} ipython3
 # See the actual unique values
 print("Unique months:", data["month"].unique())
 
 # Count the number of unique values
 print("Number of unique months:", data["month"].nunique())
-
 ```
 
 *Do you notice the lack of commas in the `Unique months` list? That is because `.unique()` returns a highly optimized **{term}`NumPy`** **{term}`array <Array>`**, not a standard Python list!*
@@ -98,10 +98,9 @@ Knowing the unique categories is helpful, but usually, we also want to know how 
 
 To answer "how many of each?", Pandas provides the incredibly useful `.value_counts()` method. It instantly calculates the frequency of every unique value in a column and sorts them from most to least common.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Count how many days of data we have for each specific month
 display(data["month"].value_counts())
-
 ```
 
 These three methods (`unique`, `nunique`, and `value_counts`) form your standard toolkit for exploring categorical data. This is incredibly useful for tasks like checking how many unique weather stations are present in a massive global dataset, or finding out which station recorded the most data points!
@@ -136,20 +135,18 @@ The **{term}`DataFrames <DataFrame>`** and **{term}`Series`** objects contain bu
 
 If you call these on a single column, you get a single number:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Find the absolute maximum temperature of the entire summer
 hottest_temp = data["tmax"].max()
 print(f"The highest temperature was {hottest_temp}°C")
-
 ```
 
 If you want a comprehensive overview of your entire dataset, the `.describe()` method is your best friend. It generates a statistical summary for all numeric columns at once, automatically ignoring missing **{term}`NaN`** values.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Generate summary statistics for specific columns
 columns_to_check = ["tmax", "tmin", "wind_speed"]
 display(data[columns_to_check].describe().round(2))
-
 ```
 
 ```{admonition} Where is the median?
@@ -172,7 +169,7 @@ Pandas uses a powerful concept called **Split-Apply-Combine**, accessible via th
 
 Let us group our data by month and calculate the average temperatures and wind speed. To understand the mechanics, we will write it out step-by-step first:
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. SPLIT: Group the data by the 'month' column
 grouped_data = data.groupby("month")
 
@@ -183,7 +180,6 @@ columns_to_aggregate = ["tmax", "tmin", "wind_speed"]
 monthly_averages = grouped_data[columns_to_aggregate].mean()
 
 display(monthly_averages.round(1))
-
 ```
 
 Notice how `month` is sitting lower than the other column headers? That is because `.groupby()` automatically turns your grouping category into the DataFrame's **{term}`Index`**!
@@ -194,13 +190,14 @@ Once you understand the Split-Apply-Combine logic, you do not need to write thre
 
 We can also add one crucial extra command at the end: `.reset_index()`. By default, `.groupby()` turns your grouping category (`month`) into the index. Resetting the index turns `month` back into a normal, usable column!
 
-```{code-cell} python
+```{code-cell} ipython3
 # The elegant, one-line Pandas way:
-monthly_averages = data.groupby("month")[["tmax", "tmin", "wind_speed"]].mean().reset_index()
+monthly_averages = (
+    data.groupby("month")[["tmax", "tmin", "wind_speed"]].mean().reset_index()
+)
 
 # Round the results to 2 decimal places for readability
 display(monthly_averages.round(2))
-
 ```
 
 With a single line of chained code, we extracted a high-level insight: July (`07`) was noticeably hotter and slightly windier on average than June or August!
@@ -215,21 +212,16 @@ Pandas uses the `.merge()` method to combine two DataFrames. It looks for a comm
 
 Let us load a new supplementary dataset (`kloten_summer_2022_rain_sun.csv`) that contains daily `precipitation` and `sunshine_duration`, and merge it with our extended temperature dataset. We will use the date as our shared key.
 
-```{code-cell} python
-# Load the supplementary dataset 
+```{code-cell} ipython3
+# Load the supplementary dataset
 # (Since it is a standard CSV, we don't need sep or skiprows!)
-supp_fp = "data/kloten_summer_2022_rain_sun.csv"
+supp_fp = "https://data.source.coop/giuz/sds210/L06/kloten_summer_2022_rain_sun.csv"
 supp_data = pd.read_csv(supp_fp)
 
 # Merge the two DataFrames.
 # Since the date columns have different names ('DATE' vs 'YEARMODA'),
 # we use left_on and right_on to tell Pandas which keys to match!
-combined_data = pd.merge(
-    data, 
-    supp_data, 
-    left_on="DATE", 
-    right_on="YEARMODA"
-)
+combined_data = pd.merge(data, supp_data, left_on="DATE", right_on="YEARMODA")
 
 # Remove duplicate key column
 combined_data = combined_data.drop(columns=["YEARMODA"])
@@ -237,7 +229,6 @@ combined_data = combined_data.drop(columns=["YEARMODA"])
 # Display a few columns from the newly merged massive dataset
 columns_to_show = ["DATE", "tmax", "rh", "precipitation", "sunshine_duration"]
 display(combined_data[columns_to_show].head(3))
-
 ```
 
 Because both tables shared the exact same dates, Pandas neatly attached the rain and sun columns from the new table right next to the corresponding temperatures in our main table!
@@ -307,9 +298,8 @@ It is time to put your relational data skills to the test. You have been asked t
 4.  Calculate the `.mean()` for `tmean` and `precipitation` for both cities.
 5.  Display the final aggregated table (round your results to 1 decimal place). Which city was hotter on average in July?
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution
@@ -318,7 +308,7 @@ It is time to put your relational data skills to the test. You have been asked t
 ```{code-cell} python
 # 1. Load Lugano data
 lugano_data = pd.read_csv(
-    "data/Lugano_summer_2022_extended.txt", 
+    "https://data.source.coop/giuz/sds210/L06/Lugano_summer_2022_extended.txt", 
     sep=r"\s+", 
     skiprows=[1], 
     na_values=["-9999"]

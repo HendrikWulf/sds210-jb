@@ -1,8 +1,16 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
+  outline_maxdepth: 1
 ---
 
 # Spatial Relationships
@@ -46,16 +54,15 @@ In this chapter, we transition to answering complex **{term}`spatial questions <
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
-
-* [meteoswiss_pollen_network.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/meteoswiss_pollen_network.csv)
-* [NuclearPowerPlant.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/NuclearPowerPlant.csv)
-* [swissBoundaries3D_cantons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_cantons.gpkg)
-* [alpine_huts.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/alpine_huts.gpkg)
-* [hospital_landing_sites.geojson](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/hospital_landing_sites.geojson)
-* [swiss_parks.shp.zip](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swiss_parks.shp.zip)
-* [wohnungsinventar.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/wohnungsinventar.gpkg)
-* [wolf_tracks_switzerland.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/wolf_tracks_switzerland.gpkg)
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
+* [meteoswiss_pollen_network.csv](https://data.source.coop/giuz/sds210/L07/meteoswiss_pollen_network.csv)
+* [NuclearPowerPlant.csv](https://data.source.coop/giuz/sds210/L07/NuclearPowerPlant.csv)
+* [swissBoundaries3D_cantons.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg)
+* [alpine_huts.gpkg](https://data.source.coop/giuz/sds210/L07/alpine_huts.gpkg)
+* [hospital_landing_sites.geojson](https://data.source.coop/giuz/sds210/L07/hospital_landing_sites.geojson)
+* [swiss_parks.shp.zip](https://data.source.coop/giuz/sds210/L07/swiss_parks.shp.zip)
+* [wohnungsinventar.gpkg](https://data.source.coop/giuz/sds210/L07/wohnungsinventar.gpkg)
+* [wolf_tracks_switzerland.gpkg](https://data.source.coop/giuz/sds210/L07/wolf_tracks_switzerland.gpkg)
 
 ```
 
@@ -119,28 +126,25 @@ Let us test these core relationship methods using two distinct datasets: the pol
 
 First, we will load both datasets, ensure they share the exact same Coordinate Reference System (EPSG:2056), and extract a single canton and a single station to compare.
 
-```{code-cell} python
+```{code-cell} ipython3
 import geopandas as gpd
 import pandas as pd
 import numpy as np
 
 # 1. Load the Cantons Polygons
-cantons_gdf = gpd.read_file("data/swissBoundaries3D_cantons.gpkg")
+cantons_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg")
 
 # Extract just the geometry for the canton of Zurich
 canton_zh = cantons_gdf[cantons_gdf["name"] == "Zürich"].geometry.iloc[0]
 
 # 2. Load the Pollen Stations Points (CSV -> GeoDataFrame)
-pollen_df = pd.read_csv("data/meteoswiss_pollen_network.csv")
+pollen_df = pd.read_csv("https://data.source.coop/giuz/sds210/L07/meteoswiss_pollen_network.csv")
 pollen_gdf = gpd.GeoDataFrame(
-    pollen_df, 
-    geometry=gpd.points_from_xy(pollen_df.X, pollen_df.Y),
-    crs="EPSG:2056"
+    pollen_df, geometry=gpd.points_from_xy(pollen_df.X, pollen_df.Y), crs="EPSG:2056"
 )
 
 # Extract just the geometry for the specific station located in Zurich
 station_zh = pollen_gdf[pollen_gdf["station_name"] == "Zürich"].geometry.iloc[0]
-
 ```
 
 ### The Geometry Methods
@@ -149,7 +153,7 @@ Because `canton_zh` is a Shapely Polygon and `station_zh` is a Shapely Point, th
 
 To understand how these methods work, we must test them in both directions. Does the order in which we ask the question matter? Let us ask the computer six specific questions:
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Testing 'Contains' (Does the first shape completely enclose the second?)
 print("Canton contains station:", canton_zh.contains(station_zh))
 print("Station contains canton:", station_zh.contains(canton_zh))
@@ -161,7 +165,6 @@ print("Canton within station:", canton_zh.within(station_zh))
 # 3. Testing 'Intersects' (Do the two shapes share ANY space at all?)
 print("\nStation intersects canton:", station_zh.intersects(canton_zh))
 print("Canton intersects station:", canton_zh.intersects(station_zh))
-
 ```
 
 This output reveals a critical rule of spatial querying: **Order matters immensely for most predicates!** * **Asymmetric Methods:** `.contains()` and `.within()` are directional. A massive polygon can contain a tiny coordinate point, but a point can never contain a polygon. Notice, however, that they are perfect inverse methods of each other. Use whichever makes your code read more naturally.
@@ -202,7 +205,7 @@ For this example, we will calculate the **average altitude of the pollen station
 
 To do this, we can **{term}`loop <Loop>`** through every single canton and ask the computer to find which stations fall `.within()` its borders. If it finds any, we will calculate their average altitude and save it directly into the `cantons_gdf` attribute table.
 
-```{code-cell} python
+```{code-cell} ipython3
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -211,20 +214,18 @@ cantons_gdf["avg_pollen_alt"] = np.nan
 
 # Loop through each row in the cantons dataset
 for idx, canton_row in cantons_gdf.iterrows():
-    
     # Grab the current canton's polygon
     canton_geom = canton_row.geometry
-    
+
     # Ask the question: Which stations are WITHIN this specific canton?
     # This creates a True/False mask to filter the stations!
     stations_inside = pollen_gdf[pollen_gdf.geometry.within(canton_geom)]
-    
+
     # If the canton actually contains one or more stations...
     if not stations_inside.empty:
-        
         # Calculate the mean altitude of those specific stations
         avg_alt = stations_inside["altitude"].mean()
-        
+
         # Save the result into our new column for this specific canton
         cantons_gdf.at[idx, "avg_pollen_alt"] = avg_alt
 
@@ -236,18 +237,17 @@ display(has_stations[["name", "avg_pollen_alt"]].head().round(1))
 # Let's visualize our brand new metric!
 # We use 'missing_kwds' to color the cantons that didn't have any stations in light grey
 ax = cantons_gdf.plot(
-    column="avg_pollen_alt", 
-    cmap="viridis", 
-    legend=True, 
-    legend_kwds={'label': "Average Station Altitude (m)"},
-    missing_kwds={'color': 'lightgrey', 'label': 'No Stations'},
+    column="avg_pollen_alt",
+    cmap="viridis",
+    legend=True,
+    legend_kwds={"label": "Average Station Altitude (m)"},
+    missing_kwds={"color": "lightgrey", "label": "No Stations"},
     figsize=(10, 6),
-    edgecolor="white"
-);
+    edgecolor="white",
+)
 ax.set_title("Average Altitude of Pollen Stations per Canton")
 ax.axis("off")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -268,27 +268,24 @@ Let us answer a critical safety question: **If a nuclear emergency required a 16
 
 We will load the Swiss housing inventory (which contains communal polygons and household counts in a column called `ZWG_3010`) and the Nuclear Power Plant dataset.
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Load the Housing Inventory (Communal polygons)
-housing_gdf = gpd.read_file("data/wohnungsinventar.gpkg")
+housing_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/wohnungsinventar.gpkg")
 
 # 2. Load the Nuclear Power Plants and isolate Beznau
-npp_df = pd.read_csv("data/NuclearPowerPlant.csv")
+npp_df = pd.read_csv("https://data.source.coop/giuz/sds210/L07/NuclearPowerPlant.csv")
 npp_gdf = gpd.GeoDataFrame(
-    npp_df, 
-    geometry=gpd.points_from_xy(npp_df.X, npp_df.Y),
-    crs="EPSG:2056"
+    npp_df, geometry=gpd.points_from_xy(npp_df.X, npp_df.Y), crs="EPSG:2056"
 )
 beznau = npp_gdf[npp_gdf["Name"] == "Kernkraftwerk Beznau"].geometry.iloc[0]
 
 # 3. Create the 16km (16,000m) Evacuation Buffer around Beznau
 evac_zone = beznau.buffer(16000)
-
 ```
 
 Now, instead of writing a loop, we will ask the entire `housing_gdf` dataset which communal polygons intersect with our evacuation zone. This generates a **Boolean mask**—a simple list of `True` and `False` values—which we can use to instantly filter the rows!
 
-```{code-cell} python
+```{code-cell} ipython3
 # 4. Create a Boolean mask using a spatial predicate
 in_danger_mask = housing_gdf.geometry.intersects(evac_zone)
 
@@ -303,35 +300,32 @@ impacted_communes = housing_gdf[in_danger_mask]
 total_impacted_homes = impacted_communes["ZWG_3010"].sum()
 
 print(f"\nTotal primary homes impacted: {total_impacted_homes:,}")
-
 ```
 
 With just two lines of spatial filtering logic, we instantly calculated demographic vulnerability based purely on geographic location!
 
 To prove that our spatial filter worked perfectly, let us visualize the results. We will plot all the communes in light grey, overlay our filtered `impacted_communes` in red, and draw the 16km `evac_zone` boundary on top.
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots(figsize=(10, 6))
 
 # Plot the base map of all communes
-housing_gdf.plot(ax=ax, color="whitesmoke", edgecolor="lightgrey");
-
+housing_gdf.plot(ax=ax, color="whitesmoke", edgecolor="lightgrey")
 # Plot ONLY the filtered communes that intersected the zone
-impacted_communes.plot(ax=ax, color="lightcoral", edgecolor="darkred");
-
+impacted_communes.plot(ax=ax, color="lightcoral", edgecolor="darkred")
 # Plot the 16km evacuation zone outline and the Beznau point
-gpd.GeoSeries([evac_zone]).plot(ax=ax, facecolor="none", edgecolor="black", linewidth=2, linestyle="--");
-gpd.GeoSeries([beznau]).plot(ax=ax, color="black", marker="*", markersize=100);
-
+gpd.GeoSeries([evac_zone]).plot(
+    ax=ax, facecolor="none", edgecolor="black", linewidth=2, linestyle="--"
+)
+gpd.GeoSeries([beznau]).plot(ax=ax, color="black", marker="*", markersize=100)
 # Zoom into the relevant area
 ax.set_xlim(2630000, 2690000)
 ax.set_ylim(1250000, 1290000)
 ax.set_title("Swiss Communes Impacted by Beznau 16km Evacuation Zone")
 ax.axis("off")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -350,27 +344,24 @@ Instead of writing complex mathematical loops to calculate the distance between 
 
 Let us find the closest hospital landing site for every Swiss Alpine Club (SAC) mountain hut in case of a helicopter medical emergency.
 
-```{code-cell} python
+```{code-cell} ipython3
 import geopandas as gpd
 
 # 1. Load both datasets
-# (Both files are already in the Swiss metric grid, but adding .to_crs() 
+# (Both files are already in the Swiss metric grid, but adding .to_crs()
 # right when you load data is a fantastic safety habit to prevent degree-errors!)
-huts_gdf = gpd.read_file("data/alpine_huts.gpkg").to_crs(epsg=2056)
-hospitals_gdf = gpd.read_file("data/hospital_landing_sites.geojson").to_crs(epsg=2056)
+huts_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/alpine_huts.gpkg").to_crs(epsg=2056)
+hospitals_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/hospital_landing_sites.geojson").to_crs(epsg=2056)
 
 # 2. Find the nearest hospital for every hut
 # - how="left": Keep all the huts in our results, even if something goes wrong.
 # - distance_col="distance_m": Automatically record the exact distance in meters.
 emergency_plan = huts_gdf.sjoin_nearest(
-    hospitals_gdf, 
-    how="left", 
-    distance_col="distance_m"
+    hospitals_gdf, how="left", distance_col="distance_m"
 )
 
 # 3. View the results (Showing the Hut Name, the Closest Hospital, and the Distance)
 display(emergency_plan[["name_left", "name_right", "distance_m"]].head(3).round(1))
-
 ```
 
 ```{admonition} Why 'name_left' and 'name_right'?
@@ -445,14 +436,11 @@ Helicopters have limited fuel, and in medical emergencies, time is critical. Loo
 
 You can make your nearest neighbor search even faster by passing the `max_distance` parameter:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Only find hospitals if they are within 15,000 meters
 emergency_plan = huts_gdf.sjoin_nearest(
-    hospitals_gdf, 
-    distance_col="distance_m",
-    max_distance=15000 
+    hospitals_gdf, distance_col="distance_m", max_distance=15000
 )
-
 ```
 
 *(Note: If you ran this code, the Mischabelhütte would simply be dropped from the final results, as it has no hospitals within that 15km search radius!)*
@@ -476,9 +464,8 @@ Your task is to use a spatial predicate as a Boolean mask to filter the GPS trac
 4. **Apply Mask:** Filter the wolf GeoDataFrame using your mask to create a new variable called `protected_wolves`.
 5. **Count:** Use `len()` to see how many GPS tracks fell entirely inside the park boundaries compared to the original dataset.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution
@@ -488,8 +475,8 @@ Your task is to use a spatial predicate as a Boolean mask to filter the GPS trac
 import geopandas as gpd
 
 # 1. Load Data (Specifying the exact layer prevents warnings!)
-wolves_gdf = gpd.read_file("data/wolf_tracks_switzerland.gpkg", layer="Schneeschuhwanderwege").to_crs(epsg=2056)
-parks_gdf = gpd.read_file("data/swiss_parks.shp.zip", layer="N2026_Revision_Park_20250430").to_crs(epsg=2056)
+wolves_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/wolf_tracks_switzerland.gpkg", layer="Schneeschuhwanderwege").to_crs(epsg=2056)
+parks_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swiss_parks.shp.zip", layer="N2026_Revision_Park_20250430").to_crs(epsg=2056)
 
 # 2. Merge Parks into a single massive geometry
 all_parks = parks_gdf.geometry.union_all()

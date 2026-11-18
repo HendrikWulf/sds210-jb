@@ -13,10 +13,6 @@ Making spatial projects understandable, not just runnable
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/14_L12_best-practices/05_documentation_and_communication.ipynb)
-
----
-
 ```{admonition} Big idea
 :class: tip
 

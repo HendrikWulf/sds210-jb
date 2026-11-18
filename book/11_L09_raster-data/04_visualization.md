@@ -1,4 +1,14 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
   outline_maxdepth: 1
 ---
@@ -13,7 +23,7 @@ From quick previews to meaningful raster maps
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/11_L09_raster-data/04_visualisation.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/11_L09_raster-data/04_visualization.ipynb)
 
 ---
 
@@ -44,12 +54,12 @@ In this chapter, you will learn how to visualize raster data more deliberately. 
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook: 
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name: 
 
-* [Copernicus DEM New Zealand (Copernicus_DEM_NZ_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/Copernicus_DEM_NZ_subset.tif)
-* [Landsat 9 Multispectral Subset (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
-* [GLIMS Glaciers New Zealand (GLIMS_glaciers_NZ_subset.zip)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/GLIMS_glaciers_NZ_subset.zip)
-* [ETOPO1 Topography & Bathymetry (ETOPO1_bedrock_subset_2000m_3857.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/ETOPO1_bedrock_subset_2000m_3857.tif)
+* [Copernicus DEM New Zealand (Copernicus_DEM_NZ_subset.tif)](https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif)
+* [Landsat 9 Multispectral Subset (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
+* [GLIMS Glaciers New Zealand (GLIMS_glaciers_NZ_subset.zip)](https://data.source.coop/giuz/sds210/L09/GLIMS_glaciers_NZ_subset.zip)
+* [ETOPO1 Topography & Bathymetry (ETOPO1_bedrock_subset_2000m_3857.tif)](https://data.source.coop/giuz/sds210/L09/ETOPO1_bedrock_subset_2000m_3857.tif)
 
 ```
 
@@ -65,15 +75,14 @@ When you first open a raster, a quick preview is often enough to answer a few fu
 
 Rasterio makes this initial check incredibly easy with the `show()` function.
 
-```{code-cell} python
+```{code-cell} ipython3
 import rasterio
 from rasterio.plot import show
 
-filepath = "data/Copernicus_DEM_NZ_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif"
 
 with rasterio.open(filepath) as src:
     show(src, title="New Zealand Elevation DEM", cmap="terrain")
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -110,10 +119,10 @@ A single band raster is best understood as a continuous surface of measurements.
 
 The simplest way to visualize such a raster is to read the band into a standard **{term}`NumPy`** **{term}`array <Array>`** and display it using **{term}`Matplotlib`**.
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 
-with rasterio.open("data/Copernicus_DEM_NZ_subset.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif") as src:
     dem = src.read(1)
 
 plt.figure(figsize=(7, 6))
@@ -121,7 +130,6 @@ plt.imshow(dem, cmap="viridis")
 plt.title("DEM as a NumPy array (Viridis)")
 plt.colorbar(label="Elevation (m)")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -142,7 +150,7 @@ To upgrade our visualization from a raw grid to a more professional map, we must
 * **Anchoring the colormap (`vmin`, `vmax`):** We explicitly set `vmin=0` and `vmax=3000`. This ensures the color scale remains fixed and comparable across different maps, rather than arbitrarily stretching to the local minimum and maximum of this specific subset.
 * **Formatting aesthetics (`MaxNLocator`):** We apply proper "Northing" and "Easting" labels, adjust global font sizes for readability, and use `MaxNLocator` to strictly limit the number of axis ticks, reducing visual clutter.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Install the scientific colormap package if necessary
 # !pip install cmcrameri
 
@@ -152,21 +160,26 @@ import matplotlib.pyplot as plt
 import cmcrameri.cm as cmc
 import matplotlib.ticker as ticker
 
-filepath = "data/Copernicus_DEM_NZ_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif"
 
 with rasterio.open(filepath) as src:
     left, bottom, right, top = src.bounds
-    geo_bounds = transform_bounds(src.crs, 'EPSG:2193', left, bottom, right, top)
+    geo_bounds = transform_bounds(src.crs, "EPSG:2193", left, bottom, right, top)
     dem_data = src.read(1)
 
 fig, ax = plt.subplots(figsize=(8, 6))
 
 # Adjust global font sizes for clear reading
-plt.rcParams.update({'font.size': 14})
+plt.rcParams.update({"font.size": 14})
 
 # Plot the array with strict color limits and true spatial extents
-img = ax.imshow(dem_data, cmap=cmc.batlowW, vmin=0, vmax=3000,
-                extent=[geo_bounds[0], geo_bounds[2], geo_bounds[1], geo_bounds[3]])
+img = ax.imshow(
+    dem_data,
+    cmap=cmc.batlowW,
+    vmin=0,
+    vmax=3000,
+    extent=[geo_bounds[0], geo_bounds[2], geo_bounds[1], geo_bounds[3]],
+)
 
 # Set descriptive labels with specific font sizes and padding
 ax.set_title("DEM in NZTM 2000", fontsize=16, pad=16)
@@ -182,7 +195,6 @@ cbar = fig.colorbar(img, label="Elevation (m)")
 cbar.ax.tick_params(labelsize=14)
 
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -203,19 +215,18 @@ A typical multispectral raster may include bands such as: Blue, Green, Red, Near
 
 Each band is its own raster layer. That means a multispectral image is really a stack of perfectly aligned single band rasters. You can check how many bands a raster contains using the `.count` attribute:
 
-```{code-cell} python
-filepath = "data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
+```{code-cell} ipython3
+filepath = "https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
 
 with rasterio.open(filepath) as src:
     print("Band count:", src.count)
-
 ```
 
 ### Looking at bands separately
 
 A good way to begin exploring satellite imagery is to visualize the bands one by one. In this example, we will look at the visible light spectrum: Band 3 (Red), Band 2 (Green), and Band 1 (Blue).
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 from rasterio.plot import show
 
@@ -231,7 +242,6 @@ with rasterio.open(filepath) as src:
     ax3.set_title("Band 6 (SWIR2)")
 
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -246,7 +256,7 @@ Before building more complex visualizations, it is highly useful to inspect the 
 
 For instance, Band 7 in our Landsat dataset represents Thermal Infrared (TIR), which measures surface temperature. By plotting a **{term}`histogram <Histogram>`**, we can observe the temperature distribution in Kelvin.
 
-```{code-cell} python
+```{code-cell} ipython3
 from rasterio.plot import show_hist
 
 with rasterio.open(filepath) as src:
@@ -263,7 +273,7 @@ with rasterio.open(filepath) as src:
         histtype="stepfilled",
         title="Histogram of TIR1",
         ax=ax,
-        label="Band 7"
+        label="Band 7",
     )
 
     # Modify the axes to reflect the physical units (Kelvin)
@@ -272,7 +282,6 @@ with rasterio.open(filepath) as src:
     ax.legend()  # Display the legend with the custom label
 
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -298,7 +307,7 @@ from rasterio.plot import show, show_hist
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
-filepath = "data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
 
 with rasterio.open(filepath) as src:
     # Create a 2x3 grid of subplots
@@ -365,17 +374,18 @@ A **{term}`True color composite`** mimics human vision by combining:
 
 Raw satellite data often contains a wide range of values, which can cause the image to look dark or washed out if displayed directly. Before stacking these bands into a single image, it is highly useful to apply a **contrast stretch**. By clipping the extreme values and normalizing the remaining data to a comparable scale (0 to 1), we can dramatically brighten the image and reveal hidden features.
 
-```{code-cell} python
+```{code-cell} ipython3
 import numpy as np
 import rasterio
 import matplotlib.pyplot as plt
 
-filepath = "data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
 
 with rasterio.open(filepath) as src:
     red = src.read(3)
     green = src.read(2)
     blue = src.read(1)
+
 
 def normalize(array, vmin=0, vmax=0.4):
     """Normalize and clip array to a specific range (default 0 to 0.4)"""
@@ -383,6 +393,7 @@ def normalize(array, vmin=0, vmax=0.4):
     clipped = np.clip(array, vmin, vmax)
     # Scale the clipped array to 0-1 for display
     return (clipped - vmin) / (vmax - vmin)
+
 
 red_n = normalize(red)
 green_n = normalize(green)
@@ -394,9 +405,8 @@ rgb = np.dstack((red_n, green_n, blue_n))
 plt.figure(figsize=(7, 6))
 plt.imshow(rgb)
 plt.title("RGB true color composite (Scaled 0-0.4)")
-plt.axis('off')
+plt.axis("off")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -413,7 +423,7 @@ Sometimes, realism is not the goal. A **{term}`false color composite`** highligh
 
 A common analytical composite maps Shortwave Infrared (SWIR2) to the red channel, Near Infrared (NIR) to the green channel, and Red to the blue channel. Because healthy vegetation reflects heavily in the NIR spectrum, forested areas stand out vividly in bright green, while variations in bare earth are highlighted by the SWIR band.
 
-```{code-cell} python
+```{code-cell} ipython3
 with rasterio.open(filepath) as src:
     swir2 = src.read(6)
     nir = src.read(4)
@@ -429,9 +439,8 @@ fcc = np.dstack((swir2_n, nir_n, red_n))
 plt.figure(figsize=(7, 6))
 plt.imshow(fcc)
 plt.title("False color composite (SWIR2, NIR, Red)")
-plt.axis('off')
+plt.axis("off")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -479,10 +488,11 @@ To help visualize flat landscapes, we can also introduce a **Z-factor** (vertica
 
 Here is how you can calculate this hillshade programmatically in Python.
 
-```{code-cell} python
+```{code-cell} ipython3
 import numpy as np
 import rasterio
 import matplotlib.pyplot as plt
+
 
 def hillshade(array, azimuth, angle_altitude, z_factor=1):
     """Calculates a simulated hillshade from an elevation array."""
@@ -495,19 +505,17 @@ def hillshade(array, azimuth, angle_altitude, z_factor=1):
     azm_rad = np.radians(azimuth)
     alt_rad = np.radians(angle_altitude)
 
-    shaded = (
-        np.sin(alt_rad) * np.sin(slope)
-        + np.cos(alt_rad) * np.cos(slope) * np.cos((azm_rad - np.pi / 2.0) - aspect)
+    shaded = np.sin(alt_rad) * np.sin(slope) + np.cos(alt_rad) * np.cos(slope) * np.cos(
+        (azm_rad - np.pi / 2.0) - aspect
     )
 
     return 255 * (shaded + 1) / 2
-
 ```
 
 Notice that when we plot the result, we use `np.percentile` to dynamically set our `vmin` and `vmax`. This stretches the contrast by ignoring the extreme 2% of outliers, resulting in a much crisper image.
 
-```{code-cell} python
-with rasterio.open("data/Copernicus_DEM_NZ_subset.tif") as src:
+```{code-cell} ipython3
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif") as src:
     dem = src.read(1)
 
 # Increase z_factor for better contrast in relief
@@ -518,9 +526,8 @@ plt.figure(figsize=(7, 6))
 plt.imshow(hs, cmap="gray", vmin=np.percentile(hs, 2), vmax=np.percentile(hs, 98))
 plt.title("Hillshade (Z-factor=2)")
 plt.colorbar(label="Illumination")
-plt.axis('off')
+plt.axis("off")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -533,7 +540,7 @@ plt.show()
 
 In a standard hillshade, a single light source can leave slopes facing away from the sun in complete, flat darkness, hiding the terrain structure there. A multidirectional hillshade solves this by calculating illumination from several different angles and averaging them together. This ensures surface texture remains visible everywhere, even in the shadows.
 
-```{code-cell} python
+```{code-cell} ipython3
 def multidirectional_hillshade(array, angle_altitude=45, z_factor=1):
     """Calculates an averaged hillshade from multiple azimuths."""
     # Define five distinct azimuths to simulate ambient environmental light
@@ -547,15 +554,21 @@ def multidirectional_hillshade(array, angle_altitude=45, z_factor=1):
     # Average the individual hillshades for a multidirectional effect
     return np.mean(hillshades, axis=0)
 
+
 # Compute and plot
 multi_hs = multidirectional_hillshade(dem, angle_altitude=45, z_factor=1)
 
 plt.figure(figsize=(7, 6))
-plt.imshow(multi_hs, cmap="gray", alpha=0.5, vmin=np.percentile(multi_hs, 2), vmax=np.percentile(multi_hs, 68))
+plt.imshow(
+    multi_hs,
+    cmap="gray",
+    alpha=0.5,
+    vmin=np.percentile(multi_hs, 2),
+    vmax=np.percentile(multi_hs, 68),
+)
 plt.title("Multidirectional Hillshade")
-plt.axis('off')
+plt.axis("off")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -570,7 +583,7 @@ While a hillshade reveals surface texture brilliantly, it strips away the absolu
 
 By utilizing the `alpha` parameter, we can control the transparency of the hillshade layer, allowing the underlying elevation colors to shine through the shadows.
 
-```{code-cell} python
+```{code-cell} ipython3
 import cmcrameri.cm as cmc
 
 hs = hillshade(dem, azimuth=315, angle_altitude=45)
@@ -584,9 +597,8 @@ fig.colorbar(im1, ax=ax, label="Elevation (m)")
 # Overlay layer: Hillshade with transparency (alpha)
 ax.imshow(hs, cmap="Greys", alpha=0.35)
 ax.set_title("DEM with hillshade overlay")
-ax.axis('off')
+ax.axis("off")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -601,31 +613,30 @@ Instead of manually calculating the hillshade and overlaying it with transparenc
 
 Different blending modes (`hsv`, `overlay`, or `soft`) combine the hillshade and the colormap using different mathematical algorithms. This native blending often produces a more vibrant and integrated map than a simple alpha overlay.
 
-```{code-cell} python
+```{code-cell} ipython3
 from matplotlib.colors import LightSource
 
 # Define parameters: Focus only on VE=1 (Vertical Exaggeration)
 ve = 1
-blend_modes = ['hsv', 'overlay', 'soft']
+blend_modes = ["hsv", "overlay", "soft"]
 ls = LightSource(azdeg=315, altdeg=45)
 cmap = cmc.batlowW
 
-fig, axs = plt.subplots(nrows=1, ncols=len(blend_modes), 
-                        figsize=(15, 5), sharex=True, sharey=True)
+fig, axs = plt.subplots(
+    nrows=1, ncols=len(blend_modes), figsize=(15, 5), sharex=True, sharey=True
+)
 
 for i, mode in enumerate(blend_modes):
     ax = axs[i]
     # ls.shade performs the blending based on the chosen mode and VE
-    rgb = ls.shade(dem, cmap=cmap, blend_mode=mode, vert_exag=ve, 
-                   vmin=0, vmax=3000)
-    
+    rgb = ls.shade(dem, cmap=cmap, blend_mode=mode, vert_exag=ve, vmin=0, vmax=3000)
+
     ax.imshow(rgb)
     ax.set_title(f"Mode: {mode}", fontsize=14)
-    ax.axis('off')
+    ax.axis("off")
 
 plt.tight_layout()
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -647,7 +658,7 @@ When combining these two data types using Matplotlib and GeoPandas, you must add
 
 In the example below, we will use the multidirectional hillshade from the previous section as our base map and overlay a **{term}`GeoDataFrame`** containing glacier boundaries.
 
-```{code-cell} python
+```{code-cell} ipython3
 import geopandas as gpd
 import rasterio
 import matplotlib.pyplot as plt
@@ -655,11 +666,11 @@ import numpy as np
 import matplotlib.ticker as ticker
 
 # Load the vector data (glacier outlines)
-vector_path = "data/GLIMS_glaciers_NZ_subset.zip"
+vector_path = "https://data.source.coop/giuz/sds210/L09/GLIMS_glaciers_NZ_subset.zip"
 gdf = gpd.read_file(vector_path)
 
 # Load the raster data and extract spatial metadata
-with rasterio.open("data/Copernicus_DEM_NZ_subset.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif") as src:
     dem = src.read(1)
     src_crs = src.crs
     src_bounds = src.bounds
@@ -669,12 +680,16 @@ multi_hs = multidirectional_hillshade(dem, angle_altitude=45, z_factor=1)
 
 fig, ax = plt.subplots(figsize=(8, 6))
 
-# Plot the raster. 
+# Plot the raster.
 # CRITICAL: We set the 'extent' so it plots in spatial coordinates, not pixel indices!
-img = ax.imshow(multi_hs, cmap="gray", alpha=0.5, 
-                vmin=np.percentile(multi_hs, 2), 
-                vmax=np.percentile(multi_hs, 68),
-                extent=[src_bounds.left, src_bounds.right, src_bounds.bottom, src_bounds.top])
+img = ax.imshow(
+    multi_hs,
+    cmap="gray",
+    alpha=0.5,
+    vmin=np.percentile(multi_hs, 2),
+    vmax=np.percentile(multi_hs, 68),
+    extent=[src_bounds.left, src_bounds.right, src_bounds.bottom, src_bounds.top],
+)
 
 # Project the vector data to match the raster's CRS, then plot on top
 gdf = gdf.to_crs(src_crs)
@@ -690,7 +705,6 @@ ax.set_xlabel("Easting", fontsize=14)
 ax.set_ylabel("Northing", fontsize=14)
 
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -731,7 +745,7 @@ Unlike `GeoDataFrame.plot()`, which natively understands spatial coordinates, Ma
 
 In this final exercise, you will apply your knowledge of scientific colormaps and hillshade blending to a global dataset.
 
-You are given a subset of the ETOPO1 dataset (`data/ETOPO1_bedrock_subset_2000m_3857.tif`), which contains continuous elevation data for the entire globe. Positive values represent land topography, while negative values represent ocean bathymetry.
+You are given a subset of the ETOPO1 dataset (`https://data.source.coop/giuz/sds210/L09/ETOPO1_bedrock_subset_2000m_3857.tif`), which contains continuous elevation data for the entire globe. Positive values represent land topography, while negative values represent ocean bathymetry.
 
 **Tasks:**
 
@@ -741,17 +755,15 @@ You are given a subset of the ETOPO1 dataset (`data/ETOPO1_bedrock_subset_2000m_
 4. Set `vmin` and `vmax` so that `0` (sea level) aligns with the colormap's natural transition point.
 5. Pass the pixel resolution (`dx=2000`, `dy=2000`) into the `shade()` function so the algorithm accurately calculates the real-world slopes for the shadows.
 
-```{code-cell} python
+```{code-cell} ipython3
 import rasterio
 import matplotlib.pyplot as plt
 from matplotlib.colors import LightSource
 import cmcrameri.cm as cmc
 
-filepath = "data/ETOPO1_bedrock_subset_2000m_3857.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/ETOPO1_bedrock_subset_2000m_3857.tif"
 
 # Write your code here
-
-
 ```
 
 ``````{admonition} Sample Solution
@@ -765,7 +777,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LightSource
 import cmcrameri.cm as cmc
 
-filepath = "data/ETOPO1_bedrock_subset_2000m_3857.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/ETOPO1_bedrock_subset_2000m_3857.tif"
 
 with rasterio.open(filepath) as src:
     dem = src.read(1)

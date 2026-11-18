@@ -1,5 +1,15 @@
 ---
-site: 
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
   outline_maxdepth: 1
 ---
 
@@ -139,24 +149,22 @@ The built in `air_temperature` tutorial dataset is a perfect way to see how this
 
 When you open the file, `xarray` loads the entire container:
 
-```{code-cell} python
+```{code-cell} ipython3
 import xarray as xr
 
 # Open the tutorial dataset container
 ds = xr.tutorial.open_dataset("air_temperature")
 ds
-
 ```
 
 This **{term}`object <Object>`** is a Dataset. In your Jupyter output, you will see it lists the dimensions (`time`, `lat`, `lon`), the coordinates, and a section called "Data variables". Inside that data variables section, there is a single entry called `air`.
 
 If you extract that specific variable using **{term}`dictionary <Dictionary>`** syntax, you pull out the DataArray:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extract the single variable from the container
 air_temperature_array = ds["air"]
 air_temperature_array
-
 ```
 
 ```{admonition} Key distinction
@@ -175,19 +183,17 @@ The greatest advantage of the Data Cube model is that you stop writing code base
 
 Under the hood, the values are still stored as a NumPy array. You can access that raw array with `.values`:
 
-```{code-cell} python
+```{code-cell} ipython3
 air_matrix = air_temperature_array.values
 air_matrix.shape
-
 ```
 
 If you work with this raw NumPy array directly, you must remember the meaning of every axis yourself.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Pure NumPy: you must know that axis 0 is time, 1 is latitude, and 2 is longitude
 temperature = air_matrix[100, 12, 20]
 temperature
-
 ```
 
 That works, but it is fragile. The code no longer tells you what `100`, `12`, and `20` actually mean. You need to remember that:
@@ -202,24 +208,22 @@ This is exactly the problem that `xarray` solves.
 
 If you know the array positions but want your code to remain readable, use **index selection** with `isel()`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Explicitly name the dimensions while still selecting by position
 air_temperature_array.isel(time=100, lat=12, lon=20)
-
 ```
 
 This is already safer than raw NumPy indexing because the dimension names make your intention clear.
 
 You can also inspect which labels belong to that selected cell:
 
-```{code-cell} python
+```{code-cell} ipython3
 sample = air_temperature_array.isel(time=100, lat=12, lon=20)
 
 print(sample)
 print("Latitude:", float(sample["lat"]))
 print("Longitude:", float(sample["lon"]))
 print("Time:", str(sample["time"].values))
-
 ```
 
 ### Label selection with `sel()`
@@ -234,13 +238,8 @@ From the previous example, the selected cell corresponds to:
 
 Now you can select the exact same value again, but this time using the labels directly:
 
-```{code-cell} python
-air_temperature_array.sel(
-    time="2013-01-26T00:00:00.000000000",
-    lat=45.0,
-    lon=250.0
-)
-
+```{code-cell} ipython3
+air_temperature_array.sel(time="2013-01-26T00:00:00.000000000", lat=45.0, lon=250.0)
 ```
 
 This is much easier to read because the code itself now tells you what you selected:

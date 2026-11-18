@@ -1,4 +1,14 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
   outline_maxdepth: 1
 ---
@@ -91,7 +101,7 @@ To run a code cell:
 
 ### Example
 
-```python
+```{code-cell} python
 # The line below prints text to the screen
 # Change it so that it prints something more meaningful.
 
@@ -111,7 +121,7 @@ print("Wo sind die Schnapspralinen?")
 The next example works with numbers.  
 Before running the cell, predict what will be displayed.
 
-```python
+```{code-cell} python
 x = 3
 y = 4
 
@@ -146,7 +156,7 @@ Discuss with a neighbour before answering.
 
 To display multiple results, use `print()`.
 
-```python
+```{code-cell} python
 print(x - y)
 print(x + y)
 ```
@@ -177,7 +187,7 @@ A common programming pattern is:
 2. store it in {term}`variable`s
 3. reuse it
 
-```python
+```{code-cell} python
 a = x - y
 b = x + y
 
@@ -267,7 +277,7 @@ Remember: execution order matters.
 
 You could modify the first code cell like this:
 
-```{code-cell} python
+```python
 print("Es jibt eben sone und solche, und dann jibt es noch janz andre, aba dit sind die Schlimmstn, wa?")
 ```
 
@@ -279,7 +289,7 @@ print("Es jibt eben sone und solche, und dann jibt es noch janz andre, aba dit s
 
 Example:
 
-```{code-cell} python
+```python
 x = 10
 y = 2
 
@@ -301,7 +311,7 @@ Only the **last expression** (`x + y`) is shown automatically.
 
 Example:
 
-```{code-cell} python
+```python
 z = 6
 result = z * 3
 
@@ -316,7 +326,7 @@ This creates a new variable and prints the result explicitly.
 
 If you restart the kernel and run only:
 
-```{code-cell} python
+```python
 a = x - y
 print(a)
 ```

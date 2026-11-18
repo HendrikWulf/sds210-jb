@@ -1,4 +1,10 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
   outline_maxdepth: 1
 ---
@@ -121,7 +127,7 @@ Python allows:
 The same quote type must start and end the string.
 
 ```{code-cell} python
-a = 'Eier'
+a = "Eier"
 b = "Kuchen"
 c = """This is
 a multi-line
@@ -162,13 +168,7 @@ Sometimes a statement is too long to fit comfortably on one line.
 Inside brackets `()`, `[]`, or `{}`, Python automatically allows the statement to continue across multiple lines.
 
 ```{code-cell} python
-week_days = (
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday"
-)
+week_days = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
 
 print(week_days)
 ```
@@ -215,6 +215,7 @@ def calculate_fee(x):
     else:
         fee = x * 0.10
     return fee
+
 
 print(calculate_fee(80))
 ```

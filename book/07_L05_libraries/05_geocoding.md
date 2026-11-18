@@ -1,4 +1,14 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
   outline_maxdepth: 1
 ---
@@ -77,9 +87,8 @@ To get started, we import the `Nominatim` tool from `geopy.geocoders`.
 *The `geopy` library acts as a helpful intermediary. Your Python code talks to `geopy`, which handles the complex work of sending requests to the Nominatim (OpenStreetMap) API server over the internet and parsing the response.*
 :::
 
-```{code-cell} python
+```{code-cell} ipython3
 from geopy.geocoders import Nominatim
-
 ```
 
 To use Nominatim, we first need to initialize our geocoder. OpenStreetMap requires us to provide a `user_agent`, which is simply a custom name identifying our application so they know who is making the requests.
@@ -93,10 +102,9 @@ Please change the string below to something unique, such as a random number, you
 
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 # Initialize the geocoder with a *unique* custom app name
 geolocator = Nominatim(user_agent="sds_course_YOUR_UNIQUE_ID_HERE")
-
 ```
 
 ---
@@ -105,7 +113,7 @@ geolocator = Nominatim(user_agent="sds_course_YOUR_UNIQUE_ID_HERE")
 
 **{term}`Forward geocoding`** is the standard process of going from text to coordinates. We can pass an address or landmark directly to the `.geocode()` method.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Ask Nominatim to find the Eiffel Tower
 location = geolocator.geocode("Eiffel Tower, Paris")
 
@@ -113,13 +121,12 @@ location = geolocator.geocode("Eiffel Tower, Paris")
 if location:
     print("Address found:")
     print(location.address)
-    
+
     print("\nCoordinates:")
     print(f"Latitude: {location.latitude}")
     print(f"Longitude: {location.longitude}")
 else:
     print("Location not found.")
-
 ```
 
 Notice that Nominatim returns the full, officially formatted address alongside the exact latitude and longitude.
@@ -153,7 +160,7 @@ Sometimes you have a GPS coordinate and you need to know what physical address i
 
 Using the exact same `geolocator` we initialized above, we can use the `.reverse()` method. We pass the coordinates as a single string formatted as `"latitude, longitude"`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # A mysterious coordinate in Rome
 mystery_coordinate = "41.8775, 12.4736"
 
@@ -162,7 +169,6 @@ location = geolocator.reverse(mystery_coordinate)
 
 print("What is located at this coordinate?")
 print(location.address)
-
 ```
 
 #### Concept Check: Choosing the Right Tool
@@ -216,22 +222,25 @@ Nominatim is a free service, but it has very strict usage policies. They limit u
 
 Whenever you need to geocode more than one address, you must use the `time.sleep()` function. Since we are using a loop, this is also a perfect opportunity to bring back the `tqdm` progress bar we learned about recently!
 
-```{code-cell} python
+```{code-cell} ipython3
 import time
 from tqdm import tqdm
 
-places = ["Kyiv-Pechersk Lavra, Ukraine", "Cu Chi Tunnel, Vietnam", "Mount Kilimanjaro, Tanzania"]
+places = [
+    "Kyiv-Pechersk Lavra, Ukraine",
+    "Cu Chi Tunnel, Vietnam",
+    "Mount Kilimanjaro, Tanzania",
+]
 
 # Wrap the list in tqdm() for a progress bar
 for place in tqdm(places):
     loc = geolocator.geocode(place)
-    
+
     if loc:
         print(f"\n{place} is located at {loc.latitude}, {loc.longitude}")
-    
+
     # Crucial: sleep for 1 second to respect Nominatim's strict rules
     time.sleep(1)
-
 ```
 
 ---
@@ -248,9 +257,8 @@ Use forward geocoding to find the coordinates of your hometown or current univer
 2. Use `.geocode()` to search for your chosen place.
 3. Print the resulting `latitude` and `longitude`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution
@@ -287,7 +295,7 @@ Write a loop to reverse-geocode them to find out exactly where these accidents o
 3. Print the full address so the safety team knows where to go.
 4. Add a `time.sleep(1)` command to respect Nominatim's strict API limits.
 
-```{code-cell} python
+```{code-cell} ipython3
 import time
 from geopy.geocoders import Nominatim
 
@@ -296,20 +304,19 @@ geolocator = Nominatim(user_agent="athens_safety_YOUR_ID")
 
 # Coordinates of major accidents in Athens
 accident_coords = [
-    "37.9720, 23.7320",  
+    "37.9720, 23.7320",
     "37.98417, 23.72778",
-    "37.976584, 23.725916", 
-    "37.98611, 23.72139",   
-    "37.99306, 23.72944",   
-    "37.99639, 23.72250",   
-    "37.98861, 23.72639",   
-    "37.976885, 23.740801", 
-    "37.986509, 23.734728", 
-    "38.002451, 23.733580"  
+    "37.976584, 23.725916",
+    "37.98611, 23.72139",
+    "37.99306, 23.72944",
+    "37.99639, 23.72250",
+    "37.98861, 23.72639",
+    "37.976885, 23.740801",
+    "37.986509, 23.734728",
+    "38.002451, 23.733580",
 ]
 
 # Your loop goes here
-
 ```
 
 ``````{admonition} Sample solution

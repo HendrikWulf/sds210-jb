@@ -1,6 +1,12 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
- outline_maxdepth: 1 
+  outline_maxdepth: 1
 ---
 
 # Why Loops Matter
@@ -56,8 +62,6 @@ Consider a simple list of major cities:
 
 ```{code-cell} python
 cities = ["Lagos", "Nairobi", "Dhaka", "São Paulo"]
-
-
 ```
 
 Suppose you want to display each city. One option is to access each element manually using its **{term}`index <Index>`**:
@@ -67,8 +71,6 @@ print(cities[0])
 print(cities[1])
 print(cities[2])
 print(cities[3])
-
-
 ```
 
 This works, but only as long as the list stays exactly the same.
@@ -87,8 +89,6 @@ For example, if you add one more city to the data:
 
 ```{code-cell} python
 cities.append("Kinshasa")
-
-
 ```
 
 Your code will still only print the first four cities. You would have to manually type `print(cities[4])` to fix it. The real issue here is not indexing; the issue is **manual repetition**.
@@ -129,8 +129,6 @@ Here is a sneak peek of what that looks like in Python:
 ```{code-cell} python
 for city in cities:
     print(city)
-
-
 ```
 
 ```{admonition} The Power of Structure

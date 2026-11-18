@@ -1,5 +1,15 @@
 ---
-site: 
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
   outline_maxdepth: 1
 ---
 
@@ -47,10 +57,10 @@ To demonstrate this, we will combine a Landsat 9 optical image (7 bands) and a C
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook: 
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name: 
 
-* [Copernicus DEM New Zealand (Copernicus_DEM_NZ_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L10/data/Copernicus_DEM_NZ_subset.tif)
-* [Landsat 9 Multispectral Subset (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L10/data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
+* [Copernicus DEM New Zealand (Copernicus_DEM_NZ_subset.tif)](https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif)
+* [Landsat 9 Multispectral Subset (LC09_L1TP_075090_20230224_20230308_02_T1_subset_30m.tif)](https://data.source.coop/giuz/sds210/L10/LC09_L1TP_075090_20230224_20230308_02_T1_subset_30m.tif)
 ```
 
 ---
@@ -59,27 +69,33 @@ To follow along with this chapter, place the following datasets in a `data` fold
 
 Before doing any math, we need readable, perfectly aligned variables. Satellite data often loads with arbitrary indices (like `Band 1` or `Band 2`). We want to extract exactly what we need, name the variables by their physical wavelength regions, and merge the optical and elevation data into a single master **{term}`Dataset <Dataset (xarray)>`**.
 
-```{code-cell} python
+```{code-cell} ipython3
 # !pip install rioxarray
 import xarray as xr
 import rioxarray
 
 # Load the DEM and squeeze out the empty 'band' dimension so it is purely 2D
-da_dem = xr.open_dataarray("data/Copernicus_DEM_NZ_subset.tif", engine="rasterio").squeeze(drop=True)
+da_dem = xr.open_dataarray(
+    "https://data.source.coop/giuz/sds210/L09/Copernicus_DEM_NZ_subset.tif", engine="rasterio"
+).squeeze(drop=True)
 # Explicitly drop the 'band' coordinate from da_dem if it exists, to avoid conflicts during merge
-da_dem = da_dem.drop_vars('band', errors='ignore')
+da_dem = da_dem.drop_vars("band", errors="ignore")
 
 # Load the Landsat 9 multispectral image
-da_landsat = xr.open_dataarray("data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif", engine="rasterio")
+da_landsat = xr.open_dataarray(
+    "https://data.source.coop/giuz/sds210/L10/LC09_L1TP_075090_20230224_20230308_02_T1_subset_30m.tif", engine="rasterio"
+)
 
 # Merge the selected bands and the DEM into a single, aligned Dataset
-ds = xr.Dataset({
-    "elevation": da_dem,
-    "Green": da_landsat.sel(band=2).drop_vars('band', errors='ignore'),
-    "Red": da_landsat.sel(band=3).drop_vars('band', errors='ignore'),
-    "NIR": da_landsat.sel(band=4).drop_vars('band', errors='ignore'),
-    "SWIR1": da_landsat.sel(band=5).drop_vars('band', errors='ignore')
-})
+ds = xr.Dataset(
+    {
+        "elevation": da_dem,
+        "Green": da_landsat.sel(band=2).drop_vars("band", errors="ignore"),
+        "Red": da_landsat.sel(band=3).drop_vars("band", errors="ignore"),
+        "NIR": da_landsat.sel(band=4).drop_vars("band", errors="ignore"),
+        "SWIR1": da_landsat.sel(band=5).drop_vars("band", errors="ignore"),
+    }
+)
 
 # Drop the arbitrary 'band' coordinate since we safely named them
 ds = ds.drop_vars("band", errors="ignore")
@@ -94,13 +110,14 @@ As we learned in the previous chapter, you should always verify your data visual
 
 Alongside it, we will use matplotlib's `LightSource` tool to generate a shaded relief map (**{term}`Hillshade`**) from our elevation data to understand the rugged topography.
 
-```{code-cell} python
+```{code-cell} ipython3
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import LightSource
 
 # Create subplots
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 6))
+
 
 # 1. False Color Image (SWIR1, NIR, Red)
 def norm_bright(da):
@@ -109,12 +126,11 @@ def norm_bright(da):
     vmin, vmax = np.percentile(data, [2, 98])
     return np.clip((data - vmin) / (vmax - vmin), 0, 1)
 
+
 # Stack the normalized bands into a 3D array for RGB plotting
-fcc = np.stack([
-    norm_bright(ds.SWIR1),
-    norm_bright(ds.NIR),
-    norm_bright(ds.Red)
-], axis=-1)
+fcc = np.stack(
+    [norm_bright(ds.SWIR1), norm_bright(ds.NIR), norm_bright(ds.Red)], axis=-1
+)
 
 ax1.imshow(fcc)
 ax1.set_title("False Color Composite (SWIR1, NIR, Red)")
@@ -146,21 +162,22 @@ With our variables properly named, deriving new spatial layers reads exactly lik
 
 Let us calculate the Normalized Difference Vegetation Index (NDVI) to quantify tree cover across the landscape.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Calculate NDVI: (NIR - Red) / (NIR + Red)
 ds["NDVI"] = (ds.NIR - ds.Red) / (ds.NIR + ds.Red)
 
 # Plot the result with fixed color limits to enhance contrast
 ds.NDVI.plot(
-    cmap="RdYlGn", 
+    cmap="RdYlGn",
     vmin=-0.7,
     vmax=0.7,
-    robust=False, 
-    size=6, 
-    cbar_kwargs={"label": "NDVI"}
+    robust=False,
+    size=6,
+    cbar_kwargs={"label": "NDVI"},
 )
 
 import matplotlib.pyplot as plt
+
 plt.title("Normalized Difference Vegetation Index (NDVI)")
 plt.axis("off")
 plt.show()
@@ -180,18 +197,14 @@ Environmental data is naturally messy. Vegetation indices can be heavily skewed 
 
 We can use the `.where()` **{term}`method`** to filter our dataset based on a logical condition. Any pixel that fails the condition is replaced with `NaN` (Not a Number), ensuring it will be safely ignored in all future calculations.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Mask out non-vegetated pixels (0.3 is a standard threshold for healthy canopy)
 ds["NDVI_masked"] = ds.NDVI.where(ds.NDVI > 0.3)
 
 # Visualize the masked layer
 import matplotlib.pyplot as plt
 
-ds.NDVI_masked.plot(
-    cmap="YlGn", 
-    size=6, 
-    cbar_kwargs={"label": "NDVI"}
-)
+ds.NDVI_masked.plot(cmap="YlGn", size=6, cbar_kwargs={"label": "NDVI"})
 
 plt.title("Masked Vegetation (NDVI > 0.3)")
 plt.axis("off")
@@ -212,7 +225,7 @@ How do we relate a 2D vegetation map to a 2D elevation map? We use grouping. `xa
 
 Here, we will group our masked NDVI data by the underlying elevation data, splitting the terrain into 50-meter vertical bins. Rather than just calculating the average vegetation, we will also count how many pixels fall into each bin so we can verify our sample sizes later.
 
-```{code-cell} python
+```{code-cell} ipython3
 import numpy as np
 import xarray as xr
 
@@ -223,10 +236,9 @@ elev_bins = np.arange(0, 2500, 50)
 grouped = ds.NDVI_masked.groupby_bins(ds.elevation, bins=elev_bins)
 
 # Calculate both mean and count, and merge them into a single Dataset
-ds_profile = xr.merge([
-    grouped.mean().rename("ndvi_mean"),
-    grouped.count().rename("ndvi_count")
-])
+ds_profile = xr.merge(
+    [grouped.mean().rename("ndvi_mean"), grouped.count().rename("ndvi_count")]
+)
 
 ds_profile
 ```
@@ -239,14 +251,14 @@ By default, `.groupby_bins()` labels the new coordinate using Pandas interval ob
 
 To fix this, we need to extract the exact midpoint of each bin using the underlying Pandas index. We will use a defensive programming approach to do this safely.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extract the underlying Pandas index
 idx = ds_profile.elevation_bins.to_index()
 
 # Check if the index still contains interval objects (which have a '.mid' attribute)
-if hasattr(idx, 'mid'):
+if hasattr(idx, "mid"):
     # Convert interval coordinates to numeric midpoints
-    ds_profile.coords['elevation_bins'] = idx.mid
+    ds_profile.coords["elevation_bins"] = idx.mid
 else:
     print("Note: Elevation bins are already numeric midpoints.")
 
@@ -273,7 +285,7 @@ Once the noisy peaks are removed, we can confidently identify the treeline. In t
 While identifying the treeline using minimum NDVI values or steepest derivatives makes for a great practical coding example, this approach is highly simplistic and not scientifically rigorous. Real-world ecological modeling requires accounting for variables like slope, aspect, microclimates, and species-specific thresholds. The primary goal here is pedagogical: to demonstrate the mechanics of applying raster math, filtering, and 1D data aggregation methods in Python.
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 
 # 1. Filter out sparse bins (require at least 100 pixels for statistical significance)
@@ -287,7 +299,13 @@ print(f"Treeline Elevation: {treeline} meters")
 fig, ax1 = plt.subplots(figsize=(10, 5))
 
 # Primary Axis: Mean NDVI (The ecological gradient)
-ax1.plot(ds_filtered.elevation_bins, ds_filtered.ndvi_mean, marker="o", color="green", label="Mean NDVI")
+ax1.plot(
+    ds_filtered.elevation_bins,
+    ds_filtered.ndvi_mean,
+    marker="o",
+    color="green",
+    label="Mean NDVI",
+)
 ax1.axvline(treeline, color="darkgreen", linestyle="-", label=f"Treeline ({treeline}m)")
 ax1.set_xlabel("Elevation (meters)")
 ax1.set_ylabel("Mean NDVI", color="green")
@@ -295,7 +313,14 @@ ax1.tick_params(axis="y", labelcolor="green")
 
 # Secondary Axis: Pixel Count (The shape of the mountain)
 ax2 = ax1.twinx()
-ax2.bar(ds_filtered.elevation_bins, ds_filtered.ndvi_count, alpha=0.2, color="gray", width=40, label="Pixel Count")
+ax2.bar(
+    ds_filtered.elevation_bins,
+    ds_filtered.ndvi_count,
+    alpha=0.2,
+    color="gray",
+    width=40,
+    label="Pixel Count",
+)
 ax2.set_ylabel("Pixel Count", color="gray")
 ax2.tick_params(axis="y", labelcolor="gray")
 
@@ -329,7 +354,7 @@ Now it is your turn to apply this raster math and filtering workflow. Using the 
 
 **Starter code:**
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 import numpy as np
 

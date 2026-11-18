@@ -1,6 +1,12 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
- outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
 # List Comprehension
@@ -66,7 +72,6 @@ even_values = []
 for v in values:
     if v % 2 == 0:
         even_values.append(v)
-
 ```
 
 This pattern is correct, explicit, and used constantly. List comprehension exists specifically because this pattern is **so common** that Python created a shortcut for it.
@@ -106,9 +111,8 @@ Example:
 
 ```{code-cell} python
 values = [2, 4, 6]
-squared = [v ** 2 for v in values]
+squared = [v**2 for v in values]
 squared
-
 ```
 
 To read this easily, read the middle first, then the left:
@@ -123,16 +127,14 @@ The following two blocks do the exact same thing:
 # Standard Loop
 cubed = []
 for v in values:
-    cubed.append(v ** 3)
+    cubed.append(v**3)
 cubed
-
 ```
 
 ```{code-cell} python
 # List Comprehension
-cubed = [v ** 3 for v in values]
+cubed = [v**3 for v in values]
 cubed
-
 ```
 
 The logic is identical. Only the **form** is different.
@@ -164,7 +166,6 @@ Example:
 values = [1, 2, 3, 4, 5]
 even_values = [v for v in values if v % 2 == 0]
 even_values
-
 ```
 
 Only values that satisfy the condition (`v % 2 == 0`) are allowed into the new list.
@@ -175,7 +176,6 @@ Only values that satisfy the condition (`v % 2 == 0`) are allowed into the new l
 temperatures = [3, -5, 7, 42, 9]
 valid = [t for t in temperatures if -20 <= t <= 40]
 valid
-
 ```
 
 This expresses a **data quality filter** cleanly in just one line.
@@ -199,7 +199,6 @@ The "expression" part at the front of the list comprehension doesn't just have t
 values = [1, 2, 3]
 doubled = [v * 2 for v in values]
 doubled
-
 ```
 
 ### Example: Unit conversion
@@ -208,7 +207,6 @@ doubled
 temperatures_c = [0, 5, 10, 15]
 temperatures_k = [t + 273.15 for t in temperatures_c]
 temperatures_k
-
 ```
 
 This is a clean, Pythonic way to express a systematic transformation of spatial or environmental data.
@@ -242,7 +240,6 @@ Example:
 values = [3, -1, 5, -2]
 labels = ["valid" if v >= 0 else "invalid" for v in values]
 labels
-
 ```
 
 Read this as:
@@ -346,7 +343,6 @@ non_zero = []
 for r in rainfall:
     if r > 0:
         non_zero.append(r)
-
 ```
 
 Rewrite this using **one list comprehension**.
@@ -375,7 +371,6 @@ You are working with elevation values in meters:
 
 ```{code-cell} python
 elevation_m = [450, 1200, 50, 3200]
-
 ```
 
 Create a new list that converts these values to kilometres and rounds them to one decimal place.
@@ -405,7 +400,6 @@ Given temperature measurements:
 
 ```{code-cell} python
 temperatures = [-5, 3, 18, -12, 25]
-
 ```
 
 Create a list of labels:

@@ -1,8 +1,12 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+site:
+  outline_maxdepth: 1
 ---
 
 # Practical L4
@@ -53,16 +57,16 @@ Instead of giving you all the data immediately, let's look at how you find it.
 import math
 
 swiss_cities = {
-    "Zurich":   {"lv95": [2682217, 1247945], "latlon": [47.377210, 8.527313]},
-    "Geneva":   {"lv95": [2499959, 1117840], "latlon": [46.204559, 6.142456]},
-    "Lugano":   {"lv95": [2720031, 1098728], "latlon": [46.029430, 8.988879]},
-    "Basel":    {"lv95": [2611415, 1267104], "latlon": [47.554552, 7.590273]},
-    "Bern":     {"lv95": [2598634, 1200387], "latlon": [46.954559, 7.420685]},
-    "Sion":     {"lv95": [2592607, 1118393], "latlon": [46.216943, 7.342848]},
-    "St.Gallen":{"lv95": [2747116, 1254357], "latlon": [47.423584, 9.388511]},
-    "Davos":    {"lv95": [2784107, 1182025], "latlon": [46.763954, 9.849066]},
-    "Andermatt":{"lv95": [2690960, 1163987], "latlon": [46.620943, 8.626235]},
-    "YourPlace":{...}
+    "Zurich": {"lv95": [2682217, 1247945], "latlon": [47.377210, 8.527313]},
+    "Geneva": {"lv95": [2499959, 1117840], "latlon": [46.204559, 6.142456]},
+    "Lugano": {"lv95": [2720031, 1098728], "latlon": [46.029430, 8.988879]},
+    "Basel": {"lv95": [2611415, 1267104], "latlon": [47.554552, 7.590273]},
+    "Bern": {"lv95": [2598634, 1200387], "latlon": [46.954559, 7.420685]},
+    "Sion": {"lv95": [2592607, 1118393], "latlon": [46.216943, 7.342848]},
+    "St.Gallen": {"lv95": [2747116, 1254357], "latlon": [47.423584, 9.388511]},
+    "Davos": {"lv95": [2784107, 1182025], "latlon": [46.763954, 9.849066]},
+    "Andermatt": {"lv95": [2690960, 1163987], "latlon": [46.620943, 8.626235]},
+    "YourPlace": {...},
 }
 ```
 
@@ -87,7 +91,6 @@ Test it on "Geneva" (it should return "GEN").
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -105,7 +108,6 @@ Write a function `euclidean(coords1, coords2)` that expects two lists of `[x, y]
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ### Task B: The Haversine Function
@@ -133,7 +135,6 @@ distance = R * c
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -162,48 +163,47 @@ The table simply aids the interpretation of your results.
 # A simple list of three items
 items = ["A", "B", "C"]
 
-# TRICK 1: {:>8} 
+# TRICK 1: {:>8}
 # This tells the f-string to reserve exactly 8 spaces and align the text to the Right (>).
 # TRICK 2: end=""
 # This stops print() from hitting 'Enter'. It keeps the cursor on the exact same line.
 
-print(f"{'':>8}", end="")     # Leave the top-left corner completely empty (8 spaces)
+print(f"{'':>8}", end="")  # Leave the top-left corner completely empty (8 spaces)
 for item in items:
-    print(f"{item:>8}", end="") # Print A, B, C side-by-side, each taking exactly 8 spaces
-    
+    print(
+        f"{item:>8}", end=""
+    )  # Print A, B, C side-by-side, each taking exactly 8 spaces
+
 # TRICK 3: Empty print()
 # When we call print() with nothing inside, it finally drops the cursor to the next line.
-print() 
-print("-" * 32)               # Print a separator line
+print()
+print("-" * 32)  # Print a separator line
 
 # Now let's build the grid!
 for row_item in items:
     # Print the row header on the left
     print(f"{row_item:>8}|", end="")
-    
+
     for col_item in items:
         # TRICK 4: Handle identical pairs with a dash
         if row_item == col_item:
-            print(f"{'-':>8}", end="") 
+            print(f"{'-':>8}", end="")
         else:
             # TRICK 5: {:>8.2f}
             # >8   = 8 spaces right-aligned
             # .2f  = format as a float with exactly 2 decimal places
             dummy_number = 3.14159
             print(f"{dummy_number:>8.2f}", end="")
-            
+
     # The inner loop finished printing all the columns for this row.
     # Drop down to the next line before the outer loop starts the next row!
     print()
-
 ```
 
 You can start implementing Part 4 here:
 
 ```{code-cell} python
 cities = list(swiss_cities.keys())
-
-
 ```
 
 **Reflection Question:** Look at the outputs. Is the distortion uniform, or does the error increase for cities that are further apart?
@@ -241,7 +241,6 @@ print(f"Total trip length (Basel-Bern-Sion): {trip_distance:.2f} km")
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -278,7 +277,6 @@ print(geneva_feature)
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -300,6 +298,7 @@ def euclidean(coords1, coords2):
     """
     pass
 
+
 # Check if Python understood your documentation!
 help(euclidean)
 ```
@@ -316,7 +315,6 @@ Answer briefly in comments or markdown:
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
