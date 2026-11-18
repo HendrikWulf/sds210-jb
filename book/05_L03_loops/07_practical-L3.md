@@ -1,13 +1,22 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
   outline_maxdepth: 1
-
 ---
 
 # Practical L3
 
 <!-- markdownlint-disable MD033-->
+
 <div class="page-subtitle">
 From structured data to automated spatial logic
 </div>
@@ -57,9 +66,9 @@ We start with a small dataset of cities and coordinates. To work efficiently, we
 cities = ["Zurich", "Geneva", "Lugano"]
 
 coordinates = [
-    [2682217, 1247945],   # Zurich
-    [2499959, 1117840],   # Geneva
-    [2720031, 1098728]    # Lugano
+    [2682217, 1247945],  # Zurich
+    [2499959, 1117840],  # Geneva
+    [2720031, 1098728],  # Lugano
 ]
 
 city_data = {}
@@ -68,7 +77,6 @@ for i in range(len(cities)):
     city_data[cities[i]] = coordinates[i]
 
 print(city_data)
-
 ```
 
 ### Tasks
@@ -79,7 +87,6 @@ print(city_data)
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -98,7 +105,6 @@ Write a loop that iterates over all cities in `city_data` and prints the city na
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -120,7 +126,6 @@ Write code that extracts all city names from `city_data` and uses **nested loops
 
 city_names = list(city_data.keys())
 pairs = []
-
 ```
 
 ---
@@ -150,7 +155,6 @@ Write code that loops over all city pairs, computes both Euclidean and Manhattan
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -171,7 +175,6 @@ Write code that iterates over the `distances` dictionary, checks the Euclidean d
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -189,7 +192,6 @@ Write code that loops over all city pairs, computes the Euclidean distance, and 
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -203,11 +205,10 @@ Loops are often used to **prepare data for analysis**. Here, you will extract th
 1. Create an empty list called `euclidean_list`. Loop through the `distances` dictionary from Part 4, extract the Euclidean distance for each pair, and append it to the list.
 2. Compute the **median** of `euclidean_list` using index logic (`// 2`).
 3. **The Problem:** If you run your median calculation on the list exactly as it was extracted from the dictionary, your result is likely incorrect. Why? What hidden assumption does the median rely on?
-4. **The Fix:** Fix the calculation by sorting the data *before* computing the median using `sort()` (`list_sorted = list.sort()`).
+4. **The Fix:** Fix the calculation by sorting the data *before* computing the median. You can either sort the list in place with `euclidean_list.sort()`, or create a new sorted copy with `sorted_list = sorted(euclidean_list)`. *(Careful: `.sort()` changes the list itself and returns `None`, so `sorted_list = euclidean_list.sort()` would leave you with `None` instead of a list.)*
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -221,7 +222,6 @@ Loops are often used to **prepare data for analysis**. Here, you will extract th
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ---
@@ -236,7 +236,6 @@ Answer briefly in comments or markdown:
 
 ```{code-cell} python
 # Write your reflections here
-
 ```
 
 ---

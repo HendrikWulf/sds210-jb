@@ -1,8 +1,12 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+site:
+  outline_maxdepth: 1
 ---
 
 # Practical L8 - Solutions
@@ -15,7 +19,7 @@ Interactive Exploration and Data-Driven Cartography
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/10_L08_data-visualisation/07_practical_L8-solutions.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/10_L08_visualization/07_practical_L8-solutions.ipynb)
 
 ---
 
@@ -46,7 +50,7 @@ Your task is twofold. First, you must build an interactive "Basin Explorer" web 
 
 ## Part 0 – The Data Intake Helper
 
-For this practical, we are using the **HydroRIVERS** dataset (filtered) [831 MB] and the **HydroSHEDS** basin boundaries (Levels 1 [27 MB] and 2 [36 MB]). As these datasets are larger than usual, they have been stored outside GitLab. For convenience, they are hosted on Google Drive, where we can use the `gdown` library to download them directly into our local environment. Alternatively, you can download the datasets manually using this [link](https://drive.google.com/drive/folders/1FiMjQdKq4xt31cYXSCHPhi5-0jriD3If?usp=sharing). The data can also be found on the university course server under the `course/sds210/data/L08/`.
+For this practical, we are using the **HydroRIVERS** dataset (filtered) [831 MB] and the **HydroSHEDS** basin boundaries (Levels 1 [27 MB] and 2 [36 MB]). The code cell below downloads them into a local `data` folder from the course data on [Source Cooperative](https://source.coop/giuz/sds210/L08), where you can also download them manually. The data can also be found on the university course server under `course/sds210/data/L08/`.
 
 ### Tasks
 
@@ -54,41 +58,39 @@ For this practical, we are using the **HydroRIVERS** dataset (filtered) [831 MB]
 
 ```{code-cell} python
 import os
+from urllib.request import urlretrieve
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import folium
-
-# Install packages (if needed)
-# !pip install gdown
-import gdown
 
 # !pip install cmcrameri
 import cmcrameri.cm as cmc
 
 # Create data directory
-data_folder = 'data'
+data_folder = "data"
 os.makedirs(data_folder, exist_ok=True)
 
-# Dictionary of file IDs and their output names
-datasets = {
-    'hydrorivers_100.gpkg': '1fbJewilJnHkEQjNxEbhid0EGVH1X2Evi',
-    'hydrosheds_basins_level_01.gpkg': '1wReA_w83eO8sR-4Ma_j-JvtjoSeCU5Z0',
-    'hydrosheds_basins_level_02.gpkg': '1uA4qvCIv0egR7698WkI8oUIidjmPLt_n'
-}
+# Download the data from Source Cooperative (https://source.coop/giuz/sds210/L08)
+base_url = "https://data.source.coop/giuz/sds210/L08"
+datasets = [
+    "hydrorivers_100.gpkg",
+    "hydrosheds_basins_level_01.gpkg",
+    "hydrosheds_basins_level_02.gpkg",
+]
 
-for filename, file_id in datasets.items():
+for filename in datasets:
     filepath = os.path.join(data_folder, filename)
     if not os.path.exists(filepath):
         print(f"Downloading {filename}...")
-        url = f'https://drive.google.com/uc?id={file_id}'
-        gdown.download(url, filepath, quiet=False)
+        # Download to a temporary name first, so an interrupted download is not mistaken for a complete file
+        urlretrieve(f"{base_url}/{filename}", filepath + ".part")
+        os.replace(filepath + ".part", filepath)
     else:
         print(f"{filename} already exists.")
 
-rivers_fp = os.path.join(data_folder, 'hydrorivers_100.gpkg')
-basins_l1_fp = os.path.join(data_folder, 'hydrosheds_basins_level_01.gpkg')
-basins_l2_fp = os.path.join(data_folder, 'hydrosheds_basins_level_02.gpkg')
-
+rivers_fp = os.path.join(data_folder, "hydrorivers_100.gpkg")
+basins_l1_fp = os.path.join(data_folder, "hydrosheds_basins_level_01.gpkg")
+basins_l2_fp = os.path.join(data_folder, "hydrosheds_basins_level_02.gpkg")
 ```
 
 ---
@@ -113,7 +115,6 @@ Before we load the massive river dataset, we need to decide which basin to map. 
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -178,7 +179,6 @@ Now that you have explored the basins, it is time to load the actual river data.
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -217,7 +217,6 @@ To fix this, we need to map the data to a visual variable. We will scale the ups
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -259,7 +258,6 @@ It is time to generate the final, high-resolution static map for the NGO's repor
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -319,7 +317,6 @@ Take a step back and review your workflow. You built a web app to navigate the g
 
 ```{code-cell} python
 # Write your reflections here (as python comments or in a markdown cell)
-
 ```
 
 ```{admonition} Sample Answers

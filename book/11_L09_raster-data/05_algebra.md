@@ -1,4 +1,14 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
   outline_maxdepth: 1
 ---
@@ -40,13 +50,13 @@ Raster bands are essentially numerical matrices. By performing mathematical oper
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook: 
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name: 
 
-* [Landsat 9 Multispectral Subset NZ (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
-* [Landsat 8 Indonesia 2023 (LC08_121061_20230814_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC08_121061_20230814_subset.tif)
-* [Landsat 8 Indonesia 2019 (LC08_121061_20190904_subset.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/LC08_121061_20190904_subset.tif)
-* [GERD Before Flood (GERD_before_composite_SWIR1_NIR_Green.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/GERD_before_composite_SWIR1_NIR_Green.tif)
-* [GERD After Flood (GERD_after_composite_SWIR1_NIR_Green.tif)](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L09/data/GERD_after_composite_SWIR1_NIR_Green.tif)
+* [Landsat 9 Multispectral Subset NZ (LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)](https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif)
+* [Landsat 8 Indonesia 2023 (LC08_121061_20230814_subset.tif)](https://data.source.coop/giuz/sds210/L09/LC08_121061_20230814_subset.tif)
+* [Landsat 8 Indonesia 2019 (LC08_121061_20190904_subset.tif)](https://data.source.coop/giuz/sds210/L09/LC08_121061_20190904_subset.tif)
+* [GERD Before Flood (GERD_before_composite_SWIR1_NIR_Green.tif)](https://data.source.coop/giuz/sds210/L09/GERD_before_composite_SWIR1_NIR_Green.tif)
+* [GERD After Flood (GERD_after_composite_SWIR1_NIR_Green.tif)](https://data.source.coop/giuz/sds210/L09/GERD_after_composite_SWIR1_NIR_Green.tif)
 
 ```
 
@@ -76,13 +86,13 @@ However, calculating the raw index is only the first step. Because water also fe
 
 To calculate this in Python, we first read the Green, NIR, and SWIR2 bands into separate, perfectly aligned NumPy arrays.
 
-```{code-cell} python
+```{code-cell} ipython3
 import rasterio
 import numpy as np
 import matplotlib.pyplot as plt
 import cmcrameri.cm as cmc
 
-filepath = "data/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
+filepath = "https://data.source.coop/giuz/sds210/L09/LC09_L1TP_075090_20230224_20230308_02_T1_subset.tif"
 
 with rasterio.open(filepath) as src:
     # Read the bands and immediately convert them to float to allow division
@@ -90,7 +100,6 @@ with rasterio.open(filepath) as src:
     green = src.read(2).astype(float)
     nir = src.read(4).astype(float)
     swir2 = src.read(6).astype(float)
-
 ```
 
 ### Suppressing Division Warnings
@@ -99,12 +108,12 @@ When performing division across millions of pixels, you will inevitably encounte
 
 We can handle this cleanly using a NumPy context manager, which temporarily suppresses these expected warnings during the calculation.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Suppress warnings for zero division and invalid operations
-with np.errstate(divide='ignore', invalid='ignore'):
+with np.errstate(divide="ignore", invalid="ignore"):
     # Perform the pixel by pixel array math
     ndsi = (green - swir2) / (green + swir2)
-    
+
     # Exclude water (requires NIR > 0.2) and filter for high NDSI (> 0.6)
     snow = (ndsi * (nir > 0.2)) > 0.6
 
@@ -112,9 +121,8 @@ with np.errstate(divide='ignore', invalid='ignore'):
 plt.figure(figsize=(8, 6))
 plt.imshow(snow, cmap=cmc.batlowW, vmin=0, vmax=1)
 plt.title("Snow & Ice Map (NDSI > 0.6)")
-plt.axis('off')
+plt.axis("off")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -159,48 +167,55 @@ To detect deforestation, we calculate the EVI for the older image, calculate the
 
 Assuming we have already loaded our arrays and calculated the `evi_change`, we can build a three-panel comparison plot.
 
-```{code-cell} python
+```{code-cell} ipython3
 import rasterio
 import numpy as np
 import matplotlib.pyplot as plt
 import cmcrameri.cm as cmc
 
+
 def calculate_evi(blue, red, nir):
     """Calculates EVI from float arrays."""
-    with np.errstate(divide='ignore', invalid='ignore'):
+    with np.errstate(divide="ignore", invalid="ignore"):
         evi = 2.5 * ((nir - red) / (nir + 6 * red - 7.5 * blue + 1))
     return evi
+
 
 def normalize(array, vmin=0.05, vmax=0.4):
     """Normalize and clip array to a specific range to stretch contrast."""
     clipped = np.clip(array, vmin, vmax)
     return (clipped - vmin) / (vmax - vmin)
 
+
 # Prepare data for 2019
-with rasterio.open("data/LC08_121061_20190904_subset.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/LC08_121061_20190904_subset.tif") as src:
     blue19 = src.read(1).astype(float)
     red19 = src.read(3).astype(float)
     nir19 = src.read(4).astype(float)
     swir2_19 = src.read(6).astype(float)
-    
-    fcc_19 = np.dstack((
-        normalize(swir2_19, vmax=0.25),
-        normalize(nir19, vmax=0.4),
-        normalize(red19, vmax=0.2)
-    ))
+
+    fcc_19 = np.dstack(
+        (
+            normalize(swir2_19, vmax=0.25),
+            normalize(nir19, vmax=0.4),
+            normalize(red19, vmax=0.2),
+        )
+    )
 
 # Prepare data for 2023
-with rasterio.open("data/LC08_121061_20230814_subset.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/LC08_121061_20230814_subset.tif") as src:
     blue23 = src.read(1).astype(float)
     red23 = src.read(3).astype(float)
     nir23 = src.read(4).astype(float)
     swir2_23 = src.read(6).astype(float)
-    
-    fcc_23 = np.dstack((
-        normalize(swir2_23, vmax=0.25),
-        normalize(nir23, vmax=0.4),
-        normalize(red23, vmax=0.2)
-    ))
+
+    fcc_23 = np.dstack(
+        (
+            normalize(swir2_23, vmax=0.25),
+            normalize(nir23, vmax=0.4),
+            normalize(red23, vmax=0.2),
+        )
+    )
 
 # Map Algebra: Calculate EVI and determine the difference
 evi_2019 = calculate_evi(blue19, red19, nir19)
@@ -213,17 +228,17 @@ fig, axes = plt.subplots(1, 3, figsize=(20, 7))
 # Plot 2019 FCC
 axes[0].imshow(fcc_19)
 axes[0].set_title("2019 FCC (SWIR2, NIR, Red)", fontsize=18)
-axes[0].axis('off')
+axes[0].axis("off")
 
 # Plot 2023 FCC
 axes[1].imshow(fcc_23)
 axes[1].set_title("2023 FCC (SWIR2, NIR, Red)", fontsize=18)
-axes[1].axis('off')
+axes[1].axis("off")
 
 # Plot EVI Change using a diverging colormap
 im = axes[2].imshow(evi_change, cmap=cmc.bam, vmin=-0.5, vmax=0.5)
 axes[2].set_title("EVI Change (2019 to 2023)", fontsize=18)
-axes[2].axis('off')
+axes[2].axis("off")
 
 # Add a colorbar for the EVI change plot
 cbar = fig.colorbar(im, ax=axes[2], fraction=0.046, pad=0.04)
@@ -232,7 +247,6 @@ cbar.ax.tick_params(labelsize=16)
 
 plt.tight_layout()
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -269,14 +283,14 @@ $$Distance = \sqrt{(Blue_{new} - Blue_{old})^2 + (Green_{new} - Green_{old})^2 +
 
 This calculation treats each pixel's spectral signature as a point in multidimensional space and measures exactly how far that point has moved between 2019 and 2023.
 
-```{code-cell} python
+```{code-cell} ipython3
 import rasterio
 import numpy as np
 import matplotlib.pyplot as plt
 import cmcrameri.cm as cmc
 
 # 1. Read and define all relevant bands for 2019
-with rasterio.open("data/LC08_121061_20190904_subset.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/LC08_121061_20190904_subset.tif") as src:
     blue19 = src.read(1).astype(float)
     green19 = src.read(2).astype(float)
     red19 = src.read(3).astype(float)
@@ -285,7 +299,7 @@ with rasterio.open("data/LC08_121061_20190904_subset.tif") as src:
     swir2_19 = src.read(6).astype(float)
 
 # 2. Read and define all relevant bands for 2023
-with rasterio.open("data/LC08_121061_20230814_subset.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/LC08_121061_20230814_subset.tif") as src:
     blue23 = src.read(1).astype(float)
     green23 = src.read(2).astype(float)
     red23 = src.read(3).astype(float)
@@ -295,22 +309,26 @@ with rasterio.open("data/LC08_121061_20230814_subset.tif") as src:
 
 # 3. Extend the spectral distance formula to include all bands
 spectral_distance = np.sqrt(
-    (blue23 - blue19)**2 +
-    (green23 - green19)**2 +
-    (red23 - red19)**2 +
-    (nir23 - nir19)**2 +
-    (swir1_23 - swir1_19)**2 +
-    (swir2_23 - swir2_19)**2
+    (blue23 - blue19) ** 2
+    + (green23 - green19) ** 2
+    + (red23 - red19) ** 2
+    + (nir23 - nir19) ** 2
+    + (swir1_23 - swir1_19) ** 2
+    + (swir2_23 - swir2_19) ** 2
 )
 
 plt.figure(figsize=(8, 6))
 # Clip the colormap to the 98th percentile to prevent extreme outliers from washing out the image
-plt.imshow(spectral_distance, cmap=cmc.lajolla, vmin=0, vmax=np.nanpercentile(spectral_distance, 98)) 
+plt.imshow(
+    spectral_distance,
+    cmap=cmc.lajolla,
+    vmin=0,
+    vmax=np.nanpercentile(spectral_distance, 98),
+)
 plt.title("Total Spectral Distance")
 plt.colorbar(label="Magnitude of Change")
-plt.axis('off')
+plt.axis("off")
 plt.show()
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -340,9 +358,8 @@ $$NDWI = \frac{Green - NIR}{Green + NIR}$$
 4. Create a binary flood mask. A pixel represents new water (a flood) if the NDWI difference is greater than `0.2`.
 5. To visually verify your math, generate False Color Composites (using the SWIR1, NIR, and Green bands) for both time periods. Plot these alongside your binary flood mask in a three panel side by side comparison.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample Solution
@@ -354,12 +371,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # 1. Read the Green and NIR data for both periods
-with rasterio.open("data/GERD_before_composite_SWIR1_NIR_Green.tif") as src_before:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/GERD_before_composite_SWIR1_NIR_Green.tif") as src_before:
     # Band 2 is NIR, Band 3 is Green
     nir_before = src_before.read(2).astype(float)
     green_before = src_before.read(3).astype(float)
 
-with rasterio.open("data/GERD_after_composite_SWIR1_NIR_Green.tif") as src_after:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/GERD_after_composite_SWIR1_NIR_Green.tif") as src_after:
     nir_after = src_after.read(2).astype(float)
     green_after = src_after.read(3).astype(float)
 
@@ -379,14 +396,14 @@ def normalize_fcc(array, vmin=0.0, vmax=0.3):
     clipped = np.clip(array, vmin, vmax)
     return (clipped - vmin) / (vmax - vmin)
 
-with rasterio.open("data/GERD_before_composite_SWIR1_NIR_Green.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/GERD_before_composite_SWIR1_NIR_Green.tif") as src:
     fcc_before = np.dstack((
         normalize_fcc(src.read(1).astype(float)),
         normalize_fcc(src.read(2).astype(float)),
         normalize_fcc(src.read(3).astype(float))
     ))
 
-with rasterio.open("data/GERD_after_composite_SWIR1_NIR_Green.tif") as src:
+with rasterio.open("https://data.source.coop/giuz/sds210/L09/GERD_after_composite_SWIR1_NIR_Green.tif") as src:
     fcc_after = np.dstack((
         normalize_fcc(src.read(1).astype(float)),
         normalize_fcc(src.read(2).astype(float)),

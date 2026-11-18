@@ -13,10 +13,6 @@ Code style as a tool for clarity, debugging, and scientific trust
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/14_L12_reproducibility/01_writing_readable_python.ipynb)
-
----
-
 ```{admonition} Big idea
 :class: tip
 
@@ -312,7 +308,7 @@ Use a comment when you need to clarify a tricky line of code, explain a methodol
 
 ### Docstrings explain *what* and *how to use*
 
-As you learned in the [chapter on Functions](https://hendrikwulf.github.io/sds210-jb/book/l04-functions/documentation/#id-1-docstrings-the-standard-of-reproducibility), a docstring (enclosed in triple quotes `"""`) acts as the official manual for a function, {term}`method <Method>`, or class.
+As you learned in the [chapter on Functions](../06_L04_functions/05_documentation.ipynb#id-1-docstrings-the-standard-of-reproducibility), a docstring (enclosed in triple quotes `"""`) acts as the official manual for a function, {term}`method <Method>`, or class.
 
 For spatial data science, the **{term}`NumPy <NumPy>` docstring style** is the gold standard. It uses clean, readable headers to define the inputs and outputs. Let us write an NDSI ({term}`Normalized Difference Snow Index`) calculator to meet this standard of {term}`reproducibility <Reproducibility>`:
 

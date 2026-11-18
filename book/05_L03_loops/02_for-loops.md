@@ -1,8 +1,12 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
- outline_maxdepth: 1
- 
+  outline_maxdepth: 1
 ---
 
 # The for Loop
@@ -67,8 +71,6 @@ Consider a simple list of values:
 
 ```{code-cell} python
 values = [3, 7, 12]
-
-
 ```
 
 When a loop runs over this list, it does **not** see the list all at once. Instead, it works like this:
@@ -135,8 +137,6 @@ Consider a simple list of city names:
 
 ```{code-cell} python
 cities = ["Accra", "Berlin", "Chennai", "Damascus"]
-
-
 ```
 
 Now run the following loop:
@@ -144,7 +144,6 @@ Now run the following loop:
 ```{code-cell} python
 for city in cities:
     print(city)
-
 ```
 
 Python executes the same `print(city)` instruction four times. Each time, `city` refers to a different value from the list.
@@ -183,7 +182,6 @@ Everything indented below the `for` statement belongs to the loop.
 for city in cities:
     print(city)
     print("---")
-
 ```
 
 Both `print` statements are part of the loop body, so both run once for each city.
@@ -205,7 +203,6 @@ You can verify this directly:
 
 ```{code-cell} python
 print(city)
-
 ```
 
 This behaviour can be surprising at first, so it is important to be aware of it.
@@ -245,7 +242,6 @@ This is what `range()` is for.
 ```{code-cell} python
 for i in range(5):
     print(i)
-
 ```
 
 The loop runs five times. On each repetition, the loop variable takes on the next number in the sequence.
@@ -257,8 +253,7 @@ The loop runs five times. On each repetition, the loop variable takes on the nex
 When `range()` is given a single number, it produces a sequence of integers:
 
 ```{code-cell} python
-range(5) # Conceptually produces: 0, 1, 2, 3, 4
-
+range(5)  # Conceptually produces: 0, 1, 2, 3, 4
 ```
 
 Important details:
@@ -287,7 +282,6 @@ For example:
 ```{code-cell} python
 for i in range(2, 9, 3):
     print(i)
-
 ```
 
 Read this as:
@@ -352,7 +346,6 @@ cities = ["Buenos Aires", "São Paulo", "Lima", "Bogotá", "Santiago"]
 
 for i in range(len(cities)):
     print(f"{cities[i]} is at index {i}")
-
 ```
 
 Here is what happens:
@@ -385,7 +378,6 @@ Index-based loops are especially useful when you have **multiple lists that belo
 ```{code-cell} python
 cities = ["Buenos Aires", "Brasília", "Lima", "Bogotá", "Santiago"]
 countries = ["Argentina", "Brazil", "Peru", "Colombia", "Chile"]
-
 ```
 
 Each city corresponds to a country at the same index.
@@ -393,7 +385,6 @@ Each city corresponds to a country at the same index.
 ```{code-cell} python
 for i in range(len(cities)):
     print(cities[i], "is the capital of", countries[i])
-
 ```
 
 The index `i` allows access to matching elements from both lists at the exact same time.
@@ -467,7 +458,6 @@ Consider two small lists:
 ```{code-cell} python
 colors = ["red", "blue"]
 shapes = ["circle", "square"]
-
 ```
 
 Now run the nested loop:
@@ -476,7 +466,6 @@ Now run the nested loop:
 for color in colors:
     for shape in shapes:
         print(color, shape)
-
 ```
 
 Each color is combined with **every** shape before the outer loop moves on to the next color.

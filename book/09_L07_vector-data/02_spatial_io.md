@@ -1,6 +1,16 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
- outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
 # Reading, Writing & Peeking
@@ -41,17 +51,16 @@ In the previous chapter, we learned how to manually construct a **{term}`GeoData
 
 In the real world, spatial data comes neatly packaged in professional GIS formats designed to store coordinates, **{term}`attributes <Attribute>`**, and **{term}`coordinate reference systems <Coordinate Reference System>`** all in one place. This chapter covers the spatial intake workflow: how to get these files into your notebook, verify them visually, and save them back to your computer.
 
-Before we begin, make sure you have downloaded the necessary datasets for this chapter. We will be using the national boundaries of Switzerland provided in three different industry standard formats.
+We will be using the national boundaries of Switzerland provided in three different industry standard formats.
 
 ```{admonition} Data Preparation
 :class: dropdown
 
-To follow along with this chapter, place the following datasets in a `data` folder next to your notebook:
-
-* [swissBoundaries3D_switzerland.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.gpkg)
-* [swissBoundaries3D_switzerland.geojson](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.geojson)
-* [swissBoundaries3D_switzerland.zip](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.zip) (Contains the Shapefile)
-* [country_in_europe.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/country_in_europe.gpkg) (For the exercise at the end!)
+The code in this chapter reads the following datasets directly from the course data on [Source Cooperative](https://source.coop/giuz/sds210), so you do not need to download them. To work offline, save them in a `data` folder next to your notebook and replace each web address in the code with `data/` followed by the file name:
+* [swissBoundaries3D_switzerland.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.gpkg)
+* [swissBoundaries3D_switzerland.geojson](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.geojson)
+* [swissBoundaries3D_switzerland.zip](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.zip) (Contains the Shapefile)
+* [country_in_europe.gpkg](https://data.source.coop/giuz/sds210/L07/country_in_europe.gpkg) (For the exercise at the end!)
 
 ```
 
@@ -65,21 +74,20 @@ GeoPandas makes life much easier. It provides a single, universal function calle
 
 Let us load the borders of Switzerland. We have provided the exact same boundary data in three common formats. Notice how the Python code is completely identical regardless of the format!
 
-```{code-cell} python
+```{code-cell} ipython3
 import geopandas as gpd
 
 # 1. Loading a GeoPackage (The modern, highly recommended standard)
-ch_gpkg = gpd.read_file("data/swissBoundaries3D_switzerland.gpkg")
+ch_gpkg = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.gpkg")
 
 # 2. Loading a GeoJSON (The standard for web mapping and APIs)
-ch_geojson = gpd.read_file("data/swissBoundaries3D_switzerland.geojson")
+ch_geojson = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.geojson")
 
 # 3. Loading a Shapefile directly from a zipped archive
 # (Shapefiles are the old legacy standard, consisting of multiple mandatory files)
-ch_shp = gpd.read_file("data/swissBoundaries3D_switzerland.zip")
+ch_shp = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.zip")
 
 print("All three formats loaded successfully!")
-
 ```
 
 :::{figure} images/05_pandas_vs_geopandas.png
@@ -110,10 +118,9 @@ Once your spatial data is loaded into a GeoDataFrame, you can explore it using t
 
 Let us take a look at the first few rows of our newly loaded GeoPackage using `.head()`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Inspect the first two rows
 display(ch_gpkg.head(2))
-
 ```
 
 Just like before, we have standard attribute columns (`name`, `landesflaeche`) alongside our active `geometry` column containing a complex `MultiPolygon` representing the national border.
@@ -126,10 +133,9 @@ Did you notice the letter **Z** inside the geometry column (`MULTIPOLYGON Z`)? O
 
 Next, we run `.info()` to get the technical summary of our columns and missing data. *(Note: We have truncated the middle rows of the output below for readability).*
 
-```{code-cell} python
+```{code-cell} ipython3
 # Check the technical metadata and data types
 ch_gpkg.info()
-
 ```
 
 This dense text block instantly verifies two big data cleaning wins:
@@ -147,10 +153,9 @@ One of the best morale boosters in spatial data science is the ability to instan
 
 You do not need to set up complex mapping software or configure coordinate grids. Just call the method, and GeoPandas will automatically draw the shapes stored in your active geometry column.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Instantly visualize the geometric shapes
 ch_gpkg.plot(figsize=(8, 5), color="dodgerblue", edgecolor="black");
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -185,18 +190,17 @@ To demonstrate, we will create a map using the full `ch_gpkg` dataset. Looking a
 
 Let's visualize this data. In the following example, we pass the `einwohnerzahl` (inhabitants) column to `.plot()`. Even though population is a numerical value, we are setting `categorical=True`. This forces GeoPandas to treat each unique number as a distinct category with its own unique color from the 'viridis' colormap, rather than creating a continuous gradient.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Categorical Map: Treating unique population numbers as distinct categories
 ch_gpkg.plot(
-    column="einwohnerzahl", 
-    cmap="viridis", 
-    categorical=True, 
+    column="einwohnerzahl",
+    cmap="viridis",
+    categorical=True,
     figsize=(8, 5),
     legend=True,
-    legend_kwds={'title': "Inhabitants", 'loc': "upper left"},
-    edgecolor="grey"
+    legend_kwds={"title": "Inhabitants", "loc": "upper left"},
+    edgecolor="grey",
 );
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -215,20 +219,19 @@ Fortunately, because our GeoDataFrame is built directly on top of Pandas, we can
 
 For this map, we will use the built-in `YlOrRd` (Yellow-Orange-Red) colormap, which is one standard choice for sequential plots.
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Calculate the spatial ratio (Population Density)
 ch_gpkg["pop_density"] = ch_gpkg["einwohnerzahl"] / ch_gpkg["landesflaeche"]
 
 # 2. Plotting the normalized density ratio
 ch_gpkg.plot(
-    column="pop_density", 
-    cmap="YlOrRd",  
-    figsize=(8, 5), 
+    column="pop_density",
+    cmap="YlOrRd",
+    figsize=(8, 5),
     legend=True,
-    legend_kwds={'label': "Population Density (Inhabitants / Area)"},
-    edgecolor="grey"
+    legend_kwds={"label": "Population Density (Inhabitants / Area)"},
+    edgecolor="grey",
 );
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -264,19 +267,21 @@ However, modern spatial data science is increasingly moving towards cloud-comput
 
 Let us export our Swiss boundaries dataset into three different formats to prepare it for different use cases:
 
-```{code-cell} python
+```{code-cell} ipython3
+import os
+
 # 1. Export as a GeoPackage (For sharing with QGIS/ArcGIS users)
-ch_gpkg.to_file("data/switzerland_processed.gpkg")
+os.makedirs("outputs", exist_ok=True)
+ch_gpkg.to_file("outputs/switzerland_processed.gpkg")
 
 # 2. Export as a GeoJSON (For uploading to a web map or API)
-ch_gpkg.to_file("data/switzerland_processed.geojson")
+ch_gpkg.to_file("outputs/switzerland_processed.geojson")
 
 # 3. Export as a GeoParquet (For big data applications)
 # Note: Parquet uses its own dedicated method!
-ch_gpkg.to_parquet("data/switzerland_processed.parquet")
+ch_gpkg.to_parquet("outputs/switzerland_processed.parquet")
 
 print("Spatial data successfully exported in multiple formats!")
-
 ```
 
 ```{admonition} Which format should I choose?
@@ -325,9 +330,8 @@ It is time to test your new spatial I/O skills. We have provided you with a myst
 3. **Verify:** Display the first row using `.head()` to peek at the attribute table and confirm if your guess was correct!
 4. **Export:** Now that the mystery is solved, save your `mystery_gdf` back to your hard drive as a **{term}`JSON <JSON>`** (GeoJSON) file named `revealed_country.geojson`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution and Quiz Answer
@@ -337,7 +341,7 @@ It is time to test your new spatial I/O skills. We have provided you with a myst
 import geopandas as gpd
 
 # 1. Load the mystery file
-mystery_gdf = gpd.read_file("data/country_in_europe.gpkg")
+mystery_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/country_in_europe.gpkg")
 
 # 2. Visualize the borders to guess the country!
 mystery_gdf.plot(figsize=(8, 8), color="mediumseagreen", edgecolor="black");
@@ -346,7 +350,7 @@ mystery_gdf.plot(figsize=(8, 8), color="mediumseagreen", edgecolor="black");
 display(mystery_gdf.head())
 
 # 4. Export to a web-friendly GeoJSON
-mystery_gdf.to_file("data/revealed_country.geojson")
+mystery_gdf.to_file("outputs/revealed_country.geojson")
 ```
 
 **Quiz Answer:**

@@ -1,13 +1,18 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+site:
+  outline_maxdepth: 1
 ---
 
 # Practical L6 - Solutions
 
 <!-- markdownlint-disable MD033-->
+
 <div class="page-subtitle">
 Mastering Environmental Data with Pandas
 </div>
@@ -15,7 +20,7 @@ Mastering Environmental Data with Pandas
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/08_L06_data-frames/08_practical_L6-solutions.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/08_L06_data-frames/09_practical_L6-solutions.ipynb)
 
 ---
 
@@ -42,16 +47,16 @@ Unfortunately, the historic sensor data is messy. The column names are cryptic, 
 
 ## Part 1 – The Intake Workflow
 
-Before we can analyze anything, we need to load the data, understand its shape, and set up our temporal index.
+Before we can analyze anything, we need to load the data, understand its shape, and set up our temporal index. 
 
 ```{admonition} Download the Dataset
 :class: note
-Please download this file to your local working directory:
-* [magic_mountain_weather.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L06/data/magic_mountain_weather.csv)
+You can read this file directly from its web address, or download it to your working directory:
+* [magic_mountain_weather.csv](https://data.source.coop/giuz/sds210/L06/magic_mountain_weather.csv)
 
 ```
 
-*(Note: For this practical, assume the file `magic_mountain_weather.csv` is in your working directory. The raw file contains a header row and columns for Date, maximum temperature, minimum temperature, and daily precipitation).*
+*(Note: For this practical, read `magic_mountain_weather.csv` directly from its web address above, or from your working directory if you downloaded it. The raw file contains a header row and columns for Date, maximum temperature, minimum temperature, and daily precipitation).*
 
 ### Tasks
 
@@ -63,7 +68,6 @@ Please download this file to your local working directory:
 import pandas as pd
 
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -73,7 +77,7 @@ import pandas as pd
 import pandas as pd
 
 # 1. Load the dataset and instantly parse the timestamp column
-climate_data = pd.read_csv("magic_mountain_weather.csv", parse_dates=["TIMESTAMP"])
+climate_data = pd.read_csv("https://data.source.coop/giuz/sds210/L06/magic_mountain_weather.csv", parse_dates=["TIMESTAMP"])
 
 # 2. Set the parsed timestamp as the DatetimeIndex
 climate_data = climate_data.set_index("TIMESTAMP")
@@ -101,7 +105,6 @@ Based on your `.info()` output, you should have noticed a few glaring issues. Th
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -135,14 +138,13 @@ The data is finally clean. Now, the resort management wants to know about "Extre
 
 ### Tasks
 
-1. **Vectorize:** Create a new column called `temp_swing` by subtracting `temp_min` from `temp_max`.
-2. **Filter (Boolean Indexing):** Create a new DataFrame called `extreme_days` that only contains rows where the `temp_swing` was greater than **18.0** °C AND the `precip` was exactly **0.0** (dry days).
+1. **Vectorize:** Create a new column called `temp_swing` by subtracting `temp_min` from `temp_max`. 
+2. **Filter (Boolean Indexing):** Create a new DataFrame called `extreme_days` that only contains rows where the `temp_swing` was greater than **18.0** °C AND the `precip` was exactly **0.0** (dry days). 
     * *Crucial constraint:* Remember to wrap your conditions in parentheses `()` and append `.copy()` to avoid the `SettingWithCopyWarning`!
 3. **Sort and Peek:** Sort your `extreme_days` DataFrame by `temp_swing` in descending order (highest swing at the top). Display the top 5 rows using `.head()`.
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -174,7 +176,7 @@ Management doesn't just want to see extreme individual days; they want to see th
 
 1. **Resample:** Create a new DataFrame called `monthly_climate` by resampling the original `climate_data` into monthly averages (`"MS"`). Calculate the `.mean()` for these monthly buckets.
 2. **Rolling Window:** Create a new column inside `monthly_climate` called `10_year_trend`. Calculate this using a `.rolling(120)` window (120 months = 10 years) on the `temp_max` column, taking the `.mean()`. This will smooth out the yearly seasons and expose the true climate shift!
-3. **Plot:** Generate a professional visualization from your `monthly_climate` DataFrame.
+3. **Plot:** Generate a professional visualization from your `monthly_climate` DataFrame. 
     * Plot both the raw monthly `temp_max` and your smoothed `10_year_trend`.
     * Use `figsize=(12, 6)`.
     * Apply distinct colors (e.g., light gray for the monthly data, a thick crimson line for the trend).
@@ -182,7 +184,6 @@ Management doesn't just want to see extreme individual days; they want to see th
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -227,7 +228,6 @@ To find out, we will calculate a linear trendline (the slope) using NumPy.
 
 ```{code-cell} python
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -279,7 +279,6 @@ Take a moment to review what you have built and analyzed. Answer briefly in comm
 
 ```{code-cell} python
 # Write your reflections here.
-
 ```
 
 ```{admonition} Sample Answers

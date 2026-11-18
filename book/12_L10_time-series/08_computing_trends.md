@@ -1,5 +1,15 @@
 ---
-site: 
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
   outline_maxdepth: 1
 ---
 
@@ -41,7 +51,7 @@ In previous chapters, we reduced the time dimension using aggregations and rolli
 **Applied Scenario**
 We will continue using the NOAA Extended Reconstructed Sea Surface Temperature dataset. Our goal is to calculate the linear rate of ocean warming over the last century, interpret the mathematical baseline of our models, and ultimately apply harmonic regression to see how the Earth's seasonal cycle influences our long-term trend estimates.
 
-```{code-cell} python
+```{code-cell} ipython3
 import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
@@ -107,7 +117,7 @@ Before we run a calculation across the entire globe, it is always best practice 
 
 We will select a single coordinate in the North Atlantic and use `xarray`'s built-in `.polyfit()` method. The `deg=1` argument specifies that we want a first-degree polynomial, which is a straight line.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extract a single point time series
 point_data = ds.sst.sel(lon=300, lat=50)
 
@@ -122,7 +132,7 @@ The output is a new dataset containing `polyfit_coefficients`. This array has a 
 
 To verify that our model worked, we can use `xarray.polyval()` to evaluate those coefficients and generate the actual trend line, which we can then plot over our raw observations.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Evaluate the polynomial coefficients along the time dimension to create the line
 trend_line = xr.polyval(point_data.time, point_trend.polyfit_coefficients)
 
@@ -157,7 +167,7 @@ Now we scale up from a single point to all pixels. Because `xarray` is designed 
 
 We apply the exact same function to our master dataset, and `xarray` broadcasts the linear regression across every pixel simultaneously.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Fit a linear trend across the time dimension for every pixel globally
 global_trend = ds.sst.polyfit(dim="time", deg=1)
 
@@ -167,7 +177,7 @@ slope = global_trend.polyfit_coefficients.sel(degree=1)
 
 To truly appreciate what just happened, let us take an immediate visual peek at the resulting slope array. Even before we convert the mathematical units into something readable, we can map the raw values using a diverging **{term}`colormap <Colormap>`** (`RdBu_r`) and `robust=True` to automatically handle outliers.
 
-```{code-cell} python
+```{code-cell} ipython3
 plt.figure(figsize=(12, 6))
 slope.plot(cmap="RdBu_r", robust=True)
 
@@ -193,7 +203,7 @@ We must discuss units carefully. When you feed `datetime64` coordinate objects i
 
 A temperature change per nanosecond is infinitely small and scientifically meaningless to read. We need to scale this slope into a standard, interpretable metric: **degrees Celsius per decade**.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Define the number of nanoseconds in a standard year
 ns_per_year = 1e9 * 60 * 60 * 24 * 365.25
 
@@ -210,15 +220,15 @@ Now we have a highly interpretable variable. For example, if a pixel has a value
 
 Let's plot our newly scaled data. Because our values now cross zero (featuring both warming and cooling), we must use a diverging colormap (like `RdBu_r`). Crucially, we must also pass `center=0` to ensure that 0°C/decade is perfectly mapped to white, allowing the red and blue colors to accurately represent warming and cooling.
 
-```{code-cell} python
+```{code-cell} ipython3
 plt.figure(figsize=(12, 6))
 
 slope_per_decade.plot(
-    cmap="RdBu_r", 
+    cmap="RdBu_r",
     center=0,
     vmin=-0.5,
-    vmax=0.5, 
-    cbar_kwargs={"label": "Warming Rate (°C / Decade)"}
+    vmax=0.5,
+    cbar_kwargs={"label": "Warming Rate (°C / Decade)"},
 )
 
 plt.title("Global Sea Surface Temperature Trend (1970 to Present)")
@@ -243,7 +253,7 @@ It is important to distinguish between the start of your specific dataset and th
 
 Let us extract and visualize the intercept (where `degree=0`). Since these are absolute temperatures rather than diverging rates of change, we will use a sequential colormap like `viridis`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extract the intercept (degree=0) from our global trend model
 intercept = global_trend.polyfit_coefficients.sel(degree=0)
 
@@ -251,10 +261,7 @@ intercept = global_trend.polyfit_coefficients.sel(degree=0)
 plt.figure(figsize=(12, 6))
 
 intercept.plot(
-    cmap="viridis",
-    vmin=0,
-    vmax=28,
-    cbar_kwargs={"label": "Modeled SST in 1970 (°C)"}
+    cmap="viridis", vmin=0, vmax=28, cbar_kwargs={"label": "Modeled SST in 1970 (°C)"}
 )
 
 plt.title("Modeled Baseline Sea Surface Temperature (1970)")
@@ -327,7 +334,7 @@ By fitting this model, we compress decades of complex spectral-temporal dynamics
 
 Unlike `.polyfit()`, which automatically converts dates to nanoseconds, `xarray` provides a more flexible `.curvefit()` method for custom models. For `.curvefit()` to work smoothly and for our period ($T=1$) to make mathematical sense, we need to convert our datetime coordinate into **fractional years** (e.g., July 1st, 1970 becomes 1970.5).
 
-```{code-cell} python
+```{code-cell} ipython3
 # Create a numeric time coordinate expressed as fractional years
 fractional_year = ds.time.dt.year + (ds.time.dt.dayofyear / 365.25)
 
@@ -339,23 +346,25 @@ ds = ds.assign_coords(frac_year=("time", fractional_year.data))
 
 Just as we did with the linear regression, we will start by fitting this complex model to a single grid cell in the North Atlantic. First, we define our mathematical model as a standard Python function.
 
-```{code-cell} python
+```{code-cell} ipython3
 import numpy as np
+
 
 # Define the harmonic function
 def harmonic_model(t, beta0, beta1, beta2, beta3):
     # Omega represents 2 * pi / T. Since T = 1 year, we just use 2 * pi.
-    omega = 2 * np.pi 
-    return beta0 + (beta1 * t) + (beta2 * np.cos(omega * t)) + (beta3 * np.sin(omega * t))
+    omega = 2 * np.pi
+    return (
+        beta0 + (beta1 * t) + (beta2 * np.cos(omega * t)) + (beta3 * np.sin(omega * t))
+    )
+
 
 # Extract our test pixel
 point_data = ds.sst.sel(lon=300, lat=50)
 
 # Fit the custom model along the fractional year coordinate
 harmonic_fit = point_data.curvefit(
-    coords=["frac_year"], 
-    func=harmonic_model, 
-    reduce_dims="time"
+    coords=["frac_year"], func=harmonic_model, reduce_dims="time"
 )
 
 # View the four estimated parameters
@@ -366,7 +375,7 @@ harmonic_fit.curvefit_coefficients
 
 To understand how well our model fits the raw data, we can plug our estimated $\beta$ coefficients back into the `harmonic_model` function to generate the fitted curve.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extract the estimated coefficients
 coeffs = harmonic_fit.curvefit_coefficients
 
@@ -376,7 +385,7 @@ fitted_curve = harmonic_model(
     coeffs.sel(param="beta0"),
     coeffs.sel(param="beta1"),
     coeffs.sel(param="beta2"),
-    coeffs.sel(param="beta3")
+    coeffs.sel(param="beta3"),
 )
 
 # Plot a recent subset of the data for clarity
@@ -384,18 +393,12 @@ plt.figure(figsize=(12, 5))
 
 # Plot raw observations (2010 to 2020)
 point_data.sel(time=slice("2010", "2020")).plot(
-    marker="o", 
-    linestyle="none", 
-    color="blue", 
-    alpha=0.5, 
-    label="Raw Observations"
+    marker="o", linestyle="none", color="blue", alpha=0.5, label="Raw Observations"
 )
 
 # Plot the harmonic fit
 fitted_curve.sel(time=slice("2010", "2020")).plot(
-    color="red", 
-    linewidth=2, 
-    label="Harmonic Fit"
+    color="red", linewidth=2, label="Harmonic Fit"
 )
 
 plt.title("Harmonic Regression Fit (North Atlantic)")
@@ -416,12 +419,10 @@ Just like `.polyfit()`, `.curvefit()` can be broadcast across the entire multidi
 
 *Note: Pixel-wise curve fitting is highly processing intensive. It requires the computer to run an optimization algorithm on tens of thousands of individual time series. If you run this globally, be prepared for it to take significantly longer than the simple linear regression!*
 
-```{code-cell} python
+```{code-cell} ipython3
 # Fit the harmonic model globally (this may take a minute or two)
 global_harmonic = ds.sst.curvefit(
-    coords=["frac_year"], 
-    func=harmonic_model, 
-    reduce_dims="time"
+    coords=["frac_year"], func=harmonic_model, reduce_dims="time"
 )
 ```
 
@@ -433,7 +434,7 @@ Before we plot the map, we need to consider our units. This is a great opportuni
 
 Because we manually defined our time coordinate (`frac_year`) in years, the $\beta_1$ slope is already calculated in **degrees Celsius per year**. Unlike the nanosecond conversion required for `.polyfit()`, we only need to multiply by 10 to reach our climate standard of degrees per decade.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extract the linear trend parameter (beta1)
 harmonic_slope_raw = global_harmonic.curvefit_coefficients.sel(param="beta1")
 
@@ -444,9 +445,9 @@ harmonic_slope_decade = harmonic_slope_raw * 10
 plt.figure(figsize=(12, 6))
 
 harmonic_slope_decade.plot(
-    cmap="RdBu_r", 
-    center=0, 
-    cbar_kwargs={"label": "Harmonic Warming Rate (°C / Decade)"}
+    cmap="RdBu_r",
+    center=0,
+    cbar_kwargs={"label": "Harmonic Warming Rate (°C / Decade)"},
 )
 
 plt.title("Global SST Trend via Harmonic Regression")
@@ -470,7 +471,7 @@ We have now calculated the global warming trend using two different methods on t
 
 Which one is better? Let us compute the mathematical difference between the two slopes to see if accounting for seasonality changed our trend estimates.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Calculate the difference between the two models
 slope_difference = harmonic_slope_decade - slope_per_decade
 
@@ -478,10 +479,10 @@ slope_difference = harmonic_slope_decade - slope_per_decade
 plt.figure(figsize=(12, 6))
 
 slope_difference.plot(
-    cmap="PuOr_r", 
-    center=0, 
+    cmap="PuOr_r",
+    center=0,
     robust=True,
-    cbar_kwargs={"label": "Slope Difference (°C / Decade)"}
+    cbar_kwargs={"label": "Slope Difference (°C / Decade)"},
 )
 
 plt.title("Difference in Estimated Slope (Harmonic vs. Linear)")
@@ -518,7 +519,7 @@ Because the harmonic model explicitly calculates the sine and cosine waves of th
 
 **Starter code:**
 
-```{code-cell} python
+```{code-cell} ipython3
 import xarray as xr
 import numpy as np
 import matplotlib.pyplot as plt

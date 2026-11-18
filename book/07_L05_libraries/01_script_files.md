@@ -1,6 +1,16 @@
 ---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
 site:
-   outline_maxdepth: 1
+  outline_maxdepth: 1
 ---
 
 # Writing script files
@@ -72,7 +82,7 @@ This creates a new tab in your window with a blank slate. By default, new Python
 
 Start by copying and pasting the text below into your new editor panel. This is a function that calculates the straight line **{term}`Euclidean distance`** between two projected coordinates using the basic math operators you learned in Lesson 2:
 
-```{code-cell} python
+```{code-cell} ipython3
 def euclidean_distance(x1, y1, x2, y2):
     """
     Calculates the straight line distance between two projected coordinates.
@@ -80,12 +90,11 @@ def euclidean_distance(x1, y1, x2, y2):
     """
     dx = x2 - x1
     dy = y2 - y1
-    
+
     # Calculate the hypotenuse using ** 0.5 for the square root
     distance = (dx**2 + dy**2) ** 0.5
-    
-    return distance
 
+    return distance
 ```
 
 Be sure to save your `spatial_tools.py` file after making your changes. You have just created your first custom Python **{term}`module <Module>`**!
@@ -98,9 +107,8 @@ To use the function you just saved, your new Jupyter notebook needs to know wher
 
 Hopefully you saved your `spatial_tools.py` file in the exact same folder as the new notebook you are currently working in. We can verify this running an [IPython](https://en.wikipedia.org/wiki/IPython) magic command called `%ls` in a code cell. The `%` symbol is a special built-in shortcut used to perform helpful tasks that are outside of standard Python code.
 
-```{code-cell} python
+```{code-cell} ipython3
 %ls
-
 ```
 
 The `%ls` command lists all the files located in the directory where you are currently working. If you see `spatial_tools.py` in the output list, you are all set to proceed.
@@ -157,31 +165,28 @@ Now that your notebook and your script are in the same folder, you can access yo
 
 Let us import our `euclidean_distance()` function from the script file:
 
-```{code-cell} python
+```{code-cell} ipython3
 from spatial_tools import euclidean_distance
-
 ```
 
 Now we can use the function to see that it is working. Let us calculate the distance between Zurich and Bern using their Swiss Grid (LV95) coordinates in meters:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Zurich: 2683000, 1248000 | Bern: 2600000, 1200000
 dist_meters = euclidean_distance(2683000, 1248000, 2600000, 1200000)
 dist_km = dist_meters / 1000
 
 print(f"The straight line distance is {dist_km:.1f} km")
-
 ```
 
 ### Other ways to import
 
 It is often useful to import the whole script and all of its functions at once. This can be done by importing the file and giving it a short alias.
 
-```{code-cell} python
+```{code-cell} ipython3
 import spatial_tools as st
 
 dist_meters = st.euclidean_distance(2683000, 1248000, 2600000, 1200000)
-
 ```
 
 #### Concept Check: Dot Notation Mystery
@@ -226,7 +231,7 @@ Let us add a slightly more complex tool to our script. We will create a wrapper 
 
 Go back to your `spatial_tools.py` tab, leave two blank lines below your first function, and add the following code:
 
-```{code-cell} python
+```{code-cell} ipython3
 def calculate_distance(pt1, pt2, method="euclidean"):
     """
     Wrapper function to calculate distance between two points.
@@ -253,7 +258,6 @@ def calculate_distance(pt1, pt2, method="euclidean"):
         dist = None
 
     return dist
-
 ```
 
 Save the file once more. Your custom module now contains two functions.
@@ -286,7 +290,7 @@ Restarting the kernel deletes all **{term}`variables <Variable>`** currently sto
 
 After restarting the kernel, you can safely import your updated script and use your new tool:
 
-```{code-cell} python
+```{code-cell} ipython3
 import spatial_tools as st
 
 zurich = [2683000, 1248000]
@@ -294,7 +298,6 @@ bern = [2600000, 1200000]
 
 distance_m = st.calculate_distance(zurich, bern, method="euclidean")
 print(f"Distance: {distance_m / 1000:.1f} km")
-
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -329,9 +332,8 @@ Open your `spatial_tools.py` file in the text editor.
 2. Remember from Lesson 2 that you can get the absolute (positive) difference by squaring it and taking the square root: `((x2 - x1)**2)**0.5`.
 3. Save the file.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution (spatial_tools.py)
@@ -364,9 +366,8 @@ Stay in your `spatial_tools.py` file.
 2. Add an `elif method == "manhattan":` block that extracts the coordinates from the `pt1` and `pt2` lists and passes them to your new `manhattan_distance` function.
 3. Save the file again.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution (spatial_tools.py)
@@ -405,9 +406,8 @@ Return to your Jupyter notebook.
 2. Import your updated module.
 3. Test both the Euclidean and Manhattan functionality to see how much longer the grid-based path is compared to the straight-line path.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ``````{admonition} Sample solution (Jupyter Notebook)

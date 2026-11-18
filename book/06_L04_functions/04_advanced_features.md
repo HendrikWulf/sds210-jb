@@ -1,8 +1,12 @@
 ---
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
 site:
-    outline_maxdepth: 1
-
+  outline_maxdepth: 1
 ---
 
 # Flexible Function Interfaces
@@ -68,10 +72,11 @@ def average_elevation(*args):
     # args is just a tuple containing all the inputs!
     if len(args) == 0:
         raise ValueError("At least one elevation must be provided.")
-        
+
     total = sum(args)
     num_items = len(args)
     return total / num_items
+
 
 # We can pass any number of arguments!
 avg_1 = average_elevation(1500, 1520, 1490)
@@ -79,7 +84,6 @@ print(f"Average 1: {avg_1} meters")
 
 avg_2 = average_elevation(100, 105, 102, 98, 110, 101, 99)
 print(f"Average 2: {avg_2} meters")
-
 ```
 
 ```{admonition} Key Concept
@@ -111,13 +115,14 @@ Visualizing `kwargs`: Multiple keyword-value pairs are collected and packed into
 def describe_point(lat, lon, **kwargs):
     """Prints a point's coordinates and any associated metadata."""
     print(f"Point Coordinates: {lat} N, {lon} E")
-    
+
     # kwargs is a dictionary, so we can loop through its items!
     if kwargs:
         print("Metadata:")
         for key, value in kwargs.items():
             print(f"  - {key}: {value}")
     print("-" * 20)
+
 
 # Call 1: Just the required coordinates
 describe_point(45.936928, 7.866760)
@@ -129,10 +134,8 @@ describe_point(
     name="Dufourspitze",
     crs="EPSG:4326",
     elevation=4633,
-    country="Switzerland"
+    country="Switzerland",
 )
-
-
 ```
 
 ```{admonition} Key Concept
@@ -157,7 +160,7 @@ If you have a function that expects four separate **{term}`arguments <Argument>`
 ```{code-cell} python
 def calculate_area(min_x, min_y, max_x, max_y):
     """Calculate the area of a rectangular bounding box."""
-    
+
     width = max_x - min_x
     height = max_y - min_y
     return width * height
@@ -173,7 +176,6 @@ area = calculate_area(bbox[0], bbox[1], bbox[2], bbox[3])
 area = calculate_area(*bbox)
 
 print(f"The area of the bounding box is {area} square meters")
-
 ```
 
 ```{admonition} Spatial note
@@ -203,25 +205,20 @@ Visualizing dictionary unpacking: A dictionary's key-value pairs are unpacked an
 def plot_marker(lat, lon, label, color="red", size=10):
     print(f"Plotting {label} at ({lat}, {lon}) | Color: {color}, Size: {size}")
 
+
 # Our data is trapped in a dictionary
-marker_data = {
-    "lat": 47.37, 
-    "lon": 8.54, 
-    "label": "Zürich", 
-    "color": "blue"
-}
+marker_data = {"lat": 47.37, "lon": 8.54, "label": "Zürich", "color": "blue"}
 
 # WITHOUT unpacking (repetitive):
 plot_marker(
-    lat=marker_data["lat"], 
-    lon=marker_data["lon"], 
-    label=marker_data["label"], 
-    color=marker_data["color"]
+    lat=marker_data["lat"],
+    lon=marker_data["lon"],
+    label=marker_data["label"],
+    color=marker_data["color"],
 )
 
 # WITH unpacking (elegant):
 plot_marker(**marker_data)
-
 ```
 
 Notice how Python automatically matches the `"lat"` key in the dictionary to the `lat` parameter in the function!
@@ -237,7 +234,6 @@ first, *rest, last = ["Point A", "Point B", "Point C", "Point D", "Point E"]
 print(f"Start: {first}")
 print(f"Middle segments: {rest}")
 print(f"End: {last}")
-
 ```
 
 ---
@@ -323,7 +319,7 @@ A perfect example is sorting a list of dictionaries. If you have a list of metad
 stations = [
     {"name": "Station A", "elevation": 1200},
     {"name": "Station B", "elevation": 400},
-    {"name": "Station C", "elevation": 850}
+    {"name": "Station C", "elevation": 850},
 ]
 
 # Sort the list based on the "elevation" value of each dictionary
@@ -331,7 +327,6 @@ stations = [
 stations.sort(key=lambda station: station["elevation"])
 
 print(stations)
-
 ```
 
 ``````{admonition} Click here for a more detailed breakdown of this lambda example.

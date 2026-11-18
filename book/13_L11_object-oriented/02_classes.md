@@ -1,11 +1,22 @@
 ---
-site: 
-    outline_maxdepth: 1
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
+  outline_maxdepth: 1
 ---
 
 # The idea of a class
 
 <!-- markdownlint-disable MD033-->
+
 <div class="page-subtitle">
 From blueprints to geospatial objects
 </div>
@@ -45,7 +56,7 @@ Now, it is time to build those entities. In this chapter, we will unpack the fou
 
 Before writing the code, we must establish a clear distinction between a class and an object. To understand the difference, consider how you might store geographic points using the procedural style you already know:
 
-```{code-cell} python
+```{code-cell} ipython3
 lon1 = 8.54
 lat1 = 47.37
 name1 = "Zurich"
@@ -85,31 +96,30 @@ Many geospatial entities are natural candidates for custom classes: a coordinate
 
 ## 2. Defining a first class
 
-Creating a class in Python is remarkably straightforward. We use the `class` keyword followed by the name we wish to give our new data type. By convention, class names use CapitalizedWords (CamelCase) notation.
+Creating a class in Python is remarkably straightforward. We use the `class` keyword followed by the name we wish to give our new data type. By convention, class names use CapitalizedWords (CamelCase) notation. 
 
 Let us define a minimalistic `GeoPoint` class to represent a geographic coordinate:
 
-```{code-cell} python
+```{code-cell} ipython3
 class GeoPoint:
     pass
 ```
 
 The `pass` statement is simply a placeholder indicating that no further action needs to be taken right now. Even though this class currently lacks data or behavior, the blueprint is fully functional. We can immediately instantiate objects from it by calling the class name followed by parentheses:
 
-```{code-cell} python
+```{code-cell} ipython3
 point_a = GeoPoint()
 point_b = GeoPoint()
 ```
 
 We have now created two distinct `GeoPoint` objects. To prove that these are completely unique, memory-backed entities, we can inspect their types and test their identity using the `is` operator:
 
-```{code-cell} python
+```{code-cell} ipython3
 print(type(point_a))
-
 print(point_a is point_b)
 ```
 
-Because `point_a is point_b` evaluates to `False`, we know they occupy completely different addresses in your computer's memory.
+Because `point_a is point_b` evaluates to `False`, we know they occupy completely different addresses in your computer's memory. 
 
 However, a blueprint that does not specify any internal state is not very useful for spatial analysis. To make our points meaningful, we need to initialize them with real geographic data.
 
@@ -117,13 +127,13 @@ However, a blueprint that does not specify any internal state is not very useful
 
 ## 3. The `__init__()` method
 
-To make our `GeoPoint` blueprint useful, it needs a starting state. If we do not explicitly set the coordinate positions, we end up with an empty object with no geographic meaning.
+To make our `GeoPoint` blueprint useful, it needs a starting state. If we do not explicitly set the coordinate positions, we end up with an empty object with no geographic meaning. 
 
 We guarantee this structure using a special initialization method called `__init__()`. Methods that begin and end with **d**ouble **under**scores are known as **{term}`dunder methods <Dunder method>`**, signaling that they have a special built in behavior in Python.
 
 Let us upgrade our `GeoPoint` class to require coordinates upon creation:
 
-```{code-cell} python
+```{code-cell} ipython3
 class GeoPoint:
     def __init__(self, latitude, longitude, name=None):
         self.latitude = latitude
@@ -133,7 +143,7 @@ class GeoPoint:
 
 You do not call `__init__()` directly. When you construct a new `GeoPoint` instance, Python creates the object and then automatically runs the **{term}`__init__ method`** behind the scenes to assign the starting data.
 
-```{code-cell} python
+```{code-cell} ipython3
 point1 = GeoPoint(35.6895, 139.6917, "Tokyo")
 point2 = GeoPoint(47.3769, 8.5417)
 
@@ -159,7 +169,7 @@ What happened to the first argument?
 
 The **{term}`self parameter`** (often written as the keyword `self`) is one of the most common sources of confusion when transitioning to object-oriented programming, but its purpose is actually very logical. `self` simply refers to the **current active object**.
 
-When you instantiate a class, Python automatically passes the newly created instance into the method as the very first argument. You never pass it manually.
+When you instantiate a class, Python automatically passes the newly created instance into the method as the very first argument. You never pass it manually. 
 
 ### A dynamic placeholder
 
@@ -171,7 +181,7 @@ When the code executes `self.latitude = latitude`, it is instructing Python: "Ta
 
 We can visualize this independent state management by inspecting `__dict__`, a special built in attribute that exposes the internal memory dictionary of any Python object.
 
-```{code-cell} python
+```{code-cell} ipython3
 tokyo = GeoPoint(35.6895, 139.6917, "Tokyo")
 zurich = GeoPoint(47.3769, 8.5417, "Zurich")
 
@@ -213,7 +223,7 @@ When designing spatial objects, it is critical to distinguish between data that 
 
 Variables created inside the `__init__()` method and attached to `self` are called **{term}`instance attributes <Instance attribute>`**. Their values belong to each individual object. In our `GeoPoint` class, `latitude`, `longitude`, and `name` must be instance attributes because Tokyo and Zurich have completely different coordinates and names.
 
-```{code-cell} python
+```{code-cell} ipython3
 print(tokyo.name)
 print(zurich.name)
 ```
@@ -224,21 +234,21 @@ print(zurich.name)
 
 For example, if our application exclusively processes GPS data, we might want every single `GeoPoint` to share the same default **{term}`Coordinate Reference System`** (CRS).
 
-```{code-cell} python
+```{code-cell} ipython3
 class GeoPoint:
     # Class attribute: Shared by all instances
-    crs = "EPSG:4326" 
+    crs = "EPSG:4326"
 
     def __init__(self, latitude, longitude, name=None):
         # Instance attributes: Unique to each instance
-        self.latitude = latitude  
+        self.latitude = latitude
         self.longitude = longitude
         self.name = name
 ```
 
 In this architecture, both points share the same CRS because that attribute belongs to the class itself.
 
-```{code-cell} python
+```{code-cell} ipython3
 tokyo = GeoPoint(35.6895, 139.6917, "Tokyo")
 zurich = GeoPoint(47.3769, 8.5417, "Zurich")
 
@@ -275,14 +285,14 @@ Use **instance attributes** for properties that vary from object to object (like
 
 Once an object is instantiated, you interact with its internal state using **{term}`dot notation <Dot notation>`** (`object.attribute`).
 
-```{code-cell} python
+```{code-cell} ipython3
 print(tokyo.latitude)
 print(tokyo.name)
 ```
 
 One of the biggest advantages of Object-Oriented Programming is that custom objects are **{term}`mutable <Mutable>`** by default. This means you can dynamically alter their state after they are created. Objects are not just static containers; they represent real-world entities that evolve over time. If a physical weather station is relocated, you can update its coordinate attributes directly:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Inspect the state before the change
 print("Before:", tokyo.__dict__)
 
@@ -294,16 +304,15 @@ tokyo.name = "Tokyo Relocated"
 print("After:", tokyo.__dict__)
 ```
 
-By defining the blueprint, setting the initial state, and using `self` to manage internal data, we have successfully created a self contained spatial entity.
+By defining the blueprint, setting the initial state, and using `self` to manage internal data, we have successfully created a self contained spatial entity. 
 
 ---
 
 ## 7. Exercise: Modeling an Earthquake
 
-It is time to put your blueprint-building skills to the test. Imagine you are tasked with tracking global seismic activity.
+It is time to put your blueprint-building skills to the test. Imagine you are tasked with tracking global seismic activity. 
 
 **Your tasks:**
-
 1. Define a class called `EarthquakeEvent`.
 2. Give it a **class attribute** called `planet` set to the **{term}`string <String>`** `"Earth"`.
 3. Create an `__init__()` method that requires three **instance attributes**: `latitude`, `longitude`, and `magnitude`.
@@ -311,9 +320,8 @@ It is time to put your blueprint-building skills to the test. Imagine you are ta
 5. Print the `magnitude` of your first earthquake, and the `planet` attribute of your second earthquake.
 6. Dynamically update the magnitude of your first earthquake to a new value.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -348,7 +356,7 @@ print(f"Updated California Quake Magnitude: {california_quake.magnitude}")
 
 ## 8. Summary and Outlook
 
-* **Class vs. Instance:** A **class** is the abstract blueprint that defines a *kind* of entity. An **instance** (or object) is the concrete, memory-backed entity built from that blueprint.
+* **Class vs. Instance:** A **class** is the abstract blueprint that defines a *kind* of entity. An **instance** (or object) is the concrete, memory-backed entity built from that blueprint. 
 * **The `__init__()` method:** The specialized function executed automatically upon object creation. It guarantees that every object starts with a valid, structured baseline.
 * **The `self` convention:** A dynamic placeholder that refers to the "current active object." It ensures that incoming data is encapsulated securely within the specific object being instantiated.
 * **Attributes (State):** Variables belonging to the object. **Instance attributes** are unique to each object (like latitude), while **Class attributes** are shared universally across all objects of that class (like a default CRS).

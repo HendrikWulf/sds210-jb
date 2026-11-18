@@ -1,5 +1,15 @@
 ---
-site: 
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
   outline_maxdepth: 1
 ---
 
@@ -42,7 +52,7 @@ The shift in this chapter is fundamental: you will move away from "index guessin
 
 We will progress from basic coordinate selection to advanced conditional masking and vectorized sampling using the `air_temperature` tutorial dataset.
 
-```{code-cell} python
+```{code-cell} ipython3
 import xarray as xr
 import matplotlib.pyplot as plt
 
@@ -79,7 +89,7 @@ Xarray provides four distinct ways to index and select data. The most important 
 
 The **{term}`method`** `.isel` (integer selection) is the direct descendant of NumPy style indexing. It is **0-based** and allows you to select specific elements by their numerical position along a dimension.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Select the first time step and specific row/column positions
 # This returns a DataArray of a single point in time
 air.isel(time=0, lat=2, lon=3)
@@ -87,7 +97,7 @@ air.isel(time=0, lat=2, lon=3)
 
 Positional indexing is most useful when your query is relative to the array structure rather than the physical world, such as selecting the last image in a stack or a specific subset of pixels for a training window.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Select a small spatial window (slices) from the first time step
 # Note: slice(5, 15) selects indices 5 through 14
 window = air.isel(time=0, lat=slice(5, 15), lon=slice(10, 20))
@@ -105,7 +115,7 @@ plt.title("Spatial window selected by integer index");
 
 Scientific analysis is rarely defined by matrix indices; instead, it is defined by **real world parameters**. The `.sel` method uses dimension labels to automatically look up the correct indices for you.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Select by exact date and coordinate values
 # This is much more readable and less error prone
 air.sel(time="2013-01-01", lat=40.0, lon=260.0)
@@ -113,7 +123,7 @@ air.sel(time="2013-01-01", lat=40.0, lon=260.0)
 
 Because coordinates are backed by an index, these lookups are highly efficient. You can also use `slice()` with `.sel` to filter data between specific geographic or temporal bounds.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Select a range of longitudes and limit the output display
 air.sel(lon=slice(210, 215)).head(time=1)
 ```
@@ -125,7 +135,7 @@ In real-world Geospatial Data Science, your target coordinates (e.g., a weather 
 * **`method="nearest"`**: Selects the value of the closest pixel without interpolation.
 * **`tolerance`**: Limits the maximum distance for a valid match, preventing the selection of data that is too far from your target location.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Find the value at a coordinate that isn't exactly in the grid
 # method="nearest" finds the closest match
 air.sel(lat=52.25, lon=251.89, method="nearest", tolerance=2)
@@ -199,7 +209,7 @@ Time is arguably the most important dimension in a data cube. Xarray is exceptio
 
 You can query the cube for an exact moment in time using a full timestamp string. In a 3D cube, selecting one moment across the time dimension returns a 2D spatial slice (a map).
 
-```{code-cell} python
+```{code-cell} ipython3
 # Select a specific hour on New Year's Day
 air.sel(time="2013-01-01 06:00")
 ```
@@ -208,7 +218,7 @@ air.sel(time="2013-01-01 06:00")
 
 One of Xarray's most convenient features is its ability to interpret partial datetime strings. This allows you to grab entire blocks of data without needing to define start and end dates manually.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extract all data for the year 2014
 air.sel(time="2014")
 
@@ -220,7 +230,7 @@ air.sel(time="2013-05").head(time=1)
 
 To select a continuous range of time, use the Python `slice` function. This is the standard way to isolate specific seasons or study periods.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Select a window from May to mid October
 air.sel(time=slice("2013-05-01", "2013-10-15")).head(time=1)
 ```
@@ -237,7 +247,7 @@ Behind the scenes, Xarray provides a `.dt` accessor that allows you to reach int
 
 This enables "fancy indexing" where you select data based on a condition rather than a continuous range. For example, if you want to perform a climatological study on a specific month across multiple years, you can filter the cube by the month component.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Select all data points from July across every year in the record
 july_data = air.sel(time=air.time.dt.month == 7)
 
@@ -257,7 +267,7 @@ Spatial selection mirrors the logic of temporal slicing but operates on the hori
 
 The simplest spatial slice is a single row or column. This reduces a 3D cube into a 2D "vertical" slice of time and space.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extract one latitude row through all longitudes for a specific time
 # This results in a 2D array (time, lon)
 air.sel(time="2013-01-01").isel(lat=10).plot()
@@ -268,14 +278,11 @@ plt.title("A single latitude cross section");
 
 A rectangular subset, or bounding box, is the most common way to isolate a specific study area. You define these windows using the `slice()` function within `.sel()`.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Define a geographic subset for Central Canada
 # Latitude in this dataset is stored in descending order (North to South)
 # Longitude 255-275 corresponds roughly to 105W-85W
-subset = air.sel(
-    lon=slice(255, 275),
-    lat=slice(60, 45)
-)
+subset = air.sel(lon=slice(255, 275), lat=slice(60, 45))
 subset.mean(dim="time").plot()
 plt.title("Regional bounding box subset")
 ```
@@ -299,7 +306,7 @@ A slice that goes against the index order will return an empty object.
 
 Selecting a single cell by its coordinates is the spatial equivalent of selecting one exact timestamp. If you do not specify a time constraint, this operation isolates a location across the entire temporal dimension, effectively turning a spatial cube into a 1D time series.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Isolate one location across all time steps
 # This returns a 1D DataArray of temperature over time
 specific_station = air.sel(lat=50.0, lon=260.0)
@@ -310,7 +317,7 @@ specific_station
 
 In professional Geospatial Data Science workflows, it is best practice to define your study area once and persist it as a new **{term}`object`**. This makes your code more readable and prevents you from accidentally running heavy calculations on the full global dataset when you only need a local subset.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Define and persist a regional subset for Western Canada
 western_canada = air.sel(lon=slice(230, 255), lat=slice(70, 50))
 
@@ -334,7 +341,7 @@ A **{term}`Boolean <Boolean indexing>`** mask is a binary array of the same shap
 
 Xarray provides the `.where()` method to apply these masks. Unlike coordinate selection, `.where()` typically preserves the **shape** of the original data. Values that do not meet the condition are replaced with a mask value—by default, **{term}`NaN`** (Not a Number).
 
-```{code-cell} python
+```{code-cell} ipython3
 # Keep only "warm" pixels above 270 Kelvin
 warm_mask = air > 270
 warm_data = air.where(warm_mask)
@@ -352,7 +359,7 @@ plt.title("Filtered values: Temperature > 270K");
 
 If you need to replace masked values with a specific placeholder instead of `NaN`, you can provide a second argument:
 
-```{code-cell} python
+```{code-cell} ipython3
 # Replace everything else with a specific NoData value
 air.where(air > 270, -9999).head(time=1)
 ```
@@ -361,7 +368,7 @@ air.where(air > 270, -9999).head(time=1)
 
 By default, `.where()` keeps the entire grid, even if large portions are empty. To shrink the cube to the smallest possible bounding box that contains your valid data, use the `drop=True` parameter. This is particularly useful for "clipping" a dataset to a specific feature or anomaly.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Mask and immediately clip the array to the valid area
 arctic_only = air.where(ds.lat > 60, drop=True)
 print(f"Original shape: {air.shape}")
@@ -372,7 +379,7 @@ print(f"Clipped shape:  {arctic_only.shape}")
 
 You can specify multiple masking conditions within a single `.where()` statement using bitwise operators: `&` (and) and `|` (or). This allows for the selection of specific value ranges or complex geographic windows.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Select temperatures between 280K and 290K
 moderate_range = air.where((air > 280) & (air < 290), drop=True)
 moderate_range.isel(time=0).plot()
@@ -383,7 +390,7 @@ plt.title("Logical AND: Values between 280 and 290 K");
 
 When your data contains discrete categories rather than continuous measurements—such as land cover types or quality status flags—the `.isin()` method is the preferred tool. It allows you to check for a list of specific values simultaneously.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Conceptual example: selecting specific data quality flags
 # Assume we have a DataArray of flags where 1 and 2 are "good"
 # da_masked = air.where(flags.isin([1, 2]), drop=True)
@@ -436,14 +443,14 @@ Extracting a **{term}`time series`** is the bridge between spatial maps and temp
 
 In a data cube with dimensions `(time, lat, lon)`, selecting one specific coordinate reduces the spatial dimensions to single values. This transforms the 3D structure into a one-dimensional **signal** indexed by time.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Select a specific coordinate point
 # This isolates one 'pixel' through the entire temporal dimension
 point_ts = air.sel(lat=50.0, lon=260.0)
 point_ts
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 # Rapid validation of the temporal signal
 point_ts.plot(figsize=(10, 4))
 plt.title("Air temperature time series at Lat: 50.0, Lon: 260.0")
@@ -456,14 +463,14 @@ In real-world Geospatial Data Science, the coordinates of your observation sites
 
 The **`method="nearest"`** parameter tells Xarray to find the single closest available grid cell.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Find the value at a coordinate that is not exactly in the grid
 # 'nearest' picks the center of the closest pixel
 point_ts_nearest = air.sel(lat=51.2, lon=261.3, method="nearest")
 point_ts_nearest
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 # Rapid validation of the temporal signal
 point_ts_nearest.plot(figsize=(10, 4))
 plt.title("Air temperature time series nearest to Lat: 51.2, Lon: 261.3")
@@ -476,21 +483,25 @@ While nearest neighbor selection is fast and preserves original data values, it 
 
 Instead of snapping to the nearest pixel, interpolation uses neighboring observations (typically via a `linear` or `cubic` method) to estimate the value at your exact requested location.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Estimate the value between grid cells using linear interpolation
 # This requires the 'scipy' library
 point_ts_interp = air.interp(lat=41.2, lon=261.3, method="linear")
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 
 # Plot both the nearest-neighbor and interpolated time series for comparison
 plt.figure(figsize=(12, 5))
 
 # Limit to a small window of time to see the interpolation details clearly
-point_ts_nearest.isel(time=slice(0, 50)).plot(label="Nearest Neighbor", marker='o', alpha=0.6)
-point_ts_interp.isel(time=slice(0, 50)).plot(label="Linear Interpolation", linestyle='--', color='red')
+point_ts_nearest.isel(time=slice(0, 50)).plot(
+    label="Nearest Neighbor", marker="o", alpha=0.6
+)
+point_ts_interp.isel(time=slice(0, 50)).plot(
+    label="Linear Interpolation", linestyle="--", color="red"
+)
 
 plt.title("Temperature Time Series: Nearest vs. Interpolated (51.2N, 261.3E)")
 plt.ylabel("Air Temperature [°K]")
@@ -503,9 +514,9 @@ plt.show()
 
 One of the most efficient features of Xarray is its ability to automatically detect the dimensions of a result. Because the extracted object is 1D, calling `.plot()` immediately generates a line chart with correctly formatted time labels.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Rapid validation of the temporal signal using a scatter plot
-point_ts.plot.line(marker='o', linestyle='none', markersize=2, figsize=(10, 4))
+point_ts.plot.line(marker="o", linestyle="none", markersize=2, figsize=(10, 4))
 plt.title("Air temperature time series at Lat: 50.0, Lon: 260.0")
 plt.ylabel("Temperature (K)");
 ```
@@ -520,7 +531,7 @@ By selecting one spatial location, you have successfully "interrogated" the 3D c
 
 ---
 
-## 6. Sampling multiple locations
+## 6. Sampling multiple locations and regional summaries
 
 While single point extraction is a vital diagnostic tool, scientific analysis often requires comparing several distinct sites or generating a representative summary for an entire geographic area. This section moves from simple subsetting to **pointwise indexing** and **spatial reductions**.
 
@@ -530,20 +541,26 @@ In professional workflows, you often need to sample the data cube at a specific 
 
 Xarray handles this through **Vectorized Indexing**. If you provide selection coordinates as Xarray DataArrays that share a dimension name (such as `"points"`), Xarray will extract exactly those pairs rather than a 2D rectangular grid. This is significantly more efficient than looping through locations one by one.
 
-```{code-cell} python
+```{code-cell} ipython3
 import pandas as pd
 import xarray as xr
 
 # Define coordinates for Fairbanks, Vancouver, and Oaxaca
-city_coords = pd.DataFrame({
-    "city": ["Fairbanks", "Montreal", "Oaxaca"],
-    "lat": [64.8, 45.5, 17.1],
-    "lon": [212.2, 286.4, 263.3]
-})
+city_coords = pd.DataFrame(
+    {
+        "city": ["Fairbanks", "Montreal", "Oaxaca"],
+        "lat": [64.8, 45.5, 17.1],
+        "lon": [212.2, 286.4, 263.3],
+    }
+)
 
 # Convert to xarray arrays
-x_cities = xr.DataArray(city_coords["lon"], dims="city", coords={"city": city_coords["city"]})
-y_cities = xr.DataArray(city_coords["lat"], dims="city", coords={"city": city_coords["city"]})
+x_cities = xr.DataArray(
+    city_coords["lon"], dims="city", coords={"city": city_coords["city"]}
+)
+y_cities = xr.DataArray(
+    city_coords["lat"], dims="city", coords={"city": city_coords["city"]}
+)
 
 # Sample the data
 city_samples = air.sel(lon=x_cities, lat=y_cities, method="nearest")
@@ -554,7 +571,7 @@ sampled_sites
 
 Because the resulting object preserves the new `"points"` dimension, you can immediately visualize the differences between your selected locations using a line plot. This allows for a rapid assessment of whether different sites follow similar temporal trends.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Plot the comparison
 city_samples.plot.line(x="time", hue="city", figsize=(12, 5))
 plt.title("Air Temperature Comparison: Fairbanks, Montreal, and Oaxaca")
@@ -574,7 +591,7 @@ Sometimes individual pixels are too noisy or specific for your analysis. In thes
 
 This process is called a **Spatial Reduction**. By calculating the mean across both horizontal dimensions (`lat` and `lon`), you effectively collapse the spatial variability into a single regional signal.
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Define a focused geographic study area (bounding box)
 region = air.sel(lon=slice(235, 255), lat=slice(60, 50))
 
@@ -620,7 +637,7 @@ Check the coordinate order of your dataset before slicing. Because latitude valu
 
 ### Starter code
 
-```{code-cell} python
+```{code-cell} ipython3
 import xarray as xr
 import matplotlib.pyplot as plt
 

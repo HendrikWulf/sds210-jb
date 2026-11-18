@@ -1,8 +1,12 @@
 ---
-
-site: 
-    outline_maxdepth: 1
-
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+site:
+  outline_maxdepth: 1
 ---
 
 # Practical L7 - Solutions
@@ -49,10 +53,10 @@ Your goal is to download the historical metadata for all stations, isolate the o
 
 ```{admonition} Download the Datasets
 :class: note
-Please download this file to your local working directory for this lesson:
-* [swissBoundaries3D_switzerland.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_switzerland.gpkg)
-* [swissBoundaries3D_cantons.gpkg](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/swissBoundaries3D_cantons.gpkg)
-* [kloten_test_data.csv](https://gitlab.com/HendrikWulf/sds210/-/blob/main/L07/data/kloten_test_data.csv)
+You can read these files directly from their web addresses, or download them to your working directory:
+* [swissBoundaries3D_switzerland.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.gpkg)
+* [swissBoundaries3D_cantons.gpkg](https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg)
+* [kloten_test_data.csv](https://data.source.coop/giuz/sds210/L07/kloten_test_data.csv)
 ```
 
 ---
@@ -86,7 +90,6 @@ import geopandas as gpd
 
 # 4. Verify the result
 # print(f"Found {len(stations_gdf)} long-term climate stations.")
-
 ```
 
 ````{admonition} Sample Solution
@@ -139,7 +142,6 @@ In the [previous practical](https://hendrikwulf.github.io/sds210-jb/book/l06-dat
 import numpy as np
 
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -169,7 +171,7 @@ def calculate_trend(df, start_date, end_date="2025-12-31"):
 
 # 7. Load the test dataset and test the function!
 # We must parse the dates and set the index so .loc[] slicing works
-test_df = pd.read_csv("kloten_test_data.csv", parse_dates=["DATE"], index_col="DATE")
+test_df = pd.read_csv("https://data.source.coop/giuz/sds210/L07/kloten_test_data.csv", parse_dates=["DATE"], index_col="DATE")
 
 trend_10yr = calculate_trend(test_df, "2016-01-01")
 trend_30yr = calculate_trend(test_df, "1996-01-01")
@@ -207,7 +209,6 @@ import numpy as np
 from tqdm.auto import tqdm  # The standard progress bar library!
 
 # Write your code here
-
 ```
 
 ````{admonition} Sample Solution
@@ -330,7 +331,6 @@ ax.axis("off")
 plt.tight_layout()
 plt.show()
 """
-
 ```
 
 ````{admonition} Sample Solution
@@ -341,7 +341,7 @@ import matplotlib.pyplot as plt
 import geopandas as gpd
 
 # 1. Load the national basemap
-ch_gdf = gpd.read_file("swissBoundaries3D_switzerland.gpkg").to_crs(epsg=2056)
+ch_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_switzerland.gpkg").to_crs(epsg=2056)
 ch_mainland = ch_gdf[ch_gdf["name"] == "Schweiz"]
 
 # 2. Define fixed upper bounds for our UserDefined categories
@@ -394,6 +394,7 @@ plt.show()
 
 :::::{tab-item} Long-Term
 :::{figure} images/l7_station_trend_all.png
+:alt: Map of Switzerland with weather stations drawn as circles, coloured by their warming trend in °C per decade from pale yellow (below 0) to dark red (above 2), for the long-term period 1981–2025.
 :width: 700px
 :align: center
 
@@ -403,6 +404,7 @@ plt.show()
 
 :::::{tab-item} 30-Year
 :::{figure} images/l7_station_trend_30yr.png
+:alt: Map of Switzerland with weather stations drawn as circles, coloured by their warming trend in °C per decade from pale yellow (below 0) to dark red (above 2), for the most recent 30 years.
 :width: 700px
 :align: center
 
@@ -412,6 +414,7 @@ plt.show()
 
 :::::{tab-item} 10-Year
 :::{figure} images/l7_station_trend_10yr.png
+:alt: Map of Switzerland with weather stations drawn as circles, coloured by their warming trend in °C per decade from pale yellow (below 0) to dark red (above 2), for the most recent 10 years, 2016–2025.
 :width: 700px
 :align: center
 
@@ -491,7 +494,6 @@ ax.axis("off")
 plt.tight_layout()
 plt.show()
 """
-
 ```
 
 ````{admonition} Sample Solution
@@ -502,7 +504,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # 1. Load cantons
-cantons_gdf = gpd.read_file("swissBoundaries3D_cantons.gpkg").to_crs(epsg=2056)
+cantons_gdf = gpd.read_file("https://data.source.coop/giuz/sds210/L07/swissBoundaries3D_cantons.gpkg").to_crs(epsg=2056)
 
 # 2. Initialize empty columns for our three metrics
 cantons_gdf["avg_trend_10yr"] = np.nan
@@ -563,6 +565,7 @@ plt.show()
 
 :::::{tab-item} Long-Term
 :::{figure} images/l7_canton_trend_all.png
+:alt: Map of Switzerland with each canton coloured by the average warming trend of its stations in °C per decade, from pale yellow (below 0) to dark red (above 2); cantons without stations are grey, for the long-term period 1981–2025.
 :width: 700px
 :align: center
 
@@ -572,6 +575,7 @@ plt.show()
 
 :::::{tab-item} 30-Year
 :::{figure} images/l7_canton_trend_30yr.png
+:alt: Map of Switzerland with each canton coloured by the average warming trend of its stations in °C per decade, from pale yellow (below 0) to dark red (above 2); cantons without stations are grey, for the most recent 30 years.
 :width: 700px
 :align: center
 
@@ -581,6 +585,7 @@ plt.show()
 
 :::::{tab-item} 10-Year
 :::{figure} images/l7_canton_trend_10yr.png
+:alt: Map of Switzerland with each canton coloured by the average warming trend of its stations in °C per decade, from pale yellow (below 0) to dark red (above 2); cantons without stations are grey, for the most recent 10 years, 2016–2025.
 :width: 700px
 :align: center
 
@@ -606,7 +611,6 @@ Please answer the following questions briefly:
 
 ```{code-cell} python
 # Write your reflections here (as python comments or in a markdown cell)
-
 ```
 
 ````{admonition} Sample Answers

@@ -1,5 +1,15 @@
 ---
-site: 
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.19.1
+kernelspec:
+  display_name: sds210
+  language: python
+  name: python3
+site:
   outline_maxdepth: 1
 ---
 
@@ -42,7 +52,7 @@ This chapter transitions through the complete visualization workflow. We begin w
 
 As in the previous chapter, we will use the National Centers for Environmental Prediction (NCEP) surface air temperature dataset for these examples.
 
-```{code-cell} python
+```{code-cell} ipython3
 import xarray as xr
 import matplotlib.pyplot as plt
 
@@ -60,7 +70,7 @@ The `.plot()` method is your primary tool for rapid data validation. By default,
 
 To spot erroneous values, such as a sensor error recording a fill value of 9999, it is highly useful to check the overall data distribution. When you call `.plot()` on a 3D array, `xarray` automatically flattens the data and generates a histogram. You can pass standard `matplotlib` keyword arguments directly into this method to customize the look.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Plot a histogram with 50 bins to check the overall data distribution
 ds.air.plot.hist(bins=50, histtype="stepfilled", alpha=0.8)
 plt.xlabel("Air Temperature [°K]")
@@ -79,13 +89,10 @@ If you extract a single spatial location over time, `xarray` detects the 1D data
 
 You can easily plot multiple lines on the same chart to compare locations. By passing a list of coordinates to `.sel()` and specifying the `hue` argument, `xarray` handles the grouping and coloring automatically.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Extract temperatures at three different latitudes and plot them together
 ds.air.sel(lat=[75.0, 50.0, 25.0], lon=260.0, method="nearest").plot.line(
-    x="time", 
-    hue="lat", 
-    figsize=(10, 4),
-    linewidth=1
+    x="time", hue="lat", figsize=(10, 4), linewidth=1
 )
 plt.ylabel("Air Temperature [°K]")
 plt.show()
@@ -103,12 +110,16 @@ You cannot plot a full 3D cube on a flat screen. To map the spatial data, you mu
 
 You can heavily customize these maps using dictionaries like `cbar_kwargs` to format the colorbar, or overlay additional information, such as a contour plot, directly on top of your base map for added detail.
 
-```{code-cell} python
+```{code-cell} ipython3
 # 1. Plot the base heatmap with robust color limits and a horizontal colorbar
 ds.air.isel(time=0).plot.pcolormesh(
-    robust=True, 
+    robust=True,
     cmap="RdYlBu_r",
-    cbar_kwargs={"orientation": "horizontal", "pad": 0.15, "label": "Air Temperature [°K]"}
+    cbar_kwargs={
+        "orientation": "horizontal",
+        "pad": 0.15,
+        "label": "Air Temperature [°K]",
+    },
 )
 
 # 2. Overlay a contour plot on the same axis
@@ -135,13 +146,18 @@ Instead of one single map, `xarray` can generate a grid of subplots that all sha
 
 Because faceted plots can easily become cramped, it is common practice to pass a dictionary of `cbar_kwargs` to move the shared colorbar to the bottom of the figure.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Select the first 4 time steps and plot them adjacent to each other
 ds.air.isel(time=slice(0, 4)).plot(
-    col="time", 
-    col_wrap=2, 
+    col="time",
+    col_wrap=2,
     robust=True,
-    cbar_kwargs={"orientation": "horizontal", "shrink": 0.8, "aspect": 40, "label": "Air Temperature [°K]"}
+    cbar_kwargs={
+        "orientation": "horizontal",
+        "shrink": 0.8,
+        "aspect": 40,
+        "label": "Air Temperature [°K]",
+    },
 )
 plt.show()
 ```
@@ -176,11 +192,21 @@ When you create a faceted plot, `xarray` returns a `FacetGrid` object. This obje
 
 Most importantly, you can use `.map()` or `.map_dataarray()` to apply a custom `matplotlib` or `xarray` plotting function to every single panel simultaneously. For example, you can easily overlay topographic contours or a specific point of interest across all time steps.
 
-```{code-cell} python
-fg = ds.air.isel(time=slice(0, 4)).plot(col="time", col_wrap=2, robust=True, cbar_kwargs={"label": "Air Temperature [°K]"})
+```{code-cell} ipython3
+fg = ds.air.isel(time=slice(0, 4)).plot(
+    col="time", col_wrap=2, robust=True, cbar_kwargs={"label": "Air Temperature [°K]"}
+)
 
 # Map a contour plot onto every panel using the original DataArray
-fg.map_dataarray(xr.plot.contour, x="lon", y="lat", colors="k", levels=5, linewidths=0.5, add_colorbar=False)
+fg.map_dataarray(
+    xr.plot.contour,
+    x="lon",
+    y="lat",
+    colors="k",
+    levels=5,
+    linewidths=0.5,
+    add_colorbar=False,
+)
 
 # Map a standard matplotlib point marker onto every panel
 fg.map(lambda: plt.plot(260.0, 40.0, marker="*", color="white", markersize=15))
@@ -204,7 +230,7 @@ You are not limited to faceting along existing dimensions like time or elevation
 You should only facet multiple variables together if it makes physical sense for them to share the exact same color scale. For example, you should never facet Temperature [Celsius] and Precipitation [mm] together. However, plotting the horizontal and vertical gradients of temperature together works perfectly because they share the same units.
 ```
 
-```{code-cell} python
+```{code-cell} ipython3
 # Calculate spatial temperature gradients
 ds["dTdx"] = ds.air.differentiate("lon")
 ds["dTdy"] = ds.air.differentiate("lat")
@@ -214,10 +240,7 @@ gradients = ds[["dTdx", "dTdy"]].to_array("gradient_direction")
 
 # Facet the variables (rows) against the time dimension (columns)
 fg = gradients.isel(time=slice(0, 3)).plot(
-    col="time", 
-    row="gradient_direction", 
-    robust=True,
-    cmap="coolwarm"
+    col="time", row="gradient_direction", robust=True, cmap="coolwarm"
 )
 
 plt.show()
@@ -239,7 +262,7 @@ While `xarray` correctly labels the axes with latitude and longitude coordinates
 
 Adding cartographic projections to a single plot requires three specific steps. First, you set up a matplotlib axis with a specific projection. Second, you plot the data while declaring the original **{term}`Coordinate Reference System`** of your raw data using the `transform` argument. Third, you draw geographic features onto the axis.
 
-```{code-cell} python
+```{code-cell} ipython3
 import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 
@@ -249,10 +272,10 @@ fig, ax = plt.subplots(subplot_kw={"projection": ccrs.Orthographic(-90, 30)})
 # 2. Plot the data, telling Cartopy the raw data is in Lat/Lon (PlateCarree)
 ds.air.isel(time=0).plot(
     ax=ax,
-    transform=ccrs.PlateCarree(), 
+    transform=ccrs.PlateCarree(),
     robust=True,
     cmap="inferno",
-    cbar_kwargs={"shrink": 0.7, "label": "Air Temperature [°K]"}
+    cbar_kwargs={"shrink": 0.7, "label": "Air Temperature [°K]"},
 )
 
 # 3. Add coastlines to the axis to provide geographic context
@@ -273,16 +296,18 @@ You can easily combine the power of faceting from the previous section with Cart
 
 Because `xarray` generates the subplot axes for you automatically when faceting, you cannot create the axes manually like we did above. Instead, you pass the projection inside the `subplot_kws` dictionary. Finally, you can use the `FacetGrid.map()` method you learned earlier to apply coastlines to every single panel simultaneously.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Create a faceted grid with a Lambert Conformal projection
 fg = ds.air.isel(time=slice(0, 3)).plot(
     col="time",
-    transform=ccrs.PlateCarree(), # Remember to provide the raw data projection!
-    subplot_kws={"projection": ccrs.LambertConformal(central_longitude=-95, central_latitude=45)},
+    transform=ccrs.PlateCarree(),  # Remember to provide the raw data projection!
+    subplot_kws={
+        "projection": ccrs.LambertConformal(central_longitude=-95, central_latitude=45)
+    },
     cbar_kwargs={"orientation": "horizontal", "shrink": 0.8, "aspect": 40},
     robust=True,
     cmap="inferno",
-    label= "Air Temperature [°K]"
+    label="Air Temperature [°K]",
 )
 
 # Apply a coastline to every single axis in the facet grid
@@ -303,24 +328,26 @@ Faceted plots are great for comparing a few time steps, but if you want to visua
 
 The standard approach uses the `matplotlib.animation` tool. The logic is simple: you create an empty figure, define an `update` function that plots a single time slice, and then tell Python to loop that function across a set number of frames.
 
-```{code-cell} python
+```{code-cell} ipython3
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 # 1. Set up the figure and axes
 fig, ax = plt.subplots(figsize=(8, 5))
 
+
 # 2. Define the function that will update the map for every frame
 def animate_frame(i):
-    ax.clear() # Clear the previous map
-    
+    ax.clear()  # Clear the previous map
+
     # Isolate the current time step and plot it
     # We set add_colorbar=False so it doesn't draw a new one every frame
     ds.air.isel(time=i).plot(ax=ax, add_colorbar=False, robust=True)
-    
+
     # Add a dynamic title showing the exact date
     current_date = ds.air.time.values[i]
     ax.set_title(f"Temperature on {str(current_date)[:10]}")
+
 
 # 3. Create the animation (e.g., for the first 20 time steps)
 ani = animation.FuncAnimation(fig, animate_frame, frames=20, interval=200)
@@ -328,7 +355,7 @@ ani = animation.FuncAnimation(fig, animate_frame, frames=20, interval=200)
 # 4. Save the result as a GIF using the Pillow writer
 ani.save("temperature_timelapse.gif", writer="pillow")
 
-plt.close() # Prevents the static plot from showing up in the notebook
+plt.close()  # Prevents the static plot from showing up in the notebook
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -359,7 +386,7 @@ Static matplotlib plots are excellent for documentation and publications, but ex
 
 The `hvplot` library makes use of the `xarray` accessor interface. Once you run `import hvplot.xarray`, every `xarray` object gains an `.hvplot()` method that behaves almost identically to the standard `.plot()` syntax. Just like the basic plotting tools, it makes the same default choices: a 1D array yields a line plot, and a 2D array yields a quadmesh heatmap.
 
-```{code-cell} python
+```{code-cell} ipython3
 import hvplot.xarray
 ```
 
@@ -369,13 +396,9 @@ Where `hvplot` truly shines is in its interactivity. By passing the entire data 
 
 It is highly recommended to set constant **{term}`colormap <Colormap>`** limits using the `clim` argument. If you skip this step, the color mapping will recalculate for every single frame, making visual comparisons across time impossible.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Generate an interactive map with a time slider
-ds.air.hvplot(
-    groupby="time", 
-    clim=(230, 300), 
-    cmap="viridis"
-)
+ds.air.hvplot(groupby="time", clim=(230, 300), cmap="viridis")
 ```
 
 <!-- markdownlint-disable MD033-->
@@ -388,18 +411,19 @@ ds.air.hvplot(
 
 You can easily upgrade the manual slider into a playback animation. By specifying `widget_type="scrubber"`, the map will play forward automatically, revealing dynamic environmental processes. You can also control the placement of this tool using the `widget_location` argument.
 
-```{code-cell} python
+```{code-cell} ipython3
 import logging
+
 # Suppress the deserialization warnings from the 'param' library
-logging.getLogger('param').setLevel(logging.ERROR)
+logging.getLogger("param").setLevel(logging.ERROR)
 
 # Convert the slider into an automatic playback scrubber
 ds.air.hvplot(
-    groupby="time", 
-    clim=(230, 300), 
+    groupby="time",
+    clim=(230, 300),
     cmap="viridis",
     widget_type="scrubber",
-    widget_location="bottom"
+    widget_location="bottom",
 )
 ```
 
@@ -413,14 +437,12 @@ ds.air.hvplot(
 
 Finally, you can seamlessly combine the interactivity of `hvplot` with the geographic projections of `cartopy`. By passing the `projection` and `coastline=True` arguments directly into the `.hvplot()` call, you create a map that supports panning, zooming, and hover tooltips to inspect exact pixel values.
 
-```{code-cell} python
+```{code-cell} ipython3
 # Create an interactive globe with hover capabilities
 import cartopy.crs as ccrs
 
 ds.air.isel(time=0).hvplot(
-    projection=ccrs.Orthographic(-90, 30),
-    coastline=True,
-    cmap="inferno"
+    projection=ccrs.Orthographic(-90, 30), coastline=True, cmap="inferno"
 )
 ```
 
@@ -449,7 +471,7 @@ Your task is to turn this dataset into an interactive map that allows you to exp
 
 **Starter code:**
 
-```{code-cell} python
+```{code-cell} ipython3
 import xarray as xr
 import hvplot.xarray
 
