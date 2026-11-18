@@ -93,7 +93,7 @@ s2_2025_fp = os.path.join(data_folder, 's2_composite_2025.tif')
 
 ## Part 1 – Reading & Visualizing
 
-To understand what has changed, we must first look at the data. Sentinel-2 data is often stored as 16-bit integers with values roughly ranging from 0 to 10,000.
+To understand what has changed, we must first look at the data. Sentinel-2 reflectance is usually distributed as 16-bit integers scaled to roughly 0 to 10,000. Our composites keep that value range, but were exported from Earth Engine as 64-bit floating point numbers, which allows missing pixels to be stored as `NaN`.
 
 The 6 bands in our file correspond to the following NumPy indices (0-based):
 
@@ -106,7 +106,7 @@ The 6 bands in our file correspond to the following NumPy indices (0-based):
 
 ### Tasks
 
-1. **Load the Data:** Use `rasterio.open()` to read the entire 2017 and 2025 images into NumPy arrays called `img_2017` and `img_2025`. Check their `.shape` to confirm they have 6 bands.
+1. **Load the Data:** Use `rasterio.open()` to read the entire 2017 and 2025 images into NumPy arrays called `img_2017` and `img_2025`. Check their `.shape` to confirm they have 6 bands. While each file is open, also store its pixel size (`src.res`) and coordinate reference system (`src.crs`) in variables called `pixel_size` and `crs`. You will need them to calculate areas in Part 4.
 2. **Define a Normalization Function:** Just like you did with Landsat, define a `normalize(array, vmin=0, vmax=3500)` function that clips the array to those bounds and scales it to a `0-1` range for display. *(Note: We use `3500` instead of `0.4` here because Sentinel-2 reflectance is scaled up to ~10,000).*
 3. **Extract and Normalize Bands:** For both 2017 and 2025, extract the 2D arrays for SWIR-2 (`Index 5`), NIR (`Index 3`), and Red (`Index 2`). Pass each of these 2D arrays through your `normalize` function.
 4. **Stack and Plot:** Use `np.dstack()` to stack your three normalized bands into False Color Composites (`fcc_2017` and `fcc_2025`). Plot both composites side-by-side using `plt.subplots(1, 2)`.
@@ -121,11 +121,14 @@ The 6 bands in our file correspond to the following NumPy indices (0-based):
 # 1. Load the full 6-band arrays using rasterio
 with rasterio.open(s2_2017_fp) as src:
     img_2017 = src.read()
+    pixel_size = src.res  # (width, height) of one pixel in CRS units
+    crs = src.crs
     
 with rasterio.open(s2_2025_fp) as src:
     img_2025 = src.read()
 
 print(f"Image shape: {img_2017.shape} (Bands, Rows, Cols)")
+print(f"CRS: {crs}, pixel size: {pixel_size}")
 
 # 2. Define the normalization function for contrast stretching
 def normalize(array, vmin=0, vmax=3500):
@@ -329,7 +332,7 @@ Instead of guessing, we will use statistics. We will calculate the mean and stan
 1. **Calculate Stats:** Calculate the `mean_val` and `std_val` of your `change_cosine` array using `np.nanmean()` and `np.nanstd()`.
 2. **Calculate Z-Score:** Subtract the mean from `change_cosine`, and divide by the standard deviation. Save as `z_score`.
 3. **Boolean Mask:** Define a variable `threshold = 0.5`. Create a mask called `strong_change` that is `True` wherever the `z_score` is strictly greater than this threshold.
-4. **Calculate Area:** Sentinel-2 pixels have a spatial resolution of 10m x 10m (100 m² per pixel). Use `np.sum()` on your boolean mask to count the number of changed pixels. Multiply this count by the pixel area to get total square meters, convert it to square kilometers (divide by 1,000,000), and print the result.
+4. **Calculate Area:** Do not assume the pixel size, read it from the metadata you stored in Part 1. First check that `crs.is_projected` is `True`: only then is the pixel size given in metres rather than degrees. The area of one pixel is `pixel_size[0] * pixel_size[1]` (for these files 10 m × 10 m = 100 m²). Use `np.sum()` on your boolean mask to count the number of changed pixels. Multiply this count by the pixel area to get total square meters, convert it to square kilometers (divide by 1,000,000), and print the result.
 5. **Visualize the Final Product:** Create a 1x2 side-by-side plot (`plt.subplots(1, 2)`).
     * **Plot 1 (Left):** Plot the continuous `z_score` array along with a colorbar.
     * **Plot 2 (Right):** Plot the `fcc_2025` image as a background. Then, overlay your `strong_change` mask using `cmap='winter'` and `alpha=0.8`. *(Hint: To make the `False` values invisible, use `np.where(strong_change, 1, np.nan)` before plotting the mask, see: [where](https://numpy.org/devdocs/reference/generated/numpy.where.html#)).*
@@ -354,9 +357,10 @@ threshold = 0.5
 strong_change = z_score > threshold
 
 # --- 4. Area Calculation ---
-# Sentinel-2 pixels are 10m x 10m = 100 square meters
-pixel_resolution = 10 
-pixel_area_m2 = pixel_resolution ** 2
+# Read the pixel size from the file's metadata instead of assuming it.
+# It is only in metres if the CRS is projected (not in degrees).
+assert crs.is_projected, f"{crs} is not projected: reproject before measuring areas"
+pixel_area_m2 = abs(pixel_size[0] * pixel_size[1])  # here: 10 m x 10 m = 100 m²
 
 # Count pixels identified as change
 change_pixel_count = np.sum(strong_change)
