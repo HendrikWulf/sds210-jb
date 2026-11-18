@@ -15,7 +15,7 @@ From repetitive scripts to reusable spatial tools
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/06_L04_functions/06_practical_L4_solutions.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/06_L04_functions/07_practical_L4_solution.ipynb)
 
 ---
 

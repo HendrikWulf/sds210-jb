@@ -13,10 +13,6 @@ Code style as a tool for clarity, debugging, and scientific trust
 
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/HendrikWulf/sds210-jb/blob/main/book/14_L12_reproducibility/01_writing_readable_python.ipynb)
-
----
-
 ```{admonition} Big idea
 :class: tip
 
