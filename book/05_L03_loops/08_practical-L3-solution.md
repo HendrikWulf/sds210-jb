@@ -361,7 +361,7 @@ Loops are often used to **prepare data for analysis**. Here, you will extract th
 1. Create an empty list called `euclidean_list`. Loop through the `distances` dictionary from Part 4, extract the Euclidean distance for each pair, and append it to the list.
 2. Compute the **median** of `euclidean_list` using index logic (`// 2`).
 3. **The Problem:** If you run your median calculation on the list exactly as it was extracted from the dictionary, your result is likely incorrect. Why? What hidden assumption does the median rely on?
-4. **The Fix:** Fix the calculation by sorting the data *before* computing the median using `sort()` (`list_sorted = list.sort()`).
+4. **The Fix:** Fix the calculation by sorting the data *before* computing the median. You can either sort the list in place with `euclidean_list.sort()`, or create a new sorted copy with `sorted_list = sorted(euclidean_list)`. *(Careful: `.sort()` changes the list itself and returns `None`, so `sorted_list = euclidean_list.sort()` would leave you with `None` instead of a list.)*
 
 ---
 
@@ -375,8 +375,9 @@ for metrics in distances.values():
     euclidean_list.append(metrics["euclidean"])
 
 # Task 3 & 4: The hidden assumption is that median requires ORDERED data.
-# Dictionaries (and lists derived from them) are not guaranteed to be ordered.
-euclidean_list.sort() # <--- This line fixes the problem!
+# Dictionaries keep their insertion order, but insertion order is not value order:
+# the list follows the order in which the pairs were added, not smallest to largest.
+euclidean_list.sort()  # <--- This line fixes the problem! (sorts in place, returns None)
 
 # Task 2: Compute median
 list_len = len(euclidean_list)
