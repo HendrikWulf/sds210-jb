@@ -30,3 +30,6 @@ wheels/
 *.pdf._*
 book/12_L10_time-series/data/*.tif
 book/12_L10_time-series/data/*.tif
+
+# Secrets (API keys, tokens)
+.env
