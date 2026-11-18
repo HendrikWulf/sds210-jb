@@ -396,7 +396,7 @@ Commit message
 : An open-source package and environment management system. It is heavily used in spatial data science because it reliably handles complex, non-Python dependencies (like C++ libraries) required by geospatial tools.
 
 [Container](https://en.wikipedia.org/wiki/OS-level_virtualization)
-: A lightweight, self-contained virtual environment that packages an operating system, Python, and all required libraries together. This ensures that the environment behaves exactly the same on any computer, preventing issues caused by system differences. Also reffered to as `Docker container`
+: A lightweight, self-contained virtual environment that packages an operating system, Python, and all required libraries together. This ensures that the environment behaves exactly the same on any computer, preventing issues caused by system differences. Also referred to as `Docker container`
 
 Contextily
 : A lightweight Python package designed to retrieve map tiles from the internet and seamlessly add them to Matplotlib figures as static background images.
