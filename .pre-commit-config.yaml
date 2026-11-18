@@ -1,3 +1,7 @@
+# Enable these checks once per clone with:  pre-commit install
+#
+# The book shows the outputs stored in the notebooks (they are not re-executed
+# during the build), so do NOT add output-stripping hooks such as nbstripout.
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
@@ -7,7 +11,11 @@ repos:
       - id: end-of-file-fixer
         types: [python]
       - id: trailing-whitespace
+        # Skip Markdown: two trailing spaces are a line break, and the paired
+        # .md files are written by jupytext from the notebooks (hook below).
+        exclude: \.md$
       - id: requirements-txt-fixer
+      # Only checks newly added files. Large data belongs outside the repository.
       - id: check-added-large-files
         args: ["--maxkb=500"]
 
@@ -15,14 +23,26 @@ repos:
     rev: 25.9.0
     hooks:
       - id: black-jupyter
+        # Deliberate teaching examples black would break or cannot parse:
+        # 03_syntax shows `x = 5; y = 12`; 05_string-operations shows a quoting error.
+        exclude: ^book/(03_L01_get-started/03_syntax|04_L02_variables/05_string-operations)\.ipynb$
+
+  # The notebooks are the source of the book: regenerate the paired MyST .md
+  # file from every changed notebook (settings in book/jupytext.toml).
+  - repo: https://github.com/mwouts/jupytext
+    rev: v1.19.1
+    hooks:
+      - id: jupytext
+        args: ["--from", "ipynb", "--to", "myst"]
+        files: ^book/.*\.ipynb$
 
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.1
     hooks:
       - id: codespell
-        args: ["--ignore-words-list=gis,timeseries", "--skip=*.json,*.csv"]
-
-  - repo: https://github.com/kynan/nbstripout
-    rev: 0.8.1
-    hooks:
-      - id: nbstripout
+        # als: German example text; airloom: part of an example URL; morges: Swiss town
+        args:
+          - "--ignore-words-list=gis,timeseries,als,airloom,morges"
+          # Notebooks are skipped: their embedded images trigger false positives,
+          # and the paired .md files contain the same text.
+          - "--skip=*.ipynb,*.json,*.csv,*.geojson,*.bib,*.pdf"
