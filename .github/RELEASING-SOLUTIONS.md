@@ -85,6 +85,31 @@ history without the solution files, checks that the current files are unchanged,
 it force-pushes. It refuses to run while solutions are released. Afterwards, every existing
 clone has to be reset (the script prints how), so run it in summer, not during the semester.
 
+## Timed pages (project topics)
+
+The same workflow shows single pages of the book from a given date on. The page with the
+project topics (`book/15_projects/01_topics.md`) appears on **12 April 2027 at 09:00** and stays
+afterwards. The rest of the Projects section is always visible.
+
+- **Schedule:** a `[[page_release]]` entry at the end of `.github/solution-releases.toml`
+  (`name = "project-topics"`, `date`, `time`).
+- **What is hidden:** the lines of `myst.yml` between `# timed: project-topics (start)` and
+  `# timed: project-topics (end)`, i.e. the table-of-contents entry of the topics page. While
+  hidden, each line starts with `#~ `; the workflow adds or removes that prefix.
+- **Before the date** the workflow hides the block, **from the date on** it shows it. The hourly
+  run at 08:40 waits until 09:00, then shows the page, commits ("Update timed pages") and
+  redeploys the book. Pushing a changed schedule also starts the workflow, so a new date takes
+  effect immediately (for example, next year's date hides the page again).
+- **Not secret:** the page file stays in this repository and is visible on GitHub; only the
+  book leaves it out.
+- **Links into the hidden page**, such as the "topics" link on the Projects overview page
+  (`book/15_projects.md`), lead nowhere while it is hidden and work from the date on.
+- **Show or hide by hand:** `python3 .github/scripts/release_solutions.py pages --set project-topics=show`
+  (or `=hide`), then commit `myst.yml`. The next scheduled run puts the block back to what the
+  date says, so to change it for good, change the date.
+- **Another timed page:** wrap its lines in `myst.yml` in `# timed: <name> (start)` /
+  `# timed: <name> (end)` and add a `[[page_release]]` entry with that name.
+
 ## Common tasks
 
 ### Change a date or the time

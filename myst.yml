@@ -291,7 +291,9 @@ project:
     - title: Projects
       file: book/15_projects.md
       children:
-        - file: book/15_projects/01_topics.md
+        # timed: project-topics (start) -- see .github/solution-releases.toml; "#~ " = hidden until then
+#~         - file: book/15_projects/01_topics.md
+        # timed: project-topics (end)
         - file: book/15_projects/02_workflow.md
         - file: book/15_projects/03_repository.md
         - file: book/15_projects/04_assessment.md
