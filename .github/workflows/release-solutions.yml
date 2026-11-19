@@ -79,7 +79,7 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run && '--dry-run' || '' }}
         run: |
           # Pick up anything pushed to main while the job was waiting.
-          git pull --ff-only origin main
+          if [ "$GITHUB_REF_NAME" = main ]; then git pull --ff-only origin main; fi
           python3 .github/scripts/release_solutions.py release --solutions _solutions --names "$NAMES" $DRY_RUN
 
       - name: Remove the solutions from the book
@@ -88,12 +88,13 @@ jobs:
           NAMES: ${{ steps.plan.outputs.names }}
           DRY_RUN: ${{ inputs.dry_run && '--dry-run' || '' }}
         run: |
-          git pull --ff-only origin main
+          if [ "$GITHUB_REF_NAME" = main ]; then git pull --ff-only origin main; fi
           python3 .github/scripts/release_solutions.py takedown --names "$NAMES" $DRY_RUN
 
       - name: Commit and push
         id: commit
-        if: steps.plan.outputs.action != '' && !inputs.dry_run
+        # Only runs started on main may change main; runs on other branches are tests.
+        if: steps.plan.outputs.action != '' && !inputs.dry_run && github.ref_name == 'main'
         env:
           ACTION: ${{ steps.plan.outputs.action }}
           NAMES: ${{ steps.plan.outputs.names }}
