@@ -108,4 +108,7 @@ staged copies.
   their larger files into a local `data` folder first. (The `replaces` column of `manifest.csv`
   lists the GitLab and Google Drive links and the old file names they replaced.) When you add or
   rename a file later, update `manifest.csv`, stage and sync again, then update the notebooks.
-- Remove the data files from this repository and optionally rewrite its history to shrink it.
+- The lesson `data/` folders are no longer tracked in Git (see `.gitignore`), and they were
+  removed from the repository history. Rows with `source_type` `repo` in `manifest.csv` read
+  from your local, untracked copies; in a fresh clone, download them from Source Cooperative
+  first (`aws s3 sync s3://giuz/sds210/ ~/sds210-source-coop --endpoint-url https://data.source.coop --no-sign-request`).
