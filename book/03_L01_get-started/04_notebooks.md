@@ -69,13 +69,13 @@ The setup process is explained in the [Setup](../02_setup.md) guide of the book.
 
 * the Python environment `sds210`, created with {term}`Conda`
 * an {term}`IDE <Integrated Development Environment>`, preferably [VS Code](../02_setup/2_vs_code.md) or [JupyterLab](../02_setup/5_jupyterLab.md)
-* the SDS210 course files, including notebooks, data, and practicals
+* the SDS210 course files: the lesson and practical notebooks
 
 ---
 
 ### Get the course files
 
-The SDS210 course materials are provided in a course {term}`repository <Repository>`. The repository contains the lesson data, practicals, and notebooks in Jupyter Notebook format (`.ipynb`).
+The SDS210 notebooks are provided in the course {term}`repository <Repository>` on [GitHub](https://github.com/HendrikWulf/sds210-jb). The lessons and practicals are Jupyter Notebooks (`.ipynb`) in its `book/` folder, with one subfolder per lesson. The course data are stored separately on [Source Cooperative](https://source.coop/giuz/sds210), and the notebooks read them directly from the web.
 
 You have two options to get the files:
 
@@ -83,10 +83,10 @@ You have two options to get the files:
 
 :::::{tab-item} Recommended: clone with Git
 
-If you are comfortable using {term}`Git`, clone the repository. This is the best option because you can update your files later with `git pull`.
+If you are comfortable using {term}`Git`, clone the repository. This is the best option because you can update your files later with `git pull`. The last word, `sds210`, names the new folder:
 
 ```bash
-git clone https://gitlab.com/HendrikWulf/sds210.git
+git clone https://github.com/HendrikWulf/sds210-jb.git sds210
 ```
 
 Then move into the repository folder:
@@ -107,9 +107,9 @@ git pull
 
 If you do not want to use Git yet, download the repository as a ZIP file:
 
-[SDS210 repository ZIP](https://gitlab.com/HendrikWulf/sds210/-/archive/main/sds210-main.zip)
+[SDS210 repository ZIP](https://github.com/HendrikWulf/sds210-jb/archive/refs/heads/main.zip)
 
-Extract the ZIP file to a suitable location on your computer where you want to store your SDS210 course files.
+Extract the ZIP file to a suitable location on your computer where you want to store your SDS210 course files. The extracted folder is called `sds210-jb-main`; you can rename it to `sds210`.
 
 ```{admonition} Important
 :class: important
@@ -128,7 +128,7 @@ To update your course files later, download a fresh ZIP file or switch to the Gi
 
 ### Create the course environment `sds210`
 
-The `environment.yml` file in the [course repository](https://gitlab.com/HendrikWulf/sds210/-/blob/7845456798b7d3229be7471197050c5d7a191ee5/environment.yml) contains all information needed to set up your Python environment.
+The [environment.yml](https://data.source.coop/giuz/sds210/environment.yml) file, stored with the course data on [Source Cooperative](https://source.coop/giuz/sds210), contains all information needed to set up your Python environment.
 
 If you have not yet installed Conda, download and install [Miniconda](https://www.anaconda.com/docs/getting-started/miniconda/install). Follow the default installation settings described in the [Conda setup chapter](../02_setup/1_conda.md).
 
@@ -137,11 +137,8 @@ After installing Conda, open **Anaconda Prompt** on Windows or your {term}`Termi
 Then run the following commands:
 
 ```bash
-# Navigate to the extracted or cloned SDS210 folder
-cd <path-to-sds210-repository-folder>
-
-# Create the SDS210 environment
-conda env create -f environment.yml
+# Create the SDS210 environment (Conda reads the file from its web address)
+conda env create --file https://data.source.coop/giuz/sds210/environment.yml
 
 # Activate the environment
 conda activate sds210

@@ -855,23 +855,17 @@ So far, you practised with a small environment called `test-env`. For the actual
 
 This environment is created from an `environment.yml` file. The file lists the packages needed for the course, so you do not have to install them one by one.
 
-1. Download the [environment.yml](https://gitlab.com/HendrikWulf/sds210/-/blob/7845456798b7d3229be7471197050c5d7a191ee5/environment.yml) file to a suitable location on your computer where you will store your SDS210 course files.
+1. Open Anaconda Prompt on Windows or Terminal on macOS/Linux.
 
-2. Open Anaconda Prompt on Windows or Terminal on macOS/Linux.
-
-3. Navigate to the folder that contains the `environment.yml` file:
+2. Create the course environment from the [environment.yml](https://data.source.coop/giuz/sds210/environment.yml) file, which is stored with the course data on [Source Cooperative](https://source.coop/giuz/sds210). Conda reads the file directly from its web address:
 
 ```bash
-cd <path-to-sds210-repository-folder>
+conda env create --file https://data.source.coop/giuz/sds210/environment.yml
 ```
 
-1. Create the course environment:
+If you prefer, download the file first, navigate to the folder that contains it, and run `conda env create --file environment.yml` there.
 
-```bash
-conda env create --file environment.yml
-```
-
-1. Activate the course environment:
+3. Activate the course environment:
 
 ```bash
 conda activate sds210
