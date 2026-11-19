@@ -1,20 +1,24 @@
-"""Release the sample solutions of the practicals on schedule.
+"""Release the sample solutions of the practicals on schedule, and take them down after the course.
 
 Used by .github/workflows/release-solutions.yml; see .github/RELEASING-SOLUTIONS.md.
 Needs only the Python standard library (3.11 or newer).
 
     python3 .github/scripts/release_solutions.py status
-        Show the schedule and which solutions are released, due or still scheduled.
-        Also checks the schedule: every notebook needs an entry in myst.yml.
+        Show the schedule and what is released, due, scheduled or taken down.
+        Also checks the schedule (every notebook needs an entry in myst.yml, the takedown
+        must come after the last release).
 
     python3 .github/scripts/release_solutions.py status --now 2027-03-16T17:05
-        The same, as if it were that time (Europe/Zurich unless an offset is given).
+        The same, as if it were that time (Swiss time unless an offset is given).
 
     python3 .github/scripts/release_solutions.py release --solutions DIR --names P02,P03
         Copy those solutions from DIR (a clone of sds210-solutions) into this repository,
         enable their entries in myst.yml and stage them for a commit (git add -f).
-        Add --dry-run to only print what would change.
 
+    python3 .github/scripts/release_solutions.py takedown --names P02,P03
+        Remove those solutions from this repository and comment out their entries in myst.yml.
+
+Add --dry-run to release or takedown to only print what would change.
 A solution counts as released when its notebook is tracked by git in this repository.
 """
 
@@ -33,6 +37,13 @@ from zoneinfo import ZoneInfo
 REPO = Path(__file__).resolve().parents[2]
 SCHEDULE = REPO / ".github" / "solution-releases.toml"
 TOC = REPO / "myst.yml"
+FMT = "%a %d %b %Y %H:%M %Z"
+
+
+def as_datetime(date, time, tz, label):
+    if not isinstance(date, dt.date):
+        sys.exit(f"{label}: dates must be written as YYYY-MM-DD without quotes")
+    return dt.datetime.combine(date, dt.time.fromisoformat(time), tzinfo=tz)
 
 
 def load_schedule():
@@ -40,20 +51,26 @@ def load_schedule():
     tz = ZoneInfo(cfg["timezone"])
     releases = []
     for entry in cfg["release"]:
-        if not isinstance(entry["date"], dt.date):
-            sys.exit(f"{entry['practical']}: date must be written as YYYY-MM-DD without quotes")
-        time = dt.time.fromisoformat(entry.get("time", cfg["release_time"]))
         notebook = entry["notebook"]
         releases.append({
             "name": entry["practical"],
-            "when": dt.datetime.combine(entry["date"], time, tzinfo=tz),
+            "when": as_datetime(entry["date"], entry.get("time", cfg["release_time"]), tz,
+                                entry["practical"]),
             "notebook": notebook,
             "files": [notebook, str(Path(notebook).with_suffix(".md"))],
         })
     names = [r["name"] for r in releases]
     if len(names) != len(set(names)):
         sys.exit("solution-releases.toml: each practical may appear only once")
-    return tz, releases
+    takedown = None
+    if "takedown_date" in cfg:
+        takedown = as_datetime(cfg["takedown_date"], cfg.get("takedown_time", "23:59"), tz,
+                               "takedown_date")
+        last = max(r["when"] for r in releases)
+        if takedown <= last:
+            sys.exit(f"solution-releases.toml: the takedown ({takedown.strftime(FMT)}) must come "
+                     f"after the last release ({last.strftime(FMT)}). Did you update all dates?")
+    return tz, releases, takedown
 
 
 def is_tracked(path):
@@ -73,6 +90,10 @@ def check_toc(releases):
     missing = [r["notebook"] for r in releases if not toc_pattern(r["notebook"]).search(toc)]
     if missing:
         sys.exit("myst.yml has no entry (commented or not) for:\n  " + "\n  ".join(missing))
+
+
+def in_book(release, toc):
+    return not toc_pattern(release["notebook"]).search(toc).group("comment")
 
 
 def write_output(**values):
@@ -98,54 +119,76 @@ def parse_now(text, tz):
     return now if now.tzinfo else now.replace(tzinfo=tz)
 
 
+def parse_names(text, releases):
+    names = [n.strip() for n in text.split(",") if n.strip()]
+    unknown = [n for n in names if n not in {r["name"] for r in releases}]
+    if unknown:
+        sys.exit(f"unknown practical(s): {', '.join(unknown)}")
+    return names
+
+
 def cmd_status(args):
-    tz, releases = load_schedule()
+    tz, releases, takedown = load_schedule()
     check_toc(releases)
+    toc = TOC.read_text(encoding="utf-8")
     now = parse_now(args.now, tz)
     window = now + dt.timedelta(minutes=args.lookahead)
-    only = {n.strip() for n in args.only.split(",")} if args.only else None
-    if only and not only <= {r["name"] for r in releases}:
-        sys.exit(f"unknown practical(s): {', '.join(sorted(only - {r['name'] for r in releases}))}")
+    only = set(parse_names(args.only, releases)) if args.only else None
+    online = {r["name"] for r in releases if is_tracked(r["notebook"]) or in_book(r, toc)}
 
-    due, rows = [], []
+    # What to do: release (due solutions), takedown (after the course) or nothing.
+    if args.take_down or (only is None and takedown and takedown <= window and online):
+        action, chosen = "takedown", [r for r in releases if r["name"] in online]
+        start = now if args.take_down else takedown
+    elif only is not None:
+        action, chosen, start = "release", [r for r in releases if r["name"] in only], now
+    else:
+        # After the takedown, nothing is released on schedule any more (until the dates of the
+        # next year are entered).
+        course_running = takedown is None or now < takedown
+        chosen = [r for r in releases if course_running and r["name"] not in online
+                  and r["when"] <= window]
+        action = "release" if chosen else ""
+        start = max((r["when"] for r in chosen), default=now)
+    chosen_names = {r["name"] for r in chosen}
+
+    rows = []
+    after_takedown = takedown is not None and takedown <= now
     for r in releases:
-        released = is_tracked(r["notebook"])
-        if only is not None:
-            state = "selected" if r["name"] in only else ("released" if released else "scheduled")
-        elif released:
+        if r["name"] in chosen_names:
+            state = "take down" if action == "takedown" else ("due" if r["when"] <= now or only else "due soon")
+        elif r["name"] in online:
             state = "released"
-        elif r["when"] <= now:
-            state = "due"
-        elif r["when"] <= window:
-            state = "due soon"
+        elif after_takedown and r["when"] < takedown:
+            state = "taken down"
         else:
             state = "scheduled"
-        if state in ("due", "due soon", "selected"):
-            due.append(r)
-        rows.append((r["name"], r["when"].strftime("%a %d %b %Y %H:%M %Z"), state, r["notebook"]))
+        rows.append((r["name"], r["when"].strftime(FMT), state, r["notebook"]))
 
-    print(f"Now: {now.strftime('%a %d %b %Y %H:%M %Z')}")
+    print(f"Now: {now.strftime(FMT)}")
     for row in rows:
         print("  {:<4} {:<26} {:<10} {}".format(*row))
-    names = ",".join(r["name"] for r in due)
-    latest = max((r["when"] for r in due if only is None), default=now)
-    wait = max(0, int((latest - now).total_seconds()))
-    print(f"\nTo release now: {names or 'nothing'}" + (f" (after waiting {wait} s)" if names and wait else ""))
+    if takedown:
+        print(f"  Takedown of all solutions: {takedown.strftime(FMT)}")
+    names = ",".join(r["name"] for r in chosen)
+    wait = max(0, int((start - now).total_seconds()))
+    verb = {"release": "To release now", "takedown": "To take down now"}.get(action, "To do now")
+    print(f"\n{verb}: {names or 'nothing'}" + (f" (after waiting {wait} s)" if names and wait else ""))
 
-    write_output(due=names, wait_seconds=wait)
+    write_output(action=action, names=names, wait_seconds=wait)
     table = ["| Practical | Release (Swiss time) | Status |", "|---|---|---|"]
     table += [f"| {n} | {w} | {s} |" for n, w, s, _ in rows]
-    write_summary(f"Checked at {now.strftime('%d %b %Y %H:%M %Z')}\n\n" + "\n".join(table))
+    if takedown:
+        table.append(f"| all | {takedown.strftime(FMT)} | takedown |")
+    write_summary(f"Checked at {now.strftime(FMT)}. Planned: {action or 'nothing'} {names}\n\n"
+                  + "\n".join(table))
 
 
 def cmd_release(args):
-    _, releases = load_schedule()
+    _, releases, _ = load_schedule()
     check_toc(releases)
-    names = [n.strip() for n in args.names.split(",") if n.strip()]
+    names = parse_names(args.names, releases)
     by_name = {r["name"]: r for r in releases}
-    unknown = [n for n in names if n not in by_name]
-    if unknown:
-        sys.exit(f"unknown practical(s): {', '.join(unknown)}")
     solutions = Path(args.solutions).resolve()
 
     toc = TOC.read_text(encoding="utf-8")
@@ -164,13 +207,12 @@ def cmd_release(args):
                     dst.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(src, dst)
             to_stage.append(rel)
-        pattern = toc_pattern(r["notebook"])
-        match = pattern.search(toc)
-        if match.group("comment"):
-            print(f"{name}: enable {r['notebook']} in myst.yml")
-            toc = pattern.sub(lambda m: f"{m.group('indent')}- file: {r['notebook']}", toc, count=1)
-        else:
+        if in_book(r, toc):
             print(f"{name}: already in myst.yml")
+        else:
+            print(f"{name}: enable {r['notebook']} in myst.yml")
+            toc = toc_pattern(r["notebook"]).sub(lambda m: f"{m.group('indent')}- file: {r['notebook']}",
+                                                 toc, count=1)
 
     if args.dry_run:
         print("\nDry run: nothing changed.")
@@ -181,20 +223,54 @@ def cmd_release(args):
     write_summary(f"\nReleased: {', '.join(names)}")
 
 
+def cmd_takedown(args):
+    _, releases, _ = load_schedule()
+    check_toc(releases)
+    names = parse_names(args.names, releases)
+    by_name = {r["name"]: r for r in releases}
+
+    toc = TOC.read_text(encoding="utf-8")
+    to_remove = []
+    for name in names:
+        r = by_name[name]
+        for rel in r["files"]:
+            if is_tracked(rel):
+                print(f"{name}: remove {rel}")
+                to_remove.append(rel)
+        if in_book(r, toc):
+            print(f"{name}: comment out {r['notebook']} in myst.yml")
+            toc = toc_pattern(r["notebook"]).sub(lambda m: f"{m.group('indent')}# - file: {r['notebook']}",
+                                                 toc, count=1)
+
+    if args.dry_run:
+        print("\nDry run: nothing changed.")
+        return
+    # Remove the files first, so a failure leaves myst.yml untouched.
+    if to_remove:
+        subprocess.run(["git", "rm", "-q", "-f", "--", *to_remove], cwd=REPO, check=True)
+    TOC.write_text(toc, encoding="utf-8")
+    subprocess.run(["git", "add", "--", "myst.yml"], cwd=REPO, check=True)
+    write_summary(f"\nTaken down: {', '.join(names)}")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
     status = sub.add_parser("status", help="show the schedule and what is due")
     status.add_argument("--now", default="", help="pretend it is this time, e.g. 2027-03-16T17:05")
     status.add_argument("--lookahead", type=int, default=0,
-                        help="also count releases due within this many minutes as due")
-    status.add_argument("--only", default="", help="treat these practicals as due, ignoring dates")
+                        help="also count releases or the takedown due within this many minutes")
+    status.add_argument("--only", default="", help="release these practicals now, ignoring dates")
+    status.add_argument("--take-down", action="store_true", help="take all released solutions down now")
     release = sub.add_parser("release", help="copy solutions in and enable them in myst.yml")
     release.add_argument("--solutions", required=True, help="clone of the private solutions repository")
     release.add_argument("--names", required=True, help="comma-separated practicals, e.g. P02,P03")
     release.add_argument("--dry-run", action="store_true")
+    takedown = sub.add_parser("takedown", help="remove solutions and comment them out in myst.yml")
+    takedown.add_argument("--names", required=True, help="comma-separated practicals, e.g. P02,P03")
+    takedown.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-    {"status": cmd_status, "release": cmd_release}[args.command](args)
+    {"status": cmd_status, "release": cmd_release, "takedown": cmd_takedown}[args.command](args)
 
 
 if __name__ == "__main__":
