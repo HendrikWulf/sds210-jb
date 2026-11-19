@@ -1,0 +1,63 @@
+# Release schedule for the sample solutions of the practicals.
+#
+# The solutions live in the private repository HendrikWulf/sds210-solutions. The workflow
+# .github/workflows/release-solutions.yml copies each one into this repository at its release
+# time, adds it to the table of contents (myst.yml) and publishes the book.
+# How it works and how to change it: .github/RELEASING-SOLUTIONS.md
+#
+# To change a date, edit `date` (YYYY-MM-DD, no quotes) and push to main.
+# To release one practical at a different time of day, add for example  time = "12:00".
+# Check the schedule locally with:
+#   python3 .github/scripts/release_solutions.py status
+
+# Swiss local time: Central European Time in winter, Central European Summer Time from the
+# last Sunday of March. Changes between the two are handled automatically.
+timezone = "Europe/Zurich"
+release_time = "17:00"
+
+# `notebook` is the solution notebook; its paired MyST file (same name, .md) is released with it.
+
+[[release]]
+practical = "P02"
+date = 2027-03-16
+notebook = "book/04_L02_variables/09_practical-L2-solution.ipynb"
+
+[[release]]
+practical = "P03"
+date = 2027-03-23
+notebook = "book/05_L03_loops/08_practical-L3-solution.ipynb"
+
+[[release]]
+practical = "P04"
+date = 2027-03-30
+notebook = "book/06_L04_functions/07_practical_L4_solution.ipynb"
+
+[[release]]
+practical = "P05"
+date = 2027-04-06
+notebook = "book/07_L05_libraries/07_practical_L5_solution.ipynb"
+
+[[release]]
+practical = "P06"
+date = 2027-04-13
+notebook = "book/08_L06_data-frames/09_practical_L6-solutions.ipynb"
+
+[[release]]
+practical = "P07"
+date = 2027-04-20
+notebook = "book/09_L07_vector-data/09_practical_L7-solutions.ipynb"
+
+[[release]]
+practical = "P08"
+date = 2027-04-27
+notebook = "book/10_L08_visualization/07_practical_L8-solutions.ipynb"
+
+[[release]]
+practical = "P09"
+date = 2027-05-04
+notebook = "book/11_L09_raster-data/08_practical_L9-solutions.ipynb"
+
+[[release]]
+practical = "P10"
+date = 2027-05-11
+notebook = "book/12_L10_time-series/10_practical_L10-solutions.ipynb"
