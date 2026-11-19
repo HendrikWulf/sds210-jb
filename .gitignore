@@ -28,8 +28,15 @@ wheels/
 .installed.cfg
 *.egg
 *.pdf._*
-book/12_L10_time-series/data/*.tif
-book/12_L10_time-series/data/*.tif
 
 # Secrets (API keys, tokens)
 .env
+
+# Course data lives on Source Cooperative (https://source.coop/giuz/sds210);
+# local copies in the lesson data folders are not tracked.
+book/*/data/
+
+# Files the notebooks write when they run
+book/12_L10_time-series/processed_climate_data.nc
+book/12_L10_time-series/processed_climate_data.zarr/
+book/exports/sds210-book.pdf
