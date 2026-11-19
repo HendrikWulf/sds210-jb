@@ -40,3 +40,10 @@ book/*/data/
 book/12_L10_time-series/processed_climate_data.nc
 book/12_L10_time-series/processed_climate_data.zarr/
 book/exports/sds210-book.pdf
+
+# Sample solutions of the practicals: they live in the private repository sds210-solutions.
+# The release workflow adds each one here after its deadline (git add -f); see
+# .github/RELEASING-SOLUTIONS.md. Once released, a file is tracked and this rule no longer applies.
+book/*/*_practical*solution*.ipynb
+book/*/*_practical*solution*.md
+_solutions/

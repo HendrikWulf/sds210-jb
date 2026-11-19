@@ -1,0 +1,101 @@
+# Releases the sample solutions of the practicals on the dates in .github/solution-releases.toml.
+# The solutions live in the private repository sds210-solutions; this workflow copies a solution
+# into this repository when it is due, enables it in myst.yml, commits, and starts the
+# deployment of the book. Full explanation: .github/RELEASING-SOLUTIONS.md
+name: Release practical solutions
+
+on:
+  schedule:
+    # Cron times are UTC. This runs every hour at minute 40, February to June. If a solution is
+    # due within the next 30 minutes (see --lookahead below), the job waits until the exact
+    # release time, so a 17:00 release is published at about 17:02 Swiss time.
+    # GitHub may start scheduled runs a few minutes late; a release is then a little later.
+    - cron: "40 * * 2-6 *"
+  workflow_dispatch:
+    inputs:
+      practical:
+        description: "Release or refresh these practicals now, ignoring their dates (e.g. P03 or P03,P04). Leave empty to follow the schedule."
+        required: false
+        default: ""
+      dry_run:
+        description: "Dry run: only show what would happen, change nothing"
+        type: boolean
+        default: false
+      now:
+        description: "Dry runs only: pretend it is this time, e.g. 2027-03-16T17:05 (Swiss time)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write # commit the released solution files
+  actions: write # start the deploy workflow
+
+# Never run two releases at the same time.
+concurrency:
+  group: release-solutions
+  cancel-in-progress: false
+
+jobs:
+  release:
+    # Do not run in forks of the repository.
+    if: github.repository == 'HendrikWulf/sds210-jb'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check the schedule
+        id: due
+        env:
+          PRACTICAL: ${{ inputs.practical }}
+          NOW: ${{ inputs.dry_run && inputs.now || '' }}
+        run: |
+          python3 .github/scripts/release_solutions.py status --lookahead 30 \
+            ${PRACTICAL:+--only "$PRACTICAL"} ${NOW:+--now "$NOW"}
+
+      - name: Wait for the release time
+        if: steps.due.outputs.due != '' && steps.due.outputs.wait_seconds != '0' && !inputs.dry_run
+        run: sleep ${{ steps.due.outputs.wait_seconds }}
+
+      - name: Get the solutions (private repository)
+        if: steps.due.outputs.due != ''
+        uses: actions/checkout@v7
+        with:
+          repository: HendrikWulf/sds210-solutions
+          ssh-key: ${{ secrets.SOLUTIONS_DEPLOY_KEY }}
+          path: _solutions
+
+      - name: Copy the solutions and enable them in the book
+        if: steps.due.outputs.due != ''
+        env:
+          DUE: ${{ steps.due.outputs.due }}
+          DRY_RUN: ${{ inputs.dry_run && '--dry-run' || '' }}
+        run: |
+          # Pick up anything pushed to main while the job was waiting.
+          git pull --ff-only origin main
+          python3 .github/scripts/release_solutions.py release --solutions _solutions --names "$DUE" $DRY_RUN
+
+      - name: Commit and push
+        id: commit
+        if: steps.due.outputs.due != '' && !inputs.dry_run
+        env:
+          DUE: ${{ steps.due.outputs.due }}
+        run: |
+          if git diff --cached --quiet; then
+            echo "Nothing changed: the released files are already up to date."
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898569+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Release sample solution ${DUE//,/, }"
+          git push origin HEAD:main
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      # A push made by this workflow does not start other workflows by itself, so the
+      # deployment is started explicitly.
+      - name: Publish the book
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main
