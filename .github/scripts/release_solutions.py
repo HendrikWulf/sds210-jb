@@ -18,8 +18,8 @@ Needs only the Python standard library (3.11 or newer).
     python3 .github/scripts/release_solutions.py takedown --names P02,P03
         Remove those solutions from this repository and comment out their entries in myst.yml.
 
-    python3 .github/scripts/release_solutions.py pages --set projects=show
-        Show (or hide) a timed block of myst.yml, e.g. the Projects pages.
+    python3 .github/scripts/release_solutions.py pages --set project-topics=show
+        Show (or hide) a timed block of myst.yml, e.g. the project topics page.
 
 Add --dry-run to release, takedown or pages to only print what would change.
 A solution counts as released when its notebook is tracked by git in this repository.
@@ -379,7 +379,7 @@ def main():
     takedown.add_argument("--names", required=True, help="comma-separated practicals, e.g. P02,P03")
     takedown.add_argument("--dry-run", action="store_true")
     pages = sub.add_parser("pages", help="show or hide timed blocks of myst.yml")
-    pages.add_argument("--set", required=True, help="e.g. projects=show or projects=hide")
+    pages.add_argument("--set", required=True, help="e.g. project-topics=show or project-topics=hide")
     pages.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     {"status": cmd_status, "release": cmd_release, "takedown": cmd_takedown,

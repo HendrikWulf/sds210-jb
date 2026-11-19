@@ -1,6 +1,6 @@
 # Releases the sample solutions of the practicals on the dates in .github/solution-releases.toml,
 # and takes them all down again after the course (takedown_date in the same file).
-# Also shows timed pages (e.g. Projects) from their date on ([[page_release]] in the same file).
+# Also shows timed pages (e.g. the project topics) from their date on ([[page_release]] in the same file).
 # The solutions live in the private repository sds210-solutions; this workflow copies a solution
 # into this repository when it is due, enables it in myst.yml, commits, and starts the
 # deployment of the book. Full explanation: .github/RELEASING-SOLUTIONS.md
@@ -14,7 +14,7 @@ on:
     # GitHub may start scheduled runs a few minutes late; a release is then a little later.
     # If you move the takedown to August or later, extend the months (2-7) accordingly.
     - cron: "40 * * 2-7 *"
-  # Apply a changed schedule right away (e.g. hide the Projects pages again after entering
+  # Apply a changed schedule right away (e.g. hide the project topics again after entering
   # next year's date).
   push:
     branches: [main]

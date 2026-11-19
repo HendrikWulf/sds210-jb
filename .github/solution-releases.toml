@@ -74,6 +74,6 @@ notebook = "book/12_L10_time-series/10_practical_L10-solutions.ipynb"
 # For the next year, change the date: the workflow hides the pages again until then.
 
 [[page_release]]
-name = "projects"
+name = "project-topics"
 date = 2027-04-12
 time = "09:00"
