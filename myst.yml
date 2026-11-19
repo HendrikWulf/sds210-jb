@@ -288,15 +288,17 @@ project:
         - file: book/14_L12_reproducibility/04_reproducible_environments.md
         - file: book/14_L12_reproducibility/05_document_code.md
         - file: book/14_L12_reproducibility/06_reproducible_research.md
-    - title: Projects
-      file: book/15_projects.md
-      children:
-        - file: book/15_projects/01_topics.md
-        - file: book/15_projects/02_workflow.md
-        - file: book/15_projects/03_repository.md
-        - file: book/15_projects/04_assessment.md
-        - file: book/15_projects/05_reports.md
-        - file: book/15_projects/06_presentation.md
+    # timed: projects (start) -- see .github/solution-releases.toml; "#~ " = hidden until then
+#~     - title: Projects
+#~       file: book/15_projects.md
+#~       children:
+#~         - file: book/15_projects/01_topics.md
+#~         - file: book/15_projects/02_workflow.md
+#~         - file: book/15_projects/03_repository.md
+#~         - file: book/15_projects/04_assessment.md
+#~         - file: book/15_projects/05_reports.md
+#~         - file: book/15_projects/06_presentation.md
+    # timed: projects (end)
     - title: Glossary
       file: book/16_glossary.md
     - title: Feedback
@@ -336,8 +338,10 @@ site:
         - title: Git
           url: /book/setup/git
 
-    - title: Projects
-      url: /book/projects
+    # timed: projects (start) -- see .github/solution-releases.toml; "#~ " = hidden until then
+#~     - title: Projects
+#~       url: /book/projects
+    # timed: projects (end)
 
     - title: Glossary
       url: /book/glossary

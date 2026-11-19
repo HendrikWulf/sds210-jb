@@ -66,3 +66,14 @@ notebook = "book/11_L09_raster-data/08_practical_L9-solutions.ipynb"
 practical = "P10"
 date = 2027-05-11
 notebook = "book/12_L10_time-series/10_practical_L10-solutions.ipynb"
+
+# Pages that appear in the book only from a given date on, and stay afterwards. Their lines in
+# myst.yml are marked with "# timed: <name> (start)" and "# timed: <name> (end)"; before the date
+# the workflow hides them (prefix "#~ "), from the date on it shows them. The page files stay in
+# the repository (visible on GitHub); only the book leaves them out while they are hidden.
+# For the next year, change the date: the workflow hides the pages again until then.
+
+[[page_release]]
+name = "projects"
+date = 2027-04-12
+time = "09:00"

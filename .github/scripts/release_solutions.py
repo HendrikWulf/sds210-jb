@@ -18,8 +18,16 @@ Needs only the Python standard library (3.11 or newer).
     python3 .github/scripts/release_solutions.py takedown --names P02,P03
         Remove those solutions from this repository and comment out their entries in myst.yml.
 
-Add --dry-run to release or takedown to only print what would change.
+    python3 .github/scripts/release_solutions.py pages --set projects=show
+        Show (or hide) a timed block of myst.yml, e.g. the Projects pages.
+
+Add --dry-run to release, takedown or pages to only print what would change.
 A solution counts as released when its notebook is tracked by git in this repository.
+
+Timed pages ([[page_release]] in the schedule) are lines of myst.yml between
+"# timed: <name> (start)" and "# timed: <name> (end)". Before their date the workflow hides
+them by putting "#~ " in front of each line; from their date on it shows them. The files stay
+in the repository; only the book leaves them out while they are hidden.
 """
 
 import argparse
@@ -71,6 +79,68 @@ def load_schedule():
             sys.exit(f"solution-releases.toml: the takedown ({takedown.strftime(FMT)}) must come "
                      f"after the last release ({last.strftime(FMT)}). Did you update all dates?")
     return tz, releases, takedown
+
+
+def load_pages():
+    cfg = tomllib.loads(SCHEDULE.read_text(encoding="utf-8"))
+    tz = ZoneInfo(cfg["timezone"])
+    pages = [{"name": p["name"],
+              "when": as_datetime(p["date"], p.get("time", cfg["release_time"]), tz, p["name"])}
+             for p in cfg.get("page_release", [])]
+    blocks = timed_blocks(TOC.read_text(encoding="utf-8"))
+    for p in pages:
+        if p["name"] not in blocks:
+            sys.exit(f"myst.yml has no block '# timed: {p['name']} (start)' ... '(end)'")
+    unknown = set(blocks) - {p["name"] for p in pages}
+    if unknown:
+        sys.exit(f"myst.yml has timed blocks without a [[page_release]] entry: {', '.join(sorted(unknown))}")
+    return pages
+
+
+HIDDEN = "#~ "
+MARKER = re.compile(r"^[ \t]*# timed: (?P<name>[\w-]+) \((?P<kind>start|end)\)")
+
+
+def timed_blocks(toc):
+    """Map each timed block name to its line ranges and its state (shown or hidden)."""
+    lines, blocks, open_name = toc.splitlines(), {}, None
+    for i, line in enumerate(lines):
+        m = MARKER.match(line)
+        if not m:
+            continue
+        if m["kind"] == "start":
+            if open_name:
+                sys.exit(f"myst.yml: timed block '{open_name}' is not closed before line {i + 1}")
+            open_name, start = m["name"], i
+        else:
+            if m["name"] != open_name:
+                sys.exit(f"myst.yml: '# timed: {m['name']} (end)' in line {i + 1} has no matching start")
+            blocks.setdefault(open_name, []).append((start + 1, i))
+            open_name = None
+    if open_name:
+        sys.exit(f"myst.yml: timed block '{open_name}' is not closed")
+    states = {}
+    for name, ranges in blocks.items():
+        body = [lines[j] for a, b in ranges for j in range(a, b) if lines[j].strip()]
+        hidden = {line.startswith(HIDDEN) for line in body}
+        if len(hidden) != 1:
+            sys.exit(f"myst.yml: timed block '{name}' is partly hidden; put '{HIDDEN}' in front of "
+                     "all of its lines or none")
+        states[name] = {"ranges": ranges, "shown": not hidden.pop()}
+    return states
+
+
+def set_block(toc, name, show):
+    lines = toc.splitlines(keepends=True)
+    for a, b in timed_blocks(toc)[name]["ranges"]:
+        for j in range(a, b):
+            if not lines[j].strip():
+                continue
+            if show and lines[j].startswith(HIDDEN):
+                lines[j] = lines[j][len(HIDDEN):]
+            elif not show and not lines[j].startswith(HIDDEN):
+                lines[j] = HIDDEN + lines[j]
+    return "".join(lines)
 
 
 def is_tracked(path):
@@ -152,6 +222,22 @@ def cmd_status(args):
         start = max((r["when"] for r in chosen), default=now)
     chosen_names = {r["name"] for r in chosen}
 
+    # Timed pages: shown from their date on, hidden before it.
+    pages, page_plan, page_rows = load_pages(), [], []
+    blocks = timed_blocks(toc)
+    for p in pages:
+        shown = blocks[p["name"]]["shown"]
+        if not shown and p["when"] <= window:
+            page_plan.append(f"{p['name']}=show")
+            start = max(start, p["when"])
+            state = "show now" if p["when"] <= now else "show soon"
+        elif shown and p["when"] > window:
+            page_plan.append(f"{p['name']}=hide")
+            state = "hide now"
+        else:
+            state = "shown" if shown else "hidden"
+        page_rows.append((p["name"], p["when"].strftime(FMT), state))
+
     rows = []
     after_takedown = takedown is not None and takedown <= now
     for r in releases:
@@ -170,17 +256,22 @@ def cmd_status(args):
         print("  {:<4} {:<26} {:<10} {}".format(*row))
     if takedown:
         print(f"  Takedown of all solutions: {takedown.strftime(FMT)}")
+    for name, when, state in page_rows:
+        print(f"  Page '{name}': from {when}: {state}")
     names = ",".join(r["name"] for r in chosen)
+    page_changes = ",".join(page_plan)
     wait = max(0, int((start - now).total_seconds()))
     verb = {"release": "To release now", "takedown": "To take down now"}.get(action, "To do now")
-    print(f"\n{verb}: {names or 'nothing'}" + (f" (after waiting {wait} s)" if names and wait else ""))
+    todo = ", ".join(x for x in (names, page_changes and f"pages {page_changes}") if x)
+    print(f"\n{verb}: {todo or 'nothing'}" + (f" (after waiting {wait} s)" if todo and wait else ""))
 
-    write_output(action=action, names=names, wait_seconds=wait)
+    write_output(action=action, names=names, pages=page_changes, wait_seconds=wait)
     table = ["| Practical | Release (Swiss time) | Status |", "|---|---|---|"]
     table += [f"| {n} | {w} | {s} |" for n, w, s, _ in rows]
     if takedown:
         table.append(f"| all | {takedown.strftime(FMT)} | takedown |")
-    write_summary(f"Checked at {now.strftime(FMT)}. Planned: {action or 'nothing'} {names}\n\n"
+    table += [f"| page '{n}' | {w} | {st} |" for n, w, st in page_rows]
+    write_summary(f"Checked at {now.strftime(FMT)}. Planned: {todo or 'nothing'}\n\n"
                   + "\n".join(table))
 
 
@@ -253,6 +344,24 @@ def cmd_takedown(args):
     write_summary(f"\nTaken down: {', '.join(names)}")
 
 
+def cmd_pages(args):
+    pages = {p["name"] for p in load_pages()}
+    toc = TOC.read_text(encoding="utf-8")
+    for item in [x.strip() for x in args.set.split(",") if x.strip()]:
+        name, _, what = item.partition("=")
+        if name not in pages or what not in ("show", "hide"):
+            sys.exit(f"--set expects name=show or name=hide with a known page, got {item!r}")
+        print(f"page '{name}': {what}")
+        toc = set_block(toc, name, show=(what == "show"))
+    if args.dry_run:
+        print("\nDry run: nothing changed.")
+        return
+    TOC.write_text(toc, encoding="utf-8")
+    timed_blocks(toc)  # check the result is consistent
+    subprocess.run(["git", "add", "--", "myst.yml"], cwd=REPO, check=True)
+    write_summary(f"\nPages: {args.set}")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -269,8 +378,12 @@ def main():
     takedown = sub.add_parser("takedown", help="remove solutions and comment them out in myst.yml")
     takedown.add_argument("--names", required=True, help="comma-separated practicals, e.g. P02,P03")
     takedown.add_argument("--dry-run", action="store_true")
+    pages = sub.add_parser("pages", help="show or hide timed blocks of myst.yml")
+    pages.add_argument("--set", required=True, help="e.g. projects=show or projects=hide")
+    pages.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-    {"status": cmd_status, "release": cmd_release, "takedown": cmd_takedown}[args.command](args)
+    {"status": cmd_status, "release": cmd_release, "takedown": cmd_takedown,
+     "pages": cmd_pages}[args.command](args)
 
 
 if __name__ == "__main__":

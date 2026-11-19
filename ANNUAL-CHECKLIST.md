@@ -32,8 +32,9 @@ Related guides: [solution releases](.github/RELEASING-SOLUTIONS.md) ·
 
 ### Solution releases
 
-- [ ] **New dates** in `.github/solution-releases.toml`: one `date` per practical and the
-      `takedown_date`. Check with `python3 .github/scripts/release_solutions.py status`.
+- [ ] **New dates** in `.github/solution-releases.toml`: one `date` per practical, the
+      `takedown_date`, and the date of the Projects pages (`[[page_release]]` at the end).
+      Pushing the file hides the Projects pages until their new date. Check with `python3 .github/scripts/release_solutions.py status`.
       The pull request check fails if the takedown is not after the last release.
 - [ ] **Practicals changed?** Update the exercise notebooks here and the solutions in
       `sds210-solutions` (regenerate the `.md` with `jupytext --to myst <notebook>`, push).

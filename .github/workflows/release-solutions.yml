@@ -1,5 +1,6 @@
 # Releases the sample solutions of the practicals on the dates in .github/solution-releases.toml,
 # and takes them all down again after the course (takedown_date in the same file).
+# Also shows timed pages (e.g. Projects) from their date on ([[page_release]] in the same file).
 # The solutions live in the private repository sds210-solutions; this workflow copies a solution
 # into this repository when it is due, enables it in myst.yml, commits, and starts the
 # deployment of the book. Full explanation: .github/RELEASING-SOLUTIONS.md
@@ -13,6 +14,11 @@ on:
     # GitHub may start scheduled runs a few minutes late; a release is then a little later.
     # If you move the takedown to August or later, extend the months (2-7) accordingly.
     - cron: "40 * * 2-7 *"
+  # Apply a changed schedule right away (e.g. hide the Projects pages again after entering
+  # next year's date).
+  push:
+    branches: [main]
+    paths: [.github/solution-releases.toml]
   workflow_dispatch:
     inputs:
       practical:
@@ -61,7 +67,7 @@ jobs:
             ${PRACTICAL:+--only "$PRACTICAL"} ${NOW:+--now "$NOW"}
 
       - name: Wait for the scheduled time
-        if: steps.plan.outputs.action != '' && steps.plan.outputs.wait_seconds != '0' && !inputs.dry_run
+        if: (steps.plan.outputs.action != '' || steps.plan.outputs.pages != '') && steps.plan.outputs.wait_seconds != '0' && !inputs.dry_run
         run: sleep ${{ steps.plan.outputs.wait_seconds }}
 
       - name: Get the solutions (private repository)
@@ -91,13 +97,23 @@ jobs:
           if [ "$GITHUB_REF_NAME" = main ]; then git pull --ff-only origin main; fi
           python3 .github/scripts/release_solutions.py takedown --names "$NAMES" $DRY_RUN
 
+      - name: Show or hide timed pages
+        if: steps.plan.outputs.pages != ''
+        env:
+          PAGES: ${{ steps.plan.outputs.pages }}
+          DRY_RUN: ${{ inputs.dry_run && '--dry-run' || '' }}
+        run: |
+          if [ "$GITHUB_REF_NAME" = main ]; then git pull --ff-only origin main; fi
+          python3 .github/scripts/release_solutions.py pages --set "$PAGES" $DRY_RUN
+
       - name: Commit and push
         id: commit
         # Only runs started on main may change main; runs on other branches are tests.
-        if: steps.plan.outputs.action != '' && !inputs.dry_run && github.ref_name == 'main'
+        if: (steps.plan.outputs.action != '' || steps.plan.outputs.pages != '') && !inputs.dry_run && github.ref_name == 'main'
         env:
           ACTION: ${{ steps.plan.outputs.action }}
           NAMES: ${{ steps.plan.outputs.names }}
+          PAGES: ${{ steps.plan.outputs.pages }}
         run: |
           if git diff --cached --quiet; then
             echo "Nothing changed: the files are already up to date."
@@ -106,9 +122,12 @@ jobs:
           fi
           if [ "$ACTION" = takedown ]; then
             message="Take down sample solutions after the course (${NAMES//,/, })"
-          else
+          elif [ "$ACTION" = release ]; then
             message="Release sample solution ${NAMES//,/, }"
+          else
+            message="Update timed pages"
           fi
+          if [ -n "$PAGES" ]; then message="$message (pages: ${PAGES//,/, })"; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898569+github-actions[bot]@users.noreply.github.com"
           git commit -m "$message"
