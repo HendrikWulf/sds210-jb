@@ -4,25 +4,40 @@ Students clone this repository, so it must not contain a practical's sample solu
 submission deadline. The solutions therefore live in the **private** repository
 [`HendrikWulf/sds210-solutions`](https://github.com/HendrikWulf/sds210-solutions), with the same
 file paths as here (`book/<lesson>/...`). After each deadline, a GitHub Action copies the solution
-into this repository and publishes it in the book.
+into this repository and publishes it in the book. After the course, the same Action takes all
+solutions down again.
 
 Only the sample solutions of the practicals are handled this way. The "Sample solution"
 drop-downs inside the lesson pages are part of the lessons and always public.
+
+For the yearly preparation of the course, see [`ANNUAL-CHECKLIST.md`](../ANNUAL-CHECKLIST.md).
 
 ## The pieces
 
 | File | Role |
 |---|---|
-| `.github/solution-releases.toml` | The schedule: one entry per practical with its date, the time zone and the release time |
-| `.github/workflows/release-solutions.yml` | The GitHub Action that runs the release |
-| `.github/scripts/release_solutions.py` | Does the work: reads the schedule, copies files, edits `myst.yml` |
+| `.github/solution-releases.toml` | The schedule: one entry per practical with its date, the release time, the takedown date, the time zone |
+| `.github/workflows/release-solutions.yml` | The GitHub Action that runs releases and the takedown |
+| `.github/scripts/release_solutions.py` | Does the work: reads the schedule, copies or removes files, edits `myst.yml` |
+| `.github/scripts/purge_solution_history.sh` | Run by you once a year after the takedown: removes the solutions from the repository's history |
 | `.gitignore` | Keeps solution files out of this repository until they are released |
 | `myst.yml` | Table of contents: each solution has a commented entry (`# - file: ...`) that the release enables |
 | Secret `SOLUTIONS_DEPLOY_KEY` | Lets the Action read the private repository (see below) |
 
+(`.github` is a hidden folder. In Finder, press Cmd + Shift + . to show it.)
+
+## The year of a solution
+
+```text
+scheduled ──(release date, 17:00)──▶ released ──(takedown, 1 July 23:59)──▶ taken down
+  only in sds210-solutions          in the book and          gone from the book and the
+                                    in this repository       current files; still in the
+                                                             history until you purge it
+```
+
 ## What happens on a release day
 
-1. **Hourly check.** From February to June, GitHub starts the workflow every hour at minute 40
+1. **Hourly check.** From February to July, GitHub starts the workflow every hour at minute 40
    (UTC). The first step reads the schedule and compares it with the clock. A solution is
    *released* once its notebook is tracked in this repository; otherwise it is *due* when its
    release time has passed. A solution due within the next 30 minutes also counts. If nothing
@@ -40,12 +55,35 @@ drop-downs inside the lesson pages are part of the lessons and always public.
 6. **Publishing.** The job starts the workflow *Deploy book to GitHub Pages*, which rebuilds the
    book. About two minutes later the solution is online.
 
-Each run writes a table of the whole schedule (released, due, scheduled) to its summary page:
-**Actions → Release practical solutions → a run**.
+Each run writes a table of the whole schedule (released, due, scheduled, taken down) to its
+summary page: **Actions → Release practical solutions → a run**.
 
 If GitHub starts a scheduled run late (common in busy hours, usually a few minutes), the release
 simply happens a little after 17:00. If a run is missed completely, the next hourly run releases
 the solution. Releases that are overdue are always caught up.
+
+## What happens at the takedown
+
+At `takedown_date` / `takedown_time` (1 July 2027, 23:59), the hourly run at 23:40 waits until
+23:59, then removes all released solution files from this repository (`git rm`), comments their
+entries in `myst.yml` out again, commits ("Take down sample solutions after the course") and
+redeploys the book. After that, scheduled releases stop: the dates have passed, but nothing is
+released again until you enter the dates of the next year.
+
+What the takedown cannot do: the solutions stay in the **history** of this repository (old
+commits) and in every clone students made during the semester. If the practicals will be used
+again, remove them from the history before the next semester:
+
+```bash
+pip install git-filter-repo        # once
+bash .github/scripts/purge_solution_history.sh
+```
+
+The script works on a fresh copy from GitHub (your working folder is not touched), saves a
+backup of the full history to `~/sds210-jb-history-backup-<date-time>.bundle`, rewrites the
+history without the solution files, checks that the current files are unchanged, and asks before
+it force-pushes. It refuses to run while solutions are released. Afterwards, every existing
+clone has to be reset (the script prints how), so run it in summer, not during the semester.
 
 ## Common tasks
 
@@ -55,6 +93,8 @@ Edit `.github/solution-releases.toml` and push to `main` (directly or with a pul
 pull request check validates the file). Dates are written `2027-03-16` without quotes. The
 release time for all practicals is `release_time`; one practical can get its own time with a
 line such as `time = "12:00"`. Times are Swiss local time; summer time is handled automatically.
+The takedown must come after the last release, otherwise the check fails, which catches a
+forgotten year.
 
 Check the result locally:
 
@@ -66,7 +106,7 @@ python3 .github/scripts/release_solutions.py status --now 2027-03-16T17:05   # a
 ### Release a solution early, or now
 
 **Actions → Release practical solutions → Run workflow**, enter the practical (for example
-`P03`) in *practical*, and run. This ignores the date.
+`P03`) in *practical*, and run. This ignores the date (also after the takedown).
 
 ### Fix a solution after it was released
 
@@ -74,31 +114,29 @@ Edit and push it in `sds210-solutions` (see that repository's README), then run 
 hand as above with that practical. It copies the new version and publishes the book. If nothing
 changed, the run says so and does nothing.
 
+### Take the solutions down early
+
+**Run workflow** with **Take down** ticked. All released solutions are removed at once.
+
 ### Test without changing anything
 
-Run the workflow by hand with **Dry run** ticked. Fill in *now* (for example `2027-03-16T17:05`)
-to see what would be released at that moment. A dry run also checks that the deploy key still
-works, because it clones the private repository.
+Run the workflow by hand with **Dry run** ticked. Fill in *now* (for example `2027-03-16T17:05`
+or `2027-07-01T23:59`) to see what would happen at that moment. A dry run of a release also
+checks that the deploy key still works, because it clones the private repository.
 
 ### Next year
 
-Change the dates in `solution-releases.toml`. To start again with all solutions hidden, remove
-the released files from this repository and comment out their entries in `myst.yml` again:
-
-```bash
-git rm --cached book/*/*_practical*solution*.ipynb book/*/*_practical*solution*.md
-# then put "# " in front of the solution entries in myst.yml, commit and push
-```
-
-Keep in mind that solutions released in earlier years remain in the history of this repository
-and in students' clones.
+Follow [`ANNUAL-CHECKLIST.md`](../ANNUAL-CHECKLIST.md): new dates and takedown date in
+`solution-releases.toml`, purge the history if practicals are reused, enable the workflow, dry
+run.
 
 ### Add a new practical
 
 Put the solution in `sds210-solutions` under the same path it will have here, add a commented
 entry `# - file: book/...ipynb` at the right place in `myst.yml`, and add a `[[release]]` entry
-to `solution-releases.toml`. File names must contain `_practical` and `solution` (as the current
-ones do), so that `.gitignore` keeps them out of this repository.
+to `solution-releases.toml`. File names must look like the current ones
+(`<nr>_practical_L<nr>_solution.ipynb`, with `-` or `_`, `solution` or `solutions`), so that
+`.gitignore` and the purge script recognise them.
 
 ## Things to know
 
@@ -107,6 +145,9 @@ ones do), so that `.gitignore` keeps them out of this repository.
   over the summer or winter break. Before the semester, open **Actions → Release practical
   solutions**; if a banner says the workflow is disabled, click **Enable workflow** (or run
   `gh workflow enable release-solutions.yml`). A dry run then confirms everything works.
+  The release commits count as activity: with the last release on 11 May, the takedown on
+  1 July is within the 60 days. If you move the last release much earlier, check that the
+  workflow is still enabled in late June.
 - **The deploy key.** `SOLUTIONS_DEPLOY_KEY` (Settings → Secrets and variables → Actions of this
   repository) holds the private half of an SSH key; the public half is a read-only deploy key of
   `sds210-solutions` (its Settings → Deploy keys). It does not expire. If it is removed or
@@ -115,7 +156,12 @@ ones do), so that `.gitignore` keeps them out of this repository.
   contents of `key` as the secret, then delete both files.
 - **Do not add solutions here by hand before their date.** `.gitignore` protects against
   `git add .`, but `git add -f` would still add them. Everything ever pushed to this public
-  repository stays visible in its history.
-- **Changing the hours the workflow runs.** The `cron` line in the workflow is in UTC:
-  `"40 * * 2-6 *"` means minute 40 of every hour, every day, February to June. Releases at other
-  times of day need no change, because the workflow runs every hour.
+  repository stays visible in its history until it is purged.
+- **When the workflow runs.** The `cron` line in the workflow is in UTC: `"40 * * 2-7 *"` means
+  minute 40 of every hour, every day, February to July. Releases at other times of day need no
+  change, because the workflow runs every hour. If the takedown moves to August or later, change
+  `2-7` to include that month.
+- **Copies outside this repository.** Forks of this repository and GitHub's snapshots of old
+  pull requests keep their own copies; the purge script cannot reach them. GitHub Support can
+  remove cached views and pull-request snapshots (docs: "Removing sensitive data from a
+  repository").

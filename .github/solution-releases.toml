@@ -15,6 +15,11 @@
 timezone = "Europe/Zurich"
 release_time = "17:00"
 
+# After the course, all released solutions are taken down again: removed from the repository
+# and from the book (they remain in the repository's history). Must be after the last release.
+takedown_date = 2027-07-01
+takedown_time = "23:59"
+
 # `notebook` is the solution notebook; its paired MyST file (same name, .md) is released with it.
 
 [[release]]
