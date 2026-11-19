@@ -16,6 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      # Catches mistakes in .github/solution-releases.toml before they reach main.
+      - name: Check the solution release schedule
+        run: python3 .github/scripts/release_solutions.py status
       - uses: actions/setup-node@v7
         with:
           node-version: 22
