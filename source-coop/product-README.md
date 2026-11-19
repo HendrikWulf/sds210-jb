@@ -12,6 +12,7 @@ lesson that uses it.
 giuz/sds210/
 ├── README.md       this file
 ├── SHA256SUMS      checksums of all files
+├── environment.yml the course conda environment `sds210`
 ├── L06/            Data frames (pandas): MeteoSwiss weather tables
 ├── L07/            Vector data (GeoPandas): Swiss boundaries, points of interest, networks
 ├── L08/            Visualization: Natural Earth, Eurostat NUTS, Zurich open data, HydroSHEDS
@@ -45,6 +46,19 @@ aws s3 sync s3://giuz/sds210/L07/ ./data --endpoint-url https://data.source.coop
 ```
 
 or open the folder on <https://source.coop/giuz/sds210> and download individual files.
+
+## Course environment
+
+`environment.yml` lists the Python packages used in the course. Create the `sds210` conda
+environment from it once:
+
+```bash
+conda env create --file https://data.source.coop/giuz/sds210/environment.yml
+conda activate sds210
+```
+
+The lesson notebooks are in the course book repository,
+<https://github.com/HendrikWulf/sds210-jb> (folder `book/`).
 
 ## Files
 
