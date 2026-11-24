@@ -34,8 +34,15 @@ Related guides: [solution releases](.github/RELEASING-SOLUTIONS.md) ·
 
 - [ ] **New dates** in `.github/solution-releases.toml`: one `date` per practical, the
       `takedown_date`, and the date of the project topics page (`[[page_release]]` at the end).
-      Pushing the file hides the topics page until its new date. Check with `python3 .github/scripts/release_solutions.py status`.
+      Check with `python3 .github/scripts/release_solutions.py status`.
       The pull request check fails if the takedown is not after the last release.
+      For reference, spring 2027: practicals Tuesdays 16 Mar – 11 May at 17:00, takedown
+      1 Jul 23:59.
+- [ ] **Project topics page** (`book/15_projects/01_topics.md`): it appears in the book on the
+      `date` / `time` of the `project-topics` entry at the end of `solution-releases.toml`
+      (spring 2027: **Monday 12 April, 09:00**). Set it to the day the projects start. Pushing the
+      new date hides the page again until then; until that day the "topics" link on the Projects
+      overview page leads nowhere. Revise the topics in `01_topics.md` if needed.
 - [ ] **Practicals changed?** Update the exercise notebooks here and the solutions in
       `sds210-solutions` (regenerate the `.md` with `jupytext --to myst <notebook>`, push).
       A renamed or new practical also needs its entry in `solution-releases.toml` and a
